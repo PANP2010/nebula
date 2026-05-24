@@ -1,5 +1,8 @@
 package org.nebula.core.scheduler;
 
+import org.nebula.core.vap.PluginTaskException;
+import org.nebula.core.vap.PluginTaskQueue;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -22,15 +25,21 @@ public final class TickPipeline {
     private final TaskGenerator generator;
     private final TaskRunner runner;
     private final int maxMicroSteps;
+    private final PluginTaskQueue pluginQueue;
 
     public TickPipeline(TaskGenerator generator, TaskRunner runner) {
-        this(generator, runner, MicroStepExtender.MAX_MICRO_STEPS);
+        this(generator, runner, MicroStepExtender.MAX_MICRO_STEPS, null);
     }
 
     public TickPipeline(TaskGenerator generator, TaskRunner runner, int maxMicroSteps) {
+        this(generator, runner, maxMicroSteps, null);
+    }
+
+    public TickPipeline(TaskGenerator generator, TaskRunner runner, int maxMicroSteps, PluginTaskQueue pluginQueue) {
         this.generator = Objects.requireNonNull(generator);
         this.runner = Objects.requireNonNull(runner);
         this.maxMicroSteps = maxMicroSteps;
+        this.pluginQueue = pluginQueue;
     }
 
     /**
@@ -82,11 +91,23 @@ public final class TickPipeline {
             }
         }
 
+        // Plugin phase: execute all queued plugin tasks after kernel DAG completes
+        int pluginTasksExecuted = 0;
+        if (pluginQueue != null && pluginQueue.pendingCount() > 0) {
+            try {
+                pluginTasksExecuted = pluginQueue.drainAndExecute();
+            } catch (PluginTaskException e) {
+                throw new DagExecutionException(totalLayers, allCompleted,
+                    List.of(e));
+            }
+        }
+
         return new TickResult(
             allCompleted,
             extender.deferredToNextTick(),
             totalLayers,
-            extender.microStepCount()
+            extender.microStepCount(),
+            pluginTasksExecuted
         );
     }
 
@@ -107,6 +128,7 @@ public final class TickPipeline {
         List<String> completedTaskIds,
         List<TaskNode> deferredToNextTick,
         int layersExecuted,
-        int microStepRounds
+        int microStepRounds,
+        int pluginTasksExecuted
     ) {}
 }
