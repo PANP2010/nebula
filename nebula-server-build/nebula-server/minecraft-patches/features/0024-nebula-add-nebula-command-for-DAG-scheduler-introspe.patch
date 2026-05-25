@@ -1,0 +1,136 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Tue, 26 May 2026 00:16:07 +0800
+Subject: [PATCH] nebula: add /nebula command for DAG scheduler introspection
+
+Subcommands:
+  - stats: aggregated tick/task/layer/parallelism counters
+  - mode: NEBULA mode active flag
+  - redstone: registered redstone component count
+  - explosions: pending explosion-snapshot queue size
+  - reset: clear accumulated DAG metrics
+
+Adds NebulaTickMetrics.reset() for the reset subcommand.
+Registers via Commands.java alongside other vanilla commands.
+
+diff --git a/io/papermc/paper/threadedregions/NebulaTickMetrics.java b/io/papermc/paper/threadedregions/NebulaTickMetrics.java
+index 79e471ae2d2cbd9cfc34b3ab1b24ea35930ce66f..e70080c03e9a67541b78c708b2eae7f3fdbe28fa 100644
+--- a/io/papermc/paper/threadedregions/NebulaTickMetrics.java
++++ b/io/papermc/paper/threadedregions/NebulaTickMetrics.java
+@@ -49,6 +49,17 @@ public final class NebulaTickMetrics {
+         } while (!target.compareAndSet(prev, candidate));
+     }
+ 
++    public static void reset() {
++        TOTAL_TICKS.reset();
++        TOTAL_TASKS.reset();
++        TOTAL_LAYERS.reset();
++        TOTAL_MICROSTEPS.reset();
++        TOTAL_NS.reset();
++        PEAK_TASKS_PER_TICK.set(0);
++        PEAK_LAYERS_PER_TICK.set(0);
++        PEAK_NS_PER_TICK.set(0);
++    }
++
+     public static long totalTicks() { return TOTAL_TICKS.sum(); }
+     public static long totalTasks() { return TOTAL_TASKS.sum(); }
+     public static long totalLayers() { return TOTAL_LAYERS.sum(); }
+diff --git a/net/minecraft/commands/Commands.java b/net/minecraft/commands/Commands.java
+index 1e1cb2aaec7037d16f3e91092e013c06bb1a7065..c2d498230bc1303c17e4e56997333cc7fdfdaf2d 100644
+--- a/net/minecraft/commands/Commands.java
++++ b/net/minecraft/commands/Commands.java
+@@ -264,6 +264,7 @@ public class Commands {
+         //WaypointCommand.register(this.dispatcher, context); // Folia - region threading - TODO later
+         WeatherCommand.register(this.dispatcher);
+         WorldBorderCommand.register(this.dispatcher);
++        net.minecraft.server.commands.NebulaCommand.register(this.dispatcher); // Nebula - DAG scheduler stats
+         if (JvmProfiler.INSTANCE.isAvailable()) {
+             JfrCommand.register(this.dispatcher);
+         }
+diff --git a/net/minecraft/server/commands/NebulaCommand.java b/net/minecraft/server/commands/NebulaCommand.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..e426048ced015ce8483eed986692c4a30dabd2f5
+--- /dev/null
++++ b/net/minecraft/server/commands/NebulaCommand.java
+@@ -0,0 +1,81 @@
++package net.minecraft.server.commands;
++
++import com.mojang.brigadier.CommandDispatcher;
++import io.papermc.paper.threadedregions.NebulaExplosionPipeline;
++import io.papermc.paper.threadedregions.NebulaRedstoneIntegration;
++import io.papermc.paper.threadedregions.NebulaTickMetrics;
++import io.papermc.paper.threadedregions.TickRegions;
++import net.minecraft.commands.CommandSourceStack;
++import net.minecraft.commands.Commands;
++import net.minecraft.network.chat.Component;
++
++/**
++ * /nebula command — runtime introspection of the Nebula DAG scheduler.
++ *
++ * Subcommands:
++ *  - stats: aggregated tick/task/layer/parallelism counters
++ *  - mode:  whether NEBULA mode is active
++ *  - redstone: registered redstone component count
++ *  - explosions: pending explosion-snapshot queue size
++ *  - reset: clear accumulated stats
++ */
++public final class NebulaCommand {
++
++    private NebulaCommand() {}
++
++    public static void register(final CommandDispatcher<CommandSourceStack> dispatcher) {
++        dispatcher.register(
++            Commands.literal("nebula")
++                .requires(Commands.hasPermission(Commands.LEVEL_ADMINS))
++                .then(Commands.literal("stats").executes(c -> stats(c.getSource())))
++                .then(Commands.literal("mode").executes(c -> mode(c.getSource())))
++                .then(Commands.literal("redstone").executes(c -> redstone(c.getSource())))
++                .then(Commands.literal("explosions").executes(c -> explosions(c.getSource())))
++                .then(Commands.literal("reset").executes(c -> reset(c.getSource())))
++                .executes(c -> stats(c.getSource()))
++        );
++    }
++
++    private static int stats(final CommandSourceStack source) {
++        if (!TickRegions.isNebulaMode()) {
++            source.sendSuccess(() -> Component.literal("Nebula mode is disabled (running vanilla/Folia tick path)."), false);
++            return 0;
++        }
++        String summary = NebulaTickMetrics.summary();
++        source.sendSuccess(() -> Component.literal(summary), false);
++        return (int) Math.min(Integer.MAX_VALUE, NebulaTickMetrics.totalTicks());
++    }
++
++    private static int mode(final CommandSourceStack source) {
++        boolean active = TickRegions.isNebulaMode();
++        source.sendSuccess(
++            () -> Component.literal("Nebula mode: " + (active ? "ENABLED" : "DISABLED")),
++            false
++        );
++        return active ? 1 : 0;
++    }
++
++    private static int redstone(final CommandSourceStack source) {
++        int count = NebulaRedstoneIntegration.componentCount();
++        source.sendSuccess(
++            () -> Component.literal("Redstone components tracked: " + count),
++            false
++        );
++        return count;
++    }
++
++    private static int explosions(final CommandSourceStack source) {
++        int pending = NebulaExplosionPipeline.pendingCount();
++        source.sendSuccess(
++            () -> Component.literal("Explosion snapshots pending: " + pending),
++            false
++        );
++        return pending;
++    }
++
++    private static int reset(final CommandSourceStack source) {
++        NebulaTickMetrics.reset();
++        source.sendSuccess(() -> Component.literal("Nebula DAG metrics reset."), true);
++        return 1;
++    }
++}
