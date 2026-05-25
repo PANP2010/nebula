@@ -1,0 +1,196 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Tue, 26 May 2026 00:20:50 +0800
+Subject: [PATCH] nebula: route AI sensing through RCU entity snapshot (D13)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+NearestLivingEntitySensor and NearestItemSensor now read from
+NebulaSnapshotRegistry.current(level) when in NEBULA mode. The snapshot
+is published once per tick by NebulaTickDriver (D5/architecture §7.4),
+so AI sense tasks can run in parallel with entity move/tick tasks
+without dependency edges.
+
+Falls back to live level.getEntitiesOfClass when no snapshot has been
+published (first tick / non-NEBULA worlds), preserving vanilla behaviour
+in legacy mode.
+
+NebulaEntitySnapshot now retains live Entity refs alongside frozen
+position/health state so sensors can hand the same LivingEntity refs
+into Brain memory while filtering by the snapshot positions.
+
+NearestVisibleLivingEntitySensor automatically benefits because it
+filters from NEAREST_VISIBLE_LIVING_ENTITIES memory which is populated
+by the (now snapshot-routed) NearestLivingEntitySensor.
+
+diff --git a/io/papermc/paper/threadedregions/NebulaEntitySnapshot.java b/io/papermc/paper/threadedregions/NebulaEntitySnapshot.java
+index 1b31fe1e80f7c9e86b186dfb5efb07e0117ca2b5..1de9fd46bdf175273a5d8c497e3b251348af9d45 100644
+--- a/io/papermc/paper/threadedregions/NebulaEntitySnapshot.java
++++ b/io/papermc/paper/threadedregions/NebulaEntitySnapshot.java
+@@ -3,7 +3,10 @@ package io.papermc.paper.threadedregions;
+ import net.minecraft.core.BlockPos;
+ import net.minecraft.world.entity.Entity;
+ import net.minecraft.world.entity.EntityType;
++import net.minecraft.world.entity.LivingEntity;
++import net.minecraft.world.phys.AABB;
+ 
++import java.util.ArrayList;
+ import java.util.List;
+ 
+ /**
+@@ -18,10 +21,18 @@ import java.util.List;
+  */
+ public final class NebulaEntitySnapshot {
+ 
+-    public record EntityState(int id, EntityType<?> type, double x, double y, double z, float health, boolean alive) {
++    public record EntityState(Entity entity, int id, EntityType<?> type,
++                              double x, double y, double z, float health, boolean alive) {
+         public BlockPos blockPos() {
+             return BlockPos.containing(x, y, z);
+         }
++
++        public double distanceSqTo(double ox, double oy, double oz) {
++            double dx = x - ox;
++            double dy = y - oy;
++            double dz = z - oz;
++            return dx * dx + dy * dy + dz * dz;
++        }
+     }
+ 
+     private final long tick;
+@@ -40,14 +51,59 @@ public final class NebulaEntitySnapshot {
+         return entities;
+     }
+ 
++    /**
++     * Spatial filter using frozen positions. Returns LivingEntity refs whose
++     * snapshotted position lies within the given AABB and which were alive at
++     * snapshot time. Callers must still null-check / isRemoved-check before
++     * acting because the live entity may have been removed since snapshot.
++     */
++    public List<LivingEntity> livingEntitiesInBox(AABB box, LivingEntity exclude) {
++        List<LivingEntity> out = new ArrayList<>();
++        for (EntityState state : entities) {
++            if (!state.alive) continue;
++            Entity ref = state.entity;
++            if (!(ref instanceof LivingEntity living)) continue;
++            if (living == exclude) continue;
++            if (state.x < box.minX || state.x > box.maxX) continue;
++            if (state.y < box.minY || state.y > box.maxY) continue;
++            if (state.z < box.minZ || state.z > box.maxZ) continue;
++            if (living.isRemoved()) continue;
++            out.add(living);
++        }
++        return out;
++    }
++
++    /**
++     * Generic spatial filter typed by Entity subclass. Matches snapshot positions
++     * against the AABB; live entity ref must still be non-removed before being
++     * returned. Callers handle the live/snapshot drift (snapshot may include
++     * entities that have since teleported or been removed).
++     */
++    public <E extends Entity> List<E> entitiesInBox(Class<E> clazz, AABB box, Entity exclude) {
++        List<E> out = new ArrayList<>();
++        for (EntityState state : entities) {
++            if (!state.alive) continue;
++            Entity ref = state.entity;
++            if (ref == exclude) continue;
++            if (!clazz.isInstance(ref)) continue;
++            if (state.x < box.minX || state.x > box.maxX) continue;
++            if (state.y < box.minY || state.y > box.maxY) continue;
++            if (state.z < box.minZ || state.z > box.maxZ) continue;
++            if (ref.isRemoved()) continue;
++            out.add(clazz.cast(ref));
++        }
++        return out;
++    }
++
+     static NebulaEntitySnapshot capture(long tick, Iterable<? extends Entity> source) {
+-        java.util.ArrayList<EntityState> states = new java.util.ArrayList<>();
++        ArrayList<EntityState> states = new ArrayList<>();
+         for (Entity entity : source) {
+             float health = 0f;
+-            if (entity instanceof net.minecraft.world.entity.LivingEntity living) {
++            if (entity instanceof LivingEntity living) {
+                 health = living.getHealth();
+             }
+             states.add(new EntityState(
++                entity,
+                 entity.getId(),
+                 entity.getType(),
+                 entity.getX(),
+diff --git a/net/minecraft/world/entity/ai/sensing/NearestItemSensor.java b/net/minecraft/world/entity/ai/sensing/NearestItemSensor.java
+index 8aeea55380462421cde43afb4b2fb0ce44b65195..f7c8fb4c1cda5a5e9cb6592ee0ad2ac396ef688c 100644
+--- a/net/minecraft/world/entity/ai/sensing/NearestItemSensor.java
++++ b/net/minecraft/world/entity/ai/sensing/NearestItemSensor.java
+@@ -1,6 +1,9 @@
+ package net.minecraft.world.entity.ai.sensing;
+ 
+ import com.google.common.collect.ImmutableSet;
++import io.papermc.paper.threadedregions.NebulaEntitySnapshot;
++import io.papermc.paper.threadedregions.NebulaSnapshotRegistry;
++import io.papermc.paper.threadedregions.TickRegions;
+ import java.util.Comparator;
+ import java.util.List;
+ import java.util.Optional;
+@@ -10,6 +13,7 @@ import net.minecraft.world.entity.Mob;
+ import net.minecraft.world.entity.ai.Brain;
+ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+ import net.minecraft.world.entity.item.ItemEntity;
++import net.minecraft.world.phys.AABB;
+ 
+ public class NearestItemSensor extends Sensor<Mob> {
+     private static final long XZ_RANGE = 32L;
+@@ -24,7 +28,16 @@ public class NearestItemSensor extends Sensor<Mob> {
+     @Override
+     protected void doTick(final ServerLevel level, final Mob body) {
+         Brain<?> brain = body.getBrain();
+-        List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, body.getBoundingBox().inflate(32.0, 16.0, 32.0), item -> item.closerThan(body, MAX_DISTANCE_TO_WANTED_ITEM) && body.wantsToPickUp(level, item.getItem())); // Paper - Perf: Move predicate into getEntities
++        AABB box = body.getBoundingBox().inflate(32.0, 16.0, 32.0);
++        List<ItemEntity> items;
++        // Nebula: prefer RCU snapshot (architecture §7.4) so this can run in parallel with item-entity ticks.
++        NebulaEntitySnapshot snapshot = TickRegions.isNebulaMode() ? NebulaSnapshotRegistry.current(level) : null;
++        if (snapshot != null) {
++            items = snapshot.entitiesInBox(ItemEntity.class, box, body);
++            items.removeIf(item -> !item.closerThan(body, MAX_DISTANCE_TO_WANTED_ITEM) || !body.wantsToPickUp(level, item.getItem()));
++        } else {
++            items = level.getEntitiesOfClass(ItemEntity.class, box, item -> item.closerThan(body, MAX_DISTANCE_TO_WANTED_ITEM) && body.wantsToPickUp(level, item.getItem())); // Paper - Perf: Move predicate into getEntities
++        }
+         items.sort(Comparator.comparingDouble(body::distanceToSqr));
+         // Paper start - Perf: remove streams from hot code
+         ItemEntity nearest = null;
+diff --git a/net/minecraft/world/entity/ai/sensing/NearestLivingEntitySensor.java b/net/minecraft/world/entity/ai/sensing/NearestLivingEntitySensor.java
+index 3578ece216827fd5d8c1206c689fc608e97b50df..12fd24553ad60f2ef815332a84debb79ce07f9ea 100644
+--- a/net/minecraft/world/entity/ai/sensing/NearestLivingEntitySensor.java
++++ b/net/minecraft/world/entity/ai/sensing/NearestLivingEntitySensor.java
+@@ -1,6 +1,9 @@
+ package net.minecraft.world.entity.ai.sensing;
+ 
+ import com.google.common.collect.ImmutableSet;
++import io.papermc.paper.threadedregions.NebulaEntitySnapshot;
++import io.papermc.paper.threadedregions.NebulaSnapshotRegistry;
++import io.papermc.paper.threadedregions.TickRegions;
+ import java.util.Comparator;
+ import java.util.List;
+ import java.util.Set;
+@@ -17,7 +20,17 @@ public class NearestLivingEntitySensor<T extends LivingEntity> extends Sensor<T>
+     protected void doTick(final ServerLevel level, final T body) {
+         double followRange = body.getAttributeValue(Attributes.FOLLOW_RANGE);
+         AABB boundingBox = body.getBoundingBox().inflate(followRange, followRange, followRange);
+-        List<LivingEntity> livingEntities = level.getEntitiesOfClass(LivingEntity.class, boundingBox, mob -> mob != body && mob.isAlive());
++        List<LivingEntity> livingEntities;
++        // Nebula: in NEBULA mode, sense from RCU snapshot (architecture §7.4) so this can
++        // run in parallel with entity move tasks. Falls back to live scan if no snapshot
++        // has been published yet (first tick / non-NEBULA worlds).
++        NebulaEntitySnapshot snapshot = TickRegions.isNebulaMode() ? NebulaSnapshotRegistry.current(level) : null;
++        if (snapshot != null) {
++            livingEntities = snapshot.livingEntitiesInBox(boundingBox, body);
++            livingEntities.removeIf(mob -> !mob.isAlive());
++        } else {
++            livingEntities = level.getEntitiesOfClass(LivingEntity.class, boundingBox, mob -> mob != body && mob.isAlive());
++        }
+         livingEntities.sort(Comparator.comparingDouble(body::distanceToSqr));
+         Brain<?> brain = body.getBrain();
+         brain.setMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES, livingEntities);
