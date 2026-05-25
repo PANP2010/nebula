@@ -1,0 +1,81 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Tue, 26 May 2026 00:08:20 +0800
+Subject: [PATCH] =?UTF-8?q?nebula:=20explosion=20snapshot=20=E2=80=94=20po?=
+ =?UTF-8?q?pulate=20affected=20entities=20(Phase=20D11)?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Moves the NebulaExplosionPipeline.record call from explode0's entry to
+the post-explode site, after ServerExplosion.explode() has computed
+the hit-players map. Hit player ids are now included in the recorded
+ExplosionSnapshot.affectedEntities list.
+
+affectedBlocks remains empty pending a public getter on
+ServerExplosion.toBlow — that requires a vanilla-side patch and is
+deferred. The current data is sufficient for sub-DAG entity-damage
+tasks (architecture §9.1 layer 4).
+
+diff --git a/io/papermc/paper/threadedregions/NebulaExplosionPipeline.java b/io/papermc/paper/threadedregions/NebulaExplosionPipeline.java
+index 1495749668fd5a670bc3849423a3e44a4cac1dd7..1acdd2557cfebf01248ce6f389de92f5d26ca8f1 100644
+--- a/io/papermc/paper/threadedregions/NebulaExplosionPipeline.java
++++ b/io/papermc/paper/threadedregions/NebulaExplosionPipeline.java
+@@ -47,17 +47,20 @@ public final class NebulaExplosionPipeline {
+      * @param y explosion center y
+      * @param z explosion center z
+      * @param power explosion power radius
++     * @param affectedEntities entity ids hit by the explosion (e.g. from
++     *        ServerExplosion.getHitPlayers().keySet()); empty list means
++     *        no entity damage was recorded
+      */
+-    public static void record(ServerLevel level, Entity source, double x, double y, double z, float power) {
++    public static void record(ServerLevel level, Entity source, double x, double y, double z, float power,
++                              List<Long> affectedEntities) {
+         long counter = EXPLOSION_COUNTER.computeIfAbsent(level, k -> new AtomicLong()).incrementAndGet();
+         long sourceId = source == null ? -1L : source.getId();
+         WorldPos center = new WorldPos(dimensionId(level), (int) x, (int) y, (int) z);
+ 
+-        // affectedBlocks/entities are filled by vanilla synchronously; for the
+-        // recorded snapshot we use empty sets — the downstream sub-DAG factory
+-        // doesn't need them for metric / replay purposes yet.
++        // affectedBlocks remains empty pending a public getter on ServerExplosion;
++        // affectedEntities is populated from the hit-players map provided by the caller.
+         ExplosionSnapshot snapshot = new ExplosionSnapshot(
+-            center, power, sourceId, Set.of(), List.of()
++            center, power, sourceId, Set.of(), affectedEntities
+         );
+ 
+         PENDING.add(new RecordedExplosion(level, counter, snapshot));
+diff --git a/net/minecraft/server/level/ServerLevel.java b/net/minecraft/server/level/ServerLevel.java
+index 0761e5be1b7d5658c92aa54b763bde03c2a8b53f..07588921b02497a1b0d419d6650f5ad76f19fac5 100644
+--- a/net/minecraft/server/level/ServerLevel.java
++++ b/net/minecraft/server/level/ServerLevel.java
+@@ -2149,11 +2149,6 @@ public class ServerLevel extends Level implements WorldGenLevel, ServerEntityGet
+         java.util.function.@Nullable Consumer<ServerExplosion> configurator
+     ) {
+         // CraftBukkit end
+-        // Nebula start - explosion sub-DAG recording (architecture §9)
+-        if (io.papermc.paper.threadedregions.TickRegions.isNebulaMode()) {
+-            io.papermc.paper.threadedregions.NebulaExplosionPipeline.record(this, source, x, y, z, r);
+-        }
+-        // Nebula end
+         Explosion.BlockInteraction blockInteraction = switch (interactionType) {
+             case NONE -> Explosion.BlockInteraction.KEEP;
+             case BLOCK -> this.getDestroyType(GameRules.BLOCK_EXPLOSION_DROP_DECAY);
+@@ -2173,6 +2168,15 @@ public class ServerLevel extends Level implements WorldGenLevel, ServerEntityGet
+             return explosion;
+         }
+         // CraftBukkit end
++        // Nebula start - record explosion with hit-entity data (architecture §9)
++        if (io.papermc.paper.threadedregions.TickRegions.isNebulaMode()) {
++            java.util.List<Long> hitEntityIds = new java.util.ArrayList<>();
++            for (Player hit : explosion.getHitPlayers().keySet()) {
++                hitEntityIds.add((long) hit.getId());
++            }
++            io.papermc.paper.threadedregions.NebulaExplosionPipeline.record(this, source, x, y, z, r, hitEntityIds);
++        }
++        // Nebula end
+         ParticleOptions explosionParticle = explosion.isSmall() ? smallExplosionParticles : largeExplosionParticles;
+ 
+         for (ServerPlayer player : this.getLocalPlayers()) { // Folia - region thraeding
