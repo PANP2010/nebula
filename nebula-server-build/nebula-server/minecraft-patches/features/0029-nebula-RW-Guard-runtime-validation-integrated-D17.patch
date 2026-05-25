@@ -1,0 +1,198 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Tue, 26 May 2026 03:28:38 +0800
+Subject: [PATCH] nebula: RW-Guard runtime validation integrated (D17)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Wraps the per-tick TaskRunner with a tracing variant when -Dnebula.guard
+is set. Each task action runs through RWGuard.executeTaskWithTracing,
+comparing the declared @NebulaRW set against actual block / block-entity
+/ entity / global-key accesses. Violations are accumulated and surfaced
+via /nebula guard.
+
+- NebulaGuardIntegration: TracingRunner wraps TaskRunner.DIRECT,
+  configures RWGuardConfig from -Dnebula.guard / -Dnebula.guard.mode
+  (WARN default, ENFORCE optional), aggregates totals across ticks.
+- ServerLevel.nebula\$tickViaDAG: TickPipeline now uses
+  NebulaGuardIntegration.runner(tick) instead of TaskRunner.DIRECT.
+- /nebula guard reports mode, traced-task count, violations, and rate.
+- /nebula reset also clears guard counters.
+
+Disabled by default — zero overhead in production. This unblocks B4
+(intra-layer parallelism) once the violation rate stays at zero across
+the annotated functions.
+
+diff --git a/io/papermc/paper/threadedregions/NebulaGuardIntegration.java b/io/papermc/paper/threadedregions/NebulaGuardIntegration.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..33a95b5fead011c255462c2dd978781e83e284e2
+--- /dev/null
++++ b/io/papermc/paper/threadedregions/NebulaGuardIntegration.java
+@@ -0,0 +1,111 @@
++package io.papermc.paper.threadedregions;
++
++import org.nebula.core.scheduler.TaskNode;
++import org.nebula.core.scheduler.TaskRunner;
++import org.nebula.guard.RWGuard;
++import org.nebula.guard.RWGuardConfig;
++import org.nebula.guard.RWGuardMode;
++import org.nebula.guard.RWSetViolation;
++
++import java.util.concurrent.atomic.AtomicLong;
++
++/**
++ * RW-Guard runtime integration (architecture §14.3 / D17).
++ *
++ * <p>When enabled, every task action is wrapped by an {@link RWGuard}-tracing
++ * runner that records actual block / block-entity / entity / global-key
++ * accesses inside the action and compares them against the task's declared
++ * {@code RWSet}. Discrepancies are accumulated as
++ * {@link RWSetViolation} objects, emitted to the configured JSONL log, and
++ * surfaced via {@code /nebula guard}.
++ *
++ * <p>Disabled by default — set {@code -Dnebula.guard=true} to enable, and
++ * optionally {@code -Dnebula.guard.mode=ENFORCE} to throw on violation
++ * (default {@code WARN}).
++ *
++ * <p>This is the prerequisite for D8 (intra-layer parallelism, blocker B4):
++ * once the guard is clean across all annotated functions, the parallel
++ * runner can safely co-execute tasks within a layer.
++ */
++public final class NebulaGuardIntegration {
++
++    private static final boolean ENABLED;
++    private static final RWGuardMode MODE;
++
++    private static final AtomicLong TOTAL_VIOLATIONS = new AtomicLong();
++    private static final AtomicLong TOTAL_TASKS_TRACED = new AtomicLong();
++
++    static {
++        ENABLED = Boolean.getBoolean("nebula.guard");
++        String modeProp = System.getProperty("nebula.guard.mode", "WARN");
++        RWGuardMode parsed;
++        try {
++            parsed = RWGuardMode.valueOf(modeProp.toUpperCase(java.util.Locale.ROOT));
++        } catch (IllegalArgumentException e) {
++            parsed = RWGuardMode.WARN;
++        }
++        MODE = parsed;
++        if (ENABLED) {
++            RWGuard.configure(RWGuardConfig.enabled(MODE));
++        } else {
++            RWGuard.configure(RWGuardConfig.defaults());
++        }
++    }
++
++    private NebulaGuardIntegration() {}
++
++    public static boolean enabled() { return ENABLED; }
++    public static RWGuardMode mode() { return MODE; }
++    public static long totalViolations() { return TOTAL_VIOLATIONS.get(); }
++    public static long totalTasksTraced() { return TOTAL_TASKS_TRACED.get(); }
++
++    /**
++     * Returns a TaskRunner that traces every task and aggregates violations.
++     * If guard is disabled, returns the underlying {@code DIRECT} runner.
++     */
++    public static TaskRunner runner(long tickNumber) {
++        if (!ENABLED) {
++            return TaskRunner.DIRECT;
++        }
++        return new TracingRunner(tickNumber);
++    }
++
++    public static String summary() {
++        if (!ENABLED) {
++            return "Nebula RW-Guard: disabled (set -Dnebula.guard=true to enable)";
++        }
++        long traced = TOTAL_TASKS_TRACED.get();
++        long violations = TOTAL_VIOLATIONS.get();
++        double rate = traced == 0 ? 0.0 : (double) violations / traced * 100;
++        return String.format(java.util.Locale.ROOT,
++            "Nebula RW-Guard: mode=%s, tasks-traced=%d, violations=%d (%.4f%%)",
++            MODE.name(), traced, violations, rate
++        );
++    }
++
++    public static void reset() {
++        TOTAL_VIOLATIONS.set(0);
++        TOTAL_TASKS_TRACED.set(0);
++    }
++
++    private static final class TracingRunner implements TaskRunner {
++        private final long tickNumber;
++
++        TracingRunner(long tickNumber) {
++            this.tickNumber = tickNumber;
++        }
++
++        @Override
++        public void run(TaskNode task) throws Exception {
++            TOTAL_TASKS_TRACED.incrementAndGet();
++            try {
++                RWGuard.executeTaskWithTracing(tickNumber, task);
++            } finally {
++                int violations = RWGuard.getLastViolations().size();
++                if (violations > 0) {
++                    TOTAL_VIOLATIONS.addAndGet(violations);
++                }
++            }
++        }
++    }
++}
+diff --git a/net/minecraft/server/commands/NebulaCommand.java b/net/minecraft/server/commands/NebulaCommand.java
+index 5e32785e082dd11e955e9f489ed9451a3fd76c42..e8c495424d51bf88736af43c3e3229aed9706174 100644
+--- a/net/minecraft/server/commands/NebulaCommand.java
++++ b/net/minecraft/server/commands/NebulaCommand.java
+@@ -2,6 +2,7 @@ package net.minecraft.server.commands;
+ 
+ import com.mojang.brigadier.CommandDispatcher;
+ import io.papermc.paper.threadedregions.NebulaExplosionPipeline;
++import io.papermc.paper.threadedregions.NebulaGuardIntegration;
+ import io.papermc.paper.threadedregions.NebulaRandomGate;
+ import io.papermc.paper.threadedregions.NebulaRedstoneIntegration;
+ import io.papermc.paper.threadedregions.NebulaTickMetrics;
+@@ -33,6 +34,7 @@ public final class NebulaCommand {
+                 .then(Commands.literal("redstone").executes(c -> redstone(c.getSource())))
+                 .then(Commands.literal("explosions").executes(c -> explosions(c.getSource())))
+                 .then(Commands.literal("random").executes(c -> random(c.getSource())))
++                .then(Commands.literal("guard").executes(c -> guard(c.getSource())))
+                 .then(Commands.literal("reset").executes(c -> reset(c.getSource())))
+                 .executes(c -> stats(c.getSource()))
+         );
+@@ -85,10 +87,17 @@ public final class NebulaCommand {
+         return NebulaRandomGate.currentTier();
+     }
+ 
++    private static int guard(final CommandSourceStack source) {
++        String summary = NebulaGuardIntegration.summary();
++        source.sendSuccess(() -> Component.literal(summary), false);
++        return NebulaGuardIntegration.enabled() ? 1 : 0;
++    }
++
+     private static int reset(final CommandSourceStack source) {
+         NebulaTickMetrics.reset();
+         NebulaRandomGate.reset();
+-        source.sendSuccess(() -> Component.literal("Nebula DAG metrics + random budget reset."), true);
++        NebulaGuardIntegration.reset();
++        source.sendSuccess(() -> Component.literal("Nebula DAG metrics + random budget + guard counters reset."), true);
+         return 1;
+     }
+ }
+diff --git a/net/minecraft/server/level/ServerLevel.java b/net/minecraft/server/level/ServerLevel.java
+index 834b82b9fa204e03e269f802853adb9d880ece2a..9b73d530374ed804e4a95a80c82d8b3cf621ae70 100644
+--- a/net/minecraft/server/level/ServerLevel.java
++++ b/net/minecraft/server/level/ServerLevel.java
+@@ -3246,8 +3246,10 @@ public class ServerLevel extends Level implements WorldGenLevel, ServerEntityGet
+ 
+         org.nebula.core.scheduler.TaskGenerator microStepGenerator =
+             io.papermc.paper.threadedregions.NebulaRedstoneIntegration.generator();
++        org.nebula.core.scheduler.TaskRunner runner =
++            io.papermc.paper.threadedregions.NebulaGuardIntegration.runner(tick);
+         org.nebula.core.scheduler.TickPipeline pipeline = new org.nebula.core.scheduler.TickPipeline(
+-            microStepGenerator, org.nebula.core.scheduler.TaskRunner.DIRECT, 256
++            microStepGenerator, runner, 256
+         );
+ 
+         try {
