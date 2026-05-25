@@ -1,0 +1,72 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Mon, 25 May 2026 23:23:59 +0800
+Subject: [PATCH] nebula: subsystem-level precise RWSet (Phase D3c)
+
+Releases world_border and tick_time tasks from GLOBAL_RW:
+- world_border: read PLAYER_LIST, write WORLD_BORDER
+- tick_time: write GAME_TIME, DAY_TIME, WEATHER
+
+These tasks now run in parallel with each other and (within a single
+region) with any future per-chunk block/fluid tasks once D3b lands.
+
+Tasks remaining on GLOBAL_RW (block_ticks, fluid_ticks, raids,
+chunk_source, block_events) trigger arbitrary block/entity mutations
+and stay conservative until D3b can scope them per chunk.
+
+diff --git a/io/papermc/paper/threadedregions/RegionTickDecomposer.java b/io/papermc/paper/threadedregions/RegionTickDecomposer.java
+index 0021d6cbead90f3e9ea736156e35ad280d015c43..3c1b358b8705c56bf143ed2eda3e06f87b15dd6e 100644
+--- a/io/papermc/paper/threadedregions/RegionTickDecomposer.java
++++ b/io/papermc/paper/threadedregions/RegionTickDecomposer.java
+@@ -12,7 +12,14 @@ import java.util.List;
+ 
+ /**
+  * Decomposes a single region tick (ServerLevel.tick) into DAG TaskNodes.
+- * Phase D1: all tasks use GLOBAL RWSet → fully serialized execution.
++ *
++ * D3c: Subsystem-level precise RWSet — lightweight tasks that touch only
++ * a known set of global keys are released from GLOBAL_RW so they can run
++ * in parallel with block/fluid/entity ticks.
++ *
++ * Tasks still using GLOBAL_RW (block_ticks, fluid_ticks, raids,
++ * chunk_source, block_events) trigger arbitrary block/entity mutations
++ * and remain conservatively serialized until D3b (per-chunk grouping).
+  */
+ public final class RegionTickDecomposer {
+ 
+@@ -21,6 +28,17 @@ public final class RegionTickDecomposer {
+         .writeGlobal(GlobalKey.ALL)
+         .build();
+ 
++    private static final RWSet WORLD_BORDER_RW = RWSet.builder()
++        .readGlobal(GlobalKey.PLAYER_LIST)
++        .writeGlobal(GlobalKey.WORLD_BORDER)
++        .build();
++
++    private static final RWSet TICK_TIME_RW = RWSet.builder()
++        .writeGlobal(GlobalKey.GAME_TIME)
++        .writeGlobal(GlobalKey.DAY_TIME)
++        .writeGlobal(GlobalKey.WEATHER)
++        .build();
++
+     private RegionTickDecomposer() {}
+ 
+     /**
+@@ -80,7 +98,7 @@ public final class RegionTickDecomposer {
+     }
+ 
+     private static TaskNode buildWorldBorderTask(ServerLevel level, RegionizedWorldData worldData) {
+-        return new TaskNode("world_border", "WORLD_BORDER", GLOBAL_RW, () -> {
++        return new TaskNode("world_border", "WORLD_BORDER", WORLD_BORDER_RW, () -> {
+             it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet<WorldBorder> worldBorders =
+                 new it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet<>();
+             for (ServerPlayer player : worldData.getLocalPlayers()) {
+@@ -97,7 +115,7 @@ public final class RegionTickDecomposer {
+     }
+ 
+     private static TaskNode buildTickTimeTask(ServerLevel level) {
+-        return new TaskNode("tick_time", "TICK_TIME", GLOBAL_RW, level::nebula$tickTime);
++        return new TaskNode("tick_time", "TICK_TIME", TICK_TIME_RW, level::nebula$tickTime);
+     }
+ 
+     private static TaskNode buildBlockTicksTask(ServerLevel level, long tick) {
