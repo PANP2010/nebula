@@ -1,0 +1,140 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Mon, 25 May 2026 23:58:20 +0800
+Subject: [PATCH] nebula: redstone component registration hook (Phase D9)
+
+NebulaRedstoneClassifier maps vanilla BlockState to RedstoneComponentType
+for the 25+ types defined in nebula-redstone module (wires, repeaters,
+comparators, torches, pistons, observers, hoppers, dispensers, etc).
+
+LevelChunk.setBlockState now calls NebulaRedstoneClassifier.onBlockChange
+in NEBULA mode whenever a block actually changes, which keeps the
+RedstoneTaskGenerator's component map in sync with world state.
+
+This activates D6: with the component map populated, redstone block
+updates can now emit microstep tasks for adjacent components and the
+TickPipeline's microstep extension actually does work instead of being
+a no-op.
+
+diff --git a/io/papermc/paper/threadedregions/NebulaRedstoneClassifier.java b/io/papermc/paper/threadedregions/NebulaRedstoneClassifier.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..de8d7c9f4134b7b09055efe51000436ec4ec5531
+--- /dev/null
++++ b/io/papermc/paper/threadedregions/NebulaRedstoneClassifier.java
+@@ -0,0 +1,100 @@
++package io.papermc.paper.threadedregions;
++
++import net.minecraft.core.BlockPos;
++import net.minecraft.world.level.Level;
++import net.minecraft.world.level.block.Blocks;
++import net.minecraft.world.level.block.state.BlockState;
++import org.nebula.core.state.WorldPos;
++import org.nebula.redstone.RedstoneComponentType;
++
++/**
++ * Maps vanilla {@link BlockState} → {@link RedstoneComponentType} and wires
++ * {@link NebulaRedstoneIntegration#registerComponent}/unregisterComponent
++ * calls into the chunk block-replacement path.
++ *
++ * Called from {@link net.minecraft.world.level.chunk.LevelChunk#setBlockState}
++ * when {@link TickRegions#isNebulaMode()} is true. The classification covers
++ * the common redstone components from {@link RedstoneComponentType}; unknown
++ * blocks return {@code null} and are ignored (no entry in the component map).
++ */
++public final class NebulaRedstoneClassifier {
++
++    private NebulaRedstoneClassifier() {}
++
++    public static void onBlockChange(Level level, BlockPos pos, BlockState oldState, BlockState newState) {
++        WorldPos wp = toWorldPos(level, pos);
++        RedstoneComponentType oldType = classify(oldState);
++        RedstoneComponentType newType = classify(newState);
++
++        if (oldType != newType) {
++            if (oldType != null) {
++                NebulaRedstoneIntegration.unregisterComponent(wp);
++            }
++            if (newType != null) {
++                NebulaRedstoneIntegration.registerComponent(wp, newType);
++            }
++        }
++    }
++
++    public static RedstoneComponentType classify(BlockState state) {
++        if (state == null) return null;
++        var block = state.getBlock();
++
++        if (block == Blocks.REDSTONE_WIRE) return RedstoneComponentType.REDSTONE_WIRE;
++        if (block == Blocks.REPEATER) return RedstoneComponentType.REPEATER;
++        if (block == Blocks.COMPARATOR) return RedstoneComponentType.COMPARATOR;
++        if (block == Blocks.REDSTONE_TORCH || block == Blocks.REDSTONE_WALL_TORCH)
++            return RedstoneComponentType.REDSTONE_TORCH;
++        if (block == Blocks.PISTON) return RedstoneComponentType.PISTON;
++        if (block == Blocks.STICKY_PISTON) return RedstoneComponentType.STICKY_PISTON;
++        if (block == Blocks.PISTON_HEAD) return RedstoneComponentType.PISTON_HEAD;
++        if (block == Blocks.OBSERVER) return RedstoneComponentType.OBSERVER;
++        if (block == Blocks.NOTE_BLOCK) return RedstoneComponentType.NOTE_BLOCK;
++        if (block == Blocks.POWERED_RAIL) return RedstoneComponentType.POWERED_RAIL;
++        if (block == Blocks.ACTIVATOR_RAIL) return RedstoneComponentType.ACTIVATOR_RAIL;
++        if (block == Blocks.TRIPWIRE_HOOK) return RedstoneComponentType.TRIPWIRE_HOOK;
++        if (block == Blocks.TRIPWIRE) return RedstoneComponentType.TRIPWIRE;
++        if (block == Blocks.REDSTONE_LAMP) return RedstoneComponentType.REDSTONE_LAMP;
++        if (block == Blocks.DAYLIGHT_DETECTOR) return RedstoneComponentType.DAYLIGHT_DETECTOR;
++        if (block == Blocks.HOPPER) return RedstoneComponentType.HOPPER;
++        if (block == Blocks.DISPENSER) return RedstoneComponentType.DISPENSER;
++        if (block == Blocks.DROPPER) return RedstoneComponentType.DROPPER;
++        if (block == Blocks.TNT) return RedstoneComponentType.TNT;
++        if (block == Blocks.REDSTONE_BLOCK) return RedstoneComponentType.REDSTONE_BLOCK;
++        if (block == Blocks.LEVER) return RedstoneComponentType.LEVER;
++        if (block == Blocks.IRON_DOOR) return RedstoneComponentType.IRON_DOOR;
++        if (block == Blocks.OAK_FENCE_GATE || block == Blocks.SPRUCE_FENCE_GATE
++            || block == Blocks.BIRCH_FENCE_GATE || block == Blocks.JUNGLE_FENCE_GATE
++            || block == Blocks.ACACIA_FENCE_GATE || block == Blocks.DARK_OAK_FENCE_GATE
++            || block == Blocks.CRIMSON_FENCE_GATE || block == Blocks.WARPED_FENCE_GATE
++            || block == Blocks.MANGROVE_FENCE_GATE || block == Blocks.CHERRY_FENCE_GATE
++            || block == Blocks.BAMBOO_FENCE_GATE)
++            return RedstoneComponentType.FENCE_GATE;
++        if (block == Blocks.IRON_TRAPDOOR
++            || block == Blocks.OAK_TRAPDOOR || block == Blocks.SPRUCE_TRAPDOOR
++            || block == Blocks.BIRCH_TRAPDOOR || block == Blocks.JUNGLE_TRAPDOOR
++            || block == Blocks.ACACIA_TRAPDOOR || block == Blocks.DARK_OAK_TRAPDOOR
++            || block == Blocks.CRIMSON_TRAPDOOR || block == Blocks.WARPED_TRAPDOOR
++            || block == Blocks.MANGROVE_TRAPDOOR || block == Blocks.CHERRY_TRAPDOOR
++            || block == Blocks.BAMBOO_TRAPDOOR
++            || block == Blocks.COPPER_TRAPDOOR
++            || block == Blocks.EXPOSED_COPPER_TRAPDOOR
++            || block == Blocks.WEATHERED_COPPER_TRAPDOOR
++            || block == Blocks.OXIDIZED_COPPER_TRAPDOOR
++            || block == Blocks.WAXED_COPPER_TRAPDOOR
++            || block == Blocks.WAXED_EXPOSED_COPPER_TRAPDOOR
++            || block == Blocks.WAXED_WEATHERED_COPPER_TRAPDOOR
++            || block == Blocks.WAXED_OXIDIZED_COPPER_TRAPDOOR)
++            return RedstoneComponentType.TRAPDOOR;
++        return null;
++    }
++
++    private static WorldPos toWorldPos(Level level, BlockPos pos) {
++        int dim;
++        if (level.dimension() == Level.OVERWORLD) dim = 0;
++        else if (level.dimension() == Level.NETHER) dim = -1;
++        else if (level.dimension() == Level.END) dim = 1;
++        else dim = level.dimension().identifier().hashCode();
++        return new WorldPos(dim, pos.getX(), pos.getY(), pos.getZ());
++    }
++}
+diff --git a/net/minecraft/world/level/chunk/LevelChunk.java b/net/minecraft/world/level/chunk/LevelChunk.java
+index dd8cdb792d8d94b691c40e0c07f04975cb70aa21..14cbb3d9f726f562d9c56dc0f57b46069ed7c4f8 100644
+--- a/net/minecraft/world/level/chunk/LevelChunk.java
++++ b/net/minecraft/world/level/chunk/LevelChunk.java
+@@ -384,6 +384,11 @@ public class LevelChunk extends ChunkAccess implements DebugValueSource, ca.spot
+                 return null;
+             } else {
+                 Block newBlock = state.getBlock();
++                // Nebula start - redstone component registration hook
++                if (io.papermc.paper.threadedregions.TickRegions.isNebulaMode()) {
++                    io.papermc.paper.threadedregions.NebulaRedstoneClassifier.onBlockChange(this.level, pos, oldState, state);
++                }
++                // Nebula end
+                 this.heightmaps.get(Heightmap.Types.MOTION_BLOCKING).update(localX, y, localZ, state);
+                 this.heightmaps.get(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES).update(localX, y, localZ, state);
+                 this.heightmaps.get(Heightmap.Types.OCEAN_FLOOR).update(localX, y, localZ, state);
