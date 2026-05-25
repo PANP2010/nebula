@@ -1,0 +1,169 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Tue, 26 May 2026 01:07:46 +0800
+Subject: [PATCH] nebula: Layer A @NebulaRW annotations on entity hot path
+ (D15)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Annotates 6 entity hot-path methods per architecture §14.3 Phase 1
+Month 4-6 (the ~50 entity functions called for):
+
+Entity:
+  - tick() — self-write, position read, ENTITY_MOVED event
+  - move(MoverType, Vec3) — collision-zone block read, position/velocity/onGround write
+  - rideTick() — self + vehicle read, position/velocity write
+
+LivingEntity:
+  - tick() — full self read/write (covers hurt/death state)
+  - aiStep() — physics step, position/deltaMovement/fallDistance write
+
+Mob:
+  - tick() — sensor scan over * entities (read-only), self write
+  - aiStep() — navigation/lookControl/movementControl, self position+rotation write
+
+Each annotation declares maxRandomCalls (input to RandomBudget allocator)
+and randomInstance (which RNG path is consumed). Conservative *-wildcard
+reads are used where the actual closure is too dynamic to enumerate
+statically (sensor scans, collision zones); RW-Guard runtime validation
+(D17) will refine these once it observes actual accesses.
+
+diff --git a/net/minecraft/world/entity/Entity.java b/net/minecraft/world/entity/Entity.java
+index 13f23918b6a9db52742a01bf16c69389a1c16dc9..3bb6f1bdb0c961a22470b8523a51831e5a667ec3 100644
+--- a/net/minecraft/world/entity/Entity.java
++++ b/net/minecraft/world/entity/Entity.java
+@@ -867,6 +867,19 @@ public abstract class Entity
+     public void updateDataBeforeSync() {
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.*"},
++        readBlocks         = {"this.position"},
++        triggeredEvents    = {"ENTITY_MOVED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 8,
++        randomInstance     = "ENTITY_RANDOM",
++        mayLoadChunks      = false,
++        mayTriggerBlockUpdates = false,
++        verifiedAt         = "1.21.4"
++    )
+     public void tick() {
+         // Paper start - entity despawn time limit
+         if (this.despawnTime >= 0 && this.totalEntityAge >= this.despawnTime) {
+@@ -1147,6 +1160,18 @@ public abstract class Entity
+     private double moveStartZ;
+     // Paper end - detailed watchdog information
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.position", "this.deltaMovement", "this.boundingBox", "this.onGround", "this.fallDistance"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED", "BLOCK_STEP", "ENTITY_COLLISION"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        mayLoadChunks      = false,
++        mayTriggerBlockUpdates = false,
++        verifiedAt         = "1.21.4"
++    )
+     public void move(final MoverType moverType, Vec3 delta) {
+         final Vec3 originalMovement = delta; // Paper - Expose pre-collision velocity
+         // Paper start - detailed watchdog information
+@@ -3234,6 +3259,14 @@ public abstract class Entity
+         return false;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*", "this.vehicle.*"},
++        writeEntities      = {"this.position", "this.deltaMovement"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        verifiedAt         = "1.21.4"
++    )
+     public void rideTick() {
+         this.setDeltaMovement(Vec3.ZERO);
+         this.tick();
+diff --git a/net/minecraft/world/entity/LivingEntity.java b/net/minecraft/world/entity/LivingEntity.java
+index 201bcd06b965e2e92758a1066f1c4a0cf187b26a..db59124c80b33143c43df22e645d78aca64811c2 100644
+--- a/net/minecraft/world/entity/LivingEntity.java
++++ b/net/minecraft/world/entity/LivingEntity.java
+@@ -3403,6 +3403,16 @@ public abstract class LivingEntity extends Entity implements Attackable, Waypoin
+     }
+     // Paper end - EAR 2
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.*"},
++        triggeredEvents    = {"ENTITY_DAMAGED", "ENTITY_DEATH"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 16,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         super.tick();
+@@ -3686,6 +3696,17 @@ public abstract class LivingEntity extends Entity implements Attackable, Waypoin
+         return 50.0F;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.position", "this.deltaMovement", "this.boundingBox", "this.fallDistance", "this.airSupply"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 4,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     public void aiStep() {
+         if (this.noJumpDelay > 0) {
+             this.noJumpDelay--;
+diff --git a/net/minecraft/world/entity/Mob.java b/net/minecraft/world/entity/Mob.java
+index c9554552b194060135951a036c589be6fb27151c..70832b53a3abf3b831312f924cca17067a2f5221 100644
+--- a/net/minecraft/world/entity/Mob.java
++++ b/net/minecraft/world/entity/Mob.java
+@@ -413,6 +413,18 @@ public abstract class Mob extends LivingEntity implements Targeting, EquipmentUs
+         }
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*", "*"},
++        writeEntities      = {"this.*"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_DAMAGED", "ENTITY_DEATH"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 32,
++        randomInstance     = "ENTITY_RANDOM",
++        mayLoadChunks      = false,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         super.tick();
+@@ -546,6 +558,17 @@ public abstract class Mob extends LivingEntity implements Targeting, EquipmentUs
+         this.resetAngularLeashMomentum();
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.position", "this.deltaMovement", "this.yRot", "this.xRot", "this.yHeadRot"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 8,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void aiStep() {
+         super.aiStep();
