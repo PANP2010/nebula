@@ -1,0 +1,201 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Mon, 25 May 2026 23:05:40 +0800
+Subject: [PATCH] nebula: per-block-entity DAG decomposition (Phase D2)
+
+BlockEntityTaskBuilder classifies each TickingBlockEntity into:
+- Category A (independent): self-only RWSet for Furnace, Chest, etc.
+- Category B (hopper): self + facing + above RWSet
+- Category C (conservative): GLOBAL_RW fallback
+
+RegionTickDecomposer now emits per-BE TaskNodes instead of a single
+block_entity_tick task. ServerLevel.nebula$tickViaDAG handles
+pushPendingTickingBlockEntities before DAG and cleanup after.
+
+diff --git a/io/papermc/paper/threadedregions/BlockEntityTaskBuilder.java b/io/papermc/paper/threadedregions/BlockEntityTaskBuilder.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..d4a230e8e131ca34c85f893ec6b83ff7aa67958e
+--- /dev/null
++++ b/io/papermc/paper/threadedregions/BlockEntityTaskBuilder.java
+@@ -0,0 +1,130 @@
++package io.papermc.paper.threadedregions;
++
++import net.minecraft.core.BlockPos;
++import net.minecraft.core.Direction;
++import net.minecraft.server.level.ServerLevel;
++import net.minecraft.world.level.Level;
++import net.minecraft.world.level.block.HopperBlock;
++import net.minecraft.world.level.block.entity.BlockEntity;
++import net.minecraft.world.level.block.entity.BlockEntityType;
++import net.minecraft.world.level.block.entity.TickingBlockEntity;
++import net.minecraft.world.level.block.state.BlockState;
++import org.nebula.core.rw.RWSet;
++import org.nebula.core.scheduler.TaskNode;
++import org.nebula.core.state.BlockEntityField;
++import org.nebula.core.state.GlobalKey;
++import org.nebula.core.state.WorldPos;
++
++import java.util.ArrayList;
++import java.util.List;
++import java.util.Set;
++
++public final class BlockEntityTaskBuilder {
++
++    private static final RWSet GLOBAL_RW = RWSet.builder()
++        .readGlobal(GlobalKey.ALL)
++        .writeGlobal(GlobalKey.ALL)
++        .build();
++
++    private static final Set<BlockEntityType<?>> INDEPENDENT_TYPES = Set.of(
++        BlockEntityType.FURNACE,
++        BlockEntityType.SMOKER,
++        BlockEntityType.BLAST_FURNACE,
++        BlockEntityType.CHEST,
++        BlockEntityType.TRAPPED_CHEST,
++        BlockEntityType.BARREL,
++        BlockEntityType.BREWING_STAND,
++        BlockEntityType.CAMPFIRE,
++        BlockEntityType.JUKEBOX,
++        BlockEntityType.CONDUIT,
++        BlockEntityType.BELL,
++        BlockEntityType.SCULK_CATALYST
++    );
++
++    private BlockEntityTaskBuilder() {}
++
++    public static List<TaskNode> buildAll(ServerLevel level, RegionizedWorldData worldData) {
++        List<TickingBlockEntity> tickers = worldData.getBlockEntityTickers();
++        List<TaskNode> tasks = new ArrayList<>(tickers.size());
++        int dimId = dimensionId(level);
++
++        for (int i = 0; i < tickers.size(); i++) {
++            TickingBlockEntity ticker = tickers.get(i);
++            if (ticker.isRemoved()) {
++                continue;
++            }
++            tasks.add(buildSingle(ticker, level, dimId, i));
++        }
++
++        tasks.add(new TaskNode("be_mid_tick_drain", "MID_TICK_DRAIN", GLOBAL_RW, () -> {
++            level.getChunkSource().tick(() -> true, false);
++        }));
++
++        return tasks;
++    }
++
++    private static TaskNode buildSingle(TickingBlockEntity ticker, ServerLevel level, int dimId, int index) {
++        BlockEntity be = ticker.getTileEntity();
++        BlockPos pos = ticker.getPos();
++        String taskId = "be_" + index + "_" + pos.getX() + "_" + pos.getY() + "_" + pos.getZ();
++
++        if (be == null) {
++            return new TaskNode(taskId, "BLOCK_ENTITY", GLOBAL_RW, ticker::tick);
++        }
++
++        BlockEntityType<?> type = be.getType();
++        RWSet rwSet = classifyRWSet(type, pos, level, dimId);
++        return new TaskNode(taskId, "BLOCK_ENTITY", rwSet, ticker::tick);
++    }
++
++    private static RWSet classifyRWSet(BlockEntityType<?> type, BlockPos pos, ServerLevel level, int dimId) {
++        if (INDEPENDENT_TYPES.contains(type)) {
++            return buildSelfOnly(pos, dimId);
++        }
++        if (type == BlockEntityType.HOPPER) {
++            return buildHopper(pos, level, dimId);
++        }
++        return GLOBAL_RW;
++    }
++
++    private static RWSet buildSelfOnly(BlockPos pos, int dimId) {
++        WorldPos wp = new WorldPos(dimId, pos.getX(), pos.getY(), pos.getZ());
++        return RWSet.builder()
++            .writeBlockEntity(new BlockEntityField(wp, "*"))
++            .readBlock(wp)
++            .build();
++    }
++
++    private static RWSet buildHopper(BlockPos pos, ServerLevel level, int dimId) {
++        WorldPos selfWp = new WorldPos(dimId, pos.getX(), pos.getY(), pos.getZ());
++
++        BlockState state = level.getBlockState(pos);
++        Direction facing;
++        if (state.hasProperty(HopperBlock.FACING)) {
++            facing = state.getValue(HopperBlock.FACING);
++        } else {
++            return GLOBAL_RW;
++        }
++
++        BlockPos facingPos = pos.relative(facing);
++        BlockPos abovePos = pos.above();
++        WorldPos facingWp = new WorldPos(dimId, facingPos.getX(), facingPos.getY(), facingPos.getZ());
++        WorldPos aboveWp = new WorldPos(dimId, abovePos.getX(), abovePos.getY(), abovePos.getZ());
++
++        return RWSet.builder()
++            .writeBlockEntity(new BlockEntityField(selfWp, "*"))
++            .writeBlockEntity(new BlockEntityField(facingWp, "*"))
++            .readBlockEntity(new BlockEntityField(aboveWp, "*"))
++            .readBlock(selfWp)
++            .readBlock(facingWp)
++            .readBlock(aboveWp)
++            .build();
++    }
++
++    private static int dimensionId(Level level) {
++        if (level.dimension() == Level.OVERWORLD) return 0;
++        if (level.dimension() == Level.NETHER) return -1;
++        if (level.dimension() == Level.END) return 1;
++        return level.dimension().identifier().hashCode();
++    }
++}
+diff --git a/io/papermc/paper/threadedregions/RegionTickDecomposer.java b/io/papermc/paper/threadedregions/RegionTickDecomposer.java
+index dda44456fbe4ca6df7b71b4bc5c80ae89a052a66..3d438e37ae79015d2c5bffdc23a41682a487d4c9 100644
+--- a/io/papermc/paper/threadedregions/RegionTickDecomposer.java
++++ b/io/papermc/paper/threadedregions/RegionTickDecomposer.java
+@@ -39,7 +39,7 @@ public final class RegionTickDecomposer {
+         tasks.add(buildEntityTickTask(level, worldData));
+ 
+         if (level.paperConfig().unsupportedSettings.ticking.blockEntities) {
+-            tasks.add(buildBlockEntityTickTask(level));
++            tasks.addAll(BlockEntityTaskBuilder.buildAll(level, worldData));
+         }
+ 
+         return tasks;
+@@ -149,7 +149,4 @@ public final class RegionTickDecomposer {
+         });
+     }
+ 
+-    private static TaskNode buildBlockEntityTickTask(ServerLevel level) {
+-        return new TaskNode("block_entity_tick", "BLOCK_ENTITY_TICK", GLOBAL_RW, level::tickBlockEntities);
+-    }
+ }
+diff --git a/net/minecraft/server/level/ServerLevel.java b/net/minecraft/server/level/ServerLevel.java
+index a59b592fecadaee11b36b3f9dd3583dfdef5f23c..ce4a3f0e9df9029a355d7ce1e40b5617bc1a8394 100644
+--- a/net/minecraft/server/level/ServerLevel.java
++++ b/net/minecraft/server/level/ServerLevel.java
+@@ -3210,12 +3210,14 @@ public class ServerLevel extends Level implements WorldGenLevel, ServerEntityGet
+             this.dragonFight.tick();
+         }
+ 
++        // Flush pending block entities before DAG builds per-BE tasks
++        worldData.pushPendingTickingBlockEntities();
++
+         // DAG-decomposed subsystems
+         java.util.List<org.nebula.core.scheduler.TaskNode> tasks;
+         if (this.emptyTime < 300) {
+             tasks = io.papermc.paper.threadedregions.RegionTickDecomposer.decompose(this, worldData, tick, runsNormally);
+         } else {
+-            // Only tick block/fluid/raids/chunkSource/blockEvents when emptyTime < 300
+             tasks = io.papermc.paper.threadedregions.RegionTickDecomposer.decomposeMinimal(this, worldData, tick, runsNormally);
+         }
+ 
+@@ -3236,6 +3238,9 @@ public class ServerLevel extends Level implements WorldGenLevel, ServerEntityGet
+             throw new RuntimeException("Nebula DAG execution failed at layer " + e.failedLayerIndex(), e);
+         }
+ 
++        // Post-DAG: remove dead block entities
++        worldData.getBlockEntityTickers().removeIf(net.minecraft.world.level.block.entity.TickingBlockEntity::isRemoved);
++
+         worldData.currentPrimedTnt = 0;
+     }
+     // Nebula end - DAG decomposition delegates (Phase D)
