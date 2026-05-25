@@ -1,0 +1,108 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Mon, 25 May 2026 23:45:37 +0800
+Subject: [PATCH] nebula: redstone microstep integration (Phase D6)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+NebulaRedstoneIntegration bridges the nebula-redstone TaskGenerator
+into the ServerLevel.nebula\$tickViaDAG pipeline. Replaces the noOp
+microstep generator with RedstoneTaskGenerator and raises
+maxMicroSteps from 0 to 256 (architecture §5.3 recommendation).
+
+Component map starts empty — actual redstone block placement hooks
+(register/unregister) need to be wired into block placement events
+to populate it. With an empty map the generator emits no tasks and
+the pipeline's microstep extension is a no-op, so vanilla redstone
+behaviour is preserved.
+
+This is the infrastructure landing — the action layer that emits
+BLOCK_UPDATE events from vanilla redstone block updates is the next
+integration step (deferred).
+
+diff --git a/io/papermc/paper/threadedregions/NebulaRedstoneIntegration.java b/io/papermc/paper/threadedregions/NebulaRedstoneIntegration.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..a8d7706ac7372af87b09d181ca6349039793ebdf
+--- /dev/null
++++ b/io/papermc/paper/threadedregions/NebulaRedstoneIntegration.java
+@@ -0,0 +1,62 @@
++package io.papermc.paper.threadedregions;
++
++import org.nebula.core.scheduler.TaskGenerator;
++import org.nebula.core.scheduler.TaskNode;
++import org.nebula.redstone.RedstoneComponentType;
++import org.nebula.redstone.RedstoneTaskGenerator;
++import org.nebula.core.state.WorldPos;
++
++import java.util.HashMap;
++import java.util.List;
++import java.util.Map;
++
++/**
++ * Bridges the nebula-redstone module's microstep TaskGenerator into the
++ * NMS tick path (architecture §5.3).
++ *
++ * <p>The TickPipeline invokes {@link TaskGenerator#generateFrom(TaskNode)}
++ * after each layer commits; downstream redstone tasks (wire updates,
++ * repeater/comparator delays) are appended and the pipeline iterates
++ * until a fixed point or {@code maxMicroSteps} is hit.
++ *
++ * <p>Current state: the component map is populated lazily as redstone
++ * blocks are placed/broken (TODO: wire up CraftWorld block placement
++ * hooks). With an empty map the generator emits no tasks; the pipeline
++ * still benefits from having microstep extension enabled — vanilla
++ * subsystems that declare BLOCK_UPDATE events get a chance to fan out
++ * once the action layer instruments them. The infrastructure is in
++ * place for full redstone DAG integration.
++ */
++public final class NebulaRedstoneIntegration {
++
++    private static final Map<WorldPos, RedstoneComponentType> COMPONENT_MAP = new HashMap<>();
++    private static final TaskGenerator GENERATOR = new RedstoneTaskGenerator(COMPONENT_MAP);
++
++    private NebulaRedstoneIntegration() {}
++
++    public static TaskGenerator generator() {
++        return GENERATOR;
++    }
++
++    public static synchronized void registerComponent(WorldPos pos, RedstoneComponentType type) {
++        COMPONENT_MAP.put(pos, type);
++    }
++
++    public static synchronized void unregisterComponent(WorldPos pos) {
++        COMPONENT_MAP.remove(pos);
++    }
++
++    public static int componentCount() {
++        return COMPONENT_MAP.size();
++    }
++
++    /**
++     * Inert generator wrapper that adapts the underlying redstone generator
++     * but never throws — used when the redstone module is not yet fully
++     * wired. Currently identical to {@link #generator()} since the empty
++     * component map already yields empty results.
++     */
++    public static List<TaskNode> tryGenerate(TaskNode completed) {
++        return GENERATOR.generateFrom(completed);
++    }
++}
+diff --git a/net/minecraft/server/level/ServerLevel.java b/net/minecraft/server/level/ServerLevel.java
+index cd72059d1670ae0a7f44789d1d72636922053cd9..0027ec979d001cb1100bc9b41bf53cae2bb5f0e7 100644
+--- a/net/minecraft/server/level/ServerLevel.java
++++ b/net/minecraft/server/level/ServerLevel.java
+@@ -3226,9 +3226,10 @@ public class ServerLevel extends Level implements WorldGenLevel, ServerEntityGet
+             tasks = io.papermc.paper.threadedregions.RegionTickDecomposer.decomposeMinimal(this, worldData, tick, runsNormally);
+         }
+ 
+-        org.nebula.core.scheduler.TaskGenerator noOpGenerator = completed -> java.util.List.of();
++        org.nebula.core.scheduler.TaskGenerator microStepGenerator =
++            io.papermc.paper.threadedregions.NebulaRedstoneIntegration.generator();
+         org.nebula.core.scheduler.TickPipeline pipeline = new org.nebula.core.scheduler.TickPipeline(
+-            noOpGenerator, org.nebula.core.scheduler.TaskRunner.DIRECT, 0
++            microStepGenerator, org.nebula.core.scheduler.TaskRunner.DIRECT, 256
+         );
+ 
+         try {
