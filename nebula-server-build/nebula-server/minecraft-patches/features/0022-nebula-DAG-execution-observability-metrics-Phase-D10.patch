@@ -1,0 +1,127 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Tue, 26 May 2026 00:01:16 +0800
+Subject: [PATCH] nebula: DAG execution observability metrics (Phase D10)
+
+NebulaTickMetrics aggregates per-tick DAG stats: completed tasks,
+layers, microsteps, elapsed nanoseconds. Tracks running totals plus
+peak values across all regions/ticks. Computes derived averages
+(avg-tasks/tick, avg-layers/tick, avg-parallelism = tasks/layers,
+avg-ms/tick).
+
+Recorded by ServerLevel.nebula\$tickViaDAG after each pipeline run.
+summary() returns a formatted line for /nebula stats commands and
+log dumps.
+
+diff --git a/io/papermc/paper/threadedregions/NebulaTickMetrics.java b/io/papermc/paper/threadedregions/NebulaTickMetrics.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..79e471ae2d2cbd9cfc34b3ab1b24ea35930ce66f
+--- /dev/null
++++ b/io/papermc/paper/threadedregions/NebulaTickMetrics.java
+@@ -0,0 +1,91 @@
++package io.papermc.paper.threadedregions;
++
++import org.nebula.core.scheduler.TickPipeline;
++
++import java.util.concurrent.atomic.AtomicLong;
++import java.util.concurrent.atomic.LongAdder;
++
++/**
++ * Aggregated DAG execution metrics across all regions and ticks.
++ *
++ * Counters are updated by {@code ServerLevel.nebula\$tickViaDAG} after
++ * each pipeline run. Read via the static accessors for /nebula stats
++ * commands and Bukkit-side admin tools.
++ */
++public final class NebulaTickMetrics {
++
++    private static final LongAdder TOTAL_TICKS = new LongAdder();
++    private static final LongAdder TOTAL_TASKS = new LongAdder();
++    private static final LongAdder TOTAL_LAYERS = new LongAdder();
++    private static final LongAdder TOTAL_MICROSTEPS = new LongAdder();
++    private static final LongAdder TOTAL_NS = new LongAdder();
++    private static final AtomicLong PEAK_TASKS_PER_TICK = new AtomicLong();
++    private static final AtomicLong PEAK_LAYERS_PER_TICK = new AtomicLong();
++    private static final AtomicLong PEAK_NS_PER_TICK = new AtomicLong();
++
++    private NebulaTickMetrics() {}
++
++    public static void record(TickPipeline.TickResult result, long elapsedNs) {
++        TOTAL_TICKS.increment();
++        long tasks = result.completedTaskIds().size();
++        long layers = result.layersExecuted();
++        long microsteps = result.microStepRounds();
++
++        TOTAL_TASKS.add(tasks);
++        TOTAL_LAYERS.add(layers);
++        TOTAL_MICROSTEPS.add(microsteps);
++        TOTAL_NS.add(elapsedNs);
++
++        updateMax(PEAK_TASKS_PER_TICK, tasks);
++        updateMax(PEAK_LAYERS_PER_TICK, layers);
++        updateMax(PEAK_NS_PER_TICK, elapsedNs);
++    }
++
++    private static void updateMax(AtomicLong target, long candidate) {
++        long prev;
++        do {
++            prev = target.get();
++            if (candidate <= prev) return;
++        } while (!target.compareAndSet(prev, candidate));
++    }
++
++    public static long totalTicks() { return TOTAL_TICKS.sum(); }
++    public static long totalTasks() { return TOTAL_TASKS.sum(); }
++    public static long totalLayers() { return TOTAL_LAYERS.sum(); }
++    public static long totalMicrosteps() { return TOTAL_MICROSTEPS.sum(); }
++    public static long totalNs() { return TOTAL_NS.sum(); }
++    public static long peakTasksPerTick() { return PEAK_TASKS_PER_TICK.get(); }
++    public static long peakLayersPerTick() { return PEAK_LAYERS_PER_TICK.get(); }
++    public static long peakNsPerTick() { return PEAK_NS_PER_TICK.get(); }
++
++    public static double avgTasksPerTick() {
++        long ticks = TOTAL_TICKS.sum();
++        return ticks == 0 ? 0 : (double) TOTAL_TASKS.sum() / ticks;
++    }
++
++    public static double avgLayersPerTick() {
++        long ticks = TOTAL_TICKS.sum();
++        return ticks == 0 ? 0 : (double) TOTAL_LAYERS.sum() / ticks;
++    }
++
++    public static double avgParallelismPerTick() {
++        long layers = TOTAL_LAYERS.sum();
++        return layers == 0 ? 0 : (double) TOTAL_TASKS.sum() / layers;
++    }
++
++    public static double avgMsPerTick() {
++        long ticks = TOTAL_TICKS.sum();
++        return ticks == 0 ? 0 : (double) TOTAL_NS.sum() / ticks / 1_000_000.0;
++    }
++
++    public static String summary() {
++        return String.format(
++            "Nebula DAG metrics: ticks=%d, avg-tasks/tick=%.1f, avg-layers/tick=%.2f, "
++                + "avg-parallelism=%.2f, avg-ms/tick=%.3f, peak-tasks=%d, peak-layers=%d, "
++                + "peak-ms=%.3f, total-microsteps=%d",
++            totalTicks(), avgTasksPerTick(), avgLayersPerTick(), avgParallelismPerTick(),
++            avgMsPerTick(), peakTasksPerTick(), peakLayersPerTick(),
++            peakNsPerTick() / 1_000_000.0, totalMicrosteps()
++        );
++    }
++}
+diff --git a/net/minecraft/server/level/ServerLevel.java b/net/minecraft/server/level/ServerLevel.java
+index 4903cccec362e914dee0f7f296223a325ce67e61..0761e5be1b7d5658c92aa54b763bde03c2a8b53f 100644
+--- a/net/minecraft/server/level/ServerLevel.java
++++ b/net/minecraft/server/level/ServerLevel.java
+@@ -3238,7 +3238,10 @@ public class ServerLevel extends Level implements WorldGenLevel, ServerEntityGet
+         );
+ 
+         try {
++            long pipelineStart = System.nanoTime();
+             org.nebula.core.scheduler.TickPipeline.TickResult result = pipeline.execute(tasks);
++            long pipelineElapsed = System.nanoTime() - pipelineStart;
++            io.papermc.paper.threadedregions.NebulaTickMetrics.record(result, pipelineElapsed);
+             if (com.mojang.logging.LogUtils.getLogger().isDebugEnabled()) {
+                 com.mojang.logging.LogUtils.getLogger().debug(
+                     "Nebula DAG tick: {} tasks, {} layers",
