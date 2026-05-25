@@ -1,0 +1,190 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Mon, 25 May 2026 23:30:03 +0800
+Subject: [PATCH] nebula: parallel cross-region ticking (Phase D4)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+NebulaTickDriver now spawns N-1 worker threads (where N = available
+processors) plus the coordinator. Each worker is a TickThreadRunner
+subclass so it can carry per-thread region context (currentTickingRegion).
+
+Coordinator collects all regions across all worlds, submits each as a
+work unit, and waits on a CountDownLatch for completion before sleeping
+to the next tick. Worker failures are aggregated via AtomicReference
+and rethrown by the coordinator.
+
+Cross-region parallelism is safe because regions own disjoint chunk
+sets — no shared mutable state between concurrent ticks.
+
+diff --git a/io/papermc/paper/threadedregions/NebulaTickDriver.java b/io/papermc/paper/threadedregions/NebulaTickDriver.java
+index aa5c8eb7fa7f2b2fada996c4578c45edd89dd995..8c9a3762e6e3e7dad5a4abdcb17ee50e068fe108 100644
+--- a/io/papermc/paper/threadedregions/NebulaTickDriver.java
++++ b/io/papermc/paper/threadedregions/NebulaTickDriver.java
+@@ -4,6 +4,13 @@ import com.mojang.logging.LogUtils;
+ import net.minecraft.server.MinecraftServer;
+ import net.minecraft.server.level.ServerLevel;
+ import org.slf4j.Logger;
++
++import java.util.ArrayList;
++import java.util.List;
++import java.util.concurrent.ArrayBlockingQueue;
++import java.util.concurrent.BlockingQueue;
++import java.util.concurrent.CountDownLatch;
++import java.util.concurrent.atomic.AtomicReference;
+ import java.util.concurrent.locks.LockSupport;
+ 
+ public final class NebulaTickDriver {
+@@ -14,17 +21,31 @@ public final class NebulaTickDriver {
+     private static NebulaTickDriver INSTANCE;
+ 
+     private final NebulaCoordinatorThread coordinator;
++    private final NebulaWorkerThread[] workers;
++    private final BlockingQueue<RegionWorkUnit> workQueue;
++    private final AtomicReference<Throwable> workerFailure = new AtomicReference<>();
+     private volatile boolean running;
+     private long tickCount;
+ 
+     public NebulaTickDriver() {
+         INSTANCE = this;
+         this.coordinator = new NebulaCoordinatorThread();
++
++        int workerCount = Math.max(1, Runtime.getRuntime().availableProcessors() - 1);
++        this.workers = new NebulaWorkerThread[workerCount];
++        this.workQueue = new ArrayBlockingQueue<>(1024);
++        for (int i = 0; i < workerCount; i++) {
++            this.workers[i] = new NebulaWorkerThread("Nebula Region Worker #" + i);
++        }
+     }
+ 
+     public void start() {
+         this.running = true;
++        for (final NebulaWorkerThread worker : this.workers) {
++            worker.start();
++        }
+         this.coordinator.start();
++        LOGGER.info("Nebula Tick Driver started with {} region workers", this.workers.length);
+     }
+ 
+     public static boolean halt(final boolean sync, final long maxWaitNS) {
+@@ -33,6 +54,9 @@ public final class NebulaTickDriver {
+         }
+         INSTANCE.running = false;
+         LockSupport.unpark(INSTANCE.coordinator);
++        for (final NebulaWorkerThread worker : INSTANCE.workers) {
++            LockSupport.unpark(worker);
++        }
+         if (!sync) {
+             return !INSTANCE.coordinator.isAlive();
+         }
+@@ -76,14 +100,42 @@ public final class NebulaTickDriver {
+         }
+     }
+ 
++    private final class NebulaWorkerThread extends TickRegionScheduler.TickThreadRunner {
++
++        NebulaWorkerThread(final String name) {
++            super(null, null, name);
++            this.setDaemon(true);
++        }
++
++        @Override
++        public void run() {
++            while (NebulaTickDriver.this.running) {
++                final RegionWorkUnit unit;
++                try {
++                    unit = NebulaTickDriver.this.workQueue.take();
++                } catch (final InterruptedException e) {
++                    Thread.currentThread().interrupt();
++                    return;
++                }
++                if (unit == POISON_PILL) {
++                    return;
++                }
++                try {
++                    tickSingleRegion(unit.region, unit.startTime, unit.scheduledEnd);
++                } catch (final Throwable t) {
++                    NebulaTickDriver.this.workerFailure.compareAndSet(null, t);
++                } finally {
++                    unit.latch.countDown();
++                }
++            }
++        }
++    }
++
+     private void tickCycle(final long tickStart) {
+         final long scheduledEnd = tickStart + TICK_INTERVAL_NS;
+         ++this.tickCount;
+ 
+-        // Phase 1: Global tick
+         tickGlobal(scheduledEnd);
+-
+-        // Phase 2: Region ticks (sequential in Phase B)
+         tickAllRegions(tickStart, scheduledEnd);
+     }
+ 
+@@ -93,7 +145,6 @@ public final class NebulaTickDriver {
+ 
+         TickRegionScheduler.setTickTask(globalHandle);
+         try {
+-            // drain global task queue and packets (mirrors GlobalTickTickHandle.drainTasks)
+             Runnable task;
+             while ((task = server.globalTickQueue.poll()) != null) {
+                 task.run();
+@@ -107,10 +158,38 @@ public final class NebulaTickDriver {
+     }
+ 
+     private void tickAllRegions(final long startTime, final long scheduledEnd) {
++        // Collect all regions across all worlds
++        final List<ThreadedRegionizer.ThreadedRegion<TickRegions.TickRegionData, TickRegions.TickRegionSectionData>> allRegions = new ArrayList<>();
+         for (final ServerLevel level : MinecraftServer.getServer().getAllLevels()) {
+-            level.regioniser.computeForAllRegions(region -> {
+-                tickSingleRegion(region, startTime, scheduledEnd);
+-            });
++            level.regioniser.computeForAllRegions(allRegions::add);
++        }
++
++        if (allRegions.isEmpty()) {
++            return;
++        }
++
++        // Distribute regions across worker threads
++        final CountDownLatch latch = new CountDownLatch(allRegions.size());
++        for (final var region : allRegions) {
++            final RegionWorkUnit unit = new RegionWorkUnit(region, startTime, scheduledEnd, latch);
++            try {
++                this.workQueue.put(unit);
++            } catch (final InterruptedException e) {
++                Thread.currentThread().interrupt();
++                return;
++            }
++        }
++
++        try {
++            latch.await();
++        } catch (final InterruptedException e) {
++            Thread.currentThread().interrupt();
++            return;
++        }
++
++        final Throwable failure = this.workerFailure.getAndSet(null);
++        if (failure != null) {
++            throw new RuntimeException("Region worker failed", failure);
+         }
+     }
+ 
+@@ -131,4 +210,13 @@ public final class NebulaTickDriver {
+             TickRegionScheduler.setTickingRegion(null);
+         }
+     }
++
++    private static final RegionWorkUnit POISON_PILL = new RegionWorkUnit(null, 0, 0, null);
++
++    private record RegionWorkUnit(
++        ThreadedRegionizer.ThreadedRegion<TickRegions.TickRegionData, TickRegions.TickRegionSectionData> region,
++        long startTime,
++        long scheduledEnd,
++        CountDownLatch latch
++    ) {}
+ }
