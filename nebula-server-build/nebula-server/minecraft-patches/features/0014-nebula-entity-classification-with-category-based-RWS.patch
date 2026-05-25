@@ -1,0 +1,100 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Mon, 25 May 2026 23:22:11 +0800
+Subject: [PATCH] nebula: entity classification with category-based RWSet
+ (Phase D3a-2)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Classifies each ticking entity:
+- ServerPlayer: GLOBAL_RW (commands, inventory, chat trigger arbitrary
+  world mutation; conservative serialization required)
+- Mob/Projectile/Item/passive: writeEntity(self_id, "*")
+
+Cross-entity collisions and AI target damage are absorbed into the
+SCC-decomposition pattern (architecture §6.2): detection runs in
+parallel because EntityField conflicts only on entityId. Two distinct
+entities never conflict on self-only writes.
+
+Adds task type tags (ENTITY_PLAYER / MOB / PROJECTILE / ITEM) to
+support per-category metrics.
+
+diff --git a/io/papermc/paper/threadedregions/EntityTaskBuilder.java b/io/papermc/paper/threadedregions/EntityTaskBuilder.java
+index 3c96a0edbd6eb4384adc3508745776b8819185f7..a9c473e896db8f850a64021ff340dc8efa0e8de1 100644
+--- a/io/papermc/paper/threadedregions/EntityTaskBuilder.java
++++ b/io/papermc/paper/threadedregions/EntityTaskBuilder.java
+@@ -1,8 +1,12 @@
+ package io.papermc.paper.threadedregions;
+ 
+ import net.minecraft.server.level.ServerLevel;
++import net.minecraft.server.level.ServerPlayer;
+ import net.minecraft.world.TickRateManager;
+ import net.minecraft.world.entity.Entity;
++import net.minecraft.world.entity.Mob;
++import net.minecraft.world.entity.item.ItemEntity;
++import net.minecraft.world.entity.projectile.Projectile;
+ import org.nebula.core.rw.RWSet;
+ import org.nebula.core.scheduler.TaskNode;
+ import org.nebula.core.state.EntityField;
+@@ -12,9 +16,19 @@ import java.util.ArrayList;
+ import java.util.List;
+ 
+ /**
+- * D3a-1: Per-entity TaskNode generation. Mirrors BlockEntityTaskBuilder.
+- * Currently uses coarse self-only EntityField RWSet.
+- * D3a-2 will refine RWSet by entity category.
++ * D3a-2: Per-entity TaskNode generation with category-based RWSet.
++ *
++ * Categories (architecture doc §6/§7):
++ * - PLAYER: GLOBAL_RW — players trigger arbitrary world mutations (commands,
++ *   inventory, chat, block placement). Conservative serialization.
++ * - MOB: writeEntity(self.*) — full self mutation including ai_state.
++ *   Cross-entity collision impulses are absorbed by §6.2 SCC pattern
++ *   (detection parallel, response sequential at the action layer).
++ * - PROJECTILE / ITEM / PASSIVE: writeEntity(self.*) — same as MOB but
++ *   no AI side-effects on other entities.
++ *
++ * EntityField conflicts only on (entityId, fieldPath); two distinct entities
++ * never conflict on self-only writes — that's the whole point.
+  */
+ public final class EntityTaskBuilder {
+ 
+@@ -46,12 +60,9 @@ public final class EntityTaskBuilder {
+     private static TaskNode buildSingle(Entity entity, ServerLevel level, int index) {
+         long entityId = entity.getId();
+         String taskId = "entity_" + index + "_" + entityId;
++        RWSet rwSet = classifyRWSet(entity, entityId);
+ 
+-        RWSet rwSet = RWSet.builder()
+-            .writeEntity(new EntityField(entityId, "*"))
+-            .build();
+-
+-        return new TaskNode(taskId, "ENTITY_TICK", rwSet, () -> {
++        return new TaskNode(taskId, taskTypeFor(entity), rwSet, () -> {
+             TickRateManager tickRateManager = level.tickRateManager();
+             if (entity.isRemoved() || tickRateManager.isEntityFrozen(entity)) {
+                 return;
+@@ -70,4 +81,22 @@ public final class EntityTaskBuilder {
+             level.guardEntityTick(level::tickNonPassenger, entity);
+         });
+     }
++
++    private static RWSet classifyRWSet(Entity entity, long entityId) {
++        if (entity instanceof ServerPlayer) {
++            return GLOBAL_RW;
++        }
++        return RWSet.builder()
++            .writeEntity(new EntityField(entityId, "*"))
++            .build();
++    }
++
++    private static String taskTypeFor(Entity entity) {
++        if (entity instanceof ServerPlayer) return "ENTITY_PLAYER";
++        if (entity instanceof Mob) return "ENTITY_MOB";
++        if (entity instanceof Projectile) return "ENTITY_PROJECTILE";
++        if (entity instanceof ItemEntity) return "ENTITY_ITEM";
++        return "ENTITY_TICK";
++    }
+ }
++
