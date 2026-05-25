@@ -1,0 +1,140 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Mon, 25 May 2026 23:19:39 +0800
+Subject: [PATCH] nebula: per-entity DAG decomposition (Phase D3a-1)
+
+Replaces the monolithic entity_tick TaskNode with one TaskNode per
+ticking entity, mirroring the per-BE pattern from D2.
+
+Each entity TaskNode declares writeEntity(self_id, "*") as its RWSet.
+Combined with per-BE tasks, this lays the per-actor parallelism
+foundation. D3a-2 will refine the RWSet by entity category (passive
+mobs vs AI mobs vs players).
+
+The entity_activation task remains GLOBAL_RW as it iterates the full
+entity tick list before per-entity tasks run.
+
+diff --git a/io/papermc/paper/threadedregions/EntityTaskBuilder.java b/io/papermc/paper/threadedregions/EntityTaskBuilder.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..3c96a0edbd6eb4384adc3508745776b8819185f7
+--- /dev/null
++++ b/io/papermc/paper/threadedregions/EntityTaskBuilder.java
+@@ -0,0 +1,73 @@
++package io.papermc.paper.threadedregions;
++
++import net.minecraft.server.level.ServerLevel;
++import net.minecraft.world.TickRateManager;
++import net.minecraft.world.entity.Entity;
++import org.nebula.core.rw.RWSet;
++import org.nebula.core.scheduler.TaskNode;
++import org.nebula.core.state.EntityField;
++import org.nebula.core.state.GlobalKey;
++
++import java.util.ArrayList;
++import java.util.List;
++
++/**
++ * D3a-1: Per-entity TaskNode generation. Mirrors BlockEntityTaskBuilder.
++ * Currently uses coarse self-only EntityField RWSet.
++ * D3a-2 will refine RWSet by entity category.
++ */
++public final class EntityTaskBuilder {
++
++    private static final RWSet GLOBAL_RW = RWSet.builder()
++        .readGlobal(GlobalKey.ALL)
++        .writeGlobal(GlobalKey.ALL)
++        .build();
++
++    private EntityTaskBuilder() {}
++
++    public static List<TaskNode> buildAll(ServerLevel level, RegionizedWorldData worldData) {
++        List<Entity> snapshot = new ArrayList<>();
++        worldData.forEachTickingEntity(snapshot::add);
++
++        List<TaskNode> tasks = new ArrayList<>(snapshot.size() + 1);
++
++        tasks.add(new TaskNode("entity_activation", "ENTITY_ACTIVATION", GLOBAL_RW, () -> {
++            io.papermc.paper.entity.activation.ActivationRange.activateEntities(level);
++        }));
++
++        for (int i = 0; i < snapshot.size(); i++) {
++            Entity entity = snapshot.get(i);
++            tasks.add(buildSingle(entity, level, i));
++        }
++
++        return tasks;
++    }
++
++    private static TaskNode buildSingle(Entity entity, ServerLevel level, int index) {
++        long entityId = entity.getId();
++        String taskId = "entity_" + index + "_" + entityId;
++
++        RWSet rwSet = RWSet.builder()
++            .writeEntity(new EntityField(entityId, "*"))
++            .build();
++
++        return new TaskNode(taskId, "ENTITY_TICK", rwSet, () -> {
++            TickRateManager tickRateManager = level.tickRateManager();
++            if (entity.isRemoved() || tickRateManager.isEntityFrozen(entity)) {
++                return;
++            }
++            entity.checkDespawn();
++            if (entity.isRemoved()) {
++                return;
++            }
++            Entity vehicle = entity.getVehicle();
++            if (vehicle != null) {
++                if (!vehicle.isRemoved() && vehicle.hasPassenger(entity)) {
++                    return;
++                }
++                entity.stopRiding();
++            }
++            level.guardEntityTick(level::tickNonPassenger, entity);
++        });
++    }
++}
+diff --git a/io/papermc/paper/threadedregions/RegionTickDecomposer.java b/io/papermc/paper/threadedregions/RegionTickDecomposer.java
+index 3d438e37ae79015d2c5bffdc23a41682a487d4c9..0021d6cbead90f3e9ea736156e35ad280d015c43 100644
+--- a/io/papermc/paper/threadedregions/RegionTickDecomposer.java
++++ b/io/papermc/paper/threadedregions/RegionTickDecomposer.java
+@@ -35,8 +35,7 @@ public final class RegionTickDecomposer {
+     ) {
+         List<TaskNode> tasks = decomposeMinimal(level, worldData, tick, runsNormally);
+ 
+-        tasks.add(buildEntityActivationTask(level));
+-        tasks.add(buildEntityTickTask(level, worldData));
++        tasks.addAll(EntityTaskBuilder.buildAll(level, worldData));
+ 
+         if (level.paperConfig().unsupportedSettings.ticking.blockEntities) {
+             tasks.addAll(BlockEntityTaskBuilder.buildAll(level, worldData));
+@@ -123,30 +122,4 @@ public final class RegionTickDecomposer {
+         return new TaskNode("block_events", "BLOCK_EVENTS", GLOBAL_RW, level::nebula$runBlockEvents);
+     }
+ 
+-    private static TaskNode buildEntityActivationTask(ServerLevel level) {
+-        return new TaskNode("entity_activation", "ENTITY_ACTIVATION", GLOBAL_RW, () -> {
+-            io.papermc.paper.entity.activation.ActivationRange.activateEntities(level);
+-        });
+-    }
+-
+-    private static TaskNode buildEntityTickTask(ServerLevel level, RegionizedWorldData worldData) {
+-        return new TaskNode("entity_tick", "ENTITY_TICK", GLOBAL_RW, () -> {
+-            net.minecraft.world.TickRateManager tickRateManager = level.tickRateManager();
+-            worldData.forEachTickingEntity(entity -> {
+-                if (!entity.isRemoved() && !tickRateManager.isEntityFrozen(entity)) {
+-                    entity.checkDespawn();
+-                    if (entity.isRemoved()) return;
+-                    net.minecraft.world.entity.Entity vehicle = entity.getVehicle();
+-                    if (vehicle != null) {
+-                        if (!vehicle.isRemoved() && vehicle.hasPassenger(entity)) {
+-                            return;
+-                        }
+-                        entity.stopRiding();
+-                    }
+-                    level.guardEntityTick(level::tickNonPassenger, entity);
+-                }
+-            });
+-        });
+-    }
+-
+ }
