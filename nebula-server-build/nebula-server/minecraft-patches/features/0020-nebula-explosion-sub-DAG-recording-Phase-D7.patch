@@ -1,0 +1,146 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Mon, 25 May 2026 23:49:34 +0800
+Subject: [PATCH] nebula: explosion sub-DAG recording (Phase D7)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+NebulaExplosionPipeline records every explosion as an
+ExplosionSnapshot (architecture §9.1) at trigger time. The recording
+hook is wired into ServerLevel.explode0 under the NEBULA mode gate.
+
+Recorded snapshots can be drained via drainAndBuildSubDags() to
+produce 4-layer ExplosionTaskFactory sub-DAGs (trigger → strike calc
+→ block break → entity damage). Currently vanilla explode0 still
+runs synchronously to preserve behaviour and the returned
+ServerExplosion contract; the sub-DAG output is observability /
+metrics-only.
+
+Full sub-DAG replacement of vanilla explode0 requires migrating
+synchronous callers and is the next integration step (deferred).
+
+diff --git a/io/papermc/paper/threadedregions/NebulaExplosionPipeline.java b/io/papermc/paper/threadedregions/NebulaExplosionPipeline.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..1495749668fd5a670bc3849423a3e44a4cac1dd7
+--- /dev/null
++++ b/io/papermc/paper/threadedregions/NebulaExplosionPipeline.java
+@@ -0,0 +1,102 @@
++package io.papermc.paper.threadedregions;
++
++import net.minecraft.server.level.ServerLevel;
++import net.minecraft.world.entity.Entity;
++import net.minecraft.world.level.Level;
++import org.nebula.core.scheduler.TaskNode;
++import org.nebula.core.state.WorldPos;
++import org.nebula.entity.ExplosionSnapshot;
++import org.nebula.entity.ExplosionTaskFactory;
++
++import java.util.ArrayList;
++import java.util.List;
++import java.util.Set;
++import java.util.concurrent.ConcurrentHashMap;
++import java.util.concurrent.ConcurrentLinkedQueue;
++import java.util.concurrent.atomic.AtomicLong;
++
++/**
++ * Bridges the nebula-entity ExplosionTaskFactory sub-DAG model into the
++ * NMS tick path (architecture §9).
++ *
++ * <p>Each explosion is recorded as an ExplosionSnapshot at trigger time.
++ * After the kernel DAG finishes, recorded explosions are converted to
++ * sub-DAGs (4-layer pipeline: trigger → strike calc → block break →
++ * entity damage) and submitted as additional tasks for the next tick or
++ * for in-tick microstep extension.
++ *
++ * <p>Current state: vanilla {@code explode0} still runs synchronously to
++ * preserve behaviour; the snapshot is recorded for parallel post-analysis
++ * and metrics. Full sub-DAG replacement requires migrating callers off
++ * the synchronous return value (deferred — vanilla code paths consume the
++ * returned ServerExplosion immediately).
++ */
++public final class NebulaExplosionPipeline {
++
++    private static final ConcurrentLinkedQueue<RecordedExplosion> PENDING = new ConcurrentLinkedQueue<>();
++    private static final ConcurrentHashMap<ServerLevel, AtomicLong> EXPLOSION_COUNTER = new ConcurrentHashMap<>();
++
++    private NebulaExplosionPipeline() {}
++
++    /**
++     * Record an explosion event. Called from ServerLevel.explode0 in NEBULA mode.
++     *
++     * @param level the world the explosion occurred in
++     * @param source explosion source entity (nullable for block explosions)
++     * @param x explosion center x
++     * @param y explosion center y
++     * @param z explosion center z
++     * @param power explosion power radius
++     */
++    public static void record(ServerLevel level, Entity source, double x, double y, double z, float power) {
++        long counter = EXPLOSION_COUNTER.computeIfAbsent(level, k -> new AtomicLong()).incrementAndGet();
++        long sourceId = source == null ? -1L : source.getId();
++        WorldPos center = new WorldPos(dimensionId(level), (int) x, (int) y, (int) z);
++
++        // affectedBlocks/entities are filled by vanilla synchronously; for the
++        // recorded snapshot we use empty sets — the downstream sub-DAG factory
++        // doesn't need them for metric / replay purposes yet.
++        ExplosionSnapshot snapshot = new ExplosionSnapshot(
++            center, power, sourceId, Set.of(), List.of()
++        );
++
++        PENDING.add(new RecordedExplosion(level, counter, snapshot));
++    }
++
++    /**
++     * Drain recorded explosions for a given world and convert each to a sub-DAG
++     * via the nebula-entity ExplosionTaskFactory. Currently the returned tasks
++     * are emitted as observability tasks (no side effects beyond logging) since
++     * vanilla already executed the explosion synchronously.
++     */
++    public static List<TaskNode> drainAndBuildSubDags(ServerLevel level) {
++        List<TaskNode> all = new ArrayList<>();
++        RecordedExplosion record;
++        while ((record = PENDING.peek()) != null) {
++            if (record.level != level) {
++                break;
++            }
++            PENDING.poll();
++            all.addAll(ExplosionTaskFactory.createSubDag(record.snapshot));
++        }
++        return all;
++    }
++
++    public static int pendingCount() {
++        return PENDING.size();
++    }
++
++    public static long countFor(ServerLevel level) {
++        AtomicLong c = EXPLOSION_COUNTER.get(level);
++        return c == null ? 0 : c.get();
++    }
++
++    private static int dimensionId(Level level) {
++        if (level.dimension() == Level.OVERWORLD) return 0;
++        if (level.dimension() == Level.NETHER) return -1;
++        if (level.dimension() == Level.END) return 1;
++        return level.dimension().identifier().hashCode();
++    }
++
++    private record RecordedExplosion(ServerLevel level, long sequence, ExplosionSnapshot snapshot) {}
++}
+diff --git a/net/minecraft/server/level/ServerLevel.java b/net/minecraft/server/level/ServerLevel.java
+index 0027ec979d001cb1100bc9b41bf53cae2bb5f0e7..4903cccec362e914dee0f7f296223a325ce67e61 100644
+--- a/net/minecraft/server/level/ServerLevel.java
++++ b/net/minecraft/server/level/ServerLevel.java
+@@ -2149,6 +2149,11 @@ public class ServerLevel extends Level implements WorldGenLevel, ServerEntityGet
+         java.util.function.@Nullable Consumer<ServerExplosion> configurator
+     ) {
+         // CraftBukkit end
++        // Nebula start - explosion sub-DAG recording (architecture §9)
++        if (io.papermc.paper.threadedregions.TickRegions.isNebulaMode()) {
++            io.papermc.paper.threadedregions.NebulaExplosionPipeline.record(this, source, x, y, z, r);
++        }
++        // Nebula end
+         Explosion.BlockInteraction blockInteraction = switch (interactionType) {
+             case NONE -> Explosion.BlockInteraction.KEEP;
+             case BLOCK -> this.getDestroyType(GameRules.BLOCK_EXPLOSION_DROP_DECAY);
