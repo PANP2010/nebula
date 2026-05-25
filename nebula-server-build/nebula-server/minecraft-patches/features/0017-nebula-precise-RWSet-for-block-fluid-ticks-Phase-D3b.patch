@@ -1,0 +1,62 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Mon, 25 May 2026 23:32:28 +0800
+Subject: [PATCH] nebula: precise RWSet for block/fluid ticks (Phase D3b)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Replaces GLOBAL_RW on block_ticks and fluid_ticks with explicit
+GlobalKey sets:
+- block_ticks: REGION_BLOCK_LEVEL_TICKS, REGION_NEIGHBOR_UPDATER,
+  REGION_SHOULD_SIGNAL, REGION_REDSTONE_TORCH_TOGGLES,
+  REGION_REDSTONE_GAME_TIME
+- fluid_ticks: REGION_FLUID_LEVEL_TICKS, REGION_NEIGHBOR_UPDATER
+
+These two tasks remain serialized with each other through their
+shared NEIGHBOR_UPDATER write (architecture §8.3 — fluid + redstone
+interaction is captured by RWSet edges). They now run in parallel
+with world_border, tick_time, and per-entity / per-BE tasks.
+
+Per-chunk decomposition (architecture §3.2) requires rewriting the
+LevelTicks budget allocator and is deferred — the current approach
+captures the practical win without that surgery.
+
+diff --git a/io/papermc/paper/threadedregions/RegionTickDecomposer.java b/io/papermc/paper/threadedregions/RegionTickDecomposer.java
+index 3c1b358b8705c56bf143ed2eda3e06f87b15dd6e..fb63b09488220322e72cf41cd5aa7fbc191a3eb1 100644
+--- a/io/papermc/paper/threadedregions/RegionTickDecomposer.java
++++ b/io/papermc/paper/threadedregions/RegionTickDecomposer.java
+@@ -39,6 +39,19 @@ public final class RegionTickDecomposer {
+         .writeGlobal(GlobalKey.WEATHER)
+         .build();
+ 
++    private static final RWSet BLOCK_TICKS_RW = RWSet.builder()
++        .writeGlobal(GlobalKey.REGION_BLOCK_LEVEL_TICKS)
++        .writeGlobal(GlobalKey.REGION_NEIGHBOR_UPDATER)
++        .writeGlobal(GlobalKey.REGION_SHOULD_SIGNAL)
++        .writeGlobal(GlobalKey.REGION_REDSTONE_TORCH_TOGGLES)
++        .writeGlobal(GlobalKey.REGION_REDSTONE_GAME_TIME)
++        .build();
++
++    private static final RWSet FLUID_TICKS_RW = RWSet.builder()
++        .writeGlobal(GlobalKey.REGION_FLUID_LEVEL_TICKS)
++        .writeGlobal(GlobalKey.REGION_NEIGHBOR_UPDATER)
++        .build();
++
+     private RegionTickDecomposer() {}
+ 
+     /**
+@@ -119,11 +132,11 @@ public final class RegionTickDecomposer {
+     }
+ 
+     private static TaskNode buildBlockTicksTask(ServerLevel level, long tick) {
+-        return new TaskNode("block_ticks", "BLOCK_TICK", GLOBAL_RW, () -> level.nebula$tickBlocks(tick));
++        return new TaskNode("block_ticks", "BLOCK_TICK", BLOCK_TICKS_RW, () -> level.nebula$tickBlocks(tick));
+     }
+ 
+     private static TaskNode buildFluidTicksTask(ServerLevel level, long tick) {
+-        return new TaskNode("fluid_ticks", "FLUID_TICK", GLOBAL_RW, () -> level.nebula$tickFluids(tick));
++        return new TaskNode("fluid_ticks", "FLUID_TICK", FLUID_TICKS_RW, () -> level.nebula$tickFluids(tick));
+     }
+ 
+     private static TaskNode buildRaidsTask(ServerLevel level) {
