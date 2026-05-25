@@ -55,6 +55,39 @@ B1 is resolved and a server fork is available.
 
 ---
 
+### B4: TickPipeline Intra-Layer Parallel Execution Requires Layer A NMS Annotations
+
+**Status:** Blocking D8 (intra-layer parallelism)  
+**Since:** 2026-05-26  
+**Affects:** Phase 1 Month 4-6 (Layer A annotations), Phase 2 Month 1-3 (RW completeness)
+
+The current D2/D3a/D5/D6/D7 patches assign precise RWSets to per-entity,
+per-BE, and per-subsystem TaskNodes — but the underlying task action
+still calls vanilla NMS code (`entity.tick()`, `ticker.tick()`, etc).
+Vanilla code reads/writes entity fields, neighbouring blocks, chunk
+maps, light engine state, and other shared structures that are NOT
+declared in the surrounding TaskNode's RWSet.
+
+Enabling intra-layer parallel execution under these conditions would
+introduce data races on every shared mutable structure NMS touches that
+isn't covered by the explicit RWSet declarations. Even the per-entity
+self-write contract is violated whenever an entity damages another
+entity, mounts a vehicle, pushes a hopper, or schedules a block update.
+
+**Resolution requires:** Layer A standardisation work (architecture
+§14.3 Phase 1 Month 4-6) — annotating ~130 hot-path NMS functions with
+precise RWSet declarations, plus a guard layer that proves the actual
+runtime accesses match the declared sets. Until then D8 must remain
+single-threaded per region; cross-region parallelism (D4) is the only
+safe parallelism source.
+
+**Workaround:** D4 already gives us cross-region parallelism scaling
+linearly with region count. For typical survival workloads (5-15
+regions on a busy server) this captures most of the available
+parallelism without correctness risk.
+
+---
+
 ## Summary: Code Infrastructure Completeness
 
 All Phase 0–2 *code artifacts* that can be built without a server fork are complete:
