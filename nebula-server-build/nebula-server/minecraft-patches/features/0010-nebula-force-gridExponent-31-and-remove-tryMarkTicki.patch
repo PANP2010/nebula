@@ -1,0 +1,46 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Mon, 25 May 2026 12:21:55 +0800
+Subject: [PATCH] nebula: force gridExponent=31 and remove tryMarkTicking in
+ NEBULA mode
+
+Phase C: single region per world eliminates merge/split, so
+tryMarkTicking/markNotTicking are unnecessary overhead.
+
+diff --git a/io/papermc/paper/threadedregions/NebulaTickDriver.java b/io/papermc/paper/threadedregions/NebulaTickDriver.java
+index ccfa56152335203de3d308e093c8d58d4d5e5098..aa5c8eb7fa7f2b2fada996c4578c45edd89dd995 100644
+--- a/io/papermc/paper/threadedregions/NebulaTickDriver.java
++++ b/io/papermc/paper/threadedregions/NebulaTickDriver.java
+@@ -119,10 +119,6 @@ public final class NebulaTickDriver {
+         final long startTime,
+         final long scheduledEnd
+     ) {
+-        if (!region.tryMarkTicking(() -> false)) {
+-            return; // region is in transient state (merging/splitting), skip
+-        }
+-
+         final TickRegions.TickRegionData data = region.getData();
+         data.getRegionSchedulingHandle().incrementTickCount();
+ 
+@@ -133,7 +129,6 @@ public final class NebulaTickDriver {
+         } finally {
+             TickRegionScheduler.setTickTask(null);
+             TickRegionScheduler.setTickingRegion(null);
+-            region.markNotTicking();
+         }
+     }
+ }
+diff --git a/io/papermc/paper/threadedregions/TickRegions.java b/io/papermc/paper/threadedregions/TickRegions.java
+index c8af3a664a6777cf036a2e0510567eca99f8860d..b219d0031dbd6a10fe7161028261deb767aae3c7 100644
+--- a/io/papermc/paper/threadedregions/TickRegions.java
++++ b/io/papermc/paper/threadedregions/TickRegions.java
+@@ -72,6 +72,9 @@ public final class TickRegions implements ThreadedRegionizer.RegionCallbacks<Tic
+         }
+         initialised = true;
+         int gridExponent = config.gridExponent;
++        if (config.scheduler == TickRegionScheduler.SchedulerType.NEBULA) {
++            gridExponent = 31;
++        }
+         gridExponent = Math.max(0, gridExponent);
+         gridExponent = Math.min(31, gridExponent);
+         regionShift = gridExponent;

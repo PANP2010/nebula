@@ -1,0 +1,259 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Mon, 25 May 2026 22:24:19 +0800
+Subject: [PATCH] nebula: DAG decomposition of ServerLevel.tick() subsystems
+ (Phase D1)
+
+Introduces RegionTickDecomposer which splits the monolithic ServerLevel.tick()
+into individual TaskNodes executed via nebula-core TickPipeline. All tasks use
+GLOBAL RWSet in this phase, producing serial execution equivalent to current
+behavior. Future phases will refine RWSets to unlock parallelism.
+
+Subsystems decomposed: worldBorder, tickTime, blockTicks, fluidTicks, raids,
+chunkSource, blockEvents, entityActivation, entityTick, blockEntityTick.
+
+diff --git a/io/papermc/paper/threadedregions/RegionTickDecomposer.java b/io/papermc/paper/threadedregions/RegionTickDecomposer.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..dda44456fbe4ca6df7b71b4bc5c80ae89a052a66
+--- /dev/null
++++ b/io/papermc/paper/threadedregions/RegionTickDecomposer.java
+@@ -0,0 +1,155 @@
++package io.papermc.paper.threadedregions;
++
++import net.minecraft.server.level.ServerLevel;
++import net.minecraft.server.level.ServerPlayer;
++import net.minecraft.world.level.border.WorldBorder;
++import org.nebula.core.rw.RWSet;
++import org.nebula.core.scheduler.TaskNode;
++import org.nebula.core.state.GlobalKey;
++
++import java.util.ArrayList;
++import java.util.List;
++
++/**
++ * Decomposes a single region tick (ServerLevel.tick) into DAG TaskNodes.
++ * Phase D1: all tasks use GLOBAL RWSet → fully serialized execution.
++ */
++public final class RegionTickDecomposer {
++
++    private static final RWSet GLOBAL_RW = RWSet.builder()
++        .readGlobal(GlobalKey.ALL)
++        .writeGlobal(GlobalKey.ALL)
++        .build();
++
++    private RegionTickDecomposer() {}
++
++    /**
++     * Full decomposition — includes entity and block entity ticks.
++     * Used when emptyTime < 300.
++     */
++    public static List<TaskNode> decompose(
++        ServerLevel level,
++        RegionizedWorldData worldData,
++        long tick,
++        boolean runsNormally
++    ) {
++        List<TaskNode> tasks = decomposeMinimal(level, worldData, tick, runsNormally);
++
++        tasks.add(buildEntityActivationTask(level));
++        tasks.add(buildEntityTickTask(level, worldData));
++
++        if (level.paperConfig().unsupportedSettings.ticking.blockEntities) {
++            tasks.add(buildBlockEntityTickTask(level));
++        }
++
++        return tasks;
++    }
++
++    /**
++     * Minimal decomposition — block/fluid/raids/chunkSource/blockEvents only.
++     * Used when emptyTime >= 300 (world is idle, entities not ticked).
++     */
++    public static List<TaskNode> decomposeMinimal(
++        ServerLevel level,
++        RegionizedWorldData worldData,
++        long tick,
++        boolean runsNormally
++    ) {
++        List<TaskNode> tasks = new ArrayList<>();
++
++        if (runsNormally) {
++            tasks.add(buildWorldBorderTask(level, worldData));
++            tasks.add(buildTickTimeTask(level));
++        }
++
++        if (!level.isDebug() && runsNormally) {
++            tasks.add(buildBlockTicksTask(level, tick));
++            tasks.add(buildFluidTicksTask(level, tick));
++        }
++
++        if (runsNormally) {
++            tasks.add(buildRaidsTask(level));
++        }
++
++        tasks.add(buildChunkSourceTask(level));
++
++        if (runsNormally) {
++            tasks.add(buildBlockEventsTask(level));
++        }
++
++        return tasks;
++    }
++
++    private static TaskNode buildWorldBorderTask(ServerLevel level, RegionizedWorldData worldData) {
++        return new TaskNode("world_border", "WORLD_BORDER", GLOBAL_RW, () -> {
++            it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet<WorldBorder> worldBorders =
++                new it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet<>();
++            for (ServerPlayer player : worldData.getLocalPlayers()) {
++                org.bukkit.craftbukkit.CraftWorldBorder wb =
++                    (org.bukkit.craftbukkit.CraftWorldBorder) player.getBukkitEntity().getWorldBorder();
++                if (wb != null) {
++                    worldBorders.add(wb.getHandle());
++                }
++            }
++            for (WorldBorder worldBorder : worldBorders) {
++                worldBorder.tick();
++            }
++        });
++    }
++
++    private static TaskNode buildTickTimeTask(ServerLevel level) {
++        return new TaskNode("tick_time", "TICK_TIME", GLOBAL_RW, level::nebula$tickTime);
++    }
++
++    private static TaskNode buildBlockTicksTask(ServerLevel level, long tick) {
++        return new TaskNode("block_ticks", "BLOCK_TICK", GLOBAL_RW, () -> level.nebula$tickBlocks(tick));
++    }
++
++    private static TaskNode buildFluidTicksTask(ServerLevel level, long tick) {
++        return new TaskNode("fluid_ticks", "FLUID_TICK", GLOBAL_RW, () -> level.nebula$tickFluids(tick));
++    }
++
++    private static TaskNode buildRaidsTask(ServerLevel level) {
++        return new TaskNode("raids", "RAIDS", GLOBAL_RW, () -> level.getRaids().tick(level));
++    }
++
++    private static TaskNode buildChunkSourceTask(ServerLevel level) {
++        return new TaskNode("chunk_source", "CHUNK_SOURCE", GLOBAL_RW, () -> {
++            level.getChunkSource().tick(() -> true, true);
++        });
++    }
++
++    private static TaskNode buildBlockEventsTask(ServerLevel level) {
++        return new TaskNode("block_events", "BLOCK_EVENTS", GLOBAL_RW, level::nebula$runBlockEvents);
++    }
++
++    private static TaskNode buildEntityActivationTask(ServerLevel level) {
++        return new TaskNode("entity_activation", "ENTITY_ACTIVATION", GLOBAL_RW, () -> {
++            io.papermc.paper.entity.activation.ActivationRange.activateEntities(level);
++        });
++    }
++
++    private static TaskNode buildEntityTickTask(ServerLevel level, RegionizedWorldData worldData) {
++        return new TaskNode("entity_tick", "ENTITY_TICK", GLOBAL_RW, () -> {
++            net.minecraft.world.TickRateManager tickRateManager = level.tickRateManager();
++            worldData.forEachTickingEntity(entity -> {
++                if (!entity.isRemoved() && !tickRateManager.isEntityFrozen(entity)) {
++                    entity.checkDespawn();
++                    if (entity.isRemoved()) return;
++                    net.minecraft.world.entity.Entity vehicle = entity.getVehicle();
++                    if (vehicle != null) {
++                        if (!vehicle.isRemoved() && vehicle.hasPassenger(entity)) {
++                            return;
++                        }
++                        entity.stopRiding();
++                    }
++                    level.guardEntityTick(level::tickNonPassenger, entity);
++                }
++            });
++        });
++    }
++
++    private static TaskNode buildBlockEntityTickTask(ServerLevel level) {
++        return new TaskNode("block_entity_tick", "BLOCK_ENTITY_TICK", GLOBAL_RW, level::tickBlockEntities);
++    }
++}
+diff --git a/net/minecraft/server/level/ServerLevel.java b/net/minecraft/server/level/ServerLevel.java
+index a51a9e7a0fa5727690046d814eb0b26d5742cd74..a59b592fecadaee11b36b3f9dd3583dfdef5f23c 100644
+--- a/net/minecraft/server/level/ServerLevel.java
++++ b/net/minecraft/server/level/ServerLevel.java
+@@ -804,6 +804,13 @@ public class ServerLevel extends Level implements WorldGenLevel, ServerEntityGet
+         regionizedWorldData.setHandlingTick(true); // Folia - regionised ticking
+         TickRateManager tickRateManager = this.tickRateManager();
+         boolean runs = tickRateManager.runsNormally();
++        // Nebula start - DAG decomposition (Phase D)
++        if (io.papermc.paper.threadedregions.TickRegions.isNebulaMode()) {
++            this.nebula$tickViaDAG(regionizedWorldData, runs);
++            regionizedWorldData.setHandlingTick(false);
++            return;
++        }
++        // Nebula end - DAG decomposition (Phase D)
+         if (runs) {
+             profiler.push("world border");
+             //this.getWorldBorder().tick(); // Folia - regionised ticking
+@@ -3171,4 +3178,65 @@ public class ServerLevel extends Level implements WorldGenLevel, ServerEntityGet
+         throw new UnsupportedOperationException(); // Folia - region threading
+     }
+     // Paper end - lag compensation
++
++    // Nebula start - DAG decomposition delegates (Phase D)
++    public void nebula$tickTime() {
++        this.tickTime();
++    }
++
++    public void nebula$tickBlocks(long tick) {
++        this.getCurrentWorldData().getBlockLevelTicks().tick(tick, this.paperConfig().environment.maxBlockTicks, this::tickBlock);
++    }
++
++    public void nebula$tickFluids(long tick) {
++        this.getCurrentWorldData().getFluidLevelTicks().tick(tick, this.paperConfig().environment.maxFluidTicks, this::tickFluid);
++    }
++
++    public void nebula$runBlockEvents() {
++        this.runBlockEvents();
++    }
++
++    private void nebula$tickViaDAG(io.papermc.paper.threadedregions.RegionizedWorldData worldData, boolean runsNormally) {
++        long tick = worldData.getRedstoneGameTime();
++
++        // emptyTime logic (mirrors vanilla — always active in Folia)
++        this.resetEmptyTime();
++        if (runsNormally) {
++            this.emptyTime++;
++        }
++
++        // Dragon fight (runs before entity ticks in vanilla)
++        if (this.emptyTime < 300 && this.dragonFight != null && runsNormally) {
++            this.dragonFight.tick();
++        }
++
++        // DAG-decomposed subsystems
++        java.util.List<org.nebula.core.scheduler.TaskNode> tasks;
++        if (this.emptyTime < 300) {
++            tasks = io.papermc.paper.threadedregions.RegionTickDecomposer.decompose(this, worldData, tick, runsNormally);
++        } else {
++            // Only tick block/fluid/raids/chunkSource/blockEvents when emptyTime < 300
++            tasks = io.papermc.paper.threadedregions.RegionTickDecomposer.decomposeMinimal(this, worldData, tick, runsNormally);
++        }
++
++        org.nebula.core.scheduler.TaskGenerator noOpGenerator = completed -> java.util.List.of();
++        org.nebula.core.scheduler.TickPipeline pipeline = new org.nebula.core.scheduler.TickPipeline(
++            noOpGenerator, org.nebula.core.scheduler.TaskRunner.DIRECT, 0
++        );
++
++        try {
++            org.nebula.core.scheduler.TickPipeline.TickResult result = pipeline.execute(tasks);
++            if (com.mojang.logging.LogUtils.getLogger().isDebugEnabled()) {
++                com.mojang.logging.LogUtils.getLogger().debug(
++                    "Nebula DAG tick: {} tasks, {} layers",
++                    result.completedTaskIds().size(), result.layersExecuted()
++                );
++            }
++        } catch (org.nebula.core.scheduler.DagExecutionException e) {
++            throw new RuntimeException("Nebula DAG execution failed at layer " + e.failedLayerIndex(), e);
++        }
++
++        worldData.currentPrimedTnt = 0;
++    }
++    // Nebula end - DAG decomposition delegates (Phase D)
+ }
