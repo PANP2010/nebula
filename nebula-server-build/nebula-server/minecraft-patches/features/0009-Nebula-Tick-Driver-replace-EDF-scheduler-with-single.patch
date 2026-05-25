@@ -1,0 +1,393 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Mon, 25 May 2026 11:25:35 +0800
+Subject: [PATCH] Nebula Tick Driver - replace EDF scheduler with single
+ coordinator thread
+
+Introduces NebulaTickDriver that replaces Folia's EDF/WorkStealing thread pool
+with a single coordinator thread running on a 50ms tick cycle. The coordinator
+sequentially ticks all active regions, preserving existing per-region tick
+logic while centralizing scheduling control.
+
+Key changes:
+- Add NEBULA scheduler type to TickRegionScheduler
+- TickThreadRunner visibility widened for coordinator thread inheritance
+- NebulaTickDriver coordinates global tick + sequential region ticks
+- TickRegions/RegionizedServer conditionally bypass EDF scheduling in NEBULA mode
+
+diff --git a/io/papermc/paper/threadedregions/NebulaTickDriver.java b/io/papermc/paper/threadedregions/NebulaTickDriver.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..ccfa56152335203de3d308e093c8d58d4d5e5098
+--- /dev/null
++++ b/io/papermc/paper/threadedregions/NebulaTickDriver.java
+@@ -0,0 +1,139 @@
++package io.papermc.paper.threadedregions;
++
++import com.mojang.logging.LogUtils;
++import net.minecraft.server.MinecraftServer;
++import net.minecraft.server.level.ServerLevel;
++import org.slf4j.Logger;
++import java.util.concurrent.locks.LockSupport;
++
++public final class NebulaTickDriver {
++
++    private static final Logger LOGGER = LogUtils.getLogger();
++    private static final long TICK_INTERVAL_NS = TickRegionScheduler.TIME_BETWEEN_TICKS;
++
++    private static NebulaTickDriver INSTANCE;
++
++    private final NebulaCoordinatorThread coordinator;
++    private volatile boolean running;
++    private long tickCount;
++
++    public NebulaTickDriver() {
++        INSTANCE = this;
++        this.coordinator = new NebulaCoordinatorThread();
++    }
++
++    public void start() {
++        this.running = true;
++        this.coordinator.start();
++    }
++
++    public static boolean halt(final boolean sync, final long maxWaitNS) {
++        if (INSTANCE == null) {
++            return true;
++        }
++        INSTANCE.running = false;
++        LockSupport.unpark(INSTANCE.coordinator);
++        if (!sync) {
++            return !INSTANCE.coordinator.isAlive();
++        }
++        try {
++            INSTANCE.coordinator.join(maxWaitNS == 0L ? 0L : Math.max(1L, maxWaitNS / 1_000_000L));
++        } catch (final InterruptedException ignored) {}
++        return !INSTANCE.coordinator.isAlive();
++    }
++
++    public static Thread getCoordinatorThread() {
++        return INSTANCE == null ? null : INSTANCE.coordinator;
++    }
++
++    private final class NebulaCoordinatorThread extends TickRegionScheduler.TickThreadRunner {
++
++        NebulaCoordinatorThread() {
++            super(null, null, "Nebula Tick Coordinator");
++            this.setDaemon(false);
++        }
++
++        @Override
++        public void run() {
++            LOGGER.info("Nebula Tick Coordinator started");
++            while (NebulaTickDriver.this.running) {
++                final long tickStart = System.nanoTime();
++                try {
++                    tickCycle(tickStart);
++                } catch (final Throwable t) {
++                    LOGGER.error("Exception in Nebula tick cycle", t);
++                    NebulaTickDriver.this.running = false;
++                    MinecraftServer.getServer().stopServer();
++                    return;
++                }
++                final long elapsed = System.nanoTime() - tickStart;
++                final long sleepNs = TICK_INTERVAL_NS - elapsed;
++                if (sleepNs > 0) {
++                    LockSupport.parkNanos(sleepNs);
++                }
++            }
++            LOGGER.info("Nebula Tick Coordinator stopped");
++        }
++    }
++
++    private void tickCycle(final long tickStart) {
++        final long scheduledEnd = tickStart + TICK_INTERVAL_NS;
++        ++this.tickCount;
++
++        // Phase 1: Global tick
++        tickGlobal(scheduledEnd);
++
++        // Phase 2: Region ticks (sequential in Phase B)
++        tickAllRegions(tickStart, scheduledEnd);
++    }
++
++    private void tickGlobal(final long scheduledEnd) {
++        final RegionizedServer server = RegionizedServer.getInstance();
++        final TickRegionScheduler.RegionScheduleHandle globalHandle = RegionizedServer.getGlobalTickData();
++
++        TickRegionScheduler.setTickTask(globalHandle);
++        try {
++            // drain global task queue and packets (mirrors GlobalTickTickHandle.drainTasks)
++            Runnable task;
++            while ((task = server.globalTickQueue.poll()) != null) {
++                task.run();
++            }
++            while (server.packetProcessor.executeSinglePacket());
++
++            server.globalTick(this.tickCount);
++        } finally {
++            TickRegionScheduler.setTickTask(null);
++        }
++    }
++
++    private void tickAllRegions(final long startTime, final long scheduledEnd) {
++        for (final ServerLevel level : MinecraftServer.getServer().getAllLevels()) {
++            level.regioniser.computeForAllRegions(region -> {
++                tickSingleRegion(region, startTime, scheduledEnd);
++            });
++        }
++    }
++
++    private void tickSingleRegion(
++        final ThreadedRegionizer.ThreadedRegion<TickRegions.TickRegionData, TickRegions.TickRegionSectionData> region,
++        final long startTime,
++        final long scheduledEnd
++    ) {
++        if (!region.tryMarkTicking(() -> false)) {
++            return; // region is in transient state (merging/splitting), skip
++        }
++
++        final TickRegions.TickRegionData data = region.getData();
++        data.getRegionSchedulingHandle().incrementTickCount();
++
++        TickRegionScheduler.setTickingRegion(region);
++        TickRegionScheduler.setTickTask(data.getRegionSchedulingHandle());
++        try {
++            MinecraftServer.getServer().tickServer(startTime, scheduledEnd, 10_000_000L, data);
++        } finally {
++            TickRegionScheduler.setTickTask(null);
++            TickRegionScheduler.setTickingRegion(null);
++            region.markNotTicking();
++        }
++    }
++}
+diff --git a/io/papermc/paper/threadedregions/RegionizedServer.java b/io/papermc/paper/threadedregions/RegionizedServer.java
+index d5ff949f4f459c4358b0130cd20f8ed9cf24b42d..18f1c3eb75a68c53451cee95f0aedc2e017fdc56 100644
+--- a/io/papermc/paper/threadedregions/RegionizedServer.java
++++ b/io/papermc/paper/threadedregions/RegionizedServer.java
+@@ -40,7 +40,7 @@ public final class RegionizedServer {
+     private final CopyOnWriteArrayList<ServerLevel> worlds = new CopyOnWriteArrayList<>();
+     private final CopyOnWriteArrayList<Connection> connections = new CopyOnWriteArrayList<>();
+ 
+-    private final MultiThreadedQueue<Runnable> globalTickQueue = new MultiThreadedQueue<>();
++    final MultiThreadedQueue<Runnable> globalTickQueue = new MultiThreadedQueue<>();
+ 
+     private final GlobalTickTickHandle tickHandle = new GlobalTickTickHandle(this);
+ 
+@@ -66,9 +66,11 @@ public final class RegionizedServer {
+         // call init event _before_ scheduling anything
+         new RegionizedServerInitEvent().callEvent();
+ 
+-        // now we can schedule
+-        this.tickHandle.setInitialStart(System.nanoTime() + TickRegionScheduler.TIME_BETWEEN_TICKS);
+-        TickRegions.getScheduler().scheduleRegion(this.tickHandle);
++        if (!TickRegions.isNebulaMode()) {
++            // EDF/WorkStealing mode: schedule global tick handle into the thread pool
++            this.tickHandle.setInitialStart(System.nanoTime() + TickRegionScheduler.TIME_BETWEEN_TICKS);
++            TickRegions.getScheduler().scheduleRegion(this.tickHandle);
++        }
+         TickRegions.start();
+     }
+ 
+@@ -324,7 +326,7 @@ public final class RegionizedServer {
+     }
+      */
+ 
+-    private void globalTick(final long tickCount) {
++    void globalTick(final long tickCount) {
+         /*
+         if (false) {
+             io.papermc.paper.threadedregions.ThreadedTicketLevelPropagator.main(null);
+diff --git a/io/papermc/paper/threadedregions/TickRegionScheduler.java b/io/papermc/paper/threadedregions/TickRegionScheduler.java
+index 439c5a222fcf51c9dc5bfef9cdb23f419fffc28c..8bad9acd72be51913d47dd210d67e421a8a87e6b 100644
+--- a/io/papermc/paper/threadedregions/TickRegionScheduler.java
++++ b/io/papermc/paper/threadedregions/TickRegionScheduler.java
+@@ -53,7 +53,8 @@ public final class TickRegionScheduler {
+ 
+     public static enum SchedulerType {
+         EDF,
+-        WORK_STEALING;
++        WORK_STEALING,
++        NEBULA;
+     }
+ 
+     public TickRegionScheduler(final SchedulerType schedulerType, final int initialThreads) {
+@@ -84,6 +85,10 @@ public final class TickRegionScheduler {
+                 ((StealingScheduledThreadPool)this.scheduler).setFlags(StealingScheduledThreadPool.FLAG_SCHEDULE_EVENLY);
+                 break;
+             }
++            case NEBULA: {
++                this.scheduler = null;
++                break;
++            }
+             default: {
+                 throw new IllegalStateException("Unknown scheduler type: " + schedulerType);
+             }
+@@ -94,6 +99,7 @@ public final class TickRegionScheduler {
+         if (this.scheduler instanceof EDFSchedulerThreadPool edfSchedulerThreadPool) {
+             edfSchedulerThreadPool.start();
+         }
++        // NEBULA mode: no-op, NebulaTickDriver.start() is called separately
+     }
+ 
+     public void setThreads(final int threads) {
+@@ -125,10 +131,13 @@ public final class TickRegionScheduler {
+     }
+ 
+     public int getTotalThreadCount() {
++        if (this.scheduler == null) {
++            return 1; // NEBULA: single coordinator thread
++        }
+         return this.scheduler.getAliveThreads().length;
+     }
+ 
+-    private static void setTickingRegion(final ThreadedRegionizer.ThreadedRegion<TickRegions.TickRegionData, TickRegions.TickRegionSectionData> region) {
++    static void setTickingRegion(final ThreadedRegionizer.ThreadedRegion<TickRegions.TickRegionData, TickRegions.TickRegionSectionData> region) {
+         final Thread currThread = Thread.currentThread();
+         if (!(currThread instanceof TickThreadRunner tickThreadRunner)) {
+             throw new IllegalStateException("Must be tick thread runner");
+@@ -152,7 +161,7 @@ public final class TickRegionScheduler {
+         }
+     }
+ 
+-    private static void setTickTask(final SchedulableTick task) {
++    static void setTickTask(final SchedulableTick task) {
+         final Thread currThread = Thread.currentThread();
+         if (!(currThread instanceof TickThreadRunner tickThreadRunner)) {
+             throw new IllegalStateException("Must be tick thread runner");
+@@ -220,7 +229,9 @@ public final class TickRegionScheduler {
+      */
+     public void scheduleRegion(final RegionScheduleHandle region) {
+         region.scheduler = this;
+-        this.scheduler.schedule(region);
++        if (this.scheduler != null) {
++            this.scheduler.schedule(region);
++        }
+     }
+ 
+     /**
+@@ -234,6 +245,10 @@ public final class TickRegionScheduler {
+     }
+ 
+     public boolean halt(final boolean sync, final long maxWaitNS) {
++        if (this.scheduler == null) {
++            // NEBULA mode: delegate to NebulaTickDriver
++            return NebulaTickDriver.halt(sync, maxWaitNS);
++        }
+         this.scheduler.halt();
+         if (!sync) {
+             return this.scheduler.getAliveThreads().length == 0;
+@@ -243,6 +258,14 @@ public final class TickRegionScheduler {
+     }
+ 
+     void dumpAliveThreadTraces(final String reason) {
++        if (this.scheduler == null) {
++            // NEBULA mode: dump coordinator thread
++            final Thread coordinator = NebulaTickDriver.getCoordinatorThread();
++            if (coordinator != null && coordinator.isAlive()) {
++                TraceUtil.dumpTraceForThread(coordinator, reason);
++            }
++            return;
++        }
+         for (final Thread thread : this.scheduler.getAliveThreads()) {
+             if (thread.isAlive()) {
+                 TraceUtil.dumpTraceForThread(thread, reason);
+@@ -251,7 +274,9 @@ public final class TickRegionScheduler {
+     }
+ 
+     public void setHasTasks(final RegionScheduleHandle region) {
+-        this.scheduler.notifyTasks(region);
++        if (this.scheduler != null) {
++            this.scheduler.notifyTasks(region);
++        }
+     }
+ 
+     private void uncaughtException(final Thread thread, final Throwable thr) {
+@@ -281,7 +306,7 @@ public final class TickRegionScheduler {
+ 
+     // By using our own thread object, we can use a field for the current region rather than a ThreadLocal.
+     // This is much faster than a thread local, since the thread local has to use a map lookup.
+-    private static final class TickThreadRunner extends TickThread {
++    static class TickThreadRunner extends TickThread {
+ 
+         private ThreadedRegionizer.ThreadedRegion<TickRegions.TickRegionData, TickRegions.TickRegionSectionData> currentTickingRegion;
+         private RegionizedWorldData currentTickingWorldRegionizedData;
+@@ -575,7 +600,7 @@ public final class TickRegionScheduler {
+         /**
+          * Only safe to call if this tick data matches the current ticking region.
+          */
+-        private void incrementTickCount() {
++        void incrementTickCount() {
+             ++this.currentTick;
+         }
+ 
+diff --git a/io/papermc/paper/threadedregions/TickRegions.java b/io/papermc/paper/threadedregions/TickRegions.java
+index b75293fea5dc029374c1c03361e859f0ddb58e83..c8af3a664a6777cf036a2e0510567eca99f8860d 100644
+--- a/io/papermc/paper/threadedregions/TickRegions.java
++++ b/io/papermc/paper/threadedregions/TickRegions.java
+@@ -36,11 +36,16 @@ public final class TickRegions implements ThreadedRegionizer.RegionCallbacks<Tic
+     private static boolean initialised;
+     private static boolean started;
+     private static TickRegionScheduler scheduler;
++    private static NebulaTickDriver nebulaDriver;
+ 
+     public static TickRegionScheduler getScheduler() {
+         return scheduler;
+     }
+ 
++    public static boolean isNebulaMode() {
++        return nebulaDriver != null;
++    }
++
+     private static int getTickThreads(final GlobalConfiguration.ThreadedRegions config) {
+         int tickThreads;
+         if (config.threads <= 0) {
+@@ -71,7 +76,12 @@ public final class TickRegions implements ThreadedRegionizer.RegionCallbacks<Tic
+         gridExponent = Math.min(31, gridExponent);
+         regionShift = gridExponent;
+         scheduler = new TickRegionScheduler(config.scheduler, tickThreads);
+-        LOGGER.info("Initialised " + config.scheduler + " Folia scheduler with initial " + tickThreads + " target thread(s)");
++        if (config.scheduler == TickRegionScheduler.SchedulerType.NEBULA) {
++            nebulaDriver = new NebulaTickDriver();
++            LOGGER.info("Initialised Nebula tick driver (single coordinator thread)");
++        } else {
++            LOGGER.info("Initialised " + config.scheduler + " Folia scheduler with initial " + tickThreads + " target thread(s)");
++        }
+     }
+ 
+     public static void start() {
+@@ -79,8 +89,12 @@ public final class TickRegions implements ThreadedRegionizer.RegionCallbacks<Tic
+             throw new IllegalStateException("Already started");
+         }
+         started = true;
+-        scheduler.setThreads(getTickThreads(GlobalConfiguration.get().threadedRegions));
+-        scheduler.start();
++        if (nebulaDriver != null) {
++            nebulaDriver.start();
++        } else {
++            scheduler.setThreads(getTickThreads(GlobalConfiguration.get().threadedRegions));
++            scheduler.start();
++        }
+      }
+ 
+     @Override
+@@ -115,14 +129,18 @@ public final class TickRegions implements ThreadedRegionizer.RegionCallbacks<Tic
+         final TickRegionData data = region.getData();
+ 
+         data.tickHandle.checkInitialSchedule();
+-        scheduler.scheduleRegion(data.tickHandle);
++        if (!isNebulaMode()) {
++            scheduler.scheduleRegion(data.tickHandle);
++        }
+     }
+ 
+     @Override
+     public void onRegionInactive(final ThreadedRegionizer.ThreadedRegion<TickRegionData, TickRegionSectionData> region) {
+         final TickRegionData data = region.getData();
+ 
+-        scheduler.descheduleRegion(data.tickHandle);
++        if (!isNebulaMode()) {
++            scheduler.descheduleRegion(data.tickHandle);
++        }
+         // old handle cannot be scheduled anymore, copy to a new handle
+         data.tickHandle = data.tickHandle.copy();
+     }

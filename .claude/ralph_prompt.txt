@@ -1,0 +1,5 @@
+读 docs/星云架构.md（Phase -1/0/1/2 的交付物定义）。
+在项目里按 Phase 顺序推进：先让 nebula/ 包能编译+有测试，再建 RWSet→@NebulaRW→BucketGrid→DAG(Kahn分层+WAW仲裁)→红石标注样本→回放校验骨架。
+每轮先 git diff --stat 看上一轮留了什么；只做下一个阻塞项；跑构建命令（你这里手动补：./gradlew compileJava compileTestJava test 或 mvn test）；全绿才 commit，prefix nebula: 。
+绝不动基线服务端逻辑/原版tick，绝不改构建配置的核心依赖。遇到无解的（缺真服务端fork等）写 docs/NEBULA_BLOCKERS.md 并继续能做的前置。
+完成时输出末尾单独一行：NEBULA_PHASE2_READY

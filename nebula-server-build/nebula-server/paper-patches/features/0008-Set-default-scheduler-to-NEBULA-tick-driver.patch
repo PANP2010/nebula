@@ -1,0 +1,19 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Mon, 25 May 2026 11:25:48 +0800
+Subject: [PATCH] Set default scheduler to NEBULA tick driver
+
+
+diff --git a/src/main/java/io/papermc/paper/configuration/GlobalConfiguration.java b/src/main/java/io/papermc/paper/configuration/GlobalConfiguration.java
+index 10bec0f46f96605d82d8ec77327f2e8af18c0fd2..844b8371aa79653548c0a465607ed21448cc924d 100644
+--- a/src/main/java/io/papermc/paper/configuration/GlobalConfiguration.java
++++ b/src/main/java/io/papermc/paper/configuration/GlobalConfiguration.java
+@@ -401,7 +401,7 @@ public class GlobalConfiguration extends ConfigurationPart {
+ 
+         public int threads = -1;
+         public int gridExponent = 4;
+-        public io.papermc.paper.threadedregions.TickRegionScheduler.SchedulerType scheduler = io.papermc.paper.threadedregions.TickRegionScheduler.SchedulerType.EDF;
++        public io.papermc.paper.threadedregions.TickRegionScheduler.SchedulerType scheduler = io.papermc.paper.threadedregions.TickRegionScheduler.SchedulerType.NEBULA;
+ 
+         @PostProcess
+         public void postProcess() {

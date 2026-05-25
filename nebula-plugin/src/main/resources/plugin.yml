@@ -1,0 +1,20 @@
+name: Nebula
+version: "0.1.0-SNAPSHOT"
+main: org.nebula.plugin.NebulaPlugin
+folia-supported: true
+api-version: "1.21"
+description: "Nebula multi-core DAG scheduler for Folia"
+authors:
+  - NebulaArchTeam
+load: STARTUP
+
+commands:
+  nebula:
+    description: Nebula runtime diagnostics
+    usage: /nebula <status|dag|guard|mode>
+    aliases: [nb]
+
+permissions:
+  nebula.admin:
+    description: Access to all /nebula commands
+    default: op

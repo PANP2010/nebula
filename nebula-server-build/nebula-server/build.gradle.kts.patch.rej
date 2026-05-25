@@ -1,0 +1,26 @@
+++++ REJECTED HUNK: 1
+@@ -20,8 +20,24 @@
+ paperweight {
+     minecraftVersion = providers.gradleProperty("mcVersion")
++    filterPatches = false
+     gitFilePatches = false
++    val nebula = forks.register("nebula") {
++        upstream.patchDir("nebulaServer") {
++            upstreamPath = "paper-server"
++            excludes = setOf("src/minecraft", "patches", "build.gradle.kts")
++            patchesDir = rootDirectory.dir("nebula-server/paper-patches")
++            outputDir = rootDirectory.dir("paper-server")
++        }
++        upstream.patchDir("minecraftNebula") {
++            upstreamPath = "paper-server/src/minecraft"
++            patchesDir = rootDirectory.dir("nebula-server/minecraft-patches")
++            outputDir = rootDirectory.dir("paper-server/src/minecraft")
++        }
++    }
++
++    activeFork = nebula
++
+     updatingMinecraft {
+         // oldPaperCommit = "7e80cef5198561d0db53406127e5b8bc7af51577"
+     }
+++++ END HUNK

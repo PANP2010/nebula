@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<style>
+	:root      {--bg: #ffffff; --fg: #000000; --hl-bg: #ffffe0; --hl-border: #ffc000; --link: #0366d6; --legend-bg: #ffffe0; --legend-border: #666666}
+	:root.dark {--bg: #1e1e1e; --fg: #cccccc; --hl-bg: #3a3a00; --hl-border: #8a7000; --link: #58a6ff; --legend-bg: #333333; --legend-border: #888888}
+	body {margin: 0; padding: 10px 10px 22px 10px; background-color: var(--bg); color: var(--fg)}
+	h1 {margin: 5px 0 0 0; font-size: 18px; font-weight: normal; text-align: center}
+	header {margin: -22px 0 6px 0}
+	button {border: none; background: none; width: 24px; height: 24px; cursor: pointer; margin: 0; padding: 2px 0 0 0; text-align: center}
+	button:hover {background-color: var(--hl-bg); outline: 1px solid var(--hl-border); border-radius: 4px}
+	dl {margin: 0 4px 8px 4px}
+	dt {margin: 1px; padding: 2px 0; font-weight: bold}
+	dd {margin: 1px; padding: 2px 4px}
+	dl.frames {float: left; width: 160px}
+	dl.frames > dd {color: #000000}
+	dl.hotkeys {clear: left; border-top: 1px solid var(--legend-border)}
+	dl.hotkeys > dt {float: left; clear: left; width: 158px; margin-right: 4px; text-align: right}
+	dl.hotkeys > dd {float: left}
+	p {position: fixed; bottom: 0; margin: 0; padding: 2px 3px 2px 3px; outline: 1px solid var(--hl-border); display: none; overflow: hidden; white-space: nowrap; background-color: var(--hl-bg); color: var(--fg)}
+	a {color: var(--link)}
+	#legend {padding: 4px; border-radius: 4px; background: var(--legend-bg); border: 1px solid var(--legend-border); display: none}
+	#hl {position: absolute; display: none; overflow: hidden; white-space: nowrap; pointer-events: none; background-color: var(--hl-bg); outline: 1px solid var(--hl-border); height: 15px}
+	#hl span {padding: 0 3px 0 3px}
+	#status {left: 0}
+	#match {right: 0}
+	#reset {cursor: pointer}
+	#canvas {width: 100%; height: 432px}
+</style>
+<script>
+{
+	let theme;
+	try { theme = localStorage.getItem('flame-theme'); } catch (ignored) {}
+	if (theme ? theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches) {
+		document.documentElement.classList.add('dark');
+	}
+}
+</script>
+</head>
+<body style='font: 12px Verdana, sans-serif'>
+<h1>CPU profile</h1>
+<header style='float: left'>
+<button id='inverted' title='Invert (I)'><svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 392 392'><path d='M196,36 L316,156 L76,156 Z' fill='#004d80'/><path d='M196,356 L76,236 L316,236 Z' fill='#004d80'/><path d='M196,54 L298,156 L94,156 Z' fill='#ff8d40'/><path d='M196,338 L94,236 L298,236 Z' fill='#40b2ff'/><rect x='94' y='188' width='204' height='16' fill='#004d80'/></svg></button>
+<button id='search' title='Search (Ctrl+F)'><svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='-39.3 -39.3 471.1 471.1'><circle cx='147.7' cy='147.8' r='125.9' fill='#fff'/><path fill='#40b2ff' d='M370.7 348.7c0 1.4-1.6 6.3-7.2 12.3-6.2 6.7-12.5 9.8-14.7 9.8h-.1c-19.5-1.6-62-43.2-109.6-106.8 9.2-7.2 17.5-15.5 24.6-24.6 63.6 47.6 105.2 90.2 106.8 109.6z'/><path fill='#ff8d40' d='M208.7 86.9l-14.5 14.5c-17.1 17.1-46.5 5-46.5-19.3V61.6c-49 0-88.4 40.8-86.1 90.2 2 43.9 38.1 80 82 82 49.5 2.3 90.2-37.2 90.2-86.1 0-23.7-9.6-45.2-25.1-60.8z'/><path fill='#004d80' d='M276.1 221c12.3-21.5 19.5-46.5 19.5-73.2C295.6 66.3 229.2.1 147.7.1S0 66.3 0 147.9s66.3 147.7 147.7 147.7c26.6 0 51.5-7.1 73.2-19.5 39.8 53.3 91.9 113.5 126.1 116.4 12.3.5 22.9-6.7 32.8-16.7 5.2-5.6 13.8-16.9 12.8-28.8-2.9-34.1-63.1-86.2-116.4-126.1zM147.7 273.8c-69.5 0-125.9-56.5-125.9-125.9S78.3 21.9 147.7 21.9 273.6 78.4 273.6 147.8s-56.4 126-125.9 126zm215.9 87.2c-6.2 6.7-12.4 9.8-14.7 9.8h-.1c-19.5-1.6-62-43.2-109.6-106.8 9.2-7.2 17.5-15.5 24.6-24.6 63.6 47.6 105.2 90.2 106.8 109.6 0 1.4-1.6 6.3-7.2 12.4z'/></svg></button>
+<button id='darkmode' title='Toggle dark mode (D)'><svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'><path d='M10 4a6 6 0 0 1 0 12z' fill='#ff8d40'/><path d='M10 4a6 6 0 0 0 0 12z' fill='#ffffff'/><circle cx='10' cy='10' r='8' fill='none' stroke='#004d80'/></svg></button>
+<button id='info'><svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'><circle cx='10' cy='10' r='8' stroke='#004d80' fill='none'/><path d='M10 5.5c-1.25 0-2.25 1-2.25 2.25H9a1.25 1.25 0 0 1 2.5 0c0 .65-.55 1-1 1.2-.7.35-1.25.85-1.25 1.8V11h1.5v-.25c0-.37.29-.65.68-.83.73-.34 1.32-.87 1.32-2.17 0-1.25-1.5-2.25-2.75-2.25' fill='#ff8d40' stroke='#ff8d40' stroke-width='.6' stroke-linecap='round' stroke-linejoin='round'/><circle cx='10' cy='13.5' r='1.2' fill='#ff8d40'/></svg></button>
+</header>
+<header style='float: right'>Produced by <a href='https://github.com/async-profiler/async-profiler'>async-profiler</a></header>
+<div id='legend' style='position: absolute'>
+<dl class='frames'>
+	<dt>Frame types</dt>
+	<dd style='background-color: #e17d00'>Kernel</dd>
+	<dd style='background-color: #e15a5a'>Native</dd>
+	<dd style='background-color: #c8c83c'>C++ (VM)</dd>
+	<dd style='background-color: #50e150'>Java compiled</dd>
+	<dd style='background-color: #cce880'>Java compiled by C1</dd>
+	<dd style='background-color: #50cccc'>Inlined</dd>
+	<dd style='background-color: #b2e1b2'>Interpreted</dd>
+</dl>
+<dl class='frames'>
+	<dt>Allocation profile</dt>
+	<dd style='background-color: #50cccc'>Allocated class</dd>
+	<dd style='background-color: #e17d00'>Allocation outside TLAB</dd>
+	<dt>Lock profile</dt>
+	<dd style='background-color: #50cccc'>Lock class</dd>
+	<dt>&nbsp;</dt>
+	<dt>Search</dt>
+	<dd style='background-color: #ee00ee'>Matches regexp</dd>
+</dl>
+<dl class='hotkeys'>
+	<dt>Click frame</dt><dd>Zoom into frame</dd>
+	<dt>Ctrl/Alt+Click</dt><dd>Remove stack</dd>
+	<dt>0</dt><dd>Reset zoom</dd>
+	<dt>I</dt><dd>Invert graph</dd>
+	<dt>Ctrl+F</dt><dd>Search</dd>
+	<dt>N</dt><dd>Next match</dd>
+	<dt>Shift+N</dt><dd>Previous match</dd>
+	<dt>Esc</dt><dd>Cancel search</dd>
+</dl>
+</div>
+<canvas id='canvas'></canvas>
+<div id='hl'><span></span></div>
+<p id='status'></p>
+<p id='match'>Matched: <span id='matchval'></span> <span id='reset' title='Clear'>&#x274c;</span></p>
+<script>
+	// Copyright The async-profiler authors
+	// SPDX-License-Identifier: Apache-2.0
+	'use strict';
+	let root, px, pattern;
+	let level0 = 0, left0 = 0, width0 = 0, d = 0;
+	let nav = [], navIndex, matchval;
+	let inverted = false;
+	const U = undefined;
+	const maxdiff = /*maxdiff:*/-1;
+	const levels = Array(27);
+	for (let h = 0; h < levels.length; h++) {
+		levels[h] = [];
+	}
+
+	const canvas = document.getElementById('canvas');
+	const c = canvas.getContext('2d');
+	const hl = document.getElementById('hl');
+	const status = document.getElementById('status');
+
+	const canvasWidth = canvas.offsetWidth;
+	const canvasHeight = canvas.offsetHeight;
+	canvas.style.width = canvasWidth + 'px';
+	canvas.width = canvasWidth * (devicePixelRatio || 1);
+	canvas.height = canvasHeight * (devicePixelRatio || 1);
+	if (devicePixelRatio) c.scale(devicePixelRatio, devicePixelRatio);
+	c.font = document.body.style.font;
+
+	const palette = [
+		[0xb2e1b2, 20, 20, 20],
+		[0x50e150, 30, 30, 30],
+		[0x50cccc, 30, 30, 30],
+		[0xe15a5a, 30, 40, 40],
+		[0xc8c83c, 30, 30, 10],
+		[0xe17d00, 30, 30,  0],
+		[0xcce880, 20, 20, 20],
+	];
+
+	function getColor(p) {
+		const v = Math.random();
+		return '#' + (p[0] + ((p[1] * v) << 16 | (p[2] * v) << 8 | (p[3] * v))).toString(16);
+	}
+
+	function getDiffColor(diff) {
+		if (diff === U) return '#ffdd33';
+		if (diff === 0) return '#e0e0e0';
+		const v = Math.round(128 * (maxdiff - Math.abs(diff)) / maxdiff) + 96;
+		return diff > 0 ? 'rgb(255,' + v + ',' + v + ')' : 'rgb(' + v + ',' + v + ',255)';
+	}
+
+	function f(key, level, left, width, inln, c1, int) {
+		levels[level0 = level].push({level, left: left0 += left, width: width0 = width || width0,
+			color: maxdiff >= 0 ? getDiffColor(d) : getColor(palette[key & 7]),
+			title: cpool[key >>> 3],
+			details: (d ? (d > 0 ? ', +' : ', ') + d : '') + (int ? ', int=' + int : '') + (c1 ? ', c1=' + c1 : '') + (inln ? ', inln=' + inln : '')
+		});
+	}
+
+	function u(key, width, inln, c1, int) {
+		f(key, level0 + 1, 0, width, inln, c1, int)
+	}
+
+	function n(key, width, inln, c1, int) {
+		f(key, level0, width0, width, inln, c1, int)
+	}
+
+	function samples(n) {
+		return n === 1 ? '1 sample' : n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' samples';
+	}
+
+	function pct(a, b) {
+		return a >= b ? '100' : (100 * a / b).toFixed(2);
+	}
+
+	function findFrame(frames, x) {
+		let left = 0;
+		let right = frames.length - 1;
+
+		while (left <= right) {
+			const mid = (left + right) >>> 1;
+			const f = frames[mid];
+
+			if (f.left > x) {
+				right = mid - 1;
+			} else if (f.left + f.width <= x) {
+				left = mid + 1;
+			} else {
+				return f;
+			}
+		}
+
+		if (frames[left] && (frames[left].left - x) * px < 0.5) return frames[left];
+		if (frames[right] && (x - (frames[right].left + frames[right].width)) * px < 0.5) return frames[right];
+
+		return null;
+	}
+
+	function removeStack(left, width) {
+		for (let h = 0; h < levels.length; h++) {
+			const frames = levels[h], newFrames = [];
+			for (let i = 0; i < frames.length; i++) {
+				const f = frames[i];
+				if (f.left >= left + width) {
+					f.left -= width;
+				} else if (f.left + f.width > left) {
+					if ((f.width -= width) <= 0 && h) continue;
+				}
+				newFrames.push(f);
+			}
+			levels[h] = newFrames;
+		}
+	}
+
+	function search(r) {
+		if (r === true && (r = prompt('Enter regexp to search:', '')) === null) {
+			return;
+		}
+
+		pattern = r ? RegExp(r) : undefined;
+		const matched = render(root, nav = []);
+		navIndex = -1;
+		document.getElementById('matchval').textContent = matchval = pct(matched, root.width) + '%';
+		document.getElementById('match').style.display = r ? 'inline-block' : 'none';
+	}
+
+	function render(newRoot, nav) {
+		const bg = getComputedStyle(document.documentElement).getPropertyValue('--bg');
+
+		if (root) {
+			c.fillStyle = bg;
+			c.fillRect(0, 0, canvasWidth, canvasHeight);
+		}
+
+		root = newRoot || levels[0][0];
+		px = canvasWidth / root.width;
+
+		const x0 = root.left;
+		const x1 = x0 + root.width;
+		const marked = [];
+
+		function mark(f) {
+			return marked[f.left] || (marked[f.left] = f);
+		}
+
+		function totalMarked() {
+			let total = 0;
+			let left = 0;
+			Object.keys(marked).sort(function(a, b) { return a - b; }).forEach(function(x) {
+				if (+x >= left) {
+					const m = marked[x];
+					if (nav) nav.push(m);
+					total += m.width;
+					left = +x + m.width;
+				}
+			});
+			return total;
+		}
+
+		function drawFrame(f, y) {
+			if (f.left < x1 && f.left + f.width > x0) {
+				c.fillStyle = pattern && f.title.match(pattern) && mark(f) ? '#ee00ee' : f.color;
+				c.fillRect((f.left - x0) * px, y, f.width * px, 15);
+
+				if (f.width * px >= 21) {
+					const chars = Math.floor(f.width * px / 7);
+					const title = f.title.length <= chars ? f.title : f.title.substring(0, chars - 2) + '..';
+					c.fillStyle = '#000000';
+					c.fillText(title, Math.max(f.left - x0, 0) * px + 3, y + 12, f.width * px - 6);
+				}
+
+				if (f.level < root.level) {
+					c.fillStyle = bg + '80';
+					c.fillRect((f.left - x0) * px, y, f.width * px, 15);
+				}
+			}
+		}
+
+		for (let h = 0; h < levels.length; h++) {
+			const y = inverted ? h * 16 : canvasHeight - (h + 1) * 16;
+			const frames = levels[h];
+			for (let i = 0; i < frames.length; i++) {
+				drawFrame(frames[i], y);
+			}
+		}
+
+		return totalMarked();
+	}
+
+	function unpack(cpool) {
+		for (let i = 1; i < cpool.length; i++) {
+			cpool[i] = cpool[i - 1].substring(0, cpool[i].charCodeAt(0) - 32) + cpool[i].substring(1);
+		}
+	}
+
+	canvas.onmousemove = function() {
+		const h = Math.floor((inverted ? event.offsetY : (canvasHeight - event.offsetY)) / 16);
+		if (h >= 0 && h < levels.length) {
+			const f = findFrame(levels[h], event.offsetX / px + root.left);
+			if (f) {
+				if (f !== root) getSelection().removeAllRanges();
+				hl.style.left = (Math.max(f.left - root.left, 0) * px + canvas.offsetLeft) + 'px';
+				hl.style.width = (Math.min(f.width, root.width) * px) + 'px';
+				hl.style.top = ((inverted ? h * 16 : canvasHeight - (h + 1) * 16) + canvas.offsetTop) + 'px';
+				hl.firstChild.textContent = f.title;
+				hl.style.display = 'block';
+				canvas.title = f.title + '\n(' + samples(f.width) + f.details + ', ' + pct(f.width, levels[0][0].width) + '%)';
+				canvas.style.cursor = 'pointer';
+				canvas.onclick = function() {
+					if ((event.altKey || event.ctrlKey) && h >= root.level && h > 0) {
+						removeStack(f.left, f.width);
+						root.width > f.width ? render(root) : render();
+					} else if (f !== root) {
+						render(f);
+					}
+					canvas.onmousemove();
+				};
+				status.textContent = 'Function: ' + canvas.title;
+				status.style.display = 'inline-block';
+				return;
+			}
+		}
+		canvas.onmouseout();
+	}
+
+	canvas.onmouseout = function() {
+		hl.style.display = 'none';
+		status.style.display = 'none';
+		canvas.title = '';
+		canvas.style.cursor = '';
+		canvas.onclick = null;
+	}
+
+	canvas.ondblclick = function() {
+		getSelection().selectAllChildren(hl);
+	}
+
+	document.getElementById('inverted').onclick = function() {
+		inverted = !inverted;
+		render();
+	}
+
+	document.getElementById('search').onclick = function() {
+		search(true);
+	}
+
+	document.getElementById('reset').onclick = function() {
+		search(false);
+	}
+
+	document.getElementById('darkmode').onclick = function() {
+		const theme = document.documentElement.classList.toggle('dark') ? 'dark' : 'light';
+		try { localStorage.setItem('flame-theme', theme); } catch (ignored) {}
+		render(root);
+	}
+
+	const btnInfo = document.getElementById('info');
+	const legend = document.getElementById('legend');
+
+	btnInfo.onmouseover = function() {
+		legend.style.left = (btnInfo.offsetLeft + 24) + 'px';
+		legend.style.top = (btnInfo.offsetTop + 24) + 'px';
+		legend.style.display = 'block';
+	}
+
+	btnInfo.onmouseout = function() {
+		legend.style.display = 'none';
+	}
+
+	window.onkeydown = function(event) {
+		if ((event.ctrlKey || event.metaKey) && event.key === 'f') {
+			event.preventDefault();
+			search(true);
+			return false;
+		} else if (event.key === 'Escape') {
+			search(false);
+		} else if ((event.key === 'n' || event.key === 'N') && nav.length > 0) {
+			navIndex = (navIndex + (event.shiftKey ? nav.length - 1 : 1)) % nav.length;
+			render(nav[navIndex]);
+			document.getElementById('matchval').textContent = matchval + ' (' + (navIndex + 1) + ' of ' + nav.length + ')';
+			window.scroll(0, inverted ? root.level * 16 : canvasHeight - (root.level + 1) * 16);
+			canvas.onmousemove();
+			return false;
+		} else if (event.key === 'i') {
+			canvas.onmouseout();
+			document.getElementById('inverted').onclick();
+			return false;
+		} else if (event.key === 'd') {
+			document.getElementById('darkmode').onclick();
+			return false;
+		} else if (event.key === '0') {
+			canvas.onmouseout();
+			root = levels[0][0];
+			search(false);
+			return false;
+		}
+	}
+
+const cpool = [
+'all',
+' AccessInternal::PostRuntimeDispatch<G1BarrierSet::AccessBarrier<270432ull, G1BarrierSet>, (AccessInternal::BarrierType)9, 270432ull>::access_barrier',
+'!gent_OnAttach',
+'!rena::Arealloc',
+'\'grow',
+'!ttachListenerThread::thread_entry',
+' BarrierSetC2::load_at',
+'!ytecode_invoke::static_target',
+' C1 Runtime counter_overflow_blob',
+'!2Compiler::compile_method',
+'!allGenerator::for_inline',
+'!hunkPool::allocate_chunk',
+'!odeCache::find_blob',
+'"llectedHeap::array_allocate',
+'"mpLevel CompilationPolicy::common<LoopPredicate>',
+'=standard_transition<LoopPredicate>',
+'$ilation::Compilation',
+'-compile_java_method',
+'5method',
+'-emit_lir',
+'+Policy::call_event',
+'3event',
+'&e::Code_Gen',
+'+mpile',
+')Optimize',
+')optimize_loops',
+')process_for_merge_stores_igvn',
+'\'Broker::compile_method',
+'=_base',
+'6r_thread_loop',
+'/invoke_compiler_on_method',
+'\'r::compile_method',
+'"ncurrentGCThread::run',
+' Dependencies::DepStream::next',
+'.validate_dependencies',
+' FileWriter::FileWriter',
+' G1ServiceThread::run_service',
+'1wait_for_task',
+'!raphKit::access_load_at',
+'*make_load',
+'*null_check_common',
+' I2C/C2I adapters',
+'!nlineTree::check_can_parse',
+'"stanceKlass::allocate_instance',
+'/initialize',
+'"terpreterRuntime::frequency_counter_overflow',
+'N_inner',
+'%valWalker::walk_to',
+' JNIHandleBlock::allocate_handle',
+'!VM_Clone',
+'$FillInStackTrace',
+'$IHashCode',
+'$MonitorWait',
+'$NanoTime',
+'$SleepNanos',
+'!avaThread::pd_last_frame',
+',sleep_nanos',
+',thread_main_inner',
+'$_java_lang_System_identityHashCode',
+'/Throwable_fillInStackTrace',
+'!vmtiAgent::load',
+'*List::load_agent',
+' LinearScan::allocate_registers',
+',do_linear_scan',
+'*Walker::activate_current',
+'3lloc_free_reg',
+'2free_collect_inactive_fixed',
+'#kResolver::check_method_accessability',
+'.resolve_interface_method',
+'6method_statically',
+'!oopPredicate::apply',
+' MachNode::rematerialize',
+'"tcher::ReduceInst',
+')match',
+'._tree',
+'!emAllocator::Allocation::notify_allocation',
+'K_jvmti_sampler',
+'.allocate',
+'"rgePrimitiveStores::run',
+'!onitor::wait_without_safepoint_check',
+'\'DeflationThread::monitor_deflation_thread_entry',
+'!utex::lock_without_safepoint_check',
+' ObjAllocator::initialize',
+'$rrayAllocator::initialize',
+'#ectMonitor::wait',
+'-DeflationSafepointer::block_for_safepoint',
+'&Synchronizer::FastHashCode',
+'4is_async_deflation_needed',
+'4wait',
+'!opFlow::compute_reach',
+' Parker::park',
+'#se::Parse',
+'\'do_all_blocks',
+'*call',
+'*field_access',
+'*get_xxx',
+'*if',
+'*one_block',
+'%Generator::generate',
+'!haseAggressiveCoalesce::insert_copies',
+'%Chaitin::Register_Allocate',
+'%IFG::init',
+'&dealLoop::PhaseIdealLoop',
+'0build_and_optimize',
+'6loop_late',
+'?_post_work',
+';tree',
+'?_impl',
+'0optimize',
+'&terGVN::optimize',
+'.transform_old',
+'%Live::compute',
+'%MacroExpand::expand_macro_nodes',
+'%Output::BuildOopMaps',
+'-Output',
+'-fill_buffer',
+'-install_code',
+'!latformEvent::park_nanos',
+'(Monitor::wait',
+'!redicateBlockIterator::for_each',
+')Iterator::for_each',
+'&tedCallGenerator::generate',
+'"ofiler::run',
+' RegionNode::Ideal',
+',is_unreachable_from_root',
+';region',
+'#ularPredicateBlockIterator::for_each',
+'!ootNode::bottom_type',
+'!untime1::counter_overflow',
+' ServiceThread::service_thread_entry',
+'!hared Runtime resolve_virtual_call_blob',
+'&Runtime::find_callee_info_helper',
+'/raw_exception_handler_for_return_address',
+'0esolve_helper',
+'7virtual_call_C',
+'!tackWatermarkSet::after_unwind',
+'#te::MachOperGenerator',
+'"oreNode::Ideal',
+'!ymbol::increment_refcount',
+' TemplateAssertionPredicate::is_predicate',
+'!hread::call_run',
+' Unsafe_AllocateInstance',
+'\'Park',
+' VectorSet::grow',
+' WatcherThread::run',
+' [break_stack_range]',
+'!unknown]',
+' __gettimeofday',
+'"open',
+'"psynch_cvwait',
+'!pthread_start',
+' attachStream::flush_reply',
+' ca/spottedleaf/concurrentutil/collection/MultiThreadedQueue.poll',
+'\\removeHead',
+'>scheduler/EDFSchedulerThreadPool$TickThreadRunner.returnTask',
+'qun',
+'psetStatePlain',
+'ptakeTask',
+'^.returnTask',
+'_takeTask',
+'?et/LinkedSortedSet.remove',
+'XNode',
+'>util/LazyRunnable.run',
+'/leafprofiler/RegionizedProfiler$Handle.startTimer',
+'/moonrise/common/time/Schedule.getPeriodsAhead',
+'DTickData.addDataFrom',
+'8patches/chunk_system/scheduling/ChunkHolderManager.getCurrentRegionData',
+'kprocessPendingFullUpdate',
+'rTicketUpdates',
+'XThreadedTicketLevelPropagator$UpdateQueue.isEmpty',
+'ue.peek',
+'ue.setHeadOpaque',
+'u.hasPendingUpdates',
+'!heckcast_arraycopy',
+'!iEnv::get_method_from_handle',
+'\'register_method',
+'\'validate_compile_task_dependencies',
+'"InstanceKlass::ciInstanceKlass',
+'"Klass::ciKlass',
+'"Method::ensure_method_data',
+'*get_flow_analysis',
+'(Data::load_data',
+'"ObjectFactory::create_new_metadata',
+'1get_metadata',
+'5symbol',
+'"Symbol::ciSymbol',
+'"TypeFlow::StateVector::apply_one_bytecode',
+',df_flow_types',
+'-o_flow',
+',flow_block',
+'1types',
+' gettimeofday',
+' io/netty/channel/SingleThreadIoEventLoop$1.shouldReportActiveIoTime',
+'H.run',
+'LIo',
+'1kqueue/KQueueEventArray.clear',
+'>IoHandler.kqueueWait',
+'Hrun',
+'8Native.keventWait',
+')util/concurrent/SingleThreadEventExecutor$5.run',
+'R.isShuttingDown',
+'SpollTask',
+'[From',
+'SrunAllTasks',
+'.internal/ThreadExecutorMap$2.run',
+'7shaded/org/jctools/queues/atomic/BaseMpscLinkedAtomicArrayQueue.poll',
+'XMpscUnboundedAtomicArrayQueue.poll',
+'#papermc/paper/adventure/providers/ClickCallbackProviderImpl$AdventureClick.handleQueue',
+'_CallbackManager.handleQueue',
+'1configuration/GlobalConfiguration$Proxies.isProxyOnlineMode',
+'1threadedregions/FoliaWatchdogThread.addTick',
+'UremoveTick',
+'Vun',
+'ARegionizedServer$GlobalTickTickHandle.drainTasks',
+'grunOnePacketTask',
+'mTask',
+'gtickRegion',
+'Q.advanceWeatherCycle',
+'SutoSaveMaps',
+'RcheckNightSkip',
+'RglobalTick',
+'RtickClocks',
+'Wonnections',
+'VPlayerSample',
+'VTime',
+'VWorldBorder',
+'RupdateSkyBrightness',
+'KTaskQueue$WorldRegionTaskData.drainGlobalChunkTasks',
+'iexecuteGlobalChunkTask',
+'ATickRegionScheduler$RegionScheduleHandle.addTickTime',
+'jrunTick',
+'T.setTickTask',
+'Ascheduler/FoliaGlobalRegionScheduler.tick',
+'1world/saveddata/PaperLevelOverrides$$Lambda.0x00003ffc0226bcb8.accept',
+'T.setGameTime',
+'VyncRootData',
+'!t/unimi/dsi/fastutil/objects/Reference2ObjectOpenHashMap.get',
+' java/io/IOException.<init>',
+')nterruptedIOException.<init>',
+'%lang/Class.cast',
+'*Exception.<init>',
+'*Math.ceil',
+'*Object.clone',
+'1wait',
+'50',
+'*StrictMath.ceil',
+'5floorOrCeil',
+'+ystem.identityHashCode',
+'1nanoTime',
+'*Thread.beforeSleep',
+'1getAndClearInterrupt',
+'1interrupted',
+'1run',
+'4With',
+'1sleep',
+'6Nanos',
+';0',
+'0Local$ThreadLocalMap.getEntry',
+'5.get',
+'9Map',
+'-owable.<init>',
+'4fillInStackTrace',
+'*invoke/DirectMethodHandle.allocateInstance',
+'1Invokers$Holder.linkToTargetMethod',
+'1LambdaForm$DMH.0x00003ffc01124000.newInvokeSpecial',
+'1VarHandleGuards.guard_LL_V',
+':References$FieldInstanceReadWrite.set',
+'_Release',
+'*ref/ReferenceQueue.remove',
+'C0',
+'%net/ServerSocket.accept',
+'6implAccept',
+'7sClosed',
+'6platformImplAccept',
+'*ocketTimeoutException.<init>',
+'%util/ArrayList.<init>',
+'4removeIf',
+'4size',
+'/s$ArrayList.<init>',
+'0.asList',
+'*Collections.shuffle',
+'*HashMap$Values.forEach',
+'1.hash',
+'2put',
+'5Val',
+'2values',
+'.Set.add',
+'2remove',
+'*LinkedHashMap.afterNodeInsertion',
+'8newNode',
+'*Objects.requireNonNull',
+'*PriorityQueue.add',
+'8offer',
+'8siftUp',
+'>UsingComparator',
+'*concurrent/ConcurrentLinkedQueue.poll',
+'KupdateHead',
+'7pyOnWriteArrayList.toArray',
+'5ThreadPoolExecutor$Worker.run',
+'G.processWorkerExit',
+'HrunWorker',
+'HworkerCountOf',
+'5locks/LockSupport.parkNanos',
+'$_lang_Throwable::fill_in_stack_trace',
+'!dk/internal/misc/InnocuousThread.run',
+'2Unsafe.allocateInstance',
+'9park',
+'-ref/CleanerImpl.run',
+'!mm_GetThreadCpuTimeWithKind',
+' kevent',
+' load_agent',
+' mach_absolute_time',
+'%msg2_trap',
+' net/minecraft/network/PacketProcessor.executeSinglePacket',
+'6protocol/status/ServerStatus$Version.current',
+'.server/MinecraftServer.buildPlayerStatus',
+'JServerStatus',
+'EhasStopped',
+'ErebuildServerStatus',
+'5dedicated/DedicatedServer.enforceSecureProfile',
+'OhandleConsoleInputs',
+'5level/ServerLevel.advanceWeatherCycle',
+'GgetWorldBorder',
+'GtickSleep',
+'GupdateTickData',
+'5players/PlayerList.tick',
+'=SleepStatus.areEnoughSleeping',
+'IsleepersNeeded',
+'5rcon/thread/RconThread.clearClients',
+'Lrun',
+'.util/Mth.ceil',
+'7randomBetweenInclusive',
+'3valueproviders/UniformInt.sample',
+'.world/attribute/EnvironmentAttributeSystem.getDimensionValue',
+'\\ValueSampler',
+'4clock/ServerClockManager$$Lambda.0x00003ffc02269dd0.accept',
+'L.advanceTime',
+'Mtick',
+'4level/Level.canHaveWeather',
+'@dimensionType',
+'@isRaining',
+'@updateSkyBrightness',
+':gamerules/GameRules.get',
+':saveddata/WeatherData.setRaining',
+'SThundering',
+' oopDesc::metadata_field',
+'!rg/bukkit/Bukkit.getOnlineMode',
+'$spigotmc/WatchdogThread.run',
+'!s::current_thread_cpu_time',
+'$is_thread_cpu_time_supported',
+'$javaTimeNanos',
+' poll',
+'!thread_cond_broadcast',
+'(jit_write_protect_np',
+' read_stable_mark',
+' stub:JVM_IHashCode',
+'!un/management/ThreadImpl.getCurrentThreadCpuTime',
+'=ThreadTotalCpuTime0',
+':verifyCurrentThreadCpuTime',
+'$nio/ch/Net.poll',
+',ioSocketImpl.accept',
+'9park',
+'9timedAccept',
+':ryLock',
+' thread_info',
+'\'native_entry',
+'\'start',
+' void AccessInternal::arraycopy_conjoint_atomic<long>',
+'!table stub',
+' write'
+];
+unpack(cpool);
+
+n(3,378)
+u(1163,6)
+u(411,2)
+n(427,1)
+n(467,2)
+n(1140,1)
+f(1171,1,1,2)
+u(1171,1)
+u(2382,1,0,1,0)
+f(2382,2,1,1,0,1,0)
+f(1696,1,1,6)
+f(2032,2,1,3)
+u(2040)
+u(2049,3,0,0,1)
+u(435)
+u(452)
+u(940)
+u(1195)
+f(2536,2,3,2)
+f(2016,1,2,315)
+u(2024)
+u(1296,287)
+u(1240)
+f(331,5,13,6)
+n(1238,5,0,5,0)
+u(1250,2)
+u(2122)
+u(2130)
+u(1914)
+f(1270,6,2,3,0,3,0)
+u(2330)
+u(2342,3,0,3,0)
+u(2346)
+u(2358,3,0,3,0)
+f(1262,5,3,2,0,2,0)
+u(1274)
+u(1282)
+f(1294,8,1,1,0,1,0)
+f(1846,5,1,239,0,239,0)
+f(1318,6,5,1,0,1,0)
+n(1682,5)
+u(2290)
+u(2265)
+u(2258,1)
+u(2947)
+f(2273,9,1,4)
+f(2305,10,1,2)
+n(2313,1)
+f(1690,6,1,2)
+u(2298)
+f(1730,6,2,213)
+u(1706,7)
+u(1714,1)
+u(2510,1,0,1,0)
+u(2366,1,0,1,0)
+u(2370)
+u(2122)
+u(2138)
+f(1726,8,1,6,0,6,0)
+u(1218)
+f(1230,10,1,5,0,5,0)
+f(1766,7,5,206,0,206,0)
+f(1658,8,1,1)
+u(1666)
+f(1766,8,1,158,0,158,0)
+f(1350,9,5,43,0,43,0)
+f(1306,10,2,2)
+n(1342,3,0,3,0)
+u(1334,3,0,3,0)
+f(1378,10,3,22)
+u(1354)
+f(1366,12,4,18,0,18,0)
+f(1370,13,15,3)
+f(2065,10,3,14)
+f(2066,11,1,13)
+u(2058,5)
+n(2073,7)
+n(2947,1)
+f(1738,9,1,26)
+u(2574,26,0,26,0)
+f(2382,11,8,4,0,4,0)
+f(1387,12,3,1)
+f(2658,11,1,5)
+u(2650)
+f(2722,11,5,6)
+f(2705,12,3,3)
+u(2714)
+f(2750,11,3,1,0,1,0)
+n(2758,2,0,2,0)
+f(1750,9,2,1,0,1,0)
+u(2491)
+f(1754,9,1,15)
+f(2590,10,1,14,0,14,0)
+u(2610,10)
+u(2618)
+u(2642)
+u(1930)
+f(1961,15,6,4)
+f(1970,16,2,2)
+f(2738,11,2,4)
+f(1798,9,4,35,0,35,0)
+f(67,10,1,1)
+u(1028)
+u(172)
+u(164)
+u(116)
+u(124)
+u(564)
+f(1874,10,1,33)
+u(1882,8)
+f(1870,12,4,4,0,4,0)
+f(67,13,3,1)
+u(1028)
+u(172)
+f(2106,11,1,25)
+u(2114)
+u(2098)
+f(2441,14,12,13)
+f(1132,15,1,10)
+f(348,16,1,4)
+f(612,17,1,1)
+n(620)
+u(604)
+f(660,17,1)
+f(356,16,1,2)
+n(388)
+n(2764,1)
+f(2827,15,1,2)
+f(1802,9,2,5)
+u(2582,5,0,5,0)
+f(1810,9,5,22)
+u(2730)
+f(2670,11,4,18,0,18,0)
+f(2674,12,2,16)
+f(1894,13,1,15,0,15,0)
+f(1977,14,4,11)
+f(411,15,5,2)
+u(692)
+f(2836,17,1,1)
+f(2827,15,1,3)
+n(2843,1)
+f(1818,9,1,4)
+u(1826)
+f(1218,11,3,1)
+f(2598,9,1,2,0,2,0)
+f(1774,8,2,21,0,21,0)
+f(2698,9,3,18)
+f(2249,10,6,6)
+f(2681,11,4,2)
+f(2286,10,2,2,0,2,0)
+n(2694,4,0,4,0)
+f(2738,11,1,3)
+f(1782,8,3,15,0,15,0)
+u(2201,11,0,1,0)
+f(2382,10,2,9,0,9,0)
+u(1937)
+u(12,1)
+n(108,2)
+n(395,6)
+f(108,13,3,1)
+u(668)
+f(2940,13,1,2)
+f(2242,9,2,4)
+u(2242)
+f(2246,11,1,3,0,3,0)
+f(2222,12,2,1,0,1,0)
+f(1790,8,1,4,0,4,0)
+u(2546)
+f(2528,10,1,3)
+u(2512,1)
+n(2520)
+n(2552)
+u(1672)
+u(2768)
+f(1862,8,1,1,0,1,0)
+n(2566,3,0,3,0)
+f(2366,9,2,1,0,1,0)
+f(2606,8,1,2,0,2,0)
+u(1043,1)
+u(1076)
+u(1068)
+u(1052)
+u(60)
+u(556)
+u(548)
+u(540)
+f(2234,9,1)
+u(2226)
+u(2322)
+f(1838,6,1,4,0,4,0)
+f(1321,7,1,3,0,1,0)
+f(1854,6,3,1,0,1,0)
+n(2850,8)
+u(2857,7)
+u(2467,6)
+u(2788)
+u(2915)
+u(2499)
+f(2796,8,6,1)
+f(2866,7,1)
+f(1985,5,1)
+u(2491)
+f(2014,5,1,2,0,2,0)
+u(67,1)
+u(1028)
+u(172)
+u(220)
+u(220)
+u(228)
+u(2819)
+f(2002,6,1)
+f(2422,5,1,19,0,19,0)
+u(2449)
+u(1140)
+u(724)
+u(1179,1)
+n(1195,17)
+n(1531,1)
+f(1632,3,1,10)
+u(1592)
+u(1544)
+u(1552,6)
+u(1576)
+f(1536,8,1,1)
+n(1568,4)
+u(1568)
+u(1560,1)
+n(1584,3)
+u(1584)
+u(2475)
+f(1600,6,3,1)
+n(1624,3)
+f(1608,7,1,2)
+u(1616)
+u(1648)
+u(1640)
+f(2632,3,2,18)
+f(2160,4,1,15)
+u(2168,14)
+u(1060,1)
+u(100)
+f(2168,6,1,13)
+u(2184)
+u(2168,12)
+u(2880)
+f(2896,10,1,10)
+f(1084,11,2,1)
+n(2192)
+u(1904)
+u(1902,1,0,1,0)
+u(1922)
+u(2086,1,0,1,0)
+u(2089)
+u(2089)
+u(475)
+u(403)
+u(2428)
+u(2428)
+f(2888,11,1,6)
+u(2872,6,0,0,3)
+u(2811)
+f(2904,10,6,1)
+f(2827,8,1)
+f(2176,5,1)
+f(2624,4,1,2)
+u(2105,1)
+n(2208)
+f(2432,1,1,2)
+u(2016)
+u(2024)
+u(2384,1)
+u(2400)
+u(2392)
+u(2408)
+u(364)
+u(372)
+u(444)
+f(2456,4,1)
+u(2144)
+u(2152)
+u(1944)
+u(1952)
+u(419)
+u(708)
+u(676)
+u(940)
+u(1195)
+f(2776,1,1,7)
+f(2032,2,2,5)
+u(2040)
+f(1992,4,2,1)
+n(2048,2,0,0,1)
+f(435,5,1,1)
+u(452)
+u(940)
+u(1195)
+f(2804,1,1)
+n(2931,39)
+u(1203)
+u(2924)
+u(1124)
+u(260,3)
+u(292)
+u(300)
+f(636,8,2,1)
+u(948)
+u(1195)
+f(460,5,1,35)
+u(44,2)
+u(1212,1)
+u(2955)
+f(2484,7,1)
+u(492)
+u(484)
+u(19)
+u(980)
+u(284)
+u(1187)
+f(236,6,1,22)
+u(244,21)
+u(76,19)
+u(188,18)
+u(84,1)
+u(340)
+u(1444)
+u(1508)
+u(1524)
+u(1500)
+u(1516)
+u(1492)
+f(180,10,1,7)
+u(588,1)
+u(596)
+u(580)
+u(1092)
+f(804,11,1,3)
+u(796,1)
+u(572)
+f(812,12,1)
+u(36)
+u(92)
+f(892,12,1)
+f(916,11,1,2)
+u(908,1)
+u(716)
+f(924,12,1)
+f(932,11,1)
+u(1404)
+u(1412)
+u(276)
+u(268)
+f(196,10,1,6)
+u(204,2)
+u(868)
+u(820)
+u(828)
+u(836,1)
+u(844)
+u(964)
+u(956)
+u(1012)
+u(1116)
+f(852,15,1)
+u(860)
+f(212,11,1)
+u(876)
+u(884)
+u(1100)
+u(628)
+f(868,11,1)
+u(820)
+u(828)
+f(876,11,1)
+u(884)
+u(988)
+u(1004)
+u(996)
+u(1148)
+u(28)
+f(900,11,1)
+u(876)
+u(884)
+f(788,10,1,3)
+u(732)
+u(740)
+u(780)
+u(748,2)
+u(972)
+u(788)
+u(732)
+u(740)
+u(780)
+u(748,1)
+u(788)
+u(732)
+u(740)
+u(780)
+u(756)
+u(324)
+f(756,20,1)
+u(764)
+u(308)
+u(52)
+u(316)
+f(772,14,1)
+f(1436,10,1)
+u(1452)
+f(1020,9,1)
+f(252,8,1)
+u(132)
+u(148)
+u(140)
+u(156)
+u(508)
+u(500)
+u(380)
+u(516)
+u(524)
+u(532)
+f(1396,8,1)
+u(1468)
+u(1460)
+u(1468)
+u(1460)
+u(1420)
+u(1428)
+u(1476)
+u(1484)
+u(1108)
+f(252,7,1)
+f(644,6,1,10)
+u(636,7)
+u(948)
+f(1195,9,1,6)
+f(684,7,6,1)
+n(700,2)
+f(1036,6,2,1)
+u(636)
+f(1156,5,1)
+u(652)
+
+search();
+</script></body></html>
