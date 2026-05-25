@@ -1,0 +1,160 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Mon, 25 May 2026 23:40:29 +0800
+Subject: [PATCH] nebula: entity snapshot RCU for AI weak dependencies (Phase
+ D5)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+NebulaEntitySnapshot captures id, type, position, health, alive flag
+of all ticking entities at tick start. NebulaSnapshotRegistry
+publishes per-world snapshots through an AtomicReference RCU pattern
+(architecture §7.4): readers never block, writers atomically swap.
+
+ServerLevel.nebula\$tickViaDAG publishes the snapshot before DAG
+execution. Future Sense / GoalSelect / Pathfind tasks read the
+snapshot rather than live entity state — sense and move can run in
+parallel because the snapshot edge breaks the read-after-write hazard
+(architecture §7.3 weak-dependency optimization).
+
+Vanilla AI is not yet routed through the snapshot — that requires
+decomposing entity.tick() into Sense/Goal/Pathfind/Act subtasks
+(deferred). The infrastructure is in place for that integration.
+
+diff --git a/io/papermc/paper/threadedregions/NebulaEntitySnapshot.java b/io/papermc/paper/threadedregions/NebulaEntitySnapshot.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..1b31fe1e80f7c9e86b186dfb5efb07e0117ca2b5
+--- /dev/null
++++ b/io/papermc/paper/threadedregions/NebulaEntitySnapshot.java
+@@ -0,0 +1,62 @@
++package io.papermc.paper.threadedregions;
++
++import net.minecraft.core.BlockPos;
++import net.minecraft.world.entity.Entity;
++import net.minecraft.world.entity.EntityType;
++
++import java.util.List;
++
++/**
++ * Immutable per-tick snapshot of all live entities (architecture §7.4 RCU).
++ *
++ * Published once at the start of each tick by NebulaTickDriver. AI tasks
++ * read this snapshot for sense queries (sensed entities, target lists)
++ * instead of reading live entity state, so AI sense ↔ entity move can run
++ * in parallel without dependency edges.
++ *
++ * Frozen at construction; safe for unsynchronized concurrent reads.
++ */
++public final class NebulaEntitySnapshot {
++
++    public record EntityState(int id, EntityType<?> type, double x, double y, double z, float health, boolean alive) {
++        public BlockPos blockPos() {
++            return BlockPos.containing(x, y, z);
++        }
++    }
++
++    private final long tick;
++    private final List<EntityState> entities;
++
++    public NebulaEntitySnapshot(long tick, List<EntityState> entities) {
++        this.tick = tick;
++        this.entities = List.copyOf(entities);
++    }
++
++    public long tick() {
++        return tick;
++    }
++
++    public List<EntityState> entities() {
++        return entities;
++    }
++
++    static NebulaEntitySnapshot capture(long tick, Iterable<? extends Entity> source) {
++        java.util.ArrayList<EntityState> states = new java.util.ArrayList<>();
++        for (Entity entity : source) {
++            float health = 0f;
++            if (entity instanceof net.minecraft.world.entity.LivingEntity living) {
++                health = living.getHealth();
++            }
++            states.add(new EntityState(
++                entity.getId(),
++                entity.getType(),
++                entity.getX(),
++                entity.getY(),
++                entity.getZ(),
++                health,
++                !entity.isRemoved()
++            ));
++        }
++        return new NebulaEntitySnapshot(tick, states);
++    }
++}
+diff --git a/io/papermc/paper/threadedregions/NebulaSnapshotRegistry.java b/io/papermc/paper/threadedregions/NebulaSnapshotRegistry.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..e8f2d0e3fe60ca471fc86850af29423fed0fba75
+--- /dev/null
++++ b/io/papermc/paper/threadedregions/NebulaSnapshotRegistry.java
+@@ -0,0 +1,46 @@
++package io.papermc.paper.threadedregions;
++
++import net.minecraft.server.level.ServerLevel;
++import net.minecraft.world.entity.Entity;
++import net.minecraft.world.level.Level;
++
++import java.util.HashMap;
++import java.util.Map;
++import java.util.concurrent.atomic.AtomicReference;
++
++/**
++ * Per-world atomic snapshot publisher (architecture §7.4 RCU).
++ *
++ * Each tick the coordinator publishes a fresh NebulaEntitySnapshot via
++ * {@link #publish}. AI tasks (now or in future Sense/Goal/Pathfind
++ * decompositions) read the snapshot via {@link #current}; readers and
++ * writers never block — old snapshots are GC'd once references drop.
++ *
++ * Implementation: AtomicReference per-world holding the latest snapshot.
++ * Lookup is keyed by Level identity (sufficient for the lifetime of a
++ * server level).
++ */
++public final class NebulaSnapshotRegistry {
++
++    private static final Map<Level, AtomicReference<NebulaEntitySnapshot>> WORLD_SNAPSHOTS = new HashMap<>();
++
++    private NebulaSnapshotRegistry() {}
++
++    public static synchronized void publish(ServerLevel level, long tick, Iterable<? extends Entity> entities) {
++        NebulaEntitySnapshot snapshot = NebulaEntitySnapshot.capture(tick, entities);
++        AtomicReference<NebulaEntitySnapshot> ref = WORLD_SNAPSHOTS.computeIfAbsent(level, k -> new AtomicReference<>());
++        ref.set(snapshot);
++    }
++
++    public static NebulaEntitySnapshot current(Level level) {
++        AtomicReference<NebulaEntitySnapshot> ref;
++        synchronized (NebulaSnapshotRegistry.class) {
++            ref = WORLD_SNAPSHOTS.get(level);
++        }
++        return ref == null ? null : ref.get();
++    }
++
++    public static synchronized void clear(ServerLevel level) {
++        WORLD_SNAPSHOTS.remove(level);
++    }
++}
+diff --git a/net/minecraft/server/level/ServerLevel.java b/net/minecraft/server/level/ServerLevel.java
+index ce4a3f0e9df9029a355d7ce1e40b5617bc1a8394..cd72059d1670ae0a7f44789d1d72636922053cd9 100644
+--- a/net/minecraft/server/level/ServerLevel.java
++++ b/net/minecraft/server/level/ServerLevel.java
+@@ -3213,6 +3213,11 @@ public class ServerLevel extends Level implements WorldGenLevel, ServerEntityGet
+         // Flush pending block entities before DAG builds per-BE tasks
+         worldData.pushPendingTickingBlockEntities();
+ 
++        // Publish entity snapshot for AI sense queries (architecture §7.4 RCU)
++        java.util.ArrayList<net.minecraft.world.entity.Entity> snapshotSource = new java.util.ArrayList<>();
++        worldData.forEachTickingEntity(snapshotSource::add);
++        io.papermc.paper.threadedregions.NebulaSnapshotRegistry.publish(this, tick, snapshotSource);
++
+         // DAG-decomposed subsystems
+         java.util.List<org.nebula.core.scheduler.TaskNode> tasks;
+         if (this.emptyTime < 300) {
