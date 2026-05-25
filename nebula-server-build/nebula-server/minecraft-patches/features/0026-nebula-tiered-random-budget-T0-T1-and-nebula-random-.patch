@@ -1,0 +1,246 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Tue, 26 May 2026 00:27:34 +0800
+Subject: [PATCH] nebula: tiered random budget (T0/T1) and /nebula random (D14)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Implements architecture §11 random tiering at the DAG-driver boundary:
+
+- NebulaRandomGate: NMS-side wrapper around nebula-core RandomBudget
+  exposing per-tick beginTick/endTick lifecycle plus per-entity
+  recordEntityCalls accounting. Tracks consecutive-downgrade pressure
+  and surfaces totals (ticks, downgrades, entity-evals, over-budget).
+
+- ServerLevel.nebula$tickViaDAG: calls beginTick at start (clears
+  per-tick counters, decides T0/T1 tier) and endTick at end (rotates
+  consecutive-downgrade counter, logs warning when threshold reached).
+
+- /nebula random subcommand: prints current tier, totals, and rates.
+  /nebula reset now resets random-gate counters alongside DAG metrics.
+
+Per-entity recording (recordEntityCalls) is the next wiring step — once
+NMS RandomSource paths are routed through DeterministicRandom under
+NEBULA mode they will feed actual call counts into evaluate(). For now
+the gate runs as a tick-level orchestrator preparing infrastructure for
+that future wiring.
+
+diff --git a/io/papermc/paper/threadedregions/NebulaRandomGate.java b/io/papermc/paper/threadedregions/NebulaRandomGate.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..7e611bd42488e411e4657cfb2de018bd1ddd3d62
+--- /dev/null
++++ b/io/papermc/paper/threadedregions/NebulaRandomGate.java
+@@ -0,0 +1,132 @@
++package io.papermc.paper.threadedregions;
++
++import org.nebula.core.random.RandomBudget;
++
++import java.util.concurrent.atomic.AtomicInteger;
++import java.util.concurrent.atomic.AtomicLong;
++
++/**
++ * Per-server random budget gate (architecture §11).
++ *
++ * <p>Tracks per-tick random call consumption and decides whether to downgrade
++ * the next tick from T0 (deterministic, parallel-safe) to T1 (single-thread fallback).
++ * Wraps {@link RandomBudget} from nebula-core with NMS-side accounting hooks.
++ *
++ * <p>The DAG coordinator calls:
++ * <ul>
++ *   <li>{@link #beginTick()} at the start of each tick — clears per-tick counters
++ *       and returns whether T1 fallback is in effect for this tick</li>
++ *   <li>{@link #recordEntityCalls(long, int, int)} after each entity task — updates
++ *       per-entity historical max and over-budget statistics</li>
++ *   <li>{@link #endTick()} at end of tick — records consecutive-downgrade pressure
++ *       and returns whether warning threshold reached</li>
++ * </ul>
++ *
++ * <p>Public counters used by /nebula random for live introspection.
++ */
++public final class NebulaRandomGate {
++
++    private static final RandomBudget BUDGET = new RandomBudget();
++
++    private static final AtomicLong TOTAL_TICKS = new AtomicLong();
++    private static final AtomicLong TOTAL_DOWNGRADES = new AtomicLong();
++    private static final AtomicLong TOTAL_ENTITY_EVALS = new AtomicLong();
++    private static final AtomicLong TOTAL_OVER_BUDGET = new AtomicLong();
++    private static final AtomicInteger CURRENT_TIER = new AtomicInteger(0); // 0=T0, 1=T1
++    private static final AtomicLong CONSECUTIVE_DOWNGRADES = new AtomicLong();
++    private static volatile boolean tickDowngraded = false;
++
++    private NebulaRandomGate() {}
++
++    /**
++     * Mark the start of a new DAG tick. Returns true if this tick should run
++     * in T1 (fallback) mode because consecutive-downgrade pressure has built up.
++     */
++    public static boolean beginTick() {
++        tickDowngraded = false;
++        boolean warning = BUDGET.beginTick();
++        if (warning) {
++            CURRENT_TIER.set(1);
++        } else {
++            CURRENT_TIER.set(0);
++        }
++        return warning;
++    }
++
++    /**
++     * Allocate a budget for an entity about to execute. Estimate is the @NebulaRW
++     * declared random call count (or 0 if unknown).
++     */
++    public static int allocate(long entityId, int estimatedCalls) {
++        return BUDGET.allocate(entityId, estimatedCalls);
++    }
++
++    /**
++     * Record an entity's actual random consumption against its allocated budget.
++     * If the over-budget rate crosses the threshold, the tick is flagged as
++     * downgraded (next-tick T1).
++     */
++    public static RandomBudget.BudgetResult recordEntityCalls(long entityId, int budget, int actualCalls) {
++        TOTAL_ENTITY_EVALS.incrementAndGet();
++        RandomBudget.BudgetResult result = BUDGET.evaluate(entityId, budget, actualCalls);
++        if (actualCalls > budget) {
++            TOTAL_OVER_BUDGET.incrementAndGet();
++        }
++        if (result == RandomBudget.BudgetResult.DOWNGRADE) {
++            tickDowngraded = true;
++        }
++        return result;
++    }
++
++    /**
++     * End-of-tick accounting. Returns the consecutive-downgrade count so callers
++     * can decide whether to log a warning.
++     */
++    public static int endTick() {
++        TOTAL_TICKS.incrementAndGet();
++        if (tickDowngraded) {
++            TOTAL_DOWNGRADES.incrementAndGet();
++        }
++        int consecutive = BUDGET.endTick(tickDowngraded);
++        CONSECUTIVE_DOWNGRADES.set(consecutive);
++        return consecutive;
++    }
++
++    public static long totalTicks() { return TOTAL_TICKS.get(); }
++    public static long totalDowngrades() { return TOTAL_DOWNGRADES.get(); }
++    public static long totalEntityEvals() { return TOTAL_ENTITY_EVALS.get(); }
++    public static long totalOverBudget() { return TOTAL_OVER_BUDGET.get(); }
++    public static long consecutiveDowngrades() { return CONSECUTIVE_DOWNGRADES.get(); }
++    public static int currentTier() { return CURRENT_TIER.get(); }
++
++    public static double overBudgetRate() {
++        long evals = TOTAL_ENTITY_EVALS.get();
++        return evals == 0 ? 0.0 : (double) TOTAL_OVER_BUDGET.get() / evals;
++    }
++
++    public static double downgradeRate() {
++        long ticks = TOTAL_TICKS.get();
++        return ticks == 0 ? 0.0 : (double) TOTAL_DOWNGRADES.get() / ticks;
++    }
++
++    public static String summary() {
++        return String.format(
++            "Nebula random budget: tier=%s, ticks=%d, downgrades=%d (%.2f%%), "
++                + "consecutive=%d, entity-evals=%d, over-budget=%d (%.2f%%)",
++            currentTier() == 0 ? "T0" : "T1",
++            totalTicks(), totalDowngrades(), downgradeRate() * 100,
++            consecutiveDowngrades(), totalEntityEvals(), totalOverBudget(),
++            overBudgetRate() * 100
++        );
++    }
++
++    public static void reset() {
++        TOTAL_TICKS.set(0);
++        TOTAL_DOWNGRADES.set(0);
++        TOTAL_ENTITY_EVALS.set(0);
++        TOTAL_OVER_BUDGET.set(0);
++        CONSECUTIVE_DOWNGRADES.set(0);
++        CURRENT_TIER.set(0);
++        tickDowngraded = false;
++    }
++}
+diff --git a/net/minecraft/server/commands/NebulaCommand.java b/net/minecraft/server/commands/NebulaCommand.java
+index e426048ced015ce8483eed986692c4a30dabd2f5..5e32785e082dd11e955e9f489ed9451a3fd76c42 100644
+--- a/net/minecraft/server/commands/NebulaCommand.java
++++ b/net/minecraft/server/commands/NebulaCommand.java
+@@ -2,6 +2,7 @@ package net.minecraft.server.commands;
+ 
+ import com.mojang.brigadier.CommandDispatcher;
+ import io.papermc.paper.threadedregions.NebulaExplosionPipeline;
++import io.papermc.paper.threadedregions.NebulaRandomGate;
+ import io.papermc.paper.threadedregions.NebulaRedstoneIntegration;
+ import io.papermc.paper.threadedregions.NebulaTickMetrics;
+ import io.papermc.paper.threadedregions.TickRegions;
+@@ -31,6 +32,7 @@ public final class NebulaCommand {
+                 .then(Commands.literal("mode").executes(c -> mode(c.getSource())))
+                 .then(Commands.literal("redstone").executes(c -> redstone(c.getSource())))
+                 .then(Commands.literal("explosions").executes(c -> explosions(c.getSource())))
++                .then(Commands.literal("random").executes(c -> random(c.getSource())))
+                 .then(Commands.literal("reset").executes(c -> reset(c.getSource())))
+                 .executes(c -> stats(c.getSource()))
+         );
+@@ -73,9 +75,20 @@ public final class NebulaCommand {
+         return pending;
+     }
+ 
++    private static int random(final CommandSourceStack source) {
++        if (!TickRegions.isNebulaMode()) {
++            source.sendSuccess(() -> Component.literal("Nebula mode is disabled — random budget gate inactive."), false);
++            return 0;
++        }
++        String summary = NebulaRandomGate.summary();
++        source.sendSuccess(() -> Component.literal(summary), false);
++        return NebulaRandomGate.currentTier();
++    }
++
+     private static int reset(final CommandSourceStack source) {
+         NebulaTickMetrics.reset();
+-        source.sendSuccess(() -> Component.literal("Nebula DAG metrics reset."), true);
++        NebulaRandomGate.reset();
++        source.sendSuccess(() -> Component.literal("Nebula DAG metrics + random budget reset."), true);
+         return 1;
+     }
+ }
+diff --git a/net/minecraft/server/level/ServerLevel.java b/net/minecraft/server/level/ServerLevel.java
+index 07588921b02497a1b0d419d6650f5ad76f19fac5..834b82b9fa204e03e269f802853adb9d880ece2a 100644
+--- a/net/minecraft/server/level/ServerLevel.java
++++ b/net/minecraft/server/level/ServerLevel.java
+@@ -3208,6 +3208,15 @@ public class ServerLevel extends Level implements WorldGenLevel, ServerEntityGet
+     private void nebula$tickViaDAG(io.papermc.paper.threadedregions.RegionizedWorldData worldData, boolean runsNormally) {
+         long tick = worldData.getRedstoneGameTime();
+ 
++        // Random budget gate (architecture §11) — clears per-tick counters and decides T0/T1 tier.
++        boolean t1Fallback = io.papermc.paper.threadedregions.NebulaRandomGate.beginTick();
++        if (t1Fallback && com.mojang.logging.LogUtils.getLogger().isDebugEnabled()) {
++            com.mojang.logging.LogUtils.getLogger().debug(
++                "Nebula random budget T1 fallback active (consecutive downgrades={})",
++                io.papermc.paper.threadedregions.NebulaRandomGate.consecutiveDowngrades()
++            );
++        }
++
+         // emptyTime logic (mirrors vanilla — always active in Folia)
+         this.resetEmptyTime();
+         if (runsNormally) {
+@@ -3260,6 +3269,17 @@ public class ServerLevel extends Level implements WorldGenLevel, ServerEntityGet
+         worldData.getBlockEntityTickers().removeIf(net.minecraft.world.level.block.entity.TickingBlockEntity::isRemoved);
+ 
+         worldData.currentPrimedTnt = 0;
++
++        // Random budget end-of-tick: rotate consecutive-downgrade pressure, log warning if threshold reached.
++        int consecutive = io.papermc.paper.threadedregions.NebulaRandomGate.endTick();
++        if (consecutive == org.nebula.core.random.RandomBudget.DEFAULT_DOWNGRADE_WARNING_COUNT) {
++            com.mojang.logging.LogUtils.getLogger().warn(
++                "Nebula random budget downgraded to T1 for {} consecutive ticks; entity over-budget rate {}",
++                consecutive,
++                String.format(java.util.Locale.ROOT, "%.2f%%",
++                    io.papermc.paper.threadedregions.NebulaRandomGate.overBudgetRate() * 100)
++            );
++        }
+     }
+     // Nebula end - DAG decomposition delegates (Phase D)
+ }
