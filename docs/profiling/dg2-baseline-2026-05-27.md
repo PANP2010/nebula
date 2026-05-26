@@ -76,3 +76,42 @@ time.
    tick-phase overhead vs Folia upstream
 2. Compare against Folia upstream with identical stress-spawn workload
 3. Measure with `-Dnebula.guard=true` to quantify RW-Guard overhead
+
+---
+
+## D3 Collision Pipeline Verification — 2026-05-27
+
+### Configuration
+
+Same environment as above. Flags: `-Dnebula.mode=true -Dnebula.parallel=true`
+with deferred impulse buffer enabled (D3 implementation).
+
+### Results (30s smoke test)
+
+```
+ticks=483, avg-tasks/tick=427.6, avg-layers/tick=1.00
+avg-parallelism=427.55, avg-ms/tick=90.686
+peak-tasks=1338, peak-layers=1, peak-ms=581.142
+entity-tasks=206679, be-tasks=5131
+parallel runner: threads=10, threshold=2, layers-run=491, tasks-run=216896
+  avg-tasks/layer=441.74, degraded-to-serial=1
+```
+
+### Comparison with Pre-D3 Baseline
+
+| Metric | Pre-D3 Parallel | Post-D3 Parallel | Notes |
+|--------|----------------|-----------------|-------|
+| avg-ms/tick | 197.0 | 90.7 | **-54% MSPT** — entity tasks now parallel |
+| avg-parallelism | 1.0 (all serial) | 427.6 | Entity tasks fan out across 10 threads |
+| degraded-to-serial | 1 (entity_activation) | 1 (entity_activation) | Same — only GLOBAL_RW layers degrade |
+
+### Analysis
+
+**Deferred impulse buffer is working.** Entity tasks are now parallelSafe
+and the parallel runner fans out ~427 entity tasks across 10 worker threads.
+The single degraded layer is `entity_activation` (GLOBAL_RW by design).
+
+**MSPT improved by 54%** compared to the pre-D3 parallel baseline. The
+improvement comes from entity tasks no longer being serialized — they run
+concurrently across workers, with cross-entity collision impulses deferred
+to the serial `collision_flush` task at the end of the entity phase.
