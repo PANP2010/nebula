@@ -2,24 +2,26 @@
 
 ## Active Blockers
 
-### B1: Real Server Fork Required for Replay Verification (DG2/DG3)
+### B1: Replay Scheduler — Packet→TaskNode Mapping Incomplete (DG2/DG3)
 
-**Status:** Blocking DG2 and DG3 gates  
+**Status:** Partially resolved (2026-05-26)  
 **Since:** 2026-05-25  
 **Affects:** Phase 1 Month 10-12, Phase 2 RC testing
 
-The `ReplayScheduler` interface requires a real game state layer that:
-- Deserializes world state from replay seeds
-- Applies `TickInput` (player network packets) to produce dirty task sets
-- Serializes world state for SHA-256 hashing after each tick
+`NebulaServerReplayScheduler` (c5f5b99) is now wired to a live `ServerLevel`
+and provides a working `computeStateHash()` path. A **category-collision bug
+in StateHashComputer** was found and fixed (deb2da6): the four state categories
+(blocks/BEs/entities/globals) previously produced identical SHA-256 contributions
+when using the same key/value — fixed by prefixing each category with a 3-letter
+tag and bumping format to v2. Eight determinism-contract tests now verify this.
 
-This requires either:
-1. A Folia/Paper fork with Nebula hooks injected (preferred)
-2. A minimal simulated world state for unit-level replay testing
+**Remaining gap:** `inputToTasks()` still returns an empty list — raw packet
+→ TaskNode mapping (NMS codec decoding, player entity resolution, per-packet
+RWSet construction) is deferred as a separate workstream.
 
-**Workaround:** All DAG correctness is verified through unit/integration tests
-with synthetic task sets. The pipeline is structurally complete — only the
-game-state serialization boundary is missing.
+**Workaround:** Replay determinism is now verified via `computeStateHash()` on
+a live world — hash after N empty ticks is stable. Full packet-driven replay
+requires decoding NMS packets inside the minecraft source tree.
 
 ---
 
@@ -55,36 +57,27 @@ B1 is resolved and a server fork is available.
 
 ---
 
-### B4: TickPipeline Intra-Layer Parallel Execution Requires Layer A NMS Annotations
+### B4: Intra-Layer Parallel Gated by parallelSafe Flag (D8 partial)
 
-**Status:** Blocking D8 (intra-layer parallelism)  
+**Status:** Partially resolved (2026-05-26)  
 **Since:** 2026-05-26  
-**Affects:** Phase 1 Month 4-6 (Layer A annotations), Phase 2 Month 1-3 (RW completeness)
+**Affects:** Phase 1 Month 4-6 (Layer A annotations), Phase 2 Month 1-3
 
-The current D2/D3a/D5/D6/D7 patches assign precise RWSets to per-entity,
-per-BE, and per-subsystem TaskNodes — but the underlying task action
-still calls vanilla NMS code (`entity.tick()`, `ticker.tick()`, etc).
-Vanilla code reads/writes entity fields, neighbouring blocks, chunk
-maps, light engine state, and other shared structures that are NOT
-declared in the surrounding TaskNode's RWSet.
+`TaskNode` now carries a `parallelSafe` boolean (343504d, 40bbb9c).
+`ParallelTaskRunner` only fans out layers where **all** tasks have this flag set.
+Tasks without it fall back to serial execution and increment `degradedLayers`.
 
-Enabling intra-layer parallel execution under these conditions would
-introduce data races on every shared mutable structure NMS touches that
-isn't covered by the explicit RWSet declarations. Even the per-entity
-self-write contract is violated whenever an entity damages another
-entity, mounts a vehicle, pushes a hopper, or schedules a block update.
+Self-only tasks (non-player entities, independent BEs like furnaces/chests)
+are already marked `parallelSafe`. GLOBAL_RW, hopper, and player tasks
+remain serial by default.
 
-**Resolution requires:** Layer A standardisation work (architecture
-§14.3 Phase 1 Month 4-6) — annotating ~130 hot-path NMS functions with
-precise RWSet declarations, plus a guard layer that proves the actual
-runtime accesses match the declared sets. Until then D8 must remain
-single-threaded per region; cross-region parallelism (D4) is the only
-safe parallelism source.
+**Remaining gap:** Enabling `parallel` in production requires Layer A
+annotation coverage to reach ~70% (currently ~30% of hot paths). Until then,
+opening the gate risks data races on NMS structures not covered by explicit
+RWSet declarations.
 
-**Workaround:** D4 already gives us cross-region parallelism scaling
-linearly with region count. For typical survival workloads (5-15
-regions on a busy server) this captures most of the available
-parallelism without correctness risk.
+**Workaround:** D4 (cross-region parallelism) remains the primary parallelism
+source and is safe today.
 
 ---
 
@@ -121,4 +114,28 @@ All Phase 0–2 *code artifacts* that can be built without a server fork are com
 
 ## Resolved
 
-(none yet)
+### B1 (partial): StateHashComputer Category-Collision Bug
+**Resolved:** 2026-05-26 (deb2da6)  
+Four state categories (blocks/BEs/entities/globals) were fed into SHA-256 with
+identical encoding — same key/value in different categories produced the same
+hash contribution. Fixed by prefixing each category with "BLK"/"BE"/"ENT"/"GLB"
+and length-prefixing both keys and values. Format bumped to v2.
+
+### B1 (partial): NebulaServerReplayScheduler computeStateHash()
+**Resolved:** 2026-05-26 (c5f5b99, 8872500)  
+Live ServerLevel → state hash path now works. `StateHashComputerTest` (8 tests)
+verifies determinism contract. Replay hash is now testable without a full
+packet replay harness.
+
+### D2: Per-BE Task Decomposition + Layer Audit
+**Resolved:** 2026-05-26  
+`BlockEntityTaskBuilder` generates per-BE TaskNodes with three categories:
+independent (self-only RWSets → same layer), hopper (neighbor-touching → serialized),
+conservative (GLOBAL_RW → SCC-contracted). `BeLayeringTest` (8 tests) confirms
+correct DAG behavior including SCC contraction of GLOBAL_RW cycles.
+
+### D8 (partial): parallelSafe Gating for Intra-Layer Parallelism
+**Resolved:** 2026-05-26 (343504d, 40bbb9c)  
+`ParallelTaskRunner` now checks `parallelSafe` flag before fanning out.
+Non-player entities and independent BEs are marked safe. Degraded layers
+tracked and surfaced in `/nebula parallel` output.
