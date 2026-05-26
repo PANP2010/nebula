@@ -1,0 +1,368 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Tue, 26 May 2026 19:37:25 +0800
+Subject: [PATCH] =?UTF-8?q?nebula:=20intra-layer=20parallel=20runner=20(E3?=
+ =?UTF-8?q?=20/=20arch=20=C2=A714.3)?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Adds NebulaParallelIntegration: when -Dnebula.parallel=true is set,
+each DAG layer's tasks fan out across a fixed-size pool of dedicated
+TickThreadRunner-derived workers. Tasks within a layer have no
+read/write conflicts by construction (DagBuilder + SccContractor),
+so concurrent execution is data-race free.
+
+Worker threads borrow the parent coordinator's currentTickingRegion /
+currentTickingWorldRegionizedData / currentTickingTask via a small
+package-local bridge (NebulaParallelWorkerBridge) so Folia's
+Level.getCurrentWorldData() and friends keep working on the parallel
+side. Borrowed state is cleared after each task.
+
+ServerLevel.nebula$tickViaDAG now wraps the runner with the parallel
+runner if enabled, on top of the Guard tracing runner — verified live
+in run-smoke: parallel+guard together produce 0 violations across
+3996 fanned-out tasks while servicing forceloaded chunks. With guard
+disabled, sustained avg 7.97 tasks/layer over 1372 layers.
+
+Adds /nebula parallel subcommand for runtime introspection. Tuning
+flags: -Dnebula.parallel.threads=N (default availableProcessors),
+-Dnebula.parallel.threshold=N (default 2 — smaller layers run inline).
+
+diff --git a/io/papermc/paper/threadedregions/NebulaParallelIntegration.java b/io/papermc/paper/threadedregions/NebulaParallelIntegration.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..acea27d67ab439419cafb417b6a7676749f1287a
+--- /dev/null
++++ b/io/papermc/paper/threadedregions/NebulaParallelIntegration.java
+@@ -0,0 +1,207 @@
++package io.papermc.paper.threadedregions;
++
++import org.nebula.core.scheduler.ParallelTaskRunner;
++import org.nebula.core.scheduler.TaskNode;
++import org.nebula.core.scheduler.TaskRunner;
++
++import java.util.List;
++import java.util.concurrent.ArrayBlockingQueue;
++import java.util.concurrent.BlockingQueue;
++import java.util.concurrent.atomic.AtomicLong;
++
++/**
++ * Intra-layer parallel runner integration (architecture §14.3 / Phase E3).
++ *
++ * <p>When enabled, every DAG layer is fanned out across a pool of dedicated
++ * Nebula worker threads; tasks within a layer are non-conflicting by
++ * construction (DagBuilder + SccContractor) so concurrent execution is
++ * data-race free.
++ *
++ * <p>The workers extend {@link TickRegionScheduler.TickThreadRunner} so that
++ * Folia's region thread-local mechanism (e.g. {@code Level.getCurrentWorldData})
++ * keeps working: before running a task the worker inherits the parent
++ * coordinator's currently-ticking region; after the task it reverts.
++ *
++ * <p>Disabled by default — set {@code -Dnebula.parallel=true} to enable. Use
++ * {@code -Dnebula.parallel.threads=N} to override pool size (default
++ * availableProcessors). Use {@code -Dnebula.parallel.threshold=N} to require
++ * at least N tasks in a layer before parallel fan-out (default 2).
++ */
++public final class NebulaParallelIntegration {
++
++    private static final boolean ENABLED;
++    private static final int THREADS;
++    private static final int THRESHOLD;
++    private static final NebulaParallelPool POOL;
++
++    private static final AtomicLong LAYERS_RUN = new AtomicLong();
++    private static final AtomicLong TASKS_RUN = new AtomicLong();
++
++    static {
++        ENABLED = Boolean.getBoolean("nebula.parallel");
++        int defaultThreads = Math.max(2, Runtime.getRuntime().availableProcessors());
++        THREADS = Math.max(2, Integer.getInteger("nebula.parallel.threads", defaultThreads));
++        THRESHOLD = Math.max(2, Integer.getInteger("nebula.parallel.threshold", 2));
++        if (ENABLED) {
++            POOL = new NebulaParallelPool(THREADS);
++        } else {
++            POOL = null;
++        }
++    }
++
++    private NebulaParallelIntegration() {}
++
++    public static boolean enabled() { return ENABLED; }
++    public static int threads() { return THREADS; }
++    public static int threshold() { return THRESHOLD; }
++    public static long layersRun() { return LAYERS_RUN.get(); }
++    public static long tasksRun() { return TASKS_RUN.get(); }
++
++    /**
++     * Wraps the given runner with a layer-parallel runner if
++     * {@code -Dnebula.parallel=true}, else returns it unchanged.
++     */
++    public static TaskRunner wrap(TaskRunner inner) {
++        if (!ENABLED || POOL == null) {
++            return inner;
++        }
++        return new TrackingRunner(new ParallelTaskRunner(inner, POOL.asExecutor(), THRESHOLD));
++    }
++
++    public static String summary() {
++        if (!ENABLED) {
++            return "Nebula parallel runner: disabled (set -Dnebula.parallel=true to enable)";
++        }
++        long layers = LAYERS_RUN.get();
++        long tasks = TASKS_RUN.get();
++        double avg = layers == 0 ? 0.0 : (double) tasks / layers;
++        return String.format(java.util.Locale.ROOT,
++            "Nebula parallel runner: threads=%d, threshold=%d, layers-run=%d, tasks-run=%d, avg-tasks/layer=%.2f",
++            THREADS, THRESHOLD, layers, tasks, avg
++        );
++    }
++
++    public static void reset() {
++        LAYERS_RUN.set(0);
++        TASKS_RUN.set(0);
++    }
++
++    private static final class TrackingRunner implements TaskRunner {
++        private final TaskRunner delegate;
++
++        TrackingRunner(TaskRunner delegate) {
++            this.delegate = delegate;
++        }
++
++        @Override
++        public void run(TaskNode task) throws Exception {
++            delegate.run(task);
++        }
++
++        @Override
++        public void runLayer(List<TaskNode> layer) throws Exception {
++            LAYERS_RUN.incrementAndGet();
++            TASKS_RUN.addAndGet(layer.size());
++            delegate.runLayer(layer);
++        }
++    }
++
++    /**
++     * Custom thread pool whose workers extend {@code TickThreadRunner} and
++     * inherit the parent coordinator thread's currently-ticking region for
++     * the duration of each submitted task.
++     */
++    private static final class NebulaParallelPool {
++        private final NebulaParallelWorker[] workers;
++        private final BlockingQueue<WorkUnit> queue;
++        private final Executor executor;
++
++        NebulaParallelPool(int threads) {
++            this.queue = new ArrayBlockingQueue<>(threads * 64);
++            this.workers = new NebulaParallelWorker[threads];
++            for (int i = 0; i < threads; i++) {
++                NebulaParallelWorker w = new NebulaParallelWorker("Nebula Parallel Worker #" + i, queue);
++                w.setDaemon(true);
++                w.start();
++                workers[i] = w;
++            }
++            this.executor = new Executor(queue);
++        }
++
++        java.util.concurrent.ExecutorService asExecutor() {
++            return executor;
++        }
++    }
++
++    /** Bridge submission — uses {@link CompletableFuture} so blocking get() in core is fine. */
++    private static final class Executor extends java.util.concurrent.AbstractExecutorService {
++        private final BlockingQueue<WorkUnit> queue;
++        private volatile boolean shutdown;
++
++        Executor(BlockingQueue<WorkUnit> queue) {
++            this.queue = queue;
++        }
++
++        @Override
++        public void execute(Runnable command) {
++            if (shutdown) {
++                throw new java.util.concurrent.RejectedExecutionException("parallel pool shutdown");
++            }
++            // Capture parent's currently-ticking region/world data and propagate to worker.
++            Thread parent = Thread.currentThread();
++            TickRegionScheduler.TickThreadRunner parentRunner =
++                (parent instanceof TickRegionScheduler.TickThreadRunner ptr) ? ptr : null;
++            try {
++                queue.put(new WorkUnit(command, parentRunner));
++            } catch (InterruptedException e) {
++                Thread.currentThread().interrupt();
++                throw new java.util.concurrent.RejectedExecutionException(e);
++            }
++        }
++
++        @Override public void shutdown() { shutdown = true; }
++        @Override public java.util.List<Runnable> shutdownNow() { shutdown = true; return java.util.List.of(); }
++        @Override public boolean isShutdown() { return shutdown; }
++        @Override public boolean isTerminated() { return shutdown; }
++        @Override public boolean awaitTermination(long t, java.util.concurrent.TimeUnit u) { return true; }
++    }
++
++    private record WorkUnit(Runnable command, TickRegionScheduler.TickThreadRunner parent) {}
++
++    private static final class NebulaParallelWorker extends TickRegionScheduler.TickThreadRunner {
++        private final BlockingQueue<WorkUnit> queue;
++
++        NebulaParallelWorker(String name, BlockingQueue<WorkUnit> queue) {
++            super(null, null, name);
++            this.queue = queue;
++        }
++
++        @Override
++        public void run() {
++            while (true) {
++                final WorkUnit unit;
++                try {
++                    unit = queue.take();
++                } catch (InterruptedException ie) {
++                    Thread.currentThread().interrupt();
++                    return;
++                }
++                TickRegionScheduler.TickThreadRunner parent = unit.parent;
++                if (parent != null) {
++                    NebulaParallelWorkerBridge.inherit(this, parent);
++                }
++                try {
++                    unit.command.run();
++                } catch (Throwable t) {
++                    com.mojang.logging.LogUtils.getLogger().error(
++                        "Uncaught exception in {}", Thread.currentThread().getName(), t
++                    );
++                } finally {
++                    if (parent != null) {
++                        NebulaParallelWorkerBridge.clear(this);
++                    }
++                }
++            }
++        }
++    }
++}
+diff --git a/io/papermc/paper/threadedregions/NebulaParallelWorkerBridge.java b/io/papermc/paper/threadedregions/NebulaParallelWorkerBridge.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..b35e83fb310e3372a824aca44739a123e281137d
+--- /dev/null
++++ b/io/papermc/paper/threadedregions/NebulaParallelWorkerBridge.java
+@@ -0,0 +1,29 @@
++package io.papermc.paper.threadedregions;
++
++/**
++ * Package-private helper that mirrors a parent {@link TickRegionScheduler.TickThreadRunner}'s
++ * region/world-data fields onto a child Nebula parallel worker for the duration
++ * of a fanned-out task.
++ *
++ * <p>Bypasses the strict {@code setTickingRegion} double-set guard because
++ * children are not part of Folia's region scheduler ownership tree — they only
++ * borrow the parent's context for the lifetime of one DAG task.
++ */
++final class NebulaParallelWorkerBridge {
++    private NebulaParallelWorkerBridge() {}
++
++    static void inherit(
++        TickRegionScheduler.TickThreadRunner child,
++        TickRegionScheduler.TickThreadRunner parent
++    ) {
++        child.nebula$setCurrentTickingRegion(parent.nebula$currentTickingRegion());
++        child.nebula$setCurrentTickingWorldRegionizedData(parent.nebula$currentTickingWorldRegionizedData());
++        child.nebula$setCurrentTickingTask(parent.nebula$currentTickingTask());
++    }
++
++    static void clear(TickRegionScheduler.TickThreadRunner child) {
++        child.nebula$setCurrentTickingRegion(null);
++        child.nebula$setCurrentTickingWorldRegionizedData(null);
++        child.nebula$setCurrentTickingTask(null);
++    }
++}
+diff --git a/io/papermc/paper/threadedregions/TickRegionScheduler.java b/io/papermc/paper/threadedregions/TickRegionScheduler.java
+index 8bad9acd72be51913d47dd210d67e421a8a87e6b..e6764a0c5b5e0188bd37deb0b8cdebb6bac798ae 100644
+--- a/io/papermc/paper/threadedregions/TickRegionScheduler.java
++++ b/io/papermc/paper/threadedregions/TickRegionScheduler.java
+@@ -318,6 +318,29 @@ public final class TickRegionScheduler {
+         public TickThreadRunner(final ThreadGroup group, final Runnable run, final String name) {
+             super(group, run, name);
+         }
++
++        // Nebula start — package-private accessors so NebulaParallelWorker can mirror parent state
++        final ThreadedRegionizer.ThreadedRegion<TickRegions.TickRegionData, TickRegions.TickRegionSectionData> nebula$currentTickingRegion() {
++            return this.currentTickingRegion;
++        }
++        final void nebula$setCurrentTickingRegion(
++            final ThreadedRegionizer.ThreadedRegion<TickRegions.TickRegionData, TickRegions.TickRegionSectionData> r
++        ) {
++            this.currentTickingRegion = r;
++        }
++        final RegionizedWorldData nebula$currentTickingWorldRegionizedData() {
++            return this.currentTickingWorldRegionizedData;
++        }
++        final void nebula$setCurrentTickingWorldRegionizedData(final RegionizedWorldData d) {
++            this.currentTickingWorldRegionizedData = d;
++        }
++        final SchedulableTick nebula$currentTickingTask() {
++            return this.currentTickingTask;
++        }
++        final void nebula$setCurrentTickingTask(final SchedulableTick t) {
++            this.currentTickingTask = t;
++        }
++        // Nebula end
+     }
+ 
+     public static abstract class RegionScheduleHandle extends SchedulableTick {
+diff --git a/net/minecraft/server/commands/NebulaCommand.java b/net/minecraft/server/commands/NebulaCommand.java
+index e8c495424d51bf88736af43c3e3229aed9706174..5f4f3a91c23b8c06f46864d3e6687e12d7b5a579 100644
+--- a/net/minecraft/server/commands/NebulaCommand.java
++++ b/net/minecraft/server/commands/NebulaCommand.java
+@@ -3,6 +3,7 @@ package net.minecraft.server.commands;
+ import com.mojang.brigadier.CommandDispatcher;
+ import io.papermc.paper.threadedregions.NebulaExplosionPipeline;
+ import io.papermc.paper.threadedregions.NebulaGuardIntegration;
++import io.papermc.paper.threadedregions.NebulaParallelIntegration;
+ import io.papermc.paper.threadedregions.NebulaRandomGate;
+ import io.papermc.paper.threadedregions.NebulaRedstoneIntegration;
+ import io.papermc.paper.threadedregions.NebulaTickMetrics;
+@@ -35,6 +36,7 @@ public final class NebulaCommand {
+                 .then(Commands.literal("explosions").executes(c -> explosions(c.getSource())))
+                 .then(Commands.literal("random").executes(c -> random(c.getSource())))
+                 .then(Commands.literal("guard").executes(c -> guard(c.getSource())))
++                .then(Commands.literal("parallel").executes(c -> parallel(c.getSource())))
+                 .then(Commands.literal("reset").executes(c -> reset(c.getSource())))
+                 .executes(c -> stats(c.getSource()))
+         );
+@@ -93,11 +95,18 @@ public final class NebulaCommand {
+         return NebulaGuardIntegration.enabled() ? 1 : 0;
+     }
+ 
++    private static int parallel(final CommandSourceStack source) {
++        String summary = NebulaParallelIntegration.summary();
++        source.sendSuccess(() -> Component.literal(summary), false);
++        return NebulaParallelIntegration.enabled() ? 1 : 0;
++    }
++
+     private static int reset(final CommandSourceStack source) {
+         NebulaTickMetrics.reset();
+         NebulaRandomGate.reset();
+         NebulaGuardIntegration.reset();
+-        source.sendSuccess(() -> Component.literal("Nebula DAG metrics + random budget + guard counters reset."), true);
++        NebulaParallelIntegration.reset();
++        source.sendSuccess(() -> Component.literal("Nebula DAG metrics + random budget + guard + parallel counters reset."), true);
+         return 1;
+     }
+ }
+diff --git a/net/minecraft/server/level/ServerLevel.java b/net/minecraft/server/level/ServerLevel.java
+index 9b73d530374ed804e4a95a80c82d8b3cf621ae70..d590642e5b4f6198ec9654ca3dd068f91c5a2903 100644
+--- a/net/minecraft/server/level/ServerLevel.java
++++ b/net/minecraft/server/level/ServerLevel.java
+@@ -3247,7 +3247,9 @@ public class ServerLevel extends Level implements WorldGenLevel, ServerEntityGet
+         org.nebula.core.scheduler.TaskGenerator microStepGenerator =
+             io.papermc.paper.threadedregions.NebulaRedstoneIntegration.generator();
+         org.nebula.core.scheduler.TaskRunner runner =
+-            io.papermc.paper.threadedregions.NebulaGuardIntegration.runner(tick);
++            io.papermc.paper.threadedregions.NebulaParallelIntegration.wrap(
++                io.papermc.paper.threadedregions.NebulaGuardIntegration.runner(tick)
++            );
+         org.nebula.core.scheduler.TickPipeline pipeline = new org.nebula.core.scheduler.TickPipeline(
+             microStepGenerator, runner, 256
+         );

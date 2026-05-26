@@ -69,17 +69,21 @@ public final class TickPipeline {
             }
 
             for (List<String> layer : pending) {
-                // Execute this layer
+                List<TaskNode> layerNodes = new ArrayList<>(layer.size());
                 for (String taskId : layer) {
                     TaskNode task = current.tasks().get(taskId);
-                    if (task == null) continue;
-                    try {
-                        runner.run(task);
-                    } catch (Exception e) {
-                        throw new DagExecutionException(totalLayers, allCompleted, List.of(e));
+                    if (task != null) {
+                        layerNodes.add(task);
                     }
-                    extender.markExecuted(taskId);
-                    allCompleted.add(taskId);
+                }
+                try {
+                    runner.runLayer(layerNodes);
+                } catch (Exception e) {
+                    throw new DagExecutionException(totalLayers, allCompleted, List.of(e));
+                }
+                for (TaskNode task : layerNodes) {
+                    extender.markExecuted(task.taskId());
+                    allCompleted.add(task.taskId());
                 }
                 totalLayers++;
 
