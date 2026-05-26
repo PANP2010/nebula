@@ -140,13 +140,14 @@ correct DAG behavior including SCC contraction of GLOBAL_RW cycles.
 Non-player entities and independent BEs are marked safe. Degraded layers
 tracked and surfaced in `/nebula parallel` output.
 
-### D3 (partial): Entity Collision Pipeline Skeleton
-**Resolved:** 2026-05-27 (20e9bfd)  
-`EntityCollisionPipeline.java` skeleton created with 3-phase design
-(detection → impulse aggregation → position update). `Entity.push(Entity)`
-now has `@NebulaRW` declaring cross-entity write. Entity tasks no longer
-marked `parallelSafe` until full pipeline is implemented. Cross-region
-parallelism (D4) unaffected.
+### D3 (partial): Deferred Impulse Collision Pipeline
+**Resolved:** 2026-05-27 (b7470de, ea534d5)  
+`DeferredImpulseBuffer` implemented: `Entity.push(Entity)` enqueues
+cross-entity impulses when buffer is active, applying them in a serial
+`collision_flush` task (GLOBAL_RW) after all entity tasks complete.
+Non-player entities re-enabled as `parallelSafe`. Buffer is region-local
+in `RegionizedWorldData`. Full 3-phase pipeline (detection → impulse →
+position) deferred to future PR for maximum parallelism.
 
 ### B4 (partial): Layer A Annotation Count Update
 **Resolved:** 2026-05-27 (e7176f5, 5430daa)  
