@@ -1,0 +1,35 @@
+--- /dev/null
++++ b/io/papermc/paper/threadedregions/NebulaStressMode.java
+@@ -1,0 +_,32 @@
++package io.papermc.paper.threadedregions;
++
++import java.util.concurrent.atomic.AtomicBoolean;
++
++/**
++ * Bench-only flag — when enabled, ServerLevel.nebula$tickViaDAG forces the
++ * full {@link RegionTickDecomposer#decompose} path regardless of the
++ * world's {@code emptyTime} counter.
++ *
++ * <p>Without a player, vanilla skips entity/BE ticks once {@code emptyTime}
++ * reaches 300 — which makes parallel/guard benchmarks meaningless because
++ * the DAG only contains housekeeping subsystems.  Toggling this flag via
++ * {@code /nebula stress-mode on} keeps the decomposer producing per-entity
++ * and per-BE TaskNodes so a stress-spawn'd mob herd actually exercises the
++ * scheduler.
++ *
++ * <p>Disabled by default; intended for benchmarking, not production.
++ */
++public final class NebulaStressMode {
++
++    private static final AtomicBoolean ENABLED = new AtomicBoolean(false);
++
++    private NebulaStressMode() {}
++
++    public static boolean isEnabled() {
++        return ENABLED.get();
++    }
++
++    public static void setEnabled(boolean enabled) {
++        ENABLED.set(enabled);
++    }
++}

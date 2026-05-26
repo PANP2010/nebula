@@ -1,0 +1,234 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Tue, 26 May 2026 23:05:35 +0800
+Subject: [PATCH] nebula: add /nebula stress-mode + decomposition counters for
+ empty-world bench
+
+- NebulaStressMode: AtomicBoolean flag toggled via /nebula stress-mode on|off,
+  read by ServerLevel.nebula\$tickViaDAG to bypass emptyTime>=300 gating so
+  the full DAG decomposer runs without a player in chunk-tracking range.
+
+- NebulaTickMetrics: track decompose-full vs decompose-minimal call counts
+  plus total entity-tasks and BE-tasks emitted per tick. Surfaced in summary
+  string for /nebula stats.
+
+- NebulaCommand: register stress-mode subcommand (status/on/off) plus
+  stress-spawn count integration; stats line now reports the four new
+  decomposition counters so empty-world bench runs can confirm whether
+  full-decompose path actually executed.
+
+diff --git a/io/papermc/paper/threadedregions/NebulaTickMetrics.java b/io/papermc/paper/threadedregions/NebulaTickMetrics.java
+index e70080c03e9a67541b78c708b2eae7f3fdbe28fa..b8351c57922724a2aa9193a2ddc49f4cbaf951f0 100644
+--- a/io/papermc/paper/threadedregions/NebulaTickMetrics.java
++++ b/io/papermc/paper/threadedregions/NebulaTickMetrics.java
+@@ -19,6 +19,10 @@ public final class NebulaTickMetrics {
+     private static final LongAdder TOTAL_LAYERS = new LongAdder();
+     private static final LongAdder TOTAL_MICROSTEPS = new LongAdder();
+     private static final LongAdder TOTAL_NS = new LongAdder();
++    private static final LongAdder DECOMPOSE_FULL_CALLS = new LongAdder();
++    private static final LongAdder DECOMPOSE_MINIMAL_CALLS = new LongAdder();
++    private static final LongAdder ENTITY_TASKS_TOTAL = new LongAdder();
++    private static final LongAdder BE_TASKS_TOTAL = new LongAdder();
+     private static final AtomicLong PEAK_TASKS_PER_TICK = new AtomicLong();
+     private static final AtomicLong PEAK_LAYERS_PER_TICK = new AtomicLong();
+     private static final AtomicLong PEAK_NS_PER_TICK = new AtomicLong();
+@@ -49,12 +53,26 @@ public final class NebulaTickMetrics {
+         } while (!target.compareAndSet(prev, candidate));
+     }
+ 
++    public static void recordDecomposition(boolean full, int entityTasks, int beTasks) {
++        if (full) {
++            DECOMPOSE_FULL_CALLS.increment();
++        } else {
++            DECOMPOSE_MINIMAL_CALLS.increment();
++        }
++        ENTITY_TASKS_TOTAL.add(entityTasks);
++        BE_TASKS_TOTAL.add(beTasks);
++    }
++
+     public static void reset() {
+         TOTAL_TICKS.reset();
+         TOTAL_TASKS.reset();
+         TOTAL_LAYERS.reset();
+         TOTAL_MICROSTEPS.reset();
+         TOTAL_NS.reset();
++        DECOMPOSE_FULL_CALLS.reset();
++        DECOMPOSE_MINIMAL_CALLS.reset();
++        ENTITY_TASKS_TOTAL.reset();
++        BE_TASKS_TOTAL.reset();
+         PEAK_TASKS_PER_TICK.set(0);
+         PEAK_LAYERS_PER_TICK.set(0);
+         PEAK_NS_PER_TICK.set(0);
+@@ -90,13 +108,19 @@ public final class NebulaTickMetrics {
+     }
+ 
+     public static String summary() {
++        long fullCalls = DECOMPOSE_FULL_CALLS.sum();
++        long minCalls = DECOMPOSE_MINIMAL_CALLS.sum();
++        long entTasks = ENTITY_TASKS_TOTAL.sum();
++        long beTasks = BE_TASKS_TOTAL.sum();
+         return String.format(
+             "Nebula DAG metrics: ticks=%d, avg-tasks/tick=%.1f, avg-layers/tick=%.2f, "
+                 + "avg-parallelism=%.2f, avg-ms/tick=%.3f, peak-tasks=%d, peak-layers=%d, "
+-                + "peak-ms=%.3f, total-microsteps=%d",
++                + "peak-ms=%.3f, total-microsteps=%d, decompose-full=%d, decompose-minimal=%d, "
++                + "entity-tasks=%d, be-tasks=%d",
+             totalTicks(), avgTasksPerTick(), avgLayersPerTick(), avgParallelismPerTick(),
+             avgMsPerTick(), peakTasksPerTick(), peakLayersPerTick(),
+-            peakNsPerTick() / 1_000_000.0, totalMicrosteps()
++            peakNsPerTick() / 1_000_000.0, totalMicrosteps(),
++            fullCalls, minCalls, entTasks, beTasks
+         );
+     }
+ }
+diff --git a/net/minecraft/server/commands/NebulaCommand.java b/net/minecraft/server/commands/NebulaCommand.java
+index 5f4f3a91c23b8c06f46864d3e6687e12d7b5a579..d43aa7805f38d4784df2e69b10ecc47a32d6817f 100644
+--- a/net/minecraft/server/commands/NebulaCommand.java
++++ b/net/minecraft/server/commands/NebulaCommand.java
+@@ -1,16 +1,26 @@
+ package net.minecraft.server.commands;
+ 
+ import com.mojang.brigadier.CommandDispatcher;
++import com.mojang.brigadier.arguments.IntegerArgumentType;
+ import io.papermc.paper.threadedregions.NebulaExplosionPipeline;
+ import io.papermc.paper.threadedregions.NebulaGuardIntegration;
+ import io.papermc.paper.threadedregions.NebulaParallelIntegration;
+ import io.papermc.paper.threadedregions.NebulaRandomGate;
+ import io.papermc.paper.threadedregions.NebulaRedstoneIntegration;
++import io.papermc.paper.threadedregions.NebulaStressMode;
+ import io.papermc.paper.threadedregions.NebulaTickMetrics;
++import io.papermc.paper.threadedregions.RegionizedServer;
+ import io.papermc.paper.threadedregions.TickRegions;
+ import net.minecraft.commands.CommandSourceStack;
+ import net.minecraft.commands.Commands;
++import net.minecraft.core.BlockPos;
+ import net.minecraft.network.chat.Component;
++import net.minecraft.server.level.ServerLevel;
++import net.minecraft.world.entity.Entity;
++import net.minecraft.world.entity.EntitySpawnReason;
++import net.minecraft.world.entity.EntityType;
++import net.minecraft.world.entity.Mob;
++import net.minecraft.world.phys.Vec3;
+ 
+ /**
+  * /nebula command — runtime introspection of the Nebula DAG scheduler.
+@@ -38,6 +48,13 @@ public final class NebulaCommand {
+                 .then(Commands.literal("guard").executes(c -> guard(c.getSource())))
+                 .then(Commands.literal("parallel").executes(c -> parallel(c.getSource())))
+                 .then(Commands.literal("reset").executes(c -> reset(c.getSource())))
++                .then(Commands.literal("stress-spawn")
++                    .then(Commands.argument("count", IntegerArgumentType.integer(1, 5000))
++                        .executes(c -> stressSpawn(c.getSource(), IntegerArgumentType.getInteger(c, "count")))))
++                .then(Commands.literal("stress-mode")
++                    .executes(c -> stressModeStatus(c.getSource()))
++                    .then(Commands.literal("on").executes(c -> stressModeSet(c.getSource(), true)))
++                    .then(Commands.literal("off").executes(c -> stressModeSet(c.getSource(), false))))
+                 .executes(c -> stats(c.getSource()))
+         );
+     }
+@@ -109,4 +126,75 @@ public final class NebulaCommand {
+         source.sendSuccess(() -> Component.literal("Nebula DAG metrics + random budget + guard + parallel counters reset."), true);
+         return 1;
+     }
++
++    /**
++     * Spawn N test mobs at the source position, scheduled onto the correct
++     * region thread for each chunk. Designed for benchmarking the per-entity
++     * DAG decomposition under controlled load — does not require a real
++     * player or external bot.
++     *
++     * <p>Even split across {zombie, skeleton, cow, chicken, pig}; each entity
++     * is jittered up to ±32 blocks horizontally from the source position.
++     */
++    private static int stressSpawn(final CommandSourceStack source, final int count) {
++        final ServerLevel level = source.getLevel();
++        final Vec3 origin = source.getPosition();
++        final java.util.concurrent.atomic.AtomicInteger spawned = new java.util.concurrent.atomic.AtomicInteger();
++        final java.util.concurrent.atomic.AtomicInteger failed = new java.util.concurrent.atomic.AtomicInteger();
++        final EntityType<?>[] palette = new EntityType<?>[] {
++            EntityType.ZOMBIE, EntityType.SKELETON, EntityType.COW, EntityType.CHICKEN, EntityType.PIG
++        };
++        final java.util.Random rng = new java.util.Random(42);
++
++        for (int i = 0; i < count; i++) {
++            final EntityType<?> type = palette[i % palette.length];
++            final double dx = (rng.nextDouble() - 0.5) * 64.0;
++            final double dz = (rng.nextDouble() - 0.5) * 64.0;
++            final BlockPos pos = BlockPos.containing(origin.x + dx, origin.y, origin.z + dz);
++            final int cx = pos.getX() >> 4;
++            final int cz = pos.getZ() >> 4;
++
++            RegionizedServer.getInstance().taskQueue.queueTickTaskQueue(level, cx, cz, () -> {
++                Entity entity = type.create(level, EntitySpawnReason.COMMAND);
++                if (entity == null) {
++                    failed.incrementAndGet();
++                    return;
++                }
++                entity.snapTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 0.0F, 0.0F);
++                if (entity instanceof Mob mob) {
++                    mob.finalizeSpawn(level, level.getCurrentDifficultyAt(pos), EntitySpawnReason.COMMAND, null);
++                }
++                if (level.tryAddFreshEntityWithPassengers(entity, org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason.COMMAND)) {
++                    spawned.incrementAndGet();
++                } else {
++                    failed.incrementAndGet();
++                }
++            });
++        }
++
++        source.sendSuccess(
++            () -> Component.literal("Nebula stress-spawn: queued " + count + " entity tasks across regions"),
++            true
++        );
++        return count;
++    }
++
++    private static int stressModeStatus(final CommandSourceStack source) {
++        boolean on = NebulaStressMode.isEnabled();
++        source.sendSuccess(
++            () -> Component.literal("Nebula stress-mode: " + (on ? "ON (forces full DAG decompose, ignoring emptyTime)" : "OFF (default)")),
++            false
++        );
++        return on ? 1 : 0;
++    }
++
++    private static int stressModeSet(final CommandSourceStack source, final boolean enabled) {
++        NebulaStressMode.setEnabled(enabled);
++        source.sendSuccess(
++            () -> Component.literal("Nebula stress-mode " + (enabled ? "ENABLED" : "DISABLED")
++                + (enabled ? " — DAG decomposer will run full path even without players" : "")),
++            true
++        );
++        return enabled ? 1 : 0;
++    }
+ }
+diff --git a/net/minecraft/server/level/ServerLevel.java b/net/minecraft/server/level/ServerLevel.java
+index d590642e5b4f6198ec9654ca3dd068f91c5a2903..a5ea6e68faf29a3ea1ddef512ac4d49526e25b53 100644
+--- a/net/minecraft/server/level/ServerLevel.java
++++ b/net/minecraft/server/level/ServerLevel.java
+@@ -3238,10 +3238,23 @@ public class ServerLevel extends Level implements WorldGenLevel, ServerEntityGet
+ 
+         // DAG-decomposed subsystems
+         java.util.List<org.nebula.core.scheduler.TaskNode> tasks;
+-        if (this.emptyTime < 300) {
+-            tasks = io.papermc.paper.threadedregions.RegionTickDecomposer.decompose(this, worldData, tick, runsNormally);
++        boolean forceFull = io.papermc.paper.threadedregions.NebulaStressMode.isEnabled();
++        boolean fullDecompose = forceFull || this.emptyTime < 300;
++        if (fullDecompose) {
++            tasks = io.papermc.paper.threadedregions.RegionTickDecomposer.decomposeMinimal(this, worldData, tick, runsNormally);
++            int minimalSize = tasks.size();
++            tasks.addAll(io.papermc.paper.threadedregions.EntityTaskBuilder.buildAll(this, worldData));
++            int entityCount = tasks.size() - minimalSize;
++            int beCount = 0;
++            if (this.paperConfig().unsupportedSettings.ticking.blockEntities) {
++                int beforeBE = tasks.size();
++                tasks.addAll(io.papermc.paper.threadedregions.BlockEntityTaskBuilder.buildAll(this, worldData));
++                beCount = tasks.size() - beforeBE;
++            }
++            io.papermc.paper.threadedregions.NebulaTickMetrics.recordDecomposition(true, entityCount, beCount);
+         } else {
+             tasks = io.papermc.paper.threadedregions.RegionTickDecomposer.decomposeMinimal(this, worldData, tick, runsNormally);
++            io.papermc.paper.threadedregions.NebulaTickMetrics.recordDecomposition(false, 0, 0);
+         }
+ 
+         org.nebula.core.scheduler.TaskGenerator microStepGenerator =
