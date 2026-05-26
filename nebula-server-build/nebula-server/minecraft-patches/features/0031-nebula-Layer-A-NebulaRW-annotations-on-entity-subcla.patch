@@ -1,0 +1,123 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Tue, 26 May 2026 17:58:34 +0800
+Subject: [PATCH] nebula: Layer A @NebulaRW annotations on entity subclasses
+ (E1b)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+ServerPlayer.doTick, ItemEntity.tick, ExperienceOrb.tick,
+AbstractArrow.tick — the per-tick entry points for the four largest
+non-mob entity populations on a typical server. ServerPlayer is
+SERIALIZED (player list / network side effects); the rest are AUTO
+because they may damage other entities or merge with neighbours.
+
+diff --git a/net/minecraft/server/level/ServerPlayer.java b/net/minecraft/server/level/ServerPlayer.java
+index 5d4310dab55cc960ccfce279e656e7b740f3d5c0..bf36d1285bcfe63edf3484500871fb357c75584d 100644
+--- a/net/minecraft/server/level/ServerPlayer.java
++++ b/net/minecraft/server/level/ServerPlayer.java
+@@ -988,6 +988,22 @@ public class ServerPlayer extends Player implements ca.spottedleaf.moonrise.patc
+         }
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*", "*"},
++        writeEntities      = {"this.*"},
++        readBlocks         = {"*"},
++        readBlockEntities  = {"*.*"},
++        writeBlockEntities = {},
++        readGlobals        = {"WORLD_TIME", "GAME_RULES"},
++        writeGlobals       = {"PLAYER_LIST"},
++        triggeredEvents    = {"PLAYER_DAMAGED", "PLAYER_DEATH", "PLAYER_TELEPORT", "STATISTIC_UPDATE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.SERIALIZED,
++        maxRandomCalls     = 16,
++        randomInstance     = "ENTITY_RANDOM",
++        mayLoadChunks      = true,
++        verifiedAt         = "1.21.4"
++    )
+     public void doTick() {
+         try {
+             if (valid && !this.isSpectator() || !this.touchingUnloadedChunk()) { // Paper - don't tick dead players that are not in the world currently (pending respawn)
+diff --git a/net/minecraft/world/entity/ExperienceOrb.java b/net/minecraft/world/entity/ExperienceOrb.java
+index e302c6198d71782b524391329aa5c89d2b3e0ccf..3af30c969567110b0865148e61dcb4c22bef9626 100644
+--- a/net/minecraft/world/entity/ExperienceOrb.java
++++ b/net/minecraft/world/entity/ExperienceOrb.java
+@@ -142,6 +142,22 @@ public class ExperienceOrb extends Entity {
+         return 0.03;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*", "*"},
++        writeEntities      = {"this.*"},
++        readBlocks         = {"*"},
++        readBlockEntities  = {},
++        writeBlockEntities = {},
++        readGlobals        = {"WORLD_TIME"},
++        writeGlobals       = {},
++        triggeredEvents    = {"XP_ORB_PICKUP", "XP_ORB_DESPAWN", "XP_ORB_MERGE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 2,
++        randomInstance     = "ENTITY_RANDOM",
++        mayLoadChunks      = false,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         this.interpolation.interpolate();
+diff --git a/net/minecraft/world/entity/item/ItemEntity.java b/net/minecraft/world/entity/item/ItemEntity.java
+index 4f39b96a4af8865af6a968d64643712840359851..3fce1de21bb5f807043b425862bc3562837462c9 100644
+--- a/net/minecraft/world/entity/item/ItemEntity.java
++++ b/net/minecraft/world/entity/item/ItemEntity.java
+@@ -147,6 +147,22 @@ public class ItemEntity extends Entity implements TraceableEntity {
+     }
+     // Paper end - EAR 2
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*", "*"},
++        writeEntities      = {"this.*"},
++        readBlocks         = {"*"},
++        readBlockEntities  = {},
++        writeBlockEntities = {},
++        readGlobals        = {"WORLD_TIME"},
++        writeGlobals       = {},
++        triggeredEvents    = {"ITEM_PICKUP", "ITEM_DESPAWN", "ITEM_MERGE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 4,
++        randomInstance     = "ENTITY_RANDOM",
++        mayLoadChunks      = false,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         if (this.getItem().isEmpty()) {
+diff --git a/net/minecraft/world/entity/projectile/arrow/AbstractArrow.java b/net/minecraft/world/entity/projectile/arrow/AbstractArrow.java
+index f386b934bd38c127a6cb50c11c8910371cd7c0a0..4bab72ca4d2e84139c4061cd079b50aaf4530a72 100644
+--- a/net/minecraft/world/entity/projectile/arrow/AbstractArrow.java
++++ b/net/minecraft/world/entity/projectile/arrow/AbstractArrow.java
+@@ -181,6 +181,22 @@ public abstract class AbstractArrow extends Projectile {
+         }
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*", "*"},
++        writeEntities      = {"this.*", "*"},
++        readBlocks         = {"*"},
++        readBlockEntities  = {},
++        writeBlockEntities = {},
++        readGlobals        = {"WORLD_TIME"},
++        writeGlobals       = {},
++        triggeredEvents    = {"PROJECTILE_HIT_ENTITY", "PROJECTILE_HIT_BLOCK", "ENTITY_DAMAGED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 8,
++        randomInstance     = "ENTITY_RANDOM",
++        mayLoadChunks      = false,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         // Folia start - region threading - make sure entities do not move into regions they do not own
