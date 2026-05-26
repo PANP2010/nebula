@@ -1,0 +1,119 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Tue, 26 May 2026 23:41:48 +0800
+Subject: [PATCH] nebula: mark self-only tasks parallelSafe + expose
+ degradation counter
+
+EntityTaskBuilder: non-player entity tasks now use TaskNode.parallelSafe()
+(self-only writeEntity RWSet, safe for intra-layer parallel).
+
+BlockEntityTaskBuilder: independent BE types (furnace, chest, barrel, etc.)
+now use TaskNode.parallelSafe().
+
+NebulaParallelIntegration: surfaces ParallelTaskRunner.degradedLayers() in
+summary line as "degraded-to-serial=N", giving visibility into how many
+layers fell back to serial because some tasks lack the parallelSafe flag.
+
+diff --git a/io/papermc/paper/threadedregions/BlockEntityTaskBuilder.java b/io/papermc/paper/threadedregions/BlockEntityTaskBuilder.java
+index d4a230e8e131ca34c85f893ec6b83ff7aa67958e..87dbd0bf5553294edc030b4d25b28dd40cd8c363 100644
+--- a/io/papermc/paper/threadedregions/BlockEntityTaskBuilder.java
++++ b/io/papermc/paper/threadedregions/BlockEntityTaskBuilder.java
+@@ -74,6 +74,11 @@ public final class BlockEntityTaskBuilder {
+ 
+         BlockEntityType<?> type = be.getType();
+         RWSet rwSet = classifyRWSet(type, pos, level, dimId);
++
++        // Independent BEs have self-only RWSets — safe for intra-layer parallel.
++        if (INDEPENDENT_TYPES.contains(type)) {
++            return TaskNode.parallelSafe(taskId, "BLOCK_ENTITY", rwSet, ticker::tick);
++        }
+         return new TaskNode(taskId, "BLOCK_ENTITY", rwSet, ticker::tick);
+     }
+ 
+diff --git a/io/papermc/paper/threadedregions/EntityTaskBuilder.java b/io/papermc/paper/threadedregions/EntityTaskBuilder.java
+index e55d5812bc6d074a82dafb7847494575a7f42ac6..0a40485d7d5102d404c4c6388af6fd6a7d0de975 100644
+--- a/io/papermc/paper/threadedregions/EntityTaskBuilder.java
++++ b/io/papermc/paper/threadedregions/EntityTaskBuilder.java
+@@ -8,6 +8,7 @@ import net.minecraft.world.entity.Mob;
+ import net.minecraft.world.entity.item.ItemEntity;
+ import net.minecraft.world.entity.projectile.Projectile;
+ import org.nebula.core.rw.RWSet;
++import org.nebula.core.scheduler.TaskAction;
+ import org.nebula.core.scheduler.TaskNode;
+ import org.nebula.core.state.EntityField;
+ import org.nebula.core.state.GlobalKey;
+@@ -70,8 +71,9 @@ public final class EntityTaskBuilder {
+         long entityId = entity.getId();
+         String taskId = "entity_" + index + "_" + entityId;
+         RWSet rwSet = classifyRWSet(entity, entityId);
++        boolean isPlayer = entity instanceof ServerPlayer;
+ 
+-        return new TaskNode(taskId, taskTypeFor(entity), rwSet, () -> {
++        TaskAction action = () -> {
+             TickRateManager tickRateManager = level.tickRateManager();
+             if (entity.isRemoved() || tickRateManager.isEntityFrozen(entity)) {
+                 return;
+@@ -88,7 +90,13 @@ public final class EntityTaskBuilder {
+                 entity.stopRiding();
+             }
+             level.guardEntityTick(level::tickNonPassenger, entity);
+-        });
++        };
++
++        // Non-player entities have self-only RWSets — safe for intra-layer parallel.
++        if (!isPlayer) {
++            return TaskNode.parallelSafe(taskId, taskTypeFor(entity), rwSet, action);
++        }
++        return new TaskNode(taskId, taskTypeFor(entity), rwSet, action);
+     }
+ 
+     private static RWSet classifyRWSet(Entity entity, long entityId) {
+diff --git a/io/papermc/paper/threadedregions/NebulaParallelIntegration.java b/io/papermc/paper/threadedregions/NebulaParallelIntegration.java
+index acea27d67ab439419cafb417b6a7676749f1287a..aeeae865b3232b40f2805c1b5c872f3840c09c60 100644
+--- a/io/papermc/paper/threadedregions/NebulaParallelIntegration.java
++++ b/io/papermc/paper/threadedregions/NebulaParallelIntegration.java
+@@ -36,6 +36,7 @@ public final class NebulaParallelIntegration {
+ 
+     private static final AtomicLong LAYERS_RUN = new AtomicLong();
+     private static final AtomicLong TASKS_RUN = new AtomicLong();
++    private static volatile ParallelTaskRunner LAST_RUNNER;
+ 
+     static {
+         ENABLED = Boolean.getBoolean("nebula.parallel");
+@@ -56,6 +57,10 @@ public final class NebulaParallelIntegration {
+     public static int threshold() { return THRESHOLD; }
+     public static long layersRun() { return LAYERS_RUN.get(); }
+     public static long tasksRun() { return TASKS_RUN.get(); }
++    public static long degradedLayers() {
++        ParallelTaskRunner r = LAST_RUNNER;
++        return r == null ? 0 : r.degradedLayers();
++    }
+ 
+     /**
+      * Wraps the given runner with a layer-parallel runner if
+@@ -65,7 +70,9 @@ public final class NebulaParallelIntegration {
+         if (!ENABLED || POOL == null) {
+             return inner;
+         }
+-        return new TrackingRunner(new ParallelTaskRunner(inner, POOL.asExecutor(), THRESHOLD));
++        ParallelTaskRunner ptr = new ParallelTaskRunner(inner, POOL.asExecutor(), THRESHOLD);
++        LAST_RUNNER = ptr;
++        return new TrackingRunner(ptr);
+     }
+ 
+     public static String summary() {
+@@ -74,10 +81,12 @@ public final class NebulaParallelIntegration {
+         }
+         long layers = LAYERS_RUN.get();
+         long tasks = TASKS_RUN.get();
++        long degraded = degradedLayers();
+         double avg = layers == 0 ? 0.0 : (double) tasks / layers;
+         return String.format(java.util.Locale.ROOT,
+-            "Nebula parallel runner: threads=%d, threshold=%d, layers-run=%d, tasks-run=%d, avg-tasks/layer=%.2f",
+-            THREADS, THRESHOLD, layers, tasks, avg
++            "Nebula parallel runner: threads=%d, threshold=%d, layers-run=%d, tasks-run=%d, "
++                + "avg-tasks/layer=%.2f, degraded-to-serial=%d",
++            THREADS, THRESHOLD, layers, tasks, avg, degraded
+         );
+     }
+ 
