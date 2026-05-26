@@ -46,39 +46,12 @@ public final class StateHashComputer {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
 
             // Header — version the serialisation format so old replays break cleanly
-            md.update("NEBULA-REPLAY-v1\n".getBytes(StandardCharsets.UTF_8));
+            md.update("NEBULA-REPLAY-v2\n".getBytes(StandardCharsets.UTF_8));
 
-            // Block states — sorted for determinism
-            TreeMap<String, byte[]> sortedChunks = new TreeMap<>(stateChunks);
-            for (var entry : sortedChunks.entrySet()) {
-                md.update(entry.getKey().getBytes(StandardCharsets.UTF_8));
-                md.update(ByteBuffer.allocate(4).putInt(entry.getValue().length).array());
-                md.update(entry.getValue());
-            }
-
-            // Block entities
-            TreeMap<String, byte[]> sortedBE = new TreeMap<>(blockEntities);
-            for (var entry : sortedBE.entrySet()) {
-                md.update(entry.getKey().getBytes(StandardCharsets.UTF_8));
-                md.update(ByteBuffer.allocate(4).putInt(entry.getValue().length).array());
-                md.update(entry.getValue());
-            }
-
-            // Entities — sorted by ID
-            TreeMap<String, byte[]> sortedEnt = new TreeMap<>(entities);
-            for (var entry : sortedEnt.entrySet()) {
-                md.update(entry.getKey().getBytes(StandardCharsets.UTF_8));
-                md.update(ByteBuffer.allocate(4).putInt(entry.getValue().length).array());
-                md.update(entry.getValue());
-            }
-
-            // Global state
-            TreeMap<String, byte[]> sortedGlobals = new TreeMap<>(globalState);
-            for (var entry : sortedGlobals.entrySet()) {
-                md.update(entry.getKey().getBytes(StandardCharsets.UTF_8));
-                md.update(ByteBuffer.allocate(4).putInt(entry.getValue().length).array());
-                md.update(entry.getValue());
-            }
+            absorbCategory(md, "BLK", stateChunks);
+            absorbCategory(md, "BE", blockEntities);
+            absorbCategory(md, "ENT", entities);
+            absorbCategory(md, "GLB", globalState);
 
             return md.digest();
         } catch (NoSuchAlgorithmException e) {
@@ -89,6 +62,19 @@ public final class StateHashComputer {
     /** Convenience: compute hash from an empty world (seed only). */
     public static byte[] computeSeedHash(long worldSeed) {
         return compute(Map.of("seed", longToBytes(worldSeed)), Map.of(), Map.of(), Map.of());
+    }
+
+    private static void absorbCategory(MessageDigest md, String tag, Map<String, byte[]> entries) {
+        md.update(tag.getBytes(StandardCharsets.UTF_8));
+        md.update((byte) '\n');
+        TreeMap<String, byte[]> sorted = new TreeMap<>(entries);
+        for (var entry : sorted.entrySet()) {
+            byte[] keyBytes = entry.getKey().getBytes(StandardCharsets.UTF_8);
+            md.update(ByteBuffer.allocate(4).putInt(keyBytes.length).array());
+            md.update(keyBytes);
+            md.update(ByteBuffer.allocate(4).putInt(entry.getValue().length).array());
+            md.update(entry.getValue());
+        }
     }
 
     private static byte[] longToBytes(long value) {
