@@ -1,0 +1,371 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Wed, 27 May 2026 00:29:21 +0800
+Subject: [PATCH] =?UTF-8?q?nebula:=20D3=20deferred=20impulse=20buffer=20?=
+ =?UTF-8?q?=E2=80=94=20collision=20pipeline=20implementation?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Implements the deferred-impulse collision pipeline (architecture §6.2):
+
+- DeferredImpulseBuffer: stores pending cross-entity impulses during
+  entity tick phase, applies them in entityId-sorted order after all
+  entity tasks complete
+- Entity.push(Entity): when buffer is active, enqueues impulses instead
+  of applying immediately — makes each entity tick self-contained
+- RegionizedWorldData: region-local buffer instance
+- EntityTaskBuilder: entity_activation activates buffer; collision_flush
+  task (GLOBAL_RW) runs after all entity tasks to flush + deactivate
+- Non-player entities re-enabled as parallelSafe (push() is deferred)
+
+The collision_flush task's GLOBAL_RW ensures all entity self-only writes
+complete before impulses are applied. This serializes the impulse-apply
+phase while keeping entity ticks parallel.
+
+diff --git a/io/papermc/paper/threadedregions/DeferredImpulseBuffer.java b/io/papermc/paper/threadedregions/DeferredImpulseBuffer.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..254555a00dbf6915fd197cd31202ee26568aa781
+--- /dev/null
++++ b/io/papermc/paper/threadedregions/DeferredImpulseBuffer.java
+@@ -0,0 +1,74 @@
++package io.papermc.paper.threadedregions;
++
++import net.minecraft.world.entity.Entity;
++import net.minecraft.world.phys.Vec3;
++
++import java.util.ArrayList;
++import java.util.List;
++
++/**
++ * D3: Deferred entity-entity collision impulse buffer.
++ *
++ * <p>During the entity tick phase, {@code Entity.push(Entity)} enqueues
++ * impulses here instead of applying them immediately. This makes each
++ * entity tick self-contained (only writes to self), enabling intra-layer
++ * parallel execution.
++ *
++ * <p>After all entity tasks complete, {@link #flush()} applies the buffered
++ * impulses to each entity's deltaMovement in entityId-sorted order for
++ * determinism.
++ *
++ * <p>The buffer is region-local (one per RegionizedWorldData) and is
++ * activated/deactivated around the entity tick phase.
++ */
++public final class DeferredImpulseBuffer {
++
++    private final List<PendingImpulse> pending = new ArrayList<>();
++    private boolean active;
++
++    public void activate() {
++        this.active = true;
++        this.pending.clear();
++    }
++
++    public void deactivate() {
++        this.active = false;
++        this.pending.clear();
++    }
++
++    public boolean isActive() {
++        return this.active;
++    }
++
++    /**
++     * Enqueue an impulse to be applied later. Called from Entity.push(Entity).
++     */
++    public void enqueue(Entity target, Vec3 impulse) {
++        if (!this.active || impulse.lengthSqr() < 1.0E-14) return;
++        this.pending.add(new PendingImpulse(target.getId(), target, impulse));
++    }
++
++    /**
++     * Apply all buffered impulses. Must be called after all entity tasks
++     * complete. Impulses are sorted by entityId for determinism.
++     */
++    public void flush() {
++        if (this.pending.isEmpty()) return;
++
++        // Sort by entityId for deterministic application order
++        this.pending.sort((a, b) -> Long.compare(a.targetId, b.targetId));
++
++        for (PendingImpulse imp : this.pending) {
++            if (!imp.entity.isRemoved()) {
++                imp.entity.push(imp.impulse);
++            }
++        }
++        this.pending.clear();
++    }
++
++    public int pendingCount() {
++        return this.pending.size();
++    }
++
++    private record PendingImpulse(long targetId, Entity entity, Vec3 impulse) {}
++}
+diff --git a/io/papermc/paper/threadedregions/EntityCollisionPipeline.java b/io/papermc/paper/threadedregions/EntityCollisionPipeline.java
+index 3bacc6e5a7f48310cb9734ced7477f3451ea58ef..ad65f69ac70c960340cef8f2be3dc4ea47f90a68 100644
+--- a/io/papermc/paper/threadedregions/EntityCollisionPipeline.java
++++ b/io/papermc/paper/threadedregions/EntityCollisionPipeline.java
+@@ -14,139 +14,34 @@ import java.util.List;
+ /**
+  * D3: Three-phase entity collision pipeline (architecture doc §6.2).
+  *
+- * <p>Phase 1 — Detection: Read all entity positions, compute AABB overlap
+- * pairs. Self-only readRWSet. Produces a list of collision pairs.
++ * <h2>Current implementation</h2>
++ * <p>Entity.push(Entity) now defers cross-entity impulses to
++ * {@link DeferredImpulseBuffer} when active. The buffer is activated
++ * during the entity tick phase and flushed after all entity tasks complete.
++ * This makes each entity tick self-contained (only writes to self),
++ * enabling intra-layer parallel execution.
+  *
+- * <p>Phase 2 — Impulse aggregation: For each collision pair, compute the
+- * push impulse (same logic as Entity.push()). Write impulses to a buffer
+- * sorted by entityId for determinism. Serial execution (SCC-contracted).
+- *
+- * <p>Phase 3 — Position update: Apply accumulated impulses to each entity's
+- * deltaMovement, then call Entity.move(). Self-only writeRWSet per entity.
+- *
+- * <p>Until this pipeline is implemented, entity tasks use conservative
+- * self-only RWSets without parallelSafe, because Entity.push() writes
+- * to both this and other entity (cross-entity write).
++ * <h2>Tick flow</h2>
++ * <ol>
++ *   <li>{@code entity_activation} task: activates buffer + runs ActivationRange</li>
++ *   <li>Per-entity tasks: tick entities; push() enqueues to buffer instead of applying</li>
++ *   <li>{@code collision_flush} task: flushes all buffered impulses (serial, GLOBAL_RW)</li>
++ * </ol>
+  *
+- * <h2>Implementation roadmap</h2>
++ * <h2>Future: full 3-phase pipeline</h2>
++ * <p>For maximum parallelism, the collision system could be split into:
+  * <ol>
+- *   <li>Add a deferred-impulse buffer to ServerLevel (ThreadLocal or region-local)</li>
+- *   <li>Modify Entity.push(Entity) to enqueue impulses instead of applying immediately</li>
+- *   <li>Hook RegionTickDecomposer to generate 3-phase tasks instead of single entity tasks</li>
+- *   <li>Entity.move() reads from deferred buffer instead of calling push() directly</li>
++ *   <li>Detection: Read all entity positions, compute AABB overlaps (parallel read)</li>
++ *   <li>Impulse aggregation: Compute push vectors per pair (serial SCC)</li>
++ *   <li>Position update: Apply impulses + Entity.move() (parallel self-write)</li>
+  * </ol>
++ * <p>This requires deeper hooks into Entity.move() / CollisionUtil and is
++ * deferred to a future PR.
+  *
+- * @see EntityTaskBuilder current (conservative) entity task generation
++ * @see DeferredImpulseBuffer actual impulse deferral implementation
++ * @see EntityTaskBuilder generates entity tasks + collision_flush
+  */
+ public final class EntityCollisionPipeline {
+ 
+     private EntityCollisionPipeline() {}
+-
+-    /**
+-     * Phase 1: Detection layer. Reads all entity positions and computes
+-     * AABB overlap pairs. Returns a list of (entityA, entityB) pairs that
+-     * are colliding this tick.
+-     *
+-     * <p>TaskNode: readEntity all, no writes. Parallel-safe.
+-     */
+-    public static TaskNode buildDetectionTask(
+-        ServerLevel level,
+-        List<Entity> entities,
+-        CollisionBuffer buffer
+-    ) {
+-        String taskId = "collision_detect";
+-        RWSet rwSet = RWSet.builder()
+-            .readGlobal(GlobalKey.ALL)
+-            .build();
+-
+-        TaskAction action = () -> {
+-            for (int i = 0; i < entities.size(); i++) {
+-                Entity a = entities.get(i);
+-                if (a.isRemoved()) continue;
+-                for (int j = i + 1; j < entities.size(); j++) {
+-                    Entity b = entities.get(j);
+-                    if (b.isRemoved()) continue;
+-                    if (a.getBoundingBox().intersects(b.getBoundingBox())) {
+-                        buffer.addPair(a.getId(), b.getId());
+-                    }
+-                }
+-            }
+-        };
+-
+-        return new TaskNode(taskId, "COLLISION_DETECT", rwSet, action);
+-    }
+-
+-    /**
+-     * Phase 2: Impulse aggregation. For each collision pair, compute the
+-     * push impulse vector and store it in the buffer. Must run serially
+-     * (SCC-contracted) because impulse computation reads both entities.
+-     *
+-     * <p>TaskNode: readEntity all + writeEntity all. SERIAL (SCC).
+-     */
+-    public static TaskNode buildImpulseTask(
+-        List<Entity> entities,
+-        CollisionBuffer buffer
+-    ) {
+-        String taskId = "collision_impulse";
+-        RWSet rwSet = RWSet.builder()
+-            .readGlobal(GlobalKey.ALL)
+-            .writeGlobal(GlobalKey.ALL)
+-            .build();
+-
+-        TaskAction action = () -> {
+-            buffer.computeImpulses(entities);
+-        };
+-
+-        return new TaskNode(taskId, "COLLISION_IMPULSE", rwSet, action);
+-    }
+-
+-    /**
+-     * Phase 3: Position update. Apply accumulated impulses to each entity,
+-     * then run Entity.move(). Each entity is self-only (impulses already resolved).
+-     *
+-     * <p>TaskNodes: one per entity, self-only writeRWSet. Parallel-safe.
+-     */
+-    public static List<TaskNode> buildPositionTasks(
+-        List<Entity> entities,
+-        CollisionBuffer buffer
+-    ) {
+-        List<TaskNode> tasks = new ArrayList<>(entities.size());
+-        for (int i = 0; i < entities.size(); i++) {
+-            Entity entity = entities.get(i);
+-            long entityId = entity.getId();
+-            String taskId = "collision_move_" + i + "_" + entityId;
+-            RWSet rwSet = RWSet.builder()
+-                .writeEntity(new EntityField(entityId, "*"))
+-                .build();
+-
+-            TaskAction action = () -> {
+-                if (entity.isRemoved()) return;
+-                buffer.applyImpulse(entity);
+-            };
+-
+-            tasks.add(TaskNode.parallelSafe(taskId, "COLLISION_MOVE", rwSet, action));
+-        }
+-        return tasks;
+-    }
+-
+-    /**
+-     * Buffer for deferred collision impulses. Stores per-entity impulse
+-     * vectors computed during Phase 2, applied during Phase 3.
+-     */
+-    public static final class CollisionBuffer {
+-        // Placeholder: will hold Map<Long /*entityId*/, Vec3 /*impulse*/>
+-        // For now, this is a design skeleton.
+-
+-        public void addPair(long entityIdA, long entityIdB) {
+-            // Phase 1 stores collision pairs here
+-        }
+-
+-        public void computeImpulses(List<Entity> entities) {
+-            // Phase 2 computes push vectors for each pair
+-        }
+-
+-        public void applyImpulse(Entity entity) {
+-            // Phase 3 applies buffered impulse to entity's deltaMovement
+-        }
+-    }
+ }
+diff --git a/io/papermc/paper/threadedregions/EntityTaskBuilder.java b/io/papermc/paper/threadedregions/EntityTaskBuilder.java
+index 40f692b3246c228479d15122c3c802d314b75740..010d97ac578eb7aeda9a7c0abf82ff90a0f93d05 100644
+--- a/io/papermc/paper/threadedregions/EntityTaskBuilder.java
++++ b/io/papermc/paper/threadedregions/EntityTaskBuilder.java
+@@ -53,9 +53,13 @@ public final class EntityTaskBuilder {
+             worldData.forEachTickingEntity(snapshot::add);
+         }
+ 
+-        List<TaskNode> tasks = new ArrayList<>(snapshot.size() + 1);
++        DeferredImpulseBuffer buf = worldData.getDeferredImpulseBuffer();
+ 
++        List<TaskNode> tasks = new ArrayList<>(snapshot.size() + 2);
++
++        // Phase 0: entity activation + enable deferred impulse buffer
+         tasks.add(new TaskNode("entity_activation", "ENTITY_ACTIVATION", GLOBAL_RW, () -> {
++            buf.activate();
+             io.papermc.paper.entity.activation.ActivationRange.activateEntities(level);
+         }));
+ 
+@@ -64,6 +68,13 @@ public final class EntityTaskBuilder {
+             tasks.add(buildSingle(entity, level, i));
+         }
+ 
++        // Phase D3: flush deferred collision impulses after all entity tasks.
++        // GLOBAL_RW ensures this runs after every entity's self-only write.
++        tasks.add(new TaskNode("collision_flush", "COLLISION_FLUSH", GLOBAL_RW, () -> {
++            buf.flush();
++            buf.deactivate();
++        }));
++
+         return tasks;
+     }
+ 
+@@ -92,10 +103,12 @@ public final class EntityTaskBuilder {
+             level.guardEntityTick(level::tickNonPassenger, entity);
+         };
+ 
+-        // D3 TODO: Entity.push(Entity) creates cross-entity writes (writes to
+-        // both this.deltaMovement and other.deltaMovement). Until the 3-phase
+-        // collision pipeline (§6.2) is implemented, entity tasks are NOT safe
+-        // for intra-layer parallel. Cross-region parallelism (D4) still works.
++        // D3: Entity.push(Entity) now defers cross-entity impulses to the
++        // DeferredImpulseBuffer, making each entity tick self-contained.
++        // Non-player entities are safe for intra-layer parallel execution.
++        if (!isPlayer) {
++            return TaskNode.parallelSafe(taskId, taskTypeFor(entity), rwSet, action);
++        }
+         return new TaskNode(taskId, taskTypeFor(entity), rwSet, action);
+     }
+ 
+diff --git a/io/papermc/paper/threadedregions/RegionizedWorldData.java b/io/papermc/paper/threadedregions/RegionizedWorldData.java
+index bc946ce8f24d7654eefd77a99ac9d037f3d0fb7e..b47cbbe6553bc06923d357b4eb2b972327795ce4 100644
+--- a/io/papermc/paper/threadedregions/RegionizedWorldData.java
++++ b/io/papermc/paper/threadedregions/RegionizedWorldData.java
+@@ -362,6 +362,13 @@ public final class RegionizedWorldData {
+     private final List<TickingBlockEntity> blockEntityTickers = new ArrayList<>();
+     private boolean tickingBlockEntities;
+ 
++    // D3: deferred collision impulse buffer (one per region, activated around entity tick phase)
++    private final DeferredImpulseBuffer deferredImpulseBuffer = new DeferredImpulseBuffer();
++
++    public DeferredImpulseBuffer getDeferredImpulseBuffer() {
++        return this.deferredImpulseBuffer;
++    }
++
+     // time
+     private long redstoneTime = 1L;
+ 
+diff --git a/net/minecraft/world/entity/Entity.java b/net/minecraft/world/entity/Entity.java
+index 45d05f045d4a98cf95b77e5b773a3e8e5b32fc2b..b793426e735cd14704ef96f1eff739e927d45638 100644
+--- a/net/minecraft/world/entity/Entity.java
++++ b/net/minecraft/world/entity/Entity.java
+@@ -2400,6 +2400,28 @@ public abstract class Entity
+                     za *= pow;
+                     xa *= 0.05F;
+                     za *= 0.05F;
++
++                    // D3: When deferred impulse buffer is active, enqueue both
++                    // impulses instead of applying immediately. This keeps each
++                    // entity tick self-contained for parallel execution.
++                    if (this.level instanceof net.minecraft.server.level.ServerLevel serverLevel) {
++                        io.papermc.paper.threadedregions.RegionizedWorldData worldData =
++                            serverLevel.getCurrentWorldData();
++                        if (worldData != null) {
++                            io.papermc.paper.threadedregions.DeferredImpulseBuffer buf =
++                                worldData.getDeferredImpulseBuffer();
++                            if (buf.isActive()) {
++                                if (!this.isVehicle() && this.isPushable()) {
++                                    buf.enqueue(this, new net.minecraft.world.phys.Vec3(-xa, 0.0, -za));
++                                }
++                                if (!entity.isVehicle() && entity.isPushable()) {
++                                    buf.enqueue(entity, new net.minecraft.world.phys.Vec3(xa, 0.0, za));
++                                }
++                                return;
++                            }
++                        }
++                    }
++
+                     if (!this.isVehicle() && this.isPushable()) {
+                         this.push(-xa, 0.0, -za);
+                     }
