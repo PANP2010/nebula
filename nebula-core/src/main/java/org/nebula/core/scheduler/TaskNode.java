@@ -4,7 +4,11 @@ import org.nebula.core.rw.RWSet;
 
 import java.util.Objects;
 
-public record TaskNode(String taskId, String taskType, RWSet declaredRWSet, TaskAction action) {
+public record TaskNode(String taskId, String taskType, RWSet declaredRWSet, TaskAction action, boolean parallelSafe) {
+    public TaskNode(String taskId, String taskType, RWSet declaredRWSet, TaskAction action) {
+        this(taskId, taskType, declaredRWSet, action, false);
+    }
+
     public TaskNode {
         Objects.requireNonNull(taskId, "taskId");
         Objects.requireNonNull(taskType, "taskType");
@@ -20,5 +24,10 @@ public record TaskNode(String taskId, String taskType, RWSet declaredRWSet, Task
 
     public static TaskNode inert(String taskId, String taskType, RWSet declaredRWSet) {
         return new TaskNode(taskId, taskType, declaredRWSet, () -> { });
+    }
+
+    /** Task with known-safe self-only RWSet, eligible for intra-layer parallel. */
+    public static TaskNode parallelSafe(String taskId, String taskType, RWSet declaredRWSet, TaskAction action) {
+        return new TaskNode(taskId, taskType, declaredRWSet, action, true);
     }
 }

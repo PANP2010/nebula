@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -15,14 +16,16 @@ import java.util.concurrent.atomic.AtomicReference;
  * RW-sets, so concurrent execution within a layer is data-race free by
  * construction.
  *
- * <p>Single-task layers (or layers below {@code parallelThreshold}) fall back
- * to inline execution to avoid submission overhead.
+ * <p>Single-task layers, layers below {@code parallelThreshold}, or layers
+ * containing any task without the {@code parallelSafe} flag fall back to
+ * inline execution to avoid submission overhead.
  */
 public final class ParallelTaskRunner implements TaskRunner {
 
     private final TaskRunner delegate;
     private final Executor executor;
     private final int parallelThreshold;
+    private final AtomicLong degradedLayers = new AtomicLong();
 
     public ParallelTaskRunner(TaskRunner delegate, Executor executor, int parallelThreshold) {
         this.delegate = delegate;
@@ -34,6 +37,8 @@ public final class ParallelTaskRunner implements TaskRunner {
         this(delegate, executor, 2);
     }
 
+    public long degradedLayers() { return degradedLayers.get(); }
+
     @Override
     public void run(TaskNode task) throws Exception {
         delegate.run(task);
@@ -41,7 +46,14 @@ public final class ParallelTaskRunner implements TaskRunner {
 
     @Override
     public void runLayer(List<TaskNode> layer) throws Exception {
-        if (layer.size() < parallelThreshold) {
+        // Degradation check: fall back to serial if any task lacks parallelSafe flag.
+        // This handles layers where NMS annotations haven't been verified yet —
+        // the task builder marks known-safe tasks (self-only RWSet) as parallelSafe.
+        boolean allParallelSafe = layer.size() >= parallelThreshold
+            && layer.stream().allMatch(TaskNode::parallelSafe);
+
+        if (!allParallelSafe) {
+            degradedLayers.incrementAndGet();
             for (TaskNode task : layer) {
                 delegate.run(task);
             }
