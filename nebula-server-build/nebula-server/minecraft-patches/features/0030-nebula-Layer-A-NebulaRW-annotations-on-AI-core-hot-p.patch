@@ -1,0 +1,204 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Tue, 26 May 2026 17:58:22 +0800
+Subject: [PATCH] nebula: Layer A @NebulaRW annotations on AI core hot path
+ (E1a)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Mob.serverAiStep, Brain.tick, GoalSelector.tick, PathNavigation.tick,
+{Look,Move,Jump}Control.tick — declares the read/write footprint of
+the AI tick chain so RW-Guard can validate it. Conservative wildcards
+(`*`) are used where the closure of accesses is dynamically bounded
+(sensor scans, behavior dispatch); guard violations will refine these.
+
+diff --git a/net/minecraft/world/entity/Mob.java b/net/minecraft/world/entity/Mob.java
+index 70832b53a3abf3b831312f924cca17067a2f5221..f8fb09a90a83ceca9aa04a80f0364896f170c2e9 100644
+--- a/net/minecraft/world/entity/Mob.java
++++ b/net/minecraft/world/entity/Mob.java
+@@ -833,6 +833,22 @@ public abstract class Mob extends LivingEntity implements Targeting, EquipmentUs
+         }
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*", "*"},
++        writeEntities      = {"this.*"},
++        readBlocks         = {"*"},
++        readBlockEntities  = {},
++        writeBlockEntities = {},
++        readGlobals        = {"WORLD_TIME"},
++        writeGlobals       = {},
++        triggeredEvents    = {"AI_GOAL_TICK", "PATH_RECOMPUTE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 64,
++        randomInstance     = "ENTITY_RANDOM",
++        mayLoadChunks      = false,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     protected final void serverAiStep() {
+         this.noActionTime++;
+diff --git a/net/minecraft/world/entity/ai/Brain.java b/net/minecraft/world/entity/ai/Brain.java
+index 8bf489874cd4d2b7e3779a6565f13511938754ed..92699511c1d9e1a31b6a10b6c8724e3d27ec3831 100644
+--- a/net/minecraft/world/entity/ai/Brain.java
++++ b/net/minecraft/world/entity/ai/Brain.java
+@@ -386,6 +386,22 @@ public class Brain<E extends LivingEntity> {
+         return this.activeActivities.contains(activity);
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"*"},
++        writeEntities      = {"*"},
++        readBlocks         = {"*"},
++        readBlockEntities  = {},
++        writeBlockEntities = {},
++        readGlobals        = {"WORLD_TIME"},
++        writeGlobals       = {},
++        triggeredEvents    = {"AI_BEHAVIOR_START", "AI_BEHAVIOR_STOP"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 32,
++        randomInstance     = "ENTITY_RANDOM",
++        mayLoadChunks      = false,
++        verifiedAt         = "1.21.4"
++    )
+     public void tick(final ServerLevel level, final E body) {
+         this.forgetOutdatedMemories();
+         this.tickSensors(level, body);
+diff --git a/net/minecraft/world/entity/ai/control/JumpControl.java b/net/minecraft/world/entity/ai/control/JumpControl.java
+index 698b1ecd8d80bdcf07a56cc5cf23997afac29cdd..24bb1454f8b6bc5fd2414bcb245a117304a24e0a 100644
+--- a/net/minecraft/world/entity/ai/control/JumpControl.java
++++ b/net/minecraft/world/entity/ai/control/JumpControl.java
+@@ -14,6 +14,22 @@ public class JumpControl implements Control {
+         this.jump = true;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.*"},
++        readBlocks         = {},
++        readBlockEntities  = {},
++        writeBlockEntities = {},
++        readGlobals        = {},
++        writeGlobals       = {},
++        triggeredEvents    = {},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.CONTRACTIBLE,
++        maxRandomCalls     = 0,
++        randomInstance     = "NONE",
++        mayLoadChunks      = false,
++        verifiedAt         = "1.21.4"
++    )
+     public void tick() {
+         this.mob.setJumping(this.jump);
+         this.jump = false;
+diff --git a/net/minecraft/world/entity/ai/control/LookControl.java b/net/minecraft/world/entity/ai/control/LookControl.java
+index 54cf3fb5c05cf56cd739045bbd715fad2be81273..8740e5521236209c6443e0e29307478122958fff 100644
+--- a/net/minecraft/world/entity/ai/control/LookControl.java
++++ b/net/minecraft/world/entity/ai/control/LookControl.java
+@@ -44,6 +44,22 @@ public class LookControl implements Control {
+         this.lookAtCooldown = 2;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.*"},
++        readBlocks         = {},
++        readBlockEntities  = {},
++        writeBlockEntities = {},
++        readGlobals        = {},
++        writeGlobals       = {},
++        triggeredEvents    = {},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.CONTRACTIBLE,
++        maxRandomCalls     = 0,
++        randomInstance     = "NONE",
++        mayLoadChunks      = false,
++        verifiedAt         = "1.21.4"
++    )
+     public void tick() {
+         if (this.resetXRotOnTick()) {
+             this.mob.setXRot(0.0F);
+diff --git a/net/minecraft/world/entity/ai/control/MoveControl.java b/net/minecraft/world/entity/ai/control/MoveControl.java
+index fea2823bf3a502e7d0e8c4f4e1e132d92d9e8375..3813a2651b74ed6018ca1734a887536d3393dd3f 100644
+--- a/net/minecraft/world/entity/ai/control/MoveControl.java
++++ b/net/minecraft/world/entity/ai/control/MoveControl.java
+@@ -54,6 +54,22 @@ public class MoveControl implements Control {
+         this.speedModifier = 0.25;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.*"},
++        readBlocks         = {"*"},
++        readBlockEntities  = {},
++        writeBlockEntities = {},
++        readGlobals        = {},
++        writeGlobals       = {},
++        triggeredEvents    = {},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.CONTRACTIBLE,
++        maxRandomCalls     = 0,
++        randomInstance     = "NONE",
++        mayLoadChunks      = false,
++        verifiedAt         = "1.21.4"
++    )
+     public void tick() {
+         if (this.operation == MoveControl.Operation.STRAFE) {
+             float speed = (float)this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED);
+diff --git a/net/minecraft/world/entity/ai/goal/GoalSelector.java b/net/minecraft/world/entity/ai/goal/GoalSelector.java
+index 75d8953845b2e9acb62b19a859d0e39fd63533eb..39ae6fbf561e34dd8e60a518d2916b745da68ab6 100644
+--- a/net/minecraft/world/entity/ai/goal/GoalSelector.java
++++ b/net/minecraft/world/entity/ai/goal/GoalSelector.java
+@@ -81,6 +81,22 @@ public class GoalSelector {
+         return true;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*", "*"},
++        writeEntities      = {"this.*"},
++        readBlocks         = {"*"},
++        readBlockEntities  = {},
++        writeBlockEntities = {},
++        readGlobals        = {"WORLD_TIME"},
++        writeGlobals       = {},
++        triggeredEvents    = {"AI_GOAL_START", "AI_GOAL_STOP"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 16,
++        randomInstance     = "ENTITY_RANDOM",
++        mayLoadChunks      = false,
++        verifiedAt         = "1.21.4"
++    )
+     public void tick() {
+         ProfilerFiller profiler = Profiler.get();
+         profiler.push("goalCleanup");
+diff --git a/net/minecraft/world/entity/ai/navigation/PathNavigation.java b/net/minecraft/world/entity/ai/navigation/PathNavigation.java
+index 21ead01c326b187dc1117b549dbdf706730a2147..4723b1d2cad6f467de580d54de2c153dd89741f9 100644
+--- a/net/minecraft/world/entity/ai/navigation/PathNavigation.java
++++ b/net/minecraft/world/entity/ai/navigation/PathNavigation.java
+@@ -263,6 +263,22 @@ public abstract class PathNavigation {
+         return this.path;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.*"},
++        readBlocks         = {"*"},
++        readBlockEntities  = {},
++        writeBlockEntities = {},
++        readGlobals        = {"WORLD_TIME"},
++        writeGlobals       = {},
++        triggeredEvents    = {"PATH_RECOMPUTE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.CONTRACTIBLE,
++        maxRandomCalls     = 0,
++        randomInstance     = "NONE",
++        mayLoadChunks      = false,
++        verifiedAt         = "1.21.4"
++    )
+     public void tick() {
+         this.tick++;
+         if (this.hasDelayedRecomputation) {
