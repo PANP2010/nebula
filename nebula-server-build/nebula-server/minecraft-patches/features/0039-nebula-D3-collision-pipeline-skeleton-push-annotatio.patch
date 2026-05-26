@@ -1,0 +1,218 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Wed, 27 May 2026 00:21:46 +0800
+Subject: [PATCH] nebula: D3 collision pipeline skeleton + push() annotation
+ fix
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+- Add @NebulaRW to Entity.push(Entity) declaring cross-entity write
+  (this.deltaMovement + entity.deltaMovement). SCC=CONTRACTIBLE.
+- Remove parallelSafe from entity tasks in EntityTaskBuilder until the
+  3-phase collision pipeline is implemented (push() creates data races).
+- Add EntityCollisionPipeline.java skeleton documenting the 3-phase
+  design: detection (parallel read) → impulse aggregation (serial SCC)
+  → position update (parallel self-write).
+
+D3 remains a large task; this commit establishes the design foundation
+and makes the current system safe (no false parallelSafe on entities).
+
+diff --git a/io/papermc/paper/threadedregions/EntityCollisionPipeline.java b/io/papermc/paper/threadedregions/EntityCollisionPipeline.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..3bacc6e5a7f48310cb9734ced7477f3451ea58ef
+--- /dev/null
++++ b/io/papermc/paper/threadedregions/EntityCollisionPipeline.java
+@@ -0,0 +1,152 @@
++package io.papermc.paper.threadedregions;
++
++import net.minecraft.server.level.ServerLevel;
++import net.minecraft.world.entity.Entity;
++import org.nebula.core.rw.RWSet;
++import org.nebula.core.scheduler.TaskAction;
++import org.nebula.core.scheduler.TaskNode;
++import org.nebula.core.state.EntityField;
++import org.nebula.core.state.GlobalKey;
++
++import java.util.ArrayList;
++import java.util.List;
++
++/**
++ * D3: Three-phase entity collision pipeline (architecture doc §6.2).
++ *
++ * <p>Phase 1 — Detection: Read all entity positions, compute AABB overlap
++ * pairs. Self-only readRWSet. Produces a list of collision pairs.
++ *
++ * <p>Phase 2 — Impulse aggregation: For each collision pair, compute the
++ * push impulse (same logic as Entity.push()). Write impulses to a buffer
++ * sorted by entityId for determinism. Serial execution (SCC-contracted).
++ *
++ * <p>Phase 3 — Position update: Apply accumulated impulses to each entity's
++ * deltaMovement, then call Entity.move(). Self-only writeRWSet per entity.
++ *
++ * <p>Until this pipeline is implemented, entity tasks use conservative
++ * self-only RWSets without parallelSafe, because Entity.push() writes
++ * to both this and other entity (cross-entity write).
++ *
++ * <h2>Implementation roadmap</h2>
++ * <ol>
++ *   <li>Add a deferred-impulse buffer to ServerLevel (ThreadLocal or region-local)</li>
++ *   <li>Modify Entity.push(Entity) to enqueue impulses instead of applying immediately</li>
++ *   <li>Hook RegionTickDecomposer to generate 3-phase tasks instead of single entity tasks</li>
++ *   <li>Entity.move() reads from deferred buffer instead of calling push() directly</li>
++ * </ol>
++ *
++ * @see EntityTaskBuilder current (conservative) entity task generation
++ */
++public final class EntityCollisionPipeline {
++
++    private EntityCollisionPipeline() {}
++
++    /**
++     * Phase 1: Detection layer. Reads all entity positions and computes
++     * AABB overlap pairs. Returns a list of (entityA, entityB) pairs that
++     * are colliding this tick.
++     *
++     * <p>TaskNode: readEntity all, no writes. Parallel-safe.
++     */
++    public static TaskNode buildDetectionTask(
++        ServerLevel level,
++        List<Entity> entities,
++        CollisionBuffer buffer
++    ) {
++        String taskId = "collision_detect";
++        RWSet rwSet = RWSet.builder()
++            .readGlobal(GlobalKey.ALL)
++            .build();
++
++        TaskAction action = () -> {
++            for (int i = 0; i < entities.size(); i++) {
++                Entity a = entities.get(i);
++                if (a.isRemoved()) continue;
++                for (int j = i + 1; j < entities.size(); j++) {
++                    Entity b = entities.get(j);
++                    if (b.isRemoved()) continue;
++                    if (a.getBoundingBox().intersects(b.getBoundingBox())) {
++                        buffer.addPair(a.getId(), b.getId());
++                    }
++                }
++            }
++        };
++
++        return new TaskNode(taskId, "COLLISION_DETECT", rwSet, action);
++    }
++
++    /**
++     * Phase 2: Impulse aggregation. For each collision pair, compute the
++     * push impulse vector and store it in the buffer. Must run serially
++     * (SCC-contracted) because impulse computation reads both entities.
++     *
++     * <p>TaskNode: readEntity all + writeEntity all. SERIAL (SCC).
++     */
++    public static TaskNode buildImpulseTask(
++        List<Entity> entities,
++        CollisionBuffer buffer
++    ) {
++        String taskId = "collision_impulse";
++        RWSet rwSet = RWSet.builder()
++            .readGlobal(GlobalKey.ALL)
++            .writeGlobal(GlobalKey.ALL)
++            .build();
++
++        TaskAction action = () -> {
++            buffer.computeImpulses(entities);
++        };
++
++        return new TaskNode(taskId, "COLLISION_IMPULSE", rwSet, action);
++    }
++
++    /**
++     * Phase 3: Position update. Apply accumulated impulses to each entity,
++     * then run Entity.move(). Each entity is self-only (impulses already resolved).
++     *
++     * <p>TaskNodes: one per entity, self-only writeRWSet. Parallel-safe.
++     */
++    public static List<TaskNode> buildPositionTasks(
++        List<Entity> entities,
++        CollisionBuffer buffer
++    ) {
++        List<TaskNode> tasks = new ArrayList<>(entities.size());
++        for (int i = 0; i < entities.size(); i++) {
++            Entity entity = entities.get(i);
++            long entityId = entity.getId();
++            String taskId = "collision_move_" + i + "_" + entityId;
++            RWSet rwSet = RWSet.builder()
++                .writeEntity(new EntityField(entityId, "*"))
++                .build();
++
++            TaskAction action = () -> {
++                if (entity.isRemoved()) return;
++                buffer.applyImpulse(entity);
++            };
++
++            tasks.add(TaskNode.parallelSafe(taskId, "COLLISION_MOVE", rwSet, action));
++        }
++        return tasks;
++    }
++
++    /**
++     * Buffer for deferred collision impulses. Stores per-entity impulse
++     * vectors computed during Phase 2, applied during Phase 3.
++     */
++    public static final class CollisionBuffer {
++        // Placeholder: will hold Map<Long /*entityId*/, Vec3 /*impulse*/>
++        // For now, this is a design skeleton.
++
++        public void addPair(long entityIdA, long entityIdB) {
++            // Phase 1 stores collision pairs here
++        }
++
++        public void computeImpulses(List<Entity> entities) {
++            // Phase 2 computes push vectors for each pair
++        }
++
++        public void applyImpulse(Entity entity) {
++            // Phase 3 applies buffered impulse to entity's deltaMovement
++        }
++    }
++}
+diff --git a/io/papermc/paper/threadedregions/EntityTaskBuilder.java b/io/papermc/paper/threadedregions/EntityTaskBuilder.java
+index 0a40485d7d5102d404c4c6388af6fd6a7d0de975..40f692b3246c228479d15122c3c802d314b75740 100644
+--- a/io/papermc/paper/threadedregions/EntityTaskBuilder.java
++++ b/io/papermc/paper/threadedregions/EntityTaskBuilder.java
+@@ -92,10 +92,10 @@ public final class EntityTaskBuilder {
+             level.guardEntityTick(level::tickNonPassenger, entity);
+         };
+ 
+-        // Non-player entities have self-only RWSets — safe for intra-layer parallel.
+-        if (!isPlayer) {
+-            return TaskNode.parallelSafe(taskId, taskTypeFor(entity), rwSet, action);
+-        }
++        // D3 TODO: Entity.push(Entity) creates cross-entity writes (writes to
++        // both this.deltaMovement and other.deltaMovement). Until the 3-phase
++        // collision pipeline (§6.2) is implemented, entity tasks are NOT safe
++        // for intra-layer parallel. Cross-region parallelism (D4) still works.
+         return new TaskNode(taskId, taskTypeFor(entity), rwSet, action);
+     }
+ 
+diff --git a/net/minecraft/world/entity/Entity.java b/net/minecraft/world/entity/Entity.java
+index 7e252c5ce38e92bb029906b851f999041534a158..45d05f045d4a98cf95b77e5b773a3e8e5b32fc2b 100644
+--- a/net/minecraft/world/entity/Entity.java
++++ b/net/minecraft/world/entity/Entity.java
+@@ -2370,6 +2370,16 @@ public abstract class Entity
+     public void playerTouch(final Player player) {
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*", "entity.*"},
++        writeEntities      = {"this.deltaMovement", "entity.deltaMovement"},
++        triggeredEvents    = {"ENTITY_MOVED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.CONTRACTIBLE,
++        maxRandomCalls     = 0,
++        randomInstance     = "NONE",
++        verifiedAt         = "1.21.4"
++    )
+     public void push(final Entity entity) {
+         if (!this.isPassengerOfSameVehicle(entity)) {
+             if (!entity.noPhysics && !this.noPhysics) {
