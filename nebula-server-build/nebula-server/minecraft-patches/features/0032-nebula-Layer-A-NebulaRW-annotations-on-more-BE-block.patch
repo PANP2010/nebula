@@ -1,0 +1,174 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Tue, 26 May 2026 17:58:44 +0800
+Subject: [PATCH] nebula: Layer A @NebulaRW annotations on more BE + block
+ randomTick (E1c)
+
+SpawnerBlockEntity, ConduitBlockEntity, BeehiveBlockEntity serverTick
+plus LeavesBlock, CropBlock, FarmlandBlock randomTick. The three BEs
+are SERIALIZED (entity spawning / mob effects / bee release have wide
+side-effect surfaces); the random-tick blocks are AUTO with conservative
+neighbor reads.
+
+diff --git a/net/minecraft/world/level/block/CropBlock.java b/net/minecraft/world/level/block/CropBlock.java
+index b8456dc5cb428593701d07837ba5c8ae063af876..bf3895341265da2e2fb71fcd7c6286e2bf564f2e 100644
+--- a/net/minecraft/world/level/block/CropBlock.java
++++ b/net/minecraft/world/level/block/CropBlock.java
+@@ -75,6 +75,22 @@ public class CropBlock extends VegetationBlock implements BonemealableBlock {
+         return !this.isMaxAge(state);
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {},
++        writeEntities      = {},
++        readBlocks         = {"{pos}", "{pos.below}", "*"},
++        readBlockEntities  = {},
++        writeBlockEntities = {},
++        readGlobals        = {"WORLD_TIME", "GAME_RULES"},
++        writeGlobals       = {},
++        triggeredEvents    = {"BLOCK_GROW"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 4,
++        randomInstance     = "WORLD_RANDOM",
++        mayLoadChunks      = false,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     protected void randomTick(final BlockState state, final ServerLevel level, final BlockPos pos, final RandomSource random) {
+         if (level.getRawBrightness(pos, 0) >= 9) {
+diff --git a/net/minecraft/world/level/block/FarmlandBlock.java b/net/minecraft/world/level/block/FarmlandBlock.java
+index ef55faf83e39c8dfd6bbe33c4943ed88bc473715..62fc30087342aa389d80da1fbddbdccb4b109d09 100644
+--- a/net/minecraft/world/level/block/FarmlandBlock.java
++++ b/net/minecraft/world/level/block/FarmlandBlock.java
+@@ -91,6 +91,22 @@ public class FarmlandBlock extends Block {
+         }
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"*"},
++        writeEntities      = {},
++        readBlocks         = {"{pos}", "{pos.above}", "*"},
++        readBlockEntities  = {},
++        writeBlockEntities = {},
++        readGlobals        = {"WORLD_TIME", "GAME_RULES"},
++        writeGlobals       = {},
++        triggeredEvents    = {"BLOCK_MOISTURE_CHANGE", "BLOCK_TRAMPLE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 2,
++        randomInstance     = "WORLD_RANDOM",
++        mayLoadChunks      = false,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     protected void randomTick(final BlockState state, final ServerLevel level, final BlockPos pos, final RandomSource random) {
+         int moisture = state.getValue(MOISTURE);
+diff --git a/net/minecraft/world/level/block/LeavesBlock.java b/net/minecraft/world/level/block/LeavesBlock.java
+index 2b8a06e55cb7395764159545f9fe1c1151f7b6e7..7297445c18c9845552f78461d051d44ee6179812 100644
+--- a/net/minecraft/world/level/block/LeavesBlock.java
++++ b/net/minecraft/world/level/block/LeavesBlock.java
+@@ -63,6 +63,22 @@ public abstract class LeavesBlock extends Block implements SimpleWaterloggedBloc
+         return state.getValue(DISTANCE) == 7 && !state.getValue(PERSISTENT);
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {},
++        writeEntities      = {},
++        readBlocks         = {"{pos}", "*"},
++        readBlockEntities  = {},
++        writeBlockEntities = {},
++        readGlobals        = {"WORLD_TIME", "GAME_RULES"},
++        writeGlobals       = {},
++        triggeredEvents    = {"BLOCK_DECAY", "BLOCK_DROP"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 2,
++        randomInstance     = "WORLD_RANDOM",
++        mayLoadChunks      = false,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     protected void randomTick(final BlockState state, final ServerLevel level, final BlockPos pos, final RandomSource random) {
+         if (this.decaying(state)) {
+diff --git a/net/minecraft/world/level/block/entity/BeehiveBlockEntity.java b/net/minecraft/world/level/block/entity/BeehiveBlockEntity.java
+index 62d7a44f139c28a38b14833380e2ec2bf84f3a75..db424fb1503bdd0a34ce74f560abe945029c4c48 100644
+--- a/net/minecraft/world/level/block/entity/BeehiveBlockEntity.java
++++ b/net/minecraft/world/level/block/entity/BeehiveBlockEntity.java
+@@ -344,6 +344,22 @@ public class BeehiveBlockEntity extends BlockEntity {
+         }
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"*"},
++        writeEntities      = {"*"},
++        readBlocks         = {"{pos}", "*"},
++        readBlockEntities  = {"{pos}.*"},
++        writeBlockEntities = {"{pos}.*"},
++        readGlobals        = {"WORLD_TIME"},
++        writeGlobals       = {},
++        triggeredEvents    = {"ENTITY_SPAWN", "BEE_RELEASE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.SERIALIZED,
++        maxRandomCalls     = 8,
++        randomInstance     = "WORLD_RANDOM",
++        mayLoadChunks      = false,
++        verifiedAt         = "1.21.4"
++    )
+     public static void serverTick(final Level level, final BlockPos blockPos, final BlockState state, final BeehiveBlockEntity entity) {
+         tickOccupants(level, blockPos, state, entity.stored, entity.savedFlowerPos);
+         if (!entity.stored.isEmpty() && level.getRandom().nextDouble() < 0.005) {
+diff --git a/net/minecraft/world/level/block/entity/ConduitBlockEntity.java b/net/minecraft/world/level/block/entity/ConduitBlockEntity.java
+index f68e8389808ca3604a7f32d693b9a115c493575f..f99a7dd4aa20fd2847a44171ef6f3ddc84b7e577 100644
+--- a/net/minecraft/world/level/block/entity/ConduitBlockEntity.java
++++ b/net/minecraft/world/level/block/entity/ConduitBlockEntity.java
+@@ -90,6 +90,22 @@ public class ConduitBlockEntity extends BlockEntity {
+         }
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"*"},
++        writeEntities      = {"*"},
++        readBlocks         = {"{pos}", "*"},
++        readBlockEntities  = {"{pos}.*"},
++        writeBlockEntities = {"{pos}.*"},
++        readGlobals        = {"WORLD_TIME"},
++        writeGlobals       = {},
++        triggeredEvents    = {"CONDUIT_DAMAGE", "MOB_EFFECT_APPLIED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.SERIALIZED,
++        maxRandomCalls     = 4,
++        randomInstance     = "WORLD_RANDOM",
++        mayLoadChunks      = false,
++        verifiedAt         = "1.21.4"
++    )
+     public static void serverTick(final Level level, final BlockPos pos, final BlockState state, final ConduitBlockEntity entity) {
+         entity.tickCount++;
+         long gameTime = level.getRedstoneGameTime(); // Folia - region threading
+diff --git a/net/minecraft/world/level/block/entity/SpawnerBlockEntity.java b/net/minecraft/world/level/block/entity/SpawnerBlockEntity.java
+index d19f51825dd4026125caa01d05f5fc1c9d2f1e6b..29694e4f61b2d51289f3cd396379c3b3eed501e0 100644
+--- a/net/minecraft/world/level/block/entity/SpawnerBlockEntity.java
++++ b/net/minecraft/world/level/block/entity/SpawnerBlockEntity.java
+@@ -60,6 +60,22 @@ public class SpawnerBlockEntity extends BlockEntity implements Spawner {
+         entity.spawner.clientTick(level, pos);
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"*"},
++        writeEntities      = {"*"},
++        readBlocks         = {"{pos}", "*"},
++        readBlockEntities  = {"{pos}.*"},
++        writeBlockEntities = {"{pos}.*"},
++        readGlobals        = {"WORLD_TIME"},
++        writeGlobals       = {},
++        triggeredEvents    = {"ENTITY_SPAWN"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.SERIALIZED,
++        maxRandomCalls     = 32,
++        randomInstance     = "WORLD_RANDOM",
++        mayLoadChunks      = true,
++        verifiedAt         = "1.21.4"
++    )
+     public static void serverTick(final Level level, final BlockPos pos, final BlockState state, final SpawnerBlockEntity entity) {
+         entity.spawner.serverTick((ServerLevel)level, pos);
+     }
