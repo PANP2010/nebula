@@ -1,0 +1,229 @@
+--- /dev/null
++++ b/io/papermc/paper/threadedregions/NebulaServerReplayScheduler.java
+@@ -1,0 +_,226 @@
++package io.papermc.paper.threadedregions;
++
++import net.minecraft.core.BlockPos;
++import net.minecraft.core.HolderLookup;
++import net.minecraft.nbt.CompoundTag;
++import net.minecraft.nbt.NbtIo;
++import net.minecraft.resources.ResourceKey;
++import net.minecraft.server.level.ServerLevel;
++import net.minecraft.util.ProblemReporter;
++import net.minecraft.world.entity.Entity;
++import net.minecraft.world.level.ChunkPos;
++import net.minecraft.world.level.Level;
++import net.minecraft.world.level.block.entity.BlockEntity;
++import net.minecraft.world.level.block.state.BlockState;
++import net.minecraft.world.level.chunk.ChunkAccess;
++import net.minecraft.world.level.chunk.LevelChunk;
++import net.minecraft.world.level.chunk.LevelChunkSection;
++import net.minecraft.world.level.gamerules.GameRule;
++import net.minecraft.world.level.gamerules.GameRules;
++import net.minecraft.world.level.storage.TagValueOutput;
++
++import java.io.ByteArrayOutputStream;
++import java.io.DataOutputStream;
++import java.io.IOException;
++import java.nio.ByteBuffer;
++import java.util.LinkedHashMap;
++import java.util.Map;
++import java.util.TreeMap;
++
++import org.nebula.replay.StateHashComputer;
++import org.nebula.replay.TickInput;
++import org.nebula.replay.TickPipelineReplayAdapter;
++import org.nebula.core.scheduler.TaskNode;
++import org.nebula.core.scheduler.TickPipeline;
++
++/**
++ * Concrete {@link org.nebula.replay.ReplayScheduler} backed by a live
++ * {@link ServerLevel} (arch doc §12.1 / Phase B1).
++ *
++ * <p>Bridges Nebula's TickPipeline to the real Minecraft world for full
++ * determinism replay verification:
++ *
++ * <ul>
++ *   <li>{@code computeStateHash()} walks the level's loaded chunks, block
++ *       entities, entities, and global state, serialises each through their
++ *       canonical save path (NBT for BEs/entities, packed-state ids for
++ *       blocks), and feeds them to {@link StateHashComputer}.</li>
++ *   <li>{@code inputToTasks} returns an empty seed set for B1 — packet
++ *       replay needs deeper integration with Connection/PlayerList that is
++ *       a separate workstream.  The hash path is the load-bearing piece for
++ *       Phase B1 determinism verification.</li>
++ * </ul>
++ *
++ * <p>Iteration order is deterministic: chunks sorted by (cx, cz), block
++ * entities by encoded packed-pos, entities by UUID, gamerules by id.
++ */
++public final class NebulaServerReplayScheduler extends TickPipelineReplayAdapter {
++
++    private final ServerLevel level;
++
++    public NebulaServerReplayScheduler(ServerLevel level, TickPipeline pipeline) {
++        super(pipeline);
++        this.level = level;
++    }
++
++    @Override
++    protected java.util.Collection<TaskNode> inputToTasks(long tickNumber, TickInput input) {
++        // Packet → TaskNode mapping is a separate workstream; for B1 we drive
++        // pipeline expansion via the world's own dirty set produced by the
++        // previous tick (chunk system + redstone/explosion triggers).
++        return java.util.List.of();
++    }
++
++    @Override
++    public byte[] computeStateHash() {
++        Map<String, byte[]> blockChunks = new LinkedHashMap<>();
++        Map<String, byte[]> blockEntities = new LinkedHashMap<>();
++        Map<String, byte[]> entities = new LinkedHashMap<>();
++        Map<String, byte[]> globals = new LinkedHashMap<>();
++
++        HolderLookup.Provider registries = level.registryAccess();
++
++        TreeMap<Long, LevelChunk> sortedChunks = new TreeMap<>();
++        for (var holder : level.moonrise$getChunkTaskScheduler().chunkHolderManager.getChunkHolders()) {
++            ChunkAccess access = holder.getCurrentChunk();
++            if (access instanceof LevelChunk chunk) {
++                sortedChunks.put(chunk.getPos().longKey(), chunk);
++            }
++        }
++
++        for (var entry : sortedChunks.entrySet()) {
++            LevelChunk chunk = entry.getValue();
++            String key = chunkKey(level, chunk.getPos());
++            blockChunks.put(key, serializeChunkBlocks(chunk));
++
++            for (Map.Entry<BlockPos, BlockEntity> beEntry : chunk.getBlockEntities().entrySet()) {
++                BlockPos pos = beEntry.getKey();
++                BlockEntity be = beEntry.getValue();
++                String beKey = blockEntityKey(level, pos);
++                blockEntities.put(beKey, serializeBlockEntity(be, registries));
++            }
++        }
++
++        TreeMap<String, Entity> sortedEntities = new TreeMap<>();
++        for (Entity ent : level.getAllEntities()) {
++            sortedEntities.put(ent.getUUID().toString(), ent);
++        }
++        for (var entry : sortedEntities.entrySet()) {
++            entities.put(entry.getKey(), serializeEntity(entry.getValue(), registries));
++        }
++
++        // Globals — game time, weather, difficulty, gamerule digest.
++        globals.put("dimension", dimensionKey(level).getBytes(java.nio.charset.StandardCharsets.UTF_8));
++        globals.put("gameTime", longBytes(level.getGameTime()));
++        globals.put("dayClock", longBytes(level.getOverworldClockTime()));
++        globals.put("rainLevel", intBytes(Float.floatToIntBits(level.getRainLevel(1.0F))));
++        globals.put("thunderLevel", intBytes(Float.floatToIntBits(level.getThunderLevel(1.0F))));
++        globals.put("raining", boolBytes(level.isRaining()));
++        globals.put("thundering", boolBytes(level.isThundering()));
++        globals.put("difficulty", new byte[]{(byte) level.getDifficulty().getId()});
++        globals.put("gameRules", serializeGameRules(level.getGameRules()));
++
++        return StateHashComputer.compute(blockChunks, blockEntities, entities, globals);
++    }
++
++    private static String chunkKey(ServerLevel level, ChunkPos pos) {
++        return dimensionKey(level) + ":" + pos.x() + "," + pos.z();
++    }
++
++    private static String blockEntityKey(ServerLevel level, BlockPos pos) {
++        return dimensionKey(level) + ":" + pos.getX() + "," + pos.getY() + "," + pos.getZ();
++    }
++
++    private static String dimensionKey(ServerLevel level) {
++        ResourceKey<Level> key = level.dimension();
++        return key.identifier().toString();
++    }
++
++    /**
++     * Serialises a chunk's block-state palette to a compact byte stream:
++     * for each non-empty section, write (sectionY, packed-state-id-array).
++     * State IDs are global (Block.BLOCK_STATE_REGISTRY ids), so identical
++     * worlds produce identical bytes regardless of palette ordering.
++     */
++    private static byte[] serializeChunkBlocks(LevelChunk chunk) {
++        ByteArrayOutputStream out = new ByteArrayOutputStream(8192);
++        try (DataOutputStream dos = new DataOutputStream(out)) {
++            LevelChunkSection[] sections = chunk.getSections();
++            int minY = chunk.getMinSectionY();
++            for (int i = 0; i < sections.length; i++) {
++                LevelChunkSection s = sections[i];
++                if (s == null || s.hasOnlyAir()) continue;
++                int sectionY = minY + i;
++                dos.writeInt(sectionY);
++                for (int x = 0; x < 16; x++) {
++                    for (int y = 0; y < 16; y++) {
++                        for (int z = 0; z < 16; z++) {
++                            BlockState bs = s.getBlockState(x, y, z);
++                            int id = net.minecraft.world.level.block.Block.getId(bs);
++                            dos.writeInt(id);
++                        }
++                    }
++                }
++            }
++        } catch (IOException e) {
++            throw new IllegalStateException("ByteArrayOutputStream IOException impossible", e);
++        }
++        return out.toByteArray();
++    }
++
++    private static byte[] serializeBlockEntity(BlockEntity be, HolderLookup.Provider registries) {
++        try (ProblemReporter.ScopedCollector reporter =
++                 new ProblemReporter.ScopedCollector(() -> "replay-be@" + be.getBlockPos(),
++                     com.mojang.logging.LogUtils.getLogger())) {
++            TagValueOutput output = TagValueOutput.createWithContext(reporter, registries);
++            be.saveCustomOnly(output);
++            CompoundTag tag = output.buildResult();
++            return tagToBytes(tag);
++        }
++    }
++
++    private static byte[] serializeEntity(Entity ent, HolderLookup.Provider registries) {
++        try (ProblemReporter.ScopedCollector reporter =
++                 new ProblemReporter.ScopedCollector(() -> "replay-entity@" + ent.getUUID(),
++                     com.mojang.logging.LogUtils.getLogger())) {
++            TagValueOutput output = TagValueOutput.createWithContext(reporter, registries);
++            ent.saveWithoutId(output);
++            CompoundTag tag = output.buildResult();
++            return tagToBytes(tag);
++        }
++    }
++
++    private static byte[] tagToBytes(CompoundTag tag) {
++        ByteArrayOutputStream out = new ByteArrayOutputStream(512);
++        try (DataOutputStream dos = new DataOutputStream(out)) {
++            NbtIo.writeUnnamedTag(tag, dos);
++        } catch (IOException e) {
++            throw new IllegalStateException("NBT serialisation failed", e);
++        }
++        return out.toByteArray();
++    }
++
++    private static byte[] serializeGameRules(GameRules rules) {
++        TreeMap<String, String> sorted = new TreeMap<>();
++        for (GameRule<?> rule : rules.rules.keySet()) {
++            sorted.put(rule.id(), rules.getAsString(rule));
++        }
++        StringBuilder sb = new StringBuilder();
++        for (var e : sorted.entrySet()) {
++            sb.append(e.getKey()).append('=').append(e.getValue()).append('\n');
++        }
++        return sb.toString().getBytes(java.nio.charset.StandardCharsets.UTF_8);
++    }
++
++    private static byte[] longBytes(long v) {
++        return ByteBuffer.allocate(8).putLong(v).array();
++    }
++
++    private static byte[] intBytes(int v) {
++        return ByteBuffer.allocate(4).putInt(v).array();
++    }
++
++    private static byte[] boolBytes(boolean v) {
++        return new byte[]{(byte) (v ? 1 : 0)};
++    }
++}
