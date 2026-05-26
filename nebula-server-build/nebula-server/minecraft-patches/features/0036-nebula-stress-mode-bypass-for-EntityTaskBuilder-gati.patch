@@ -1,0 +1,31 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Tue, 26 May 2026 23:35:23 +0800
+Subject: [PATCH] nebula: stress-mode bypass for EntityTaskBuilder gating
+
+When NebulaStressMode.isEnabled(), use getLocalEntities() instead of
+forEachTickingEntity() so that stress-spawned mobs exercise the per-entity
+DAG path even without a player in chunk-tracking range.
+
+diff --git a/io/papermc/paper/threadedregions/EntityTaskBuilder.java b/io/papermc/paper/threadedregions/EntityTaskBuilder.java
+index a9c473e896db8f850a64021ff340dc8efa0e8de1..e55d5812bc6d074a82dafb7847494575a7f42ac6 100644
+--- a/io/papermc/paper/threadedregions/EntityTaskBuilder.java
++++ b/io/papermc/paper/threadedregions/EntityTaskBuilder.java
+@@ -41,7 +41,16 @@ public final class EntityTaskBuilder {
+ 
+     public static List<TaskNode> buildAll(ServerLevel level, RegionizedWorldData worldData) {
+         List<Entity> snapshot = new ArrayList<>();
+-        worldData.forEachTickingEntity(snapshot::add);
++        if (io.papermc.paper.threadedregions.NebulaStressMode.isEnabled()) {
++            // Stress-mode bypass: iterate all region-local entities, not just
++            // the player-gated tickingEntity subset.  This lets /nebula stress-spawn
++            // mobs actually exercise the per-entity DAG path.
++            for (Entity e : worldData.getLocalEntities()) {
++                snapshot.add(e);
++            }
++        } else {
++            worldData.forEachTickingEntity(snapshot::add);
++        }
+ 
+         List<TaskNode> tasks = new ArrayList<>(snapshot.size() + 1);
+ 
