@@ -139,3 +139,18 @@ correct DAG behavior including SCC contraction of GLOBAL_RW cycles.
 `ParallelTaskRunner` now checks `parallelSafe` flag before fanning out.
 Non-player entities and independent BEs are marked safe. Degraded layers
 tracked and surfaced in `/nebula parallel` output.
+
+### D3 (partial): Entity Collision Pipeline Skeleton
+**Resolved:** 2026-05-27 (20e9bfd)  
+`EntityCollisionPipeline.java` skeleton created with 3-phase design
+(detection → impulse aggregation → position update). `Entity.push(Entity)`
+now has `@NebulaRW` declaring cross-entity write. Entity tasks no longer
+marked `parallelSafe` until full pipeline is implemented. Cross-region
+parallelism (D4) unaffected.
+
+### B4 (partial): Layer A Annotation Count Update
+**Resolved:** 2026-05-27 (e7176f5, 5430daa)  
+Batch 2 added 8 more entity hot-path annotations: Entity.baseTick,
+LivingEntity.baseTick/travel/checkFallDamage/hurtServer/doHurtTarget,
+Mob.baseTick/doHurtTarget. Total entity-tier annotations: 17.
+Total across all subsystems: ~38.
