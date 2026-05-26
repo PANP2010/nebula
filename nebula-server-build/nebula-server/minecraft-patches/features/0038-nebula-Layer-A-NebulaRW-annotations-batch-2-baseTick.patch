@@ -1,0 +1,198 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Wed, 27 May 2026 00:16:41 +0800
+Subject: [PATCH] =?UTF-8?q?nebula:=20Layer=20A=20@NebulaRW=20annotations?=
+ =?UTF-8?q?=20batch=202=20=E2=80=94=20baseTick/travel/hurt=20path=20(D15)?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Annotates 8 additional entity hot-path methods for DAG scheduler
+parallelism analysis:
+
+Entity:
+  - baseTick() — self field reads/writes (boarding, fire, fluid, firstTick)
+
+LivingEntity:
+  - baseTick() — attack anim, air supply, hurt timers, death check
+  - travel() — fluid-state read, deltaMovement write, move() dispatch
+  - checkFallDamage() — fallDistance/onGround read, lastClimbablePos write
+  - hurtServer() — GLOBAL_RW conservative (reads damage source entity)
+  - doHurtTarget() — self + target entity read, lastHurtMob write
+
+Mob:
+  - baseTick() — ambient sound timer, 1 random call
+  - doHurtTarget() — self + target read, weapon damage, knockback
+
+Total annotated entity methods: 17 (up from 9 in previous batch)
+
+diff --git a/net/minecraft/world/entity/Entity.java b/net/minecraft/world/entity/Entity.java
+index 3bb6f1bdb0c961a22470b8523a51831e5a667ec3..7e252c5ce38e92bb029906b851f999041534a158 100644
+--- a/net/minecraft/world/entity/Entity.java
++++ b/net/minecraft/world/entity/Entity.java
+@@ -899,6 +899,21 @@ public abstract class Entity
+     }
+     // CraftBukkit end
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.boardingCooldown", "this.wasInPowderSnow", "this.isInPowderSnow",
++                              "this.wasEyeInWater", "this.remainingFireTicks", "this.fallDistance",
++                              "this.lastLavaContact", "this.firstTick", "this.lastKnownPosition"},
++        readBlocks         = {"this.position", "this.eyePosition"},
++        triggeredEvents    = {"ENTITY_DAMAGED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        randomInstance     = "NONE",
++        mayLoadChunks      = false,
++        mayTriggerBlockUpdates = false,
++        verifiedAt         = "1.21.4"
++    )
+     public void baseTick() {
+         ProfilerFiller profiler = Profiler.get();
+         profiler.push("entityBaseTick");
+diff --git a/net/minecraft/world/entity/LivingEntity.java b/net/minecraft/world/entity/LivingEntity.java
+index db59124c80b33143c43df22e645d78aca64811c2..45ea0c27ae3d6ef04ed5d48642f8a5645bc719a4 100644
+--- a/net/minecraft/world/entity/LivingEntity.java
++++ b/net/minecraft/world/entity/LivingEntity.java
+@@ -387,6 +387,18 @@ public abstract class LivingEntity extends Entity implements Attackable, Waypoin
+     }
+ 
+     @Override
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.fallDistance", "this.lastClimbablePos"},
++        writeEntities      = {"this.lastClimbablePos"},
++        readBlocks         = {"{pos}"},
++        triggeredEvents    = {"BLOCK_UPDATE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        randomInstance     = "NONE",
++        mayTriggerBlockUpdates = true,
++        verifiedAt         = "1.21.4"
++    )
+     protected void checkFallDamage(final double ya, final boolean onGround, final BlockState onState, final BlockPos pos) {
+         if (!this.isInWater()) {
+             this.updateFluidInteraction();
+@@ -438,6 +450,21 @@ public abstract class LivingEntity extends Entity implements Attackable, Waypoin
+         return this.getDeltaMovement().y() < 1.0E-5F && this.isInLiquid();
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.oAttackAnim", "this.attackAnim", "this.hurtTime", "this.invulnerableTime",
++                              "this.lastHurtByPlayerMemoryTime", "this.lastHurtByPlayer", "this.lastHurtMob",
++                              "this.airSupply", "this.lastPos"},
++        readBlocks         = {"this.eyePosition"},
++        triggeredEvents    = {"ENTITY_DAMAGED", "BLOCK_UPDATE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        randomInstance     = "NONE",
++        mayLoadChunks      = false,
++        mayTriggerBlockUpdates = true,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void baseTick() {
+         this.oAttackAnim = this.attackAnim;
+@@ -1443,6 +1470,21 @@ public abstract class LivingEntity extends Entity implements Attackable, Waypoin
+     }
+ 
+     @Override
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*", "source.causeEntity.*", "source.directEntity.*"},
++        writeEntities      = {"this.*"},
++        readBlocks         = {"this.position"},
++        readGlobals        = {"*"},
++        triggeredEvents    = {"ENTITY_DAMAGED", "ENTITY_DEATH", "ENTITY_MOVED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.CONTRACTIBLE,
++        maxRandomCalls     = 8,
++        randomInstance     = "ENTITY_RANDOM",
++        mayLoadChunks      = false,
++        mayTriggerBlockUpdates = true,
++        maySpawnEntities   = false,
++        verifiedAt         = "1.21.4"
++    )
+     public boolean hurtServer(final ServerLevel level, final DamageSource source, float damage) {
+         if (this.isInvulnerableTo(level, source)) {
+             return false;
+@@ -3087,6 +3129,19 @@ public abstract class LivingEntity extends Entity implements Attackable, Waypoin
+         return isFalling && this.hasEffect(MobEffects.SLOW_FALLING) ? Math.min(this.getGravity(), 0.01) : this.getGravity();
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.deltaMovement"},
++        readBlocks         = {"this.blockPosition"},
++        triggeredEvents    = {"ENTITY_MOVED", "BLOCK_UPDATE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        randomInstance     = "NONE",
++        mayLoadChunks      = false,
++        mayTriggerBlockUpdates = true,
++        verifiedAt         = "1.21.4"
++    )
+     public void travel(final Vec3 input) {
+         if (this.shouldTravelInFluid(this.level().getFluidState(this.blockPosition()))) {
+             this.travelInFluid(input);
+@@ -3380,6 +3435,16 @@ public abstract class LivingEntity extends Entity implements Attackable, Waypoin
+         this.speed = speed;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*", "target.*"},
++        writeEntities      = {"this.lastHurtMob"},
++        triggeredEvents    = {"ENTITY_DAMAGED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        randomInstance     = "NONE",
++        verifiedAt         = "1.21.4"
++    )
+     public boolean doHurtTarget(final ServerLevel level, final Entity target) {
+         this.setLastHurtMob(target);
+         return false;
+diff --git a/net/minecraft/world/entity/Mob.java b/net/minecraft/world/entity/Mob.java
+index f8fb09a90a83ceca9aa04a80f0364896f170c2e9..2577051abcb752ef453ca22111577476ad29c07b 100644
+--- a/net/minecraft/world/entity/Mob.java
++++ b/net/minecraft/world/entity/Mob.java
+@@ -354,6 +354,16 @@ public abstract class Mob extends LivingEntity implements Targeting, EquipmentUs
+     }
+ 
+     @Override
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.ambientSoundTime"},
++        triggeredEvents    = {},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 1,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     public void baseTick() {
+         super.baseTick();
+         ProfilerFiller profiler = Profiler.get();
+@@ -1648,6 +1658,18 @@ public abstract class Mob extends LivingEntity implements Targeting, EquipmentUs
+         return aabb.inflate(horizontalExpansion, 0.0, horizontalExpansion);
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*", "target.*"},
++        writeEntities      = {"this.lastHurtMob", "target.*"},
++        readBlocks         = {"this.position"},
++        triggeredEvents    = {"ENTITY_DAMAGED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 4,
++        randomInstance     = "ENTITY_RANDOM",
++        mayTriggerBlockUpdates = false,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public boolean doHurtTarget(final ServerLevel level, final Entity target) {
+         float dmg = (float)this.getAttributeValue(Attributes.ATTACK_DAMAGE);
