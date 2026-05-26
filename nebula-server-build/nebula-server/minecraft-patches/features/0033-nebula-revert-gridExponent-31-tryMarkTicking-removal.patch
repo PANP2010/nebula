@@ -1,0 +1,55 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Tue, 26 May 2026 19:00:05 +0800
+Subject: [PATCH] nebula: revert gridExponent=31 + tryMarkTicking removal
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Patch 0010 forced gridExponent=31 in NEBULA mode and dropped
+tryMarkTicking/markNotTicking, but ThreadedRegionSection sizes its
+chunksBitset as (1<<exp)^2/64 longs — at exp=31 that's 2^62/64 longs,
+which throws ArrayIndexOutOfBoundsException at section construction
+(observed during boot of paperclip jar in run-smoke).
+
+Restore default exp=4 (16x16 chunk sections) and keep the conservative
+transient-state markers; the per-region single-section model is a Phase
+D goal that needs section sizing changes first.
+
+diff --git a/io/papermc/paper/threadedregions/NebulaTickDriver.java b/io/papermc/paper/threadedregions/NebulaTickDriver.java
+index 8c9a3762e6e3e7dad5a4abdcb17ee50e068fe108..e30563ee683e2c92962a7595e87deec55aef7f0f 100644
+--- a/io/papermc/paper/threadedregions/NebulaTickDriver.java
++++ b/io/papermc/paper/threadedregions/NebulaTickDriver.java
+@@ -198,6 +198,10 @@ public final class NebulaTickDriver {
+         final long startTime,
+         final long scheduledEnd
+     ) {
++        if (!region.tryMarkTicking(() -> false)) {
++            return; // region is in transient state (merging/splitting), skip
++        }
++
+         final TickRegions.TickRegionData data = region.getData();
+         data.getRegionSchedulingHandle().incrementTickCount();
+ 
+@@ -208,6 +212,7 @@ public final class NebulaTickDriver {
+         } finally {
+             TickRegionScheduler.setTickTask(null);
+             TickRegionScheduler.setTickingRegion(null);
++            region.markNotTicking();
+         }
+     }
+ 
+diff --git a/io/papermc/paper/threadedregions/TickRegions.java b/io/papermc/paper/threadedregions/TickRegions.java
+index b219d0031dbd6a10fe7161028261deb767aae3c7..c8af3a664a6777cf036a2e0510567eca99f8860d 100644
+--- a/io/papermc/paper/threadedregions/TickRegions.java
++++ b/io/papermc/paper/threadedregions/TickRegions.java
+@@ -72,9 +72,6 @@ public final class TickRegions implements ThreadedRegionizer.RegionCallbacks<Tic
+         }
+         initialised = true;
+         int gridExponent = config.gridExponent;
+-        if (config.scheduler == TickRegionScheduler.SchedulerType.NEBULA) {
+-            gridExponent = 31;
+-        }
+         gridExponent = Math.max(0, gridExponent);
+         gridExponent = Math.min(31, gridExponent);
+         regionShift = gridExponent;
