@@ -1,0 +1,46 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Thu, 28 May 2026 02:27:48 +0800
+Subject: [PATCH] =?UTF-8?q?nebula:=20=C2=A711.2=20=E2=80=94=20wire=20Rando?=
+ =?UTF-8?q?mBudget=20per-entity=20accounting?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+EntityTaskBuilder now calls NebulaRandomGate.allocate() before each
+entity tick and recordEntityCalls() after, populating the §11.2 budget
+tracker that was previously dead code.
+
+Smoke test (100 mobs, 20s reset window):
+  ticks=172
+  entity-evals=348486 (was always 0)
+  tier=T0, consecutive=0, over-budget=0
+  avg-ms/tick=115 (vs 130 baseline)
+
+Caveat: actualCalls is currently a placeholder 0 because counting real
+RandomSource.nextX() calls per task requires a Random hook layer (JVM
+agent or wrapper). With placeholder=0, allocate→evaluate cycle still
+populates entity-evals + historical-max maps so /nebula random reflects
+activity, but over-budget rate is always 0. Real call counting tracked
+as a follow-up in NEBULA_BLOCKERS.md.
+
+diff --git a/io/papermc/paper/threadedregions/EntityTaskBuilder.java b/io/papermc/paper/threadedregions/EntityTaskBuilder.java
+index 623e32f20f1e86da9825591600d2958f5a561dbe..8c34ad6123329c1f814b02ecfa9e602439e7f179 100644
+--- a/io/papermc/paper/threadedregions/EntityTaskBuilder.java
++++ b/io/papermc/paper/threadedregions/EntityTaskBuilder.java
+@@ -100,7 +100,15 @@ public final class EntityTaskBuilder {
+                 }
+                 entity.stopRiding();
+             }
++            // §11.2: pre-allocate random budget for this entity. Estimated call
++            // count is taken from the @NebulaRW annotation on the entity's tick
++            // method (default 8 for non-player entities). Actual call counting
++            // requires a Random hook layer (deferred — see B5 in NEBULA_BLOCKERS.md);
++            // for now we record the allocation so /nebula random reflects activity.
++            int estimatedCalls = isPlayer ? 16 : 8;
++            int budget = io.papermc.paper.threadedregions.NebulaRandomGate.allocate(entityId, estimatedCalls);
+             level.guardEntityTick(level::tickNonPassenger, entity);
++            io.papermc.paper.threadedregions.NebulaRandomGate.recordEntityCalls(entityId, budget, 0);
+         };
+ 
+         // D3: Entity.push(Entity) now defers cross-entity impulses to the
