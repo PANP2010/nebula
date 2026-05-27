@@ -1,0 +1,114 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Wed, 27 May 2026 23:45:29 +0800
+Subject: [PATCH] =?UTF-8?q?nebula:=20Layer=20A=20@NebulaRW=20annotations?=
+ =?UTF-8?q?=20batch=205=20=E2=80=94=204=20redstone=20components?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+- RedstoneTorchBlock.tick: PROPAGATES — toggles based on power below,
+  triggers cascade updates
+- DiodeBlock.tick (covers Repeater): DEFERRED — outputs change next tick
+  per repeater delay semantics
+- ObserverBlock.tick: PROPAGATES — toggles powered + reschedules self
+- ComparatorBlock.tick: DEFERRED — reads back container, writes BE state
+
+Total annotations: 56 (up from 52). Per arch §14.2 DG1 redstone target ~50;
+core components now covered. Pistons (multi-block updates with movement
+sub-DAG) deferred to a separate batch.
+
+diff --git a/net/minecraft/world/level/block/ComparatorBlock.java b/net/minecraft/world/level/block/ComparatorBlock.java
+index 45e11737bc2558a4ebfffe133d43111f45dd7d16..c9e9edf475ac2451f5fdbea66938dacdab0aa9d0 100644
+--- a/net/minecraft/world/level/block/ComparatorBlock.java
++++ b/net/minecraft/world/level/block/ComparatorBlock.java
+@@ -187,6 +187,20 @@ public class ComparatorBlock extends DiodeBlock implements EntityBlock {
+         }
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readBlocks         = {"{pos}", "{pos}.back", "{pos}.sides"},
++        readBlockEntities  = {"{pos}.back.*"},
++        writeBlocks        = {"{pos}"},
++        writeBlockEntities = {"{pos}.*"},
++        triggeredEvents    = {"REDSTONE_UPDATE", "BLOCK_UPDATE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.DEFERRED,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        randomInstance     = "WORLD_RANDOM",
++        mayLoadChunks      = false,
++        mayTriggerBlockUpdates = true,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     protected void tick(final BlockState state, final ServerLevel level, final BlockPos pos, final RandomSource random) {
+         this.refreshOutputState(level, pos, state);
+diff --git a/net/minecraft/world/level/block/DiodeBlock.java b/net/minecraft/world/level/block/DiodeBlock.java
+index 609e1693a7796b9bcbacc6fb97e21a848b73c647..7e6cad955fce041c044930917c6e4fe7429f2963 100644
+--- a/net/minecraft/world/level/block/DiodeBlock.java
++++ b/net/minecraft/world/level/block/DiodeBlock.java
+@@ -51,6 +51,18 @@ public abstract class DiodeBlock extends HorizontalDirectionalBlock {
+         return neighborState.isFaceSturdy(level, neightborPos, Direction.UP, SupportType.RIGID);
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readBlocks         = {"{pos}", "{pos}.input", "{pos}.sides"},
++        writeBlocks        = {"{pos}"},
++        triggeredEvents    = {"REDSTONE_UPDATE", "BLOCK_UPDATE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.DEFERRED,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        randomInstance     = "WORLD_RANDOM",
++        mayLoadChunks      = false,
++        mayTriggerBlockUpdates = true,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     protected void tick(final BlockState state, final ServerLevel level, final BlockPos pos, final RandomSource random) {
+         if (!this.isLocked(level, pos, state)) {
+diff --git a/net/minecraft/world/level/block/ObserverBlock.java b/net/minecraft/world/level/block/ObserverBlock.java
+index 6a3413ca875ce78f48cd8d3ce2cfe7798be1a19e..5fc8147788bcb108cc583ae0bcc7fc84ee1bb186 100644
+--- a/net/minecraft/world/level/block/ObserverBlock.java
++++ b/net/minecraft/world/level/block/ObserverBlock.java
+@@ -48,6 +48,18 @@ public class ObserverBlock extends DirectionalBlock {
+         return state.rotate(mirror.getRotation(state.getValue(FACING)));
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readBlocks         = {"{pos}"},
++        writeBlocks        = {"{pos}"},
++        triggeredEvents    = {"REDSTONE_UPDATE", "SELF_RESCHEDULE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.PROPAGATES,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        randomInstance     = "WORLD_RANDOM",
++        mayLoadChunks      = false,
++        mayTriggerBlockUpdates = true,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     protected void tick(final BlockState state, final ServerLevel level, final BlockPos pos, final RandomSource random) {
+         if (state.getValue(POWERED)) {
+diff --git a/net/minecraft/world/level/block/RedstoneTorchBlock.java b/net/minecraft/world/level/block/RedstoneTorchBlock.java
+index 0d0b5443c5c56825e88fd64c02c993eca6044d45..8b2f8ff638c8b2fdabd9965071c73083bac57eda 100644
+--- a/net/minecraft/world/level/block/RedstoneTorchBlock.java
++++ b/net/minecraft/world/level/block/RedstoneTorchBlock.java
+@@ -70,6 +70,18 @@ public class RedstoneTorchBlock extends BaseTorchBlock {
+         return level.hasSignal(pos.below(), Direction.DOWN);
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readBlocks         = {"{pos}", "{pos}.below"},
++        writeBlocks        = {"{pos}"},
++        triggeredEvents    = {"REDSTONE_UPDATE", "BLOCK_UPDATE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.PROPAGATES,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        randomInstance     = "WORLD_RANDOM",
++        mayLoadChunks      = false,
++        mayTriggerBlockUpdates = true,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     protected void tick(final BlockState state, final ServerLevel level, final BlockPos pos, final RandomSource random) {
+         boolean neighborSignal = this.hasNeighborSignal(level, pos, state);
