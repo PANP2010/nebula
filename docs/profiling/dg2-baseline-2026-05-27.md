@@ -137,3 +137,32 @@ Higher task count this run (1551 avg vs 427 earlier) reflects more entities
 spawned/active per tick. avg-parallelism = avg-tasks/tick confirms every
 entity task fans out to a worker. degraded-to-serial=1 is `entity_activation`
 (by design GLOBAL_RW). System is stable across the new annotations.
+
+---
+
+## Post-Audit Smoke (2026-05-28)
+
+After full architecture audit and the resulting fixes (BucketDagBuilder
+wired per §4, NebulaConfig per §15.1, RandomBudget per §11.2):
+
+```
+ticks=224, avg-tasks/tick=2242.1, avg-layers/tick=1.00
+avg-parallelism=2242.07, avg-ms/tick=133.209
+peak-tasks=2300, peak-layers=1, peak-ms=146.470
+entity-tasks=501999, be-tasks=2736
+parallel runner: threads=10, threshold=2, layers-run=232,
+  tasks-run=519887, avg-tasks/layer=2240.89, degraded-to-serial=1
+random budget: tier=T0, ticks=240, entity-evals=536290, over-budget=0
+```
+
+**Comparison summary:**
+
+| Stage | ticks/30s | avg-ms/tick | peak-ms | tasks/tick | random metric |
+|---|---:|---:|---:|---:|---|
+| Pre-D3 (serial) | 844 | 144 | 1226 | 871 | always-0 |
+| Pre-bucket parallel | 84 | 357 | 378 | 1615 | always-0 |
+| Bucket-naive (entity GLOBAL) | 19 | 1606 | 1741 | 1845 | always-0 |
+| **Post-audit** | **224** | **133** | **146** | **2242** | **active** |
+
+Post-audit is the best result of the session at 250-mob load: lowest
+peak MSPT, highest sustained throughput, full random budget tracking.
