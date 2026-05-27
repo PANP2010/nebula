@@ -1,0 +1,60 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Wed, 27 May 2026 23:54:59 +0800
+Subject: [PATCH] =?UTF-8?q?nebula:=20Layer=20A=20@NebulaRW=20annotations?=
+ =?UTF-8?q?=20batch=207=20=E2=80=94=20fluid=20subsystem?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+- FlowingFluid.tick: PROPAGATES — water/lava flow recomputes neighbors
+- LavaFluid.randomTick: lava fire spread to nearby flammable blocks
+
+Total annotations: 60. Per arch §14.3 DG2 target ~130 functions; ~46% complete.
+
+diff --git a/net/minecraft/world/level/material/FlowingFluid.java b/net/minecraft/world/level/material/FlowingFluid.java
+index d7270de83fa13618d8f94de6eff63ffa37b823cc..f7c0bfa2e964d4a86ecce1bb7d5ec0feb378d9f3 100644
+--- a/net/minecraft/world/level/material/FlowingFluid.java
++++ b/net/minecraft/world/level/material/FlowingFluid.java
+@@ -493,6 +493,18 @@ public abstract class FlowingFluid extends Fluid {
+         return this.getTickDelay(level);
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readBlocks         = {"{pos}", "{pos}.neighbors", "{pos}.below"},
++        writeBlocks        = {"{pos}", "{pos}.neighbors"},
++        triggeredEvents    = {"FLUID_FLOW", "BLOCK_UPDATE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.PROPAGATES,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 1,
++        randomInstance     = "WORLD_RANDOM",
++        mayLoadChunks      = false,
++        mayTriggerBlockUpdates = true,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick(final ServerLevel level, final BlockPos pos, BlockState blockState, FluidState fluidState) {
+         if (!fluidState.isSource()) {
+diff --git a/net/minecraft/world/level/material/LavaFluid.java b/net/minecraft/world/level/material/LavaFluid.java
+index 76284429b4d9439de04a9a71acac9802ac8d14d2..76500e06b8b245373e49f2036bc24a8a6ac2736d 100644
+--- a/net/minecraft/world/level/material/LavaFluid.java
++++ b/net/minecraft/world/level/material/LavaFluid.java
+@@ -79,6 +79,18 @@ public abstract class LavaFluid extends FlowingFluid {
+         }
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readBlocks         = {"{pos}.expand:5"},
++        writeBlocks        = {"{pos}.expand:3"},
++        triggeredEvents    = {"FIRE_SPREAD", "BLOCK_UPDATE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 8,
++        randomInstance     = "WORLD_RANDOM",
++        mayLoadChunks      = false,
++        mayTriggerBlockUpdates = true,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void randomTick(final ServerLevel level, final BlockPos pos, final FluidState fluidState, final RandomSource random) {
+         if (level.canSpreadFireAround(pos)) {
