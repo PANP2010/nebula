@@ -1,0 +1,217 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Thu, 28 May 2026 07:32:36 +0800
+Subject: [PATCH] =?UTF-8?q?nebula:=20=C2=A716.2=20=E2=80=94=20wire=20Fidel?=
+ =?UTF-8?q?ityDowngradeController=20+=20/nebula=20fidelity=20command?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+NebulaFidelityIntegration: process-wide singleton wrapping
+FidelityDowngradeController. ServerLevel.nebula$tickViaDAG calls
+reportTick(overBudgetRate, msptMs) after each pipeline.execute, and
+forceFallback() on DagExecutionException.
+
+Adds /nebula fidelity:
+  - bare command shows tier + counters
+  - "/nebula fidelity reset" restores T0 (matches §16.2 admin contract)
+
+Smoke verified:
+  Nebula fidelity: tier=T0, ticks-reported=295, tier-downgrades=0,
+  consecutive-random-over-budget=0, consecutive-mspt-exceeded=0
+
+Note: §16.2 thresholds (10 ticks of >5% over-budget for T0→T1; 600 ticks
+of >50ms MSPT for T1→T2) only fire once the placeholder actualCalls
+counting in NebulaRandomGate is replaced with real per-call tracking
+(B5 in NEBULA_BLOCKERS.md). The plumbing is now in place.
+
+diff --git a/io/papermc/paper/threadedregions/NebulaFidelityIntegration.java b/io/papermc/paper/threadedregions/NebulaFidelityIntegration.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..493996f9a8af4b32836e6b622b3c4b425658ab96
+--- /dev/null
++++ b/io/papermc/paper/threadedregions/NebulaFidelityIntegration.java
+@@ -0,0 +1,109 @@
++package io.papermc.paper.threadedregions;
++
++import org.nebula.core.random.FidelityTier;
++import org.nebula.core.scheduler.FidelityDowngradeController;
++
++import java.util.concurrent.atomic.AtomicLong;
++
++/**
++ * Architecture §11.5 + §16.2: graceful fidelity downgrade integration.
++ *
++ * <p>One process-wide {@link FidelityDowngradeController} tracks the global
++ * tier. After every DAG tick the coordinator calls {@link #reportTick} with
++ * the tick's MSPT and Random over-budget rate. The controller decides
++ * whether to drop a tier:
++ *
++ * <ul>
++ *   <li>T0 → T1: 10 consecutive ticks with Random over-budget rate &gt; 5%</li>
++ *   <li>T1 → T2: 600 consecutive ticks (~30s) with MSPT &gt; 50ms</li>
++ *   <li>T2 → FALLBACK: forced by {@link #forceFallback()} on unrecoverable DAG error</li>
++ * </ul>
++ *
++ * <p>Downgrades are sticky — admin must call {@link #reset(FidelityTier)} to
++ * restore. This is mirrored from §16.2 ("/nebula fidelity reset").
++ *
++ * <p>The controller is read-only from outside; mutating callers (the tick
++ * coordinator) go through the static methods so concurrent ticks across
++ * regions all observe the same global state.
++ */
++public final class NebulaFidelityIntegration {
++
++    private static final FidelityDowngradeController CONTROLLER = new FidelityDowngradeController();
++
++    // Light-weight counters for /nebula fidelity introspection.
++    private static final AtomicLong TICKS_REPORTED = new AtomicLong();
++    private static final AtomicLong TIER_DOWNGRADES = new AtomicLong();
++    private static volatile FidelityTier lastObservedTier = FidelityTier.T0;
++
++    private NebulaFidelityIntegration() {}
++
++    /**
++     * Report a completed DAG tick. The controller may downgrade the tier
++     * after this call. Returns the (possibly new) current tier.
++     */
++    public static FidelityTier reportTick(double randomOverBudgetRate, long msptMs) {
++        TICKS_REPORTED.incrementAndGet();
++        synchronized (CONTROLLER) {
++            FidelityTier prior = CONTROLLER.currentTier();
++            FidelityTier now = CONTROLLER.reportTick(randomOverBudgetRate, msptMs);
++            if (now != prior) {
++                TIER_DOWNGRADES.incrementAndGet();
++            }
++            lastObservedTier = now;
++            return now;
++        }
++    }
++
++    /** Drop straight to FALLBACK — used when a tick throws unrecoverably. */
++    public static void forceFallback() {
++        synchronized (CONTROLLER) {
++            FidelityTier prior = CONTROLLER.currentTier();
++            CONTROLLER.forceFallback();
++            if (CONTROLLER.currentTier() != prior) {
++                TIER_DOWNGRADES.incrementAndGet();
++            }
++            lastObservedTier = FidelityTier.FALLBACK;
++        }
++    }
++
++    /** Admin reset (e.g. /nebula fidelity reset). */
++    public static void reset(FidelityTier tier) {
++        synchronized (CONTROLLER) {
++            CONTROLLER.reset(tier);
++            lastObservedTier = tier;
++        }
++    }
++
++    public static FidelityTier currentTier() {
++        return lastObservedTier;
++    }
++
++    public static int consecutiveRandomOverBudgetCount() {
++        synchronized (CONTROLLER) {
++            return CONTROLLER.consecutiveRandomOverBudgetCount();
++        }
++    }
++
++    public static int consecutiveMsptExceededCount() {
++        synchronized (CONTROLLER) {
++            return CONTROLLER.consecutiveMsptExceededCount();
++        }
++    }
++
++    public static long ticksReported() {
++        return TICKS_REPORTED.get();
++    }
++
++    public static long tierDowngrades() {
++        return TIER_DOWNGRADES.get();
++    }
++
++    public static String summary() {
++        return String.format(
++            "Nebula fidelity: tier=%s, ticks-reported=%d, tier-downgrades=%d, "
++                + "consecutive-random-over-budget=%d, consecutive-mspt-exceeded=%d",
++            currentTier(), ticksReported(), tierDowngrades(),
++            consecutiveRandomOverBudgetCount(), consecutiveMsptExceededCount()
++        );
++    }
++}
+diff --git a/net/minecraft/server/commands/NebulaCommand.java b/net/minecraft/server/commands/NebulaCommand.java
+index d43aa7805f38d4784df2e69b10ecc47a32d6817f..ca6e524e00013b65f67affc8b6179bab568b8ebf 100644
+--- a/net/minecraft/server/commands/NebulaCommand.java
++++ b/net/minecraft/server/commands/NebulaCommand.java
+@@ -4,6 +4,7 @@ import com.mojang.brigadier.CommandDispatcher;
+ import com.mojang.brigadier.arguments.IntegerArgumentType;
+ import io.papermc.paper.threadedregions.NebulaExplosionPipeline;
+ import io.papermc.paper.threadedregions.NebulaGuardIntegration;
++import io.papermc.paper.threadedregions.NebulaFidelityIntegration;
+ import io.papermc.paper.threadedregions.NebulaParallelIntegration;
+ import io.papermc.paper.threadedregions.NebulaRandomGate;
+ import io.papermc.paper.threadedregions.NebulaRedstoneIntegration;
+@@ -47,6 +48,10 @@ public final class NebulaCommand {
+                 .then(Commands.literal("random").executes(c -> random(c.getSource())))
+                 .then(Commands.literal("guard").executes(c -> guard(c.getSource())))
+                 .then(Commands.literal("parallel").executes(c -> parallel(c.getSource())))
++                .then(Commands.literal("fidelity")
++                    .executes(c -> fidelityStatus(c.getSource()))
++                    .then(Commands.literal("reset")
++                        .executes(c -> fidelityReset(c.getSource()))))
+                 .then(Commands.literal("reset").executes(c -> reset(c.getSource())))
+                 .then(Commands.literal("stress-spawn")
+                     .then(Commands.argument("count", IntegerArgumentType.integer(1, 5000))
+@@ -118,6 +123,26 @@ public final class NebulaCommand {
+         return NebulaParallelIntegration.enabled() ? 1 : 0;
+     }
+ 
++    private static int fidelityStatus(final CommandSourceStack source) {
++        String summary = NebulaFidelityIntegration.summary();
++        source.sendSuccess(() -> Component.literal(summary), false);
++        return switch (NebulaFidelityIntegration.currentTier()) {
++            case T0 -> 0;
++            case T1 -> 1;
++            case T2 -> 2;
++            case FALLBACK -> 99;
++        };
++    }
++
++    private static int fidelityReset(final CommandSourceStack source) {
++        NebulaFidelityIntegration.reset(org.nebula.core.random.FidelityTier.T0);
++        source.sendSuccess(
++            () -> Component.literal("Nebula fidelity tier reset to T0."),
++            true
++        );
++        return 0;
++    }
++
+     private static int reset(final CommandSourceStack source) {
+         NebulaTickMetrics.reset();
+         NebulaRandomGate.reset();
+diff --git a/net/minecraft/server/level/ServerLevel.java b/net/minecraft/server/level/ServerLevel.java
+index 1c975bada4a98e9de183b22ac81e2b59bb0ee866..9a0d7caf317efca0cf846b2b2f3670f72b19bef4 100644
+--- a/net/minecraft/server/level/ServerLevel.java
++++ b/net/minecraft/server/level/ServerLevel.java
+@@ -3275,6 +3275,11 @@ public class ServerLevel extends Level implements WorldGenLevel, ServerEntityGet
+             org.nebula.core.scheduler.TickPipeline.TickResult result = pipeline.execute(tasks);
+             long pipelineElapsed = System.nanoTime() - pipelineStart;
+             io.papermc.paper.threadedregions.NebulaTickMetrics.record(result, pipelineElapsed);
++            // §16.2 fidelity downgrade: report tick MSPT + over-budget rate.
++            io.papermc.paper.threadedregions.NebulaFidelityIntegration.reportTick(
++                io.papermc.paper.threadedregions.NebulaRandomGate.overBudgetRate(),
++                pipelineElapsed / 1_000_000L
++            );
+             if (com.mojang.logging.LogUtils.getLogger().isDebugEnabled()) {
+                 com.mojang.logging.LogUtils.getLogger().debug(
+                     "Nebula DAG tick: {} tasks, {} layers",
+@@ -3282,6 +3287,8 @@ public class ServerLevel extends Level implements WorldGenLevel, ServerEntityGet
+                 );
+             }
+         } catch (org.nebula.core.scheduler.DagExecutionException e) {
++            // §16.2: unrecoverable DAG error → drop to FALLBACK so admins see it.
++            io.papermc.paper.threadedregions.NebulaFidelityIntegration.forceFallback();
+             throw new RuntimeException("Nebula DAG execution failed at layer " + e.failedLayerIndex(), e);
+         }
+ 
