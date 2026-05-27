@@ -4,7 +4,7 @@
 
 ### B1: Replay Scheduler — Packet→TaskNode Mapping Incomplete (DG2/DG3)
 
-**Status:** Partially resolved (2026-05-26)  
+**Status:** Partially resolved (2026-05-27)  
 **Since:** 2026-05-25  
 **Affects:** Phase 1 Month 10-12, Phase 2 RC testing
 
@@ -15,13 +15,21 @@ in StateHashComputer** was found and fixed (deb2da6): the four state categories
 when using the same key/value — fixed by prefixing each category with a 3-letter
 tag and bumping format to v2. Eight determinism-contract tests now verify this.
 
-**Remaining gap:** `inputToTasks()` still returns an empty list — raw packet
-→ TaskNode mapping (NMS codec decoding, player entity resolution, per-packet
-RWSet construction) is deferred as a separate workstream.
+**Player-input seeding (3c068cc, a8eaa55):** `inputToTasks()` now emits one
+GLOBAL_RW placeholder task per player that has packets in the recorded
+tick. Player IDs are sorted to keep replay deterministic across runs.
+Two regression tests verify the seeding contract.
 
-**Workaround:** Replay determinism is now verified via `computeStateHash()` on
-a live world — hash after N empty ticks is stable. Full packet-driven replay
-requires decoding NMS packets inside the minecraft source tree.
+**Remaining gap:** Packet payloads are NOT decoded — the seed task is a
+debug log and does not re-execute the original packet effect. Full
+NMS packet decoding (byte[] → structured task with precise RWSet) requires
+codec wiring inside the Minecraft source tree and is deferred as a
+separate workstream.
+
+**Workaround:** Replay determinism is verified via `computeStateHash()`
+plus the player-input seed tasks — divergent player counts or ordering
+between record and replay surface as different DAG shapes, and any state
+mutation surfaces in the hash.
 
 ---
 
@@ -120,6 +128,13 @@ Four state categories (blocks/BEs/entities/globals) were fed into SHA-256 with
 identical encoding — same key/value in different categories produced the same
 hash contribution. Fixed by prefixing each category with "BLK"/"BE"/"ENT"/"GLB"
 and length-prefixing both keys and values. Format bumped to v2.
+
+### B1 (partial): Replay Scheduler Player-Input Seeding
+**Resolved:** 2026-05-27 (3c068cc, a8eaa55)  
+`NebulaServerReplayScheduler.inputToTasks()` now emits one GLOBAL_RW
+placeholder TaskNode per player with packets in the recorded tick.
+Player IDs sorted for replay determinism. Two regression tests verify
+the seeding contract. Full NMS packet decoding remains deferred.
 
 ### B1 (partial): NebulaServerReplayScheduler computeStateHash()
 **Resolved:** 2026-05-26 (c5f5b99, 8872500)  
