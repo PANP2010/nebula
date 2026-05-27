@@ -1,6 +1,49 @@
 # Nebula Blockers
 
-## Active Blockers
+## Architecture Audit (2026-05-28)
+
+A full re-read of `docs/星云架构.md` against the implementation found and fixed
+two production-impact deviations:
+
+1. **§4.1-§4.3 spatial bucket DAG building was unwired.** `BucketDagBuilder`
+   existed but `TickPipeline.execute` called `DagBuilder.build` (O(N²)).
+   Fixed in 1c276fc / 6f0d108. With 250 mobs the same workload went from
+   84 ticks/30s @ 357ms → 230 ticks/30s @ 130ms. Required also adding
+   `readBlock(entityPos)` on entity tasks per §6.3 so they get spatial
+   bucket affinity instead of falling into GLOBAL_BUCKET.
+
+2. **§15.1 nebula.yml was a doc file with no loader.** All settings came
+   from `-Dnebula.*` system properties. Fixed in a7f3f51 / cb3f248 with
+   `NebulaConfig.loadOnce()` at boot. System properties still override.
+
+Other deviations identified but not yet fixed (tracked below):
+- D3a vs §6.2 D3b — collision pipeline is two-phase, not three-phase
+  (commit dcaa057 documents the deviation explicitly)
+- §11.3 shadow-execute / re-execute — `WriteBuffer` exists, allocate/evaluate
+  cycle now wired (4aae7aa), but real per-call counting deferred (B5)
+- §13.6 plugin sandbox — `PluginSandbox.java` exists, not exposed via config
+
+### B5: Random Per-Call Counting Requires Hook Layer (DG2)
+
+**Status:** Wired but counts are placeholder  
+**Since:** 2026-05-28 (4aae7aa)  
+**Affects:** §11.5 downgrade, DG2 over-budget acceptance
+
+`NebulaRandomGate.allocate/recordEntityCalls` is now called per entity
+tick (commit 4aae7aa). The allocation cycle populates `entity-evals` so
+`/nebula random` reflects activity. However `actualCalls` is hardcoded
+to 0 — counting real `RandomSource.nextX()` calls per entity requires
+either a JVM agent that instruments `RandomSource` or a wrapper that
+swaps `entity.random` during the tick. Both are non-trivial.
+
+**Workaround:** budget allocation populates the `historicalMax` table
+adaptively, so the §11.5 downgrade machinery can still trigger if a
+future hook layer detects real over-budget consumption. For now the
+over-budget rate stays 0 and §11.5 never fires.
+
+---
+
+## Active Blockers (continued)
 
 ### B1: Replay Scheduler — Packet→TaskNode Mapping Incomplete (DG2/DG3)
 
