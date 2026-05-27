@@ -1,0 +1,97 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Thu, 28 May 2026 07:48:33 +0800
+Subject: [PATCH] =?UTF-8?q?nebula:=20=C2=A711.5=20=E2=80=94=20wire=20Nebul?=
+ =?UTF-8?q?aConfig=20into=20RandomBudget=20construction?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+NebulaRandomGate.BUDGET was a static-init field constructed before
+NebulaConfig.loadOnce() ran, so configured budget-safety-multiplier /
+downgrade-threshold / downgrade-warning-count values from nebula.yml
+were ignored.
+
+Switched to a lazy double-checked singleton (budget()) so the first
+caller after server boot picks up the loaded NebulaConfig values.
+Also renamed the recordEntityCalls parameter from `budget` →
+`allocatedBudget` to avoid shadowing the new accessor method.
+
+Smoke verified: /nebula random + /nebula fidelity + /nebula status
+all report consistent T0 state, MSPT 172ms with 2464 avg tasks/tick.
+
+diff --git a/io/papermc/paper/threadedregions/NebulaRandomGate.java b/io/papermc/paper/threadedregions/NebulaRandomGate.java
+index 7e611bd42488e411e4657cfb2de018bd1ddd3d62..8519dd731107ce19fcaa8971ebdba250bc8b0bf6 100644
+--- a/io/papermc/paper/threadedregions/NebulaRandomGate.java
++++ b/io/papermc/paper/threadedregions/NebulaRandomGate.java
+@@ -26,7 +26,28 @@ import java.util.concurrent.atomic.AtomicLong;
+  */
+ public final class NebulaRandomGate {
+ 
+-    private static final RandomBudget BUDGET = new RandomBudget();
++    // Built lazily on first access so NebulaConfig.loadOnce() has time to run
++    // before we read budget-safety-multiplier / downgrade-threshold values.
++    private static volatile RandomBudget budget;
++
++    private static RandomBudget budget() {
++        RandomBudget b = budget;
++        if (b == null) {
++            synchronized (NebulaRandomGate.class) {
++                b = budget;
++                if (b == null) {
++                    b = new RandomBudget(
++                        NebulaConfig.randomBudgetSafetyMultiplier(),
++                        RandomBudget.DEFAULT_MIN_BUDGET,
++                        NebulaConfig.randomDowngradeThreshold(),
++                        NebulaConfig.randomDowngradeWarningCount()
++                    );
++                    budget = b;
++                }
++            }
++        }
++        return b;
++    }
+ 
+     private static final AtomicLong TOTAL_TICKS = new AtomicLong();
+     private static final AtomicLong TOTAL_DOWNGRADES = new AtomicLong();
+@@ -44,7 +65,7 @@ public final class NebulaRandomGate {
+      */
+     public static boolean beginTick() {
+         tickDowngraded = false;
+-        boolean warning = BUDGET.beginTick();
++        boolean warning = budget().beginTick();
+         if (warning) {
+             CURRENT_TIER.set(1);
+         } else {
+@@ -58,7 +79,7 @@ public final class NebulaRandomGate {
+      * declared random call count (or 0 if unknown).
+      */
+     public static int allocate(long entityId, int estimatedCalls) {
+-        return BUDGET.allocate(entityId, estimatedCalls);
++        return budget().allocate(entityId, estimatedCalls);
+     }
+ 
+     /**
+@@ -66,10 +87,10 @@ public final class NebulaRandomGate {
+      * If the over-budget rate crosses the threshold, the tick is flagged as
+      * downgraded (next-tick T1).
+      */
+-    public static RandomBudget.BudgetResult recordEntityCalls(long entityId, int budget, int actualCalls) {
++    public static RandomBudget.BudgetResult recordEntityCalls(long entityId, int allocatedBudget, int actualCalls) {
+         TOTAL_ENTITY_EVALS.incrementAndGet();
+-        RandomBudget.BudgetResult result = BUDGET.evaluate(entityId, budget, actualCalls);
+-        if (actualCalls > budget) {
++        RandomBudget.BudgetResult result = budget().evaluate(entityId, allocatedBudget, actualCalls);
++        if (actualCalls > allocatedBudget) {
+             TOTAL_OVER_BUDGET.incrementAndGet();
+         }
+         if (result == RandomBudget.BudgetResult.DOWNGRADE) {
+@@ -87,7 +108,7 @@ public final class NebulaRandomGate {
+         if (tickDowngraded) {
+             TOTAL_DOWNGRADES.incrementAndGet();
+         }
+-        int consecutive = BUDGET.endTick(tickDowngraded);
++        int consecutive = budget().endTick(tickDowngraded);
+         CONSECUTIVE_DOWNGRADES.set(consecutive);
+         return consecutive;
+     }
