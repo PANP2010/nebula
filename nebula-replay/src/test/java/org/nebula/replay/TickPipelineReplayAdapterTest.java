@@ -121,4 +121,83 @@ class TickPipelineReplayAdapterTest {
         assertTrue(executedTasks.contains("tick-2"));
         assertTrue(executedTasks.contains("deferred-from-1"));
     }
+
+    @Test
+    void playerInputSeedingProducesOneTaskPerPlayerSorted() {
+        // Mirrors NebulaServerReplayScheduler's contract: one GLOBAL_RW
+        // task per player with packets, IDs sorted for determinism.
+        List<String> executedIds = new ArrayList<>();
+
+        TickPipeline pipeline = new TickPipeline(
+            completed -> List.of(),
+            TaskRunner.DIRECT
+        );
+
+        TickPipelineReplayAdapter adapter = new TickPipelineReplayAdapter(pipeline) {
+            @Override
+            protected Collection<TaskNode> inputToTasks(long tickNumber, TickInput input) {
+                Map<String, List<byte[]>> inputs = input.playerInputs();
+                if (inputs.isEmpty()) return List.of();
+
+                List<String> ids = new ArrayList<>(inputs.keySet());
+                java.util.Collections.sort(ids);
+
+                List<TaskNode> tasks = new ArrayList<>();
+                for (String id : ids) {
+                    final String pid = id;
+                    tasks.add(new TaskNode(
+                        "seed-" + tickNumber + "-" + pid,
+                        "REPLAY_PLAYER_INPUT",
+                        RWSet.builder()
+                            .readGlobal(org.nebula.core.state.GlobalKey.ALL)
+                            .writeGlobal(org.nebula.core.state.GlobalKey.ALL)
+                            .build(),
+                        () -> executedIds.add(pid)
+                    ));
+                }
+                return tasks;
+            }
+
+            @Override
+            public byte[] computeStateHash() {
+                return new byte[32];
+            }
+        };
+
+        // Two players, given in non-sorted insertion order
+        Map<String, List<byte[]>> packets = new java.util.LinkedHashMap<>();
+        packets.put("zelda", List.of(new byte[]{1, 2}));
+        packets.put("alice", List.of(new byte[]{3}));
+        packets.put("mark", List.of(new byte[]{4}, new byte[]{5}));
+
+        adapter.applyInputs(7, new TickInput(7, packets));
+
+        // Three tasks created, executed in sorted player ID order.
+        assertEquals(List.of("alice", "mark", "zelda"), executedIds);
+    }
+
+    @Test
+    void emptyInputProducesNoSeedTasks() {
+        List<String> executed = new ArrayList<>();
+        TickPipeline pipeline = new TickPipeline(
+            completed -> List.of(),
+            TaskRunner.DIRECT
+        );
+        TickPipelineReplayAdapter adapter = new TickPipelineReplayAdapter(pipeline) {
+            @Override
+            protected Collection<TaskNode> inputToTasks(long tickNumber, TickInput input) {
+                if (input.playerInputs().isEmpty()) return List.of();
+                executed.add("should-not-fire");
+                return List.of();
+            }
+
+            @Override
+            public byte[] computeStateHash() {
+                return new byte[32];
+            }
+        };
+
+        adapter.applyInputs(1, new TickInput(1, Map.of()));
+        assertTrue(executed.isEmpty());
+    }
 }
