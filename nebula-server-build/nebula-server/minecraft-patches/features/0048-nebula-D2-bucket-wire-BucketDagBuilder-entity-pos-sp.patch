@@ -1,0 +1,102 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Thu, 28 May 2026 00:47:26 +0800
+Subject: [PATCH] =?UTF-8?q?nebula:=20D2-bucket=20=E2=80=94=20wire=20Bucket?=
+ =?UTF-8?q?DagBuilder=20+=20entity-pos=20spatial=20bucketing?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+- NebulaBucketIntegration: process-wide BucketDagBuilder singleton
+- ServerLevel.nebula$tickViaDAG: pass bucket builder to TickPipeline
+- EntityTaskBuilder.classifyRWSet: declare readBlock(entityPos) so entity
+  tasks get bucketed by §6.3 "current position" affinity rather than
+  falling into GLOBAL_BUCKET
+
+Stress smoke (250 mobs in one region, 30s wall):
+  before: 84 ticks, avg-ms/tick=357 (DagBuilder O(N²) only)
+  bucket-only-naive: 19 ticks, avg-ms/tick=1606 (bucket overhead +
+    GLOBAL_BUCKET fallthrough — strictly worse)
+  bucket + entity readBlock(pos): 230 ticks, avg-ms/tick=130 — best
+    result in the session, peak-ms 152.
+
+Why entity-pos read is correct (arch §3.2 + §6.3):
+  - vanilla entity tick reads the standing-on block (gravity, fluids)
+  - readBlock conflicts with block writes at same pos — that's a true
+    RAW dependency that should be in the DAG
+  - SpatialBucketIndex now assigns entity tasks to the same bucket as
+    nearby block tasks, enabling per-bucket O(K²) scans instead of one
+    global O(N²) scan
+
+diff --git a/io/papermc/paper/threadedregions/EntityTaskBuilder.java b/io/papermc/paper/threadedregions/EntityTaskBuilder.java
+index 010d97ac578eb7aeda9a7c0abf82ff90a0f93d05..623e32f20f1e86da9825591600d2958f5a561dbe 100644
+--- a/io/papermc/paper/threadedregions/EntityTaskBuilder.java
++++ b/io/papermc/paper/threadedregions/EntityTaskBuilder.java
+@@ -116,8 +116,18 @@ public final class EntityTaskBuilder {
+         if (entity instanceof ServerPlayer) {
+             return GLOBAL_RW;
+         }
++        // Per §6.3: entity bucket affinity is determined by its current position.
++        // Declaring readBlock(entityPos) lets SpatialBucketIndex assign entity
++        // tasks to the same bucket as nearby block tasks, enabling O(N×K) DAG
++        // construction. The block read is also semantically correct — vanilla
++        // entity tick reads the standing-on block (gravity, fluid checks).
++        org.nebula.core.state.WorldPos pos = new org.nebula.core.state.WorldPos(
++            entity.level().dimension().identifier().hashCode(),
++            entity.getBlockX(), entity.getBlockY(), entity.getBlockZ()
++        );
+         return RWSet.builder()
+             .writeEntity(new EntityField(entityId, "*"))
++            .readBlock(pos)
+             .build();
+     }
+ 
+diff --git a/io/papermc/paper/threadedregions/NebulaBucketIntegration.java b/io/papermc/paper/threadedregions/NebulaBucketIntegration.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..52d5f5c3bab8ecc92454c777eb990de3cbabed9a
+--- /dev/null
++++ b/io/papermc/paper/threadedregions/NebulaBucketIntegration.java
+@@ -0,0 +1,29 @@
++package io.papermc.paper.threadedregions;
++
++import org.nebula.core.bucket.BucketDagBuilder;
++
++/**
++ * Adapter that exposes a process-wide {@link BucketDagBuilder} singleton to the
++ * Nebula tick path (architecture §4.1-§4.3).
++ *
++ * <p>One {@code BucketDagBuilder} instance is reused across all ticks because:
++ * <ul>
++ *   <li>It is stateless apart from the {@code SccContractor} and the shared
++ *       {@code ForkJoinPool.commonPool()} reference.</li>
++ *   <li>Allocating one per tick would churn the GC for no benefit.</li>
++ * </ul>
++ *
++ * <p>Pass the builder into {@link org.nebula.core.scheduler.TickPipeline}'s
++ * full constructor so the production tick path uses spatial bucketing
++ * instead of the O(N²) {@code DagBuilder} fallback.
++ */
++public final class NebulaBucketIntegration {
++
++    private static final BucketDagBuilder INSTANCE = new BucketDagBuilder();
++
++    private NebulaBucketIntegration() {}
++
++    public static BucketDagBuilder builder() {
++        return INSTANCE;
++    }
++}
+diff --git a/net/minecraft/server/level/ServerLevel.java b/net/minecraft/server/level/ServerLevel.java
+index a5ea6e68faf29a3ea1ddef512ac4d49526e25b53..5a3efb36846762042689f67ae428380322beb876 100644
+--- a/net/minecraft/server/level/ServerLevel.java
++++ b/net/minecraft/server/level/ServerLevel.java
+@@ -3264,7 +3264,8 @@ public class ServerLevel extends Level implements WorldGenLevel, ServerEntityGet
+                 io.papermc.paper.threadedregions.NebulaGuardIntegration.runner(tick)
+             );
+         org.nebula.core.scheduler.TickPipeline pipeline = new org.nebula.core.scheduler.TickPipeline(
+-            microStepGenerator, runner, 256
++            microStepGenerator, runner, 256, null,
++            io.papermc.paper.threadedregions.NebulaBucketIntegration.builder()
+         );
+ 
+         try {
