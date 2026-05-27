@@ -1,6 +1,29 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Wed, 27 May 2026 20:55:04 +0800
+Subject: [PATCH] =?UTF-8?q?nebula:=20B1=20=E2=80=94=20NebulaServerReplaySc?=
+ =?UTF-8?q?heduler=20with=20player-input=20seeding?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Concrete TickPipelineReplayAdapter backed by a live ServerLevel. Provides:
+- computeStateHash(): walks chunks/BEs/entities/globals through canonical
+  save paths, feeds into StateHashComputer with deterministic ordering.
+- inputToTasks(): emits one GLOBAL_RW placeholder TaskNode per player who
+  has packets this tick. Player IDs sorted for replay determinism. The
+  task is a logging no-op — full NMS packet decoding (byte[] → structured
+  task with precise RWSet) remains a separate workstream tracked in
+  NEBULA_BLOCKERS.md.
+
+Also commits NebulaStressMode helper which gates stress-spawn DAG path.
+
+diff --git a/io/papermc/paper/threadedregions/NebulaServerReplayScheduler.java b/io/papermc/paper/threadedregions/NebulaServerReplayScheduler.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..4d42a31f643f8d1dc5e86de8cf27b1b81236fc9e
 --- /dev/null
 +++ b/io/papermc/paper/threadedregions/NebulaServerReplayScheduler.java
-@@ -1,0 +_,226 @@
+@@ -0,0 +1,267 @@
 +package io.papermc.paper.threadedregions;
 +
 +import net.minecraft.core.BlockPos;
@@ -48,10 +71,11 @@
 + *       entities, entities, and global state, serialises each through their
 + *       canonical save path (NBT for BEs/entities, packed-state ids for
 + *       blocks), and feeds them to {@link StateHashComputer}.</li>
-+ *   <li>{@code inputToTasks} returns an empty seed set for B1 — packet
-+ *       replay needs deeper integration with Connection/PlayerList that is
-+ *       a separate workstream.  The hash path is the load-bearing piece for
-+ *       Phase B1 determinism verification.</li>
++ *   <li>{@code inputToTasks} emits one GLOBAL_RW placeholder task per player
++ *       that has packets this tick. Player IDs are sorted to keep replay
++ *       determinism. Full NMS packet decoding (byte[] → structured task with
++ *       precise RWSet) is a separate workstream — the placeholder is enough
++ *       for B1 to detect divergence in the post-tick state hash.</li>
 + * </ul>
 + *
 + * <p>Iteration order is deterministic: chunks sorted by (cx, cz), block
@@ -68,10 +92,50 @@
 +
 +    @Override
 +    protected java.util.Collection<TaskNode> inputToTasks(long tickNumber, TickInput input) {
-+        // Packet → TaskNode mapping is a separate workstream; for B1 we drive
-+        // pipeline expansion via the world's own dirty set produced by the
-+        // previous tick (chunk system + redstone/explosion triggers).
-+        return java.util.List.of();
++        // B1 minimal seeding: each player with at least one packet in this tick
++        // contributes a GLOBAL_RW placeholder TaskNode. The packet payload is
++        // not decoded here (NMS codec wiring deferred — see arch §12.1) but the
++        // task's existence forces the scheduler to expand the player's RWSet
++        // conservatively, preserving determinism order.
++        //
++        // The action is a no-op: real packet effects come from Connection
++        // dispatch on the live world, while this seed just guarantees that
++        // ticks with player input receive a player-tagged task in the DAG so
++        // hash divergence between record and replay surfaces immediately.
++        java.util.Map<String, java.util.List<byte[]>> inputs = input.playerInputs();
++        if (inputs.isEmpty()) {
++            return java.util.List.of();
++        }
++
++        // Sort player IDs for deterministic ordering across replay runs.
++        java.util.List<String> playerIds = new java.util.ArrayList<>(inputs.keySet());
++        java.util.Collections.sort(playerIds);
++
++        java.util.List<TaskNode> tasks = new java.util.ArrayList<>(playerIds.size());
++        org.nebula.core.rw.RWSet globalRw = org.nebula.core.rw.RWSet.builder()
++            .readGlobal(org.nebula.core.state.GlobalKey.ALL)
++            .writeGlobal(org.nebula.core.state.GlobalKey.ALL)
++            .build();
++
++        for (String playerId : playerIds) {
++            int packetCount = inputs.get(playerId).size();
++            String taskId = "replay_input_t" + tickNumber + "_" + playerId;
++            String taskType = "REPLAY_PLAYER_INPUT";
++            // Action records packet count for replay verification but does
++            // not actually re-decode bytes — that path is the deeper packet
++            // workstream tracked in NEBULA_BLOCKERS.md (B1 partial).
++            org.nebula.core.scheduler.TaskAction action = () -> {
++                if (com.mojang.logging.LogUtils.getLogger().isDebugEnabled()) {
++                    com.mojang.logging.LogUtils.getLogger().debug(
++                        "Replay seed: tick={} player={} packets={}",
++                        tickNumber, playerId, packetCount
++                    );
++                }
++            };
++            tasks.add(new TaskNode(taskId, taskType, globalRw, action));
++        }
++
++        return tasks;
 +    }
 +
 +    @Override
@@ -225,5 +289,43 @@
 +
 +    private static byte[] boolBytes(boolean v) {
 +        return new byte[]{(byte) (v ? 1 : 0)};
++    }
++}
+diff --git a/io/papermc/paper/threadedregions/NebulaStressMode.java b/io/papermc/paper/threadedregions/NebulaStressMode.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..90ecab29d602ddbf809cfcd05575f02e757cbce9
+--- /dev/null
++++ b/io/papermc/paper/threadedregions/NebulaStressMode.java
+@@ -0,0 +1,32 @@
++package io.papermc.paper.threadedregions;
++
++import java.util.concurrent.atomic.AtomicBoolean;
++
++/**
++ * Bench-only flag — when enabled, ServerLevel.nebula$tickViaDAG forces the
++ * full {@link RegionTickDecomposer#decompose} path regardless of the
++ * world's {@code emptyTime} counter.
++ *
++ * <p>Without a player, vanilla skips entity/BE ticks once {@code emptyTime}
++ * reaches 300 — which makes parallel/guard benchmarks meaningless because
++ * the DAG only contains housekeeping subsystems.  Toggling this flag via
++ * {@code /nebula stress-mode on} keeps the decomposer producing per-entity
++ * and per-BE TaskNodes so a stress-spawn'd mob herd actually exercises the
++ * scheduler.
++ *
++ * <p>Disabled by default; intended for benchmarking, not production.
++ */
++public final class NebulaStressMode {
++
++    private static final AtomicBoolean ENABLED = new AtomicBoolean(false);
++
++    private NebulaStressMode() {}
++
++    public static boolean isEnabled() {
++        return ENABLED.get();
++    }
++
++    public static void setEnabled(boolean enabled) {
++        ENABLED.set(enabled);
 +    }
 +}
