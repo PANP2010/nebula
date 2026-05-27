@@ -1,0 +1,93 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Thu, 28 May 2026 07:40:46 +0800
+Subject: [PATCH] =?UTF-8?q?nebula:=20=C2=A713.6=20=E2=80=94=20load=20plugi?=
+ =?UTF-8?q?n=20sandbox=20lists=20from=20nebula.yml?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+NebulaConfig now exposes:
+  - vapSandboxedPlugins(): explicit sandbox list
+  - vapNonSandboxedPlugins(): explicit Level-0 force list
+  - shouldSandboxPlugin(name): convenience dispatcher per §13.6 rules
+
+Defaults: empty lists. Falls back to Level 0 for unrecognised plugins
+when sandbox is enabled (architecture-mandated default in §13.6 last
+paragraph: "未在任一列表中的插件默认运行在 Level 0 兼容模式").
+
+The runtime hook that actually routes plugin events into PluginSandbox
+when shouldSandboxPlugin() returns true is still TODO — but the config
+contract is now in place so a future PR can read the lists without
+having to add YAML parsing alongside the runtime change.
+
+diff --git a/io/papermc/paper/threadedregions/NebulaConfig.java b/io/papermc/paper/threadedregions/NebulaConfig.java
+index 2c6307dc12de7057fcb17735d3de376447476827..330f82702e7751212ea9c1101e32af7b5bd91427 100644
+--- a/io/papermc/paper/threadedregions/NebulaConfig.java
++++ b/io/papermc/paper/threadedregions/NebulaConfig.java
+@@ -39,6 +39,8 @@ public final class NebulaConfig {
+     private static boolean vapLevel0AutoWrap = true;
+     private static String vapManagedStateCheck = "warn";
+     private static boolean vapSandboxEnabled = false;
++    private static java.util.List<String> vapSandboxedPlugins = java.util.List.of();
++    private static java.util.List<String> vapNonSandboxedPlugins = java.util.List.of();
+     private static boolean perfCpuAffinity = true;
+     private static boolean perfWorkStealing = true;
+     private static int perfTaskBatchingThreshold = 16;
+@@ -99,6 +101,16 @@ public final class NebulaConfig {
+         vapLevel0AutoWrap = vap.node("level0-auto-wrap").getBoolean(vapLevel0AutoWrap);
+         vapManagedStateCheck = vap.node("managed-state-check").getString(vapManagedStateCheck);
+         vapSandboxEnabled = vap.node("sandbox", "enabled").getBoolean(vapSandboxEnabled);
++        try {
++            vapSandboxedPlugins = vap.node("sandbox", "sandboxed-plugins").getList(String.class, java.util.List.of());
++        } catch (org.spongepowered.configurate.serialize.SerializationException e) {
++            vapSandboxedPlugins = java.util.List.of();
++        }
++        try {
++            vapNonSandboxedPlugins = vap.node("sandbox", "non-sandboxed-plugins").getList(String.class, java.util.List.of());
++        } catch (org.spongepowered.configurate.serialize.SerializationException e) {
++            vapNonSandboxedPlugins = java.util.List.of();
++        }
+ 
+         ConfigurationNode perf = nebula.node("performance");
+         perfCpuAffinity = perf.node("cpu-affinity").getBoolean(perfCpuAffinity);
+@@ -161,6 +173,39 @@ public final class NebulaConfig {
+         return prop != null ? Boolean.parseBoolean(prop) : vapSandboxEnabled;
+     }
+ 
++    /**
++     * §13.6 — list of plugin names that should run sandboxed (single-thread region,
++     * message-passed API). Returns an immutable copy.
++     */
++    public static java.util.List<String> vapSandboxedPlugins() {
++        return java.util.List.copyOf(vapSandboxedPlugins);
++    }
++
++    /**
++     * §13.6 — list of plugin names explicitly excluded from sandboxing (run in
++     * Level 0 mode regardless of global sandbox-enabled flag). Returns an
++     * immutable copy.
++     */
++    public static java.util.List<String> vapNonSandboxedPlugins() {
++        return java.util.List.copyOf(vapNonSandboxedPlugins);
++    }
++
++    /**
++     * §13.6 dispatch helper: returns true if the given plugin should run in
++     * the sandbox, applying the rules:
++     * <ul>
++     *   <li>Sandbox globally disabled → never sandbox.</li>
++     *   <li>Plugin is in non-sandboxed-plugins → never sandbox.</li>
++     *   <li>Plugin is in sandboxed-plugins → always sandbox.</li>
++     *   <li>Otherwise → default Level 0 (no sandbox).</li>
++     * </ul>
++     */
++    public static boolean shouldSandboxPlugin(String pluginName) {
++        if (!vapSandboxEnabled()) return false;
++        if (vapNonSandboxedPlugins.contains(pluginName)) return false;
++        return vapSandboxedPlugins.contains(pluginName);
++    }
++
+     public static boolean perfCpuAffinity() {
+         String prop = System.getProperty("nebula.perf.cpu-affinity");
+         return prop != null ? Boolean.parseBoolean(prop) : perfCpuAffinity;

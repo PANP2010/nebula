@@ -16,7 +16,13 @@ nebula:
     managed-state-check: warn
     sandbox:
       enabled: false
-      plugins: []
+      # §13.6 plugin sandbox routing. When sandbox.enabled=true:
+      #   sandboxed-plugins         → always sandbox
+      #   non-sandboxed-plugins     → never sandbox (force Level 0)
+      #   anything else             → default Level 0 (no sandbox)
+      sandboxed-plugins: []
+      non-sandboxed-plugins: []
+      plugins: []  # legacy alias, ignored
 
   performance:
     cpu-affinity: true
