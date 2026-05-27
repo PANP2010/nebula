@@ -1,0 +1,134 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Wed, 27 May 2026 22:06:11 +0800
+Subject: [PATCH] =?UTF-8?q?nebula:=20Layer=20A=20@NebulaRW=20annotations?=
+ =?UTF-8?q?=20batch=203=20=E2=80=94=206=20LivingEntity=20hot=20paths?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Annotates 6 additional methods called from the per-tick critical path:
+- onClimbable: read self position + block, write lastClimbablePos
+- tickDeath: write deathTime/broadcastedDeath, may trigger entity removal
+- onChangedBlock: enchantment effects (Frost Walker etc.) — block update
+- removeFrost / tryAddFrost: powder snow attribute modifier on self
+- rideTick: super.rideTick + resetFallDistance — self position/velocity
+
+Total annotated methods: 45 (up from 39 in previous batch).
+
+diff --git a/net/minecraft/world/entity/LivingEntity.java b/net/minecraft/world/entity/LivingEntity.java
+index 45ea0c27ae3d6ef04ed5d48642f8a5645bc719a4..320bfeec451a1e4dc9352bfbfe766b8ae2ab55ae 100644
+--- a/net/minecraft/world/entity/LivingEntity.java
++++ b/net/minecraft/world/entity/LivingEntity.java
+@@ -575,6 +575,16 @@ public abstract class LivingEntity extends Entity implements Attackable, Waypoin
+         return 0.0F;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.attributes"},
++        writeEntities      = {"this.attributes"},
++        triggeredEvents    = {},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        randomInstance     = "NONE",
++        verifiedAt         = "1.21.4"
++    )
+     protected void removeFrost() {
+         AttributeInstance speed = this.getAttribute(Attributes.MOVEMENT_SPEED);
+         if (speed != null) {
+@@ -584,6 +594,17 @@ public abstract class LivingEntity extends Entity implements Attackable, Waypoin
+         }
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.attributes", "this.position", "this.ticksFrozen"},
++        writeEntities      = {"this.attributes"},
++        readBlocks         = {"this.position"},
++        triggeredEvents    = {},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        randomInstance     = "NONE",
++        verifiedAt         = "1.21.4"
++    )
+     protected void tryAddFrost() {
+         if (!this.getBlockStateOnLegacy().isAir()) {
+             int ticksFrozen = this.getTicksFrozen();
+@@ -599,6 +620,20 @@ public abstract class LivingEntity extends Entity implements Attackable, Waypoin
+         }
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.activeEffects"},
++        readBlocks         = {"this.boundingBox.expand"},
++        writeBlocks        = {"this.boundingBox.expand"},
++        triggeredEvents    = {"BLOCK_UPDATE", "ENCHANT_EFFECT_TRIGGER"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 4,
++        randomInstance     = "ENTITY_RANDOM",
++        mayLoadChunks      = false,
++        mayTriggerBlockUpdates = true,
++        verifiedAt         = "1.21.4"
++    )
+     protected void onChangedBlock(final ServerLevel level, final BlockPos pos) {
+         EnchantmentHelper.runLocationChangedEffects(level, this);
+     }
+@@ -625,6 +660,18 @@ public abstract class LivingEntity extends Entity implements Attackable, Waypoin
+     }
+ 
+     public boolean broadcastedDeath = false; // Folia - region threading
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.deathTime", "this.broadcastedDeath", "this.removed"},
++        triggeredEvents    = {"ENTITY_REMOVED", "ENTITY_DEATH_BROADCAST"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        randomInstance     = "NONE",
++        mayLoadChunks      = false,
++        mayTriggerBlockUpdates = false,
++        verifiedAt         = "1.21.4"
++    )
+     protected void tickDeath() {
+         this.deathTime++;
+         if (this.deathTime >= 20 && !this.level().isClientSide() && !this.isRemoved()) {
+@@ -2235,6 +2282,19 @@ public abstract class LivingEntity extends Entity implements Attackable, Waypoin
+         return this.lastClimbablePos;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.position", "this.fallFlying"},
++        writeEntities      = {"this.lastClimbablePos"},
++        readBlocks         = {"this.position"},
++        triggeredEvents    = {},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        randomInstance     = "NONE",
++        mayLoadChunks      = false,
++        mayTriggerBlockUpdates = false,
++        verifiedAt         = "1.21.4"
++    )
+     public boolean onClimbable() {
+         if (this.isSpectator()) {
+             return false;
+@@ -4087,6 +4147,16 @@ public abstract class LivingEntity extends Entity implements Attackable, Waypoin
+         }
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*", "this.vehicle.*"},
++        writeEntities      = {"this.position", "this.deltaMovement", "this.fallDistance"},
++        triggeredEvents    = {"ENTITY_MOVED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        randomInstance     = "NONE",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void rideTick() {
+         super.rideTick();
