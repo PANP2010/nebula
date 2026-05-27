@@ -3,7 +3,7 @@
 ## Architecture Audit (2026-05-28)
 
 A full re-read of `docs/星云架构.md` against the implementation found and fixed
-two production-impact deviations:
+the following deviations:
 
 1. **§4.1-§4.3 spatial bucket DAG building was unwired.** `BucketDagBuilder`
    existed but `TickPipeline.execute` called `DagBuilder.build` (O(N²)).
@@ -16,12 +16,40 @@ two production-impact deviations:
    from `-Dnebula.*` system properties. Fixed in a7f3f51 / cb3f248 with
    `NebulaConfig.loadOnce()` at boot. System properties still override.
 
-Other deviations identified but not yet fixed (tracked below):
+3. **§11.2 RandomBudget allocate/evaluate was dead code.** No caller
+   ever invoked it; `entity-evals` was always 0. Fixed in 4aae7aa with
+   per-entity-tick allocate + recordEntityCalls in EntityTaskBuilder.
+   Real per-call counting still requires a Random hook layer (B5).
+
+4. **§11.5 NebulaConfig values ignored by RandomBudget.** The static-init
+   `BUDGET = new RandomBudget()` pre-loaded defaults before
+   `NebulaConfig.loadOnce()` ran. Fixed in 8c9d5b6 with a lazy singleton
+   that picks up YAML values on first access.
+
+5. **§16.2 fidelity downgrade controller was unused.** Existed in
+   nebula-core but only tested. Fixed in 76784f4: `NebulaFidelityIntegration`
+   reports each tick's MSPT + over-budget rate; DAG exception → forceFallback;
+   `/nebula fidelity` and `/nebula fidelity reset` exposed.
+
+6. **§15.3 /nebula status was missing.** Doc lists status as a primary
+   command but only `mode` and `stats` existed separately. Added in b12db5c
+   as a multi-line aggregate (mode + fidelity + mspt + parallelism + runner
+   + guard + random tier).
+
+7. **§13.6 plugin sandbox lists were not exposed.** `PluginSandbox.java`
+   existed but nebula.yml had no `sandboxed-plugins` / `non-sandboxed-plugins`
+   lists wired through. Fixed in 2b24ea9: `NebulaConfig.shouldSandboxPlugin`
+   now provides the dispatch contract; runtime CraftServer hook is the next
+   step.
+
+Other deviations identified, partially addressed:
 - D3a vs §6.2 D3b — collision pipeline is two-phase, not three-phase
   (commit dcaa057 documents the deviation explicitly)
 - §11.3 shadow-execute / re-execute — `WriteBuffer` exists, allocate/evaluate
   cycle now wired (4aae7aa), but real per-call counting deferred (B5)
-- §13.6 plugin sandbox — `PluginSandbox.java` exists, not exposed via config
+- §13.6 plugin sandbox runtime — config lists now plumbed (2b24ea9), but
+  `CraftServer.enablePlugin` does not yet route to `PluginSandbox` based on
+  `shouldSandboxPlugin()`.
 
 ### B5: Random Per-Call Counting Requires Hook Layer (DG2)
 
