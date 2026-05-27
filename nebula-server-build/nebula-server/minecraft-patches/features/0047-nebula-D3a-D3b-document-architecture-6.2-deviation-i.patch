@@ -1,0 +1,124 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Thu, 28 May 2026 00:23:17 +0800
+Subject: [PATCH] =?UTF-8?q?nebula:=20D3a/D3b=20=E2=80=94=20document=20arch?=
+ =?UTF-8?q?itecture=20=C2=A76.2=20deviation=20in=20EntityCollisionPipeline?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+The current implementation is "D3a" — a two-phase compromise (parallel
+entity tick + serial collision_flush), not the full three-phase design
+in arch §6.2 (detection / impulse / position).
+
+Updated EntityCollisionPipeline javadoc to:
+- explicitly call out which §6.2 invariants we DO match (impulse ordering,
+  per-entity parallelism)
+- explicitly call out which we do NOT match (detection is not a separate
+  read-only phase; position update is not a separate phase)
+- note the visible consequence: impulses settle one tick later than
+  vanilla, which causes replay hash divergence unless the recorder also
+  defers — tracked as part of B1's full determinism work.
+
+The "D3b" full three-phase pipeline requires splitting Entity.move and
+CollisionUtil; deferred to a separate workstream.
+
+No code change — documentation only.
+
+diff --git a/io/papermc/paper/threadedregions/EntityCollisionPipeline.java b/io/papermc/paper/threadedregions/EntityCollisionPipeline.java
+index ad65f69ac70c960340cef8f2be3dc4ea47f90a68..83f9025d131066e9f6e4e99a3c2fb0e3fec91997 100644
+--- a/io/papermc/paper/threadedregions/EntityCollisionPipeline.java
++++ b/io/papermc/paper/threadedregions/EntityCollisionPipeline.java
+@@ -12,33 +12,73 @@ import java.util.ArrayList;
+ import java.util.List;
+ 
+ /**
+- * D3: Three-phase entity collision pipeline (architecture doc §6.2).
++ * D3: Entity collision pipeline (architecture doc §6.2).
+  *
+- * <h2>Current implementation</h2>
+- * <p>Entity.push(Entity) now defers cross-entity impulses to
+- * {@link DeferredImpulseBuffer} when active. The buffer is activated
+- * during the entity tick phase and flushed after all entity tasks complete.
+- * This makes each entity tick self-contained (only writes to self),
+- * enabling intra-layer parallel execution.
++ * <h2>Architecture target (§6.2 — three phases)</h2>
++ * <ol>
++ *   <li><b>Detection</b>: all entity-pair collision tests run in parallel
++ *       (pure read, no side effects). Output: list of collision pairs.</li>
++ *   <li><b>Impulse computation</b>: per-entity impulse aggregation; applied
++ *       in entityId-sorted serial order. (Per-entity computation can still
++ *       run in parallel — only the WRITE is serialized.)</li>
++ *   <li><b>Position update</b>: position written based on the post-impulse
++ *       velocity, in parallel across entities (each touches only its own
++ *       position).</li>
++ * </ol>
+  *
+- * <h2>Tick flow</h2>
++ * <h2>Current implementation (D3a — compromise)</h2>
++ * <p>The current implementation does NOT realize the full three-phase design.
++ * It implements a two-phase variant:
+  * <ol>
+- *   <li>{@code entity_activation} task: activates buffer + runs ActivationRange</li>
+- *   <li>Per-entity tasks: tick entities; push() enqueues to buffer instead of applying</li>
+- *   <li>{@code collision_flush} task: flushes all buffered impulses (serial, GLOBAL_RW)</li>
++ *   <li><b>Entity tick (parallel)</b>: each entity's full tick (AI, sense,
++ *       goal, move, collide, position-write) runs concurrently. Cross-entity
++ *       impulses produced by {@link Entity#push(Entity)} are intercepted and
++ *       enqueued into {@link DeferredImpulseBuffer} instead of being applied
++ *       inline.</li>
++ *   <li><b>collision_flush (serial, GLOBAL_RW)</b>: drains the impulse
++ *       buffer in entityId-sorted order and applies pending velocity changes
++ *       to each target entity.</li>
+  * </ol>
+  *
+- * <h2>Future: full 3-phase pipeline</h2>
+- * <p>For maximum parallelism, the collision system could be split into:
++ * <h3>What this matches from §6.2</h3>
++ * <ul>
++ *   <li>Cross-entity impulses are serialized in entityId-sorted order
++ *       (matches §6.2 phase 2 ordering rule).</li>
++ *   <li>Per-entity work happens in parallel (matches §6.2 phase 1+3
++ *       parallelism intent).</li>
++ * </ul>
++ *
++ * <h3>What this does NOT match from §6.2</h3>
++ * <ul>
++ *   <li>Detection is NOT a separate read-only phase — collision detection
++ *       still happens inline inside each entity's {@code Entity.move()} via
++ *       {@code CollisionUtil.performCollisions}, which writes velocity on
++ *       block collisions.</li>
++ *   <li>Position update is NOT a separate phase — positions are written
++ *       inside the parallel tick phase, so the impulse flush phase only
++ *       changes velocity, not position. The §6.2 design wants positions to
++ *       be re-derived after impulses settle.</li>
++ *   <li>This means an impulse from collision_flush takes ONE TICK of latency
++ *       to translate into position change, instead of the same-tick visible
++ *       displacement of vanilla. Empirically this is invisible at 20 TPS but
++ *       is a determinism deviation that must be accounted for in replay
++ *       hashing.</li>
++ * </ul>
++ *
++ * <h2>Future: D3b — true three-phase pipeline</h2>
++ * <p>To match §6.2 exactly, the implementation needs to:
+  * <ol>
+- *   <li>Detection: Read all entity positions, compute AABB overlaps (parallel read)</li>
+- *   <li>Impulse aggregation: Compute push vectors per pair (serial SCC)</li>
+- *   <li>Position update: Apply impulses + Entity.move() (parallel self-write)</li>
++ *   <li>Split {@code Entity.move()} so collision detection (read-only AABB
++ *       sweep) runs as one TaskNode and movement application as another.</li>
++ *   <li>Run AI/sense/goal as a "pre-collision" parallel layer that writes
++ *       only intended velocity (not position).</li>
++ *   <li>Add a "position commit" parallel layer after collision_flush that
++ *       reads final velocity and writes position.</li>
+  * </ol>
+- * <p>This requires deeper hooks into Entity.move() / CollisionUtil and is
+- * deferred to a future PR.
++ * <p>This requires non-trivial restructuring of {@code Entity.move} and
++ * {@code CollisionUtil}; tracked as a separate workstream.
+  *
+- * @see DeferredImpulseBuffer actual impulse deferral implementation
++ * @see DeferredImpulseBuffer current impulse deferral implementation
+  * @see EntityTaskBuilder generates entity tasks + collision_flush
+  */
+ public final class EntityCollisionPipeline {

@@ -155,14 +155,38 @@ correct DAG behavior including SCC contraction of GLOBAL_RW cycles.
 Non-player entities and independent BEs are marked safe. Degraded layers
 tracked and surfaced in `/nebula parallel` output.
 
-### D3 (partial): Deferred Impulse Collision Pipeline
+### D3 (partial): Deferred Impulse Collision Pipeline (D3a — Compromise)
 **Resolved:** 2026-05-27 (b7470de, ea534d5)  
+**Architecture deviation noted, see below**
+
 `DeferredImpulseBuffer` implemented: `Entity.push(Entity)` enqueues
 cross-entity impulses when buffer is active, applying them in a serial
 `collision_flush` task (GLOBAL_RW) after all entity tasks complete.
 Non-player entities re-enabled as `parallelSafe`. Buffer is region-local
-in `RegionizedWorldData`. Full 3-phase pipeline (detection → impulse →
-position) deferred to future PR for maximum parallelism.
+in `RegionizedWorldData`.
+
+**Architecture deviation from §6.2:**
+
+§6.2 specifies a strict three-phase pipeline:
+1. Detection (parallel, read-only AABB sweep)
+2. Impulse aggregation (serial, entityId-sorted)
+3. Position update (parallel, self-only writes)
+
+The current "D3a" implementation merges phases 1 and 3 with the AI/move
+work — only **phase 2 (impulse application)** is correctly serialized.
+Detection still runs inline inside `Entity.move` → `CollisionUtil`, which
+writes velocity on block collision. Positions are also written inside the
+parallel tick phase rather than as a separate post-impulse phase.
+
+**Visible consequence:** an impulse from `collision_flush` translates into
+position change one tick later than vanilla. Invisible at 20 TPS but
+**replay hashes will diverge** unless the recorder also defers impulse
+timing. Tracked as part of B1's full determinism workstream.
+
+**D3b (full three-phase) — deferred:** requires restructuring
+`Entity.move()` and `CollisionUtil` to split detection vs application,
+plus splitting AI/move/position into three separate task layers. Not in
+scope for this branch.
 
 ### B4 (partial): Layer A Annotation Count Update
 **Resolved:** 2026-05-27 (batches 2-7)  
