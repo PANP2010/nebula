@@ -1,0 +1,62 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Wed, 27 May 2026 23:49:57 +0800
+Subject: [PATCH] =?UTF-8?q?nebula:=20Layer=20A=20@NebulaRW=20annotations?=
+ =?UTF-8?q?=20batch=206=20=E2=80=94=202=20BE=20tick=20paths?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+- JukeboxBlockEntity.tick: self-only BE update for song player progress
+- ShulkerBoxBlockEntity.tick: GLOBAL_RW (animation triggers neighbor
+  updates and may push entities when opening)
+
+Total annotations: 58.
+
+diff --git a/net/minecraft/world/level/block/entity/JukeboxBlockEntity.java b/net/minecraft/world/level/block/entity/JukeboxBlockEntity.java
+index 4fc08328135df627005c1d53ccd42e3a39dd2a44..bb69d69589e12865dd0243be43f0d54511fdc3ff 100644
+--- a/net/minecraft/world/level/block/entity/JukeboxBlockEntity.java
++++ b/net/minecraft/world/level/block/entity/JukeboxBlockEntity.java
+@@ -101,6 +101,17 @@ public class JukeboxBlockEntity extends BlockEntity implements ContainerSingleIt
+         }
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readBlockEntities  = {"{pos}.*"},
++        writeBlockEntities = {"{pos}.*"},
++        readBlocks         = {"{pos}"},
++        triggeredEvents    = {"SOUND_PLAY"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        randomInstance     = "NONE",
++        verifiedAt         = "1.21.4"
++    )
+     public static void tick(final Level level, final BlockPos blockPos, final BlockState blockState, final JukeboxBlockEntity jukebox) {
+         jukebox.jukeboxSongPlayer.tick(level, blockState);
+     }
+diff --git a/net/minecraft/world/level/block/entity/ShulkerBoxBlockEntity.java b/net/minecraft/world/level/block/entity/ShulkerBoxBlockEntity.java
+index 5f6078e4cc06c059c01c7a20421f2f3a364a058b..19790b4ef818c4f24a4ea7a0a7ae7e67b267797b 100644
+--- a/net/minecraft/world/level/block/entity/ShulkerBoxBlockEntity.java
++++ b/net/minecraft/world/level/block/entity/ShulkerBoxBlockEntity.java
+@@ -95,6 +95,20 @@ public class ShulkerBoxBlockEntity extends RandomizableContainerBlockEntity impl
+         this.color = blockState.getBlock() instanceof ShulkerBoxBlock shulkerBoxBlock ? shulkerBoxBlock.getColor() : null;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readBlockEntities  = {"{pos}.*"},
++        writeBlockEntities = {"{pos}.*"},
++        readBlocks         = {"{pos}", "{pos}.up"},
++        readEntities       = {"{pos}.entities"},
++        writeEntities      = {"{pos}.entities"},
++        triggeredEvents    = {"NEIGHBOR_UPDATE", "ENTITY_PUSH"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.CONTRACTIBLE,
++        maxRandomCalls     = 0,
++        randomInstance     = "NONE",
++        mayTriggerBlockUpdates = true,
++        verifiedAt         = "1.21.4"
++    )
+     public static void tick(final Level level, final BlockPos pos, final BlockState state, final ShulkerBoxBlockEntity entity) {
+         entity.updateAnimation(level, pos, state);
+     }
