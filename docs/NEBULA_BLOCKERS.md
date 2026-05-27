@@ -165,13 +165,16 @@ in `RegionizedWorldData`. Full 3-phase pipeline (detection → impulse →
 position) deferred to future PR for maximum parallelism.
 
 ### B4 (partial): Layer A Annotation Count Update
-**Resolved:** 2026-05-27 (e7176f5, 5430daa, ab1bdc1, fcbe69f, 98571b0, cc34cc5)  
-Batch 2-4 added 13 more entity hot-path annotations: Entity.baseTick/lavaHurt/
-applyEffectsFromBlocksForLastMovements/updateSwimming/moveRelative,
-LivingEntity.baseTick/travel/checkFallDamage/hurtServer/doHurtTarget/onClimbable/
-tickDeath/onChangedBlock/removeFrost/tryAddFrost/rideTick,
-Mob.baseTick/doHurtTarget/inactiveTick/tickHeadTurn/checkDespawn.
-Total annotations: 52 (DG2 target ~130, ~40% complete).
+**Resolved:** 2026-05-27 (batches 2-7)  
+Across 6 batches added 21 entity/block/fluid annotations:
+- Entity: baseTick/lavaHurt/applyEffectsFromBlocksForLastMovements/updateSwimming/moveRelative
+- LivingEntity: baseTick/travel/checkFallDamage/hurtServer/doHurtTarget/onClimbable/tickDeath/onChangedBlock/removeFrost/tryAddFrost/rideTick
+- Mob: baseTick/doHurtTarget/inactiveTick/tickHeadTurn/checkDespawn
+- Redstone: RedstoneTorch (PROPAGATES), DiodeBlock/Repeater (DEFERRED), Observer (PROPAGATES), Comparator (DEFERRED)
+- BE ticks: Jukebox (self-only), ShulkerBox (GLOBAL_RW)
+- Fluids: FlowingFluid.tick (PROPAGATES), LavaFluid.randomTick
+
+Total annotations: 60 (DG2 target ~130, ~46% complete).
 
 ### B3 (partial): VAP Level 0 Compatibility Test Harness
 **Resolved:** 2026-05-27 (9965a27)  
