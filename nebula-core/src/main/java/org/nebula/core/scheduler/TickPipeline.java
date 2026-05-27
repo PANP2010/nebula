@@ -1,5 +1,6 @@
 package org.nebula.core.scheduler;
 
+import org.nebula.core.bucket.BucketDagBuilder;
 import org.nebula.core.vap.PluginTaskException;
 import org.nebula.core.vap.PluginTaskQueue;
 
@@ -14,7 +15,8 @@ import java.util.Objects;
  *
  * <p>Pipeline:
  * <ol>
- *   <li>Build initial DAG from dirty task set</li>
+ *   <li>Build initial DAG from dirty task set (via {@link BucketDagBuilder} when
+ *       set; falls back to {@link DagBuilder} for tests / small graphs)</li>
  *   <li>For each topological layer: execute tasks, then invoke MicroStepExtender</li>
  *   <li>If extension produced new tasks, re-layer the graph and continue</li>
  *   <li>Collect deferred tasks for next tick's seed set</li>
@@ -26,20 +28,40 @@ public final class TickPipeline {
     private final TaskRunner runner;
     private final int maxMicroSteps;
     private final PluginTaskQueue pluginQueue;
+    private final BucketDagBuilder bucketBuilder;
 
     public TickPipeline(TaskGenerator generator, TaskRunner runner) {
-        this(generator, runner, MicroStepExtender.MAX_MICRO_STEPS, null);
+        this(generator, runner, MicroStepExtender.MAX_MICRO_STEPS, null, null);
     }
 
     public TickPipeline(TaskGenerator generator, TaskRunner runner, int maxMicroSteps) {
-        this(generator, runner, maxMicroSteps, null);
+        this(generator, runner, maxMicroSteps, null, null);
     }
 
     public TickPipeline(TaskGenerator generator, TaskRunner runner, int maxMicroSteps, PluginTaskQueue pluginQueue) {
+        this(generator, runner, maxMicroSteps, pluginQueue, null);
+    }
+
+    /**
+     * Full constructor — pass a non-null {@code bucketBuilder} to use the
+     * spatial-bucket O(N×K) DAG construction (arch §4.1-§4.3). Pass {@code null}
+     * to fall back to the O(N²) {@link DagBuilder} (acceptable for unit tests
+     * with small task sets).
+     */
+    public TickPipeline(TaskGenerator generator, TaskRunner runner, int maxMicroSteps,
+                        PluginTaskQueue pluginQueue, BucketDagBuilder bucketBuilder) {
         this.generator = Objects.requireNonNull(generator);
         this.runner = Objects.requireNonNull(runner);
         this.maxMicroSteps = maxMicroSteps;
         this.pluginQueue = pluginQueue;
+        this.bucketBuilder = bucketBuilder;
+    }
+
+    private TaskGraph buildInitialGraph(Collection<TaskNode> tasks) {
+        if (bucketBuilder != null) {
+            return bucketBuilder.build(tasks);
+        }
+        return DagBuilder.build(tasks);
     }
 
     /**
@@ -50,7 +72,7 @@ public final class TickPipeline {
      * @throws DagExecutionException if a task action fails
      */
     public TickResult execute(Collection<TaskNode> dirtyTasks) throws DagExecutionException {
-        TaskGraph graph = DagBuilder.build(dirtyTasks);
+        TaskGraph graph = buildInitialGraph(dirtyTasks);
         MicroStepExtender extender = new MicroStepExtender(generator, maxMicroSteps);
         extender.seed(graph);
 
