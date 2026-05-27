@@ -1,0 +1,293 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Thu, 28 May 2026 02:18:27 +0800
+Subject: [PATCH] =?UTF-8?q?nebula:=20=C2=A715.1=20NebulaConfig=20=E2=80=94?=
+ =?UTF-8?q?=20config/nebula.yml=20loader?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+NebulaConfig.loadOnce() loads nebula.yml at server boot (just after the
+"Starting minecraft server version" log line) and exposes typed accessors
+for fidelity-tier, dag.bucket-size, dag.max-micro-steps, dag.scc-threshold,
+random.*, vap.*, performance.*, debug.*, rw-guard.*.
+
+System properties (-Dnebula.*) still override the YAML value so existing
+deployment scripts keep working.
+
+Wired into:
+  - NebulaBucketIntegration.builder() reads dag.bucket-size
+  - ServerLevel.nebula$tickViaDAG passes dag.max-micro-steps to TickPipeline
+
+Smoke verified at boot: "Nebula config: loaded config/nebula.yml
+(fidelity-tier=T0, dag.bucket-size=32, dag.max-micro-steps=256)".
+
+diff --git a/io/papermc/paper/threadedregions/NebulaBucketIntegration.java b/io/papermc/paper/threadedregions/NebulaBucketIntegration.java
+index 52d5f5c3bab8ecc92454c777eb990de3cbabed9a..9aac5ace9f1cf310a20c478f43a39f72e2a824a1 100644
+--- a/io/papermc/paper/threadedregions/NebulaBucketIntegration.java
++++ b/io/papermc/paper/threadedregions/NebulaBucketIntegration.java
+@@ -16,14 +16,27 @@ import org.nebula.core.bucket.BucketDagBuilder;
+  * <p>Pass the builder into {@link org.nebula.core.scheduler.TickPipeline}'s
+  * full constructor so the production tick path uses spatial bucketing
+  * instead of the O(N²) {@code DagBuilder} fallback.
++ *
++ * <p>Bucket size is read from {@code nebula.yml} ({@code nebula.dag.bucket-size},
++ * default 32 chunks per arch §15.1) on first call.
+  */
+ public final class NebulaBucketIntegration {
+ 
+-    private static final BucketDagBuilder INSTANCE = new BucketDagBuilder();
++    private static volatile BucketDagBuilder instance;
+ 
+     private NebulaBucketIntegration() {}
+ 
+     public static BucketDagBuilder builder() {
+-        return INSTANCE;
++        BucketDagBuilder b = instance;
++        if (b == null) {
++            synchronized (NebulaBucketIntegration.class) {
++                b = instance;
++                if (b == null) {
++                    b = new BucketDagBuilder(NebulaConfig.dagBucketSize());
++                    instance = b;
++                }
++            }
++        }
++        return b;
+     }
+ }
+diff --git a/io/papermc/paper/threadedregions/NebulaConfig.java b/io/papermc/paper/threadedregions/NebulaConfig.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..2c6307dc12de7057fcb17735d3de376447476827
+--- /dev/null
++++ b/io/papermc/paper/threadedregions/NebulaConfig.java
+@@ -0,0 +1,201 @@
++package io.papermc.paper.threadedregions;
++
++import com.mojang.logging.LogUtils;
++import org.slf4j.Logger;
++import org.spongepowered.configurate.CommentedConfigurationNode;
++import org.spongepowered.configurate.ConfigurationNode;
++import org.spongepowered.configurate.yaml.NodeStyle;
++import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
++
++import java.io.IOException;
++import java.nio.file.Files;
++import java.nio.file.Path;
++import java.nio.file.Paths;
++
++/**
++ * Architecture §15.1: nebula.yml loader.
++ *
++ * <p>Loads {@code config/nebula.yml} relative to the working directory at
++ * server start. Values are read once into static fields; system properties
++ * with the matching {@code -Dnebula.*} key still override the YAML value
++ * to keep older deployment scripts working.
++ *
++ * <p>Missing keys fall back to architecture defaults. Missing file is
++ * tolerated (also falls back to defaults) and logs a single line.
++ */
++public final class NebulaConfig {
++
++    private static final Logger LOGGER = LogUtils.getLogger();
++    private static final Path CONFIG_PATH = Paths.get("config", "nebula.yml");
++
++    // §15.1 defaults
++    private static String fidelityTier = "T0";
++    private static int dagBucketSize = 32;
++    private static int dagMaxMicroSteps = 256;
++    private static int dagSccThreshold = 128;
++    private static double randomBudgetSafetyMultiplier = 1.5;
++    private static double randomDowngradeThreshold = 0.05;
++    private static int randomDowngradeWarningCount = 10;
++    private static boolean vapLevel0AutoWrap = true;
++    private static String vapManagedStateCheck = "warn";
++    private static boolean vapSandboxEnabled = false;
++    private static boolean perfCpuAffinity = true;
++    private static boolean perfWorkStealing = true;
++    private static int perfTaskBatchingThreshold = 16;
++    private static boolean debugRwCheck = false;
++    private static boolean debugReplayRecord = false;
++    private static boolean rwGuardEnabled = false;
++    private static double rwGuardSamplingRate = 0.01;
++    private static String rwGuardMode = "WARN";
++
++    private static volatile boolean loaded = false;
++
++    private NebulaConfig() {}
++
++    /**
++     * Loads {@code config/nebula.yml} once. Idempotent — subsequent calls
++     * are no-ops. Should be called early in server boot.
++     */
++    public static synchronized void loadOnce() {
++        if (loaded) return;
++        loaded = true;
++        if (!Files.exists(CONFIG_PATH)) {
++            LOGGER.info("Nebula config: {} not found, using architecture §15.1 defaults", CONFIG_PATH);
++            return;
++        }
++        try {
++            YamlConfigurationLoader loader = YamlConfigurationLoader.builder()
++                .path(CONFIG_PATH)
++                .nodeStyle(NodeStyle.BLOCK)
++                .build();
++            CommentedConfigurationNode root = loader.load();
++            ConfigurationNode nebula = root.node("nebula");
++            if (nebula.virtual()) {
++                LOGGER.warn("Nebula config: nebula.yml has no 'nebula' root; using defaults");
++                return;
++            }
++            applyTo(nebula);
++            LOGGER.info("Nebula config: loaded {} (fidelity-tier={}, dag.bucket-size={}, dag.max-micro-steps={})",
++                CONFIG_PATH, fidelityTier, dagBucketSize, dagMaxMicroSteps);
++        } catch (IOException e) {
++            LOGGER.warn("Nebula config: failed to read " + CONFIG_PATH + ", using defaults", e);
++        }
++    }
++
++    private static void applyTo(ConfigurationNode nebula) {
++        fidelityTier = nebula.node("fidelity-tier").getString(fidelityTier);
++
++        ConfigurationNode dag = nebula.node("dag");
++        dagBucketSize = dag.node("bucket-size").getInt(dagBucketSize);
++        dagMaxMicroSteps = dag.node("max-micro-steps").getInt(dagMaxMicroSteps);
++        dagSccThreshold = dag.node("scc-threshold").getInt(dagSccThreshold);
++
++        ConfigurationNode rnd = nebula.node("random");
++        randomBudgetSafetyMultiplier = rnd.node("budget-safety-multiplier").getDouble(randomBudgetSafetyMultiplier);
++        randomDowngradeThreshold = rnd.node("downgrade-threshold").getDouble(randomDowngradeThreshold);
++        randomDowngradeWarningCount = rnd.node("downgrade-warning-count").getInt(randomDowngradeWarningCount);
++
++        ConfigurationNode vap = nebula.node("vap");
++        vapLevel0AutoWrap = vap.node("level0-auto-wrap").getBoolean(vapLevel0AutoWrap);
++        vapManagedStateCheck = vap.node("managed-state-check").getString(vapManagedStateCheck);
++        vapSandboxEnabled = vap.node("sandbox", "enabled").getBoolean(vapSandboxEnabled);
++
++        ConfigurationNode perf = nebula.node("performance");
++        perfCpuAffinity = perf.node("cpu-affinity").getBoolean(perfCpuAffinity);
++        perfWorkStealing = perf.node("work-stealing").getBoolean(perfWorkStealing);
++        perfTaskBatchingThreshold = perf.node("task-batching-threshold").getInt(perfTaskBatchingThreshold);
++
++        ConfigurationNode debug = nebula.node("debug");
++        debugRwCheck = debug.node("rw-check").getBoolean(debugRwCheck);
++        debugReplayRecord = debug.node("replay-record").getBoolean(debugReplayRecord);
++
++        ConfigurationNode rwGuard = nebula.node("rw-guard");
++        rwGuardEnabled = rwGuard.node("enabled").getBoolean(rwGuardEnabled);
++        rwGuardSamplingRate = rwGuard.node("sampling-rate").getDouble(rwGuardSamplingRate);
++        rwGuardMode = rwGuard.node("mode").getString(rwGuardMode);
++    }
++
++    // ----- Accessors with -Dnebula.* override priority -----
++
++    public static String fidelityTier() {
++        return System.getProperty("nebula.fidelity", fidelityTier);
++    }
++
++    public static int dagBucketSize() {
++        return Integer.getInteger("nebula.dag.bucket-size", dagBucketSize);
++    }
++
++    public static int dagMaxMicroSteps() {
++        return Integer.getInteger("nebula.dag.max-micro-steps", dagMaxMicroSteps);
++    }
++
++    public static int dagSccThreshold() {
++        return Integer.getInteger("nebula.dag.scc-threshold", dagSccThreshold);
++    }
++
++    public static double randomBudgetSafetyMultiplier() {
++        String prop = System.getProperty("nebula.random.safety-multiplier");
++        return prop != null ? Double.parseDouble(prop) : randomBudgetSafetyMultiplier;
++    }
++
++    public static double randomDowngradeThreshold() {
++        String prop = System.getProperty("nebula.random.downgrade-threshold");
++        return prop != null ? Double.parseDouble(prop) : randomDowngradeThreshold;
++    }
++
++    public static int randomDowngradeWarningCount() {
++        return Integer.getInteger("nebula.random.downgrade-warning-count", randomDowngradeWarningCount);
++    }
++
++    public static boolean vapLevel0AutoWrap() {
++        String prop = System.getProperty("nebula.vap.level0-auto-wrap");
++        return prop != null ? Boolean.parseBoolean(prop) : vapLevel0AutoWrap;
++    }
++
++    public static String vapManagedStateCheck() {
++        return System.getProperty("nebula.vap.managed-state-check", vapManagedStateCheck);
++    }
++
++    public static boolean vapSandboxEnabled() {
++        String prop = System.getProperty("nebula.vap.sandbox.enabled");
++        return prop != null ? Boolean.parseBoolean(prop) : vapSandboxEnabled;
++    }
++
++    public static boolean perfCpuAffinity() {
++        String prop = System.getProperty("nebula.perf.cpu-affinity");
++        return prop != null ? Boolean.parseBoolean(prop) : perfCpuAffinity;
++    }
++
++    public static boolean perfWorkStealing() {
++        String prop = System.getProperty("nebula.perf.work-stealing");
++        return prop != null ? Boolean.parseBoolean(prop) : perfWorkStealing;
++    }
++
++    public static int perfTaskBatchingThreshold() {
++        return Integer.getInteger("nebula.perf.task-batching-threshold", perfTaskBatchingThreshold);
++    }
++
++    public static boolean debugRwCheck() {
++        String prop = System.getProperty("nebula.rw.check");
++        return prop != null ? Boolean.parseBoolean(prop) : debugRwCheck;
++    }
++
++    public static boolean debugReplayRecord() {
++        String prop = System.getProperty("nebula.replay.record");
++        return prop != null ? Boolean.parseBoolean(prop) : debugReplayRecord;
++    }
++
++    public static boolean rwGuardEnabled() {
++        String prop = System.getProperty("nebula.guard");
++        return prop != null ? Boolean.parseBoolean(prop) : rwGuardEnabled;
++    }
++
++    public static double rwGuardSamplingRate() {
++        String prop = System.getProperty("nebula.guard.sampling-rate");
++        return prop != null ? Double.parseDouble(prop) : rwGuardSamplingRate;
++    }
++
++    public static String rwGuardMode() {
++        return System.getProperty("nebula.guard.mode", rwGuardMode);
++    }
++}
+diff --git a/net/minecraft/server/dedicated/DedicatedServer.java b/net/minecraft/server/dedicated/DedicatedServer.java
+index 5f89d29eaeeb4c63b8b9e034d440204f518efec2..951dc498ba8adc790590ccc2e58a783bd051a05f 100644
+--- a/net/minecraft/server/dedicated/DedicatedServer.java
++++ b/net/minecraft/server/dedicated/DedicatedServer.java
+@@ -249,6 +249,8 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
+         consoleThread.setUncaughtExceptionHandler(new DefaultUncaughtExceptionHandler(LOGGER));
+         // consoleThread.start(); // Paper - Enhance console tab completions for brigadier commands; moved down
+         LOGGER.info("Starting minecraft server version {}", SharedConstants.getCurrentVersion().name());
++        // Nebula §15.1: load nebula.yml early so DAG/random/VAP modules can read it.
++        io.papermc.paper.threadedregions.NebulaConfig.loadOnce();
+         if (Runtime.getRuntime().maxMemory() / 1024L / 1024L < 512L) {
+             LOGGER.warn("To start the server with more ram, launch it as \"java -Xmx1024M -Xms1024M -jar minecraft_server.jar\"");
+         }
+diff --git a/net/minecraft/server/level/ServerLevel.java b/net/minecraft/server/level/ServerLevel.java
+index 5a3efb36846762042689f67ae428380322beb876..1c975bada4a98e9de183b22ac81e2b59bb0ee866 100644
+--- a/net/minecraft/server/level/ServerLevel.java
++++ b/net/minecraft/server/level/ServerLevel.java
+@@ -3264,7 +3264,9 @@ public class ServerLevel extends Level implements WorldGenLevel, ServerEntityGet
+                 io.papermc.paper.threadedregions.NebulaGuardIntegration.runner(tick)
+             );
+         org.nebula.core.scheduler.TickPipeline pipeline = new org.nebula.core.scheduler.TickPipeline(
+-            microStepGenerator, runner, 256, null,
++            microStepGenerator, runner,
++            io.papermc.paper.threadedregions.NebulaConfig.dagMaxMicroSteps(),
++            null,
+             io.papermc.paper.threadedregions.NebulaBucketIntegration.builder()
+         );
+ 
