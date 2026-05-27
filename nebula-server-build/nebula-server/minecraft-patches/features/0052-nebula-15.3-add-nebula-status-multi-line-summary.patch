@@ -1,0 +1,70 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Thu, 28 May 2026 07:37:06 +0800
+Subject: [PATCH] =?UTF-8?q?nebula:=20=C2=A715.3=20=E2=80=94=20add=20/nebul?=
+ =?UTF-8?q?a=20status=20(multi-line=20summary)?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Architecture §15.3 documents /nebula status as the canonical "what's
+the state of nebula right now" command. Previously we only had
+separate sub-commands (mode/stats/parallel/random/guard/fidelity).
+
+/nebula status now prints:
+  Nebula status:
+    mode: ENABLED|DISABLED
+    fidelity-tier: T0|T1|T2|FALLBACK
+    ticks: N, avg-mspt: X, avg-parallelism: Y
+    parallel runner: enabled|disabled
+    rw-guard: enabled|disabled
+    random-tier: T0|T1
+
+Aggregates from NebulaTickMetrics + NebulaFidelityIntegration +
+NebulaParallelIntegration + NebulaGuardIntegration + NebulaRandomGate.
+
+diff --git a/net/minecraft/server/commands/NebulaCommand.java b/net/minecraft/server/commands/NebulaCommand.java
+index ca6e524e00013b65f67affc8b6179bab568b8ebf..d342c708d659e16f703b0e7fcf1a2cf54bbc4cb1 100644
+--- a/net/minecraft/server/commands/NebulaCommand.java
++++ b/net/minecraft/server/commands/NebulaCommand.java
+@@ -42,6 +42,7 @@ public final class NebulaCommand {
+             Commands.literal("nebula")
+                 .requires(Commands.hasPermission(Commands.LEVEL_ADMINS))
+                 .then(Commands.literal("stats").executes(c -> stats(c.getSource())))
++                .then(Commands.literal("status").executes(c -> status(c.getSource())))
+                 .then(Commands.literal("mode").executes(c -> mode(c.getSource())))
+                 .then(Commands.literal("redstone").executes(c -> redstone(c.getSource())))
+                 .then(Commands.literal("explosions").executes(c -> explosions(c.getSource())))
+@@ -134,6 +135,32 @@ public final class NebulaCommand {
+         };
+     }
+ 
++    /**
++     * Architecture §15.3 /nebula status — concise multi-line summary of
++     * current Nebula state (mode, fidelity, MSPT, parallelism, random).
++     */
++    private static int status(final CommandSourceStack source) {
++        boolean active = TickRegions.isNebulaMode();
++        org.nebula.core.random.FidelityTier tier = NebulaFidelityIntegration.currentTier();
++        long ticks = NebulaTickMetrics.totalTicks();
++        double avgMspt = NebulaTickMetrics.avgMsPerTick();
++        double avgParallelism = NebulaTickMetrics.avgParallelismPerTick();
++
++        StringBuilder sb = new StringBuilder();
++        sb.append("Nebula status:\n");
++        sb.append("  mode: ").append(active ? "ENABLED" : "DISABLED").append('\n');
++        sb.append("  fidelity-tier: ").append(tier).append('\n');
++        sb.append("  ticks: ").append(ticks).append(", avg-mspt: ").append(String.format("%.2f", avgMspt))
++            .append(", avg-parallelism: ").append(String.format("%.2f", avgParallelism)).append('\n');
++        sb.append("  parallel runner: ").append(NebulaParallelIntegration.enabled() ? "enabled" : "disabled").append('\n');
++        sb.append("  rw-guard: ").append(NebulaGuardIntegration.enabled() ? "enabled" : "disabled").append('\n');
++        sb.append("  random-tier: ").append(NebulaRandomGate.currentTier() == 0 ? "T0" : "T1");
++
++        final String body = sb.toString();
++        source.sendSuccess(() -> Component.literal(body), false);
++        return active ? 1 : 0;
++    }
++
+     private static int fidelityReset(final CommandSourceStack source) {
+         NebulaFidelityIntegration.reset(org.nebula.core.random.FidelityTier.T0);
+         source.sendSuccess(
