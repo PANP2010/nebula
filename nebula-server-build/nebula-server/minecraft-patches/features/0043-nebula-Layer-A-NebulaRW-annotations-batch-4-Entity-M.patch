@@ -1,0 +1,156 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Wed, 27 May 2026 22:18:36 +0800
+Subject: [PATCH] =?UTF-8?q?nebula:=20Layer=20A=20@NebulaRW=20annotations?=
+ =?UTF-8?q?=20batch=204=20=E2=80=94=20Entity=20&=20Mob=20hot=20paths?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Entity:
+- lavaHurt(@Nullable BlockPos): GLOBAL_RW (calls hurtServer + sound play)
+- applyEffectsFromBlocksForLastMovements: block-effect application on swept AABB
+- updateSwimming: self swim state from water proximity
+- moveRelative: pure self deltaMovement update from yaw + speed
+
+Mob:
+- inactiveTick: goal/target selector tick when aware
+- tickHeadTurn: self body rotation control
+- checkDespawn: GLOBAL_RW (queries nearby players, may discard self)
+
+5 batches done. Total annotated methods: 52 (up from 45). Target per
+arch §14.3 DG2 is ~130 functions; tracking on schedule.
+
+diff --git a/net/minecraft/world/entity/Entity.java b/net/minecraft/world/entity/Entity.java
+index b793426e735cd14704ef96f1eff739e927d45638..22c7812ff3c77d9a1ec0577436d2d7cdc4067a5a 100644
+--- a/net/minecraft/world/entity/Entity.java
++++ b/net/minecraft/world/entity/Entity.java
+@@ -1052,6 +1052,18 @@ public abstract class Entity
+         this.lavaHurt(this.lastLavaContact); // fallback for minecarts if defined
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.*"},
++        readBlocks         = {"this.position"},
++        readGlobals        = {"WORLD_TIME"},
++        triggeredEvents    = {"ENTITY_DAMAGED", "SOUND_PLAY"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 1,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     public void lavaHurt(@Nullable BlockPos pos) {
+         // Paper end - track lava contact
+         if (!this.fireImmune()) {
+@@ -1385,6 +1397,17 @@ public abstract class Entity
+         this.applyEffectsFromBlocks(this.finalMovementsThisTick);
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.movementThisTick", "this.finalMovementsThisTick"},
++        writeEntities      = {"this.deltaMovement", "this.activeEffects"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"BLOCK_STEP", "ENTITY_DAMAGED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        randomInstance     = "NONE",
++        verifiedAt         = "1.21.4"
++    )
+     protected void applyEffectsFromBlocksForLastMovements() {
+         this.applyEffectsFromBlocks(this.finalMovementsThisTick);
+     }
+@@ -2126,6 +2149,17 @@ public abstract class Entity
+         }
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.swimming", "this.sprinting", "this.passenger"},
++        writeEntities      = {"this.swimming"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        randomInstance     = "NONE",
++        verifiedAt         = "1.21.4"
++    )
+     public void updateSwimming() {
+         if (this.isSwimming()) {
+             this.setSwimming(this.isSprinting() && this.isInWater() && !this.isPassenger());
+@@ -2237,6 +2271,16 @@ public abstract class Entity
+         return !this.firstTick && this.fluidInteraction.isInFluid(FluidTags.LAVA);
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.yRot", "this.deltaMovement"},
++        writeEntities      = {"this.deltaMovement"},
++        triggeredEvents    = {},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        randomInstance     = "NONE",
++        verifiedAt         = "1.21.4"
++    )
+     public void moveRelative(final float speed, final Vec3 input) {
+         Vec3 delta = getInputVector(input, speed, this.getYRot());
+         this.setDeltaMovement(this.getDeltaMovement().add(delta));
+diff --git a/net/minecraft/world/entity/Mob.java b/net/minecraft/world/entity/Mob.java
+index 2577051abcb752ef453ca22111577476ad29c07b..7ea11ff9366dde114357dbec84764bd5207584f0 100644
+--- a/net/minecraft/world/entity/Mob.java
++++ b/net/minecraft/world/entity/Mob.java
+@@ -212,6 +212,16 @@ public abstract class Mob extends LivingEntity implements Targeting, EquipmentUs
+     }
+ 
+     // Paper start
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.aware", "this.goalSelector", "this.targetSelector"},
++        writeEntities      = {"this.goalSelector", "this.targetSelector"},
++        triggeredEvents    = {"AI_GOAL_TICK"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 4,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void inactiveTick() {
+         super.inactiveTick();
+@@ -451,6 +461,16 @@ public abstract class Mob extends LivingEntity implements Targeting, EquipmentUs
+         this.goalSelector.setControlFlag(Goal.Flag.LOOK, noController);
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.bodyRotationControl", "this.yBodyRot", "this.yHeadRot"},
++        writeEntities      = {"this.yBodyRot", "this.yHeadRot"},
++        triggeredEvents    = {},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        randomInstance     = "NONE",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     protected void tickHeadTurn(final float yBodyRotT) {
+         this.bodyRotationControl.clientTick();
+@@ -809,6 +829,18 @@ public abstract class Mob extends LivingEntity implements Targeting, EquipmentUs
+     }
+     // Paper end - allow changing despawnInPeaceful
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*", "*"},
++        writeEntities      = {"this.*", "this.removed"},
++        readGlobals        = {"WORLD_DIFFICULTY"},
++        triggeredEvents    = {"ENTITY_REMOVED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 1,
++        randomInstance     = "ENTITY_RANDOM",
++        mayLoadChunks      = false,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void checkDespawn() {
+         if (this.level().getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) { // Paper - allow changing despawnInPeaceful
