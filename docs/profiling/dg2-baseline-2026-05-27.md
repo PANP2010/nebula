@@ -115,3 +115,25 @@ The single degraded layer is `entity_activation` (GLOBAL_RW by design).
 improvement comes from entity tasks no longer being serialized — they run
 concurrently across workers, with cross-entity collision impulses deferred
 to the serial `collision_flush` task at the end of the entity phase.
+
+---
+
+## Post-D3 Smoke Test (Heavier Load) — 2026-05-27
+
+### Results (30s smoke test, post annotation batch 4)
+
+```
+ticks=90, avg-tasks/tick=1551.1, avg-layers/tick=1.00
+avg-parallelism=1551.10, avg-ms/tick=331.436
+peak-tasks=1578, peak-layers=1, peak-ms=402.503
+entity-tasks=139509, be-tasks=1115
+parallel runner: threads=10, threshold=2, layers-run=93, tasks-run=144320
+  avg-tasks/layer=1551.83, degraded-to-serial=1
+```
+
+### Notes
+
+Higher task count this run (1551 avg vs 427 earlier) reflects more entities
+spawned/active per tick. avg-parallelism = avg-tasks/tick confirms every
+entity task fans out to a worker. degraded-to-serial=1 is `entity_activation`
+(by design GLOBAL_RW). System is stable across the new annotations.

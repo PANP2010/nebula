@@ -165,8 +165,22 @@ in `RegionizedWorldData`. Full 3-phase pipeline (detection → impulse →
 position) deferred to future PR for maximum parallelism.
 
 ### B4 (partial): Layer A Annotation Count Update
-**Resolved:** 2026-05-27 (e7176f5, 5430daa)  
-Batch 2 added 8 more entity hot-path annotations: Entity.baseTick,
-LivingEntity.baseTick/travel/checkFallDamage/hurtServer/doHurtTarget,
-Mob.baseTick/doHurtTarget. Total entity-tier annotations: 17.
-Total across all subsystems: ~38.
+**Resolved:** 2026-05-27 (e7176f5, 5430daa, ab1bdc1, fcbe69f, 98571b0, cc34cc5)  
+Batch 2-4 added 13 more entity hot-path annotations: Entity.baseTick/lavaHurt/
+applyEffectsFromBlocksForLastMovements/updateSwimming/moveRelative,
+LivingEntity.baseTick/travel/checkFallDamage/hurtServer/doHurtTarget/onClimbable/
+tickDeath/onChangedBlock/removeFrost/tryAddFrost/rideTick,
+Mob.baseTick/doHurtTarget/inactiveTick/tickHeadTurn/checkDespawn.
+Total annotations: 52 (DG2 target ~130, ~40% complete).
+
+### B3 (partial): VAP Level 0 Compatibility Test Harness
+**Resolved:** 2026-05-27 (9965a27)  
+6 integration tests covering arch §13.2 plugin phase contract via
+TickPipeline + PluginTaskQueue with synthetic plugins:
+- kernelPhaseCompletesBeforePluginPhase
+- interPluginOrderIsRegistrationOrder
+- intraPluginPreservesSubmissionOrder
+- multiplePluginsSubmitFromMultipleKernelTasks
+- pluginTaskFailureSurfacesAsPluginTaskException
+- unknownPluginsExecuteAfterRegisteredOnes
+Real third-party plugin JARs still required for §14.4 DG3 ≥80% compat rate.
