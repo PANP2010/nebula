@@ -1,0 +1,34 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Fri, 29 May 2026 00:25:51 +0800
+Subject: [PATCH] nebula: /nebula bench prints BucketBuildStats per-phase
+ breakdown
+
+Adds the new bucket-build phase timing to /nebula bench output and
+includes BucketBuildStats.reset() in /nebula reset.
+
+diff --git a/net/minecraft/server/commands/NebulaCommand.java b/net/minecraft/server/commands/NebulaCommand.java
+index 77a090987e8cd454ef83f416a95d715d0b9a17be..b2bbf097ffeee92e6c3e0663dd8b443cd4b795f1 100644
+--- a/net/minecraft/server/commands/NebulaCommand.java
++++ b/net/minecraft/server/commands/NebulaCommand.java
+@@ -180,8 +180,10 @@ public final class NebulaCommand {
+     private static int bench(final CommandSourceStack source) {
+         String probe = io.papermc.paper.threadedregions.NebulaTickProbe.summary();
+         String breakdown = org.nebula.core.scheduler.TickStats.summary();
++        String bucketStats = org.nebula.core.bucket.BucketBuildStats.summary();
+         source.sendSuccess(() -> Component.literal(probe), false);
+         source.sendSuccess(() -> Component.literal(breakdown), false);
++        source.sendSuccess(() -> Component.literal(bucketStats), false);
+         return (int) Math.min(Integer.MAX_VALUE, io.papermc.paper.threadedregions.NebulaTickProbe.totalSamples());
+     }
+ 
+@@ -192,7 +194,8 @@ public final class NebulaCommand {
+         NebulaParallelIntegration.reset();
+         io.papermc.paper.threadedregions.NebulaTickProbe.reset();
+         org.nebula.core.scheduler.TickStats.reset();
+-        source.sendSuccess(() -> Component.literal("Nebula DAG metrics + random budget + guard + parallel + bench probe + tick stats reset."), true);
++        org.nebula.core.bucket.BucketBuildStats.reset();
++        source.sendSuccess(() -> Component.literal("Nebula DAG metrics + random budget + guard + parallel + bench probe + tick stats + bucket stats reset."), true);
+         return 1;
+     }
+ 
