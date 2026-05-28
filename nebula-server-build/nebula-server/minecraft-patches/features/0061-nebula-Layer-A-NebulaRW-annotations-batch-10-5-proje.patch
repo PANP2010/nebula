@@ -1,0 +1,130 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Fri, 29 May 2026 02:20:58 +0800
+Subject: [PATCH] =?UTF-8?q?nebula:=20Layer=20A=20@NebulaRW=20annotations?=
+ =?UTF-8?q?=20batch=2010=20=E2=80=94=205=20projectile=20entities?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Common projectile tick paths in survival servers:
+- Projectile.tick (base class — owner read, position+velocity write)
+- FishingHook.tick (random seed sync, may spawn loot items)
+- FireworkRocketEntity.tick (may explode → CONTRACTIBLE)
+- ThrownTrident.tick (may damage owner via channelling)
+- EyeOfEnder.tick (homing toward stronghold, no entity damage)
+
+Total annotations: 84 (65% of DG2 target).
+
+diff --git a/net/minecraft/world/entity/projectile/EyeOfEnder.java b/net/minecraft/world/entity/projectile/EyeOfEnder.java
+index 1eabbba7138340e70f832f1c89be88bbe891bae8..08f388e2e4b7d4c8ae77e29f79328889931a6c65 100644
+--- a/net/minecraft/world/entity/projectile/EyeOfEnder.java
++++ b/net/minecraft/world/entity/projectile/EyeOfEnder.java
+@@ -92,6 +92,17 @@ public class EyeOfEnder extends Entity implements ItemSupplier {
+         } // Paper - Change EyeOfEnder target without changing other things
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.*"},
++        readBlocks         = {"this.position"},
++        triggeredEvents    = {"ENTITY_MOVED", "ITEM_SPAWN"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 1,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         super.tick();
+diff --git a/net/minecraft/world/entity/projectile/FireworkRocketEntity.java b/net/minecraft/world/entity/projectile/FireworkRocketEntity.java
+index ca9e604cb81cf3c3b0312dd02265388251872283..a4fbadcc95d6d7d28b512ac9a27ecca53fe8424d 100644
+--- a/net/minecraft/world/entity/projectile/FireworkRocketEntity.java
++++ b/net/minecraft/world/entity/projectile/FireworkRocketEntity.java
+@@ -126,6 +126,17 @@ public class FireworkRocketEntity extends Projectile implements ItemSupplier {
+     }
+     // Paper end - EAR 2
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*", "this.attached.*"},
++        writeEntities      = {"this.*"},
++        readBlocks         = {"this.position", "this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED", "EXPLOSION", "ENTITY_DAMAGED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.CONTRACTIBLE,
++        maxRandomCalls     = 4,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         super.tick();
+diff --git a/net/minecraft/world/entity/projectile/FishingHook.java b/net/minecraft/world/entity/projectile/FishingHook.java
+index 0c8a48988c859669cf7e38816aaf32782c245244..8b996bc6725aa139539baa559e840942d2bf09f8 100644
+--- a/net/minecraft/world/entity/projectile/FishingHook.java
++++ b/net/minecraft/world/entity/projectile/FishingHook.java
+@@ -161,6 +161,19 @@ public class FishingHook extends Projectile {
+         return distance < 4096.0;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*", "this.owner.*"},
++        writeEntities      = {"this.*"},
++        readBlocks         = {"this.position", "this.boundingBox.expand"},
++        readGlobals        = {"WORLD_TIME"},
++        triggeredEvents    = {"ENTITY_MOVED", "ITEM_SPAWN"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 4,
++        randomInstance     = "ENTITY_RANDOM",
++        maySpawnEntities   = true,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         this.syncronizedRandom.setSeed(this.getUUID().getLeastSignificantBits() ^ this.level().getGameTime());
+diff --git a/net/minecraft/world/entity/projectile/Projectile.java b/net/minecraft/world/entity/projectile/Projectile.java
+index c8963924b3c2ed099a6dba9e173258f510d26829..df3c66aceab6aac7b2b63b5399cccf685aeff6bb 100644
+--- a/net/minecraft/world/entity/projectile/Projectile.java
++++ b/net/minecraft/world/entity/projectile/Projectile.java
+@@ -108,6 +108,17 @@ public abstract class Projectile extends Entity implements TraceableEntity {
+         }
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*", "this.owner.*"},
++        writeEntities      = {"this.*"},
++        readBlocks         = {"this.position", "this.boundingBox.expand"},
++        triggeredEvents    = {"PROJECTILE_SHOOT", "ENTITY_MOVED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         if (!this.hasBeenShot) {
+diff --git a/net/minecraft/world/entity/projectile/arrow/ThrownTrident.java b/net/minecraft/world/entity/projectile/arrow/ThrownTrident.java
+index c9e0926bccec13233f52bcafbd71179028fa1324..d9cbce75e16b02d1987a4f2acfeea46884d71c0d 100644
+--- a/net/minecraft/world/entity/projectile/arrow/ThrownTrident.java
++++ b/net/minecraft/world/entity/projectile/arrow/ThrownTrident.java
+@@ -64,6 +64,17 @@ public class ThrownTrident extends AbstractArrow {
+         entityData.define(ID_FOIL, false);
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*", "this.owner.*"},
++        writeEntities      = {"this.*", "this.owner.*"},
++        readBlocks         = {"this.position", "this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED", "ENTITY_DAMAGED", "ENTITY_HIT"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.CONTRACTIBLE,
++        maxRandomCalls     = 0,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         if (this.inGroundTime > 4) {
