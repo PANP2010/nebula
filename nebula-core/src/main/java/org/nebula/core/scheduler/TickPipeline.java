@@ -58,7 +58,11 @@ public final class TickPipeline {
     }
 
     private TaskGraph buildInitialGraph(Collection<TaskNode> tasks) {
-        if (bucketBuilder != null) {
+        // For very small graphs the bucket builder's overhead (parallel pool
+        // submit, ConcurrentHashMap, sub-pass timing recording) outweighs its
+        // benefit. Fall through to the plain O(N²) DagBuilder, which is
+        // ~5µs flat for ≤32 tasks vs ~7ms for the bucket builder cold path.
+        if (bucketBuilder != null && tasks.size() >= 64) {
             return bucketBuilder.build(tasks);
         }
         return DagBuilder.build(tasks);
