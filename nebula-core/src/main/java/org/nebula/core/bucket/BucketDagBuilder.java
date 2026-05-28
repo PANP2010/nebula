@@ -73,17 +73,30 @@ public final class BucketDagBuilder {
         SpatialBucketIndex index = new SpatialBucketIndex(tasks, bucketSize);
         long tIndex = System.nanoTime();
 
-        // Per-bucket conflict detection (parallel)
+        // Per-bucket conflict detection.  Use serial for small graphs to avoid
+        // ForkJoinPool dispatch overhead — empty/idle worlds otherwise pay
+        // ~2-3ms in parallel-stream startup for ~10 micro-buckets.
         Map<BucketId, List<DependencyEdge>> bucketEdges = new ConcurrentHashMap<>();
-        pool.submit(() ->
-            index.bucketIds().parallelStream().forEach(bid -> {
+        Set<BucketId> bucketIds = index.bucketIds();
+        if (tasks.size() < 256 || bucketIds.size() < 4) {
+            for (BucketId bid : bucketIds) {
                 List<TaskNode> bucketTasks = new ArrayList<>(index.tasksInBucket(bid));
                 List<DependencyEdge> edges = detectConflicts(bucketTasks);
                 if (!edges.isEmpty()) {
                     bucketEdges.put(bid, edges);
                 }
-            })
-        ).join();
+            }
+        } else {
+            pool.submit(() ->
+                bucketIds.parallelStream().forEach(bid -> {
+                    List<TaskNode> bucketTasks = new ArrayList<>(index.tasksInBucket(bid));
+                    List<DependencyEdge> edges = detectConflicts(bucketTasks);
+                    if (!edges.isEmpty()) {
+                        bucketEdges.put(bid, edges);
+                    }
+                })
+            ).join();
+        }
         long tBucket = System.nanoTime();
 
         // Global tasks conflict against everything that touches globals.
