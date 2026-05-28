@@ -1,0 +1,73 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Thu, 28 May 2026 23:26:26 +0800
+Subject: [PATCH] nebula: stress-mode bypass in forEachTickingEntity +
+ TickStats in /nebula bench
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+RegionizedWorldData.forEachTickingEntity: when /nebula stress-mode is
+on, iterate ALL allEntities rather than the player-gated entityTickList.
+This makes the entity workload symmetric between Folia and Nebula
+schedulers under stress mode — without it, Folia idles all entities
+because no players are present, while Nebula sees them via the new
+NebulaStressMode hook in EntityTaskBuilder. The bypass is gated by
+NebulaStressMode.isEnabled() so it only affects benchmark runs.
+
+/nebula bench now also prints the TickStats build/run breakdown for
+diagnostic visibility during the bucket-size tuning that revealed the
+DAG-build bottleneck.
+
+/nebula reset clears TickStats too.
+
+diff --git a/io/papermc/paper/threadedregions/RegionizedWorldData.java b/io/papermc/paper/threadedregions/RegionizedWorldData.java
+index b47cbbe6553bc06923d357b4eb2b972327795ce4..e7cbc36c5b8c4ac5851427bf30ea633ef8ae7119 100644
+--- a/io/papermc/paper/threadedregions/RegionizedWorldData.java
++++ b/io/papermc/paper/threadedregions/RegionizedWorldData.java
+@@ -597,6 +597,18 @@ public final class RegionizedWorldData {
+     }
+ 
+     public void forEachTickingEntity(final Consumer<Entity> action) {
++        // Stress-mode bypass: when /nebula stress-mode is on, iterate ALL
++        // region-local entities even if no player is in chunk-ticking range.
++        // Used for benchmarking — without this, an idle test world has no
++        // ticking entities regardless of how many were spawned.
++        if (NebulaStressMode.isEnabled()) {
++            for (Entity entity : this.allEntities) {
++                if (entity != null && !entity.isRemoved()) {
++                    action.accept(entity);
++                }
++            }
++            return;
++        }
+         final IteratorSafeOrderedReferenceSet.Iterator<Entity> iterator = this.entityTickList.iterator();
+         try {
+             while (iterator.hasNext()) {
+diff --git a/net/minecraft/server/commands/NebulaCommand.java b/net/minecraft/server/commands/NebulaCommand.java
+index d5b56c3fc6391e7dba68d2d8b9260c1d709cdece..77a090987e8cd454ef83f416a95d715d0b9a17be 100644
+--- a/net/minecraft/server/commands/NebulaCommand.java
++++ b/net/minecraft/server/commands/NebulaCommand.java
+@@ -178,8 +178,10 @@ public final class NebulaCommand {
+      * MinecraftServer.tickChildren which both modes execute.
+      */
+     private static int bench(final CommandSourceStack source) {
+-        String summary = io.papermc.paper.threadedregions.NebulaTickProbe.summary();
+-        source.sendSuccess(() -> Component.literal(summary), false);
++        String probe = io.papermc.paper.threadedregions.NebulaTickProbe.summary();
++        String breakdown = org.nebula.core.scheduler.TickStats.summary();
++        source.sendSuccess(() -> Component.literal(probe), false);
++        source.sendSuccess(() -> Component.literal(breakdown), false);
+         return (int) Math.min(Integer.MAX_VALUE, io.papermc.paper.threadedregions.NebulaTickProbe.totalSamples());
+     }
+ 
+@@ -189,7 +191,8 @@ public final class NebulaCommand {
+         NebulaGuardIntegration.reset();
+         NebulaParallelIntegration.reset();
+         io.papermc.paper.threadedregions.NebulaTickProbe.reset();
+-        source.sendSuccess(() -> Component.literal("Nebula DAG metrics + random budget + guard + parallel + bench probe counters reset."), true);
++        org.nebula.core.scheduler.TickStats.reset();
++        source.sendSuccess(() -> Component.literal("Nebula DAG metrics + random budget + guard + parallel + bench probe + tick stats reset."), true);
+         return 1;
+     }
+ 

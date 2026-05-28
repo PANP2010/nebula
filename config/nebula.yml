@@ -2,7 +2,7 @@ nebula:
   fidelity-tier: T0
 
   dag:
-    bucket-size: 32
+    bucket-size: 2
     max-micro-steps: 256
     scc-threshold: 128
 
