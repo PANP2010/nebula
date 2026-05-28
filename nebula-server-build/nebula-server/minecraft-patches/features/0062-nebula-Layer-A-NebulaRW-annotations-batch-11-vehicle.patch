@@ -1,0 +1,106 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Fri, 29 May 2026 02:30:39 +0800
+Subject: [PATCH] =?UTF-8?q?nebula:=20Layer=20A=20@NebulaRW=20annotations?=
+ =?UTF-8?q?=20batch=2011=20=E2=80=94=20vehicles=20+=20falling=20block?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+- AbstractBoat.tick — passenger physics + water status
+- AbstractMinecart.tick — track movement + step sounds
+- MinecartTNT.tick — fuse countdown, may explode (CONTRACTIBLE)
+- FallingBlockEntity.tick — gravity, lands as block (writeBlocks)
+
+Total annotations: 88 / 130 (68% of DG2 target).
+
+diff --git a/net/minecraft/world/entity/item/FallingBlockEntity.java b/net/minecraft/world/entity/item/FallingBlockEntity.java
+index dffcc532e456e9576557ca08f468b8ba721628f6..d1d47f0eb7d1f4c349c85a56a291bb0f343e0dad 100644
+--- a/net/minecraft/world/entity/item/FallingBlockEntity.java
++++ b/net/minecraft/world/entity/item/FallingBlockEntity.java
+@@ -145,6 +145,19 @@ public class FallingBlockEntity extends Entity {
+         return 0.04;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.*"},
++        readBlocks         = {"this.position", "this.boundingBox.expand"},
++        writeBlocks        = {"this.position"},
++        triggeredEvents    = {"ENTITY_MOVED", "BLOCK_PLACE", "ENTITY_DAMAGED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        randomInstance     = "ENTITY_RANDOM",
++        mayTriggerBlockUpdates = true,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         if (this.blockState.isAir()) {
+diff --git a/net/minecraft/world/entity/vehicle/boat/AbstractBoat.java b/net/minecraft/world/entity/vehicle/boat/AbstractBoat.java
+index 619776a20aeac1ddef1991f8a32a88c8aac250ee..37c0db2897eb8fc7b65a9abaea563f72fa8a6b3e 100644
+--- a/net/minecraft/world/entity/vehicle/boat/AbstractBoat.java
++++ b/net/minecraft/world/entity/vehicle/boat/AbstractBoat.java
+@@ -234,6 +234,17 @@ public abstract class AbstractBoat extends VehicleEntity implements Leashable {
+         return this.getDirection().getClockWise();
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*", "this.passengers.*"},
++        writeEntities      = {"this.*"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED", "BLOCK_STEP", "ENTITY_DAMAGED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         this.oldStatus = this.status;
+diff --git a/net/minecraft/world/entity/vehicle/minecart/AbstractMinecart.java b/net/minecraft/world/entity/vehicle/minecart/AbstractMinecart.java
+index 7ba197b9bda1f98e24882be40d78fabb0db9d36b..aace66b93579024e13b58b4d3510e41aacd64663 100644
+--- a/net/minecraft/world/entity/vehicle/minecart/AbstractMinecart.java
++++ b/net/minecraft/world/entity/vehicle/minecart/AbstractMinecart.java
+@@ -287,6 +287,17 @@ public abstract class AbstractMinecart extends VehicleEntity {
+         return this.isInWater() ? 0.005 : 0.04;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*", "this.passengers.*"},
++        writeEntities      = {"this.*"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED", "BLOCK_STEP", "ENTITY_DAMAGED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         // CraftBukkit start
+diff --git a/net/minecraft/world/entity/vehicle/minecart/MinecartTNT.java b/net/minecraft/world/entity/vehicle/minecart/MinecartTNT.java
+index 3e857012ae7f6ebcf0664187bd82f907caf704a3..c166d339eab6bc8736a59593af34a984bb5c290f 100644
+--- a/net/minecraft/world/entity/vehicle/minecart/MinecartTNT.java
++++ b/net/minecraft/world/entity/vehicle/minecart/MinecartTNT.java
+@@ -49,6 +49,17 @@ public class MinecartTNT extends AbstractMinecart {
+         return Blocks.TNT.defaultBlockState();
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.*"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED", "EXPLOSION", "BLOCK_DESTROY"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.CONTRACTIBLE,
++        maxRandomCalls     = 4,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         super.tick();
