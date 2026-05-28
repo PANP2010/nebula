@@ -1,0 +1,304 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Fri, 29 May 2026 02:07:33 +0800
+Subject: [PATCH] =?UTF-8?q?nebula:=20Layer=20A=20@NebulaRW=20annotations?=
+ =?UTF-8?q?=20batch=209=20=E2=80=94=2013=20plant/redstone/BE=20ticks?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Plant growth + decay (tick + randomTick where applicable):
+- SugarCaneBlock (tick + randomTick)
+- CactusBlock (tick + randomTick)
+- BambooStalkBlock (tick + randomTick)
+- CocoaBlock (randomTick)
+- NetherWartBlock (randomTick)
+- TorchflowerCropBlock (randomTick)
+- VineBlock (randomTick — spreads to 6 directions)
+
+Redstone:
+- TripWireHookBlock (tick — recalculate hook state)
+
+Block-entity-bound:
+- BrushableBlock (tick — checks BE state)
+- SnifferEggBlock (tick — may hatch into Sniffer entity)
+
+Total annotations: 79 (up from 66, 61% of DG2 target).
+
+diff --git a/net/minecraft/world/level/block/BambooStalkBlock.java b/net/minecraft/world/level/block/BambooStalkBlock.java
+index 2bf597d834b26b7039769b566d07af15d893c028..b169df0b6126e4181b8a6cea59d0d866b45c772c 100644
+--- a/net/minecraft/world/level/block/BambooStalkBlock.java
++++ b/net/minecraft/world/level/block/BambooStalkBlock.java
+@@ -104,6 +104,17 @@ public class BambooStalkBlock extends Block implements BonemealableBlock {
+         }
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readBlocks         = {"{pos}", "{pos}.below"},
++        writeBlocks        = {"{pos}"},
++        triggeredEvents    = {"BLOCK_UPDATE", "BLOCK_DESTROY"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        randomInstance     = "WORLD_RANDOM",
++        mayTriggerBlockUpdates = true,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     protected void tick(final BlockState state, final ServerLevel level, final BlockPos pos, final RandomSource random) {
+         if (!state.canSurvive(level, pos)) {
+@@ -116,6 +127,17 @@ public class BambooStalkBlock extends Block implements BonemealableBlock {
+         return state.getValue(STAGE) == 0;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readBlocks         = {"{pos}", "{pos}.column"},
++        writeBlocks        = {"{pos}.above"},
++        triggeredEvents    = {"BLOCK_GROW", "BLOCK_UPDATE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 1,
++        randomInstance     = "WORLD_RANDOM",
++        mayTriggerBlockUpdates = true,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     protected void randomTick(final BlockState state, final ServerLevel level, final BlockPos pos, final RandomSource random) {
+         if (state.getValue(STAGE) == 0) {
+diff --git a/net/minecraft/world/level/block/BrushableBlock.java b/net/minecraft/world/level/block/BrushableBlock.java
+index cf295f83eaac3cd96529e003d0068c0b0ccdc620..1dd30519c77637e2ab899dec49db97481ba5103a 100644
+--- a/net/minecraft/world/level/block/BrushableBlock.java
++++ b/net/minecraft/world/level/block/BrushableBlock.java
+@@ -79,6 +79,18 @@ public class BrushableBlock extends BaseEntityBlock implements Fallable {
+         return super.updateShape(state, level, ticks, pos, directionToNeighbour, neighbourPos, neighbourState, random);
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readBlocks         = {"{pos}"},
++        readBlockEntities  = {"{pos}.*"},
++        writeBlockEntities = {"{pos}.*"},
++        triggeredEvents    = {"BLOCK_UPDATE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        randomInstance     = "WORLD_RANDOM",
++        mayTriggerBlockUpdates = false,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick(final BlockState state, final ServerLevel level, final BlockPos pos, final RandomSource random) {
+         if (level.getBlockEntity(pos) instanceof BrushableBlockEntity brushableBlockEntity) {
+diff --git a/net/minecraft/world/level/block/CactusBlock.java b/net/minecraft/world/level/block/CactusBlock.java
+index 1fbdb7a9ae8120cbe43cb185ad17c4769cf6e8b6..001fe878be3afcf9fa53c43c10c7e223f0428363 100644
+--- a/net/minecraft/world/level/block/CactusBlock.java
++++ b/net/minecraft/world/level/block/CactusBlock.java
+@@ -43,6 +43,17 @@ public class CactusBlock extends Block {
+         this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0));
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readBlocks         = {"{pos}", "{pos}.below"},
++        writeBlocks        = {"{pos}"},
++        triggeredEvents    = {"BLOCK_UPDATE", "BLOCK_DESTROY"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        randomInstance     = "WORLD_RANDOM",
++        mayTriggerBlockUpdates = true,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     protected void tick(final BlockState state, final ServerLevel level, final BlockPos pos, final RandomSource random) {
+         if (!state.canSurvive(level, pos)) {
+@@ -50,6 +61,17 @@ public class CactusBlock extends Block {
+         }
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readBlocks         = {"{pos}", "{pos}.column"},
++        writeBlocks        = {"{pos}.above"},
++        triggeredEvents    = {"BLOCK_GROW", "BLOCK_UPDATE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        randomInstance     = "WORLD_RANDOM",
++        mayTriggerBlockUpdates = true,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     protected void randomTick(final BlockState state, final ServerLevel level, final BlockPos pos, final RandomSource random) {
+         BlockPos above = pos.above();
+diff --git a/net/minecraft/world/level/block/CocoaBlock.java b/net/minecraft/world/level/block/CocoaBlock.java
+index ebd218142bd04de3506d7b6eef090f1a88320e11..5afa997fc3ff102ade7df927167da0cea8debfaa 100644
+--- a/net/minecraft/world/level/block/CocoaBlock.java
++++ b/net/minecraft/world/level/block/CocoaBlock.java
+@@ -48,6 +48,17 @@ public class CocoaBlock extends HorizontalDirectionalBlock implements Bonemealab
+         return state.getValue(AGE) < 2;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readBlocks         = {"{pos}"},
++        writeBlocks        = {"{pos}"},
++        triggeredEvents    = {"BLOCK_GROW", "BLOCK_UPDATE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 1,
++        randomInstance     = "WORLD_RANDOM",
++        mayTriggerBlockUpdates = true,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     protected void randomTick(final BlockState state, final ServerLevel level, final BlockPos pos, final RandomSource random) {
+         if (level.getRandom().nextFloat() < (level.spigotConfig.cocoaModifier / (100.0F * 5))) { // Spigot - SPIGOT-7159: Better modifier resolution
+diff --git a/net/minecraft/world/level/block/NetherWartBlock.java b/net/minecraft/world/level/block/NetherWartBlock.java
+index c9cfc3096e6fb04493f906e0f6cb70cda3648a4a..38209303eedbd8228fc0b445db3425eac57eaa26 100644
+--- a/net/minecraft/world/level/block/NetherWartBlock.java
++++ b/net/minecraft/world/level/block/NetherWartBlock.java
+@@ -48,6 +48,17 @@ public class NetherWartBlock extends VegetationBlock {
+         return state.getValue(AGE) < 3;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readBlocks         = {"{pos}"},
++        writeBlocks        = {"{pos}"},
++        triggeredEvents    = {"BLOCK_GROW", "BLOCK_UPDATE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 1,
++        randomInstance     = "WORLD_RANDOM",
++        mayTriggerBlockUpdates = true,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     protected void randomTick(BlockState state, final ServerLevel level, final BlockPos pos, final RandomSource random) {
+         int age = state.getValue(AGE);
+diff --git a/net/minecraft/world/level/block/SnifferEggBlock.java b/net/minecraft/world/level/block/SnifferEggBlock.java
+index 3c58f7b6d97da76136c22379e69a7e28ff44062e..0318466c1f2511fa08e6dc39e6460807864a6fde 100644
+--- a/net/minecraft/world/level/block/SnifferEggBlock.java
++++ b/net/minecraft/world/level/block/SnifferEggBlock.java
+@@ -69,6 +69,18 @@ public class SnifferEggBlock extends Block {
+     }
+     // Paper end - Call BlockFadeEvent
+ 
++    @org.nebula.annotations.NebulaRW(
++        readBlocks         = {"{pos}"},
++        writeBlocks        = {"{pos}"},
++        triggeredEvents    = {"ENTITY_SPAWN", "BLOCK_UPDATE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 1,
++        randomInstance     = "WORLD_RANDOM",
++        mayTriggerBlockUpdates = true,
++        maySpawnEntities   = true,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick(final BlockState state, final ServerLevel level, final BlockPos position, final RandomSource random) {
+         if (!this.isReadyToHatch(state)) {
+diff --git a/net/minecraft/world/level/block/SugarCaneBlock.java b/net/minecraft/world/level/block/SugarCaneBlock.java
+index 8964d69bb1baeefafefb1350f7622eb653697490..cd06524095309ca363b5e346edc451f8c0df67f2 100644
+--- a/net/minecraft/world/level/block/SugarCaneBlock.java
++++ b/net/minecraft/world/level/block/SugarCaneBlock.java
+@@ -39,6 +39,17 @@ public class SugarCaneBlock extends Block {
+         return SHAPE;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readBlocks         = {"{pos}", "{pos}.below"},
++        writeBlocks        = {"{pos}"},
++        triggeredEvents    = {"BLOCK_UPDATE", "BLOCK_DESTROY"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        randomInstance     = "WORLD_RANDOM",
++        mayTriggerBlockUpdates = true,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     protected void tick(final BlockState state, final ServerLevel level, final BlockPos pos, final RandomSource random) {
+         if (!state.canSurvive(level, pos)) {
+@@ -46,6 +57,17 @@ public class SugarCaneBlock extends Block {
+         }
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readBlocks         = {"{pos}", "{pos}.column"},
++        writeBlocks        = {"{pos}.above"},
++        triggeredEvents    = {"BLOCK_GROW", "BLOCK_UPDATE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        randomInstance     = "WORLD_RANDOM",
++        mayTriggerBlockUpdates = true,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     protected void randomTick(final BlockState state, final ServerLevel level, final BlockPos pos, final RandomSource random) {
+         if (level.isEmptyBlock(pos.above())) {
+diff --git a/net/minecraft/world/level/block/TorchflowerCropBlock.java b/net/minecraft/world/level/block/TorchflowerCropBlock.java
+index 1ed599e5bea90fbbb8890ed913f129133a306bf4..3878e7ed7b2b4dd29fbbb2a25b08e418847ef897 100644
+--- a/net/minecraft/world/level/block/TorchflowerCropBlock.java
++++ b/net/minecraft/world/level/block/TorchflowerCropBlock.java
+@@ -62,6 +62,17 @@ public class TorchflowerCropBlock extends CropBlock {
+         return age == 2 ? Blocks.TORCHFLOWER.defaultBlockState() : super.getStateForAge(age);
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readBlocks         = {"{pos}"},
++        writeBlocks        = {"{pos}"},
++        triggeredEvents    = {"BLOCK_GROW", "BLOCK_UPDATE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 1,
++        randomInstance     = "WORLD_RANDOM",
++        mayTriggerBlockUpdates = true,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void randomTick(final BlockState state, final ServerLevel level, final BlockPos pos, final RandomSource random) {
+         if (random.nextInt(3) != 0) {
+diff --git a/net/minecraft/world/level/block/TripWireHookBlock.java b/net/minecraft/world/level/block/TripWireHookBlock.java
+index 82713a22a7c9c54c64616cbd96aac9dfb10cf4e3..f620b018b817afb3d052851e83e7911b6e25af14 100644
+--- a/net/minecraft/world/level/block/TripWireHookBlock.java
++++ b/net/minecraft/world/level/block/TripWireHookBlock.java
+@@ -211,6 +211,17 @@ public class TripWireHookBlock extends Block {
+         }
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readBlocks         = {"{pos}", "{pos}.facing-line"},
++        writeBlocks        = {"{pos}", "{pos}.facing-line"},
++        triggeredEvents    = {"REDSTONE_UPDATE", "BLOCK_UPDATE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.PROPAGATES,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        randomInstance     = "WORLD_RANDOM",
++        mayTriggerBlockUpdates = true,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     protected void tick(final BlockState state, final ServerLevel level, final BlockPos pos, final RandomSource random) {
+         calculateState(level, pos, state, false, true, -1, null);
+diff --git a/net/minecraft/world/level/block/VineBlock.java b/net/minecraft/world/level/block/VineBlock.java
+index 12e765cae55b98e9cc15e2187adea4a1bc652166..ba7684870c99fe2ab7308e65c5850c46790fbffd 100644
+--- a/net/minecraft/world/level/block/VineBlock.java
++++ b/net/minecraft/world/level/block/VineBlock.java
+@@ -163,6 +163,18 @@ public class VineBlock extends Block {
+         }
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readBlocks         = {"{pos}", "{pos}.expand:5"},
++        writeBlocks        = {"{pos}.expand:5"},
++        readGlobals        = {"GAME_RULES"},
++        triggeredEvents    = {"BLOCK_GROW", "BLOCK_UPDATE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 8,
++        randomInstance     = "WORLD_RANDOM",
++        mayTriggerBlockUpdates = true,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     protected void randomTick(final BlockState state, final ServerLevel level, final BlockPos pos, final RandomSource random) {
+         if (level.getGameRules().get(GameRules.SPREAD_VINES)) {
