@@ -1,0 +1,32 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Fri, 29 May 2026 05:09:40 +0800
+Subject: [PATCH] nebula: route CraftServer.enablePlugin through
+ NebulaPluginRegistry
+
+
+diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
+index 9583ff67f17f60883f0c0564eb95c700c85674b4..31851de2fa925378f7515eede102926c0f3e5543 100644
+--- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
++++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
+@@ -634,6 +634,20 @@ public final class CraftServer implements Server {
+             }
+             this.paperPluginManager.addPermissions(permsToLoad); // Paper
+ 
++            // Nebula §13.6: route plugin enablement through PluginSandbox if
++            // configured. Sandboxed plugins get a dedicated message-passing
++            // channel; non-sandboxed plugins go through the default
++            // VAP Level 0 PluginTaskQueue path. Decision is purely additive:
++            // we register the sandbox if needed, then proceed with the
++            // normal enable. The sandbox interception happens at API-call
++            // time, not load time.
++            String pluginName = plugin.getDescription().getName();
++            if (io.papermc.paper.threadedregions.NebulaConfig.shouldSandboxPlugin(pluginName)) {
++                io.papermc.paper.threadedregions.NebulaPluginRegistry.registerSandbox(pluginName);
++            } else {
++                io.papermc.paper.threadedregions.NebulaPluginRegistry.registerLevel0(pluginName);
++            }
++
+             this.pluginManager.enablePlugin(plugin);
+         } catch (Throwable ex) {
+             Logger.getLogger(CraftServer.class.getName()).log(Level.SEVERE, ex.getMessage() + " loading " + plugin.getDescription().getFullName() + " (Is it up to date?)", ex);

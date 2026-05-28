@@ -1,0 +1,131 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Fri, 29 May 2026 05:09:40 +0800
+Subject: [PATCH] =?UTF-8?q?nebula:=20=C2=A713.6=20plugin=20sandbox=20runti?=
+ =?UTF-8?q?me=20registry?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Adds NebulaPluginRegistry that tracks per-plugin routing
+(sandboxed vs Level 0) populated from CraftServer.enablePlugin
+based on NebulaConfig.shouldSandboxPlugin. Subsequent code paths
+can consult sandboxFor(name) to dispatch through the message-
+passing channel instead of direct calls.
+
+Adds /nebula plugins command for runtime introspection.
+
+Closes the §13.6 runtime-half gap noted in NEBULA_BLOCKERS.md
+(the config side was wired in 2b24ea9).
+
+diff --git a/io/papermc/paper/threadedregions/NebulaPluginRegistry.java b/io/papermc/paper/threadedregions/NebulaPluginRegistry.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..c1a2d9615c9994530cc13170415d22fd65cc0080
+--- /dev/null
++++ b/io/papermc/paper/threadedregions/NebulaPluginRegistry.java
+@@ -0,0 +1,74 @@
++package io.papermc.paper.threadedregions;
++
++import org.nebula.core.vap.PluginSandbox;
++
++import java.util.Map;
++import java.util.concurrent.ConcurrentHashMap;
++
++/**
++ * §13.6 plugin sandbox routing registry.
++ *
++ * <p>Records which plugins are sandboxed (running through {@link PluginSandbox})
++ * vs Level 0 (default cooperative scheduling via PluginTaskQueue). Populated
++ * by {@code CraftServer.enablePlugin} based on {@code NebulaConfig.shouldSandboxPlugin}.
++ *
++ * <p>Subsequent code paths (event dispatch, scheduler API entry, etc.) consult
++ * this registry to decide whether a given plugin's request goes through the
++ * sandbox channel or the direct Level 0 path.
++ *
++ * <p>This is the runtime half of arch §13.6 — the config layer
++ * ({@link NebulaConfig}) tells us WHICH plugins to sandbox; this class
++ * tracks the resulting routing decisions during plugin lifecycle.
++ */
++public final class NebulaPluginRegistry {
++
++    private static final Map<String, PluginSandbox> SANDBOXES = new ConcurrentHashMap<>();
++    private static final Map<String, Boolean> LEVEL0 = new ConcurrentHashMap<>();
++
++    private NebulaPluginRegistry() {}
++
++    /**
++     * Registers {@code pluginName} as sandboxed; allocates a fresh
++     * {@link PluginSandbox} on first call. Idempotent.
++     */
++    public static PluginSandbox registerSandbox(String pluginName) {
++        return SANDBOXES.computeIfAbsent(pluginName, PluginSandbox::new);
++    }
++
++    /**
++     * Registers {@code pluginName} as a Level 0 (cooperative) plugin. No
++     * sandbox is created; events and tasks go through PluginTaskQueue.
++     */
++    public static void registerLevel0(String pluginName) {
++        LEVEL0.put(pluginName, Boolean.TRUE);
++    }
++
++    /**
++     * Returns the sandbox for {@code pluginName} if registered as sandboxed,
++     * else {@code null}.
++     */
++    public static PluginSandbox sandboxFor(String pluginName) {
++        return SANDBOXES.get(pluginName);
++    }
++
++    public static boolean isSandboxed(String pluginName) {
++        return SANDBOXES.containsKey(pluginName);
++    }
++
++    public static boolean isLevel0(String pluginName) {
++        return LEVEL0.getOrDefault(pluginName, Boolean.FALSE);
++    }
++
++    public static int sandboxCount() {
++        return SANDBOXES.size();
++    }
++
++    public static int level0Count() {
++        return LEVEL0.size();
++    }
++
++    public static String summary() {
++        return String.format("Nebula plugin registry: sandboxed=%d, level0=%d",
++            sandboxCount(), level0Count());
++    }
++}
+diff --git a/net/minecraft/server/commands/NebulaCommand.java b/net/minecraft/server/commands/NebulaCommand.java
+index f238be3a212617197bca99ba4f5295146c22f746..78a0650c49b6fc67a63d6a37ec0982c6cfc81def 100644
+--- a/net/minecraft/server/commands/NebulaCommand.java
++++ b/net/minecraft/server/commands/NebulaCommand.java
+@@ -59,6 +59,8 @@ public final class NebulaCommand {
+                     .executes(c -> hash(c.getSource(), false))
+                     .then(Commands.literal("structural")
+                         .executes(c -> hash(c.getSource(), true))))
++                .then(Commands.literal("plugins")
++                    .executes(c -> plugins(c.getSource())))
+                 .then(Commands.literal("reset").executes(c -> reset(c.getSource())))
+                 .then(Commands.literal("stress-spawn")
+                     .then(Commands.argument("count", IntegerArgumentType.integer(1, 5000))
+@@ -230,6 +232,17 @@ public final class NebulaCommand {
+         return digest.length;
+     }
+ 
++    /**
++     * §13.6 — /nebula plugins emits the runtime sandbox/level-0 split as
++     * recorded by {@link io.papermc.paper.threadedregions.NebulaPluginRegistry}.
++     */
++    private static int plugins(final CommandSourceStack source) {
++        String summary = io.papermc.paper.threadedregions.NebulaPluginRegistry.summary();
++        source.sendSuccess(() -> Component.literal(summary), false);
++        return io.papermc.paper.threadedregions.NebulaPluginRegistry.sandboxCount()
++            + io.papermc.paper.threadedregions.NebulaPluginRegistry.level0Count();
++    }
++
+     private static int reset(final CommandSourceStack source) {
+         NebulaTickMetrics.reset();
+         NebulaRandomGate.reset();

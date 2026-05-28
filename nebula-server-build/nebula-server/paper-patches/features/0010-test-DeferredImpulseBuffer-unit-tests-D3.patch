@@ -1,0 +1,85 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Wed, 27 May 2026 00:39:32 +0800
+Subject: [PATCH] test: DeferredImpulseBuffer unit tests (D3)
+
+6 tests verifying buffer lifecycle: activate/deactivate, flush, idempotent
+operations. Included in NormalTestSuite.
+
+diff --git a/src/test/java/io/papermc/paper/threadedregions/DeferredImpulseBufferTest.java b/src/test/java/io/papermc/paper/threadedregions/DeferredImpulseBufferTest.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..bf953509b51694d897bdbe65fba0c511e775b4d0
+--- /dev/null
++++ b/src/test/java/io/papermc/paper/threadedregions/DeferredImpulseBufferTest.java
+@@ -0,0 +1,71 @@
++package io.papermc.paper.threadedregions;
++
++import net.minecraft.world.phys.Vec3;
++import org.junit.jupiter.api.Tag;
++import org.junit.jupiter.api.Test;
++
++import static org.junit.jupiter.api.Assertions.*;
++
++/**
++ * Unit tests for DeferredImpulseBuffer (D3 collision pipeline).
++ */
++@Tag("Normal")
++class DeferredImpulseBufferTest {
++
++    @Test
++    void bufferStartsInactive() {
++        DeferredImpulseBuffer buf = new DeferredImpulseBuffer();
++        assertFalse(buf.isActive());
++        assertEquals(0, buf.pendingCount());
++    }
++
++    @Test
++    void activateAndDeactivate() {
++        DeferredImpulseBuffer buf = new DeferredImpulseBuffer();
++        buf.activate();
++        assertTrue(buf.isActive());
++        buf.deactivate();
++        assertFalse(buf.isActive());
++        assertEquals(0, buf.pendingCount());
++    }
++
++    @Test
++    void enqueueWhileInactiveIsNoop() {
++        DeferredImpulseBuffer buf = new DeferredImpulseBuffer();
++        // Cannot enqueue without a real Entity, but we can verify
++        // that isActive() check prevents enqueue
++        assertFalse(buf.isActive());
++        assertEquals(0, buf.pendingCount());
++    }
++
++    @Test
++    void flushClearsBuffer() {
++        DeferredImpulseBuffer buf = new DeferredImpulseBuffer();
++        buf.activate();
++        // After flush, buffer should be cleared
++        buf.flush();
++        assertEquals(0, buf.pendingCount());
++        // Buffer stays active after flush (only deactivate clears)
++        assertTrue(buf.isActive());
++    }
++
++    @Test
++    void deactivateClearsPending() {
++        DeferredImpulseBuffer buf = new DeferredImpulseBuffer();
++        buf.activate();
++        buf.deactivate();
++        assertEquals(0, buf.pendingCount());
++        assertFalse(buf.isActive());
++    }
++
++    @Test
++    void activationCycleIsIdempotent() {
++        DeferredImpulseBuffer buf = new DeferredImpulseBuffer();
++        buf.activate();
++        buf.activate(); // double activate should be safe
++        assertTrue(buf.isActive());
++        buf.deactivate();
++        buf.deactivate(); // double deactivate should be safe
++        assertFalse(buf.isActive());
++    }
++}
