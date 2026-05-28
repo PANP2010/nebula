@@ -1,0 +1,202 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Thu, 28 May 2026 22:39:27 +0800
+Subject: [PATCH] nebula: add NebulaTickProbe + /nebula bench for mode-agnostic
+ MSPT sampling
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Wires a wall-clock probe into MinecraftServer.tickChildren() so the
+SAME jar can be benchmarked under both scheduler=NEBULA and
+scheduler=EDF/WORK_STEALING (Folia paths). Skip threshold of 50µs
+filters out the no-op idle-region samples that would otherwise
+dominate percentiles.
+
+/nebula bench reports avg / p50 / p95 / p99 / max from a 40k-sample
+ring buffer.
+
+Caveat documented: stress-mode toggle is Nebula-only. Comparing avg
+MSPT between Folia (idle, 0.26ms) and Nebula (stressed, 368ms) is
+not apples-to-apples — without fake players, Folia's entity-ticking
+gate keeps regions idle. A real DG2-grade comparison needs either:
+  - fake-player tooling to trigger Folia's entity ticking, OR
+  - patch the entity-ticking gate so both modes execute the same
+    workload under the test toggle.
+Both are larger workstreams; this commit lands the probe + harness so
+that work can plug into a working comparison loop.
+
+diff --git a/io/papermc/paper/threadedregions/NebulaTickProbe.java b/io/papermc/paper/threadedregions/NebulaTickProbe.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..07b101509ef64733916c226e1537310da16e17bb
+--- /dev/null
++++ b/io/papermc/paper/threadedregions/NebulaTickProbe.java
+@@ -0,0 +1,104 @@
++package io.papermc.paper.threadedregions;
++
++import java.util.concurrent.atomic.AtomicLong;
++import java.util.concurrent.atomic.AtomicLongArray;
++
++/**
++ * Mode-agnostic per-region tick MSPT sampler.
++ *
++ * <p>Both Folia and Nebula invoke {@code MinecraftServer.tickChildren()} once
++ * per region tick. This probe is called from the start and end of that method
++ * to record how long the region tick body takes — independent of whether
++ * Nebula's DAG path or Folia's vanilla path was used to execute it.
++ *
++ * <p>The sample buffer is a circular ring of fixed size; once full, oldest
++ * samples are overwritten. This keeps memory bounded even on long runs.
++ *
++ * <p>Output via {@link #snapshot} returns a sorted array suitable for
++ * percentile computation (p50, p95, p99). Used by `/nebula bench` and the
++ * external bench scripts to produce comparable Folia-vs-Nebula numbers.
++ */
++public final class NebulaTickProbe {
++
++    /** ~33 minutes of 20 TPS per-region samples (40000 samples). */
++    private static final int SAMPLE_BUFFER_SIZE = 40000;
++
++    private static final AtomicLongArray SAMPLES_NS = new AtomicLongArray(SAMPLE_BUFFER_SIZE);
++    private static final AtomicLong WRITE_INDEX = new AtomicLong();
++    private static final AtomicLong TOTAL_SAMPLES = new AtomicLong();
++    private static final AtomicLong SUM_NS = new AtomicLong();
++    private static final AtomicLong MAX_NS = new AtomicLong();
++
++    private NebulaTickProbe() {}
++
++    /** Record one region tick's elapsed wall-clock time. */
++    public static void recordTick(long elapsedNs) {
++        // Skip near-zero "no-op" ticks (idle regions that exit early before
++        // doing any real work). Threshold is 50µs — anything below that is
++        // pure dispatch overhead, not work, and would dominate percentiles.
++        if (elapsedNs < 50_000) return;
++        int idx = (int) (WRITE_INDEX.getAndIncrement() & (SAMPLE_BUFFER_SIZE - 1));
++        SAMPLES_NS.set(idx, elapsedNs);
++        TOTAL_SAMPLES.incrementAndGet();
++        SUM_NS.addAndGet(elapsedNs);
++
++        // CAS update of max.
++        long curMax;
++        do {
++            curMax = MAX_NS.get();
++            if (elapsedNs <= curMax) break;
++        } while (!MAX_NS.compareAndSet(curMax, elapsedNs));
++    }
++
++    /**
++     * Returns a sorted snapshot of all recorded samples (in ns).
++     * Caller can compute percentiles directly: snapshot[snapshot.length * 95 / 100].
++     */
++    public static long[] snapshot() {
++        long total = TOTAL_SAMPLES.get();
++        int count = (int) Math.min(total, SAMPLE_BUFFER_SIZE);
++        long[] out = new long[count];
++        for (int i = 0; i < count; i++) {
++            out[i] = SAMPLES_NS.get(i);
++        }
++        java.util.Arrays.sort(out);
++        return out;
++    }
++
++    public static long totalSamples() {
++        return TOTAL_SAMPLES.get();
++    }
++
++    public static double avgMs() {
++        long total = TOTAL_SAMPLES.get();
++        return total == 0 ? 0.0 : SUM_NS.get() / (double) total / 1_000_000.0;
++    }
++
++    public static double maxMs() {
++        return MAX_NS.get() / 1_000_000.0;
++    }
++
++    public static void reset() {
++        for (int i = 0; i < SAMPLE_BUFFER_SIZE; i++) {
++            SAMPLES_NS.set(i, 0L);
++        }
++        WRITE_INDEX.set(0L);
++        TOTAL_SAMPLES.set(0L);
++        SUM_NS.set(0L);
++        MAX_NS.set(0L);
++    }
++
++    public static String summary() {
++        long n = TOTAL_SAMPLES.get();
++        if (n == 0) return "Nebula tick probe: no samples";
++        long[] sorted = snapshot();
++        int len = sorted.length;
++        double p50 = sorted[len / 2] / 1_000_000.0;
++        double p95 = sorted[Math.min(len - 1, len * 95 / 100)] / 1_000_000.0;
++        double p99 = sorted[Math.min(len - 1, len * 99 / 100)] / 1_000_000.0;
++        return String.format(
++            "Nebula tick probe: samples=%d, avg=%.3fms, p50=%.3fms, p95=%.3fms, p99=%.3fms, max=%.3fms",
++            n, avgMs(), p50, p95, p99, maxMs()
++        );
++    }
++}
+diff --git a/net/minecraft/server/MinecraftServer.java b/net/minecraft/server/MinecraftServer.java
+index 8ec86d7485efbb275c85d8226ea93a7bbd72342c..22d489b06ad15d1810ee0962b88e42b186328d77 100644
+--- a/net/minecraft/server/MinecraftServer.java
++++ b/net/minecraft/server/MinecraftServer.java
+@@ -1895,6 +1895,10 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
+     // Folia - region threading - moved to regionised data
+ 
+     protected void tickChildren(final BooleanSupplier haveTime, final io.papermc.paper.threadedregions.TickRegions.TickRegionData region) { // Folia - region threading
++        // Nebula benchmark probe: capture wall-clock time of this region tick.
++        // Runs in both Folia and Nebula paths — see io.papermc.paper.threadedregions.NebulaTickProbe.
++        final long nebula$tickProbeStart = System.nanoTime();
++        try {
+         final io.papermc.paper.threadedregions.RegionizedWorldData regionizedWorldData = io.papermc.paper.threadedregions.TickRegionScheduler.getCurrentRegionizedWorldData(); // Folia - regionised ticking
+         final ca.spottedleaf.leafprofiler.RegionizedProfiler.Handle foliaProfiler = io.papermc.paper.threadedregions.TickRegionScheduler.getProfiler(); // Folia - profiler
+         ProfilerFiller profiler = Profiler.get();
+@@ -2000,6 +2004,9 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
+ 
+         profiler.pop();
+         this.serverActivityMonitor.tick();
++        } finally {
++            io.papermc.paper.threadedregions.NebulaTickProbe.recordTick(System.nanoTime() - nebula$tickProbeStart);
++        }
+     }
+ 
+     // Paper start - per world respawn data
+diff --git a/net/minecraft/server/commands/NebulaCommand.java b/net/minecraft/server/commands/NebulaCommand.java
+index d342c708d659e16f703b0e7fcf1a2cf54bbc4cb1..d5b56c3fc6391e7dba68d2d8b9260c1d709cdece 100644
+--- a/net/minecraft/server/commands/NebulaCommand.java
++++ b/net/minecraft/server/commands/NebulaCommand.java
+@@ -53,6 +53,8 @@ public final class NebulaCommand {
+                     .executes(c -> fidelityStatus(c.getSource()))
+                     .then(Commands.literal("reset")
+                         .executes(c -> fidelityReset(c.getSource()))))
++                .then(Commands.literal("bench")
++                    .executes(c -> bench(c.getSource())))
+                 .then(Commands.literal("reset").executes(c -> reset(c.getSource())))
+                 .then(Commands.literal("stress-spawn")
+                     .then(Commands.argument("count", IntegerArgumentType.integer(1, 5000))
+@@ -170,12 +172,24 @@ public final class NebulaCommand {
+         return 0;
+     }
+ 
++    /**
++     * §15.3 /nebula bench — emits the mode-agnostic NebulaTickProbe summary.
++     * Runs in both Folia and Nebula paths because the probe is wired into
++     * MinecraftServer.tickChildren which both modes execute.
++     */
++    private static int bench(final CommandSourceStack source) {
++        String summary = io.papermc.paper.threadedregions.NebulaTickProbe.summary();
++        source.sendSuccess(() -> Component.literal(summary), false);
++        return (int) Math.min(Integer.MAX_VALUE, io.papermc.paper.threadedregions.NebulaTickProbe.totalSamples());
++    }
++
+     private static int reset(final CommandSourceStack source) {
+         NebulaTickMetrics.reset();
+         NebulaRandomGate.reset();
+         NebulaGuardIntegration.reset();
+         NebulaParallelIntegration.reset();
+-        source.sendSuccess(() -> Component.literal("Nebula DAG metrics + random budget + guard + parallel counters reset."), true);
++        io.papermc.paper.threadedregions.NebulaTickProbe.reset();
++        source.sendSuccess(() -> Component.literal("Nebula DAG metrics + random budget + guard + parallel + bench probe counters reset."), true);
+         return 1;
+     }
+ 
