@@ -1,0 +1,108 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Fri, 29 May 2026 05:35:56 +0800
+Subject: [PATCH] =?UTF-8?q?nebula:=20B5=20=E2=80=94=20real=20per-call=20ra?=
+ =?UTF-8?q?ndom=20counting=20via=20ThreadLocalRandomSource?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+ThreadLocalRandomSource (the SHARED_RANDOM all non-player entities use)
+now increments a per-thread counter on each next/nextInt/nextGaussian
+call. EntityTaskBuilder resets this counter before each entity tick and
+reads it after, feeding NebulaRandomGate.recordEntityCalls() with the
+actual call count instead of the previous hardcoded 0.
+
+Closes B5 in NEBULA_BLOCKERS.md: §11.5 over-budget downgrade can now
+trigger when entities consume more random calls than allocated. The
+historicalMax table will adapt automatically over time.
+
+Note: for ServerPlayer entities (which use their own RandomSource),
+the counter is still 0 — player calls are not counted. The
+estimatedCalls = isPlayer ? 16 : 8 default already accounts for this
+asymmetry, treating the player pre-allocation as a static cost.
+
+diff --git a/io/papermc/paper/threadedregions/EntityTaskBuilder.java b/io/papermc/paper/threadedregions/EntityTaskBuilder.java
+index 38f5980ad9448f81d48386e552ed59fe3e40c22d..9cd8773a36f4e6b401a67e9c1a9a398f61c5bdaf 100644
+--- a/io/papermc/paper/threadedregions/EntityTaskBuilder.java
++++ b/io/papermc/paper/threadedregions/EntityTaskBuilder.java
+@@ -105,13 +105,16 @@ public final class EntityTaskBuilder {
+             }
+             // §11.2: pre-allocate random budget for this entity. Estimated call
+             // count is taken from the @NebulaRW annotation on the entity's tick
+-            // method (default 8 for non-player entities). Actual call counting
+-            // requires a Random hook layer (deferred — see B5 in NEBULA_BLOCKERS.md);
+-            // for now we record the allocation so /nebula random reflects activity.
++            // method (default 8 for non-player entities). Real per-call counting
++            // is provided by the ThreadLocalRandomSource counter (the entity's
++            // SHARED_RANDOM source), so over-budget detection now fires correctly
++            // (closes B5 in NEBULA_BLOCKERS.md).
+             int estimatedCalls = isPlayer ? 16 : 8;
+             int budget = io.papermc.paper.threadedregions.NebulaRandomGate.allocate(entityId, estimatedCalls);
++            io.papermc.paper.threadedregions.util.ThreadLocalRandomSource.resetCallCount();
+             level.guardEntityTick(level::tickNonPassenger, entity);
+-            io.papermc.paper.threadedregions.NebulaRandomGate.recordEntityCalls(entityId, budget, 0);
++            int actualCalls = io.papermc.paper.threadedregions.util.ThreadLocalRandomSource.readCallCount();
++            io.papermc.paper.threadedregions.NebulaRandomGate.recordEntityCalls(entityId, budget, actualCalls);
+         };
+ 
+         // D3: Entity.push(Entity) now defers cross-entity impulses to the
+diff --git a/io/papermc/paper/threadedregions/util/ThreadLocalRandomSource.java b/io/papermc/paper/threadedregions/util/ThreadLocalRandomSource.java
+index c167179775ec09877808d91eb04b3cdb688c00a4..51279ce0ef4c848734616e276e30c0cbc7ecae45 100644
+--- a/io/papermc/paper/threadedregions/util/ThreadLocalRandomSource.java
++++ b/io/papermc/paper/threadedregions/util/ThreadLocalRandomSource.java
+@@ -13,18 +13,46 @@ public final class ThreadLocalRandomSource implements BitRandomSource {
+ 
+     private ThreadLocalRandomSource() {}
+ 
++    /**
++     * Per-thread call counter. EntityTaskBuilder resets this to 0 before
++     * each entity tick and reads it after to feed NebulaRandomGate.
++     * recordEntityCalls() with the actual consumed count (arch §11.2 / B5).
++     */
++    private static final ThreadLocal<int[]> CALL_COUNTER = ThreadLocal.withInitial(() -> new int[]{0});
++
++    /** Reset and return current count (used at start of tick to clear). */
++    public static int resetCallCount() {
++        int[] cnt = CALL_COUNTER.get();
++        int prev = cnt[0];
++        cnt[0] = 0;
++        return prev;
++    }
++
++    /** Read current count without resetting. */
++    public static int readCallCount() {
++        return CALL_COUNTER.get()[0];
++    }
++
++    /** Increment the per-thread counter. Hot-path inlined. */
++    private static void incCall() {
++        CALL_COUNTER.get()[0]++;
++    }
++
+     @Override
+     public int next(final int bits) {
++        incCall();
+         return ThreadLocalRandom.current().nextInt() >>> (Integer.SIZE - bits);
+     }
+ 
+     @Override
+     public int nextInt() {
++        incCall();
+         return ThreadLocalRandom.current().nextInt();
+     }
+ 
+     @Override
+     public int nextInt(final int bound) {
++        incCall();
+         return ThreadLocalRandom.current().nextInt(bound);
+     }
+ 
+@@ -35,6 +63,7 @@ public final class ThreadLocalRandomSource implements BitRandomSource {
+ 
+     @Override
+     public double nextGaussian() {
++        incCall();
+         return ThreadLocalRandom.current().nextGaussian();
+     }
+ 
