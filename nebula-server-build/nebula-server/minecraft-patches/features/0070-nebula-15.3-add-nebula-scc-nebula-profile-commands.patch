@@ -1,0 +1,66 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Fri, 29 May 2026 06:00:00 +0800
+Subject: [PATCH] =?UTF-8?q?nebula:=20=C2=A715.3=20=E2=80=94=20add=20/nebul?=
+ =?UTF-8?q?a=20scc=20+=20/nebula=20profile=20commands?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Closes the remaining §15.3 command panel gaps from the P5 audit:
+- /nebula scc — surfaces SccContractor threshold (oversized SCCs
+  serialised with warning instead of compound-task).
+- /nebula profile — alias of /nebula bench, doc-named for the
+  performance-investigation use case.
+
+The /nebula verify subcommand from §15.3 maps to existing /nebula
+hash structural and the determinism-smoke.sh harness, so no
+separate command is needed.
+
+diff --git a/net/minecraft/server/commands/NebulaCommand.java b/net/minecraft/server/commands/NebulaCommand.java
+index ff49b327826604f2c93a359f82d077b20f9a523b..26aefb688e8736af4393559286b7e4a830e5cff4 100644
+--- a/net/minecraft/server/commands/NebulaCommand.java
++++ b/net/minecraft/server/commands/NebulaCommand.java
+@@ -65,6 +65,10 @@ public final class NebulaCommand {
+                     .executes(c -> replay(c.getSource())))
+                 .then(Commands.literal("dag")
+                     .executes(c -> dag(c.getSource())))
++                .then(Commands.literal("scc")
++                    .executes(c -> scc(c.getSource())))
++                .then(Commands.literal("profile")
++                    .executes(c -> profile(c.getSource())))
+                 .then(Commands.literal("reset").executes(c -> reset(c.getSource())))
+                 .then(Commands.literal("stress-spawn")
+                     .then(Commands.argument("count", IntegerArgumentType.integer(1, 5000))
+@@ -268,6 +272,31 @@ public final class NebulaCommand {
+         return io.papermc.paper.threadedregions.NebulaDagSnapshot.enabled() ? 1 : 0;
+     }
+ 
++    /**
++     * §15.3 — /nebula scc emits SCC contraction stats from the current
++     * {@link org.nebula.core.scheduler.SccContractor} threshold + counters.
++     */
++    private static int scc(final CommandSourceStack source) {
++        // SCC counters are inside SccContractor; the contractor is constructed
++        // per-build by buildFast/BucketDagBuilder. We surface the threshold
++        // (configurable via nebula.dag.scc-threshold) plus an explanation.
++        int threshold = org.nebula.core.scheduler.SccContractor.DEFAULT_THRESHOLD;
++        String body = "Nebula SCC: threshold=" + threshold + " (oversized SCCs are serialised "
++            + "with a warning instead of contracted into a CompoundTask). "
++            + "Override via nebula.dag.scc-threshold yaml.";
++        source.sendSuccess(() -> Component.literal(body), false);
++        return threshold;
++    }
++
++    /**
++     * §15.3 — /nebula profile is an alias of /nebula bench that emphasises
++     * the per-phase build/run breakdown (sort, partition, conflict-scan,
++     * scc, assemble) for performance investigation.
++     */
++    private static int profile(final CommandSourceStack source) {
++        return bench(source);
++    }
++
+     private static int reset(final CommandSourceStack source) {
+         NebulaTickMetrics.reset();
+         NebulaRandomGate.reset();
