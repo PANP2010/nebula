@@ -143,31 +143,64 @@ public record RWSet(
     }
 
     private static boolean containsEntityField(Set<EntityField> declared, EntityField actual) {
-        return declared.stream().anyMatch(candidate -> candidate.conflictsWith(actual));
+        for (EntityField candidate : declared) {
+            if (candidate.conflictsWith(actual)) return true;
+        }
+        return false;
     }
 
     private static boolean containsBlockEntityField(Set<BlockEntityField> declared, BlockEntityField actual) {
-        return declared.stream().anyMatch(candidate -> candidate.conflictsWith(actual));
+        for (BlockEntityField candidate : declared) {
+            if (candidate.conflictsWith(actual)) return true;
+        }
+        return false;
     }
 
     private static boolean containsGlobalKey(Set<GlobalKey> declared, GlobalKey actual) {
-        return declared.stream().anyMatch(candidate -> candidate.conflictsWith(actual));
+        for (GlobalKey candidate : declared) {
+            if (candidate.conflictsWith(actual)) return true;
+        }
+        return false;
     }
 
     private static boolean intersectsWorldPos(Set<WorldPos> left, Set<WorldPos> right) {
-        return left.stream().anyMatch(right::contains);
+        if (left.isEmpty() || right.isEmpty()) return false;
+        // Iterate the smaller set for fewer hash lookups.
+        if (left.size() > right.size()) { Set<WorldPos> swap = left; left = right; right = swap; }
+        for (WorldPos pos : left) {
+            if (right.contains(pos)) return true;
+        }
+        return false;
     }
 
     private static boolean intersectsEntity(Set<EntityField> left, Set<EntityField> right) {
-        return left.stream().anyMatch(l -> right.stream().anyMatch(l::conflictsWith));
+        if (left.isEmpty() || right.isEmpty()) return false;
+        for (EntityField l : left) {
+            for (EntityField r : right) {
+                if (l.conflictsWith(r)) return true;
+            }
+        }
+        return false;
     }
 
     private static boolean intersectsBlockEntity(Set<BlockEntityField> left, Set<BlockEntityField> right) {
-        return left.stream().anyMatch(l -> right.stream().anyMatch(l::conflictsWith));
+        if (left.isEmpty() || right.isEmpty()) return false;
+        for (BlockEntityField l : left) {
+            for (BlockEntityField r : right) {
+                if (l.conflictsWith(r)) return true;
+            }
+        }
+        return false;
     }
 
     private static boolean intersectsGlobal(Set<GlobalKey> left, Set<GlobalKey> right) {
-        return left.stream().anyMatch(l -> right.stream().anyMatch(l::conflictsWith));
+        if (left.isEmpty() || right.isEmpty()) return false;
+        for (GlobalKey l : left) {
+            for (GlobalKey r : right) {
+                if (l.conflictsWith(r)) return true;
+            }
+        }
+        return false;
     }
 
     public static final class Builder {
