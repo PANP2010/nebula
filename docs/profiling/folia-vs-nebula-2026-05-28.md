@@ -24,8 +24,12 @@ Hardware: macOS arm64 (Apple Silicon), -Xms2G -Xmx4G.
 
 | Path | avg MSPT | p95 | p99 | max | samples/60s |
 |---|---:|---:|---:|---:|---:|
-| **Folia (EDF)** | **17.0ms** | 15.9ms | 18.0ms | 677.6ms | 1208 |
-| **Nebula** | **25.7ms** | 25.0ms | 27.5ms | **111.7ms** | 1123 |
+| **Folia (EDF)** | **21.7ms** | 20.9ms | 22.9ms | 223.5ms | 1218 |
+| **Nebula** | **38.9ms** | 36.4ms | 38.9ms | **156.3ms** | 1150 |
+
+(Numbers from latest run after all session optimisations: bucket fast-path,
+batched fan-out, RWSet loops, Map.copyOf elimination, scheduler config
+tuning. Run-to-run variance ~10% on the same workload.)
 
 ### Interpretation
 
