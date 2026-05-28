@@ -1,0 +1,163 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Fri, 29 May 2026 01:17:43 +0800
+Subject: [PATCH] =?UTF-8?q?nebula:=20Layer=20A=20@NebulaRW=20annotations?=
+ =?UTF-8?q?=20batch=208=20=E2=80=94=206=20more=20block=20ticks?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Annotations on common gameplay-path block tick methods:
+- ButtonBlock: PROPAGATES — toggles POWERED, triggers neighbour update
+- SculkSensorBlock: PROPAGATES — phase transitions emit redstone signal
+- FallingBlock: spawns FallingBlockEntity, removes block (maySpawnEntities)
+- FireBlock: 5x5x5 spread + 3x3x3 ignite (high random budget)
+- DispenserBlock: dispenses items/projectiles into facing direction
+- BubbleColumnBlock: column update walking from below
+
+Total annotations: 66 (up from 60). Per arch §14.3 DG2 target ~130; ~51% complete.
+
+diff --git a/net/minecraft/world/level/block/BubbleColumnBlock.java b/net/minecraft/world/level/block/BubbleColumnBlock.java
+index 31d5db8339ccdbf3ab1860bc9ad39b06145d94a4..6b1840d9b7fed1935142b709982ecb9936e496a1 100644
+--- a/net/minecraft/world/level/block/BubbleColumnBlock.java
++++ b/net/minecraft/world/level/block/BubbleColumnBlock.java
+@@ -70,6 +70,18 @@ public class BubbleColumnBlock extends Block implements BucketPickup {
+         }
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readBlocks         = {"{pos}", "{pos}.column"},
++        writeBlocks        = {"{pos}.column"},
++        triggeredEvents    = {"BLOCK_UPDATE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        randomInstance     = "WORLD_RANDOM",
++        mayLoadChunks      = false,
++        mayTriggerBlockUpdates = true,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     protected void tick(final BlockState state, final ServerLevel level, final BlockPos pos, final RandomSource random) {
+         updateColumn(this, level, pos, state, level.getBlockState(pos.below()));
+diff --git a/net/minecraft/world/level/block/ButtonBlock.java b/net/minecraft/world/level/block/ButtonBlock.java
+index 86f4dcd959bb83247c6d2c5e947c79230aed3189..9cbbb26b21f150c8c6791527076da67bdbc6faa3 100644
+--- a/net/minecraft/world/level/block/ButtonBlock.java
++++ b/net/minecraft/world/level/block/ButtonBlock.java
+@@ -153,6 +153,18 @@ public class ButtonBlock extends FaceAttachedHorizontalDirectionalBlock {
+         return true;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readBlocks         = {"{pos}"},
++        writeBlocks        = {"{pos}"},
++        triggeredEvents    = {"REDSTONE_UPDATE", "BLOCK_UPDATE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.PROPAGATES,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        randomInstance     = "WORLD_RANDOM",
++        mayLoadChunks      = false,
++        mayTriggerBlockUpdates = true,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     protected void tick(final BlockState state, final ServerLevel level, final BlockPos pos, final RandomSource random) {
+         if (state.getValue(POWERED)) {
+diff --git a/net/minecraft/world/level/block/DispenserBlock.java b/net/minecraft/world/level/block/DispenserBlock.java
+index dca954bd076fa917512af91e0b93d449eb5cac6d..4a8ea9c158cf6b55e42c978a7d9c51367b2932c7 100644
+--- a/net/minecraft/world/level/block/DispenserBlock.java
++++ b/net/minecraft/world/level/block/DispenserBlock.java
+@@ -144,6 +144,21 @@ public class DispenserBlock extends BaseEntityBlock {
+         }
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readBlocks         = {"{pos}", "{pos}.facing"},
++        writeBlocks        = {"{pos}.facing"},
++        readBlockEntities  = {"{pos}.*"},
++        writeBlockEntities = {"{pos}.*"},
++        triggeredEvents    = {"ENTITY_SPAWN", "BLOCK_UPDATE", "INVENTORY_CHANGE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.CONTRACTIBLE,
++        maxRandomCalls     = 4,
++        randomInstance     = "WORLD_RANDOM",
++        mayLoadChunks      = false,
++        mayTriggerBlockUpdates = true,
++        maySpawnEntities   = true,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     protected void tick(final BlockState state, final ServerLevel level, final BlockPos pos, final RandomSource random) {
+         this.dispenseFrom(level, state, pos);
+diff --git a/net/minecraft/world/level/block/FallingBlock.java b/net/minecraft/world/level/block/FallingBlock.java
+index f42cc2807d6caf3ecf53e5352390ce9ea94e7b16..3a56dec9be6f1498f2cf2984805a5f2c19e4b7f6 100644
+--- a/net/minecraft/world/level/block/FallingBlock.java
++++ b/net/minecraft/world/level/block/FallingBlock.java
+@@ -45,6 +45,19 @@ public abstract class FallingBlock extends Block implements Fallable {
+         return super.updateShape(state, level, ticks, pos, directionToNeighbour, neighbourPos, neighbourState, random);
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readBlocks         = {"{pos}", "{pos}.below"},
++        writeBlocks        = {"{pos}"},
++        triggeredEvents    = {"ENTITY_SPAWN", "BLOCK_UPDATE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        randomInstance     = "WORLD_RANDOM",
++        mayLoadChunks      = false,
++        mayTriggerBlockUpdates = true,
++        maySpawnEntities   = true,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     protected void tick(final BlockState state, final ServerLevel level, final BlockPos pos, final RandomSource random) {
+         if (isFree(level.getBlockState(pos.below())) && pos.getY() >= level.getMinY()) {
+diff --git a/net/minecraft/world/level/block/FireBlock.java b/net/minecraft/world/level/block/FireBlock.java
+index 2abd6fbcb7cfc14f503485f646a7192bf628edb3..e7e5768e8296c444a83e51a028c05d24c70c42cd 100644
+--- a/net/minecraft/world/level/block/FireBlock.java
++++ b/net/minecraft/world/level/block/FireBlock.java
+@@ -155,6 +155,18 @@ public class FireBlock extends BaseFireBlock {
+         return level.getBlockState(below).isFaceSturdy(level, below, Direction.UP) || this.isValidFireLocation(level, pos);
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readBlocks         = {"{pos}.expand:5"},
++        writeBlocks        = {"{pos}.expand:3"},
++        triggeredEvents    = {"FIRE_SPREAD", "BLOCK_UPDATE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 16,
++        randomInstance     = "WORLD_RANDOM",
++        mayLoadChunks      = false,
++        mayTriggerBlockUpdates = true,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     protected void tick(BlockState state, final ServerLevel level, final BlockPos pos, final RandomSource random) {
+         level.scheduleTick(pos, this, getFireTickDelay(level)); // Paper - Add fire-tick-delay option
+diff --git a/net/minecraft/world/level/block/SculkSensorBlock.java b/net/minecraft/world/level/block/SculkSensorBlock.java
+index 2bbce50d9dd0ca65f9e3bc90c8de098473039bc5..6f8f2313e8a884f7cf616c0f315282bf15d87798 100644
+--- a/net/minecraft/world/level/block/SculkSensorBlock.java
++++ b/net/minecraft/world/level/block/SculkSensorBlock.java
+@@ -80,6 +80,20 @@ public class SculkSensorBlock extends BaseEntityBlock implements SimpleWaterlogg
+         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readBlocks         = {"{pos}"},
++        writeBlocks        = {"{pos}"},
++        readBlockEntities  = {"{pos}.*"},
++        writeBlockEntities = {"{pos}.*"},
++        triggeredEvents    = {"REDSTONE_UPDATE", "SOUND_PLAY", "BLOCK_UPDATE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.PROPAGATES,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 2,
++        randomInstance     = "WORLD_RANDOM",
++        mayLoadChunks      = false,
++        mayTriggerBlockUpdates = true,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     protected void tick(final BlockState state, final ServerLevel level, final BlockPos pos, final RandomSource random) {
+         if (getPhase(state) != SculkSensorPhase.ACTIVE) {
