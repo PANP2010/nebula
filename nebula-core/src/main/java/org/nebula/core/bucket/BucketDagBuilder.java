@@ -138,7 +138,9 @@ public final class BucketDagBuilder {
         long tEnd = System.nanoTime();
 
         BucketBuildStats.record(tIndex - t0, tBucket - tIndex, tGlobal - tBucket, tScc - tGlobal, tEnd - tScc);
-        return new TaskGraph(Map.copyOf(finalById), Set.copyOf(contracted.edges()));
+        // TaskGraph constructor will Map.copyOf / Set.copyOf — pass through
+        // the mutable collection directly to avoid a double copy.
+        return new TaskGraph(finalById, contracted.edges() instanceof Set<DependencyEdge> setEdges ? setEdges : new LinkedHashSet<>(contracted.edges()));
     }
 
     private static List<DependencyEdge> detectConflicts(List<TaskNode> tasks) {

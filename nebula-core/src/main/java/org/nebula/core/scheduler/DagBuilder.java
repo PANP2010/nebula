@@ -45,6 +45,10 @@ public final class DagBuilder {
             finalById.put(task.taskId(), task);
         }
 
-        return new TaskGraph(Map.copyOf(finalById), Set.copyOf(contracted.edges()));
+        // TaskGraph constructor will Map.copyOf / Set.copyOf — pass through
+        // the mutable collection directly to avoid a double copy.
+        Set<DependencyEdge> edgesAsSet = contracted.edges() instanceof Set<DependencyEdge> s
+            ? s : new LinkedHashSet<>(contracted.edges());
+        return new TaskGraph(finalById, edgesAsSet);
     }
 }
