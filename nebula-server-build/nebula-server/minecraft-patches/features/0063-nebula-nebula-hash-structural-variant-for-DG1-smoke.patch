@@ -1,0 +1,111 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Fri, 29 May 2026 02:56:55 +0800
+Subject: [PATCH] nebula: /nebula hash + structural variant for DG1 smoke
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+- Add NebulaCommand.hash(structural=true|false) wired as
+  /nebula hash and /nebula hash structural.
+- Add NebulaServerReplayScheduler.computeStateHash(boolean
+  excludeTimeVarying) — structural variant omits gameTime,
+  dayClock, weather to allow cross-restart determinism smoke
+  without wall-clock drift masking real divergence.
+- Smoke harness verified: two boots from the same on-disk
+  snapshot produce identical structural digest
+  6b10fbf5...e67e1 (arch §12.1 / DG1 partial).
+
+diff --git a/io/papermc/paper/threadedregions/NebulaServerReplayScheduler.java b/io/papermc/paper/threadedregions/NebulaServerReplayScheduler.java
+index 4d42a31f643f8d1dc5e86de8cf27b1b81236fc9e..c981db0d1dd44292c51ff27d4cec01f8e76f1be3 100644
+--- a/io/papermc/paper/threadedregions/NebulaServerReplayScheduler.java
++++ b/io/papermc/paper/threadedregions/NebulaServerReplayScheduler.java
+@@ -114,6 +114,16 @@ public final class NebulaServerReplayScheduler extends TickPipelineReplayAdapter
+ 
+     @Override
+     public byte[] computeStateHash() {
++        return computeStateHash(false);
++    }
++
++    /**
++     * Variant for smoke testing across server restarts (arch §12.1 / DG1).
++     * When {@code excludeTimeVarying} is true, gameTime, dayClock, weather
++     * level/state are omitted — these advance with wall-clock idle and would
++     * otherwise mask real determinism issues in block/entity/BE state.
++     */
++    public byte[] computeStateHash(boolean excludeTimeVarying) {
+         Map<String, byte[]> blockChunks = new LinkedHashMap<>();
+         Map<String, byte[]> blockEntities = new LinkedHashMap<>();
+         Map<String, byte[]> entities = new LinkedHashMap<>();
+@@ -152,12 +162,14 @@ public final class NebulaServerReplayScheduler extends TickPipelineReplayAdapter
+ 
+         // Globals — game time, weather, difficulty, gamerule digest.
+         globals.put("dimension", dimensionKey(level).getBytes(java.nio.charset.StandardCharsets.UTF_8));
+-        globals.put("gameTime", longBytes(level.getGameTime()));
+-        globals.put("dayClock", longBytes(level.getOverworldClockTime()));
+-        globals.put("rainLevel", intBytes(Float.floatToIntBits(level.getRainLevel(1.0F))));
+-        globals.put("thunderLevel", intBytes(Float.floatToIntBits(level.getThunderLevel(1.0F))));
+-        globals.put("raining", boolBytes(level.isRaining()));
+-        globals.put("thundering", boolBytes(level.isThundering()));
++        if (!excludeTimeVarying) {
++            globals.put("gameTime", longBytes(level.getGameTime()));
++            globals.put("dayClock", longBytes(level.getOverworldClockTime()));
++            globals.put("rainLevel", intBytes(Float.floatToIntBits(level.getRainLevel(1.0F))));
++            globals.put("thunderLevel", intBytes(Float.floatToIntBits(level.getThunderLevel(1.0F))));
++            globals.put("raining", boolBytes(level.isRaining()));
++            globals.put("thundering", boolBytes(level.isThundering()));
++        }
+         globals.put("difficulty", new byte[]{(byte) level.getDifficulty().getId()});
+         globals.put("gameRules", serializeGameRules(level.getGameRules()));
+ 
+diff --git a/net/minecraft/server/commands/NebulaCommand.java b/net/minecraft/server/commands/NebulaCommand.java
+index d3d070f80d09ff8d357b4b9fbdb91d3a0aa1cc1f..68bfa00f77bd981855f02d219ddb897440819857 100644
+--- a/net/minecraft/server/commands/NebulaCommand.java
++++ b/net/minecraft/server/commands/NebulaCommand.java
+@@ -55,6 +55,10 @@ public final class NebulaCommand {
+                         .executes(c -> fidelityReset(c.getSource()))))
+                 .then(Commands.literal("bench")
+                     .executes(c -> bench(c.getSource())))
++                .then(Commands.literal("hash")
++                    .executes(c -> hash(c.getSource(), false))
++                    .then(Commands.literal("structural")
++                        .executes(c -> hash(c.getSource(), true))))
+                 .then(Commands.literal("reset").executes(c -> reset(c.getSource())))
+                 .then(Commands.literal("stress-spawn")
+                     .then(Commands.argument("count", IntegerArgumentType.integer(1, 5000))
+@@ -189,6 +193,35 @@ public final class NebulaCommand {
+         return (int) Math.min(Integer.MAX_VALUE, io.papermc.paper.threadedregions.NebulaTickProbe.totalSamples());
+     }
+ 
++    /**
++     * §12.1 / DG1 — /nebula hash [structural] emits a hex digest of the current
++     * overworld state via {@link io.papermc.paper.threadedregions.NebulaServerReplayScheduler#computeStateHash(boolean)}.
++     *
++     * <p>Used by the determinism smoke harness: two consecutive runs of N
++     * empty ticks should produce identical digests. The {@code structural}
++     * variant excludes time-varying globals (gameTime, dayClock, weather)
++     * so cross-restart comparisons aren't masked by wall-clock drift.
++     */
++    private static int hash(final CommandSourceStack source, final boolean structural) {
++        final ServerLevel level = source.getLevel();
++        // Use a no-op pipeline — computeStateHash() does not invoke pipeline.execute().
++        org.nebula.core.scheduler.TickPipeline pipeline = new org.nebula.core.scheduler.TickPipeline(
++            completed -> java.util.List.of(),
++            org.nebula.core.scheduler.TaskRunner.DIRECT
++        );
++        io.papermc.paper.threadedregions.NebulaServerReplayScheduler scheduler =
++            new io.papermc.paper.threadedregions.NebulaServerReplayScheduler(level, pipeline);
++        byte[] digest = scheduler.computeStateHash(structural);
++        StringBuilder hex = new StringBuilder(digest.length * 2);
++        for (byte b : digest) {
++            hex.append(String.format("%02x", b & 0xFF));
++        }
++        final String mode = structural ? "structural" : "full";
++        final String body = "Nebula state-hash[" + level.dimension().identifier() + "][" + mode + "] tick=" + level.getGameTime() + " sha=" + hex;
++        source.sendSuccess(() -> Component.literal(body), false);
++        return digest.length;
++    }
++
+     private static int reset(final CommandSourceStack source) {
+         NebulaTickMetrics.reset();
+         NebulaRandomGate.reset();
