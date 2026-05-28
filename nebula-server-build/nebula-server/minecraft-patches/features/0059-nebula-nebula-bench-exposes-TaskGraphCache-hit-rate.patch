@@ -1,0 +1,32 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Fri, 29 May 2026 01:48:22 +0800
+Subject: [PATCH] nebula: /nebula bench exposes TaskGraphCache hit rate
+
+
+diff --git a/net/minecraft/server/commands/NebulaCommand.java b/net/minecraft/server/commands/NebulaCommand.java
+index b2bbf097ffeee92e6c3e0663dd8b443cd4b795f1..d3d070f80d09ff8d357b4b9fbdb91d3a0aa1cc1f 100644
+--- a/net/minecraft/server/commands/NebulaCommand.java
++++ b/net/minecraft/server/commands/NebulaCommand.java
+@@ -181,9 +181,11 @@ public final class NebulaCommand {
+         String probe = io.papermc.paper.threadedregions.NebulaTickProbe.summary();
+         String breakdown = org.nebula.core.scheduler.TickStats.summary();
+         String bucketStats = org.nebula.core.bucket.BucketBuildStats.summary();
++        String cacheStats = org.nebula.core.scheduler.TaskGraphCache.summary();
+         source.sendSuccess(() -> Component.literal(probe), false);
+         source.sendSuccess(() -> Component.literal(breakdown), false);
+         source.sendSuccess(() -> Component.literal(bucketStats), false);
++        source.sendSuccess(() -> Component.literal(cacheStats), false);
+         return (int) Math.min(Integer.MAX_VALUE, io.papermc.paper.threadedregions.NebulaTickProbe.totalSamples());
+     }
+ 
+@@ -195,7 +197,8 @@ public final class NebulaCommand {
+         io.papermc.paper.threadedregions.NebulaTickProbe.reset();
+         org.nebula.core.scheduler.TickStats.reset();
+         org.nebula.core.bucket.BucketBuildStats.reset();
+-        source.sendSuccess(() -> Component.literal("Nebula DAG metrics + random budget + guard + parallel + bench probe + tick stats + bucket stats reset."), true);
++        org.nebula.core.scheduler.TaskGraphCache.resetCounters();
++        source.sendSuccess(() -> Component.literal("Nebula DAG metrics + random budget + guard + parallel + bench probe + tick stats + bucket stats + cache stats reset."), true);
+         return 1;
+     }
+ 
