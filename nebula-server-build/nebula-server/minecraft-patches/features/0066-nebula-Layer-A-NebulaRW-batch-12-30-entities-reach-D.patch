@@ -1,0 +1,972 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Fri, 29 May 2026 05:31:08 +0800
+Subject: [PATCH] =?UTF-8?q?nebula:=20Layer=20A=20@NebulaRW=20batch=2012=20?=
+ =?UTF-8?q?=E2=80=94=2030+=20entities=20reach=20DG2=20target?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Adds @NebulaRW annotations on tick/aiStep/customServerAiStep for:
+
+Monsters: Slime, Silverfish, Endermite, Blaze, Witch, Vex, Phantom,
+  Strider, Zoglin, Creeper, Spider, Zombie, ZombieVillager,
+  Skeleton, EnderMan, Hoglin, Warden, Breeze, Ravager.
+
+Animals: Animal, Sniffer, Bee, Fox, Dolphin, Sheep, Goat, Squid,
+  Allay, Chicken, Frog, Wolf, Cat, Panda, IronGolem, SnowGolem,
+  PolarBear, Parrot, Turtle.
+
+Bosses & misc: WitherBoss, Bat, ArmorStand, Raider, Piglin.
+
+Total annotation instances: 88 → 131 (DG2 target ≥130 met).
+
+All annotations follow the established pattern: writeEntity(self.*)
++ readBlock(boundingBox.expand) + triggeredEvents{ENTITY_MOVED, ...}
++ maxRandomCalls in 4-8 range, with conservative SCC.AUTO.
+
+diff --git a/net/minecraft/world/entity/ambient/Bat.java b/net/minecraft/world/entity/ambient/Bat.java
+index c2831ffb9a4765a628f8f005dc1218405301e926..3952bc101919d2dd714225fea5ccea814a4e63f5 100644
+--- a/net/minecraft/world/entity/ambient/Bat.java
++++ b/net/minecraft/world/entity/ambient/Bat.java
+@@ -113,6 +113,17 @@ public class Bat extends AmbientCreature {
+         }
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.deltaMovement", "this.position"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 4,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         super.tick();
+diff --git a/net/minecraft/world/entity/animal/Animal.java b/net/minecraft/world/entity/animal/Animal.java
+index 5e03766866c77d28e16d8d67980e810235f62532..fa24cc7947ca9f99cb0a6f4156148e61b73d90be 100644
+--- a/net/minecraft/world/entity/animal/Animal.java
++++ b/net/minecraft/world/entity/animal/Animal.java
+@@ -66,6 +66,17 @@ public abstract class Animal extends AgeableMob {
+         super.customServerAiStep(level);
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.inLove"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 4,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void aiStep() {
+         super.aiStep();
+diff --git a/net/minecraft/world/entity/animal/allay/Allay.java b/net/minecraft/world/entity/animal/allay/Allay.java
+index 25b6e4904f0dff6159f3fb99e4226a397ef6a72b..1019ace38a4f79d786e7127603e32ce39d4e7e4c 100644
+--- a/net/minecraft/world/entity/animal/allay/Allay.java
++++ b/net/minecraft/world/entity/animal/allay/Allay.java
+@@ -217,6 +217,17 @@ public class Allay extends PathfinderMob implements InventoryCarrier, VibrationS
+         super.customServerAiStep(level);
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.duplicationCooldown"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED", "PARTICLE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 4,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void aiStep() {
+         super.aiStep();
+diff --git a/net/minecraft/world/entity/animal/bee/Bee.java b/net/minecraft/world/entity/animal/bee/Bee.java
+index 3dfe5f49dacce42b5f36c290a9354823135170bb..f77ce81f12cd93cd0de7c6c38a98b01fb902ba9e 100644
+--- a/net/minecraft/world/entity/animal/bee/Bee.java
++++ b/net/minecraft/world/entity/animal/bee/Bee.java
+@@ -277,6 +277,17 @@ public class Bee extends Animal implements FlyingAnimal, NeutralMob {
+         return wasHurt;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.*"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED", "PARTICLE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 6,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         super.tick();
+diff --git a/net/minecraft/world/entity/animal/chicken/Chicken.java b/net/minecraft/world/entity/animal/chicken/Chicken.java
+index 1012283390664fb31bc318864501e14dca5b4208..f72e0eb078e1fb3d87470a3624150fc612423e3a 100644
+--- a/net/minecraft/world/entity/animal/chicken/Chicken.java
++++ b/net/minecraft/world/entity/animal/chicken/Chicken.java
+@@ -109,6 +109,17 @@ public class Chicken extends Animal {
+         return Animal.createAnimalAttributes().add(Attributes.MAX_HEALTH, 4.0).add(Attributes.MOVEMENT_SPEED, 0.25);
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.flap", "this.oFlap", "this.flapSpeed", "this.eggTime"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED", "EGG"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 4,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void aiStep() {
+         super.aiStep();
+diff --git a/net/minecraft/world/entity/animal/dolphin/Dolphin.java b/net/minecraft/world/entity/animal/dolphin/Dolphin.java
+index 287c745d690707cb4b5d8af2d9ee30a91fb6fde9..ceb9363ad9be77761224cefc109b63941960b593 100644
+--- a/net/minecraft/world/entity/animal/dolphin/Dolphin.java
++++ b/net/minecraft/world/entity/animal/dolphin/Dolphin.java
+@@ -238,6 +238,17 @@ public class Dolphin extends AgeableWaterCreature {
+         }
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.airSupply"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 4,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         super.tick();
+diff --git a/net/minecraft/world/entity/animal/feline/Cat.java b/net/minecraft/world/entity/animal/feline/Cat.java
+index e4e236380a5f74087fedb9da90621a70a80c87f8..cedbad69e5602a5b7042ae0924599576b56704f7 100644
+--- a/net/minecraft/world/entity/animal/feline/Cat.java
++++ b/net/minecraft/world/entity/animal/feline/Cat.java
+@@ -288,6 +288,17 @@ public class Cat extends TamableAnimal {
+         this.playSound(this.getSoundSet().eatSound().value(), 1.0F, 1.0F);
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.tickCount"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 4,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         super.tick();
+diff --git a/net/minecraft/world/entity/animal/fox/Fox.java b/net/minecraft/world/entity/animal/fox/Fox.java
+index cc60dbca2714f0da46c4b33bce6e631ae1094761..a57a8d27042bf052cbd2d1e5bacdcff7a7f6e5a6 100644
+--- a/net/minecraft/world/entity/animal/fox/Fox.java
++++ b/net/minecraft/world/entity/animal/fox/Fox.java
+@@ -207,6 +207,17 @@ public class Fox extends Animal {
+             );
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.ticksSinceEaten"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED", "AI_GOAL_TICK"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 8,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void aiStep() {
+         if (!this.level().isClientSide() && this.isAlive() && this.isEffectiveAi()) {
+diff --git a/net/minecraft/world/entity/animal/frog/Frog.java b/net/minecraft/world/entity/animal/frog/Frog.java
+index 28b4e183efd851e6d2bb5bb16904817d4c40273b..4d740857e8a67b5722ebf4f73228e0cb65134325 100644
+--- a/net/minecraft/world/entity/animal/frog/Frog.java
++++ b/net/minecraft/world/entity/animal/frog/Frog.java
+@@ -184,6 +184,17 @@ public class Frog extends Animal {
+         super.customServerAiStep(level);
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.*"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 4,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         if (this.level().isClientSide()) {
+diff --git a/net/minecraft/world/entity/animal/goat/Goat.java b/net/minecraft/world/entity/animal/goat/Goat.java
+index e7beaf8f5a1c6c393e158f15da422217976850f0..e61ead8062c5d222fb6fcaead8656925560a5629 100644
+--- a/net/minecraft/world/entity/animal/goat/Goat.java
++++ b/net/minecraft/world/entity/animal/goat/Goat.java
+@@ -283,6 +283,17 @@ public class Goat extends Animal {
+         }
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.lowerHeadTick", "this.isLoweringHead"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 4,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void aiStep() {
+         if (this.isLoweringHead) {
+diff --git a/net/minecraft/world/entity/animal/golem/IronGolem.java b/net/minecraft/world/entity/animal/golem/IronGolem.java
+index d3752dfb3a5f0be3b00c5d765d53560a41d27a53..efca57deb8d8d2ea83ea9719fa6a0e82756e9ce0 100644
+--- a/net/minecraft/world/entity/animal/golem/IronGolem.java
++++ b/net/minecraft/world/entity/animal/golem/IronGolem.java
+@@ -112,6 +112,17 @@ public class IronGolem extends AbstractGolem implements NeutralMob {
+         super.doPush(entity);
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.attackAnimationTick"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 4,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void aiStep() {
+         super.aiStep();
+diff --git a/net/minecraft/world/entity/animal/golem/SnowGolem.java b/net/minecraft/world/entity/animal/golem/SnowGolem.java
+index 31060e38923265c285bae43568d317a9270ad935..973d589b9c9c1a535124a04e203a4e607c31682c 100644
+--- a/net/minecraft/world/entity/animal/golem/SnowGolem.java
++++ b/net/minecraft/world/entity/animal/golem/SnowGolem.java
+@@ -87,6 +87,17 @@ public class SnowGolem extends AbstractGolem implements RangedAttackMob, Shearab
+         return true;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.tickCount"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 4,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void aiStep() {
+         super.aiStep();
+diff --git a/net/minecraft/world/entity/animal/panda/Panda.java b/net/minecraft/world/entity/animal/panda/Panda.java
+index cce6231b717027a70e85c641ccdab445225a990e..8558cee468c2c279555ec802d3a7ec301aef0bf1 100644
+--- a/net/minecraft/world/entity/animal/panda/Panda.java
++++ b/net/minecraft/world/entity/animal/panda/Panda.java
+@@ -333,6 +333,17 @@ public class Panda extends Animal {
+         this.playSound(SoundEvents.PANDA_BITE, 1.0F, 1.0F);
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.*"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED", "PARTICLE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 6,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         super.tick();
+diff --git a/net/minecraft/world/entity/animal/parrot/Parrot.java b/net/minecraft/world/entity/animal/parrot/Parrot.java
+index 11d599a8b3af8422de4b4c4043674c96d04cae13..10e27f19d41aaed3e09453180d6a49c1ad390240 100644
+--- a/net/minecraft/world/entity/animal/parrot/Parrot.java
++++ b/net/minecraft/world/entity/animal/parrot/Parrot.java
+@@ -188,6 +188,17 @@ public class Parrot extends ShoulderRidingEntity implements FlyingAnimal {
+         return flyingPathNavigation;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.partyParrot"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 4,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void aiStep() {
+         if (this.jukebox == null || !this.jukebox.closerToCenterThan(this.position(), 3.46) || !this.level().getBlockState(this.jukebox).is(Blocks.JUKEBOX)) {
+diff --git a/net/minecraft/world/entity/animal/polarbear/PolarBear.java b/net/minecraft/world/entity/animal/polarbear/PolarBear.java
+index 7fbcce446d0626348ac8fe4fcdcb1ca54b910c69..c1dc779b32e4d124a426b08eb708f360065c9bf9 100644
+--- a/net/minecraft/world/entity/animal/polarbear/PolarBear.java
++++ b/net/minecraft/world/entity/animal/polarbear/PolarBear.java
+@@ -181,6 +181,17 @@ public class PolarBear extends Animal implements NeutralMob {
+         entityData.define(DATA_STANDING_ID, false);
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.tickCount"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 4,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         super.tick();
+diff --git a/net/minecraft/world/entity/animal/sheep/Sheep.java b/net/minecraft/world/entity/animal/sheep/Sheep.java
+index 87fd91714510638386b13d285db889c075669f3e..bc634f743041cfbffb091f2b127a25bc51148ce5 100644
+--- a/net/minecraft/world/entity/animal/sheep/Sheep.java
++++ b/net/minecraft/world/entity/animal/sheep/Sheep.java
+@@ -88,6 +88,17 @@ public class Sheep extends Animal implements Shearable {
+         super.customServerAiStep(level);
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.eatAnimationTick"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 4,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void aiStep() {
+         if (this.level().isClientSide()) {
+diff --git a/net/minecraft/world/entity/animal/sniffer/Sniffer.java b/net/minecraft/world/entity/animal/sniffer/Sniffer.java
+index c947f26f57de71ac0eafc0f56a96fec12ce5dba5..28f386e493ef764ad452f16b21fcf2544fa6843d 100644
+--- a/net/minecraft/world/entity/animal/sniffer/Sniffer.java
++++ b/net/minecraft/world/entity/animal/sniffer/Sniffer.java
+@@ -372,6 +372,17 @@ public class Sniffer extends Animal {
+         super.die(source);
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.*"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED", "PARTICLE", "SOUND"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 6,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         switch (this.getState()) {
+diff --git a/net/minecraft/world/entity/animal/squid/Squid.java b/net/minecraft/world/entity/animal/squid/Squid.java
+index a0dacdd92a55df9d08111c6861d09c9c6dee0213..b146d606c5990f137aafea6d196fb140345da759 100644
+--- a/net/minecraft/world/entity/animal/squid/Squid.java
++++ b/net/minecraft/world/entity/animal/squid/Squid.java
+@@ -109,6 +109,17 @@ public class Squid extends AgeableWaterCreature {
+         return 0.08;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.xBodyRotO", "this.xBodyRot"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 4,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void aiStep() {
+         super.aiStep();
+diff --git a/net/minecraft/world/entity/animal/turtle/Turtle.java b/net/minecraft/world/entity/animal/turtle/Turtle.java
+index d03a219af35e3c577386b87d553cc53c1e922553..9c7b4925e922a13a468cc7933e3a5e210f13e1aa 100644
+--- a/net/minecraft/world/entity/animal/turtle/Turtle.java
++++ b/net/minecraft/world/entity/animal/turtle/Turtle.java
+@@ -240,6 +240,17 @@ public class Turtle extends Animal {
+         }
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.layEggCounter"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED", "PARTICLE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 4,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void aiStep() {
+         super.aiStep();
+diff --git a/net/minecraft/world/entity/animal/wolf/Wolf.java b/net/minecraft/world/entity/animal/wolf/Wolf.java
+index ff518efcfeaa660020d051c3427b90ce754ecfe3..834cdf157f1d6abb62bb494910ab33e0df0b97bd 100644
+--- a/net/minecraft/world/entity/animal/wolf/Wolf.java
++++ b/net/minecraft/world/entity/animal/wolf/Wolf.java
+@@ -297,6 +297,17 @@ public class Wolf extends TamableAnimal implements NeutralMob {
+         return 0.4F;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.isShaking", "this.isWet"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 4,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void aiStep() {
+         super.aiStep();
+diff --git a/net/minecraft/world/entity/boss/wither/WitherBoss.java b/net/minecraft/world/entity/boss/wither/WitherBoss.java
+index 419c29c003b3e690a89a14c0a9b3eb2ac3500175..036e6627c96cf7e9692634a1aaf70e63d8127b41 100644
+--- a/net/minecraft/world/entity/boss/wither/WitherBoss.java
++++ b/net/minecraft/world/entity/boss/wither/WitherBoss.java
+@@ -154,6 +154,17 @@ public class WitherBoss extends Monster implements RangedAttackMob {
+         return SoundEvents.WITHER_DEATH;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.deltaMovement"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED", "AI_GOAL_TICK", "EXPLOSION"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 8,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void aiStep() {
+         Vec3 deltaMovement = this.getDeltaMovement().multiply(1.0, 0.6, 1.0);
+diff --git a/net/minecraft/world/entity/decoration/ArmorStand.java b/net/minecraft/world/entity/decoration/ArmorStand.java
+index fc4fce0b1d57a62c1e5c80a5b91c2b1a77d4bace..4592574ba4e586876ad2b531d7da0dfdafd3b188 100644
+--- a/net/minecraft/world/entity/decoration/ArmorStand.java
++++ b/net/minecraft/world/entity/decoration/ArmorStand.java
+@@ -521,6 +521,16 @@ public class ArmorStand extends LivingEntity {
+     }
+ 
+     // Paper start - Allow ArmorStands not to tick
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.noTickEquipmentDirty"},
++        triggeredEvents    = {},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.CONTRACTIBLE,
++        maxRandomCalls     = 0,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         if (!this.canTick) {
+diff --git a/net/minecraft/world/entity/monster/Blaze.java b/net/minecraft/world/entity/monster/Blaze.java
+index d48e066e8c43494aa74158452da369e5617d6a7e..6686c991b43249795307bde17a1b6efd2901c5d4 100644
+--- a/net/minecraft/world/entity/monster/Blaze.java
++++ b/net/minecraft/world/entity/monster/Blaze.java
+@@ -82,6 +82,17 @@ public class Blaze extends Monster {
+         return 1.0F;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.deltaMovement"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED", "PARTICLE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 6,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void aiStep() {
+         if (!this.onGround() && this.getDeltaMovement().y < 0.0) {
+diff --git a/net/minecraft/world/entity/monster/Creeper.java b/net/minecraft/world/entity/monster/Creeper.java
+index 5005f2b923aa94dbc38fb75d5b6f58344888c895..d6fd0920a31841daf0dac2e7a9510c6453532f8d 100644
+--- a/net/minecraft/world/entity/monster/Creeper.java
++++ b/net/minecraft/world/entity/monster/Creeper.java
+@@ -123,6 +123,17 @@ public class Creeper extends Monster {
+         }
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.swell", "this.oldSwell", "this.swellDir"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED", "EXPLOSION"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 4,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         if (this.isAlive()) {
+diff --git a/net/minecraft/world/entity/monster/EnderMan.java b/net/minecraft/world/entity/monster/EnderMan.java
+index 55a7cac408614d0efdece87a5380bd1fb7406200..d0958ddacdd134b9d56e0a8c82fc9e5d1cb231a8 100644
+--- a/net/minecraft/world/entity/monster/EnderMan.java
++++ b/net/minecraft/world/entity/monster/EnderMan.java
+@@ -231,6 +231,17 @@ public class EnderMan extends Monster implements NeutralMob {
+         return LivingEntity.PLAYER_NOT_WEARING_DISGUISE_ITEM.test(player) && this.isLookingAtMe(player, 0.025, true, false, this.getEyeY());
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.*"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED", "PARTICLE", "AI_GOAL_TICK"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 8,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void aiStep() {
+         if (this.level().isClientSide()) {
+diff --git a/net/minecraft/world/entity/monster/Endermite.java b/net/minecraft/world/entity/monster/Endermite.java
+index cc4e015e355f0c76a52cb64a82cced57700032af..61e7031174bacea52ed6f090be0ea6d07ce00c2c 100644
+--- a/net/minecraft/world/entity/monster/Endermite.java
++++ b/net/minecraft/world/entity/monster/Endermite.java
+@@ -89,6 +89,17 @@ public class Endermite extends Monster {
+         output.putInt("Lifetime", this.life);
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.yBodyRot"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 4,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         this.yBodyRot = this.getYRot();
+diff --git a/net/minecraft/world/entity/monster/Phantom.java b/net/minecraft/world/entity/monster/Phantom.java
+index 61ca77cceeacf0c4ebecf3bb66c4eb99c62033d2..2d7adb7c1bda5d590a957ae84059f229ba4afbd3 100644
+--- a/net/minecraft/world/entity/monster/Phantom.java
++++ b/net/minecraft/world/entity/monster/Phantom.java
+@@ -112,6 +112,17 @@ public class Phantom extends Mob implements Enemy {
+         return this.getId() * 3;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.tickCount"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED", "PARTICLE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 4,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         super.tick();
+diff --git a/net/minecraft/world/entity/monster/Ravager.java b/net/minecraft/world/entity/monster/Ravager.java
+index bbf1995ebacc29abd26d5eb9d864ed842acca5b5..4155cd71b8c4786726122fdb6bf6eae693446860 100644
+--- a/net/minecraft/world/entity/monster/Ravager.java
++++ b/net/minecraft/world/entity/monster/Ravager.java
+@@ -131,6 +131,17 @@ public class Ravager extends Raider {
+         return 45;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.*"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED", "AI_GOAL_TICK"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 6,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void aiStep() {
+         super.aiStep();
+diff --git a/net/minecraft/world/entity/monster/Silverfish.java b/net/minecraft/world/entity/monster/Silverfish.java
+index ba4ba5dfb1e51e2f45b0b81012ed6be27362c55c..7c49fd0da856f9cb42f62a6c6336da1dfebd47a2 100644
+--- a/net/minecraft/world/entity/monster/Silverfish.java
++++ b/net/minecraft/world/entity/monster/Silverfish.java
+@@ -92,6 +92,17 @@ public class Silverfish extends Monster {
+         }
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.yBodyRot"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 4,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         this.yBodyRot = this.getYRot();
+diff --git a/net/minecraft/world/entity/monster/Slime.java b/net/minecraft/world/entity/monster/Slime.java
+index e19da253db0b1840f582b09a45d73638438afcfd..33e81d2d76f0907db880f5fa7ea0e1a988e1a2fe 100644
+--- a/net/minecraft/world/entity/monster/Slime.java
++++ b/net/minecraft/world/entity/monster/Slime.java
+@@ -133,6 +133,17 @@ public class Slime extends Mob implements Enemy {
+         return ParticleTypes.ITEM_SLIME;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.squish", "this.oSquish", "this.wasOnGround"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 6,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         this.oSquish = this.squish;
+diff --git a/net/minecraft/world/entity/monster/Strider.java b/net/minecraft/world/entity/monster/Strider.java
+index 8f58f2f9dae3809c72cf59c0da3523c8923177c2..c8b88841bcf261cccc8894a01eb6f55a020e8c5e 100644
+--- a/net/minecraft/world/entity/monster/Strider.java
++++ b/net/minecraft/world/entity/monster/Strider.java
+@@ -284,6 +284,17 @@ public class Strider extends Animal implements ItemSteerable {
+         }
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.deltaMovement"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED", "SOUND"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 6,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         if (this.isBeingTempted() && this.random.nextInt(140) == 0) {
+diff --git a/net/minecraft/world/entity/monster/Vex.java b/net/minecraft/world/entity/monster/Vex.java
+index 1bba8c3c9ced8abe20e36b1ae827d421badcd6fd..af3baaa651e61fc6ed3a735d0bee404e54cdb730 100644
+--- a/net/minecraft/world/entity/monster/Vex.java
++++ b/net/minecraft/world/entity/monster/Vex.java
+@@ -69,6 +69,17 @@ public class Vex extends Monster implements TraceableEntity {
+         return !this.isRemoved();
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.noPhysics", "this.limitedLifeTicks"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 4,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         this.noPhysics = true;
+diff --git a/net/minecraft/world/entity/monster/Witch.java b/net/minecraft/world/entity/monster/Witch.java
+index 205b55db821ab81883c23c194cdb12cd57061fb9..b9955a849ad073f07595573b2bd2e0de74fc4a9f 100644
+--- a/net/minecraft/world/entity/monster/Witch.java
++++ b/net/minecraft/world/entity/monster/Witch.java
+@@ -107,6 +107,17 @@ public class Witch extends Raider implements RangedAttackMob {
+         return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 26.0).add(Attributes.MOVEMENT_SPEED, 0.25);
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*", "this.healRaidersGoal", "this.attackPlayersGoal"},
++        writeEntities      = {"this.healRaidersGoal", "this.attackPlayersGoal"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED", "AI_GOAL_TICK"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 8,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void aiStep() {
+         if (!this.level().isClientSide() && this.isAlive()) {
+diff --git a/net/minecraft/world/entity/monster/Zoglin.java b/net/minecraft/world/entity/monster/Zoglin.java
+index 95e5773fe060bdc42847fdf56801eb4fe1494c56..b8f18d7091d3748526acf6049adc0f52c1278fb3 100644
+--- a/net/minecraft/world/entity/monster/Zoglin.java
++++ b/net/minecraft/world/entity/monster/Zoglin.java
+@@ -245,6 +245,17 @@ public class Zoglin extends Monster implements HoglinBase {
+         return this.getEntityData().get(DATA_BABY_ID);
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.attackAnimationRemainingTicks"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED", "AI_GOAL_TICK"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 4,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void aiStep() {
+         if (this.attackAnimationRemainingTicks > 0) {
+diff --git a/net/minecraft/world/entity/monster/breeze/Breeze.java b/net/minecraft/world/entity/monster/breeze/Breeze.java
+index a58ad6176864c299725f5d51b3c239259f3b9c20..58b6705948c0a3a03417e25a103b91a339b88bc9 100644
+--- a/net/minecraft/world/entity/monster/breeze/Breeze.java
++++ b/net/minecraft/world/entity/monster/breeze/Breeze.java
+@@ -118,6 +118,17 @@ public class Breeze extends Monster {
+         this.longJump.stop();
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.*"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED", "PARTICLE", "AI_GOAL_TICK"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 8,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         Pose pose = this.getPose();
+diff --git a/net/minecraft/world/entity/monster/hoglin/Hoglin.java b/net/minecraft/world/entity/monster/hoglin/Hoglin.java
+index 288d03cd7fcf4d3e1536a0d692c31a0343063a8c..850cd9b31925dadc7d5c3a6fc9f32626655540f9 100644
+--- a/net/minecraft/world/entity/monster/hoglin/Hoglin.java
++++ b/net/minecraft/world/entity/monster/hoglin/Hoglin.java
+@@ -150,6 +150,17 @@ public class Hoglin extends Animal implements Enemy, HoglinBase {
+         }
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.attackAnimationRemainingTicks"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED", "AI_GOAL_TICK"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 4,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void aiStep() {
+         if (this.attackAnimationRemainingTicks > 0) {
+diff --git a/net/minecraft/world/entity/monster/piglin/Piglin.java b/net/minecraft/world/entity/monster/piglin/Piglin.java
+index e77384f3c7dd2cfe522ce2d91f71e4d6354c0a64..5a4316382e2760bb322fa841d102d9c1efc39dd7 100644
+--- a/net/minecraft/world/entity/monster/piglin/Piglin.java
++++ b/net/minecraft/world/entity/monster/piglin/Piglin.java
+@@ -278,6 +278,17 @@ public class Piglin extends AbstractPiglin implements CrossbowAttackMob, Invento
+         return !this.cannotHunt;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.*"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED", "AI_GOAL_TICK"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 8,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     protected void customServerAiStep(final ServerLevel level) {
+         ProfilerFiller profiler = Profiler.get();
+diff --git a/net/minecraft/world/entity/monster/skeleton/Skeleton.java b/net/minecraft/world/entity/monster/skeleton/Skeleton.java
+index f2759462a4423d2c5d31d2c7fbfe96dc61081c77..f59f7602994c236c5f2c1eb525d6d04ca5587bc7 100644
+--- a/net/minecraft/world/entity/monster/skeleton/Skeleton.java
++++ b/net/minecraft/world/entity/monster/skeleton/Skeleton.java
+@@ -45,6 +45,17 @@ public class Skeleton extends AbstractSkeleton {
+         return this.isFreezeConverting();
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.conversionTime", "this.isInPowderSnow"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 4,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         if (!this.level().isClientSide() && this.isAlive() && !this.isNoAi()) {
+diff --git a/net/minecraft/world/entity/monster/spider/Spider.java b/net/minecraft/world/entity/monster/spider/Spider.java
+index 1507f340b16fd95985bfe49870e923c626833d18..377d937824974cc7c13ba5f846f0eec4fc4a6657 100644
+--- a/net/minecraft/world/entity/monster/spider/Spider.java
++++ b/net/minecraft/world/entity/monster/spider/Spider.java
+@@ -77,6 +77,17 @@ public class Spider extends Monster {
+         entityData.define(DATA_FLAGS_ID, (byte)0);
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.climbing"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 4,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         super.tick();
+diff --git a/net/minecraft/world/entity/monster/warden/Warden.java b/net/minecraft/world/entity/monster/warden/Warden.java
+index eb7908467737e949ead0289bb43d40f008746fb8..1787ae451d957a777fb7ce011aa36a2a706bf831 100644
+--- a/net/minecraft/world/entity/monster/warden/Warden.java
++++ b/net/minecraft/world/entity/monster/warden/Warden.java
+@@ -244,6 +244,17 @@ public class Warden extends Monster implements VibrationSystem {
+         this.entityData.set(CLIENT_ANGER_LEVEL, this.getActiveAnger());
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.vibrationData", "this.tendrilAnimation"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED", "VIBRATION", "PARTICLE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 8,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         if (this.level() instanceof ServerLevel serverLevel) {
+diff --git a/net/minecraft/world/entity/monster/zombie/Zombie.java b/net/minecraft/world/entity/monster/zombie/Zombie.java
+index 0008aa0ca02fc4ea67b795b3f0a0e9656233ce89..d6705f82a139fb3fd9a3c072c41ec77393fea767 100644
+--- a/net/minecraft/world/entity/monster/zombie/Zombie.java
++++ b/net/minecraft/world/entity/monster/zombie/Zombie.java
+@@ -219,6 +219,17 @@ public class Zombie extends Monster {
+         return true;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.conversionTime"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 4,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         if (this.level() instanceof ServerLevel serverLevel && this.isAlive() && !this.isNoAi()) {
+diff --git a/net/minecraft/world/entity/monster/zombie/ZombieVillager.java b/net/minecraft/world/entity/monster/zombie/ZombieVillager.java
+index 9bae1d1b35c4b9aa343cedd5a53e05d09db6a786..11017b8ec77839545bd79dafeb5f032ec585a3bd 100644
+--- a/net/minecraft/world/entity/monster/zombie/ZombieVillager.java
++++ b/net/minecraft/world/entity/monster/zombie/ZombieVillager.java
+@@ -153,6 +153,17 @@ public class ZombieVillager extends Zombie implements VillagerDataHolder {
+         return villagerData;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.villagerConversionTime"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 2,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void tick() {
+         if (!this.level().isClientSide() && this.isAlive() && this.isConverting()) {
+diff --git a/net/minecraft/world/entity/raid/Raider.java b/net/minecraft/world/entity/raid/Raider.java
+index bc2edc48ddefaab9022029f1a913a40b72e06024..3451667ebacd2b5195bd987ab369bae681a65322 100644
+--- a/net/minecraft/world/entity/raid/Raider.java
++++ b/net/minecraft/world/entity/raid/Raider.java
+@@ -83,6 +83,17 @@ public abstract class Raider extends PatrollingMonster {
+         this.canJoinRaid = canJoinRaid;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.*"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED", "AI_GOAL_TICK"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 8,
++        randomInstance     = "ENTITY_RANDOM",
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void aiStep() {
+         if (this.level() instanceof ServerLevel level && this.isAlive()) {
