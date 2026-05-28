@@ -1,0 +1,204 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Fri, 29 May 2026 05:49:56 +0800
+Subject: [PATCH] =?UTF-8?q?nebula:=20=C2=A712.4=20wire=20debug.rw-check=20?=
+ =?UTF-8?q?+=20replay-record=20config=20flags?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Both flags previously had accessors but no consumers (dead config).
+Now:
+- nebula.debug.rw-check: true now activates RW-Guard tracing
+  (in addition to -Dnebula.guard=true). Routes through
+  NebulaGuardIntegration static init.
+- nebula.debug.replay-record: true activates per-tick structural
+  state-hash logging to logs/nebula-replay.log via new
+  NebulaReplayIntegration. Hook fires at end of each
+  ServerLevel.nebula\$tickViaDAG.
+- /nebula replay command surfaces recorder status.
+
+Closes the §12.4 dead-config gap surfaced by P5 architecture audit.
+
+diff --git a/io/papermc/paper/threadedregions/NebulaGuardIntegration.java b/io/papermc/paper/threadedregions/NebulaGuardIntegration.java
+index 33a95b5fead011c255462c2dd978781e83e284e2..cb549af830027b019b3333b40358b9c6f8038830 100644
+--- a/io/papermc/paper/threadedregions/NebulaGuardIntegration.java
++++ b/io/papermc/paper/threadedregions/NebulaGuardIntegration.java
+@@ -36,7 +36,20 @@ public final class NebulaGuardIntegration {
+     private static final AtomicLong TOTAL_TASKS_TRACED = new AtomicLong();
+ 
+     static {
+-        ENABLED = Boolean.getBoolean("nebula.guard");
++        // Activation chain (highest priority first):
++        //   1. -Dnebula.guard=true                  — system property
++        //   2. nebula.debug.rw-check: true (yaml)   — config
++        //   3. nebula.rw-guard.enabled: true (yaml) — config (existing)
++        // The nebula.debug.rw-check config flag was previously a dead
++        // accessor; it now activates the guard when set, matching arch §12.4.
++        boolean fromSysProp = Boolean.getBoolean("nebula.guard");
++        boolean fromDebugFlag = false;
++        try {
++            fromDebugFlag = NebulaConfig.debugRwCheck();
++        } catch (Throwable ignored) {
++            // NebulaConfig may not be loaded yet during early class init.
++        }
++        ENABLED = fromSysProp || fromDebugFlag;
+         String modeProp = System.getProperty("nebula.guard.mode", "WARN");
+         RWGuardMode parsed;
+         try {
+diff --git a/io/papermc/paper/threadedregions/NebulaReplayIntegration.java b/io/papermc/paper/threadedregions/NebulaReplayIntegration.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..c4ef65745cd932943fe30a3a87cac6baee1ccb9a
+--- /dev/null
++++ b/io/papermc/paper/threadedregions/NebulaReplayIntegration.java
+@@ -0,0 +1,106 @@
++package io.papermc.paper.threadedregions;
++
++import net.minecraft.server.level.ServerLevel;
++
++import java.util.concurrent.atomic.AtomicLong;
++
++/**
++ * §12.4 replay record bridge — when {@code nebula.debug.replay-record: true}
++ * (or {@code -Dnebula.replay.record=true}) is set, this integration records
++ * per-tick state-hash digests via {@link NebulaServerReplayScheduler#computeStateHash(boolean)}
++ * and writes them to logs/nebula-replay.log.
++ *
++ * <p>The recorder is region-thread-safe: each tick captures the structural
++ * hash of its own ServerLevel and appends a (tick, dimension, sha) line.
++ * This is the minimum useful "replay capture" — full packet recording is
++ * a separate workstream, but a hash trail across N ticks lets divergence
++ * be located after-the-fact.
++ *
++ * <p>Activation chain:
++ * <ol>
++ *   <li>{@code -Dnebula.replay.record=true} — system property</li>
++ *   <li>{@code nebula.debug.replay-record: true} — yaml config</li>
++ * </ol>
++ */
++public final class NebulaReplayIntegration {
++
++    private static final boolean ENABLED;
++    private static final AtomicLong RECORDED_TICKS = new AtomicLong();
++    private static final java.io.PrintWriter WRITER;
++
++    static {
++        boolean fromSysProp = Boolean.getBoolean("nebula.replay.record");
++        boolean fromDebugFlag = false;
++        try {
++            fromDebugFlag = NebulaConfig.debugReplayRecord();
++        } catch (Throwable ignored) {
++            // NebulaConfig may not be loaded yet during early class init.
++        }
++        ENABLED = fromSysProp || fromDebugFlag;
++        java.io.PrintWriter w = null;
++        if (ENABLED) {
++            try {
++                java.nio.file.Path dir = java.nio.file.Paths.get("logs");
++                java.nio.file.Files.createDirectories(dir);
++                java.nio.file.Path logFile = dir.resolve("nebula-replay.log");
++                w = new java.io.PrintWriter(
++                    java.nio.file.Files.newBufferedWriter(
++                        logFile,
++                        java.nio.charset.StandardCharsets.UTF_8,
++                        java.nio.file.StandardOpenOption.CREATE,
++                        java.nio.file.StandardOpenOption.APPEND
++                    ),
++                    true
++                );
++                w.println("# Nebula replay record started at " + System.currentTimeMillis());
++            } catch (java.io.IOException e) {
++                System.err.println("[Nebula] Failed to open replay log: " + e.getMessage());
++            }
++        }
++        WRITER = w;
++    }
++
++    private NebulaReplayIntegration() {}
++
++    public static boolean enabled() { return ENABLED; }
++
++    public static long recordedTicks() { return RECORDED_TICKS.get(); }
++
++    /**
++     * Capture the structural state hash for the given level at the given
++     * tick number. Idempotent and thread-safe (PrintWriter handles its own
++     * synchronisation). No-op if recording is disabled.
++     */
++    public static void recordTick(final ServerLevel level, final long tickNumber) {
++        if (!ENABLED || WRITER == null) {
++            return;
++        }
++        try {
++            org.nebula.core.scheduler.TickPipeline pipeline = new org.nebula.core.scheduler.TickPipeline(
++                completed -> java.util.List.of(),
++                org.nebula.core.scheduler.TaskRunner.DIRECT
++            );
++            NebulaServerReplayScheduler scheduler = new NebulaServerReplayScheduler(level, pipeline);
++            byte[] digest = scheduler.computeStateHash(true);
++            StringBuilder hex = new StringBuilder(digest.length * 2);
++            for (byte b : digest) {
++                hex.append(String.format("%02x", b & 0xFF));
++            }
++            String line = tickNumber + "," + level.dimension().identifier() + "," + hex;
++            synchronized (WRITER) {
++                WRITER.println(line);
++            }
++            RECORDED_TICKS.incrementAndGet();
++        } catch (Throwable t) {
++            // Never let recording break the tick.
++            System.err.println("[Nebula] Replay record tick failed: " + t.getMessage());
++        }
++    }
++
++    public static String summary() {
++        if (!ENABLED) {
++            return "Nebula replay record: disabled (set nebula.debug.replay-record=true to enable)";
++        }
++        return "Nebula replay record: enabled, ticks=" + RECORDED_TICKS.get() + ", log=logs/nebula-replay.log";
++    }
++}
+diff --git a/net/minecraft/server/commands/NebulaCommand.java b/net/minecraft/server/commands/NebulaCommand.java
+index 78a0650c49b6fc67a63d6a37ec0982c6cfc81def..57b4cbc20ce3f0245e655ab583d119add9104715 100644
+--- a/net/minecraft/server/commands/NebulaCommand.java
++++ b/net/minecraft/server/commands/NebulaCommand.java
+@@ -61,6 +61,8 @@ public final class NebulaCommand {
+                         .executes(c -> hash(c.getSource(), true))))
+                 .then(Commands.literal("plugins")
+                     .executes(c -> plugins(c.getSource())))
++                .then(Commands.literal("replay")
++                    .executes(c -> replay(c.getSource())))
+                 .then(Commands.literal("reset").executes(c -> reset(c.getSource())))
+                 .then(Commands.literal("stress-spawn")
+                     .then(Commands.argument("count", IntegerArgumentType.integer(1, 5000))
+@@ -243,6 +245,17 @@ public final class NebulaCommand {
+             + io.papermc.paper.threadedregions.NebulaPluginRegistry.level0Count();
+     }
+ 
++    /**
++     * §12.4 — /nebula replay emits the replay-recorder summary
++     * (tick count + log path) when {@code nebula.debug.replay-record}
++     * is enabled.
++     */
++    private static int replay(final CommandSourceStack source) {
++        String summary = io.papermc.paper.threadedregions.NebulaReplayIntegration.summary();
++        source.sendSuccess(() -> Component.literal(summary), false);
++        return io.papermc.paper.threadedregions.NebulaReplayIntegration.enabled() ? 1 : 0;
++    }
++
+     private static int reset(final CommandSourceStack source) {
+         NebulaTickMetrics.reset();
+         NebulaRandomGate.reset();
+diff --git a/net/minecraft/server/level/ServerLevel.java b/net/minecraft/server/level/ServerLevel.java
+index 9a0d7caf317efca0cf846b2b2f3670f72b19bef4..71c5574b31b302133c642ded94174468deb1c8bf 100644
+--- a/net/minecraft/server/level/ServerLevel.java
++++ b/net/minecraft/server/level/ServerLevel.java
+@@ -3280,6 +3280,8 @@ public class ServerLevel extends Level implements WorldGenLevel, ServerEntityGet
+                 io.papermc.paper.threadedregions.NebulaRandomGate.overBudgetRate(),
+                 pipelineElapsed / 1_000_000L
+             );
++            // §12.4 replay record: capture per-tick structural hash if enabled.
++            io.papermc.paper.threadedregions.NebulaReplayIntegration.recordTick(this, this.getGameTime());
+             if (com.mojang.logging.LogUtils.getLogger().isDebugEnabled()) {
+                 com.mojang.logging.LogUtils.getLogger().debug(
+                     "Nebula DAG tick: {} tasks, {} layers",
