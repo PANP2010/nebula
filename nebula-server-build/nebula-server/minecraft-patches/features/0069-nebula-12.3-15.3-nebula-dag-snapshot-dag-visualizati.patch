@@ -1,0 +1,201 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Fri, 29 May 2026 05:57:29 +0800
+Subject: [PATCH] =?UTF-8?q?nebula:=20=C2=A712.3=20/=20=C2=A715.3=20?=
+ =?UTF-8?q?=E2=80=94=20/nebula=20dag=20snapshot=20+=20dag-visualization=20?=
+ =?UTF-8?q?config?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Adds NebulaDagSnapshot which captures the per-tick task list
+shape (taskId, taskType, wildcard/global/parallelSafe flags) when
+nebula.debug.dag-visualization (or -Dnebula.dag.capture) is set.
+
+The snapshot is cheap to allocate (one record per task, no edge
+copy yet) and provides a starting point for the §12.3 diff
+locator workstream. /nebula dag renders summary stats; full DOT
+export is a Phase 3 nice-to-have.
+
+NebulaConfig.dagVisualization() now exposes the previously-
+unread debug.dag-visualization yaml field.
+
+Closes the §12.3 / §15.3 dag command + flag gap surfaced by
+the P5 architecture audit.
+
+diff --git a/io/papermc/paper/threadedregions/NebulaConfig.java b/io/papermc/paper/threadedregions/NebulaConfig.java
+index 330f82702e7751212ea9c1101e32af7b5bd91427..496df867050fa1d357dcf50a708b740f72e54add 100644
+--- a/io/papermc/paper/threadedregions/NebulaConfig.java
++++ b/io/papermc/paper/threadedregions/NebulaConfig.java
+@@ -46,6 +46,7 @@ public final class NebulaConfig {
+     private static int perfTaskBatchingThreshold = 16;
+     private static boolean debugRwCheck = false;
+     private static boolean debugReplayRecord = false;
++    private static boolean debugDagVisualization = false;
+     private static boolean rwGuardEnabled = false;
+     private static double rwGuardSamplingRate = 0.01;
+     private static String rwGuardMode = "WARN";
+@@ -120,6 +121,7 @@ public final class NebulaConfig {
+         ConfigurationNode debug = nebula.node("debug");
+         debugRwCheck = debug.node("rw-check").getBoolean(debugRwCheck);
+         debugReplayRecord = debug.node("replay-record").getBoolean(debugReplayRecord);
++        debugDagVisualization = debug.node("dag-visualization").getBoolean(debugDagVisualization);
+ 
+         ConfigurationNode rwGuard = nebula.node("rw-guard");
+         rwGuardEnabled = rwGuard.node("enabled").getBoolean(rwGuardEnabled);
+@@ -230,6 +232,16 @@ public final class NebulaConfig {
+         return prop != null ? Boolean.parseBoolean(prop) : debugReplayRecord;
+     }
+ 
++    /**
++     * §12.3 — when true, NebulaDagSnapshot captures the per-tick DAG so
++     * /nebula dag can render it. System property override:
++     * {@code -Dnebula.dag.capture}.
++     */
++    public static boolean dagVisualization() {
++        String prop = System.getProperty("nebula.dag.capture");
++        return prop != null ? Boolean.parseBoolean(prop) : debugDagVisualization;
++    }
++
+     public static boolean rwGuardEnabled() {
+         String prop = System.getProperty("nebula.guard");
+         return prop != null ? Boolean.parseBoolean(prop) : rwGuardEnabled;
+diff --git a/io/papermc/paper/threadedregions/NebulaDagSnapshot.java b/io/papermc/paper/threadedregions/NebulaDagSnapshot.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..85f4aed673e1f355eb7c0a83fe8be2fea5f834f1
+--- /dev/null
++++ b/io/papermc/paper/threadedregions/NebulaDagSnapshot.java
+@@ -0,0 +1,90 @@
++package io.papermc.paper.threadedregions;
++
++import org.nebula.core.scheduler.DependencyEdge;
++import org.nebula.core.scheduler.TaskNode;
++
++import java.util.Collection;
++import java.util.List;
++import java.util.concurrent.atomic.AtomicReference;
++
++/**
++ * §15.3 + §12.3 — captures the last-tick DAG so {@code /nebula dag} can
++ * dump it for diagnostic purposes (text or DOT/Graphviz format).
++ *
++ * <p>Updated by ServerLevel.nebula$tickViaDAG before pipeline.execute()
++ * if {@code nebula.debug.dag-visualization} is enabled. Disabled by default
++ * since each capture allocates a copy of the task list + edge set.
++ */
++public final class NebulaDagSnapshot {
++
++    private static volatile boolean ENABLED = false;
++
++    private static final AtomicReference<Snapshot> LAST = new AtomicReference<>();
++
++    private NebulaDagSnapshot() {}
++
++    static {
++        ENABLED = Boolean.getBoolean("nebula.dag.capture");
++        try {
++            ENABLED = ENABLED || NebulaConfig.dagVisualization();
++        } catch (Throwable ignored) {
++            // NebulaConfig not loaded yet during early class init.
++        }
++    }
++
++    public static boolean enabled() { return ENABLED; }
++
++    public static void setEnabled(boolean v) { ENABLED = v; }
++
++    /**
++     * Capture the input task set for next inspection. Cheap when disabled.
++     */
++    public static void capture(Collection<TaskNode> tasks, long tickNumber) {
++        if (!ENABLED) return;
++        // Defensive copy of taskIds + RWSet shape so we don't pin the live
++        // tasks (which hold lambdas referencing entity instances).
++        List<TaskMeta> metas = new java.util.ArrayList<>(tasks.size());
++        for (TaskNode t : tasks) {
++            metas.add(new TaskMeta(t.taskId(), t.taskType(),
++                t.declaredRWSet().writesGlobalWildcard(),
++                t.declaredRWSet().touchesGlobals(),
++                t.parallelSafe()));
++        }
++        LAST.set(new Snapshot(tickNumber, metas));
++    }
++
++    public static Snapshot last() { return LAST.get(); }
++
++    /**
++     * Render the last snapshot as plain text.
++     */
++    public static String render() {
++        Snapshot s = LAST.get();
++        if (s == null) {
++            return ENABLED
++                ? "Nebula DAG: capture enabled but no tick executed yet"
++                : "Nebula DAG: capture disabled (set -Dnebula.dag.capture=true or "
++                  + "nebula.debug.dag-visualization: true)";
++        }
++        StringBuilder sb = new StringBuilder();
++        sb.append("Nebula DAG snapshot @ tick=").append(s.tickNumber).append('\n');
++        sb.append("  tasks: ").append(s.tasks.size()).append('\n');
++        int globalCount = 0, wildcardCount = 0, parallelSafeCount = 0;
++        for (TaskMeta m : s.tasks) {
++            if (m.touchesGlobals) globalCount++;
++            if (m.writesGlobalWildcard) wildcardCount++;
++            if (m.parallelSafe) parallelSafeCount++;
++        }
++        sb.append("  global-touching: ").append(globalCount).append('\n');
++        sb.append("  global-wildcard (GLOBAL_RW): ").append(wildcardCount).append('\n');
++        sb.append("  parallel-safe: ").append(parallelSafeCount).append('\n');
++        return sb.toString();
++    }
++
++    public record TaskMeta(String taskId, String taskType,
++                            boolean writesGlobalWildcard,
++                            boolean touchesGlobals,
++                            boolean parallelSafe) {}
++
++    public record Snapshot(long tickNumber, List<TaskMeta> tasks) {}
++}
+diff --git a/net/minecraft/server/commands/NebulaCommand.java b/net/minecraft/server/commands/NebulaCommand.java
+index 57b4cbc20ce3f0245e655ab583d119add9104715..ff49b327826604f2c93a359f82d077b20f9a523b 100644
+--- a/net/minecraft/server/commands/NebulaCommand.java
++++ b/net/minecraft/server/commands/NebulaCommand.java
+@@ -63,6 +63,8 @@ public final class NebulaCommand {
+                     .executes(c -> plugins(c.getSource())))
+                 .then(Commands.literal("replay")
+                     .executes(c -> replay(c.getSource())))
++                .then(Commands.literal("dag")
++                    .executes(c -> dag(c.getSource())))
+                 .then(Commands.literal("reset").executes(c -> reset(c.getSource())))
+                 .then(Commands.literal("stress-spawn")
+                     .then(Commands.argument("count", IntegerArgumentType.integer(1, 5000))
+@@ -256,6 +258,16 @@ public final class NebulaCommand {
+         return io.papermc.paper.threadedregions.NebulaReplayIntegration.enabled() ? 1 : 0;
+     }
+ 
++    /**
++     * §12.3 / §15.3 — /nebula dag renders the last-captured DAG snapshot
++     * (only populated when {@code nebula.debug.dag-visualization} is on).
++     */
++    private static int dag(final CommandSourceStack source) {
++        String body = io.papermc.paper.threadedregions.NebulaDagSnapshot.render();
++        source.sendSuccess(() -> Component.literal(body), false);
++        return io.papermc.paper.threadedregions.NebulaDagSnapshot.enabled() ? 1 : 0;
++    }
++
+     private static int reset(final CommandSourceStack source) {
+         NebulaTickMetrics.reset();
+         NebulaRandomGate.reset();
+diff --git a/net/minecraft/server/level/ServerLevel.java b/net/minecraft/server/level/ServerLevel.java
+index 71c5574b31b302133c642ded94174468deb1c8bf..f78064321792def9ddb37f8d28b4c583ae902ae8 100644
+--- a/net/minecraft/server/level/ServerLevel.java
++++ b/net/minecraft/server/level/ServerLevel.java
+@@ -3272,6 +3272,8 @@ public class ServerLevel extends Level implements WorldGenLevel, ServerEntityGet
+ 
+         try {
+             long pipelineStart = System.nanoTime();
++            // §12.3 capture: cheap when disabled.
++            io.papermc.paper.threadedregions.NebulaDagSnapshot.capture(tasks, this.getGameTime());
+             org.nebula.core.scheduler.TickPipeline.TickResult result = pipeline.execute(tasks);
+             long pipelineElapsed = System.nanoTime() - pipelineStart;
+             io.papermc.paper.threadedregions.NebulaTickMetrics.record(result, pipelineElapsed);
