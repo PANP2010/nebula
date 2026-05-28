@@ -99,23 +99,24 @@ public final class BucketDagBuilder {
         }
         long tBucket = System.nanoTime();
 
-        // Global tasks conflict against everything that touches globals.
-        // Tasks with empty global RW-sets cannot conflict with global tasks via
-        // the global key-space, and their positional sets were already paired
-        // up in the per-bucket pass — so we skip them here.
+        // Global tasks conflict only against other tasks that touch the global
+        // key space. Pre-partition tasks into a globalTouching list once, then
+        // iterate just that subset for each global task. This drops the inner
+        // loop from O(N) to O(G) where G ≪ N for entity-heavy workloads
+        // (typically G ≤ 30 vs N = 5000+).
         Set<TaskNode> globalTasks = index.tasksInBucket(SpatialBucketIndex.GLOBAL_BUCKET);
         List<DependencyEdge> globalEdges = new ArrayList<>();
         if (!globalTasks.isEmpty()) {
+            // Build the small "global-touching" list of conflict candidates.
+            List<TaskNode> globalTouching = new ArrayList<>(globalTasks.size());
+            for (TaskNode t : tasks) {
+                if (globalTasks.contains(t) || t.declaredRWSet().touchesGlobals()) {
+                    globalTouching.add(t);
+                }
+            }
             for (TaskNode global : globalTasks) {
-                for (TaskNode other : tasks) {
+                for (TaskNode other : globalTouching) {
                     if (global.taskId().equals(other.taskId())) continue;
-                    if (!other.declaredRWSet().touchesGlobals() && !globalTasks.contains(other)) {
-                        // Pure positional task — its positional sets were checked
-                        // against the global task's positional sets in the bucket
-                        // pass (if global has positional sets) or never (if not).
-                        // No global-key intersection possible because other has none.
-                        continue;
-                    }
                     globalEdges.addAll(RWConflictDetector.edgesFor(global, other));
                 }
             }

@@ -29,6 +29,7 @@ public final class TickPipeline {
     private final int maxMicroSteps;
     private final PluginTaskQueue pluginQueue;
     private final BucketDagBuilder bucketBuilder;
+    private final TaskGraphCache graphCache = new TaskGraphCache();
 
     public TickPipeline(TaskGenerator generator, TaskRunner runner) {
         this(generator, runner, MicroStepExtender.MAX_MICRO_STEPS, null, null);
@@ -58,14 +59,27 @@ public final class TickPipeline {
     }
 
     private TaskGraph buildInitialGraph(Collection<TaskNode> tasks) {
+        // Cross-tick cache: if the input task set fingerprint matches the
+        // previous tick, reuse the cached edges + layers. This is the
+        // common case for stable entity ticks where only TaskAction
+        // closures change per-tick.
+        long fp = TaskGraphCache.fingerprint(tasks);
+        TaskGraph cached = graphCache.tryHit(tasks, fp);
+        if (cached != null) {
+            return cached;
+        }
         // For very small graphs the bucket builder's overhead (parallel pool
         // submit, ConcurrentHashMap, sub-pass timing recording) outweighs its
         // benefit. Fall through to the plain O(N²) DagBuilder, which is
         // ~5µs flat for ≤32 tasks vs ~7ms for the bucket builder cold path.
+        TaskGraph fresh;
         if (bucketBuilder != null && tasks.size() >= 64) {
-            return bucketBuilder.build(tasks);
+            fresh = bucketBuilder.build(tasks);
+        } else {
+            fresh = DagBuilder.build(tasks);
         }
-        return DagBuilder.build(tasks);
+        graphCache.put(fp, fresh.edges(), fresh.topologicalLayers());
+        return fresh;
     }
 
     /**
