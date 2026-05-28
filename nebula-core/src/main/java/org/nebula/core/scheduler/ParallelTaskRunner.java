@@ -60,15 +60,33 @@ public final class ParallelTaskRunner implements TaskRunner {
             return;
         }
 
+        // Batched fan-out: instead of one CompletableFuture per task (which
+        // allocates 3000+ futures + lambdas for entity-heavy layers and floods
+        // the executor with tiny submissions), partition the layer into K
+        // chunks where K = number of executor threads, and submit one
+        // future per chunk. Each chunk runs its slice serially.  This keeps
+        // task-submission overhead O(K) instead of O(N).
+        final int n = layer.size();
+        final int parallelism = Math.max(1, Runtime.getRuntime().availableProcessors());
+        // Don't fan out into more chunks than tasks — pointless.
+        final int chunks = Math.min(parallelism, n);
+        // Floor + 1 so any leftover lands in the last chunk.
+        final int chunkSize = (n + chunks - 1) / chunks;
+
         AtomicReference<Throwable> failure = new AtomicReference<>();
-        CompletableFuture<?>[] futures = new CompletableFuture<?>[layer.size()];
-        for (int i = 0; i < layer.size(); i++) {
-            TaskNode task = layer.get(i);
-            futures[i] = CompletableFuture.runAsync(() -> {
-                try {
-                    delegate.run(task);
-                } catch (Throwable t) {
-                    failure.compareAndSet(null, t);
+        CompletableFuture<?>[] futures = new CompletableFuture<?>[chunks];
+        for (int c = 0; c < chunks; c++) {
+            final int from = c * chunkSize;
+            final int to = Math.min(n, from + chunkSize);
+            futures[c] = CompletableFuture.runAsync(() -> {
+                for (int i = from; i < to; i++) {
+                    if (failure.get() != null) return;
+                    try {
+                        delegate.run(layer.get(i));
+                    } catch (Throwable t) {
+                        failure.compareAndSet(null, t);
+                        return;
+                    }
                 }
             }, executor);
         }

@@ -72,7 +72,9 @@ public final class TickPipeline {
      * @throws DagExecutionException if a task action fails
      */
     public TickResult execute(Collection<TaskNode> dirtyTasks) throws DagExecutionException {
+        long buildStart = System.nanoTime();
         TaskGraph graph = buildInitialGraph(dirtyTasks);
+        TickStats.recordBuild(System.nanoTime() - buildStart);
         MicroStepExtender extender = new MicroStepExtender(generator, maxMicroSteps);
         extender.seed(graph);
 
@@ -99,7 +101,9 @@ public final class TickPipeline {
                     }
                 }
                 try {
+                    long runStart = System.nanoTime();
                     runner.runLayer(layerNodes);
+                    TickStats.recordRun(System.nanoTime() - runStart);
                 } catch (Exception e) {
                     throw new DagExecutionException(totalLayers, allCompleted, List.of(e));
                 }
