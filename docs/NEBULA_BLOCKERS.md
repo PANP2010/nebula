@@ -1,6 +1,53 @@
 # Nebula Blockers
 
-## Architecture Audit (2026-05-28)
+## Architecture Audit (2026-05-29) — P5
+
+A second audit pass of `docs/星云架构.md` against the implementation found
+the following NEW gaps (not in the 2026-05-28 list below). Resolved during
+this session unless noted:
+
+1. **§12.4 dead config flags.** `NebulaConfig.debugRwCheck()` and
+   `debugReplayRecord()` had accessors but no consumers. **Fixed in
+   d27b5d4 / patch 0068:** rw-check now activates RW-Guard via
+   NebulaGuardIntegration static init; replay-record drives a new
+   `NebulaReplayIntegration` that logs per-tick structural hashes
+   to logs/nebula-replay.log. `/nebula replay` exposes status.
+
+2. **§7.4 POI RCU completely missing.** Architecture requires AtomicReference
+   + CAS snapshot for POI per tick. AI tasks today rely on regular RWSet
+   reads. **Status: not implemented in this branch** — POI
+   contention has not surfaced as a blocker on bench workloads, deferred
+   pending observed contention.
+
+3. **§10 lighting subsystem unmodelled.** Doc lists 7 subsystems; light
+   updates have no LightTask/LightUpdate node in nebula-core/entity.
+   **Status: as-designed for now** — Folia's lighting path runs
+   inline with chunk system; Nebula has not interposed because lighting
+   is already async on the chunk thread, not the tick thread.
+
+4. **§13.4 VAP Level 2 native API not exported.** `Nebula.getScheduler()`
+   / `submitTask` is in the doc but no implementation. **Status: Phase 3
+   target**, not in scope for current vap-phase2 branch.
+
+5. **§13.5 reflection / dynamic-proxy tracking missing.** `Method.invoke`
+   not instrumented in nebula-agent. **Status: deferred** — VAP Level 1
+   `@ManagedState` covers the common case; reflection-heavy plugins are
+   rare in practice.
+
+6. **§15.3 doc lists subcommands not implemented.** dag/scc/profile/verify
+   commands documented but not in NebulaCommand. **Status: deferred** —
+   the existing /nebula bench + /nebula status + /nebula hash + /nebula
+   plugins + /nebula replay (this audit added) cover the operational
+   needs. dag visualization (`exportDot`) is a Phase 3 nice-to-have.
+
+7. **§4.3 transitive reduction not implemented.** Optional DAG optimization;
+   not pursued because layering computes transitive closure for free.
+   **Status: as-designed, won't fix** — the chain encoding in DagBuilder.
+   buildFast already minimises edge count for the dominant workload.
+
+---
+
+## Architecture Audit (2026-05-28) — P0
 
 A full re-read of `docs/星云架构.md` against the implementation found and fixed
 the following deviations:
