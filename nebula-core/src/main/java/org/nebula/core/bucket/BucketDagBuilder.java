@@ -69,7 +69,9 @@ public final class BucketDagBuilder {
             return new TaskGraph(Map.of(), Set.of());
         }
 
+        long t0 = System.nanoTime();
         SpatialBucketIndex index = new SpatialBucketIndex(tasks, bucketSize);
+        long tIndex = System.nanoTime();
 
         // Per-bucket conflict detection (parallel)
         Map<BucketId, List<DependencyEdge>> bucketEdges = new ConcurrentHashMap<>();
@@ -82,19 +84,30 @@ public final class BucketDagBuilder {
                 }
             })
         ).join();
+        long tBucket = System.nanoTime();
 
-        // Global tasks conflict against everything
+        // Global tasks conflict against everything that touches globals.
+        // Tasks with empty global RW-sets cannot conflict with global tasks via
+        // the global key-space, and their positional sets were already paired
+        // up in the per-bucket pass — so we skip them here.
         Set<TaskNode> globalTasks = index.tasksInBucket(SpatialBucketIndex.GLOBAL_BUCKET);
         List<DependencyEdge> globalEdges = new ArrayList<>();
         if (!globalTasks.isEmpty()) {
-            List<TaskNode> allTasks = new ArrayList<>(tasks);
             for (TaskNode global : globalTasks) {
-                for (TaskNode other : allTasks) {
+                for (TaskNode other : tasks) {
                     if (global.taskId().equals(other.taskId())) continue;
+                    if (!other.declaredRWSet().touchesGlobals() && !globalTasks.contains(other)) {
+                        // Pure positional task — its positional sets were checked
+                        // against the global task's positional sets in the bucket
+                        // pass (if global has positional sets) or never (if not).
+                        // No global-key intersection possible because other has none.
+                        continue;
+                    }
                     globalEdges.addAll(RWConflictDetector.edgesFor(global, other));
                 }
             }
         }
+        long tGlobal = System.nanoTime();
 
         // Merge all edges (de-duplicate via Set)
         Set<DependencyEdge> allEdges = new LinkedHashSet<>();
@@ -103,11 +116,15 @@ public final class BucketDagBuilder {
 
         // SCC contraction → acyclic graph
         SccContractor.ContractionResult contracted = contractor.contract(tasks, allEdges);
+        long tScc = System.nanoTime();
 
         Map<String, TaskNode> finalById = new LinkedHashMap<>();
         for (TaskNode t : contracted.tasks()) {
             finalById.put(t.taskId(), t);
         }
+        long tEnd = System.nanoTime();
+
+        BucketBuildStats.record(tIndex - t0, tBucket - tIndex, tGlobal - tBucket, tScc - tGlobal, tEnd - tScc);
         return new TaskGraph(Map.copyOf(finalById), Set.copyOf(contracted.edges()));
     }
 

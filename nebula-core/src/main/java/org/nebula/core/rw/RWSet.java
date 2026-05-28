@@ -81,6 +81,10 @@ public record RWSet(
     }
 
     public boolean hasReadWriteConflictWith(RWSet other) {
+        // Fast-path: GLOBAL_RW × GLOBAL_RW always conflict on globals.
+        if (writesGlobalWildcard() && other.readsGlobalWildcard()) {
+            return true;
+        }
         return intersectsWorldPos(writtenBlocks, other.readBlocks)
             || intersectsBlockEntity(writtenBlockEntities, other.readBlockEntities)
             || intersectsEntity(writtenEntityFields, other.readEntityFields)
@@ -88,6 +92,9 @@ public record RWSet(
     }
 
     public boolean hasWriteWriteConflictWith(RWSet other) {
+        if (writesGlobalWildcard() && other.writesGlobalWildcard()) {
+            return true;
+        }
         return intersectsWorldPos(writtenBlocks, other.writtenBlocks)
             || intersectsBlockEntity(writtenBlockEntities, other.writtenBlockEntities)
             || intersectsEntity(writtenEntityFields, other.writtenEntityFields)
@@ -95,10 +102,38 @@ public record RWSet(
     }
 
     public boolean hasWriteReadConflictWith(RWSet other) {
+        if (other.writesGlobalWildcard() && readsGlobalWildcard()) {
+            return true;
+        }
         return intersectsWorldPos(readBlocks, other.writtenBlocks)
             || intersectsBlockEntity(readBlockEntities, other.writtenBlockEntities)
             || intersectsEntity(readEntityFields, other.writtenEntityFields)
             || intersectsGlobal(readGlobalKeys, other.writtenGlobalKeys);
+    }
+
+    /**
+     * True if this RWSet writes the wildcard global key ({@code *}) — i.e. it
+     * is a GLOBAL_RW task that can mutate anything.
+     */
+    public boolean writesGlobalWildcard() {
+        return writtenGlobalKeys.contains(GlobalKey.ALL);
+    }
+
+    /**
+     * True if this RWSet reads the wildcard global key ({@code *}) — i.e. it
+     * is a GLOBAL_RW task that observes anything.
+     */
+    public boolean readsGlobalWildcard() {
+        return readGlobalKeys.contains(GlobalKey.ALL);
+    }
+
+    /**
+     * True if this RWSet has any read or write entry in the global key space.
+     * Used by BucketDagBuilder to skip pairing positional-only tasks with
+     * global tasks (they can never conflict on globals).
+     */
+    public boolean touchesGlobals() {
+        return !readGlobalKeys.isEmpty() || !writtenGlobalKeys.isEmpty();
     }
 
     /**
