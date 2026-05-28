@@ -1,0 +1,43 @@
+nebula:
+  fidelity-tier: T0
+
+  dag:
+    bucket-size: 32
+    max-micro-steps: 256
+    scc-threshold: 128
+
+  random:
+    budget-safety-multiplier: 1.5
+    downgrade-threshold: 0.05
+    downgrade-warning-count: 10
+
+  vap:
+    level0-auto-wrap: true
+    managed-state-check: warn
+    sandbox:
+      enabled: false
+      # §13.6 plugin sandbox routing. When sandbox.enabled=true:
+      #   sandboxed-plugins         → always sandbox
+      #   non-sandboxed-plugins     → never sandbox (force Level 0)
+      #   anything else             → default Level 0 (no sandbox)
+      sandboxed-plugins: []
+      non-sandboxed-plugins: []
+      plugins: []  # legacy alias, ignored
+
+  performance:
+    cpu-affinity: true
+    work-stealing: true
+    task-batching-threshold: 16
+
+  debug:
+    rw-check: false
+    replay-record: false
+    dag-visualization: false
+
+  rw-guard:
+    enabled: false
+    sampling-rate: 0.01
+    mode: WARN
+    violation-log: "logs/nebula-rw-violations.log"
+    max-violations-per-tick: 100
+    auto-patch: false

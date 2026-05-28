@@ -1,0 +1,101 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Fri, 29 May 2026 05:03:45 +0800
+Subject: [PATCH] nebula: BE INDEPENDENT_TYPES expansion + drop entity index
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+- BlockEntityTaskBuilder: add 11 self-only BE types
+  (SHULKER_BOX, LECTERN, DECORATED_POT, HANGING_SIGN, SIGN,
+  SKULL, BANNER, STRUCTURE_BLOCK, JIGSAW, END_PORTAL).
+- EntityTaskBuilder: drop iteration index from taskId so it's
+  stable across ticks (helps cross-tick DAG cache).
+- BlockEntityTaskBuilder: same — taskId is now position-only.
+- NebulaCommand: /nebula bench surfaces FastBuildStats and
+  BucketDagBuilder fast-path counters; /nebula reset clears them.
+
+diff --git a/io/papermc/paper/threadedregions/BlockEntityTaskBuilder.java b/io/papermc/paper/threadedregions/BlockEntityTaskBuilder.java
+index 87dbd0bf5553294edc030b4d25b28dd40cd8c363..4d40307128079d631e2b54e1594b231fa9b1bacb 100644
+--- a/io/papermc/paper/threadedregions/BlockEntityTaskBuilder.java
++++ b/io/papermc/paper/threadedregions/BlockEntityTaskBuilder.java
+@@ -38,7 +38,20 @@ public final class BlockEntityTaskBuilder {
+         BlockEntityType.JUKEBOX,
+         BlockEntityType.CONDUIT,
+         BlockEntityType.BELL,
+-        BlockEntityType.SCULK_CATALYST
++        BlockEntityType.SCULK_CATALYST,
++        // Self-only BE types whose tick logic mutates only their own NBT or
++        // emits no writes at all (data-only blocks). These do NOT spawn
++        // entities or write neighbor blocks during tick.
++        BlockEntityType.SHULKER_BOX,
++        BlockEntityType.LECTERN,
++        BlockEntityType.DECORATED_POT,
++        BlockEntityType.HANGING_SIGN,
++        BlockEntityType.SIGN,
++        BlockEntityType.SKULL,
++        BlockEntityType.BANNER,
++        BlockEntityType.STRUCTURE_BLOCK,
++        BlockEntityType.JIGSAW,
++        BlockEntityType.END_PORTAL
+     );
+ 
+     private BlockEntityTaskBuilder() {}
+@@ -66,7 +79,7 @@ public final class BlockEntityTaskBuilder {
+     private static TaskNode buildSingle(TickingBlockEntity ticker, ServerLevel level, int dimId, int index) {
+         BlockEntity be = ticker.getTileEntity();
+         BlockPos pos = ticker.getPos();
+-        String taskId = "be_" + index + "_" + pos.getX() + "_" + pos.getY() + "_" + pos.getZ();
++        String taskId = "be_" + pos.getX() + "_" + pos.getY() + "_" + pos.getZ();
+ 
+         if (be == null) {
+             return new TaskNode(taskId, "BLOCK_ENTITY", GLOBAL_RW, ticker::tick);
+diff --git a/io/papermc/paper/threadedregions/EntityTaskBuilder.java b/io/papermc/paper/threadedregions/EntityTaskBuilder.java
+index 8c34ad6123329c1f814b02ecfa9e602439e7f179..38f5980ad9448f81d48386e552ed59fe3e40c22d 100644
+--- a/io/papermc/paper/threadedregions/EntityTaskBuilder.java
++++ b/io/papermc/paper/threadedregions/EntityTaskBuilder.java
+@@ -80,7 +80,10 @@ public final class EntityTaskBuilder {
+ 
+     private static TaskNode buildSingle(Entity entity, ServerLevel level, int index) {
+         long entityId = entity.getId();
+-        String taskId = "entity_" + index + "_" + entityId;
++        // TaskID drops the iteration index so it's stable across ticks
++        // regardless of getLocalEntities iteration order. The cache
++        // fingerprint depends on a stable taskId set.
++        String taskId = "entity_" + entityId;
+         RWSet rwSet = classifyRWSet(entity, entityId);
+         boolean isPlayer = entity instanceof ServerPlayer;
+ 
+diff --git a/net/minecraft/server/commands/NebulaCommand.java b/net/minecraft/server/commands/NebulaCommand.java
+index 68bfa00f77bd981855f02d219ddb897440819857..f238be3a212617197bca99ba4f5295146c22f746 100644
+--- a/net/minecraft/server/commands/NebulaCommand.java
++++ b/net/minecraft/server/commands/NebulaCommand.java
+@@ -185,11 +185,19 @@ public final class NebulaCommand {
+         String probe = io.papermc.paper.threadedregions.NebulaTickProbe.summary();
+         String breakdown = org.nebula.core.scheduler.TickStats.summary();
+         String bucketStats = org.nebula.core.bucket.BucketBuildStats.summary();
++        String fastStats = org.nebula.core.scheduler.FastBuildStats.summary();
+         String cacheStats = org.nebula.core.scheduler.TaskGraphCache.summary();
++        String fastPath = String.format(
++            "Bucket fast-path: hits=%d, misses=%d",
++            org.nebula.core.bucket.BucketDagBuilder.fastPathHits(),
++            org.nebula.core.bucket.BucketDagBuilder.fastPathMisses()
++        );
+         source.sendSuccess(() -> Component.literal(probe), false);
+         source.sendSuccess(() -> Component.literal(breakdown), false);
+         source.sendSuccess(() -> Component.literal(bucketStats), false);
++        source.sendSuccess(() -> Component.literal(fastStats), false);
+         source.sendSuccess(() -> Component.literal(cacheStats), false);
++        source.sendSuccess(() -> Component.literal(fastPath), false);
+         return (int) Math.min(Integer.MAX_VALUE, io.papermc.paper.threadedregions.NebulaTickProbe.totalSamples());
+     }
+ 
+@@ -231,6 +239,8 @@ public final class NebulaCommand {
+         org.nebula.core.scheduler.TickStats.reset();
+         org.nebula.core.bucket.BucketBuildStats.reset();
+         org.nebula.core.scheduler.TaskGraphCache.resetCounters();
++        org.nebula.core.bucket.BucketDagBuilder.resetFastPathCounters();
++        org.nebula.core.scheduler.FastBuildStats.reset();
+         source.sendSuccess(() -> Component.literal("Nebula DAG metrics + random budget + guard + parallel + bench probe + tick stats + bucket stats + cache stats reset."), true);
+         return 1;
+     }

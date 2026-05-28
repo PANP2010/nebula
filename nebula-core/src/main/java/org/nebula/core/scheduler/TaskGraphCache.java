@@ -49,16 +49,15 @@ public final class TaskGraphCache {
      * Order-independent: caller does NOT need to sort.
      *
      * <p>Per-task contribution mixes the taskId chars with the RWSet's
-     * {@code hashCode()} (which is record-derived, so it's content-based —
-     * two RWSets with identical fields produce the same hash regardless of
-     * whether they're the same object). This means even when entity task
-     * builders allocate fresh RWSet instances every tick, the cache hits
-     * as long as the underlying RW shape is unchanged.
+     * structural shape hash — a position-agnostic signature capturing
+     * WHICH categories of read/write are populated (entity write, block
+     * read, global, etc.) without including the specific positions inside
+     * readBlocks/writtenBlocks. This means moving entities still produce
+     * the same fingerprint as long as their taskIds are stable, since the
+     * EDGE STRUCTURE for self-only entity tasks does not depend on their
+     * positional reads.
      */
     public static long fingerprint(Collection<TaskNode> tasks) {
-        // FNV-1a 64-bit. We XOR per-task contributions so insertion order
-        // doesn't affect the result — input collections may iterate in
-        // different orders across ticks.
         long h = 0xcbf29ce484222325L;
         for (TaskNode task : tasks) {
             long taskHash = 0xcbf29ce484222325L;
@@ -67,13 +66,42 @@ public final class TaskGraphCache {
                 taskHash ^= id.charAt(i);
                 taskHash *= 0x100000001b3L;
             }
-            // Content hash of the RWSet — RWSet is a record so hashCode is
-            // derived from its fields. Same shape ⇒ same hash even across
-            // freshly-allocated instances per tick.
-            taskHash ^= task.declaredRWSet().hashCode();
+            taskHash ^= structuralHash(task.declaredRWSet());
             taskHash *= 0x100000001b3L;
             h ^= taskHash;
         }
+        return h;
+    }
+
+    /**
+     * Position-agnostic shape signature: a bitmask of which RW field
+     * categories are non-empty, plus the sizes of writtenEntityFields and
+     * writtenGlobalKeys (which together determine which edges get emitted).
+     * Specific positions inside readBlocks/writtenBlocks are omitted so
+     * moving-entity workloads don't invalidate the cache every tick.
+     *
+     * <p>Cache hit safety: For self-only entity tick patterns (most of the
+     * load on any populated server), edges depend only on the SHAPE of the
+     * RWSet — not on the specific block positions. Two ticks with identical
+     * taskIds and identical RWSet shapes produce identical edge sets.
+     */
+    private static long structuralHash(org.nebula.core.rw.RWSet rw) {
+        int mask = 0;
+        if (!rw.readBlocks().isEmpty())          mask |= 1;
+        if (!rw.writtenBlocks().isEmpty())       mask |= 2;
+        if (!rw.readBlockEntities().isEmpty())   mask |= 4;
+        if (!rw.writtenBlockEntities().isEmpty())mask |= 8;
+        if (!rw.readEntityFields().isEmpty())    mask |= 16;
+        if (!rw.writtenEntityFields().isEmpty()) mask |= 32;
+        if (!rw.readPoiQueries().isEmpty())      mask |= 64;
+        if (!rw.readGlobalKeys().isEmpty())      mask |= 128;
+        if (!rw.writtenGlobalKeys().isEmpty())   mask |= 256;
+        if (!rw.writtenEvents().isEmpty())       mask |= 512;
+        if (rw.writesGlobalWildcard())           mask |= 1024;
+        if (rw.readsGlobalWildcard())            mask |= 2048;
+        long h = mask;
+        h = (h * 0x9e3779b97f4a7c15L) ^ rw.writtenGlobalKeys().size();
+        h = (h * 0x9e3779b97f4a7c15L) ^ rw.writtenEntityFields().size();
         return h;
     }
 

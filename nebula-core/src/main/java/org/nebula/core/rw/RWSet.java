@@ -128,6 +128,21 @@ public record RWSet(
     }
 
     /**
+     * True if the only writes are to entity fields (writtenEntityFields) — no
+     * blocks, no block-entities, no globals, no events. Two such RWSets can
+     * never conflict with each other unless they target the same entityId,
+     * which is impossible across distinct entities. Used by BucketDagBuilder
+     * to skip O(K²) conflict detection for the common "self-only" entity tick
+     * pattern.
+     */
+    public boolean isSelfOnlyEntityWrite() {
+        return writtenBlocks.isEmpty()
+            && writtenBlockEntities.isEmpty()
+            && writtenGlobalKeys.isEmpty()
+            && writtenEvents.isEmpty();
+    }
+
+    /**
      * True if this RWSet has any read or write entry in the global key space.
      * Used by BucketDagBuilder to skip pairing positional-only tasks with
      * global tasks (they can never conflict on globals).

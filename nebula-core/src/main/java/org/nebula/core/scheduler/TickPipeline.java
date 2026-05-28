@@ -68,12 +68,17 @@ public final class TickPipeline {
         if (cached != null) {
             return cached;
         }
-        // For very small graphs the bucket builder's overhead (parallel pool
-        // submit, ConcurrentHashMap, sub-pass timing recording) outweighs its
-        // benefit. Fall through to the plain O(N²) DagBuilder, which is
-        // ~5µs flat for ≤32 tasks vs ~7ms for the bucket builder cold path.
+
+        // O(G²) fast-path for entity-heavy workloads. When no task writes a
+        // specific block position, conflicts only occur among
+        // global-touching tasks (subsystem ticks, GLOBAL_RW endpoints, BE
+        // hopper neighbor tasks). Self-only entity tasks contribute no
+        // edges. The bucket builder pays for spatial indexing + per-bucket
+        // K² conflict detection that produces zero edges in this case.
         TaskGraph fresh;
-        if (bucketBuilder != null && tasks.size() >= 64) {
+        if (tasks.size() >= 64 && DagBuilder.isFastPathSafe(tasks)) {
+            fresh = DagBuilder.buildFast(tasks, new SccContractor());
+        } else if (bucketBuilder != null && tasks.size() >= 64) {
             fresh = bucketBuilder.build(tasks);
         } else {
             fresh = DagBuilder.build(tasks);

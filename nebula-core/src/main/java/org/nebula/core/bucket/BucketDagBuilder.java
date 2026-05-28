@@ -99,16 +99,15 @@ public final class BucketDagBuilder {
         }
         long tBucket = System.nanoTime();
 
-        // Global tasks conflict only against other tasks that touch the global
-        // key space. Pre-partition tasks into a globalTouching list once, then
-        // iterate just that subset for each global task. This drops the inner
-        // loop from O(N) to O(G) where G ≪ N for entity-heavy workloads
-        // (typically G ≤ 30 vs N = 5000+).
+        // Global tasks: tasks in GLOBAL_BUCKET (no positional reads/writes)
+        // PLUS any task whose RW-set touches global keys, must be checked
+        // against each other for ordering. We pre-partition into a small
+        // "globalTouching" list once. globalTasks is iterated as a List for
+        // O(1) indexed access (avoids HashSet.contains O(1) but with overhead).
         Set<TaskNode> globalTasks = index.tasksInBucket(SpatialBucketIndex.GLOBAL_BUCKET);
         List<DependencyEdge> globalEdges = new ArrayList<>();
         if (!globalTasks.isEmpty()) {
-            // Build the small "global-touching" list of conflict candidates.
-            List<TaskNode> globalTouching = new ArrayList<>(globalTasks.size());
+            List<TaskNode> globalTouching = new ArrayList<>(globalTasks.size() + 8);
             for (TaskNode t : tasks) {
                 if (globalTasks.contains(t) || t.declaredRWSet().touchesGlobals()) {
                     globalTouching.add(t);
@@ -116,7 +115,7 @@ public final class BucketDagBuilder {
             }
             for (TaskNode global : globalTasks) {
                 for (TaskNode other : globalTouching) {
-                    if (global.taskId().equals(other.taskId())) continue;
+                    if (global == other || global.taskId().equals(other.taskId())) continue;
                     globalEdges.addAll(RWConflictDetector.edgesFor(global, other));
                 }
             }
@@ -144,7 +143,35 @@ public final class BucketDagBuilder {
         return new TaskGraph(finalById, contracted.edges() instanceof Set<DependencyEdge> setEdges ? setEdges : new LinkedHashSet<>(contracted.edges()));
     }
 
+    private static final java.util.concurrent.atomic.AtomicLong FAST_PATH_HITS = new java.util.concurrent.atomic.AtomicLong();
+    private static final java.util.concurrent.atomic.AtomicLong FAST_PATH_MISSES = new java.util.concurrent.atomic.AtomicLong();
+
+    public static long fastPathHits() { return FAST_PATH_HITS.get(); }
+    public static long fastPathMisses() { return FAST_PATH_MISSES.get(); }
+    public static void resetFastPathCounters() {
+        FAST_PATH_HITS.set(0);
+        FAST_PATH_MISSES.set(0);
+    }
+
     private static List<DependencyEdge> detectConflicts(List<TaskNode> tasks) {
+        // Hot path: in entity-heavy ticks every task in a positional bucket
+        // is "self-only entity write" (writeEntity(self.*) + readBlock(pos)
+        // for affinity). Such tasks can never conflict with each other:
+        // - writes are to distinct entityIds
+        // - readBlock × readBlock is not a write conflict
+        // - no globals, BEs, or block writes
+        boolean allSelfOnly = !tasks.isEmpty();
+        for (TaskNode t : tasks) {
+            if (!t.declaredRWSet().isSelfOnlyEntityWrite()) {
+                allSelfOnly = false;
+                break;
+            }
+        }
+        if (allSelfOnly) {
+            FAST_PATH_HITS.incrementAndGet();
+            return List.of();
+        }
+        FAST_PATH_MISSES.incrementAndGet();
         List<DependencyEdge> edges = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
             for (int j = i + 1; j < tasks.size(); j++) {
