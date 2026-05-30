@@ -49,6 +49,20 @@ disagree.
     layer). The next perf lever for DG2 is **DAG build time**, not run
     parallelism. Still no measured win over Folia, but the parallel-execution
     regression that blocked any win is now removed.
+  - **Build-time optimizations (2026-05-30, nebula-core DagBuilder/SccContractor):**
+    Two adversarially-verified, determinism-preserving wins landed at the
+    per-phase level (FastBuildStats, the stable signal — end-to-end MSPT is too
+    noisy on this loaded dev box to quote):
+    - SCC contraction now runs Tarjan over edge-induced nodes only (~26 vs
+      ~8450): **scc phase 2.20ms → ~1.4ms (-40%)**. 2 independent reviews SOUND.
+    - Dropped the full O(N log N) task-ID sort in buildFast; sort only the ~30
+      global-touching subset: **sort phase 0.58ms → 0.006ms**. Pinned by a new
+      shuffled-input regression test (output is layer-sorted regardless of input).
+    - **Tried + REVERTED:** caching self-only RWSets by position — measured a
+      *regression* (2 ConcurrentHashMap lookups cost more than the cheap
+      young-gen allocation they replaced). Recorded so it isn't re-attempted.
+    - Remaining build cost: ~8000 TaskNode allocations/tick in the decomposers +
+      conflict scan; further wins need decomposition-level caching, not buildFast.
 - **DG3 (parallel execution enabled in production):** NOT MET, but advanced.
   Layer A coverage now spans all entity + block-entity tick paths (91+16
   classes, batches 13-15). `ParallelTaskRunner` still falls back to serial for
