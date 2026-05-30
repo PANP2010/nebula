@@ -1,0 +1,56 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Sat, 30 May 2026 20:52:08 +0800
+Subject: [PATCH] =?UTF-8?q?nebula:=20Layer=20A=20@NebulaRW=20batch=2015=20?=
+ =?UTF-8?q?=E2=80=94=20Monster=20+=20AgeableMob=20base=20aiStep?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Annotates the two shared base-class tick overrides (inherited by ~all hostile
+mobs / ~all breedable animals): Monster.aiStep (self swing-time/no-action-time,
+reads own light level) and AgeableMob.aiStep (self age/entityData). Both
+self-only → AUTO. Compiles clean.
+
+diff --git a/net/minecraft/world/entity/AgeableMob.java b/net/minecraft/world/entity/AgeableMob.java
+index 9f77fcd1cebf675a90adb55c6ffd34e9c5bc0aa7..134a3dbc13a83613df350e74b557ccc74674e827 100644
+--- a/net/minecraft/world/entity/AgeableMob.java
++++ b/net/minecraft/world/entity/AgeableMob.java
+@@ -204,6 +204,16 @@ public abstract class AgeableMob extends PathfinderMob {
+     }
+     // Paper end - EAR 2
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.age", "this.entityData"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void aiStep() {
+         super.aiStep();
+diff --git a/net/minecraft/world/entity/monster/Monster.java b/net/minecraft/world/entity/monster/Monster.java
+index 4ac86e516641142a7c3bd414dc3450e912a1c2b0..7c4de626a684703eb53c0461f15d8d4f7c9355bd 100644
+--- a/net/minecraft/world/entity/monster/Monster.java
++++ b/net/minecraft/world/entity/monster/Monster.java
+@@ -39,6 +39,16 @@ public abstract class Monster extends PathfinderMob implements Enemy {
+         return SoundSource.HOSTILE;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readEntities       = {"this.*"},
++        writeEntities      = {"this.swingTime", "this.noActionTime"},
++        readBlocks         = {"this.boundingBox.expand"},
++        triggeredEvents    = {"ENTITY_MOVED"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.AUTO,
++        maxRandomCalls     = 0,
++        verifiedAt         = "1.21.4"
++    )
+     @Override
+     public void aiStep() {
+         this.updateSwingTime();
