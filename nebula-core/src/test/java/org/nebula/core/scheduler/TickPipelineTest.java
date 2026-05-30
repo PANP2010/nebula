@@ -109,7 +109,7 @@ class TickPipelineTest {
     }
 
     @Test
-    void microStepLimitEnforced() {
+    void microStepLimitDegradesGracefully() throws Exception {
         WorldPos pos = new WorldPos(0, 0, 64, 0);
 
         // Generator that always produces a new task (infinite chain)
@@ -130,7 +130,11 @@ class TickPipelineTest {
 
         TickPipeline pipeline = new TickPipeline(infiniteGen, TaskRunner.DIRECT, 5);
 
-        assertThrows(MicroStepLimitException.class, () -> pipeline.execute(List.of(seed)));
+        // §16.1: overflow is a graceful degradation, not a tick-crashing throw.
+        // The tick completes, flags the overflow, and stops the microstep loop at the cap.
+        TickPipeline.TickResult result = pipeline.execute(List.of(seed));
+        assertTrue(result.microStepOverflowed(), "overflow flag should be set");
+        assertEquals(5, result.microStepRounds(), "microsteps should stop at the cap");
     }
 
     @Test

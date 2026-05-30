@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 /**
  * Orchestrates a single tick's execution: builds the DAG, executes layer by layer,
@@ -23,6 +24,8 @@ import java.util.Objects;
  * </ol>
  */
 public final class TickPipeline {
+
+    private static final Logger LOG = Logger.getLogger(TickPipeline.class.getName());
 
     private final TaskGenerator generator;
     private final TaskRunner runner;
@@ -103,6 +106,7 @@ public final class TickPipeline {
 
         List<String> allCompleted = new ArrayList<>();
         int totalLayers = 0;
+        boolean microStepOverflowed = false;
 
         boolean moreWork = true;
         while (moreWork) {
@@ -136,8 +140,20 @@ public final class TickPipeline {
                 }
                 totalLayers++;
 
-                // Extend DAG with microsteps from this layer
-                moreWork = extender.extend(layer);
+                // Extend DAG with microsteps from this layer.
+                // §16.1: a microstep overflow is a graceful degradation, NOT a
+                // tick-crashing error — terminate the loop, log a warning, and
+                // let un-propagated tasks roll into the next tick's dirty set
+                // (surfaced via deferredToNextTick()).
+                try {
+                    moreWork = extender.extend(layer);
+                } catch (MicroStepLimitException overflow) {
+                    LOG.warning("Microstep overflow: " + overflow.getMessage()
+                        + " — terminating microstep loop for this tick (§16.1 graceful degradation). "
+                        + "Un-propagated signals deferred to next tick.");
+                    microStepOverflowed = true;
+                    moreWork = false;
+                }
                 if (moreWork) {
                     break; // re-layer from the extended graph
                 }
@@ -160,7 +176,8 @@ public final class TickPipeline {
             extender.deferredToNextTick(),
             totalLayers,
             extender.microStepCount(),
-            pluginTasksExecuted
+            pluginTasksExecuted,
+            microStepOverflowed
         );
     }
 
@@ -182,6 +199,7 @@ public final class TickPipeline {
         List<TaskNode> deferredToNextTick,
         int layersExecuted,
         int microStepRounds,
-        int pluginTasksExecuted
+        int pluginTasksExecuted,
+        boolean microStepOverflowed
     ) {}
 }
