@@ -1,0 +1,214 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Sat, 30 May 2026 19:54:02 +0800
+Subject: [PATCH] nebula: generalize coordinator-thread worldData context to
+ all commands + fix explosion-queue leak
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Two real bugs found while testing /summon:
+
+1. getCurrentWorldData() NPE generalized (extends patch 0071). Patch 0071 only
+   covered the async chunk-load callback path; commands run DIRECTLY on the
+   coordinator thread via globalTickQueue (/summon, and any world-mutating
+   command) still NPEd (captureDrops, then RegionStats.updateCurrentRegion).
+   Root-cause fix at the single chokepoint Commands.performCommand: install the
+   target level's region + world-data context (both currentTickingRegion AND
+   currentTickingWorldRegionizedData) for the command's duration, restoring
+   after. push() is now a no-op when context already exists (region-worker
+   command blocks keep their correct context). ServerLevel.addEntity also
+   hardened via getWorldDataForPos.
+
+2. Explosion PENDING queue leak. ServerLevel.explode0 calls
+   NebulaExplosionPipeline.record() every explosion, but drainAndBuildSubDags()
+   had zero callers — the queue grew unbounded (each RecordedExplosion pins a
+   ServerLevel). Now drained every tick via tickDrain() in nebula$tickViaDAG;
+   also fixed the peek+break drain that leaked entries queued behind another
+   level's explosion. /nebula explosions surfaces drained + sub-DAG-task counts.
+
+Verified: /summon TNT -> detonate -> drained=1, sub-DAG-tasks-built=27,
+pending=0, zero NPEs.
+
+diff --git a/io/papermc/paper/threadedregions/NebulaExplosionPipeline.java b/io/papermc/paper/threadedregions/NebulaExplosionPipeline.java
+index 1acdd2557cfebf01248ce6f389de92f5d26ca8f1..71a0459acad556d287c1af1ef9b99b8322945dee 100644
+--- a/io/papermc/paper/threadedregions/NebulaExplosionPipeline.java
++++ b/io/papermc/paper/threadedregions/NebulaExplosionPipeline.java
+@@ -35,6 +35,8 @@ public final class NebulaExplosionPipeline {
+ 
+     private static final ConcurrentLinkedQueue<RecordedExplosion> PENDING = new ConcurrentLinkedQueue<>();
+     private static final ConcurrentHashMap<ServerLevel, AtomicLong> EXPLOSION_COUNTER = new ConcurrentHashMap<>();
++    private static final AtomicLong DRAINED_EXPLOSIONS = new AtomicLong();
++    private static final AtomicLong DRAINED_SUBDAG_TASKS = new AtomicLong();
+ 
+     private NebulaExplosionPipeline() {}
+ 
+@@ -68,23 +70,48 @@ public final class NebulaExplosionPipeline {
+ 
+     /**
+      * Drain recorded explosions for a given world and convert each to a sub-DAG
+-     * via the nebula-entity ExplosionTaskFactory. Currently the returned tasks
+-     * are emitted as observability tasks (no side effects beyond logging) since
+-     * vanilla already executed the explosion synchronously.
++     * via the nebula-entity ExplosionTaskFactory. The returned tasks are
++     * observability/structure tasks (no side effects) since vanilla already
++     * executed the explosion synchronously.
++     *
++     * <p>Removes ALL entries for {@code level} regardless of interleaving with
++     * other levels' explosions (a {@code peek}+break loop would leak entries
++     * queued behind a different level's explosion).
+      */
+     public static List<TaskNode> drainAndBuildSubDags(ServerLevel level) {
+         List<TaskNode> all = new ArrayList<>();
+-        RecordedExplosion record;
+-        while ((record = PENDING.peek()) != null) {
++        int drained = 0;
++        java.util.Iterator<RecordedExplosion> it = PENDING.iterator();
++        while (it.hasNext()) {
++            RecordedExplosion record = it.next();
+             if (record.level != level) {
+-                break;
++                continue;
+             }
+-            PENDING.poll();
++            it.remove();
++            drained++;
+             all.addAll(ExplosionTaskFactory.createSubDag(record.snapshot));
+         }
++        if (drained > 0) {
++            DRAINED_EXPLOSIONS.addAndGet(drained);
++            DRAINED_SUBDAG_TASKS.addAndGet(all.size());
++        }
+         return all;
+     }
+ 
++    /**
++     * Per-tick maintenance: drain this level's recorded explosions so the
++     * PENDING queue stays bounded. Without this the queue grows unbounded for
++     * every creeper/TNT/bed/crystal explosion (each holding a ServerLevel ref),
++     * a memory leak. Returns the number of sub-DAG tasks the drained explosions
++     * produced this tick (0 if none).
++     */
++    public static int tickDrain(ServerLevel level) {
++        return drainAndBuildSubDags(level).size();
++    }
++
++    public static long drainedExplosions() { return DRAINED_EXPLOSIONS.get(); }
++    public static long drainedSubDagTasks() { return DRAINED_SUBDAG_TASKS.get(); }
++
+     public static int pendingCount() {
+         return PENDING.size();
+     }
+diff --git a/io/papermc/paper/threadedregions/TickRegionScheduler.java b/io/papermc/paper/threadedregions/TickRegionScheduler.java
+index a41f30a0745753f5e6be0c9a9cbf03c7bda50544..cf3884e54b58222db31cfdc5049cbaa73f0aaa83 100644
+--- a/io/papermc/paper/threadedregions/TickRegionScheduler.java
++++ b/io/papermc/paper/threadedregions/TickRegionScheduler.java
+@@ -185,10 +185,17 @@ public final class TickRegionScheduler {
+             return null;
+         }
+         final RegionizedWorldData previous = tickThreadRunner.currentTickingWorldRegionizedData;
+-        if (level != null) {
++        // Only install context when none is already set. If a region worker is
++        // mid-tick (e.g. a command block firing during the region's own tick),
++        // its context is already correct — do not clobber it.
++        if (previous == null && level != null) {
+             final ThreadedRegionizer.ThreadedRegion<TickRegions.TickRegionData, TickRegions.TickRegionSectionData> region =
+                 level.regioniser.getRegionAtSynchronised(chunkX, chunkZ);
+             if (region != null) {
++                // Set both region and world-data so getCurrentRegion() AND
++                // getCurrentRegionizedWorldData() resolve during the callback —
++                // some paths (RegionStats.updateCurrentRegion) need the region too.
++                tickThreadRunner.currentTickingRegion = region;
+                 tickThreadRunner.currentTickingWorldRegionizedData = level.worldRegionData.getForRegion(region);
+             }
+         }
+@@ -200,7 +207,14 @@ public final class TickRegionScheduler {
+         if (!(currThread instanceof TickThreadRunner tickThreadRunner)) {
+             return;
+         }
+-        tickThreadRunner.currentTickingWorldRegionizedData = previous;
++        // If we installed context (previous was null), clear both fields back to
++        // the off-tick state. If context already existed, leave it untouched.
++        if (previous == null) {
++            tickThreadRunner.currentTickingRegion = null;
++            tickThreadRunner.currentTickingWorldRegionizedData = null;
++        } else {
++            tickThreadRunner.currentTickingWorldRegionizedData = previous;
++        }
+     }
+     // Nebula end
+ 
+diff --git a/net/minecraft/commands/Commands.java b/net/minecraft/commands/Commands.java
+index c2d498230bc1303c17e4e56997333cc7fdfdaf2d..7794ae22f18398f21e0c6c8c11279b173c8c8743 100644
+--- a/net/minecraft/commands/Commands.java
++++ b/net/minecraft/commands/Commands.java
+@@ -373,6 +373,16 @@ public class Commands {
+         Profiler.get().push(() -> "/" + commandString);
+         ContextChain<CommandSourceStack> commandChain = finishParsing(command, commandString, sender);
+ 
++        // Nebula start - install the target level's world-data context for the command's duration.
++        // Commands dispatched via the RCON/console path run on the global coordinator thread,
++        // where getCurrentWorldData() would otherwise return null and NPE deep inside any
++        // world-mutating command (/fill, /setblock, /summon, ...). One chokepoint fixes them all.
++        final net.minecraft.server.level.ServerLevel nebulaCmdLevel = sender.getLevel();
++        final net.minecraft.core.Vec3i nebulaCmdPos = net.minecraft.core.BlockPos.containing(sender.getPosition());
++        final io.papermc.paper.threadedregions.RegionizedWorldData nebulaCmdPrev =
++            io.papermc.paper.threadedregions.TickRegionScheduler.nebula$pushWorldDataContext(
++                nebulaCmdLevel, nebulaCmdPos.getX() >> 4, nebulaCmdPos.getZ() >> 4);
++        // Nebula end
+         try {
+             if (commandChain != null) {
+                 executeCommandInContext(
+@@ -406,6 +416,7 @@ public class Commands {
+                 LOGGER.error("'/{}' threw an exception", commandString, var12);
+             }
+         } finally {
++            io.papermc.paper.threadedregions.TickRegionScheduler.nebula$restoreWorldDataContext(nebulaCmdPrev); // Nebula - restore coordinator world-data context
+             Profiler.get().pop();
+         }
+     }
+diff --git a/net/minecraft/server/commands/NebulaCommand.java b/net/minecraft/server/commands/NebulaCommand.java
+index b6cf8a59d0c8ed57343195e5b6d1d852db0a1000..2e8a6440815f6e63df02b0e8ec4d110947ad5ad4 100644
+--- a/net/minecraft/server/commands/NebulaCommand.java
++++ b/net/minecraft/server/commands/NebulaCommand.java
+@@ -113,8 +113,11 @@ public final class NebulaCommand {
+ 
+     private static int explosions(final CommandSourceStack source) {
+         int pending = NebulaExplosionPipeline.pendingCount();
++        long drained = NebulaExplosionPipeline.drainedExplosions();
++        long subDagTasks = NebulaExplosionPipeline.drainedSubDagTasks();
+         source.sendSuccess(
+-            () -> Component.literal("Explosion snapshots pending: " + pending),
++            () -> Component.literal("Explosions: pending=" + pending + ", drained=" + drained
++                + ", sub-DAG-tasks-built=" + subDagTasks + " (§9 observability sub-DAGs; vanilla executes synchronously)"),
+             false
+         );
+         return pending;
+diff --git a/net/minecraft/server/level/ServerLevel.java b/net/minecraft/server/level/ServerLevel.java
+index 9a519d93b49277258084332587b954236a3c066f..866f04c8e8db2d8d2d9c88288db378df31d5095d 100644
+--- a/net/minecraft/server/level/ServerLevel.java
++++ b/net/minecraft/server/level/ServerLevel.java
+@@ -1803,8 +1803,9 @@ public class ServerLevel extends Level implements WorldGenLevel, ServerEntityGet
+         } else {
+             if (entity instanceof net.minecraft.world.entity.item.ItemEntity item && item.getItem().isEmpty()) return false; // Paper - Prevent empty items from being added
+             // Paper start - capture all item additions to the world
+-            if (this.getCurrentWorldData().captureDrops != null && entity instanceof net.minecraft.world.entity.item.ItemEntity item) { // Folia - region threading
+-                this.getCurrentWorldData().captureDrops.add(item); // Folia - region threading
++            final io.papermc.paper.threadedregions.RegionizedWorldData nebulaAddData = this.getWorldDataForPos(entity.blockPosition()); // Nebula - null-safe off-thread (command on coordinator)
++            if (nebulaAddData != null && nebulaAddData.captureDrops != null && entity instanceof net.minecraft.world.entity.item.ItemEntity item) {
++                nebulaAddData.captureDrops.add(item);
+                 return true;
+             }
+             // Paper end - capture all item additions to the world
+@@ -3310,6 +3311,11 @@ public class ServerLevel extends Level implements WorldGenLevel, ServerEntityGet
+         // Post-DAG: remove dead block entities
+         worldData.getBlockEntityTickers().removeIf(net.minecraft.world.level.block.entity.TickingBlockEntity::isRemoved);
+ 
++        // §9: drain recorded explosions into observability sub-DAGs each tick so
++        // the PENDING queue stays bounded (otherwise every explosion leaks a
++        // RecordedExplosion holding a ServerLevel ref).
++        io.papermc.paper.threadedregions.NebulaExplosionPipeline.tickDrain(this);
++
+         worldData.currentPrimedTnt = 0;
+ 
+         // Random budget end-of-tick: rotate consecutive-downgrade pressure, log warning if threshold reached.
