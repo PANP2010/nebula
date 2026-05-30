@@ -1,0 +1,307 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Sat, 30 May 2026 12:43:03 +0800
+Subject: [PATCH] nebula: fix getCurrentWorldData() NPE on coordinator thread
+ for command-triggered async chunk-load callbacks
+
+Root cause: /fill, /setblock etc. schedule async chunk loads whose onLoad
+callback runs on the global coordinator thread during tickGlobal(), where no
+region world-data context is installed, so getCurrentWorldData() returns null
+and setBlock() NPEs deep in the call tree (captureTreeGeneration,
+captureBlockStates, populating, pathTypesByPosCache, ...).
+
+Primary fix: install the owning region's world-data context around the onLoad
+callback in ServerLevel.moonrise$loadChunksAsync via new
+TickRegionScheduler.nebula$pushWorldDataContext/restoreWorldDataContext +
+RegionizedData.getForRegion(region).
+
+Defense-in-depth: null-guard the worldData dereferences reachable from this
+path in Level (getBlockState, getBlockStateIfLoaded, setBlock,
+notifyAndUpdatePhysics, getBlockEntity, setBlockEntity, addBlockEntityTicker,
+neighborShapeChanged, getRedstoneGameTime) and LevelChunk (setBlockState,
+getBlockEntity, populate). Added Level.getWorldDataForPos for off-thread
+position-resolved access.
+
+diff --git a/io/papermc/paper/threadedregions/RegionizedData.java b/io/papermc/paper/threadedregions/RegionizedData.java
+index 8e25ab1c8ae026e51ce4d711c9084fdfbede9856..88bf5c998240d478e667509e0f7a12e97378f40e 100644
+--- a/io/papermc/paper/threadedregions/RegionizedData.java
++++ b/io/papermc/paper/threadedregions/RegionizedData.java
+@@ -155,6 +155,16 @@ public final class RegionizedData<T> {
+         return region.getData().getOrCreateRegionizedData(this);
+     }
+ 
++    // Nebula start - resolve regionised data for an explicit region, usable off the owning tick thread
++    // (e.g. command-triggered async chunk-load callbacks running on the global coordinator thread).
++    public @Nullable T getForRegion(final ThreadedRegionizer.ThreadedRegion<TickRegions.TickRegionData, TickRegions.TickRegionSectionData> region) {
++        if (region == null) {
++            return null;
++        }
++        return region.getData().getOrCreateRegionizedData(this);
++    }
++    // Nebula end
++
+     /**
+      * Class responsible for handling merge / split requests from the regioniser.
+      * <p>
+diff --git a/io/papermc/paper/threadedregions/TickRegionScheduler.java b/io/papermc/paper/threadedregions/TickRegionScheduler.java
+index e6764a0c5b5e0188bd37deb0b8cdebb6bac798ae..a41f30a0745753f5e6be0c9a9cbf03c7bda50544 100644
+--- a/io/papermc/paper/threadedregions/TickRegionScheduler.java
++++ b/io/papermc/paper/threadedregions/TickRegionScheduler.java
+@@ -175,6 +175,35 @@ public final class TickRegionScheduler {
+         tickThreadRunner.currentTickingTask = task;
+     }
+ 
++    // Nebula start - install/restore world-data context for off-region callbacks (e.g. command-triggered
++    // async chunk-load callbacks that run on the global coordinator thread). Returns the previous worldData
++    // so the caller can restore it in a finally block. No-op (returns null) off a tick thread.
++    // Resolves the region owning the given chunk so getCurrentWorldData() works during the callback.
++    public static RegionizedWorldData nebula$pushWorldDataContext(final ServerLevel level, final int chunkX, final int chunkZ) {
++        final Thread currThread = Thread.currentThread();
++        if (!(currThread instanceof TickThreadRunner tickThreadRunner)) {
++            return null;
++        }
++        final RegionizedWorldData previous = tickThreadRunner.currentTickingWorldRegionizedData;
++        if (level != null) {
++            final ThreadedRegionizer.ThreadedRegion<TickRegions.TickRegionData, TickRegions.TickRegionSectionData> region =
++                level.regioniser.getRegionAtSynchronised(chunkX, chunkZ);
++            if (region != null) {
++                tickThreadRunner.currentTickingWorldRegionizedData = level.worldRegionData.getForRegion(region);
++            }
++        }
++        return previous;
++    }
++
++    public static void nebula$restoreWorldDataContext(final RegionizedWorldData previous) {
++        final Thread currThread = Thread.currentThread();
++        if (!(currThread instanceof TickThreadRunner tickThreadRunner)) {
++            return;
++        }
++        tickThreadRunner.currentTickingWorldRegionizedData = previous;
++    }
++    // Nebula end
++
+     /**
+      * Returns the current ticking region, or {@code null} if there is no ticking region.
+      * If this thread is not a TickThread, then returns {@code null}.
+diff --git a/net/minecraft/server/level/ServerLevel.java b/net/minecraft/server/level/ServerLevel.java
+index f78064321792def9ddb37f8d28b4c583ae902ae8..9a519d93b49277258084332587b954236a3c066f 100644
+--- a/net/minecraft/server/level/ServerLevel.java
++++ b/net/minecraft/server/level/ServerLevel.java
+@@ -457,7 +457,18 @@ public class ServerLevel extends Level implements WorldGenLevel, ServerEntityGet
+             if (loadedChunks.incrementAndGet() == requiredChunks) {
+                 try {
+                     if (onLoad != null) {
+-                        onLoad.accept(java.util.Collections.unmodifiableList(ret));
++                        // Nebula start - install world-data context so command-triggered callbacks running on the
++                        // coordinator thread can access getCurrentWorldData() (otherwise NPEs deep in setBlock).
++                        final int ctxChunkX = ret.isEmpty() ? minChunkX : ret.get(0).getPos().x();
++                        final int ctxChunkZ = ret.isEmpty() ? minChunkZ : ret.get(0).getPos().z();
++                        final io.papermc.paper.threadedregions.RegionizedWorldData nebulaPrev =
++                            io.papermc.paper.threadedregions.TickRegionScheduler.nebula$pushWorldDataContext((ServerLevel) (Object) this, ctxChunkX, ctxChunkZ);
++                        try {
++                            onLoad.accept(java.util.Collections.unmodifiableList(ret));
++                        } finally {
++                            io.papermc.paper.threadedregions.TickRegionScheduler.nebula$restoreWorldDataContext(nebulaPrev);
++                        }
++                        // Nebula end
+                     }
+                 } finally {
+                     for (int i = 0, len = ret.size(); i < len; ++i) {
+diff --git a/net/minecraft/world/level/Level.java b/net/minecraft/world/level/Level.java
+index 35305205047240dc91ed1bb60e742411a76e2a22..457288199c608f4169f245a57cd2879d66a67aea 100644
+--- a/net/minecraft/world/level/Level.java
++++ b/net/minecraft/world/level/Level.java
+@@ -836,6 +836,23 @@ public abstract class Level implements LevelAccessor, AutoCloseable, ca.spottedl
+         return ret;
+     }
+ 
++    // Nebula start - resolve world data by position when off the owning tick thread.
++    // Command-triggered async chunk-load callbacks run on the global coordinator thread,
++    // where getCurrentWorldData() returns null. For operations that MUST find a region
++    // (e.g. registering a block-entity ticker), fall back to the region owning the chunk.
++    public io.papermc.paper.threadedregions.RegionizedWorldData getWorldDataForPos(final BlockPos pos) {
++        final io.papermc.paper.threadedregions.RegionizedWorldData fast = this.getCurrentWorldData();
++        if (fast != null) {
++            return fast;
++        }
++        if (!(this instanceof net.minecraft.server.level.ServerLevel serverLevel)) {
++            return null;
++        }
++        final var region = serverLevel.regioniser.getRegionAtSynchronised(pos.getX() >> 4, pos.getZ() >> 4);
++        return this.worldRegionData.getForRegion(region);
++    }
++    // Nebula end
++
+     @Override
+     public List<net.minecraft.server.level.ServerPlayer> getLocalPlayers() {
+         return this.getCurrentWorldData().getLocalPlayers();
+@@ -1008,8 +1025,9 @@ public abstract class Level implements LevelAccessor, AutoCloseable, ca.spottedl
+     @Nullable
+     public final BlockState getBlockStateIfLoaded(BlockPos pos) {
+         // CraftBukkit start - tree generation
+-        if (this.getCurrentWorldData().captureTreeGeneration) { // Folia - region threading
+-            CraftBlockState previous = this.getCurrentWorldData().capturedBlockStates.get(pos); // Folia - region threading
++        final var worldData = this.getCurrentWorldData(); // Folia - region threading
++        if (worldData != null && worldData.captureTreeGeneration) {
++            CraftBlockState previous = worldData.capturedBlockStates.get(pos);
+             if (previous != null) {
+                 return previous.getHandle();
+             }
+@@ -1075,7 +1093,7 @@ public abstract class Level implements LevelAccessor, AutoCloseable, ca.spottedl
+         ca.spottedleaf.moonrise.common.util.TickThread.ensureTickThread((ServerLevel)this, pos, "Updating block asynchronously"); // Folia - region threading
+         final io.papermc.paper.threadedregions.RegionizedWorldData worldData = this.getCurrentWorldData(); // Folia - region threading
+         // CraftBukkit start - tree generation
+-        if (worldData.captureTreeGeneration) { // Folia - region threading
++        if (worldData != null && worldData.captureTreeGeneration) { // Nebula - null worldData (coordinator thread / async chunk-load callback) means no Bukkit capture context
+             // Paper start - Protect Bedrock and End Portal/Frames from being destroyed
+             BlockState type = getBlockState(pos);
+             if (!type.isDestroyable()) return false;
+@@ -1099,7 +1117,7 @@ public abstract class Level implements LevelAccessor, AutoCloseable, ca.spottedl
+             Block block = blockState.getBlock();
+             // CraftBukkit start - capture blockstates
+             boolean captured = false;
+-            if (worldData.captureBlockStates) { // Folia - region threading
++            if (worldData != null && worldData.captureBlockStates) { // Nebula - null-safe capture check
+                 final CraftBlockState snapshot;
+                 if (!worldData.capturedBlockStates.containsKey(pos)) { // Folia - region threading
+                     snapshot = (CraftBlockState) org.bukkit.craftbukkit.block.CraftBlock.at(this, pos).getState(); // Paper - use CB getState to get a suitable snapshot
+@@ -1115,7 +1133,7 @@ public abstract class Level implements LevelAccessor, AutoCloseable, ca.spottedl
+             this.chunkPacketBlockController.onBlockChange(this, pos, blockState, oldState, updateFlags, updateLimit); // Paper - Anti-Xray
+             if (oldState == null) {
+                 // CraftBukkit start - remove blockstate if failed (or the same)
+-                if (worldData.captureBlockStates && captured) { // Folia - region threading
++                if (worldData != null && worldData.captureBlockStates && captured) { // Nebula - null-safe capture check
+                     worldData.capturedBlockStates.remove(pos); // Folia - region threading
+                 }
+                 // CraftBukkit end
+@@ -1153,7 +1171,7 @@ public abstract class Level implements LevelAccessor, AutoCloseable, ca.spottedl
+                 */ // CraftBukkit
+ 
+                 // CraftBukkit start
+-                if (!worldData.captureBlockStates) { // Don't notify clients or update physics while capturing blockstates // Folia - region threading
++                if (worldData == null || !worldData.captureBlockStates) { // Nebula - null worldData means notify/physics proceed normally
+                     // Modularize client and physic updates
+                     // Spigot start
+                     try {
+@@ -1197,7 +1215,8 @@ public abstract class Level implements LevelAccessor, AutoCloseable, ca.spottedl
+                 // CraftBukkit start
+                 blockState.updateIndirectNeighbourShapes(this, pos, i, recursionLeft - 1); // Don't call an event for the old block to limit event spam
+                 boolean cancelledUpdates = false; // Paper - Fix block place logic
+-                if (((ServerLevel)this).getCurrentWorldData().hasPhysicsEvent) { // Paper - BlockPhysicsEvent // Folia - region threading
++                final io.papermc.paper.threadedregions.RegionizedWorldData physicsWorldData = ((ServerLevel)this).getCurrentWorldData(); // Nebula - null-safe physics-event check
++                if (physicsWorldData != null && physicsWorldData.hasPhysicsEvent) { // Paper - BlockPhysicsEvent
+                     org.bukkit.event.block.BlockPhysicsEvent event = new org.bukkit.event.block.BlockPhysicsEvent(org.bukkit.craftbukkit.block.CraftBlock.at(this, pos), state.asBlockData());
+                     cancelledUpdates = !event.callEvent(); // Paper - Fix block place logic
+                 }
+@@ -1302,7 +1321,10 @@ public abstract class Level implements LevelAccessor, AutoCloseable, ca.spottedl
+         @Block.UpdateFlags final int updateFlags,
+         final int updateLimit
+     ) {
+-        this.getCurrentWorldData().neighborUpdater.shapeUpdate(direction, neighborState, pos, neighborPos, updateFlags, updateLimit); // Folia - region threading
++        final io.papermc.paper.threadedregions.RegionizedWorldData worldData = this.getWorldDataForPos(pos); // Nebula - resolve region off-thread
++        if (worldData != null) {
++            worldData.neighborUpdater.shapeUpdate(direction, neighborState, pos, neighborPos, updateFlags, updateLimit);
++        }
+     }
+ 
+     @Override
+@@ -1352,8 +1374,9 @@ public abstract class Level implements LevelAccessor, AutoCloseable, ca.spottedl
+     @Override
+     public BlockState getBlockState(final BlockPos pos) {
+         // CraftBukkit start - tree generation
+-        if (this.getCurrentWorldData().captureTreeGeneration) { // Folia - region threading
+-            CraftBlockState previous = this.getCurrentWorldData().capturedBlockStates.get(pos); // Paper // Folia - region threading
++        final var worldData = this.getCurrentWorldData(); // Folia - region threading
++        if (worldData != null && worldData.captureTreeGeneration) { // Nebula - null check for non-region threads
++            CraftBlockState previous = worldData.capturedBlockStates.get(pos); // Paper
+             if (previous != null) {
+                 return previous.getHandle();
+             }
+@@ -1524,7 +1547,10 @@ public abstract class Level implements LevelAccessor, AutoCloseable, ca.spottedl
+ 
+     public void addBlockEntityTicker(final TickingBlockEntity ticker) {
+         if (!this.paperConfig().unsupportedSettings.ticking.blockEntities) return; // Paper - option to disable ticking
+-        this.getCurrentWorldData().addBlockEntityTicker(ticker); // Folia - regionised ticking
++        final io.papermc.paper.threadedregions.RegionizedWorldData worldData = this.getWorldDataForPos(ticker.getPos()); // Nebula - resolve region off-thread
++        if (worldData != null) {
++            worldData.addBlockEntityTicker(ticker);
++        }
+     }
+ 
+     public void tickBlockEntities() {
+@@ -1734,7 +1760,8 @@ public abstract class Level implements LevelAccessor, AutoCloseable, ca.spottedl
+         // Folia end - region threading
+         // Paper start - Perf: Optimize capturedTileEntities lookup
+         net.minecraft.world.level.block.entity.BlockEntity blockEntity;
+-        if (!this.getCurrentWorldData().capturedTileEntities.isEmpty() && (blockEntity = this.getCurrentWorldData().capturedTileEntities.get(pos)) != null) { // Folia - region threading
++        final io.papermc.paper.threadedregions.RegionizedWorldData getBeWorldData = this.getCurrentWorldData(); // Nebula - null-safe captured-TE lookup
++        if (getBeWorldData != null && !getBeWorldData.capturedTileEntities.isEmpty() && (blockEntity = getBeWorldData.capturedTileEntities.get(pos)) != null) {
+             return blockEntity;
+         }
+         // Paper end - Perf: Optimize capturedTileEntities lookup
+@@ -1751,8 +1778,9 @@ public abstract class Level implements LevelAccessor, AutoCloseable, ca.spottedl
+         BlockPos pos = blockEntity.getBlockPos();
+         if (this.isInValidBounds(pos)) {
+             // CraftBukkit start
+-            if (this.getCurrentWorldData().captureBlockStates) { // Folia - region threading
+-                this.getCurrentWorldData().capturedTileEntities.put(pos.immutable(), blockEntity); // Folia - region threading
++            final io.papermc.paper.threadedregions.RegionizedWorldData setBeWorldData = this.getCurrentWorldData(); // Nebula - null-safe TE capture
++            if (setBeWorldData != null && setBeWorldData.captureBlockStates) {
++                setBeWorldData.capturedTileEntities.put(pos.immutable(), blockEntity);
+                 return;
+             }
+             // CraftBukkit end
+@@ -1992,7 +2020,11 @@ public abstract class Level implements LevelAccessor, AutoCloseable, ca.spottedl
+     // Folia start - region threading
+     @Override
+     public long getRedstoneGameTime() {
+-        return this.getCurrentWorldData().getRedstoneGameTime();
++        final io.papermc.paper.threadedregions.RegionizedWorldData worldData = this.getCurrentWorldData(); // Nebula - null-safe off-thread fallback
++        if (worldData != null) {
++            return worldData.getRedstoneGameTime();
++        }
++        return this.getGameTime();
+     }
+ 
+     @Override
+diff --git a/net/minecraft/world/level/chunk/LevelChunk.java b/net/minecraft/world/level/chunk/LevelChunk.java
+index 14cbb3d9f726f562d9c56dc0f57b46069ed7c4f8..3a8b9573dd243696e5fcd4689ff425640be23789 100644
+--- a/net/minecraft/world/level/chunk/LevelChunk.java
++++ b/net/minecraft/world/level/chunk/LevelChunk.java
+@@ -431,7 +431,8 @@ public class LevelChunk extends ChunkAccess implements DebugValueSource, ca.spot
+                 if (!section.getBlockState(localX, localY, localZ).is(newBlock)) {
+                     return null;
+                 } else {
+-                    if (!this.level.isClientSide() && (flags & Block.UPDATE_SKIP_ON_PLACE) == 0 && (!this.level.getCurrentWorldData().captureBlockStates || newBlock instanceof net.minecraft.world.level.block.BaseEntityBlock)) { // CraftBukkit - Don't place while processing the BlockPlaceEvent, unless it's a BlockContainer. Prevents blocks such as TNT from activating when cancelled. // Folia - region threading
++                    final io.papermc.paper.threadedregions.RegionizedWorldData nebulaWorldData = this.level.getCurrentWorldData(); // Nebula - null-safe off-thread capture check
++                    if (!this.level.isClientSide() && (flags & Block.UPDATE_SKIP_ON_PLACE) == 0 && ((nebulaWorldData == null || !nebulaWorldData.captureBlockStates) || newBlock instanceof net.minecraft.world.level.block.BaseEntityBlock)) { // CraftBukkit - Don't place while processing the BlockPlaceEvent, unless it's a BlockContainer. Prevents blocks such as TNT from activating when cancelled.
+                         state.onPlace(this.level, pos, oldState, movedByPiston);
+                     }
+ 
+@@ -478,7 +479,8 @@ public class LevelChunk extends ChunkAccess implements DebugValueSource, ca.spot
+ 
+     public @Nullable BlockEntity getBlockEntity(final BlockPos pos, final LevelChunk.EntityCreationType creationType) {
+         // CraftBukkit start
+-        BlockEntity blockEntity = this.level.getCurrentWorldData().capturedTileEntities.get(pos); // Folia - region threading
++        final io.papermc.paper.threadedregions.RegionizedWorldData nebulaWorldData = this.level.getCurrentWorldData(); // Nebula - null-safe off-thread captured-TE lookup
++        BlockEntity blockEntity = nebulaWorldData == null ? null : nebulaWorldData.capturedTileEntities.get(pos);
+         if (blockEntity == null) {
+             blockEntity = this.blockEntities.get(pos);
+         }
+@@ -666,13 +668,14 @@ public class LevelChunk extends ChunkAccess implements DebugValueSource, ca.spot
+ 
+                 org.bukkit.World world = this.level.getWorld();
+                 if (world != null) {
+-                    this.level.getCurrentWorldData().populating = true; // Folia - region threading
++                    final io.papermc.paper.threadedregions.RegionizedWorldData nebulaPopulateData = this.level.getCurrentWorldData(); // Nebula - null-safe populating flag
++                    if (nebulaPopulateData != null) nebulaPopulateData.populating = true;
+                     try {
+                         for (org.bukkit.generator.BlockPopulator populator : world.getPopulators()) {
+                             populator.populate(world, random, bukkitChunk);
+                         }
+                     } finally {
+-                        this.level.getCurrentWorldData().populating = false; // Folia - region threading
++                        if (nebulaPopulateData != null) nebulaPopulateData.populating = false;
+                     }
+                 }
+                 server.getPluginManager().callEvent(new org.bukkit.event.world.ChunkPopulateEvent(bukkitChunk));
