@@ -294,10 +294,12 @@ are already marked `parallelSafe`. GLOBAL_RW, hopper, and player tasks
 remain serial by default.
 
 **Remaining gap:** Enabling `parallel` in production requires Layer A
-annotation coverage to reach ~70%. As of 2026-05-30 (batch 13, patch 0076) the
-entity tick path is substantially covered: **89 entity classes carry @NebulaRW**,
-including ~all hot-path mobs that override aiStep()/customServerAiStep(). Until
-coverage extends to block-entity + redstone + fluid tick paths, opening the gate
+annotation coverage to reach ~70%. As of 2026-05-30 (batches 13-15, patches
+0076-0078) the entity AND block-entity tick paths are fully covered: **91 entity
+classes + 16 block-entity classes carry @NebulaRW** — every concrete and
+base-class aiStep()/customServerAiStep() override and every BE tick/serverTick.
+Remaining uncovered tick paths: redstone components + fluid spread (both still
+run as coarse GLOBAL_RW nodes). Until those are annotated, opening the gate
 risks data races on NMS structures not covered by explicit RWSet declarations.
 The RW-Guard (§12.4, agent-gated) is the tool to certify coverage is clean
 before flipping `-Dnebula.parallel=true` on by default.
