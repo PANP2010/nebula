@@ -1,6 +1,80 @@
 # Nebula Blockers
 
+## Architecture Audit (2026-05-30) — P6 (adversarial, 16-section deep audit)
+
+A full adversarial re-audit of `docs/星云架构.md` against the codebase
+(16 parallel section auditors + adversarial re-checks of every IMPLEMENTED
+claim). **Verdict: kernel-complete, integration-incomplete. NOT fully
+implemented.** This supersedes the more optimistic P5 summary below where they
+disagree.
+
+### Per-section status
+
+| Section | Status | Reason |
+|---|---|---|
+| §2.2 BuildDAG | **IMPLEMENTED** | build+layer+execute run every nebula-mode tick; WAR edges intentionally dropped, dirty-set approximated |
+| §3 RWSet | **IMPLEMENTED** | all 7 categories, segment-aware prefix match, union merge; runs unconditionally during build |
+| §2.3 Microsteps | PARTIAL | cap=256 wired, but downstream generation never fires and conflict-deferred tasks are dropped, not re-seeded next tick |
+| §4.1-4.3 Buckets | PARTIAL | buckets are 32 **blocks** not 32 chunks; no grid index (O(K²) conflict scan); no transitive-edge elimination |
+| §4.4-4.5 Exec+Global | PARTIAL | layer dispatch wired; CPU affinity + lock-free work-stealing are STUB_ONLY (bench-only); no read-version check; GLOBAL via wildcard RWSet |
+| §5 Redstone | PARTIAL | annotations + task model exist & tested, but live path uses an empty action registry → inert no-ops, no NMS binding |
+| §6 Physics+Collision | PARTIAL | impulse deferral + serial flush wired (D3a); named MOVE/COLLISION tasks are dead; 3-phase is really 2-phase |
+| §7 AI+POI | PARTIAL | entity RCU snapshot real; POI RCU missing; AI 4-task split is test-only; T1 weak-deps absent |
+| §8 Fluids | STUB | per-position RWSet model is dead code; live path = one coarse vanilla `fluid_ticks` node |
+| §9 Explosions | STUB | 4-layer sub-DAG unreachable (`drainAndBuildSubDags` has zero callers); layer actions are `()->{}`; chain handling absent |
+| §10 Lighting | **MISSING** | zero Nebula code; fully delegated to stock Moonrise/Starlight |
+| §11 Layered Random | PARTIAL | budget accounting wired; T0 deterministic gen, shadow-execute, WriteBuffer re-exec all absent — effectively always T1 |
+| §12 Determinism Verify | PARTIAL | SHA-256 per-tick hash real; replay = hash trail only, diff-localization dead, RW-check non-functional at runtime |
+| §13 VAP (L0/L1/L2) | STUB | all classes + tests exist; none reachable — interceptor unregistered, live pluginQueue=null, sandbox never drained; L2 + §13.5 reflection don't exist |
+| §15.3 Commands | PARTIAL | 5/6 registered; `verify` missing; `scc` now reports real telemetry (patch 0072); `profile` aliases bench |
+| §16 Errors/Degradation | PARTIAL | detection/state-tracking wired; recovery EFFECTS absent — fidelity tier is a label, microstep overflow can crash the tick |
+
+### Acceptance gates — all three FAIL
+
+- **DG1 (10000-tick zero-diff replay):** NOT MET. Only a SHA-256 hash trail is
+  emitted. No vanilla baseline, `inputToTasks` is a no-op (packets not decoded,
+  see B1), no standard test world, binary-search localizer is dead code.
+  Determinism-smoke.sh additionally depends on `/tick freeze`+`/tick step`,
+  which this Folia/Nebula build does not expose — the smoke cannot run as-is.
+- **DG2 (MSPT −30% vs Folia):** UNSUBSTANTIATED. `-Dnebula.parallel` defaults
+  **OFF**, so production executes the DAG single-threaded (DIRECT runner).
+  Runtime check (2026-05-30, 250-entity stress, `-Dnebula.parallel=true
+  -Dnebula.parallel.threads=8`): parallel execution **works and is correct**
+  (avg-tasks/layer≈74, zero races/NPEs), but is **not faster** at this workload
+  (parallel ≈8.5ms vs serial ≈5ms — thread-dispatch overhead exceeds the gain).
+  No measured win over Folia exists.
+- **DG3 (parallel execution enabled in production):** NOT MET. Enabling it is
+  gated behind Layer A annotation coverage (~30%, target ~70%, blocker B4)
+  because `ParallelTaskRunner` falls back to serial for any task lacking
+  `parallelSafe`, and NMS structures without explicit RWSets would race.
+  WorkStealingExecutor + CoreAffinity are bench-only; tick path uses one shared
+  ArrayBlockingQueue, no affinity, no read-version assertions.
+
+### Fixed during this audit session (2026-05-30)
+
+- **getCurrentWorldData() NPE on coordinator thread (minecraft patch 0071).**
+  `/fill`,`/setblock` etc. schedule async chunk loads whose onLoad callback runs
+  on the global coordinator thread with no region world-data context, NPEing
+  deep in setBlock. Fixed by installing the owning region's world-data context
+  around the callback (TickRegionScheduler.nebula$push/restoreWorldDataContext +
+  RegionizedData.getForRegion) plus null-guards across Level/LevelChunk. Verified
+  `/fill 121 furnaces + 6 hoppers` succeeds with zero NPEs.
+- **§15.3 /nebula scc was echoing a static constant (minecraft patch 0072).**
+  Now reports real per-build SccStats (builds/contracted/serialised/max-size).
+
+### Honest bottom line
+
+A well-engineered, genuinely-live DAG construction kernel (§2.2/§3) wrapped in
+broad, mostly-inert domain scaffolding. The scheduler builds correct parallel
+DAGs and can execute them in parallel deterministically when the flag is on, but
+in production it schedules without parallelizing, most domain decomposition is
+dead/test-only or a coarse vanilla passthrough, VAP is unwired end-to-end, and
+no determinism or performance gate has been demonstrated.
+
+---
+
 ## Architecture Audit (2026-05-29) — P5
+
 
 A second audit pass of `docs/星云架构.md` against the implementation found
 the following NEW gaps (not in the 2026-05-28 list below). Resolved during
