@@ -294,9 +294,13 @@ are already marked `parallelSafe`. GLOBAL_RW, hopper, and player tasks
 remain serial by default.
 
 **Remaining gap:** Enabling `parallel` in production requires Layer A
-annotation coverage to reach ~70% (currently ~30% of hot paths). Until then,
-opening the gate risks data races on NMS structures not covered by explicit
-RWSet declarations.
+annotation coverage to reach ~70%. As of 2026-05-30 (batch 13, patch 0076) the
+entity tick path is substantially covered: **89 entity classes carry @NebulaRW**,
+including ~all hot-path mobs that override aiStep()/customServerAiStep(). Until
+coverage extends to block-entity + redstone + fluid tick paths, opening the gate
+risks data races on NMS structures not covered by explicit RWSet declarations.
+The RW-Guard (§12.4, agent-gated) is the tool to certify coverage is clean
+before flipping `-Dnebula.parallel=true` on by default.
 
 **Workaround:** D4 (cross-region parallelism) remains the primary parallelism
 source and is safe today.
