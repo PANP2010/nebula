@@ -36,19 +36,28 @@ disagree.
   see B1), no standard test world, binary-search localizer is dead code.
   Determinism-smoke.sh additionally depends on `/tick freeze`+`/tick step`,
   which this Folia/Nebula build does not expose — the smoke cannot run as-is.
-- **DG2 (MSPT −30% vs Folia):** UNSUBSTANTIATED. `-Dnebula.parallel` defaults
-  **OFF**, so production executes the DAG single-threaded (DIRECT runner).
-  Runtime check (2026-05-30, 250-entity stress, `-Dnebula.parallel=true
-  -Dnebula.parallel.threads=8`): parallel execution **works and is correct**
-  (avg-tasks/layer≈74, zero races/NPEs), but is **not faster** at this workload
-  (parallel ≈8.5ms vs serial ≈5ms — thread-dispatch overhead exceeds the gain).
-  No measured win over Folia exists.
-- **DG3 (parallel execution enabled in production):** NOT MET. Enabling it is
-  gated behind Layer A annotation coverage (~30%, target ~70%, blocker B4)
-  because `ParallelTaskRunner` falls back to serial for any task lacking
-  `parallelSafe`, and NMS structures without explicit RWSets would race.
-  WorkStealingExecutor + CoreAffinity are bench-only; tick path uses one shared
-  ArrayBlockingQueue, no affinity, no read-version assertions.
+- **DG2 (MSPT −30% vs Folia):** UNSUBSTANTIATED but the blocker shape is now
+  clearer. `-Dnebula.parallel` defaults **OFF**. Two runtime measurements:
+  - 250-entity stress (2026-05-30): parallel correct (avg-tasks/layer≈74, zero
+    races) but the OLD runner was **slower** (≈8.5ms vs serial ≈5ms) due to
+    coordinator-idle oversubscription.
+  - **Caller-runs fix (patch 0079, nebula-core ParallelTaskRunner):** re-measured
+    at 7300-task/tick + 8400-block-entity scale — parallel run-phase **1.658ms
+    vs serial 1.734ms** (no longer a pessimization), zero races over 1200+ ticks.
+  - **KEY FINDING:** run-phase is NOT the MSPT bottleneck. Build dominates
+    (~8.6ms build vs ~1.7ms run; all ~7300 tasks collapse into ONE parallel
+    layer). The next perf lever for DG2 is **DAG build time**, not run
+    parallelism. Still no measured win over Folia, but the parallel-execution
+    regression that blocked any win is now removed.
+- **DG3 (parallel execution enabled in production):** NOT MET, but advanced.
+  Layer A coverage now spans all entity + block-entity tick paths (91+16
+  classes, batches 13-15). `ParallelTaskRunner` still falls back to serial for
+  any task lacking `parallelSafe`; caller-runs (patch 0079) makes the parallel
+  path a net-neutral-to-positive choice instead of a loss. WorkStealingExecutor
+  + CoreAffinity remain bench-only (the tick path uses the caller-runs chunked
+  fan-out over a shared queue, not per-core work-stealing); no read-version
+  assertions. Remaining for production-default-on: redstone/fluid annotation
+  coverage + RW-Guard certification (agent-gated).
 
 ### Fixed during this audit session (2026-05-30)
 
