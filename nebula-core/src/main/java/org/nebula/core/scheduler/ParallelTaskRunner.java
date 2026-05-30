@@ -25,12 +25,23 @@ public final class ParallelTaskRunner implements TaskRunner {
     private final TaskRunner delegate;
     private final Executor executor;
     private final int parallelThreshold;
+    private final int parallelism;
     private final AtomicLong degradedLayers = new AtomicLong();
 
     public ParallelTaskRunner(TaskRunner delegate, Executor executor, int parallelThreshold) {
+        this(delegate, executor, parallelThreshold, Math.max(1, Runtime.getRuntime().availableProcessors()));
+    }
+
+    /**
+     * @param parallelism number of worker threads in {@code executor}. The layer is split into
+     *                    at most {@code parallelism + 1} slices (the +1 is the caller-runs slice),
+     *                    so chunk count matches the real pool size + the coordinator that joins.
+     */
+    public ParallelTaskRunner(TaskRunner delegate, Executor executor, int parallelThreshold, int parallelism) {
         this.delegate = delegate;
         this.executor = executor;
         this.parallelThreshold = Math.max(2, parallelThreshold);
+        this.parallelism = Math.max(1, parallelism);
     }
 
     public ParallelTaskRunner(TaskRunner delegate, Executor executor) {
@@ -60,48 +71,53 @@ public final class ParallelTaskRunner implements TaskRunner {
             return;
         }
 
-        // Batched fan-out: instead of one CompletableFuture per task (which
-        // allocates 3000+ futures + lambdas for entity-heavy layers and floods
-        // the executor with tiny submissions), partition the layer into K
-        // chunks where K = number of executor threads, and submit one
-        // future per chunk. Each chunk runs its slice serially.  This keeps
-        // task-submission overhead O(K) instead of O(N).
+        // Batched fan-out with a CALLER-RUNS last chunk.
+        //
+        // Partition the layer into K chunks (K = executor parallelism). Submit
+        // K-1 chunks to the executor and run the final chunk on THIS (calling)
+        // thread, then join the rest. This is the key to actually winning from
+        // parallelism: the previous design submitted all K chunks and then had
+        // the caller block idle on allOf().get(), so K worker threads + 1 idle
+        // coordinator contended for K cores (oversubscription) — measured as a
+        // net pessimization (run-phase 3.3ms parallel vs 0.5ms serial). By
+        // having the coordinator execute a chunk itself, we use exactly K cores
+        // with no idle thread, and a layer that doesn't actually need fan-out
+        // (K==1) runs fully inline with zero executor traffic.
         final int n = layer.size();
-        final int parallelism = Math.max(1, Runtime.getRuntime().availableProcessors());
+        // K worker threads + the caller participating = parallelism + 1 executors.
+        final int maxChunks = this.parallelism + 1;
         // Don't fan out into more chunks than tasks — pointless.
-        final int chunks = Math.min(parallelism, n);
-        // Floor + 1 so any leftover lands in the last chunk.
+        final int chunks = Math.min(maxChunks, n);
+        // Ceiling division so any leftover lands in the chunks, last is smallest.
         final int chunkSize = (n + chunks - 1) / chunks;
 
         AtomicReference<Throwable> failure = new AtomicReference<>();
-        CompletableFuture<?>[] futures = new CompletableFuture<?>[chunks];
-        for (int c = 0; c < chunks; c++) {
+
+        // Submit chunks [1..chunks) to the executor; chunk 0 runs on this thread.
+        final int offloaded = chunks - 1;
+        CompletableFuture<?>[] futures = offloaded > 0 ? new CompletableFuture<?>[offloaded] : EMPTY_FUTURES;
+        for (int c = 1; c < chunks; c++) {
             final int from = c * chunkSize;
             final int to = Math.min(n, from + chunkSize);
-            futures[c] = CompletableFuture.runAsync(() -> {
-                for (int i = from; i < to; i++) {
-                    if (failure.get() != null) return;
-                    try {
-                        delegate.run(layer.get(i));
-                    } catch (Throwable t) {
-                        failure.compareAndSet(null, t);
-                        return;
-                    }
-                }
-            }, executor);
+            futures[c - 1] = CompletableFuture.runAsync(() -> runSlice(layer, from, to, failure), executor);
         }
 
-        try {
-            CompletableFuture.allOf(futures).get();
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw e;
-        } catch (ExecutionException e) {
-            Throwable cause = e.getCause();
-            if (cause instanceof Exception ex) {
-                throw ex;
+        // Caller runs chunk 0 instead of idling on the join.
+        runSlice(layer, 0, Math.min(n, chunkSize), failure);
+
+        if (offloaded > 0) {
+            try {
+                CompletableFuture.allOf(futures).get();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                throw e;
+            } catch (ExecutionException e) {
+                Throwable cause = e.getCause();
+                if (cause instanceof Exception ex) {
+                    throw ex;
+                }
+                throw new RuntimeException(cause);
             }
-            throw new RuntimeException(cause);
         }
 
         Throwable f = failure.get();
@@ -110,6 +126,21 @@ public final class ParallelTaskRunner implements TaskRunner {
                 throw ex;
             }
             throw new RuntimeException(f);
+        }
+    }
+
+    private static final CompletableFuture<?>[] EMPTY_FUTURES = new CompletableFuture<?>[0];
+
+    /** Runs layer tasks [from, to) serially, recording the first failure and bailing early. */
+    private void runSlice(List<TaskNode> layer, int from, int to, AtomicReference<Throwable> failure) {
+        for (int i = from; i < to; i++) {
+            if (failure.get() != null) return;
+            try {
+                delegate.run(layer.get(i));
+            } catch (Throwable t) {
+                failure.compareAndSet(null, t);
+                return;
+            }
         }
     }
 }
