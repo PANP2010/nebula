@@ -1,0 +1,92 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Sat, 30 May 2026 14:27:51 +0800
+Subject: [PATCH] =?UTF-8?q?nebula:=20=C2=A715.3=20add=20/nebula=20verify?=
+ =?UTF-8?q?=20=E2=80=94=20in-process=20determinism=20self-check?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Completes the six §15.3 diagnostic commands (was the only one missing). Computes
+the level's structural state hash twice in immediate succession; identical
+digests prove the hash computer is deterministic (the invariant all replay
+verification rests on). Honestly NOT the full record->replay->compare loop —
+that needs packet decoding (blocker B1) — but verifies the foundation.
+Runtime-verified DETERMINISTIC on empty + 121-furnace worlds.
+
+diff --git a/net/minecraft/server/commands/NebulaCommand.java b/net/minecraft/server/commands/NebulaCommand.java
+index 86e6b1def90d8350678424368b569b376d6721ee..b6cf8a59d0c8ed57343195e5b6d1d852db0a1000 100644
+--- a/net/minecraft/server/commands/NebulaCommand.java
++++ b/net/minecraft/server/commands/NebulaCommand.java
+@@ -69,6 +69,8 @@ public final class NebulaCommand {
+                     .executes(c -> scc(c.getSource())))
+                 .then(Commands.literal("profile")
+                     .executes(c -> profile(c.getSource())))
++                .then(Commands.literal("verify")
++                    .executes(c -> verify(c.getSource())))
+                 .then(Commands.literal("reset").executes(c -> reset(c.getSource())))
+                 .then(Commands.literal("stress-spawn")
+                     .then(Commands.argument("count", IntegerArgumentType.integer(1, 5000))
+@@ -294,6 +296,62 @@ public final class NebulaCommand {
+         return bench(source);
+     }
+ 
++    /**
++     * §15.3 — /nebula verify runs an in-process determinism self-check of the
++     * state-hash foundation that the replay-verify machinery (§12) depends on.
++     *
++     * <p>It computes the current level's structural state hash twice in immediate
++     * succession with no tick advancing between them. Because the hash is a pure
++     * read over the same state, the two digests MUST be byte-identical. A mismatch
++     * means the hash computation itself observes unstable/unordered state — a real
++     * determinism bug that would invalidate every downstream replay comparison.
++     *
++     * <p>This is NOT the full record→replay→compare loop from the architecture
++     * (that needs packet decoding, tracked as blocker B1); it verifies the
++     * deterministic-hash invariant that the loop is built on.
++     */
++    private static int verify(final CommandSourceStack source) {
++        final ServerLevel level = source.getLevel();
++        try {
++            org.nebula.core.scheduler.TickPipeline pipeline = new org.nebula.core.scheduler.TickPipeline(
++                completed -> java.util.List.of(),
++                org.nebula.core.scheduler.TaskRunner.DIRECT
++            );
++            io.papermc.paper.threadedregions.NebulaServerReplayScheduler scheduler =
++                new io.papermc.paper.threadedregions.NebulaServerReplayScheduler(level, pipeline);
++            byte[] h1 = scheduler.computeStateHash(true);
++            byte[] h2 = scheduler.computeStateHash(true);
++            boolean stable = java.util.Arrays.equals(h1, h2);
++            String hex = toHex(h1);
++            if (stable) {
++                source.sendSuccess(() -> Component.literal(
++                    "Nebula verify: state-hash is DETERMINISTIC — two consecutive digests of '"
++                        + level.dimension().identifier() + "' match (sha=" + hex.substring(0, 16) + "…). "
++                        + "Replay record: " + (io.papermc.paper.threadedregions.NebulaReplayIntegration.enabled()
++                            ? "enabled, " + io.papermc.paper.threadedregions.NebulaReplayIntegration.recordedTicks() + " ticks captured"
++                            : "disabled")), false);
++                return 1;
++            } else {
++                source.sendFailure(Component.literal(
++                    "Nebula verify: state-hash is NON-DETERMINISTIC — two consecutive digests of the same "
++                        + "unchanged state differ (h1=" + hex.substring(0, 16) + "… h2=" + toHex(h2).substring(0, 16)
++                        + "…). The hash computer observes unstable/unordered state; replay verification cannot be trusted."));
++                return 0;
++            }
++        } catch (Throwable t) {
++            source.sendFailure(Component.literal("Nebula verify failed: " + t.getMessage()));
++            return 0;
++        }
++    }
++
++    private static String toHex(byte[] digest) {
++        StringBuilder sb = new StringBuilder(digest.length * 2);
++        for (byte b : digest) {
++            sb.append(String.format("%02x", b & 0xFF));
++        }
++        return sb.toString();
++    }
++
+     private static int reset(final CommandSourceStack source) {
+         NebulaTickMetrics.reset();
+         NebulaRandomGate.reset();
