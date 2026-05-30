@@ -1,0 +1,46 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Sat, 30 May 2026 13:15:59 +0800
+Subject: [PATCH] =?UTF-8?q?nebula:=20=C2=A715.3=20/nebula=20scc=20reports?=
+ =?UTF-8?q?=20real=20SCC=20telemetry=20instead=20of=20static=20threshold?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Was echoing only the constant DEFAULT_THRESHOLD. Now surfaces live per-build
+SccStats: builds, builds-with-cycles, total-sccs, contracted-vs-serialised,
+max-scc-size. Verified at runtime under 250-entity stress: contracts 10-node
+collision-flush cycles into CompoundTasks every build.
+
+diff --git a/net/minecraft/server/commands/NebulaCommand.java b/net/minecraft/server/commands/NebulaCommand.java
+index 26aefb688e8736af4393559286b7e4a830e5cff4..86e6b1def90d8350678424368b569b376d6721ee 100644
+--- a/net/minecraft/server/commands/NebulaCommand.java
++++ b/net/minecraft/server/commands/NebulaCommand.java
+@@ -277,15 +277,12 @@ public final class NebulaCommand {
+      * {@link org.nebula.core.scheduler.SccContractor} threshold + counters.
+      */
+     private static int scc(final CommandSourceStack source) {
+-        // SCC counters are inside SccContractor; the contractor is constructed
+-        // per-build by buildFast/BucketDagBuilder. We surface the threshold
+-        // (configurable via nebula.dag.scc-threshold) plus an explanation.
++        // Real per-build SCC telemetry recorded by SccContractor.contract() each tick:
++        // how many cycles Tarjan found, how many were contracted vs serialised, largest SCC.
+         int threshold = org.nebula.core.scheduler.SccContractor.DEFAULT_THRESHOLD;
+-        String body = "Nebula SCC: threshold=" + threshold + " (oversized SCCs are serialised "
+-            + "with a warning instead of contracted into a CompoundTask). "
+-            + "Override via nebula.dag.scc-threshold yaml.";
++        String body = org.nebula.core.scheduler.SccStats.summary(threshold);
+         source.sendSuccess(() -> Component.literal(body), false);
+-        return threshold;
++        return (int) org.nebula.core.scheduler.SccStats.builds();
+     }
+ 
+     /**
+@@ -308,6 +305,7 @@ public final class NebulaCommand {
+         org.nebula.core.scheduler.TaskGraphCache.resetCounters();
+         org.nebula.core.bucket.BucketDagBuilder.resetFastPathCounters();
+         org.nebula.core.scheduler.FastBuildStats.reset();
++        org.nebula.core.scheduler.SccStats.reset();
+         source.sendSuccess(() -> Component.literal("Nebula DAG metrics + random budget + guard + parallel + bench probe + tick stats + bucket stats + cache stats reset."), true);
+         return 1;
+     }

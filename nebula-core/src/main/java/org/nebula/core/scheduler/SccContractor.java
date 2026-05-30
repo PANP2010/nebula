@@ -57,6 +57,7 @@ public final class SccContractor {
         List<Set<String>> sccs = TarjanScc.compute(ids, edges);
 
         if (sccs.isEmpty()) {
+            SccStats.record(0, 0, 0, 0);
             return new ContractionResult(List.copyOf(tasks), List.copyOf(edges), List.of());
         }
 
@@ -72,13 +73,22 @@ public final class SccContractor {
         List<TaskNode> newTasks = new ArrayList<>();
         List<String> warnings = new ArrayList<>();
 
+        // SCC telemetry (surfaced via /nebula scc).
+        int contractedCount = 0;
+        int serialisedCount = 0;
+        int maxSccSize = 0;
+
         for (Set<String> scc : sccs) {
+            if (scc.size() > maxSccSize) {
+                maxSccSize = scc.size();
+            }
             List<TaskNode> members = scc.stream()
                 .filter(byId::containsKey)
                 .map(byId::get)
                 .toList();
 
             if (members.size() <= threshold) {
+                contractedCount++;
                 TaskNode compound = CompoundTask.of(members);
                 newTasks.add(compound);
                 for (String memberId : scc) {
@@ -86,6 +96,7 @@ public final class SccContractor {
                 }
                 LOG.fine(() -> "Contracted SCC (" + scc.size() + " nodes) into " + compound.taskId());
             } else {
+                serialisedCount++;
                 // Oversized: serialise by keeping all members, adding serial edges
                 warnings.add("Oversized SCC (" + scc.size() + " nodes) serialised: " + scc);
                 LOG.warning("Oversized SCC (" + scc.size() + " nodes) — serialising. "
@@ -138,6 +149,7 @@ public final class SccContractor {
             newEdges.add(new DependencyEdge(src, tgt, edge.type()));
         }
 
+        SccStats.record(sccs.size(), contractedCount, serialisedCount, maxSccSize);
         return new ContractionResult(List.copyOf(newTasks), List.copyOf(newEdges), List.copyOf(warnings));
     }
 
