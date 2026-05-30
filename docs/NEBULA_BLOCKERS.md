@@ -24,8 +24,8 @@ disagree.
 | §9 Explosions | STUB→partial | layer actions still `()->{}` (vanilla executes synchronously), BUT pipeline now LIVE: explosions recorded + drained per tick into observability sub-DAGs (patch 0075 fixed the unbounded PENDING-queue leak — `drainAndBuildSubDags` now called via tickDrain). `/nebula explosions` shows drained/sub-DAG counts. Real block-break-in-sub-DAG deferred (high blast radius) |
 | §10 Lighting | **MISSING** | zero Nebula code; fully delegated to stock Moonrise/Starlight |
 | §11 Layered Random | PARTIAL | budget accounting wired; T0 deterministic gen, shadow-execute, WriteBuffer re-exec all absent — effectively always T1 |
-| §12 Determinism Verify | PARTIAL | SHA-256 per-tick hash real; replay = hash trail only, diff-localization dead, RW-check non-functional at runtime |
-| §13 VAP (L0/L1/L2) | STUB | all classes + tests exist; none reachable — interceptor unregistered, live pluginQueue=null, sandbox never drained; L2 + §13.5 reflection don't exist |
+| §12 Determinism Verify | PARTIAL | SHA-256 per-tick hash real; replay = hash trail only, diff-localization dead. **RW-check (§12.4) CORRECTION:** not "broken" — it is **agent-gated**. The `AccessTracingTransformer` + `TraceHooks` + `RWSetConsistencyChecker` chain is complete and unit-tested (nebula-agent tests pass); it only feeds `ThreadLocalAccessTrace` when `-javaagent:nebula-agent.jar` is attached. The agentless bundler runs it inert (trace always empty → 0 violations), which is by design (§12.4 = test-mode tool). `/nebula verify` (patch 0074) adds an agentless determinism self-check |
+| §13 VAP (L0/L1/L2) | STUB | Level 0/1 classes + tests exist but not reachable in the bundler — interceptor unregistered, live pluginQueue=null, sandbox never drained. **§13.5 reflection-tracking CORRECTION:** the agent-side instrumentation (`VapApiInterceptTransformer`, `AccessTracingTransformer`) DOES exist and is unit-tested — it is agent-gated like §12.4, not absent. Level 2 native scheduler API genuinely absent (Phase 3) |
 | §15.3 Commands | PARTIAL→OK | all 6 now registered & functional: `verify` added (patch 0074, in-process determinism self-check); `scc` reports real telemetry (patch 0072); `profile` aliases bench |
 | §16 Errors/Degradation | PARTIAL | detection/state-tracking wired; recovery EFFECTS mostly absent — fidelity tier is a label. **Microstep-overflow crash FIXED 2026-05-30 (patches added 0073)**: now degrades gracefully per §16.1 |
 
@@ -59,7 +59,11 @@ disagree.
   at the single chokepoint `Commands.performCommand` (installs the target level's
   region + world-data context for the command's duration, no-op when context
   already exists so region-worker command blocks are unaffected). Verified
-  `/fill 121 furnaces`, `/summon TNT` succeed with zero NPEs.
+  `/fill 121 furnaces`, `/summon TNT` succeed with zero NPEs. **Regression-probed
+  2026-05-30:** 10 diverse world-mutating commands (chest/zombie/item/redstone/
+  water/armor_stand/tnt-fill/falling_block/sapling/particle) + 765 stress ticks
+  with live entities/redstone/water — ZERO NPEs, determinism self-check passes.
+  The coordinator-thread NPE class is considered closed.
 - **§15.3 /nebula scc was echoing a static constant (minecraft patch 0072).**
   Now reports real per-build SccStats (builds/contracted/serialised/max-size).
 - **§16.1 microstep overflow crashed the whole server (nebula-core + patch 0073).**
