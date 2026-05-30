@@ -1,0 +1,62 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Sat, 30 May 2026 14:19:03 +0800
+Subject: [PATCH] =?UTF-8?q?nebula:=20surface=20microstep-overflows=20count?=
+ =?UTF-8?q?=20in=20/nebula=20stats=20(=C2=A716.1)?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+
+diff --git a/io/papermc/paper/threadedregions/NebulaTickMetrics.java b/io/papermc/paper/threadedregions/NebulaTickMetrics.java
+index b8351c57922724a2aa9193a2ddc49f4cbaf951f0..b6b8b47dfbe3df2f834a578fbc08362087300f7d 100644
+--- a/io/papermc/paper/threadedregions/NebulaTickMetrics.java
++++ b/io/papermc/paper/threadedregions/NebulaTickMetrics.java
+@@ -18,6 +18,7 @@ public final class NebulaTickMetrics {
+     private static final LongAdder TOTAL_TASKS = new LongAdder();
+     private static final LongAdder TOTAL_LAYERS = new LongAdder();
+     private static final LongAdder TOTAL_MICROSTEPS = new LongAdder();
++    private static final LongAdder MICROSTEP_OVERFLOWS = new LongAdder();
+     private static final LongAdder TOTAL_NS = new LongAdder();
+     private static final LongAdder DECOMPOSE_FULL_CALLS = new LongAdder();
+     private static final LongAdder DECOMPOSE_MINIMAL_CALLS = new LongAdder();
+@@ -38,6 +39,9 @@ public final class NebulaTickMetrics {
+         TOTAL_TASKS.add(tasks);
+         TOTAL_LAYERS.add(layers);
+         TOTAL_MICROSTEPS.add(microsteps);
++        if (result.microStepOverflowed()) {
++            MICROSTEP_OVERFLOWS.increment();
++        }
+         TOTAL_NS.add(elapsedNs);
+ 
+         updateMax(PEAK_TASKS_PER_TICK, tasks);
+@@ -68,6 +72,7 @@ public final class NebulaTickMetrics {
+         TOTAL_TASKS.reset();
+         TOTAL_LAYERS.reset();
+         TOTAL_MICROSTEPS.reset();
++        MICROSTEP_OVERFLOWS.reset();
+         TOTAL_NS.reset();
+         DECOMPOSE_FULL_CALLS.reset();
+         DECOMPOSE_MINIMAL_CALLS.reset();
+@@ -82,6 +87,7 @@ public final class NebulaTickMetrics {
+     public static long totalTasks() { return TOTAL_TASKS.sum(); }
+     public static long totalLayers() { return TOTAL_LAYERS.sum(); }
+     public static long totalMicrosteps() { return TOTAL_MICROSTEPS.sum(); }
++    public static long microStepOverflows() { return MICROSTEP_OVERFLOWS.sum(); }
+     public static long totalNs() { return TOTAL_NS.sum(); }
+     public static long peakTasksPerTick() { return PEAK_TASKS_PER_TICK.get(); }
+     public static long peakLayersPerTick() { return PEAK_LAYERS_PER_TICK.get(); }
+@@ -115,11 +121,11 @@ public final class NebulaTickMetrics {
+         return String.format(
+             "Nebula DAG metrics: ticks=%d, avg-tasks/tick=%.1f, avg-layers/tick=%.2f, "
+                 + "avg-parallelism=%.2f, avg-ms/tick=%.3f, peak-tasks=%d, peak-layers=%d, "
+-                + "peak-ms=%.3f, total-microsteps=%d, decompose-full=%d, decompose-minimal=%d, "
++                + "peak-ms=%.3f, total-microsteps=%d, microstep-overflows=%d, decompose-full=%d, decompose-minimal=%d, "
+                 + "entity-tasks=%d, be-tasks=%d",
+             totalTicks(), avgTasksPerTick(), avgLayersPerTick(), avgParallelismPerTick(),
+             avgMsPerTick(), peakTasksPerTick(), peakLayersPerTick(),
+-            peakNsPerTick() / 1_000_000.0, totalMicrosteps(),
++            peakNsPerTick() / 1_000_000.0, totalMicrosteps(), microStepOverflows(),
+             fullCalls, minCalls, entTasks, beTasks
+         );
+     }
