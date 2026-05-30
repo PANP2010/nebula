@@ -27,7 +27,7 @@ disagree.
 | §12 Determinism Verify | PARTIAL | SHA-256 per-tick hash real; replay = hash trail only, diff-localization dead, RW-check non-functional at runtime |
 | §13 VAP (L0/L1/L2) | STUB | all classes + tests exist; none reachable — interceptor unregistered, live pluginQueue=null, sandbox never drained; L2 + §13.5 reflection don't exist |
 | §15.3 Commands | PARTIAL | 5/6 registered; `verify` missing; `scc` now reports real telemetry (patch 0072); `profile` aliases bench |
-| §16 Errors/Degradation | PARTIAL | detection/state-tracking wired; recovery EFFECTS absent — fidelity tier is a label, microstep overflow can crash the tick |
+| §16 Errors/Degradation | PARTIAL | detection/state-tracking wired; recovery EFFECTS mostly absent — fidelity tier is a label. **Microstep-overflow crash FIXED 2026-05-30 (patches added 0073)**: now degrades gracefully per §16.1 |
 
 ### Acceptance gates — all three FAIL
 
@@ -61,6 +61,12 @@ disagree.
   `/fill 121 furnaces + 6 hoppers` succeeds with zero NPEs.
 - **§15.3 /nebula scc was echoing a static constant (minecraft patch 0072).**
   Now reports real per-build SccStats (builds/contracted/serialised/max-size).
+- **§16.1 microstep overflow crashed the whole server (nebula-core + patch 0073).**
+  `MicroStepLimitException` propagated past `TickPipeline.execute` → uncaught in
+  `ServerLevel.nebula$tickViaDAG` (only catches DagExecutionException) →
+  `NebulaTickDriver` called `stopServer()`. Now caught: logs a warning, sets
+  `TickResult.microStepOverflowed`, completes the tick; `/nebula stats` shows
+  `microstep-overflows=N`. Test rewritten to assert graceful degradation.
 
 ### Honest bottom line
 
