@@ -21,7 +21,7 @@ disagree.
 | §6 Physics+Collision | PARTIAL | impulse deferral + serial flush wired (D3a); named MOVE/COLLISION tasks are dead; 3-phase is really 2-phase |
 | §7 AI+POI | PARTIAL | entity RCU snapshot real; POI RCU missing; AI 4-task split is test-only; T1 weak-deps absent |
 | §8 Fluids | STUB | per-position RWSet model is dead code; live path = one coarse vanilla `fluid_ticks` node |
-| §9 Explosions | STUB | 4-layer sub-DAG unreachable (`drainAndBuildSubDags` has zero callers); layer actions are `()->{}`; chain handling absent |
+| §9 Explosions | STUB→partial | layer actions still `()->{}` (vanilla executes synchronously), BUT pipeline now LIVE: explosions recorded + drained per tick into observability sub-DAGs (patch 0075 fixed the unbounded PENDING-queue leak — `drainAndBuildSubDags` now called via tickDrain). `/nebula explosions` shows drained/sub-DAG counts. Real block-break-in-sub-DAG deferred (high blast radius) |
 | §10 Lighting | **MISSING** | zero Nebula code; fully delegated to stock Moonrise/Starlight |
 | §11 Layered Random | PARTIAL | budget accounting wired; T0 deterministic gen, shadow-execute, WriteBuffer re-exec all absent — effectively always T1 |
 | §12 Determinism Verify | PARTIAL | SHA-256 per-tick hash real; replay = hash trail only, diff-localization dead, RW-check non-functional at runtime |
@@ -52,13 +52,14 @@ disagree.
 
 ### Fixed during this audit session (2026-05-30)
 
-- **getCurrentWorldData() NPE on coordinator thread (minecraft patch 0071).**
-  `/fill`,`/setblock` etc. schedule async chunk loads whose onLoad callback runs
-  on the global coordinator thread with no region world-data context, NPEing
-  deep in setBlock. Fixed by installing the owning region's world-data context
-  around the callback (TickRegionScheduler.nebula$push/restoreWorldDataContext +
-  RegionizedData.getForRegion) plus null-guards across Level/LevelChunk. Verified
-  `/fill 121 furnaces + 6 hoppers` succeeds with zero NPEs.
+- **getCurrentWorldData() NPE on coordinator thread (minecraft patches 0071 + 0075).**
+  `/fill`,`/setblock`,`/summon` etc. run on the global coordinator thread with no
+  region world-data context, NPEing deep in setBlock/addEntity. Patch 0071 fixed
+  the async chunk-load callback path; **patch 0075 generalized it** to ALL commands
+  at the single chokepoint `Commands.performCommand` (installs the target level's
+  region + world-data context for the command's duration, no-op when context
+  already exists so region-worker command blocks are unaffected). Verified
+  `/fill 121 furnaces`, `/summon TNT` succeed with zero NPEs.
 - **§15.3 /nebula scc was echoing a static constant (minecraft patch 0072).**
   Now reports real per-build SccStats (builds/contracted/serialised/max-size).
 - **§16.1 microstep overflow crashed the whole server (nebula-core + patch 0073).**
@@ -73,6 +74,11 @@ disagree.
   deterministic (the invariant replay verification rests on). NOT the full
   record→replay→compare loop (needs packet decode, B1). Runtime-verified
   DETERMINISTIC on empty + 121-furnace worlds.
+- **§9 explosion PENDING queue leaked unboundedly (patch 0075).**
+  `explode0` recorded every explosion but nothing drained the queue (each entry
+  pins a ServerLevel). Now drained per tick via `tickDrain` in `nebula$tickViaDAG`,
+  exercising the §9 sub-DAG path for the first time; also fixed the peek+break
+  drain that leaked entries queued behind another level's explosion.
 
 ### Honest bottom line
 
