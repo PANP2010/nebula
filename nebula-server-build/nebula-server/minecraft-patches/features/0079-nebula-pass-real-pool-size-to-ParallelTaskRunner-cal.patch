@@ -1,0 +1,20 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Sat, 30 May 2026 22:20:01 +0800
+Subject: [PATCH] nebula: pass real pool size to ParallelTaskRunner
+ (caller-runs chunk sizing)
+
+
+diff --git a/io/papermc/paper/threadedregions/NebulaParallelIntegration.java b/io/papermc/paper/threadedregions/NebulaParallelIntegration.java
+index aeeae865b3232b40f2805c1b5c872f3840c09c60..87b2ad3eb25666f79e3972c2a3933914261964f6 100644
+--- a/io/papermc/paper/threadedregions/NebulaParallelIntegration.java
++++ b/io/papermc/paper/threadedregions/NebulaParallelIntegration.java
+@@ -70,7 +70,7 @@ public final class NebulaParallelIntegration {
+         if (!ENABLED || POOL == null) {
+             return inner;
+         }
+-        ParallelTaskRunner ptr = new ParallelTaskRunner(inner, POOL.asExecutor(), THRESHOLD);
++        ParallelTaskRunner ptr = new ParallelTaskRunner(inner, POOL.asExecutor(), THRESHOLD, THREADS);
+         LAST_RUNNER = ptr;
+         return new TrackingRunner(ptr);
+     }
