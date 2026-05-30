@@ -47,14 +47,18 @@ public final class SccContractor {
      * If the graph is already acyclic the inputs are returned unchanged (copy-of).
      */
     public ContractionResult contract(Collection<TaskNode> tasks, Collection<DependencyEdge> edges) {
-        // Pre-allocate id list at exact size to avoid the stream + toList()
-        // resize chain. With 4000+ tasks per tick this drops a 4400-element
-        // ArrayList allocation off the build hot path.
-        List<String> ids = new ArrayList<>(tasks.size());
-        for (TaskNode t : tasks) {
-            ids.add(t.taskId());
+        // Only nodes that appear as an endpoint of some edge can possibly be in
+        // a non-trivial SCC (a cycle requires at least one in- and out-edge).
+        // Isolated nodes are always singleton SCCs, which Tarjan would discard
+        // anyway. So run Tarjan over just the edge-induced node set instead of
+        // all N tasks — with ~8000 entity/BE tasks but only ~29 edge-touching
+        // ones, this drops the SCC phase from O(N) map/list churn to O(E).
+        Set<String> edgeNodes = new LinkedHashSet<>();
+        for (DependencyEdge e : edges) {
+            edgeNodes.add(e.sourceTaskId());
+            edgeNodes.add(e.targetTaskId());
         }
-        List<Set<String>> sccs = TarjanScc.compute(ids, edges);
+        List<Set<String>> sccs = TarjanScc.compute(edgeNodes, edges);
 
         if (sccs.isEmpty()) {
             SccStats.record(0, 0, 0, 0);
