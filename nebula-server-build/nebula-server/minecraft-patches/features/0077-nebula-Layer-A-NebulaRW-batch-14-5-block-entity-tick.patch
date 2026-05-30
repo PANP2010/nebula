@@ -1,0 +1,137 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PANP2010 <18610364979@163.com>
+Date: Sat, 30 May 2026 20:44:04 +0800
+Subject: [PATCH] =?UTF-8?q?nebula:=20Layer=20A=20@NebulaRW=20batch=2014=20?=
+ =?UTF-8?q?=E2=80=94=205=20block-entity=20tick=20methods?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Annotates the last unannotated BE tick-overrides:
+- CreakingHeartBlockEntity.serverTick — SERIALIZED (spawns Creaking, neighbor updates, sound)
+- SculkCatalystBlockEntity.serverTick — SERIALIZED (sculk spread writes nearby blocks)
+- CrafterBlockEntity.serverTick — CONTRACTIBLE (self inventory + crafting cooldown)
+- SignBlockEntity.tick — CONTRACTIBLE (self-only NBT/wax)
+- VaultBlockEntity.tick — SERIALIZED (spawns reward items, connects players)
+Purely additive (65 insertions, 0 deletions). Compiles clean; BEs tick error-free.
+
+diff --git a/net/minecraft/world/level/block/entity/CrafterBlockEntity.java b/net/minecraft/world/level/block/entity/CrafterBlockEntity.java
+index eb970f1003d0c7a631e9a14c5417852441f40d55..121c7bced026685409e4d3c96270408c9445b793 100644
+--- a/net/minecraft/world/level/block/entity/CrafterBlockEntity.java
++++ b/net/minecraft/world/level/block/entity/CrafterBlockEntity.java
+@@ -279,6 +279,18 @@ public class CrafterBlockEntity extends RandomizableContainerBlockEntity impleme
+         return this.containerData.get(9) == 1;
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readBlocks         = {"{pos}"},
++        writeBlocks        = {"{pos}"},
++        readBlockEntities  = {"{pos}.*"},
++        writeBlockEntities = {"{pos}.*"},
++        triggeredEvents    = {"BLOCK_UPDATE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.CONTRACTIBLE,
++        maxRandomCalls     = 0,
++        mayLoadChunks      = false,
++        verifiedAt         = "1.21.4"
++    )
+     public static void serverTick(final Level level, final BlockPos blockPos, final BlockState blockState, final CrafterBlockEntity entity) {
+         int craftingTicksRemaining = entity.craftingTicksRemaining - 1;
+         if (craftingTicksRemaining >= 0) {
+diff --git a/net/minecraft/world/level/block/entity/CreakingHeartBlockEntity.java b/net/minecraft/world/level/block/entity/CreakingHeartBlockEntity.java
+index 369f8eb69f2e97a7006cc925f110eee8f14e0f3c..1e1a3d27b272d9d373f2bada8723b0d9aadf345a 100644
+--- a/net/minecraft/world/level/block/entity/CreakingHeartBlockEntity.java
++++ b/net/minecraft/world/level/block/entity/CreakingHeartBlockEntity.java
+@@ -70,6 +70,19 @@ public class CreakingHeartBlockEntity extends BlockEntity {
+         super(BlockEntityType.CREAKING_HEART, worldPosition, blockState);
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readBlocks         = {"{pos}", "*"},
++        writeBlocks        = {"{pos}"},
++        readEntities       = {"*"},
++        writeEntities      = {"*"},
++        triggeredEvents    = {"BLOCK_UPDATE", "ENTITY_SPAWN", "SOUND"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.SERIALIZED,
++        maxRandomCalls     = 4,
++        randomInstance     = "WORLD_RANDOM",
++        mayLoadChunks      = false,
++        verifiedAt         = "1.21.4"
++    )
+     public static void serverTick(final Level level, final BlockPos pos, final BlockState state, final CreakingHeartBlockEntity entity) {
+         entity.ticksExisted++;
+         if (level instanceof ServerLevel serverLevel) {
+diff --git a/net/minecraft/world/level/block/entity/SculkCatalystBlockEntity.java b/net/minecraft/world/level/block/entity/SculkCatalystBlockEntity.java
+index d4055bb4f9269ae699e4afb0bfbd37ac67320417..6f2345da9ef993c4993012516916bfa0c331a0af 100644
+--- a/net/minecraft/world/level/block/entity/SculkCatalystBlockEntity.java
++++ b/net/minecraft/world/level/block/entity/SculkCatalystBlockEntity.java
+@@ -43,6 +43,19 @@ public class SculkCatalystBlockEntity extends BlockEntity implements GameEventLi
+     }
+     // Paper end - Fix NPE in SculkBloomEvent world access
+ 
++    @org.nebula.annotations.NebulaRW(
++        readBlocks         = {"{pos}", "*"},
++        writeBlocks        = {"{pos}", "*"},
++        readBlockEntities  = {"{pos}.*"},
++        writeBlockEntities = {"{pos}.*"},
++        triggeredEvents    = {"BLOCK_UPDATE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.SERIALIZED,
++        maxRandomCalls     = 8,
++        randomInstance     = "WORLD_RANDOM",
++        mayLoadChunks      = false,
++        verifiedAt         = "1.21.4"
++    )
+     public static void serverTick(final Level level, final BlockPos pos, final BlockState state, final SculkCatalystBlockEntity entity) {
+         org.bukkit.craftbukkit.event.CraftEventFactory.sourceBlockOverrideRT.set(entity.getBlockPos()); // CraftBukkit - SPIGOT-7068: Add source block override, not the most elegant way but better than passing down a BlockPos up to five methods deep. // Folia - region threading
+         entity.catalystListener.getSculkSpreader().updateCursors(level, pos, level.getRandom(), true);
+diff --git a/net/minecraft/world/level/block/entity/SignBlockEntity.java b/net/minecraft/world/level/block/entity/SignBlockEntity.java
+index 4dabcf092bc17d17bec26baf5c94b7bdabf9eba9..a95015ded69d7bf1848b4a6fe348e9ace6c3a9e2 100644
+--- a/net/minecraft/world/level/block/entity/SignBlockEntity.java
++++ b/net/minecraft/world/level/block/entity/SignBlockEntity.java
+@@ -357,6 +357,18 @@ public class SignBlockEntity extends BlockEntity {
+         return editingPlayer == null || !editingPlayer.isWithinBlockInteractionRange(this.getBlockPos(), 4.0);
+     }
+ 
++    @org.nebula.annotations.NebulaRW(
++        readBlocks         = {"{pos}"},
++        writeBlocks        = {"{pos}"},
++        readBlockEntities  = {"{pos}.*"},
++        writeBlockEntities = {"{pos}.*"},
++        triggeredEvents    = {"BLOCK_UPDATE"},
++        microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++        scc                = org.nebula.annotations.SccBehavior.CONTRACTIBLE,
++        maxRandomCalls     = 0,
++        mayLoadChunks      = false,
++        verifiedAt         = "1.21.4"
++    )
+     public static void tick(final Level level, final BlockPos blockPos, final BlockState blockState, final SignBlockEntity signBlockEntity) {
+         UUID playerWhoMayEdit = signBlockEntity.getPlayerWhoMayEdit();
+         if (playerWhoMayEdit != null) {
+diff --git a/net/minecraft/world/level/block/entity/vault/VaultBlockEntity.java b/net/minecraft/world/level/block/entity/vault/VaultBlockEntity.java
+index c99431b03090dad9e088e4ecd82dffa833b71fa1..9720175bc46ca99e36a6139255c7b107e19882b5 100644
+--- a/net/minecraft/world/level/block/entity/vault/VaultBlockEntity.java
++++ b/net/minecraft/world/level/block/entity/vault/VaultBlockEntity.java
+@@ -227,6 +227,21 @@ public class VaultBlockEntity extends BlockEntity {
+         private static final int DISPLAY_CYCLE_TICK_RATE = 20;
+         private static final int INSERT_FAIL_SOUND_BUFFER_TICKS = 15;
+ 
++        @org.nebula.annotations.NebulaRW(
++            readBlocks         = {"{pos}", "*"},
++            writeBlocks        = {"{pos}"},
++            readBlockEntities  = {"{pos}.*"},
++            writeBlockEntities = {"{pos}.*"},
++            readEntities       = {"*"},
++            writeEntities      = {"*"},
++            triggeredEvents    = {"BLOCK_UPDATE", "ENTITY_SPAWN"},
++            microStep          = org.nebula.annotations.MicroStepBehavior.NONE,
++            scc                = org.nebula.annotations.SccBehavior.SERIALIZED,
++            maxRandomCalls     = 6,
++            randomInstance     = "WORLD_RANDOM",
++            mayLoadChunks      = false,
++            verifiedAt         = "1.21.4"
++        )
+         public static void tick(
+             final ServerLevel serverLevel,
+             final BlockPos pos,
