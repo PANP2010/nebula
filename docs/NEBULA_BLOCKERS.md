@@ -26,7 +26,7 @@ disagree.
 | §11 Layered Random | PARTIAL | budget accounting wired; T0 deterministic gen, shadow-execute, WriteBuffer re-exec all absent — effectively always T1 |
 | §12 Determinism Verify | PARTIAL | SHA-256 per-tick hash real; replay = hash trail only, diff-localization dead, RW-check non-functional at runtime |
 | §13 VAP (L0/L1/L2) | STUB | all classes + tests exist; none reachable — interceptor unregistered, live pluginQueue=null, sandbox never drained; L2 + §13.5 reflection don't exist |
-| §15.3 Commands | PARTIAL | 5/6 registered; `verify` missing; `scc` now reports real telemetry (patch 0072); `profile` aliases bench |
+| §15.3 Commands | PARTIAL→OK | all 6 now registered & functional: `verify` added (patch 0074, in-process determinism self-check); `scc` reports real telemetry (patch 0072); `profile` aliases bench |
 | §16 Errors/Degradation | PARTIAL | detection/state-tracking wired; recovery EFFECTS mostly absent — fidelity tier is a label. **Microstep-overflow crash FIXED 2026-05-30 (patches added 0073)**: now degrades gracefully per §16.1 |
 
 ### Acceptance gates — all three FAIL
@@ -67,6 +67,12 @@ disagree.
   `NebulaTickDriver` called `stopServer()`. Now caught: logs a warning, sets
   `TickResult.microStepOverflowed`, completes the tick; `/nebula stats` shows
   `microstep-overflows=N`. Test rewritten to assert graceful degradation.
+- **§15.3 `/nebula verify` was missing — the 6th documented command (patch 0074).**
+  Now an in-process determinism self-check: hashes the current level's structural
+  state twice in succession; identical digests prove the hash computer is
+  deterministic (the invariant replay verification rests on). NOT the full
+  record→replay→compare loop (needs packet decode, B1). Runtime-verified
+  DETERMINISTIC on empty + 121-furnace worlds.
 
 ### Honest bottom line
 
