@@ -88,10 +88,13 @@ public final class DagBuilder {
      */
     public static TaskGraph buildFast(Collection<TaskNode> tasks, SccContractor contractor) {
         long t0 = System.nanoTime();
-        // Avoid the stream sort — most callers don't need stable ordering for
-        // self-only entity tasks. Use a plain ArrayList iteration.
+        // No full O(N log N) sort over all ~8000 tasks. The final layered output
+        // is order-independent: TopologicalLayers.compute uses a natural-ordered
+        // PriorityQueue + TreeSet adjacency, so layer contents are sorted by task
+        // ID regardless of input order; SccContractor only runs over edge-induced
+        // nodes; and edge insertion order is pinned by sorting the small
+        // globalTouching subset below. So iterate tasks as-is.
         List<TaskNode> orderedTasks = new ArrayList<>(tasks);
-        orderedTasks.sort((l, r) -> l.taskId().compareTo(r.taskId()));
         long t1 = System.nanoTime();
 
         Map<String, TaskNode> byId = new LinkedHashMap<>(orderedTasks.size() * 2);
@@ -121,6 +124,10 @@ public final class DagBuilder {
                 globalTouching.add(task);
             }
         }
+        // Sort only the small global-touching subset (~30 tasks) so that edge
+        // insertion order into rawEdges is deterministic. O(G log G) instead of
+        // O(N log N) — the dropped full sort above.
+        globalTouching.sort((l, r) -> l.taskId().compareTo(r.taskId()));
         long t2 = System.nanoTime();
 
         // O(G²) conflict scan over the small subset that may have edges.
