@@ -54,7 +54,7 @@ class ExplosionTaskFactoryTest {
         ExplosionSnapshot explosion = tntExplosion();
         List<TaskNode> tasks = ExplosionTaskFactory.createSubDag(explosion);
 
-        // Ray trace tasks only read center — no write conflicts with each other
+        // Ray trace tasks are read-only even when they conservatively read affected blocks.
         List<TaskNode> rayTasks = tasks.stream()
             .filter(t -> t.taskType().equals("EXPLOSION_RAY_TRACE"))
             .toList();
@@ -109,6 +109,31 @@ class ExplosionTaskFactoryTest {
         assertNotNull(graph);
         assertTrue(graph.topologicalLayers().size() >= 2,
             "explosion sub-DAG should have multiple layers due to read/write dependencies");
+    }
+
+    @Test
+    void rayTraceTasksReadAffectedBlockSnapshot() {
+        ExplosionSnapshot explosion = tntExplosion();
+        TaskNode rayTask = ExplosionTaskFactory.createSubDag(explosion).stream()
+            .filter(t -> t.taskType().equals("EXPLOSION_RAY_TRACE"))
+            .findFirst().orElseThrow();
+
+        for (WorldPos pos : explosion.affectedBlocks()) {
+            assertTrue(rayTask.declaredRWSet().declaresBlockRead(pos),
+                "ray trace should conservatively read affected block " + pos);
+        }
+        assertTrue(rayTask.declaredRWSet().writtenBlocks().isEmpty(),
+            "ray trace should remain read-only");
+    }
+
+    @Test
+    void rayTraceFallsBackToCenterWhenAffectedBlocksEmpty() {
+        ExplosionSnapshot explosion = new ExplosionSnapshot(CENTER, 1.0f, -1, Set.of(), List.of());
+        TaskNode rayTask = ExplosionTaskFactory.createSubDag(explosion).stream()
+            .filter(t -> t.taskType().equals("EXPLOSION_RAY_TRACE"))
+            .findFirst().orElseThrow();
+
+        assertTrue(rayTask.declaredRWSet().declaresBlockRead(CENTER));
     }
 
     @Test

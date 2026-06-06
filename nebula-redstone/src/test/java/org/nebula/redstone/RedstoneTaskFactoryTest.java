@@ -4,7 +4,9 @@ import org.junit.jupiter.api.Test;
 import org.nebula.core.rw.RWSet;
 import org.nebula.core.scheduler.TaskNode;
 import org.nebula.core.state.EventType;
+import org.nebula.core.state.GlobalKey;
 import org.nebula.core.state.WorldPos;
+import org.nebula.redstone.annotations.RedstoneAnnotations;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -118,5 +120,60 @@ class RedstoneTaskFactoryTest {
         // A reads B's position and B reads A's position → both should be detected
         assertTrue(a.declaredRWSet().declaresBlockRead(wireB));
         assertTrue(b.declaredRWSet().declaresBlockRead(wireA));
+    }
+
+    @Test
+    void railRwSetCoversHorizontalPowerSearchAndSupport() {
+        TaskNode node = RedstoneTaskFactory.inert(RedstoneComponentType.POWERED_RAIL, ORIGIN);
+        RWSet rw = node.declaredRWSet();
+
+        assertTrue(rw.declaresBlockRead(new WorldPos(DIM, 0, 64, -1)));
+        assertTrue(rw.declaresBlockRead(new WorldPos(DIM, 0, 64, 1)));
+        assertTrue(rw.declaresBlockRead(new WorldPos(DIM, -1, 64, 0)));
+        assertTrue(rw.declaresBlockRead(new WorldPos(DIM, 1, 64, 0)));
+        assertTrue(rw.declaresBlockRead(new WorldPos(DIM, 0, 63, 0)));
+        assertTrue(rw.declaresBlockWrite(ORIGIN));
+        assertTrue(rw.writtenEvents().contains(EventType.BLOCK_UPDATE));
+    }
+
+    @Test
+    void allComponentTypesHaveRuntimeRwAndAnnotationTemplates() {
+        for (RedstoneComponentType type : RedstoneComponentType.values()) {
+            TaskNode node = RedstoneTaskFactory.inert(type, ORIGIN);
+            RWSet rw = node.declaredRWSet();
+            assertFalse(rw.readBlocks().isEmpty() && rw.writtenBlocks().isEmpty(),
+                type + " should declare a block footprint");
+
+            RedstoneAnnotations.ComponentTemplate template = RedstoneAnnotations.componentTemplate(type);
+            assertNotNull(template, type + " should have annotation metadata");
+            assertEquals(type, template.componentType());
+            assertEquals(type.microStepBehavior(), template.microStep());
+            assertEquals(type.sccBehavior(), template.scc());
+            assertFalse(template.methods().isEmpty(), type + " should list source methods");
+            assertFalse(template.readBlocks().isEmpty() && template.writeBlocks().isEmpty(),
+                type + " metadata should declare a block footprint");
+        }
+        assertEquals(RedstoneComponentType.values().length, RedstoneAnnotations.componentTemplates().size());
+    }
+
+    @Test
+    void annotationMetadataMatchesRepresentativeRuntimeSideEffects() {
+        RedstoneAnnotations.ComponentTemplate wire =
+            RedstoneAnnotations.componentTemplate(RedstoneComponentType.REDSTONE_WIRE);
+        assertTrue(wire.readBlocks().contains("{pos.north}"));
+        assertTrue(wire.writeGlobals().contains(GlobalKey.REGION_NEIGHBOR_UPDATER.value()));
+        assertTrue(wire.events().contains(EventType.BLOCK_UPDATE.name()));
+
+        RedstoneAnnotations.ComponentTemplate hopper =
+            RedstoneAnnotations.componentTemplate(RedstoneComponentType.HOPPER);
+        assertTrue(hopper.readBlocks().contains("{pos.up}"));
+        assertTrue(hopper.readBlocks().contains("{pos.down}"));
+        assertTrue(hopper.events().contains(EventType.INVENTORY_CHANGED.name()));
+
+        RedstoneAnnotations.ComponentTemplate pressurePlate =
+            RedstoneAnnotations.componentTemplate(RedstoneComponentType.PRESSURE_PLATE);
+        assertTrue(pressurePlate.readBlocks().contains("{pos.down}"));
+        assertTrue(pressurePlate.writeGlobals().contains(GlobalKey.REGION_BLOCK_LEVEL_TICKS.value()));
+        assertTrue(pressurePlate.writeGlobals().contains(GlobalKey.REGION_NEIGHBOR_UPDATER.value()));
     }
 }

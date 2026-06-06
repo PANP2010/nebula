@@ -1,5 +1,15 @@
 package org.nebula.redstone.annotations;
 
+import org.nebula.annotations.MicroStepBehavior;
+import org.nebula.annotations.SccBehavior;
+import org.nebula.redstone.RedstoneComponentType;
+
+import java.util.Arrays;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
 /**
  * Complete @NebulaRW annotation library for Minecraft 1.21.4 / Folia 26.1.x redstone methods.
  *
@@ -40,6 +50,238 @@ package org.nebula.redstone.annotations;
 public final class RedstoneAnnotations {
 
     private RedstoneAnnotations() {}
+
+    /**
+     * Structured RW metadata mirroring {@code RedstoneTaskFactory}'s concrete templates.
+     * Paths use the same placeholders documented above and remain conservative when
+     * exact facing/runtime state is unavailable in the snapshot.
+     */
+    public record ComponentTemplate(
+        RedstoneComponentType componentType,
+        List<String> methods,
+        List<String> readBlocks,
+        List<String> writeBlocks,
+        List<String> readGlobals,
+        List<String> writeGlobals,
+        List<String> events,
+        MicroStepBehavior microStep,
+        SccBehavior scc,
+        String notes
+    ) {
+        public ComponentTemplate {
+            Objects.requireNonNull(componentType, "componentType");
+            methods = List.copyOf(methods);
+            readBlocks = List.copyOf(readBlocks);
+            writeBlocks = List.copyOf(writeBlocks);
+            readGlobals = List.copyOf(readGlobals);
+            writeGlobals = List.copyOf(writeGlobals);
+            events = List.copyOf(events);
+            Objects.requireNonNull(microStep, "microStep");
+            Objects.requireNonNull(scc, "scc");
+            notes = notes == null ? "" : notes;
+        }
+    }
+
+    private static ComponentTemplate template(
+        RedstoneComponentType type,
+        List<String> methods,
+        List<String> readBlocks,
+        List<String> writeBlocks,
+        List<String> readGlobals,
+        List<String> writeGlobals,
+        List<String> events,
+        String notes
+    ) {
+        return new ComponentTemplate(
+            type,
+            methods,
+            readBlocks,
+            writeBlocks,
+            readGlobals,
+            writeGlobals,
+            events,
+            type.microStepBehavior(),
+            type.sccBehavior(),
+            notes);
+    }
+
+    private static final Map<RedstoneComponentType, ComponentTemplate> COMPONENT_TEMPLATES = buildComponentTemplates();
+
+    public static ComponentTemplate componentTemplate(RedstoneComponentType type) {
+        return COMPONENT_TEMPLATES.get(Objects.requireNonNull(type, "type"));
+    }
+
+    public static Map<RedstoneComponentType, ComponentTemplate> componentTemplates() {
+        return Map.copyOf(COMPONENT_TEMPLATES);
+    }
+
+    private static Map<RedstoneComponentType, ComponentTemplate> buildComponentTemplates() {
+        EnumMap<RedstoneComponentType, ComponentTemplate> templates = new EnumMap<>(RedstoneComponentType.class);
+        put(templates, RedstoneComponentType.REDSTONE_WIRE,
+            methods(WIRE_NEIGHBOR_CHANGED, WIRE_GET_BLOCK_SIGNAL, WIRE_TURBO_UPDATE),
+            blocks("{pos}", "{pos.north}", "{pos.south}", "{pos.west}", "{pos.east}", "{pos.down}", "{pos.up}"),
+            blocks("{pos}"),
+            globals("region.should_signal", "region.wire_turbo"),
+            globals("region.should_signal", "region.neighbor_updater"),
+            events("BLOCK_UPDATE"),
+            "Wire reads self plus six neighbours and writes its own power level.");
+        put(templates, RedstoneComponentType.REPEATER,
+            methods(REPEATER_TICK, REPEATER_NEIGHBOR_CHANGED),
+            blocks("{pos.input}", "{pos}", "{pos.output}"),
+            blocks("{pos.output}", "{pos}"),
+            globals(),
+            globals("region.block_level_ticks", "region.neighbor_updater"),
+            events("BLOCK_UPDATE"),
+            "Default orientation uses north input and south output; output changes are delayed.");
+        put(templates, RedstoneComponentType.COMPARATOR,
+            methods(COMPARATOR_TICK, COMPARATOR_NEIGHBOR_CHANGED),
+            blocks("{pos.input}", "{pos.west}", "{pos.east}", "{pos}", "{pos.output}"),
+            blocks("{pos.output}", "{pos}"),
+            globals(),
+            globals("region.block_level_ticks", "region.neighbor_updater"),
+            events("BLOCK_UPDATE"),
+            "Comparator includes both side inputs and the output position for version capture.");
+        put(templates, RedstoneComponentType.REDSTONE_TORCH,
+            methods(TORCH_TICK, TORCH_NEIGHBOR_CHANGED, TORCH_BURNOUT_CHECK),
+            blocks("{pos}", "{pos.attached}"),
+            blocks("{pos}"),
+            globals("region.redstone_torch_toggles", "region.redstone_game_time"),
+            globals("region.redstone_torch_toggles", "region.block_level_ticks", "region.neighbor_updater"),
+            events("BLOCK_UPDATE"),
+            "Torch burnout state is region-global; attached block defaults to below.");
+        put(templates, RedstoneComponentType.PISTON,
+            methods(PISTON_NEIGHBOR_CHANGED, PISTON_TICK),
+            blocks("{pos}", "{pos.front}", "{pos.attached}"),
+            blocks("{pos.front}", "{pos}"),
+            globals(),
+            globals("region.block_level_ticks", "region.neighbor_updater"),
+            events("BLOCK_UPDATE"),
+            "Runtime template conservatively uses default front plus attached/power block.");
+        put(templates, RedstoneComponentType.STICKY_PISTON,
+            methods(PISTON_NEIGHBOR_CHANGED, PISTON_TICK),
+            blocks("{pos}", "{pos.front}", "{pos.attached}"),
+            blocks("{pos.front}", "{pos}"),
+            globals(),
+            globals("region.block_level_ticks", "region.neighbor_updater"),
+            events("BLOCK_UPDATE"),
+            "Sticky piston shares the piston footprint; pull-specific effects are serialized.");
+        put(templates, RedstoneComponentType.OBSERVER,
+            methods(OBSERVER_UPDATE_SHAPE, OBSERVER_TICK),
+            blocks("{pos.attached}"),
+            blocks("{pos.front}", "{pos}"),
+            globals(),
+            globals("region.neighbor_updater"),
+            events("BLOCK_UPDATE"),
+            "Observer reads the observed block and writes its pulse/output state.");
+        put(templates, RedstoneComponentType.NOTE_BLOCK,
+            methods(NOTE_BLOCK_TRIGGER_EVENT),
+            blocks("{pos}"),
+            blocks("{pos}"), globals(), globals(), events(),
+            "Runtime redstone trigger template is self-contained; sound event is not modeled as a DAG event.");
+        put(templates, RedstoneComponentType.POWERED_RAIL,
+            methods(POWERED_RAIL_UPDATE_POWER, POWERED_RAIL_FIND_SIGNAL),
+            blocks("{pos}", "{pos.north}", "{pos.south}", "{pos.west}", "{pos.east}", "{pos.down}"),
+            blocks("{pos}"),
+            globals(),
+            globals("region.neighbor_updater"),
+            events("BLOCK_UPDATE"),
+            "Rail power propagation reads horizontal neighbours plus support and writes self state.");
+        put(templates, RedstoneComponentType.TRIPWIRE_HOOK,
+            methods(TRIPWIRE_HOOK_CALCULATE_STATE, TRIPWIRE_HOOK_NEIGHBOR_CHANGED),
+            blocks("{pos}", "{pos.attached}"), blocks("{pos}"), globals(), globals("region.neighbor_updater"), events("BLOCK_UPDATE"),
+            "Hook scans are represented by own state plus the supporting wall block.");
+        put(templates, RedstoneComponentType.TRIPWIRE,
+            methods(TRIPWIRE_CALCULATE_STATE),
+            blocks("{pos}", "{pos.north}", "{pos.south}", "{pos.west}", "{pos.east}"), blocks("{pos}"), globals(), globals("region.neighbor_updater"), events("BLOCK_UPDATE"),
+            "Tripwire string uses the four horizontal connection neighbours.");
+        put(templates, RedstoneComponentType.REDSTONE_LAMP,
+            methods(REDSTONE_LAMP_NEIGHBOR_CHANGED, REDSTONE_LAMP_TICK),
+            blocks("{pos}"), blocks("{pos}"), globals(), globals(), events(),
+            "Lamp is modeled as a sink that only mutates its own lit state.");
+        put(templates, RedstoneComponentType.DAYLIGHT_DETECTOR,
+            methods(DAYLIGHT_DETECTOR_TICK_ENTITY, DAYLIGHT_DETECTOR_USE, DAYLIGHT_DETECTOR_GET_SIGNAL),
+            blocks("{pos}"), blocks("{pos}"), globals(), globals(), events("BLOCK_UPDATE"),
+            "Sky/day-time input is represented through the detector block state template.");
+        put(templates, RedstoneComponentType.HOPPER,
+            methods(HOPPER_TICK),
+            blocks("{pos}", "{pos.up}", "{pos.down}"), blocks("{pos}"), globals(), globals(), events("INVENTORY_CHANGED"),
+            "Redstone-level trigger template; slot-level inventory mutation lives in BlockEntityTaskFactory.");
+        put(templates, RedstoneComponentType.DISPENSER,
+            methods(DISPENSER_TICK, DISPENSER_NEIGHBOR_CHANGED),
+            blocks("{pos}", "{pos.front}"), blocks("{pos}"), globals(), globals(), events("INVENTORY_CHANGED"),
+            "Block trigger footprint; slot-level dispenser effects are modeled by BlockEntityTaskFactory.");
+        put(templates, RedstoneComponentType.DROPPER,
+            methods(DROPPER_DISPENSE, DISPENSER_NEIGHBOR_CHANGED),
+            blocks("{pos}", "{pos.front}"), blocks("{pos}"), globals(), globals(), events("INVENTORY_CHANGED"),
+            "Shares dispenser block trigger footprint; inventory transfer is slot-level elsewhere.");
+        put(templates, RedstoneComponentType.TNT,
+            methods(TNT_NEIGHBOR_CHANGED, TNT_CATCH_FIRE),
+            blocks("{pos}"), blocks("{pos}"), globals(), globals(), events("BLOCK_UPDATE"),
+            "TNT ignition removes/updates its own block; explosion is a separate sub-DAG.");
+        put(templates, RedstoneComponentType.ACTIVATOR_RAIL,
+            methods(POWERED_RAIL_UPDATE_POWER),
+            blocks("{pos}", "{pos.north}", "{pos.south}", "{pos.west}", "{pos.east}", "{pos.down}"),
+            blocks("{pos}"),
+            globals(),
+            globals("region.neighbor_updater"),
+            events("BLOCK_UPDATE"),
+            "Activator rail shares the conservative powered-rail footprint.");
+        put(templates, RedstoneComponentType.REDSTONE_BLOCK,
+            methods("RedstoneBlock.getSignal"),
+            blocks("{pos}"), blocks(), globals(), globals(), events(),
+            "Constant power source; no block mutation.");
+        put(templates, RedstoneComponentType.LEVER,
+            methods(LEVER_USE, LEVER_NEIGHBOR_CHANGED, LEVER_GET_SIGNAL, LEVER_GET_DIRECT_SIGNAL),
+            blocks("{pos}"), blocks("{pos}"), globals(), globals("region.neighbor_updater"), events("BLOCK_UPDATE"),
+            "Manual toggle writes self and queues neighbour updates.");
+        put(templates, RedstoneComponentType.BUTTON,
+            methods(BUTTON_USE, BUTTON_TICK, BUTTON_GET_SIGNAL, BUTTON_GET_DIRECT_SIGNAL),
+            blocks("{pos}"), blocks("{pos}"), globals(), globals("region.neighbor_updater"), events("BLOCK_UPDATE"),
+            "Press/release writes self; scheduled release is approximated by the component metadata.");
+        put(templates, RedstoneComponentType.PRESSURE_PLATE,
+            methods(PRESSURE_PLATE_ENTITY_INSIDE, PRESSURE_PLATE_TICK, PRESSURE_PLATE_GET_SIGNAL),
+            blocks("{pos}", "{pos.down}"), blocks("{pos}"), globals(), globals("region.block_level_ticks", "region.neighbor_updater"), events("BLOCK_UPDATE"),
+            "Entity collision is approximated by the block below/floor position in RWSet.");
+        put(templates, RedstoneComponentType.FENCE_GATE,
+            methods("FenceGateBlock.neighborChanged"),
+            blocks("{pos}"), blocks("{pos}"), globals(), globals(), events(),
+            "Sink-like open/close template writes only self.");
+        put(templates, RedstoneComponentType.TRAPDOOR,
+            methods("TrapDoorBlock.neighborChanged"),
+            blocks("{pos}"), blocks("{pos}"), globals(), globals(), events(),
+            "Sink-like open/close template writes only self.");
+        put(templates, RedstoneComponentType.IRON_DOOR,
+            methods("DoorBlock.neighborChanged"),
+            blocks("{pos}"), blocks("{pos}"), globals(), globals(), events(),
+            "Sink-like open/close template writes only self.");
+        put(templates, RedstoneComponentType.PISTON_HEAD,
+            methods("PistonHeadBlock.onRemove"),
+            blocks("{pos}", "{pos.attached}"), blocks("{pos}"), globals(), globals(), events("BLOCK_UPDATE"),
+            "Piston head reads the body behind and writes/removes itself.");
+        return Map.copyOf(templates);
+    }
+
+    private static void put(EnumMap<RedstoneComponentType, ComponentTemplate> templates, RedstoneComponentType type,
+        List<String> methods, List<String> reads, List<String> writes, List<String> readGlobals,
+        List<String> writeGlobals, List<String> events, String notes) {
+        templates.put(type, template(type, methods, reads, writes, readGlobals, writeGlobals, events, notes));
+    }
+
+    private static List<String> methods(String... values) {
+        return Arrays.asList(values);
+    }
+
+    private static List<String> blocks(String... values) {
+        return Arrays.asList(values);
+    }
+
+    private static List<String> globals(String... values) {
+        return Arrays.asList(values);
+    }
+
+    private static List<String> events(String... values) {
+        return Arrays.asList(values);
+    }
 
     // =========================================================================
     // REDSTONE WIRE (RedStoneWireBlock / BlockRedstoneWire)
