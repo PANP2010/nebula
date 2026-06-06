@@ -1,5 +1,6 @@
 package org.nebula.bench;
 
+import org.nebula.core.bucket.BucketDagBuilder;
 import org.nebula.core.rw.RWSet;
 import org.nebula.core.scheduler.*;
 import org.nebula.core.state.WorldPos;
@@ -20,24 +21,24 @@ public class DagBuildBenchmark {
     @Param({"50", "200", "500"})
     private int taskCount;
 
+    @Param({"independent", "redstone"})
+    private String workload;
+
+    @Param({"16", "128"})
+    private int bucketSize;
+
     private List<TaskNode> tasks;
     private Set<DependencyEdge> edges;
 
     @Setup(Level.Trial)
     public void setup() {
         Random rng = new Random(42);
-        tasks = new ArrayList<>();
+        tasks = switch (workload) {
+            case "independent" -> independentBlockTasks();
+            case "redstone" -> redstoneWireTasks();
+            default -> throw new IllegalArgumentException("Unknown workload: " + workload);
+        };
         edges = new HashSet<>();
-
-        for (int i = 0; i < taskCount; i++) {
-            int x = rng.nextInt(64);
-            int z = rng.nextInt(64);
-            RWSet rwSet = RWSet.builder()
-                .readBlock(new WorldPos(0, x, 64, z))
-                .writeBlock(new WorldPos(0, x, 65, z))
-                .build();
-            tasks.add(new TaskNode("task-" + i, "redstone", rwSet, () -> {}));
-        }
 
         for (int i = 1; i < taskCount; i++) {
             if (rng.nextDouble() < 0.3) {
@@ -47,12 +48,57 @@ public class DagBuildBenchmark {
         }
     }
 
+    private List<TaskNode> independentBlockTasks() {
+        List<TaskNode> generated = new ArrayList<>(taskCount);
+        for (int i = 0; i < taskCount; i++) {
+            int x = i % 128;
+            int z = i / 128;
+            RWSet rwSet = RWSet.builder()
+                .readBlock(new WorldPos(0, x, 64, z))
+                .writeBlock(new WorldPos(0, x, 65, z))
+                .build();
+            generated.add(new TaskNode("task-" + i, "independent", rwSet, () -> {}));
+        }
+        return List.copyOf(generated);
+    }
+
+    private List<TaskNode> redstoneWireTasks() {
+        List<TaskNode> generated = new ArrayList<>(taskCount);
+        int side = (int) Math.ceil(Math.sqrt(taskCount));
+        for (int i = 0; i < taskCount; i++) {
+            int x = i % side;
+            int z = i / side;
+            WorldPos self = new WorldPos(0, x, 64, z);
+            RWSet rwSet = RWSet.builder()
+                .readBlock(new WorldPos(0, x - 1, 64, z))
+                .readBlock(new WorldPos(0, x + 1, 64, z))
+                .readBlock(new WorldPos(0, x, 64, z - 1))
+                .readBlock(new WorldPos(0, x, 64, z + 1))
+                .readBlock(new WorldPos(0, x, 63, z))
+                .readBlock(new WorldPos(0, x, 65, z))
+                .writeBlock(self)
+                .build();
+            generated.add(new TaskNode("task-" + i, "redstone", rwSet, () -> {}));
+        }
+        return List.copyOf(generated);
+    }
+
     @Benchmark
     public void buildTaskGraph(Blackhole bh) {
         Map<String, TaskNode> taskMap = new LinkedHashMap<>();
         for (TaskNode t : tasks) taskMap.put(t.taskId(), t);
         TaskGraph graph = new TaskGraph(taskMap, edges);
         bh.consume(graph);
+    }
+
+    @Benchmark
+    public void buildWithQuadraticDagBuilder(Blackhole bh) {
+        bh.consume(DagBuilder.build(tasks));
+    }
+
+    @Benchmark
+    public void buildWithBucketDagBuilder(Blackhole bh) {
+        bh.consume(new BucketDagBuilder(bucketSize).build(tasks));
     }
 
     @Benchmark
