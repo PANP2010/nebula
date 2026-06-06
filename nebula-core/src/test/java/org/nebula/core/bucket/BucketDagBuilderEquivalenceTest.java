@@ -6,6 +6,9 @@ import org.nebula.core.scheduler.DagBuilder;
 import org.nebula.core.scheduler.DependencyEdge;
 import org.nebula.core.scheduler.TaskGraph;
 import org.nebula.core.scheduler.TaskNode;
+import org.nebula.core.state.BlockEntityField;
+import org.nebula.core.state.EntityField;
+import org.nebula.core.state.GlobalKey;
 import org.nebula.core.state.WorldPos;
 
 import java.util.ArrayList;
@@ -138,5 +141,75 @@ class BucketDagBuilderEquivalenceTest {
 
         assertTrue(quadratic.edges().isEmpty(), "quadratic should see no conflict");
         assertTrue(bucketed.edges().isEmpty(), "bucketed should see no conflict");
+    }
+
+    @Test
+    void indexedPathMatchesQuadraticForMixedConflictTypes() {
+        WorldPos sharedBlock = new WorldPos(0, 8, 64, 8);
+        WorldPos blockEntityPos = new WorldPos(0, 12, 64, 12);
+        List<TaskNode> tasks = new ArrayList<>();
+        tasks.add(TaskNode.inert("block-writer", "block", RWSet.builder()
+            .writeBlock(sharedBlock)
+            .build()));
+        tasks.add(TaskNode.inert("block-reader", "block", RWSet.builder()
+            .readBlock(sharedBlock)
+            .build()));
+        tasks.add(TaskNode.inert("block-independent", "block", RWSet.builder()
+            .readBlock(new WorldPos(0, 20, 64, 20))
+            .writeBlock(new WorldPos(0, 21, 64, 20))
+            .build()));
+        tasks.add(TaskNode.inert("be-writer", "block-entity", RWSet.builder()
+            .readBlock(blockEntityPos)
+            .writeBlockEntity(new BlockEntityField(blockEntityPos, "inventory"))
+            .build()));
+        tasks.add(TaskNode.inert("be-reader", "block-entity", RWSet.builder()
+            .readBlock(blockEntityPos)
+            .readBlockEntity(new BlockEntityField(blockEntityPos, "inventory.slot0"))
+            .build()));
+        tasks.add(TaskNode.inert("entity-writer", "entity", RWSet.builder()
+            .readBlock(new WorldPos(0, 16, 64, 16))
+            .writeEntity(new EntityField(7L, "position"))
+            .build()));
+        tasks.add(TaskNode.inert("entity-reader", "entity", RWSet.builder()
+            .readBlock(new WorldPos(0, 16, 64, 17))
+            .readEntity(new EntityField(7L, "position.x"))
+            .build()));
+        tasks.add(TaskNode.inert("global-writer", "global", RWSet.builder()
+            .readBlock(new WorldPos(0, 18, 64, 18))
+            .writeGlobal(GlobalKey.REGION_SHOULD_SIGNAL)
+            .build()));
+        tasks.add(TaskNode.inert("global-reader", "global", RWSet.builder()
+            .readBlock(new WorldPos(0, 19, 64, 18))
+            .readGlobal(GlobalKey.ALL)
+            .build()));
+
+        List<TaskNode> shuffled = new ArrayList<>(tasks);
+        java.util.Collections.shuffle(shuffled, new Random(0x51A7E));
+
+        TaskGraph quadratic = DagBuilder.build(shuffled);
+        TaskGraph bucketed = new BucketDagBuilder(32).build(shuffled);
+
+        assertEquals(sortedTaskIds(quadratic), sortedTaskIds(bucketed));
+        assertEquals(sortedEdges(quadratic), sortedEdges(bucketed));
+    }
+
+    @Test
+    void indexedPathAvoidsFullPairScanForIndependentSameBucketTasks() {
+        List<TaskNode> tasks = new ArrayList<>();
+        for (int i = 0; i < 40; i++) {
+            tasks.add(TaskNode.inert("I" + i, "independent", RWSet.builder()
+                .readBlock(new WorldPos(0, i, 64, 0))
+                .writeBlock(new WorldPos(0, i, 65, 0))
+                .build()));
+        }
+
+        BucketDagBuilder.resetFastPathCounters();
+        TaskGraph quadratic = DagBuilder.build(tasks);
+        TaskGraph bucketed = new BucketDagBuilder(128).build(tasks);
+
+        assertEquals(sortedTaskIds(quadratic), sortedTaskIds(bucketed));
+        assertEquals(sortedEdges(quadratic), sortedEdges(bucketed));
+        assertEquals(1, BucketDagBuilder.indexedPathHits());
+        assertEquals(0, BucketDagBuilder.indexedCandidatePairs());
     }
 }

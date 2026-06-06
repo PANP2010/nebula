@@ -1,5 +1,6 @@
 package org.nebula.core.bucket;
 
+import org.nebula.core.rw.RWSet;
 import org.nebula.core.scheduler.DagBuilder;
 import org.nebula.core.scheduler.DependencyEdge;
 import org.nebula.core.scheduler.RWConflictDetector;
@@ -145,12 +146,18 @@ public final class BucketDagBuilder {
 
     private static final java.util.concurrent.atomic.AtomicLong FAST_PATH_HITS = new java.util.concurrent.atomic.AtomicLong();
     private static final java.util.concurrent.atomic.AtomicLong FAST_PATH_MISSES = new java.util.concurrent.atomic.AtomicLong();
+    private static final java.util.concurrent.atomic.AtomicLong INDEXED_PATH_HITS = new java.util.concurrent.atomic.AtomicLong();
+    private static final java.util.concurrent.atomic.AtomicLong INDEXED_CANDIDATE_PAIRS = new java.util.concurrent.atomic.AtomicLong();
 
     public static long fastPathHits() { return FAST_PATH_HITS.get(); }
     public static long fastPathMisses() { return FAST_PATH_MISSES.get(); }
+    public static long indexedPathHits() { return INDEXED_PATH_HITS.get(); }
+    public static long indexedCandidatePairs() { return INDEXED_CANDIDATE_PAIRS.get(); }
     public static void resetFastPathCounters() {
         FAST_PATH_HITS.set(0);
         FAST_PATH_MISSES.set(0);
+        INDEXED_PATH_HITS.set(0);
+        INDEXED_CANDIDATE_PAIRS.set(0);
     }
 
     private static List<DependencyEdge> detectConflicts(List<TaskNode> tasks) {
@@ -172,12 +179,75 @@ public final class BucketDagBuilder {
             return List.of();
         }
         FAST_PATH_MISSES.incrementAndGet();
-        List<DependencyEdge> edges = new ArrayList<>();
-        for (int i = 0; i < tasks.size(); i++) {
-            for (int j = i + 1; j < tasks.size(); j++) {
-                edges.addAll(RWConflictDetector.edgesFor(tasks.get(i), tasks.get(j)));
+        INDEXED_PATH_HITS.incrementAndGet();
+
+        Map<Object, List<TaskNode>> blockReads = new LinkedHashMap<>();
+        Map<Object, List<TaskNode>> blockWrites = new LinkedHashMap<>();
+        List<TaskNode> broadTasks = new ArrayList<>();
+        for (TaskNode task : tasks) {
+            RWSet rw = task.declaredRWSet();
+            if (!rw.readBlockEntities().isEmpty()
+                || !rw.writtenBlockEntities().isEmpty()
+                || !rw.readEntityFields().isEmpty()
+                || !rw.writtenEntityFields().isEmpty()
+                || !rw.readGlobalKeys().isEmpty()
+                || !rw.writtenGlobalKeys().isEmpty()) {
+                broadTasks.add(task);
+            }
+            for (var pos : rw.readBlocks()) {
+                blockReads.computeIfAbsent(pos, ignored -> new ArrayList<>()).add(task);
+            }
+            for (var pos : rw.writtenBlocks()) {
+                blockWrites.computeIfAbsent(pos, ignored -> new ArrayList<>()).add(task);
             }
         }
+
+        Map<String, TaskNode> byId = new LinkedHashMap<>();
+        for (TaskNode task : tasks) {
+            byId.put(task.taskId(), task);
+        }
+
+        Set<PairKey> candidates = new LinkedHashSet<>();
+        for (Map.Entry<Object, List<TaskNode>> writes : blockWrites.entrySet()) {
+            List<TaskNode> readers = blockReads.get(writes.getKey());
+            if (readers != null) {
+                addCandidatePairs(candidates, writes.getValue(), readers);
+            }
+            addCandidatePairs(candidates, writes.getValue(), writes.getValue());
+        }
+        addCandidatePairs(candidates, broadTasks, tasks);
+
+        List<PairKey> orderedPairs = candidates.stream().sorted().toList();
+        INDEXED_CANDIDATE_PAIRS.addAndGet(orderedPairs.size());
+        List<DependencyEdge> edges = new ArrayList<>();
+        for (PairKey pair : orderedPairs) {
+            edges.addAll(RWConflictDetector.edgesFor(byId.get(pair.leftTaskId()), byId.get(pair.rightTaskId())));
+        }
         return edges;
+    }
+
+    private static void addCandidatePairs(Set<PairKey> candidates, List<TaskNode> leftTasks, List<TaskNode> rightTasks) {
+        for (TaskNode left : leftTasks) {
+            for (TaskNode right : rightTasks) {
+                if (left.taskId().equals(right.taskId())) continue;
+                candidates.add(PairKey.of(left, right));
+            }
+        }
+    }
+
+    private record PairKey(String leftTaskId, String rightTaskId) implements Comparable<PairKey> {
+        static PairKey of(TaskNode left, TaskNode right) {
+            if (left.taskId().compareTo(right.taskId()) <= 0) {
+                return new PairKey(left.taskId(), right.taskId());
+            }
+            return new PairKey(right.taskId(), left.taskId());
+        }
+
+        @Override
+        public int compareTo(PairKey other) {
+            int byLeft = leftTaskId.compareTo(other.leftTaskId);
+            if (byLeft != 0) return byLeft;
+            return rightTaskId.compareTo(other.rightTaskId);
+        }
     }
 }
