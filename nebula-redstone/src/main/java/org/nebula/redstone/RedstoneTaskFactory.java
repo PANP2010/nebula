@@ -47,7 +47,8 @@ public final class RedstoneTaskFactory {
             case REDSTONE_TORCH -> torchRw(pos);
             case PISTON, STICKY_PISTON -> pistonRw(pos);
             case OBSERVER -> observerRw(pos);
-            case NOTE_BLOCK, POWERED_RAIL, ACTIVATOR_RAIL -> trivialRw(pos);
+            case NOTE_BLOCK -> trivialRw(pos);
+            case POWERED_RAIL, ACTIVATOR_RAIL -> railRw(pos);
             case TRIPWIRE_HOOK -> tripwireHookRw(pos);
             case TRIPWIRE -> tripwireRw(pos);
             case REDSTONE_LAMP -> lampRw(pos);
@@ -172,6 +173,20 @@ public final class RedstoneTaskFactory {
         return RWSet.builder()
             .readBlock(pos)
             .writeBlock(pos)
+            .build();
+    }
+
+    private static RWSet railRw(WorldPos pos) {
+        return RWSet.builder()
+            .readBlock(pos)
+            .readBlock(neighbour(pos, 0, 0, -1))
+            .readBlock(neighbour(pos, 0, 0, 1))
+            .readBlock(neighbour(pos, -1, 0, 0))
+            .readBlock(neighbour(pos, 1, 0, 0))
+            .readBlock(neighbour(pos, 0, -1, 0))
+            .writeBlock(pos)
+            .writeGlobal(GlobalKey.REGION_NEIGHBOR_UPDATER)
+            .writeEvent(EventType.BLOCK_UPDATE)
             .build();
     }
 

@@ -71,12 +71,16 @@ public final class ExplosionTaskFactory {
 
     static TaskNode rayTrace(ExplosionSnapshot explosion, int groupIndex) {
         String taskId = explosion.explosionId() + "/ray-" + groupIndex;
-        // Ray trace is pure read (reads blocks along ray paths)
-        RWSet rw = RWSet.builder()
-            .readBlock(explosion.center())
-            .build();
-        // In practice, reads all blocks along each ray — simplified to center for template
-        return new TaskNode(taskId, ExplosionTaskType.RAY_TRACE.taskType(), rw, () -> {});
+        // Ray trace is pure read (conservative snapshot footprint for ray paths)
+        RWSet.Builder b = RWSet.builder();
+        if (explosion.affectedBlocks().isEmpty()) {
+            b.readBlock(explosion.center());
+        } else {
+            for (WorldPos pos : explosion.affectedBlocks()) {
+                b.readBlock(pos);
+            }
+        }
+        return new TaskNode(taskId, ExplosionTaskType.RAY_TRACE.taskType(), b.build(), () -> {});
     }
 
     static TaskNode destructionCollect(ExplosionSnapshot explosion) {
