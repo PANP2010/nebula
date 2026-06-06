@@ -7,4 +7,5 @@ logs/
 run/
 .idea/
 .vscode/
+.claude/
 *.iml
