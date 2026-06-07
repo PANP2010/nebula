@@ -1,6 +1,14 @@
 package org.nebula.core.scheduler;
 
+import org.nebula.core.rw.RWSet;
+import org.nebula.core.state.EventType;
+import org.nebula.core.state.PoiQuery;
+import org.nebula.core.state.RandomUsage;
+import org.nebula.core.state.WorldPos;
+
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,60 +56,116 @@ public final class TaskGraphCache {
      * Compute a 64-bit fingerprint over the input task collection.
      * Order-independent: caller does NOT need to sort.
      *
-     * <p>Per-task contribution mixes the taskId chars with the RWSet's
-     * structural shape hash — a position-agnostic signature capturing
-     * WHICH categories of read/write are populated (entity write, block
-     * read, global, etc.) without including the specific positions inside
-     * readBlocks/writtenBlocks. This means moving entities still produce
-     * the same fingerprint as long as their taskIds are stable, since the
-     * EDGE STRUCTURE for self-only entity tasks does not depend on their
-     * positional reads.
+     * <p>Per-task contribution mixes the taskId with the concrete RWSet
+     * contents that can affect conflict edges. This keeps cross-tick reuse
+     * safe when task IDs are stable but positions or field targets move.
      */
     public static long fingerprint(Collection<TaskNode> tasks) {
         long h = 0xcbf29ce484222325L;
         for (TaskNode task : tasks) {
             long taskHash = 0xcbf29ce484222325L;
-            String id = task.taskId();
-            for (int i = 0, n = id.length(); i < n; i++) {
-                taskHash ^= id.charAt(i);
-                taskHash *= 0x100000001b3L;
-            }
-            taskHash ^= structuralHash(task.declaredRWSet());
-            taskHash *= 0x100000001b3L;
+            taskHash = mixString(taskHash, task.taskId());
+            taskHash = mixLong(taskHash, rwSetHash(task.declaredRWSet()));
             h ^= taskHash;
         }
         return h;
     }
 
-    /**
-     * Position-agnostic shape signature: a bitmask of which RW field
-     * categories are non-empty, plus the sizes of writtenEntityFields and
-     * writtenGlobalKeys (which together determine which edges get emitted).
-     * Specific positions inside readBlocks/writtenBlocks are omitted so
-     * moving-entity workloads don't invalidate the cache every tick.
-     *
-     * <p>Cache hit safety: For self-only entity tick patterns (most of the
-     * load on any populated server), edges depend only on the SHAPE of the
-     * RWSet — not on the specific block positions. Two ticks with identical
-     * taskIds and identical RWSet shapes produce identical edge sets.
-     */
-    private static long structuralHash(org.nebula.core.rw.RWSet rw) {
-        int mask = 0;
-        if (!rw.readBlocks().isEmpty())          mask |= 1;
-        if (!rw.writtenBlocks().isEmpty())       mask |= 2;
-        if (!rw.readBlockEntities().isEmpty())   mask |= 4;
-        if (!rw.writtenBlockEntities().isEmpty())mask |= 8;
-        if (!rw.readEntityFields().isEmpty())    mask |= 16;
-        if (!rw.writtenEntityFields().isEmpty()) mask |= 32;
-        if (!rw.readPoiQueries().isEmpty())      mask |= 64;
-        if (!rw.readGlobalKeys().isEmpty())      mask |= 128;
-        if (!rw.writtenGlobalKeys().isEmpty())   mask |= 256;
-        if (!rw.writtenEvents().isEmpty())       mask |= 512;
-        if (rw.writesGlobalWildcard())           mask |= 1024;
-        if (rw.readsGlobalWildcard())            mask |= 2048;
-        long h = mask;
-        h = (h * 0x9e3779b97f4a7c15L) ^ rw.writtenGlobalKeys().size();
-        h = (h * 0x9e3779b97f4a7c15L) ^ rw.writtenEntityFields().size();
+    private static long rwSetHash(RWSet rw) {
+        long h = 0xcbf29ce484222325L;
+        h = mixWorldPositions(h, 1, rw.readBlocks());
+        h = mixWorldPositions(h, 2, rw.writtenBlocks());
+        h = mixComparableSet(h, 3, rw.readBlockEntities());
+        h = mixComparableSet(h, 4, rw.writtenBlockEntities());
+        h = mixComparableSet(h, 5, rw.readEntityFields());
+        h = mixComparableSet(h, 6, rw.writtenEntityFields());
+        h = mixPoiQueries(h, 7, rw.readPoiQueries());
+        h = mixComparableSet(h, 8, rw.readGlobalKeys());
+        h = mixComparableSet(h, 9, rw.writtenGlobalKeys());
+        h = mixEvents(h, 10, rw.writtenEvents());
+        if (rw.randomUsage().isPresent()) {
+            RandomUsage usage = rw.randomUsage().orElseThrow();
+            h = mixInt(h, 11);
+            h = mixString(h, usage.instance().name());
+            h = mixInt(h, usage.maxCallsEstimate());
+        } else {
+            h = mixInt(h, 12);
+        }
+        return h;
+    }
+
+    private static long mixWorldPositions(long h, int tag, Set<WorldPos> positions) {
+        h = mixInt(h, tag);
+        h = mixInt(h, positions.size());
+        List<WorldPos> sorted = new ArrayList<>(positions);
+        sorted.sort(Comparator.naturalOrder());
+        for (WorldPos pos : sorted) {
+            h = mixInt(h, pos.dimensionId());
+            h = mixInt(h, pos.x());
+            h = mixInt(h, pos.y());
+            h = mixInt(h, pos.z());
+        }
+        return h;
+    }
+
+    private static <T extends Comparable<? super T>> long mixComparableSet(long h, int tag, Set<T> values) {
+        h = mixInt(h, tag);
+        h = mixInt(h, values.size());
+        List<T> sorted = new ArrayList<>(values);
+        sorted.sort(Comparator.naturalOrder());
+        for (T value : sorted) {
+            h = mixString(h, value.toString());
+        }
+        return h;
+    }
+
+    private static long mixPoiQueries(long h, int tag, Set<PoiQuery> queries) {
+        h = mixInt(h, tag);
+        h = mixInt(h, queries.size());
+        List<PoiQuery> sorted = new ArrayList<>(queries);
+        sorted.sort(Comparator
+            .comparingInt(PoiQuery::dimensionId)
+            .thenComparing(PoiQuery::center)
+            .thenComparingInt(PoiQuery::radius)
+            .thenComparing(PoiQuery::poiType));
+        for (PoiQuery query : sorted) {
+            h = mixInt(h, query.dimensionId());
+            h = mixWorldPositions(h, 13, Set.of(query.center()));
+            h = mixInt(h, query.radius());
+            h = mixString(h, query.poiType());
+        }
+        return h;
+    }
+
+    private static long mixEvents(long h, int tag, Set<EventType> events) {
+        h = mixInt(h, tag);
+        h = mixInt(h, events.size());
+        List<EventType> sorted = new ArrayList<>(events);
+        sorted.sort(Comparator.comparing(EventType::name));
+        for (EventType event : sorted) {
+            h = mixString(h, event.name());
+        }
+        return h;
+    }
+
+    private static long mixString(long h, String value) {
+        h = mixInt(h, value.length());
+        for (int i = 0, n = value.length(); i < n; i++) {
+            h ^= value.charAt(i);
+            h *= 0x100000001b3L;
+        }
+        return h;
+    }
+
+    private static long mixInt(long h, int value) {
+        return mixLong(h, value);
+    }
+
+    private static long mixLong(long h, long value) {
+        for (int shift = 0; shift < Long.SIZE; shift += Byte.SIZE) {
+            h ^= (value >>> shift) & 0xffL;
+            h *= 0x100000001b3L;
+        }
         return h;
     }
 
