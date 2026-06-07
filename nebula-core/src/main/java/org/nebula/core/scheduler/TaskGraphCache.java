@@ -28,11 +28,17 @@ import java.util.concurrent.atomic.AtomicLong;
  * skip BucketDagBuilder + SccContractor entirely and reuse the cached
  * graph structure, swapping in fresh TaskNode references.
  *
- * <p>Fingerprint is a 64-bit FNV-1a hash over sorted {@code (taskId,
- * rwSetIdentityHash)}. Identity hash is fine because RWSet objects are
- * cached as static finals at construction sites (e.g. RegionTickDecomposer's
- * GLOBAL_RW, BucketDagBuilder's per-task entity RWSet) — same shape ⇒ same
- * RWSet instance ⇒ same identity.
+ * <p>Fingerprint is a 64-bit FNV-1a hash that mixes each task's id with a
+ * deterministic hash of its concrete RWSet <em>contents</em> — every block
+ * read/write position, block-entity/entity field, POI query, global key,
+ * written event, and random-usage descriptor (each set sorted for
+ * order-independence). Hashing concrete contents rather than the RWSet's
+ * object identity keeps cross-tick reuse correct for position-sensitive
+ * workloads: a task whose id and RW-category shape are unchanged but whose
+ * concrete positions moved (e.g. a relocated redstone component) produces a
+ * different fingerprint, so it can never reuse the previous tick's stale
+ * dependency edges. The per-task contributions are XOR-combined, so the
+ * caller does not need to pre-sort the task collection.
  *
  * <p>Cache is per-builder-instance, not global, so multiple TickPipelines
  * (e.g. test fixtures) don't collide.
