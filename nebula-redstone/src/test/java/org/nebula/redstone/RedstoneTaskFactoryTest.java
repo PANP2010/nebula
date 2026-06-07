@@ -2,11 +2,18 @@ package org.nebula.redstone;
 
 import org.junit.jupiter.api.Test;
 import org.nebula.core.rw.RWSet;
+import org.nebula.core.scheduler.DagBuilder;
+import org.nebula.core.scheduler.SccContractor;
+import org.nebula.core.scheduler.SccStats;
+import org.nebula.core.scheduler.TaskGraph;
 import org.nebula.core.scheduler.TaskNode;
 import org.nebula.core.state.EventType;
 import org.nebula.core.state.GlobalKey;
 import org.nebula.core.state.WorldPos;
 import org.nebula.redstone.annotations.RedstoneAnnotations;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -120,6 +127,47 @@ class RedstoneTaskFactoryTest {
         // A reads B's position and B reads A's position → both should be detected
         assertTrue(a.declaredRWSet().declaresBlockRead(wireB));
         assertTrue(b.declaredRWSet().declaresBlockRead(wireA));
+    }
+
+    @Test
+    void denseWireRegionProducesOversizedSccDiagnostics() {
+        SccStats.reset();
+        List<TaskNode> wires = List.of(
+            RedstoneTaskFactory.inert(RedstoneComponentType.REDSTONE_WIRE, new WorldPos(DIM, 0, 64, 0)),
+            RedstoneTaskFactory.inert(RedstoneComponentType.REDSTONE_WIRE, new WorldPos(DIM, 1, 64, 0)),
+            RedstoneTaskFactory.inert(RedstoneComponentType.REDSTONE_WIRE, new WorldPos(DIM, 0, 64, 1)),
+            RedstoneTaskFactory.inert(RedstoneComponentType.REDSTONE_WIRE, new WorldPos(DIM, 1, 64, 1))
+        );
+
+        TaskGraph graph = DagBuilder.build(wires, new SccContractor(3));
+
+        assertEquals(4, graph.tasks().size());
+        assertDoesNotThrow(() -> graph.topologicalLayers());
+        assertEquals(1, SccStats.builds());
+        assertEquals(1, SccStats.buildsWithCycles());
+        assertEquals(1, SccStats.totalSccs());
+        assertEquals(0, SccStats.contracted());
+        assertEquals(1, SccStats.serialised());
+        assertEquals(4, SccStats.maxSccSize());
+    }
+
+    @Test
+    void separatedSelfContainedRedstoneComponentsAvoidSccDiagnostics() {
+        SccStats.reset();
+        List<TaskNode> lamps = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            lamps.add(RedstoneTaskFactory.inert(
+                RedstoneComponentType.REDSTONE_LAMP,
+                new WorldPos(DIM, i * 10, 64, 0)));
+        }
+
+        TaskGraph graph = DagBuilder.build(lamps, new SccContractor(3));
+
+        assertEquals(4, graph.tasks().size());
+        assertTrue(graph.edges().isEmpty());
+        assertEquals(0, SccStats.totalSccs());
+        assertEquals(0, SccStats.serialised());
+        assertEquals(0, SccStats.maxSccSize());
     }
 
     @Test
