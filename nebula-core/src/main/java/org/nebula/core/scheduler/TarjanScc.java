@@ -32,34 +32,86 @@ public final class TarjanScc {
         return List.copyOf(state.components);
     }
 
-    private static void strongConnect(String node, State state) {
+    /**
+     * Iterative Tarjan SCC traversal.
+     *
+     * <p>Uses an explicit work stack instead of native recursion so that long
+     * dependency chains (e.g. a redstone line or collision chain of several
+     * thousand tasks) cannot overflow the JVM call stack. The visit order,
+     * low-link propagation, and component-emission semantics are identical to
+     * the textbook recursive formulation.
+     */
+    private static void strongConnect(String start, State state) {
+        ArrayDeque<Frame> callStack = new ArrayDeque<>();
+        visitNode(start, state);
+        callStack.push(new Frame(start));
+
+        while (!callStack.isEmpty()) {
+            Frame frame = callStack.peek();
+            String node = frame.node;
+            List<String> neighbors = state.adjacency.getOrDefault(node, List.of());
+
+            boolean descended = false;
+            while (frame.next < neighbors.size()) {
+                String target = neighbors.get(frame.next);
+                frame.next++;
+                if (!state.indices.containsKey(target)) {
+                    // Equivalent to the recursive call: descend into target,
+                    // resuming this frame afterwards.
+                    visitNode(target, state);
+                    callStack.push(new Frame(target));
+                    descended = true;
+                    break;
+                } else if (state.onStack.contains(target)) {
+                    state.lowLinks.put(node,
+                        Math.min(state.lowLinks.get(node), state.indices.get(target)));
+                }
+            }
+            if (descended) {
+                continue;
+            }
+
+            // All neighbors processed: this node is fully explored.
+            if (state.lowLinks.get(node).equals(state.indices.get(node))) {
+                Set<String> component = new TreeSet<>();
+                String current;
+                do {
+                    current = state.stack.pop();
+                    state.onStack.remove(current);
+                    component.add(current);
+                } while (!current.equals(node));
+                // Only report SCCs with actual cycles (>=2 nodes or self-loop)
+                if (component.size() > 1 || state.adjacency.get(node).contains(node)) {
+                    state.components.add(component);
+                }
+            }
+
+            callStack.pop();
+            // Propagate low-link to the parent frame, mirroring the post-return
+            // update `lowLinks[parent] = min(lowLinks[parent], lowLinks[node])`.
+            Frame parent = callStack.peek();
+            if (parent != null) {
+                state.lowLinks.put(parent.node,
+                    Math.min(state.lowLinks.get(parent.node), state.lowLinks.get(node)));
+            }
+        }
+    }
+
+    private static void visitNode(String node, State state) {
         state.indices.put(node, state.nextIndex);
         state.lowLinks.put(node, state.nextIndex);
         state.nextIndex++;
         state.stack.push(node);
         state.onStack.add(node);
+    }
 
-        for (String target : state.adjacency.getOrDefault(node, List.of())) {
-            if (!state.indices.containsKey(target)) {
-                strongConnect(target, state);
-                state.lowLinks.put(node, Math.min(state.lowLinks.get(node), state.lowLinks.get(target)));
-            } else if (state.onStack.contains(target)) {
-                state.lowLinks.put(node, Math.min(state.lowLinks.get(node), state.indices.get(target)));
-            }
-        }
+    /** A pending DFS frame: the node being explored and its next neighbor index. */
+    private static final class Frame {
+        private final String node;
+        private int next;
 
-        if (state.lowLinks.get(node).equals(state.indices.get(node))) {
-            Set<String> component = new TreeSet<>();
-            String current;
-            do {
-                current = state.stack.pop();
-                state.onStack.remove(current);
-                component.add(current);
-            } while (!current.equals(node));
-            // Only report SCCs with actual cycles (>=2 nodes or self-loop)
-            if (component.size() > 1 || state.adjacency.get(node).contains(node)) {
-                state.components.add(component);
-            }
+        private Frame(String node) {
+            this.node = node;
         }
     }
 
