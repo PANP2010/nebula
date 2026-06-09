@@ -207,6 +207,56 @@ class RedstoneReplayDeterminismTest {
         return new Run(frames, burnedOut, finalTorchPower);
     }
 
+    // ── Scenario 4: repeater delay line (DEFERRED, cross-tick propagation) ───
+
+    /**
+     * A repeater fed by a toggling input. A repeater is DEFERRED: its output
+     * never changes in the same tick as the input change — the delay counter
+     * carries the pending change across ticks. This exercises the cross-tick
+     * deferred path (internal delay-counter state surviving between ticks) and
+     * asserts the whole run replays deterministically, including the lag.
+     */
+    @Test
+    void repeaterDelayLineReplaysDeterministically() throws Exception {
+        int ticks = 60;
+
+        List<ReplayFrame> first = recordRepeater(ticks);
+        List<ReplayFrame> second = recordRepeater(ticks);
+
+        ReplayVerifier.VerificationResult result = ReplayVerifier.verify(first, second);
+        assertTrue(result.passed(), "Two identical repeater runs diverged: " + describe(result));
+
+        long distinctHashes = first.stream().map(ReplayFrame::stateHashHex).distinct().count();
+        assertTrue(distinctHashes > 1,
+            "Expected the repeater output to change over the run (deferred propagation)");
+    }
+
+    private List<ReplayFrame> recordRepeater(int ticks) throws Exception {
+        WorldPos input = new WorldPos(DIM, 0, 64, 0);      // input side (-Z of repeater)
+        WorldPos repeater = new WorldPos(DIM, 0, 64, 1);   // repeater body
+        WorldPos output = new WorldPos(DIM, 0, 64, 2);     // output side (+Z of repeater)
+
+        Map<WorldPos, RedstoneComponentType> components = new LinkedHashMap<>();
+        components.put(repeater, RedstoneComponentType.REPEATER);
+
+        Scenario s = new Scenario(components);
+        s.world.putPowerLevel(input, 0);
+        s.world.putPowerLevel(repeater, 0);
+        s.world.putPowerLevel(output, 0);
+        // Delay setting of 2 ticks so the deferred counter is non-trivial.
+        s.world.put(repeater, 0, Map.of("delay_setting", 2, "delay_counter", -1));
+
+        // Drive the input high for the first half, low for the second half, so
+        // the repeater must latch both a rising and a falling edge through its
+        // delay counter across ticks. We re-seed the repeater each tick.
+        return s.run(ticks, tick -> {
+            int driven = (tick < ticks / 2) ? 15 : 0;
+            if (s.world.getPowerLevel(input) != driven) {
+                s.world.putPowerLevel(input, driven);
+            }
+        });
+    }
+
     // ── Shared scenario harness ──────────────────────────────────────────────
 
     /**
