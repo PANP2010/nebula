@@ -35,7 +35,8 @@ public final class EntityTickExecutor {
     }
 
     /** Executes the given dirty tasks for one tick. Returns the layer count. */
-    public int executeTick(List<TaskNode> dirtyTasks) throws Exception {
+    public int executeTick(long tick, List<TaskNode> dirtyTasks) throws Exception {
+        runner.beginTick(tick);
         if (dirtyTasks.isEmpty()) {
             return 0;
         }
@@ -52,6 +53,11 @@ public final class EntityTickExecutor {
             commitLayerWithRetry(graph, layer);
         }
         return layers.size();
+    }
+
+    /** Executes without a tick coordinate (RNG-free scenarios). */
+    public int executeTick(List<TaskNode> dirtyTasks) throws Exception {
+        return executeTick(0L, dirtyTasks);
     }
 
     private void commitLayerWithRetry(TaskGraph graph, List<String> layer) throws Exception {
