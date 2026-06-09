@@ -269,3 +269,24 @@ Decision inputs:
   the microstep cap and ordering) and a repeater-delay line (exercises DEFERRED
   components across ticks), then push the wire-line tick count toward the DG1
   target.
+
+### 2026-06-09 (DG1 coverage expansion)
+
+- **Determinism suite broadened to three circuit shapes**, all passing:
+  1. *Wire line, re-seeded each tick* (original) — convergence + steady state.
+  2. *Single-source microstep propagation* — dirty only the wire next to the
+     source and assert the signal travels the whole line **in one tick** with
+     exact per-block decay (14, 13, 12, …). Confirms the change-aware microstep
+     expansion works end-to-end with live actions, and that a single-seeded
+     frontier stays a singleton task (it does NOT get trapped in an inert
+     compound the way a whole line submitted together would).
+  3. *Torch + wire feedback loop* — a NOT-gate that oscillates, accumulates
+     toggle count in internal state, and burns out. Asserts the
+     internal-state-heavy oscillator replays deterministically and settles into
+     a reproducible burned-out steady state (power 0).
+- These pin down three things empirically: live actions survive SCC
+  contraction, intra-tick microstep propagation is correct and deterministic,
+  and per-position internal state (torch burnout) is reproducible across runs.
+- **Next:** add a repeater-delay line (DEFERRED propagation across ticks), then
+  scale the wire-line tick count from 200 toward the 10k DG1 target and measure
+  wall-clock so the full-scale replay can run in CI or as a tagged slow test.

@@ -11,118 +11,223 @@ import org.nebula.replay.StateHashComputer;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.function.Consumer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * DG1-scaffold determinism test (see docs/DEVELOPMENT_PLAN.md Milestone 5).
+ * DG1-scaffold determinism tests (see docs/DEVELOPMENT_PLAN.md Milestone 5).
  *
- * <p>This is the first end-to-end test that wires the redstone simulation
+ * <p>These are the first end-to-end tests wiring the redstone simulation
  * ({@link MicroStepScheduler} + live {@link RedstoneActions}) to the replay
  * verification harness ({@link StateHashComputer}, {@link ReplayRecorder},
- * {@link ReplayVerifier}). It runs a redstone scenario for many ticks, hashes
- * the world state after each tick, then runs the identical scenario a second
- * time and asserts the two per-tick hash sequences match bit-for-bit.
- *
- * <p>It is deliberately a small, fast proxy for the real DG1 gate (10k-tick
- * zero-diff redstone replay) — the tick count is modest so it runs in CI, but
- * the pipeline exercised is the real one. Scaling the tick count up is the
- * remaining work toward DG1.
- *
- * <p>The test also asserts <em>liveness</em>: the recorded hash sequence must
- * actually change over the run (signal propagated). Without this guard a
- * no-op simulation would trivially "replay deterministically".
+ * {@link ReplayVerifier}). Each scenario runs the real tick pipeline, hashes
+ * world state per tick, runs the scenario twice, and asserts the hash
+ * sequences match bit-for-bit. They are small/fast proxies for the real DG1
+ * gate (10k-tick zero-diff replay); scaling tick counts up is the remaining
+ * work.
  */
 class RedstoneReplayDeterminismTest {
 
     private static final int DIM = 0;
-    private static final int TICKS = 200;
-    private static final int LINE_LENGTH = 12;
+
+    // ── Scenario 1: wire line, re-seeded every tick ──────────────────────────
 
     /**
-     * A straight line of redstone wire along +X with a constant power source
-     * (a redstone block) at one end. Each tick we mark the source dirty and let
-     * the scheduler propagate. Two independent runs must produce identical
-     * per-tick state-hash sequences.
+     * A straight redstone-wire line driven by a constant power source. Every
+     * tick the whole line is re-evaluated; two independent runs must produce
+     * identical per-tick state-hash sequences, and the state must actually
+     * change over the run (liveness).
      */
     @Test
     void wireLinePropagationReplaysDeterministically() throws Exception {
-        List<ReplayFrame> first = runScenario();
-        List<ReplayFrame> second = runScenario();
+        int ticks = 200;
+        int lineLength = 12;
+
+        List<ReplayFrame> first = recordWireLine(ticks, lineLength);
+        List<ReplayFrame> second = recordWireLine(ticks, lineLength);
 
         ReplayVerifier.VerificationResult result = ReplayVerifier.verify(first, second);
-        assertTrue(result.passed(),
-            "Two identical redstone runs diverged: " + describe(result));
-        assertEquals(TICKS, first.size(), "Recorder should capture one frame per tick");
+        assertTrue(result.passed(), "Two identical wire-line runs diverged: " + describe(result));
+        assertEquals(ticks, first.size(), "Recorder should capture one frame per tick");
 
-        // Liveness: the run must not be a no-op — at least one tick's hash
-        // differs from the initial state, proving signal actually moved.
-        long distinctHashes = first.stream()
-            .map(ReplayFrame::stateHashHex)
-            .distinct()
-            .count();
+        long distinctHashes = first.stream().map(ReplayFrame::stateHashHex).distinct().count();
         assertTrue(distinctHashes > 1,
-            "Expected the world state to change over the run (signal propagation), "
-                + "but all " + TICKS + " ticks produced the same hash — simulation was inert");
+            "Expected world state to change over the run (signal propagation), but all "
+                + ticks + " ticks produced the same hash — simulation was inert");
     }
 
-    private List<ReplayFrame> runScenario() throws Exception {
-        RedstoneWorldState world = new RedstoneWorldState();
-
-        // Component layout: a redstone block source at x=0, wire along x=1..L.
+    private List<ReplayFrame> recordWireLine(int ticks, int lineLength) throws Exception {
         WorldPos source = new WorldPos(DIM, 0, 64, 0);
-        Map<WorldPos, RedstoneComponentType> components = new java.util.LinkedHashMap<>();
+        Map<WorldPos, RedstoneComponentType> components = new LinkedHashMap<>();
         components.put(source, RedstoneComponentType.REDSTONE_BLOCK);
-        List<WorldPos> wirePositions = new ArrayList<>();
-        for (int x = 1; x <= LINE_LENGTH; x++) {
+        List<WorldPos> wires = new ArrayList<>();
+        for (int x = 1; x <= lineLength; x++) {
             WorldPos wire = new WorldPos(DIM, x, 64, 0);
             components.put(wire, RedstoneComponentType.REDSTONE_WIRE);
-            wirePositions.add(wire);
+            wires.add(wire);
         }
 
-        // Source emits full power (15); wires start unpowered.
-        world.putPowerLevel(source, 15);
-        for (WorldPos wire : wirePositions) {
-            world.putPowerLevel(wire, 0);
+        Scenario s = new Scenario(components);
+        s.world.putPowerLevel(source, 15);
+        for (WorldPos wire : wires) {
+            s.world.putPowerLevel(wire, 0);
         }
 
-        Map<String, RedstoneTaskAction> actions = RedstoneActions.defaults();
-        RedstoneTaskRunner runner = new RedstoneTaskRunner(world, actions);
-        RedstoneTaskGenerator generator = new RedstoneTaskGenerator(components, actions);
-        MicroStepScheduler scheduler = new MicroStepScheduler(generator, runner);
-
-        ReplayRecorder recorder = new ReplayRecorder();
-        recorder.start();
-
-        for (long tick = 0; tick < TICKS; tick++) {
-            recorder.beginTick(tick);
-
-            // Each tick, re-evaluate every wire in the line (the initial dirty
-            // set). The scheduler's microstep expansion handles propagation
-            // within the tick; we re-seed every tick so the line converges and
-            // then stays stable, which is exactly the behaviour we want to
-            // verify is reproducible.
-            List<TaskNode> dirty = new ArrayList<>();
-            for (WorldPos wire : wirePositions) {
-                dirty.add(RedstoneTaskFactory.inert(RedstoneComponentType.REDSTONE_WIRE, wire));
-            }
-            scheduler.executeTick(dirty);
-
-            recorder.endTick(hashWorld(world));
-        }
-
-        recorder.stop();
-        return recorder.getFrames();
+        // Scenario.run re-seeds every actionable component (the wires) each
+        // tick; microstep expansion handles intra-tick settling, so the line
+        // converges and then stays stable.
+        return s.run(ticks, tick -> {});
     }
 
+    // ── Scenario 2: single-source microstep propagation in one tick ──────────
+
     /**
-     * Serialises the redstone world state into the {@link StateHashComputer}
-     * block category. Power level per position is the observable state.
+     * Dirty only the wire adjacent to the source and run a single tick. The
+     * microstep machinery (arch doc §5.3) must propagate the signal down the
+     * entire line within that one tick, with correct per-block decay. This
+     * proves the change-aware microstep expansion works end-to-end with live
+     * actions — and that a single-seeded frontier does NOT contract into an
+     * inert compound (a wire <em>line</em> submitted together does).
      */
+    @Test
+    void singleSourceMicrostepPropagatesWholeLineInOneTick() throws Exception {
+        int lineLength = 10;
+        WorldPos source = new WorldPos(DIM, 0, 64, 0);
+        Map<WorldPos, RedstoneComponentType> components = new LinkedHashMap<>();
+        components.put(source, RedstoneComponentType.REDSTONE_BLOCK);
+        List<WorldPos> wires = new ArrayList<>();
+        for (int x = 1; x <= lineLength; x++) {
+            WorldPos wire = new WorldPos(DIM, x, 64, 0);
+            components.put(wire, RedstoneComponentType.REDSTONE_WIRE);
+            wires.add(wire);
+        }
+
+        Scenario s = new Scenario(components);
+        s.world.putPowerLevel(source, 15);
+        for (WorldPos wire : wires) {
+            s.world.putPowerLevel(wire, 0);
+        }
+
+        // Seed ONLY the first wire; rely on microstep propagation for the rest.
+        TaskNode seed = RedstoneTaskFactory.inert(RedstoneComponentType.REDSTONE_WIRE, wires.get(0));
+        MicroStepScheduler.TickResult result = s.scheduler.executeTick(List.of(seed));
+
+        assertTrue(result.microSteps() > 0,
+            "Single-source seeding should trigger microstep expansion down the line");
+
+        // Wire k (1-indexed) sits k blocks from the source, so power decays to 15-k.
+        for (int k = 1; k <= lineLength; k++) {
+            int expected = 15 - k;
+            int actual = s.world.getPowerLevel(wires.get(k - 1));
+            assertEquals(expected, actual,
+                "Wire at distance " + k + " should have power " + expected
+                    + " after intra-tick propagation");
+        }
+    }
+
+    // ── Scenario 3: torch + wire feedback loop (internal state + burnout) ────
+
+    /**
+     * A redstone torch whose attached block is a wire that reads the torch
+     * back — a NOT-gate feedback loop. The torch toggles, accumulates toggle
+     * count in its internal state, and eventually burns out (vanilla anti-spam
+     * behaviour). Verifies that this internal-state-heavy, oscillating circuit
+     * replays deterministically and settles into the burned-out steady state.
+     */
+    @Test
+    void torchFeedbackBurnoutReplaysDeterministically() throws Exception {
+        int ticks = 80;
+
+        Run a = runTorchFeedback(ticks);
+        Run b = runTorchFeedback(ticks);
+
+        ReplayVerifier.VerificationResult result = ReplayVerifier.verify(a.frames, b.frames);
+        assertTrue(result.passed(), "Two identical torch-feedback runs diverged: " + describe(result));
+
+        long distinctHashes = a.frames.stream().map(ReplayFrame::stateHashHex).distinct().count();
+        assertTrue(distinctHashes > 1,
+            "Expected the torch to oscillate (state changes) before settling");
+
+        assertEquals(Boolean.TRUE, a.burnedOut,
+            "Torch should burn out after repeated toggling");
+        assertEquals(0, a.finalTorchPower, "A burned-out torch holds power 0");
+        assertEquals(a.burnedOut, b.burnedOut, "Burnout outcome must be reproducible");
+        assertEquals(a.finalTorchPower, b.finalTorchPower, "Final torch power must be reproducible");
+    }
+
+    private record Run(List<ReplayFrame> frames, Object burnedOut, int finalTorchPower) {}
+
+    private Run runTorchFeedback(int ticks) throws Exception {
+        WorldPos torch = new WorldPos(DIM, 1, 64, 0);
+        WorldPos wire = new WorldPos(DIM, 1, 63, 0); // attached block (below the torch)
+        Map<WorldPos, RedstoneComponentType> components = new LinkedHashMap<>();
+        components.put(torch, RedstoneComponentType.REDSTONE_TORCH);
+        components.put(wire, RedstoneComponentType.REDSTONE_WIRE);
+
+        Scenario s = new Scenario(components);
+        s.world.putPowerLevel(torch, 0);
+        s.world.putPowerLevel(wire, 0);
+
+        List<ReplayFrame> frames = s.run(ticks, tick -> {});
+
+        Object burnedOut = s.world.getInternalState(torch, "burned_out");
+        int finalTorchPower = s.world.getPowerLevel(torch);
+        return new Run(frames, burnedOut, finalTorchPower);
+    }
+
+    // ── Shared scenario harness ──────────────────────────────────────────────
+
+    /**
+     * Holds a world + scheduler wired with live actions, and re-seeds every
+     * known component each tick (the common "evaluate everything" driver used
+     * by the re-seeding scenarios).
+     */
+    private static final class Scenario {
+        final RedstoneWorldState world = new RedstoneWorldState();
+        final Map<WorldPos, RedstoneComponentType> components;
+        final MicroStepScheduler scheduler;
+
+        Scenario(Map<WorldPos, RedstoneComponentType> components) {
+            this.components = components;
+            Map<String, RedstoneTaskAction> actions = RedstoneActions.defaults();
+            RedstoneTaskRunner runner = new RedstoneTaskRunner(world, actions);
+            RedstoneTaskGenerator generator = new RedstoneTaskGenerator(components, actions);
+            this.scheduler = new MicroStepScheduler(generator, runner);
+        }
+
+        /** Runs {@code ticks} ticks, re-seeding every actionable component each tick. */
+        List<ReplayFrame> run(int ticks, Consumer<Long> perTickHook) throws Exception {
+            ReplayRecorder recorder = new ReplayRecorder();
+            recorder.start();
+            for (long tick = 0; tick < ticks; tick++) {
+                recorder.beginTick(tick);
+                perTickHook.accept(tick);
+
+                List<TaskNode> dirty = new ArrayList<>();
+                for (var entry : components.entrySet()) {
+                    RedstoneComponentType type = entry.getValue();
+                    // Only re-seed components that have a live action; pure
+                    // sources (REDSTONE_BLOCK) hold constant power.
+                    if (RedstoneActions.defaults().containsKey(type.taskType())) {
+                        dirty.add(RedstoneTaskFactory.inert(type, entry.getKey()));
+                    }
+                }
+                scheduler.executeTick(dirty);
+
+                recorder.endTick(hashWorld(world));
+            }
+            recorder.stop();
+            return recorder.getFrames();
+        }
+    }
+
+    /** Hashes power levels of all tracked positions via the real replay hasher. */
     private static byte[] hashWorld(RedstoneWorldState world) {
         Map<String, byte[]> blocks = new TreeMap<>();
         for (WorldPos pos : world.positions()) {
