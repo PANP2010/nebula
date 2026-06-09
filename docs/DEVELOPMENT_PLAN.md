@@ -380,3 +380,35 @@ Decision inputs:
 - **Next:** terrain-aware MOVE (the RW-set already reads neighbouring blocks),
   AI_GOAL with the seeded `RandomUsage` path (tests layered RNG determinism),
   and a combined redstone+entity tick once a shared world-state facade exists.
+
+### 2026-06-09 (layered RNG determinism — a DG2 gate)
+
+- **Why this next.** Reproducible randomness is an explicit DG2 acceptance
+  criterion (arch doc §11: "random over-budget re-execution rate <1%") and the
+  hardest determinism property — RNG outcomes must not depend on execution
+  order. The primitives existed (`DeterministicRandom` with call counting,
+  `RandomBudget`) but nothing derived per-task seeds or proved order-independence.
+- **`LayeredRandomSource` (nebula-core).** Derives a per-task
+  `DeterministicRandom` from the logical coordinate
+  `(worldSeed, tick, entityId, instance)` using a SplitMix64 finalizer for
+  strong avalanche. A task's stream depends only on its coordinate, never on
+  thread or layer order — so parallel entity AI can replay deterministically.
+  Unit tests cover same-coordinate reproducibility, per-dimension seed
+  variation, and collision-free derivation over a dense 2500-coordinate grid.
+- **Wired into the entity path.** `EntityTaskRunner` optionally takes a
+  `LayeredRandomSource` and, per task, seeds a `DeterministicRandom` from the
+  current tick + parsed entity ID; `EntityTaskContext.random()` exposes it and
+  **throws if an action consumes RNG without a source** (catching undeclared
+  `RandomUsage` instead of silently diverging). Added a live
+  `EntityGoalSelectAction` (AI_GOAL) that consumes bounded RNG within its
+  declared budget and respects its RW-set (reads `ai_state`, writes
+  `goal_target`).
+- **Order-independence proven two ways.** `EntityRandomDeterminismTest` shows
+  (a) shuffled task input yields identical goal assignments, and (b) — the
+  stronger claim — driving the runner **directly in forward vs. reverse order**
+  (bypassing the DAG's ID-sort) still produces byte-identical results. This
+  confirms order-independence is a property of the seeding itself, which is the
+  precondition for safe parallel AI execution. Full suite green.
+- **Next:** integrate `RandomBudget` allocate/evaluate into the tick loop
+  (measure the DG2 over-budget rate on a real AI population), then terrain-aware
+  MOVE and a combined redstone+entity tick.
