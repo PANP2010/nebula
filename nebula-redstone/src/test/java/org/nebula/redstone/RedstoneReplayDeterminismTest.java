@@ -1,5 +1,6 @@
 package org.nebula.redstone;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.nebula.core.scheduler.TaskNode;
 import org.nebula.core.state.WorldPos;
@@ -83,6 +84,31 @@ class RedstoneReplayDeterminismTest {
         // tick; microstep expansion handles intra-tick settling, so the line
         // converges and then stays stable.
         return s.run(ticks, tick -> {});
+    }
+
+    /**
+     * DG1-scale replay: the full 10k-tick zero-diff redstone target. Tagged
+     * "slow" and skipped by default; run with {@code ./gradlew test -Pslow}.
+     * This is the actual DG1 acceptance criterion in miniature — once the
+     * scenario is rich enough (more component types, player-driven inputs) it
+     * becomes the real gate.
+     */
+    @Test
+    @Tag("slow")
+    void dg1ScaleWireLineReplaysDeterministically() throws Exception {
+        int ticks = 10_000;
+        int lineLength = 16;
+
+        List<ReplayFrame> first = recordWireLine(ticks, lineLength);
+        List<ReplayFrame> second = recordWireLine(ticks, lineLength);
+
+        ReplayVerifier.VerificationResult result = ReplayVerifier.verify(first, second);
+        assertTrue(result.passed(),
+            "DG1-scale run diverged at " + ticks + " ticks: " + describe(result));
+        assertEquals(ticks, first.size());
+
+        long distinctHashes = first.stream().map(ReplayFrame::stateHashHex).distinct().count();
+        assertTrue(distinctHashes > 1, "DG1-scale run was inert");
     }
 
     // ── Scenario 2: single-source microstep propagation in one tick ──────────

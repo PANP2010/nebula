@@ -290,3 +290,24 @@ Decision inputs:
 - **Next:** add a repeater-delay line (DEFERRED propagation across ticks), then
   scale the wire-line tick count from 200 toward the 10k DG1 target and measure
   wall-clock so the full-scale replay can run in CI or as a tagged slow test.
+
+### 2026-06-09 (DG1-scale self-consistency)
+
+- **First DG1-scale evidence.** Added `dg1ScaleWireLineReplaysDeterministically`
+  (JUnit tag `slow`, excluded by default; run with `./gradlew test -Pslow`):
+  10,000 ticks × 2 independent runs of a 16-wire line produce **identical
+  per-tick state-hash sequences**. Wall-clock ≈ 3m (20k `executeTick` calls),
+  which is why it is opt-in. Root `build.gradle.kts` now excludes the `slow`
+  tag unless `-Pslow` is set, so the default suite stays fast.
+- **Honest scope of this result.** This proves Nebula is *self-consistent*
+  (bit-for-bit reproducible across its own runs at DG1 scale) — it is **not**
+  yet a zero-diff comparison against a vanilla/Folia reference replay, which the
+  full DG1 gate ultimately requires. Capturing that reference needs a real
+  server environment (a known blocker in `docs/NEBULA_BLOCKERS.md`). Self-
+  consistency is a necessary precondition for DG1 and the right thing to lock
+  down first: a simulator that can't reproduce itself can never match a
+  reference.
+- **Next:** (1) repeater-delay line for cross-tick DEFERRED propagation;
+  (2) richer circuits (mixed components, scheduled player inputs via the
+  `ReplayRecorder` input path); (3) a reference-capture harness once a Folia
+  test server is available, to turn self-consistency into true zero-diff DG1.
