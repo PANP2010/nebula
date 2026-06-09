@@ -240,3 +240,32 @@ Decision inputs:
   - Full suite green after all changes.
 - **Next: Milestone 3** — make redstone actions live, starting with redstone
   wire (see milestone section above).
+
+### 2026-06-09 (continued)
+
+- **Milestone 3 — wire is live, with a real bug found and fixed.** The
+  redstone action classes (wire/torch/repeater/comparator) already contained
+  real logic and committed through the snapshot/CAS path, so the gap was
+  elsewhere. Building the first end-to-end determinism test (below) surfaced it:
+  **live redstone actions did not survive SCC contraction.** A wire line forms
+  RAW cycles on neighbouring blocks plus a shared `REGION_SHOULD_SIGNAL` global,
+  so `SccContractor` merges the whole line into one `COMPOUND_SCC` task. The
+  runner had no registry entry for `COMPOUND_SCC` and fell back to the
+  members' inert built-in actions, so `RedstoneWireAction` never ran and the
+  simulation stalled. Fixed `RedstoneTaskRunner` to dispatch a compound's
+  members through the action registry (each with its own snapshot, in
+  deterministic ID order). Full suite stays green.
+- **Milestone 5 — DG1 scaffold landed.** Added
+  `RedstoneReplayDeterminismTest`: drives a 12-wire line + power source through
+  `MicroStepScheduler` with live actions for 200 ticks, hashes world state each
+  tick via the real `StateHashComputer`/`ReplayRecorder`, runs the scenario
+  twice, and asserts the per-tick hash sequences match bit-for-bit via
+  `ReplayVerifier`. It also asserts liveness (state actually changes), which is
+  what caught the SCC-contraction bug above. This is a small, fast proxy for
+  the real DG1 gate (10k-tick zero-diff replay); scaling the tick count and
+  adding more circuit shapes (torch oscillator, repeater delay) is the
+  remaining work toward DG1.
+- **Next:** broaden DG1 coverage — a self-oscillating torch circuit (exercises
+  the microstep cap and ordering) and a repeater-delay line (exercises DEFERRED
+  components across ticks), then push the wire-line tick count toward the DG1
+  target.
