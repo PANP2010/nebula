@@ -311,3 +311,32 @@ Decision inputs:
   (2) richer circuits (mixed components, scheduled player inputs via the
   `ReplayRecorder` input path); (3) a reference-capture harness once a Folia
   test server is available, to turn self-consistency into true zero-diff DG1.
+
+### 2026-06-09 (cross-tick deferred + reference-capture harness)
+
+- **Repeater-delay line (DEFERRED cross-tick).** Added
+  `repeaterDelayLineReplaysDeterministically` to the determinism suite: a
+  repeater (delay 2) is driven by an input that goes high then low, so it must
+  latch both a rising and a falling edge through its internal delay counter
+  across ticks. Confirms cross-tick DEFERRED propagation (internal state
+  surviving between ticks) replays deterministically. The fast suite now covers
+  four circuit shapes: wire line, single-source microstep, torch burnout, and
+  repeater delay.
+- **Reference-capture harness landed.** New `RedstoneReferenceReplayTest`:
+  - Records a redstone run to a `.nrpl` file via `ReplayRecorder.save`, loads
+    it back with `ReplayPlayer.load`, runs the scenario fresh, and verifies the
+    fresh run reproduces the saved per-tick hashes. This exercises the on-disk
+    binary save/load round-trip end to end (previously only unit-tested in
+    isolation) and is the reusable scaffold the real DG1 gate plugs into.
+  - A second test tampers with one hash in the reference and asserts the
+    verifier flags exactly one mismatch — guarding against a silently-passing
+    broken capture.
+  - **The harness is reference-source-agnostic by design:** today the reference
+    is captured from Nebula itself; when a Folia test server is available the
+    same `.nrpl` file can be captured from vanilla output instead, turning this
+    into true zero-diff DG1 with no harness changes.
+- **Next:** (1) richer mixed-component circuits and scheduled player inputs via
+  the `ReplayRecorder` input path; (2) wire the harness to a real Folia capture
+  once that environment exists (the remaining external blocker); (3) begin
+  Milestone 6 (re-run Folia vs Nebula benchmarks) or branch into Phase 1
+  entity/physics per Milestone 7.
