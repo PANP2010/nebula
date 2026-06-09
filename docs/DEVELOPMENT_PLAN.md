@@ -1,0 +1,242 @@
+# Nebula Development Plan
+
+Date: 2026-06-09
+
+## Current status
+
+Nebula is kernel-complete and integration-incomplete.
+
+The root Gradle project builds and tests successfully after local build bootstrap fixes, but the project is not product-complete. The DAG/RWSet scheduler kernel is the strongest part of the codebase. The remaining risk is in live Minecraft integration, deterministic replay, redstone behavior completeness, Folia/Nebula performance proof, and VAP/plugin compatibility.
+
+Verified baseline command:
+
+```bash
+JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 ./gradlew test
+```
+
+Latest observed result: `BUILD SUCCESSFUL`, 29 actionable tasks executed.
+
+## Completion assessment
+
+| Area | Status | Notes |
+|---|---:|---|
+| Build/test bootstrap | Good | Root tests pass with Java 21; wrapper reliability was improved. |
+| DAG/RWSet core | High | Core primitives, conflict detection, SCC contraction, and execution pipeline exist. |
+| DAG build performance | Medium | Prior profiling shows DAG build/conflict scan dominates cost. |
+| Runtime guard / agent | Medium | Guard API and agent skeleton exist, but full production integration remains incomplete. |
+| Redstone Phase 0 | Partial | Scheduling/state snapshot pieces exist; live component behavior and replay proof remain incomplete. |
+| Replay determinism | Low-medium | Replay module exists, but DG1/DG2 zero-diff gates are not proven. |
+| Folia bridge/integration | Low-medium | Lightweight bridge exists; Java 25 Folia adapter is disabled. |
+| Entity/physics/AI/fluids/explosions | Partial | Some generators/snapshots exist; several subsystems are partial or stubbed. |
+| VAP/plugin compatibility | Low | Compatibility layer is still early/stub-level. |
+| Production readiness | Low | DG1, DG2, and DG3 are not met. |
+
+## Main development objective
+
+Move the project from a passing kernel prototype to a measurable Phase 0 redstone validation candidate.
+
+The next credible success target is DG1:
+
+- 10,000+ tick redstone replay with zero diff.
+- No silent divergence from microstep cap behavior.
+- Redstone-heavy workload performance evidence.
+
+## Milestone 0 — Lock the build and test baseline
+
+Goal: make the current passing build reproducible for future work.
+
+Tasks:
+
+1. Document the current build baseline as Java 21 for the included root modules.
+2. Preserve the Gradle wrapper reliability changes:
+   - official Gradle distribution URL,
+   - longer network timeout,
+   - retry count/backoff,
+   - executable `gradlew`.
+3. Keep the disabled `nebula-folia-adapter` status explicit because it requires Java 25/Folia API.
+4. Run the full root test suite before and after each implementation milestone.
+
+Acceptance criteria:
+
+- A clean checkout can run root tests with Java 21.
+- README/build docs do not claim the active root build requires Gradle 9.5.1/Java 25 unless specifically referring to Paper/Folia source targets.
+- `./gradlew test` passes when launched with Java 21.
+
+## Milestone 1 — Establish DAG build benchmark baselines
+
+Goal: turn the known DAG build bottleneck into a repeatable measurement.
+
+Tasks:
+
+1. Inspect existing `nebula-bench` JMH coverage.
+2. Add or refine benchmarks for:
+   - 1k/4k/8k task DAG builds,
+   - redstone-like spatial workloads,
+   - entity-only workloads,
+   - mostly self-only RWSet workloads,
+   - mixed read/write conflict-heavy workloads.
+3. Capture baseline metrics for:
+   - DAG build time,
+   - conflict edge count,
+   - task allocation count where available,
+   - `RWConflictDetector.edgesFor` cost.
+4. Add benchmark notes under `docs/profiling/`.
+
+Acceptance criteria:
+
+- A developer can run the same benchmark suite repeatedly.
+- Baseline numbers are recorded before optimization.
+- Benchmarks cover the workload patterns mentioned in current profiling docs.
+
+## Milestone 2 — Reduce DAG build/conflict scan overhead
+
+Goal: improve DAG construction without regressing correctness.
+
+Candidate optimizations, in priority order:
+
+1. Cache `RWSet.hashCode()` or equivalent immutable conflict key data for unequal-set short-circuiting.
+2. Skip redundant RAW/WAW symmetric checks for self-only tasks when semantics allow it.
+3. Pre-index entity-only tasks by entity ID.
+4. Reduce avoidable `TaskNode` allocation churn during repeated tick-like builds.
+
+Constraints:
+
+- Do not reintroduce the reverted ConcurrentHashMap self-only RWSet cache approach unless benchmarks prove it helps.
+- Every fast path needs regression tests for RAW, WAR, WAW, and no-conflict cases.
+- Correctness beats benchmark improvement.
+
+Acceptance criteria:
+
+- Existing tests pass.
+- New conflict-detection tests pass.
+- JMH shows a measurable DAG build improvement on at least one target workload without broad regressions.
+
+## Milestone 3 — Make redstone actions live one component at a time
+
+Goal: convert redstone Phase 0 from scheduling/snapshot scaffolding into executable behavior.
+
+Initial component order:
+
+1. Redstone wire.
+2. Repeater.
+3. Torch.
+4. Comparator.
+
+Tasks per component:
+
+1. Identify current action factory/generator/snapshot behavior.
+2. Implement live state read/write through the existing snapshot model.
+3. Add deterministic unit tests for stable simple circuits.
+4. Add conflict/RWSet tests for adjacent updates.
+5. Add replay-style tests if existing harness supports it.
+
+Acceptance criteria:
+
+- At least one real redstone component updates state through Nebula’s action path.
+- Component tests are deterministic.
+- RWSet declarations match actual reads/writes enforced by guard/tracing where applicable.
+
+## Milestone 4 — Harden microstep semantics
+
+Goal: prevent redstone divergence from ordering and microstep cap behavior.
+
+Tasks:
+
+1. Audit `MicroStepScheduler` and `MicroStepExtender` behavior.
+2. Define what happens when the microstep cap is reached:
+   - explicit warning/degradation, or
+   - deterministic abort/fallback,
+   - never silent divergence.
+3. Add tests for oscillators, chained updates, and cap boundary behavior.
+4. Confirm deterministic ordering for same-tick redstone updates.
+
+Acceptance criteria:
+
+- Cap behavior is visible and deterministic.
+- Test circuits do not silently diverge.
+- Ordering semantics are documented in code/tests or development docs.
+
+## Milestone 5 — Minimum viable DG1 replay
+
+Goal: create the first credible DG1 validation harness.
+
+Tasks:
+
+1. Define a small redstone stress world or deterministic synthetic equivalent.
+2. Record reference output for 10,000 ticks.
+3. Run Nebula output against the reference.
+4. Produce a diff report format that identifies block position/state/tick mismatches.
+5. Add a shorter replay smoke test for CI/local development if full 10,000 ticks is too heavy.
+
+Acceptance criteria:
+
+- Replay harness can compare reference vs Nebula outputs.
+- At least one redstone scenario runs with zero diff for a meaningful tick count.
+- Known failing cases are documented with exact subsystem owners.
+
+## Milestone 6 — Re-run Folia vs Nebula benchmarks
+
+Goal: update the performance story after DAG/redstone work.
+
+Tasks:
+
+1. Reproduce the previous Folia-vs-Nebula measurement setup where possible.
+2. Include average MSPT, p95, p99, max, and sample count.
+3. Add a 100 fake players / multi-dimension workload if available.
+4. Separate DAG build cost from run-phase execution cost.
+5. Compare against prior baseline: Nebula average slower but tail latency better.
+
+Acceptance criteria:
+
+- Performance docs explain whether Nebula is improving average MSPT, tail latency, or both.
+- DG2 claims are not made unless the data supports them.
+
+## Milestone 7 — Choose the next branch after DG1 evidence
+
+After DG1 evidence exists, choose one branch:
+
+1. Phase 0 hardening: deepen redstone correctness and replay coverage.
+2. Phase 1 entity/physics: expand deterministic entity and collision pipelines.
+3. VAP/plugin compatibility: move plugin sandbox/managed state from stub to usable prototype.
+
+Decision inputs:
+
+- Redstone replay stability.
+- DAG build performance after optimizations.
+- Folia/Nebula benchmark trend.
+- Plugin compatibility risk.
+
+## Immediate next tasks
+
+1. Update build documentation so the active root build says Java 21 + Gradle 8.13.
+2. Keep Java 25 requirements scoped to Paper/Folia upstream or disabled adapter work.
+3. Verify `JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 ./gradlew test` still passes.
+4. Inspect `nebula-bench` and existing DAG benchmark coverage.
+5. Add or refine DAG build benchmark baselines.
+
+## Progress log
+
+### 2026-06-09
+
+- **Milestone 0 — done.** README updated to Java 21 / Gradle 8.13 active build;
+  wrapper reliability fixes preserved; full test suite passes (29 tasks).
+- **Milestone 1 — done.** `DagBuildBenchmark` extended with `entityOnly` and
+  `conflictHeavy` workloads and task counts up to 8000; `-Pdagbaseline` focused
+  JMH config added. Baseline recorded in
+  `docs/profiling/dag-build-baseline-2026-06-09.md`.
+- **Milestone 2 — substantially done (robustness over speed).**
+  - Found and fixed a `StackOverflowError` in `TarjanScc.strongConnect`:
+    converted recursive DFS to an iterative explicit-work-stack version with
+    identical semantics. Added 20k-node deep-chain/deep-cycle regression tests.
+    This was crashing DAG builds at the 4000–8000 task scale the project targets.
+  - Baseline shows the realistic `redstone` (spatial) path is already ~linear
+    and ~77× faster under `BucketDagBuilder` than the quadratic builder at 8000
+    tasks — no speculative conflict-scan micro-optimization warranted.
+  - Documented a latent `entityOnly` GLOBAL_BUCKET O(N²) cliff (position-less
+    entity tasks bypass spatial buckets). Deferred a fix because realistic
+    decomposer entity tasks carry block affinity and avoid it; any change to the
+    global-ordering scan needs its own before/after benchmark per the blocker
+    doc's reverted-cache warning.
+  - Full suite green after all changes.
+- **Next: Milestone 3** — make redstone actions live, starting with redstone
+  wire (see milestone section above).
