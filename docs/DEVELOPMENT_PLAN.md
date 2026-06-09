@@ -340,3 +340,43 @@ Decision inputs:
   once that environment exists (the remaining external blocker); (3) begin
   Milestone 6 (re-run Folia vs Nebula benchmarks) or branch into Phase 1
   entity/physics per Milestone 7.
+
+### 2026-06-09 (Milestone 7 — entity physics made live)
+
+- **The Phase 1 gap was the mirror of the redstone one.** `nebula-entity` had
+  all the scheduling scaffolding (RW-set templates, task generation, microstep
+  propagation) but **no executable state model** — every entity task was inert
+  (`moveInert`, `collisionInert`), so entity physics could not run end to end
+  or be replay-verified. Built the executable layer following the proven
+  redstone pattern:
+  - `EntityPhysicsState` — versioned, CAS-committed field store keyed by the
+    same `EntityField` coordinates the RW-sets declare (mirrors
+    `RedstoneWorldState`).
+  - `EntityStateSnapshot` / `EntityTaskContext` — per-task versioned-read +
+    buffered-write with stale-read detection.
+  - `EntityTaskRunner` — dispatches actions per task, **including the
+    SCC-compound member dispatch** so live behaviour survives contraction (the
+    same fix applied to the redstone runner; entity collision pairs contract
+    into compounds too).
+  - `EntityTickExecutor` — builds the conflict DAG, runs layers, CAS-commits
+    each layer with bounded retry.
+  - Live actions: `EntityMoveAction` (deterministic gravity + drag + Euler
+    position integration) and `EntityCollisionResponseAction` (equal-mass
+    elastic velocity exchange, momentum-conserving).
+- **RW-consistency upheld.** The live MOVE writes velocity (for gravity), so
+  `moveRw` was updated to declare that write — keeping the RW-set honest about
+  what the action touches. A test pins this contract.
+- **Determinism proven end to end.** `EntityReplayDeterminismTest` drives 8
+  gravity-affected, colliding entities through the executor, hashes physics
+  state per tick via the real replay harness, runs twice, and verifies
+  bit-for-bit identical hash sequences (150 ticks fast; 5,000 ticks
+  `slow`-tagged, ~30s). Plus unit tests asserting faithful physics (free-fall
+  reproducibility, momentum conservation). Full suite green.
+- **Same honest scope caveat as redstone:** this is self-consistency, not
+  zero-diff against vanilla physics (Nebula's gravity/drag constants are a
+  simplified model, not byte-matched to Minecraft). It proves the
+  deterministic-execution machinery works for the entity subsystem; matching
+  vanilla numerics is a later, separate step.
+- **Next:** terrain-aware MOVE (the RW-set already reads neighbouring blocks),
+  AI_GOAL with the seeded `RandomUsage` path (tests layered RNG determinism),
+  and a combined redstone+entity tick once a shared world-state facade exists.
