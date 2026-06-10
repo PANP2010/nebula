@@ -1,5 +1,67 @@
 # Nebula Blockers
 
+## Progress Update (2026-06-10) — determinism foundation + patch NEBULA-PATCH-2026-001
+
+A focused build-out session (branch `fix/tarjan-scc-overflow-and-dag-baseline`)
+that turned several P6 "PARTIAL/STUB" rows into genuinely-live, test-backed
+subsystems and implemented the external-review patch end to end. This does **not**
+overturn the P6 verdict for *production-server* integration (the bundler still
+schedules without a live NMS binding, and zero-diff-vs-vanilla remains gated on a
+Folia capture environment) — but the deterministic-execution core is now real and
+exercised by automated tests, not just modelled.
+
+### What became genuinely live (was PARTIAL/STUB in P6)
+
+| P6 row | Was | Now |
+|---|---|---|
+| §5 Redstone | "live path uses empty action registry → inert no-ops" | **Live.** `RedstoneActions.defaults()` wired; wire/torch/repeater/comparator execute through the snapshot/CAS path. Found+fixed a real bug: live actions didn't survive SCC contraction (`COMPOUND_SCC` fell back to inert members) — `RedstoneTaskRunner` now dispatches compound members through the registry. |
+| §6 Physics+Collision | "named MOVE/COLLISION tasks are dead" | **Live.** `EntityPhysicsState` (versioned CAS store), `EntityMoveAction` (gravity+drag+Euler), `EntityCollisionResponseAction` (elastic), `EntityTickExecutor`. MOVE is now **terrain-aware** via a read-only `TerrainView` (closes the declared-vs-actual block-read gap). |
+| §11 Layered Random | "effectively always T1; T0 gen absent" | **Order-independent T0 seeding live.** `LayeredRandomSource` derives per-task streams from `(worldSeed, tick, entityId, instance)` via SplitMix64; proven order-independent two ways (shuffled DAG input + raw forward/reverse runner). `RandomBudget` now fed from real execution → live DG2 over-budget metric. |
+| §12 Determinism Verify | "replay = hash trail only" | **Self-consistency proven at scale.** Redstone replay determinism suite (wire line, single-source microstep, torch burnout, repeater delay) incl. a 10k-tick `slow`-tagged DG1-scale check; entity physics determinism to 5k ticks; a reference-capture harness (`save`→`load`→re-run→verify) ready to plug a Folia capture into. Still self-consistency, NOT zero-diff vs vanilla. |
+| §16 Errors/Degradation | "fidelity tier is a label" | **Downgrade path live.** `FidelityDowngradeController` implements T0→T1→T2→T3→fallback (T3 added per patch §变更四) driven by the live over-budget rate and MSPT; integration-tested end to end. |
+
+### Cross-subsystem integration (new — was not even a P6 row)
+
+- **Combined redstone+entity tick.** `CompositeTaskRunner` (nebula-core) routes
+  tasks to subsystem runners by type, so redstone wire propagation and entity
+  physics build into **one DAG** and execute together. New `nebula-integration`
+  test module proves both subsystems advance in one tick, the combined run
+  replays deterministically (hash of both worlds), and unrouted task types fail
+  loudly. This is the first concrete demonstration of the core architectural
+  claim — causally-independent tasks share one graph regardless of subsystem.
+- New core primitives: `LayerCommitting` interface (shared layer commit
+  lifecycle), `CoarseDagBuilder` + `DagBuildBudget` + `BudgetedDagBuilder`
+  (patch §变更二 — DAG build-time budget + avalanche guard with p50/p99/max
+  diagnostics), `TarjanScc` made iterative (fixed a real `StackOverflowError` on
+  deep dependency chains at the 4000-8000 task scale Nebula targets).
+
+### NEBULA-PATCH-2026-001 — all 7 items addressed
+
+变更一 (Phase 1.5 annotation maintenance — MSD signature extractor + differ +
+regression runner + coverage dashboard, validated against **real decompiled MC
+1.21.4 Mojmaps sources**, with inheritance-aware resolution that caught the
+`RepeaterBlock.tick`→`DiodeBlock.tick` inheritance case); 变更二 (build budget,
+above); 变更三 (VAP plugin certification model + searchable catalog); 变更四
+(T2/T3 fidelity tiers, above); 变更五 (`TargetVersion` MC 1.21.4 anchor); 变更
+六/七 (revised perf model + competitor analysis, `docs/patch-002-perf-and-competitor.md`).
+
+### Honest scope of this update
+
+- Everything above is **self-consistent** (Nebula reproduces itself), validated
+  by automated tests in the gradle suite. The remaining gap to true DG1/DG2 is
+  **zero-diff against vanilla**, which needs a real Folia server capture — the
+  one external blocker, now a single well-defined plug-in point (the
+  reference-capture harness).
+- The §变更一 MSD is a *source-signature* diff; the bytecode data-flow summary
+  for finer Level 2 semantic detection needs compiled classes and is future work.
+- Terrain collision reads the cell below the new position; a >1 block/tick fall
+  could read an undeclared cell — swept/sub-stepped collision is future work.
+- These changes are in the module libraries, not yet wired into the live
+  production bundler/NMS path — the P6 "schedules without parallelizing in
+  production" observation still stands for the server jar.
+
+---
+
 ## Architecture Audit (2026-05-30) — P6 (adversarial, 16-section deep audit)
 
 A full adversarial re-audit of `docs/星云架构.md` against the codebase

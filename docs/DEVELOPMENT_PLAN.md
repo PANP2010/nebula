@@ -616,3 +616,29 @@ each item:
   could read a cell the static RW-set didn't declare — a sub-stepping or
   swept-collision pass is the proper fix and is future work. Documented rather
   than silently assumed correct.
+
+### 2026-06-10 (combined redstone+entity tick — cross-subsystem integration)
+
+- **The integration milestone.** Both subsystems were live and deterministic
+  individually, but nothing ran them together. `CompositeTaskRunner`
+  (nebula-core) routes tasks to subsystem runners by type, so redstone wire
+  propagation and entity physics build into ONE DAG and execute together — the
+  first concrete demonstration of the core architectural claim that
+  causally-independent tasks share one dependency graph regardless of subsystem.
+- **`LayerCommitting`** interface extracted in core (shared `run` +
+  `commitLayer` + `resetLayer` lifecycle); both `RedstoneTaskRunner` and
+  `EntityTaskRunner` now implement it, and the composite fans commit/reset
+  across all sub-runners so a combined layer commits atomically.
+- **New `nebula-integration` test module** (test-only, depends on both
+  subsystems — avoids a module cycle). `CombinedTickTest` proves: both
+  subsystems advance in one tick (wire → 14 via redstone runner, entity falls
+  via entity runner), the combined run replays deterministically (hash of both
+  worlds identical across two runs), and an unrouted task type fails loudly
+  rather than being silently dropped.
+- **Routing handles SCC compounds:** a contracted task routes by its first
+  member's type (SCC members are mutually conflicting → same subsystem).
+- Full suite green across all 9 modules (34 gradle tasks).
+- **Next:** swept/sub-stepped collision (the fast-fall limitation); the AI
+  pipeline (SENSE→GOAL→PATHFIND→ACT on the layered-RNG foundation); and the
+  externally-blocked Folia reference capture to convert self-consistency into
+  true zero-diff DG1/DG2.
