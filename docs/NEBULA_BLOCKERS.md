@@ -35,6 +35,21 @@ exercised by automated tests, not just modelled.
   diagnostics), `TarjanScc` made iterative (fixed a real `StackOverflowError` on
   deep dependency chains at the 4000-8000 task scale Nebula targets).
 
+### Subsystem build-out (2026-06-10, second pass)
+
+Three more P6 rows advanced, built against the decompiled MC 1.21.4 sources:
+
+| P6 row | Was | Now |
+|---|---|---|
+| §6 Physics+Collision | "single-cell collision; fast falls undeclared-read risk" | **Swept collision.** `EntityMoveAction` sweeps the descent block-by-block, landing on the first solid cell — a >1 block/tick fall can't tunnel, and every probed cell is RW-set-declared. |
+| §7 AI+POI | "AI 4-task split is test-only" | **AI pipeline live.** SENSE→GOAL_SELECT→PATHFIND→ACT execute as real actions over the entity state layer, forming a RAW chain (4 serial layers/entity), RNG within declared budget, deterministic + order-independent across a population. POI RCU still absent. |
+| §6 Block entities | "BE tasks exist; live behaviour absent" | **Hopper + furnace live.** New versioned `BlockEntityState` + `BlockEntityTaskRunner` (composes via `LayerCommitting`). Hopper = 1-item move + 8-tick cooldown (`MOVE_ITEM_SPEED`); furnace = smelt at 200 cook-ticks (`BURN_TIME_STANDARD`) consuming fuel — faithful to decompiled constants. |
+
+Same honest scope caveat: self-consistent and test-backed in the module
+libraries, not yet wired into the production bundler; fluids/explosions live
+paths and POI remain. The block-entity runner is not yet routed into the
+3-way combined tick (redstone + entity + block-entity) — next step.
+
 ### NEBULA-PATCH-2026-001 — all 7 items addressed
 
 变更一 (Phase 1.5 annotation maintenance — MSD signature extractor + differ +

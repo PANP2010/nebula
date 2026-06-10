@@ -642,3 +642,34 @@ each item:
   pipeline (SENSE→GOAL→PATHFIND→ACT on the layered-RNG foundation); and the
   externally-blocked Folia reference capture to convert self-consistency into
   true zero-diff DG1/DG2.
+
+### 2026-06-10 (swept collision + AI pipeline + block-entity subsystem)
+
+Three features built against the decompiled MC 1.21.4 Mojmaps sources.
+
+- **Swept collision (closes the prior fast-fall limitation).** `EntityMoveAction`
+  now sweeps the descent one block-cell at a time and lands on the top of the
+  FIRST solid block in the column, instead of checking only the destination
+  cell. A >1 block/tick fall can no longer tunnel through a thin floor, and
+  every probed cell is one the MOVE RW-set declares. `TerrainCollisionTest`
+  adds fast-fall-no-tunnel and land-on-first-of-stacked-blocks cases.
+- **AI pipeline live (§7.2).** `AiPipelineActions` implements SENSE → GOAL_SELECT
+  → PATHFIND → ACT as executable actions on the entity state layer, each
+  touching exactly the `ai_state.*` / position / health fields its
+  `AITaskFactory` RW-set declares. The four stages form a RAW dependency chain
+  (4 serial layers per entity); distinct entities' pipelines parallelise.
+  GOAL_SELECT and ACT consume layered RNG within their declared budgets.
+  `AiPipelineTest` proves the chain shape, full-stage execution, and
+  deterministic order-independent results across a population.
+- **Block-entity subsystem live (§3.3).** New versioned `BlockEntityState` +
+  snapshot + context + `BlockEntityTaskRunner` (a `LayerCommitting` runner, so
+  it composes into the combined tick). `BlockEntityActions` implements hopper
+  and furnace faithful to the decompiled constants: hopper moves one item then
+  arms an 8-tick cooldown (`MOVE_ITEM_SPEED`), furnace smelts one item after 200
+  accumulated cook-ticks (`BURN_TIME_STANDARD`) while consuming fuel.
+  `BlockEntitySubsystemTest` covers transfer+cooldown, smelt-at-200, no-fuel
+  no-op, and deterministic multi-furnace simulation.
+- Full suite green across all 9 modules.
+- **Next:** wire the block-entity runner into the combined tick (3-way:
+  redstone + entity + block-entity); fluids/explosions live paths; and the
+  externally-blocked Folia reference capture.
