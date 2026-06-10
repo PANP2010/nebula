@@ -52,6 +52,7 @@ public final class EntityTaskRunner implements TaskRunner {
     private final RandomBudget randomBudget;
     private final ConcurrentHashMap<String, EntityStateSnapshot> layerSnapshots = new ConcurrentHashMap<>();
     private volatile long currentTick;
+    private volatile TerrainView terrain = TerrainView.EMPTY;
 
     public EntityTaskRunner(EntityPhysicsState state, Function<String, EntityTaskAction> actionResolver) {
         this(state, actionResolver, null, null);
@@ -68,6 +69,15 @@ public final class EntityTaskRunner implements TaskRunner {
         this.actionResolver = actionResolver != null ? actionResolver : id -> null;
         this.randomSource = randomSource;
         this.randomBudget = randomBudget;
+    }
+
+    /**
+     * Sets the read-only terrain oracle used by collision-aware actions. Terrain
+     * is constant for a tick; returns {@code this} for chaining.
+     */
+    public EntityTaskRunner withTerrain(TerrainView terrain) {
+        this.terrain = terrain == null ? TerrainView.EMPTY : terrain;
+        return this;
     }
 
     /** Sets the tick coordinate for RNG seeds and resets per-tick budget stats. */
@@ -116,7 +126,7 @@ public final class EntityTaskRunner implements TaskRunner {
             entityId = parseEntityId(taskId);
             rng = randomSource.forTask(currentTick, entityId, RandomInstance.ENTITY_RANDOM);
         }
-        action.execute(new EntityTaskContext(state, snapshot, rng));
+        action.execute(new EntityTaskContext(state, snapshot, rng, terrain));
 
         // Evaluate RNG consumption against the allocated budget (DG2 metric).
         if (rng != null && randomBudget != null && randomEstimate != null) {

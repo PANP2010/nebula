@@ -24,15 +24,22 @@ public final class EntityTaskContext {
     private final EntityPhysicsState state;
     private final EntityStateSnapshot snapshot;
     private final DeterministicRandom random;
+    private final TerrainView terrain;
 
     EntityTaskContext(EntityPhysicsState state, EntityStateSnapshot snapshot) {
-        this(state, snapshot, null);
+        this(state, snapshot, null, TerrainView.EMPTY);
     }
 
     EntityTaskContext(EntityPhysicsState state, EntityStateSnapshot snapshot, DeterministicRandom random) {
+        this(state, snapshot, random, TerrainView.EMPTY);
+    }
+
+    EntityTaskContext(EntityPhysicsState state, EntityStateSnapshot snapshot,
+                      DeterministicRandom random, TerrainView terrain) {
         this.state = state;
         this.snapshot = snapshot;
         this.random = random;
+        this.terrain = terrain == null ? TerrainView.EMPTY : terrain;
     }
 
     public Vec3 readVec(long entityId, String field) {
@@ -49,6 +56,11 @@ public final class EntityTaskContext {
 
     public void writeScalar(long entityId, String field, double value) {
         snapshot.write(new EntityField(entityId, field), value);
+    }
+
+    /** Read-only terrain oracle for collision checks (defaults to open void). */
+    public TerrainView terrain() {
+        return terrain;
     }
 
     /**

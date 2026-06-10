@@ -591,3 +591,28 @@ each item:
   against real sources. Remaining future work is the bytecode data-flow summary
   for finer Level 2 semantic detection (needs compiled classes, not just
   source) and wiring the runner into an actual CI pipeline step.
+
+### 2026-06-10 (terrain-aware entity MOVE — collision physics)
+
+- **Closed a declared-vs-actual gap.** The MOVE RW-set declared reads of the
+  entity's cell and its 6 neighbour blocks, but `EntityMoveAction` ignored them
+  — pure free-fall. Added a read-only terrain layer so MOVE actually uses those
+  declared block reads, restoring RW-consistency (the invariant the integrity
+  checker enforces).
+- **`TerrainView`** — an immutable, version-free solid-block oracle (terrain
+  doesn't mutate during entity physics). Factories: `EMPTY` (open void),
+  `flatFloor(y)`, and `ofSolids(set)`. Threaded through `EntityTaskContext`
+  (`terrain()`) and configured on the runner via `withTerrain(...)`.
+- **`EntityMoveAction` now resolves terrain collision:** after gravity +
+  integration, if descending into a solid block it clamps the entity to the
+  block top and zeroes vertical velocity. `EntityReplayDeterminismTest` etc.
+  use the default `EMPTY` view, so existing free-fall determinism is unchanged.
+- **Tests:** `TerrainCollisionTest` — falls in void, rests on a flat floor,
+  no jitter once landed, per-column solidity (block vs air), and deterministic
+  landing height across runs. Full suite green.
+- **Honest limitation:** collision reads the cell below the *new* position
+  (`floor(x), floor(newPos.y), floor(z)`). At normal fall speeds this stays
+  within the declared neighbour cells, but a very fast fall (>1 block/tick)
+  could read a cell the static RW-set didn't declare — a sub-stepping or
+  swept-collision pass is the proper fix and is future work. Documented rather
+  than silently assumed correct.
