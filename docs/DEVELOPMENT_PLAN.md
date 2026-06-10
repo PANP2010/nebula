@@ -412,3 +412,26 @@ Decision inputs:
 - **Next:** integrate `RandomBudget` allocate/evaluate into the tick loop
   (measure the DG2 over-budget rate on a real AI population), then terrain-aware
   MOVE and a combined redstone+entity tick.
+
+### 2026-06-09 (DG2 random-budget metric wired into the tick loop)
+
+- **The DG2 over-budget metric is now live, not just a primitive.**
+  `RandomBudget` existed (allocate/evaluate/downgrade) but nothing fed it from
+  real execution. `EntityTaskRunner` now optionally takes a `RandomBudget`:
+  per RNG-declaring task it allocates a budget from the task's declared
+  `RandomUsage` estimate, then after execution evaluates actual
+  `DeterministicRandom.callsMade()` against it. `beginTick` resets per-tick
+  stats; `currentOverBudgetRate()` exposes the DG2 metric (arch doc §11.2
+  target: over-budget re-execution rate &lt;1%).
+- **Only RNG-declaring tasks count.** The estimate is pulled from the task's
+  RW-set `RandomUsage` (skipping `NONE`), so non-RNG tasks don't dilute the
+  denominator — the rate reflects the population that actually rolls dice.
+- **Metric correctness proven.** `EntityRandomBudgetTest` drives 100-entity
+  populations through the tick loop: a well-behaved population reports 0%
+  (comfortably under DG2's 1%); a controlled over-consuming minority (5 of 100)
+  reports exactly 5%; consuming exactly the allocated budget counts as commit,
+  not over-budget. Full suite green.
+- **Next:** terrain-aware MOVE (RW-set already reads neighbour blocks); a
+  combined redstone+entity tick once a shared world-state facade exists; and,
+  externally blocked, wiring any of the self-consistency harnesses to a real
+  Folia capture for true zero-diff DG1/DG2.
