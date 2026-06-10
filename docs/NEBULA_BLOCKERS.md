@@ -1,5 +1,38 @@
 # Nebula Blockers
 
+## Release-Blocker Update (2026-06-10) — Folia adapter now builds against the real API
+
+**The #1 playable-release blocker is resolved.** Previously the NMS/Folia
+binding (`nebula-folia-adapter`) was disabled — "Requires Java 25 + Folia API",
+neither of which was available. Both are now present and the module **compiles
+and tests green against the real Folia 26.1.2 API**:
+
+- Full **JDK 25** at `/home/kuli/jdks/jdk-25.0.3` (with `javac`).
+- **Folia 26.1.2** bundled server (`folia-26.1.2-8.jar`) + its API jar
+  (`folia-api-26.1.2.build.8-stable.jar`, extracted to `libs/`) — the exact
+  build the adapter targets.
+- Decompiled MC **26.1.2** Mojmaps sources (`decompiled MC/`, WORLD_VERSION 4790).
+- Mixed-toolchain build works: the adapter compiles + tests on Java 25, all
+  other modules on Java 21; `./gradlew test` builds all 10 modules green.
+
+**Real-API finding:** `RegionizedServer` is a Folia *server-internal* class,
+absent from the API jar — so the adapter's original detection marker would have
+silently failed when compiled against the API. `FoliaRuntimeDetector` now probes
+the API class `RegionScheduler` for `isFoliaRuntime()` and keeps `RegionizedServer`
+for the stricter `isFoliaServer()` runtime check.
+
+**What this unblocks (and what still remains):** the adapter can now be written
+against real Folia types (region schedulers, `Bukkit#isOwnedByCurrentRegion`,
+etc.). Still ahead to a playable jar: (1) implement the adapter's NMS hooks
+(currently just runtime detection + boundary constants); (2) wire the
+`CompositeTaskRunner` + subsystem runners into the live server tick; (3) bind the
+versioned CAS state stores to real NMS `ItemStack`/entity/block state; (4) run
+the reference-capture harness against this Folia server for true zero-diff
+DG1/DG2. But the environment wall is down — these are now in-repo engineering
+tasks, not "needs an environment we don't have".
+
+---
+
 ## Progress Update (2026-06-10) — determinism foundation + patch NEBULA-PATCH-2026-001
 
 A focused build-out session (branch `fix/tarjan-scc-overflow-and-dag-baseline`)
