@@ -497,3 +497,36 @@ Decision inputs:
   and correct.
 - **Next:** terrain-aware MOVE; combined redstone+entity tick; and the
   externally-blocked Folia reference capture.
+
+### 2026-06-09 (remaining patch items — 变更一/三/五/六/七)
+
+Closed out the rest of NEBULA-PATCH-2026-001 with the code-tractable parts of
+each item:
+
+- **变更五 (lock target version).** `TargetVersion` (nebula-core) centralises
+  the MC 1.21.4 / Folia 26.1.x anchor as a single constant with an
+  `isCurrent(verifiedAt)` check, instead of scattered string literals.
+- **变更三 (VAP plugin certification).** New `org.nebula.core.vap.cert` package:
+  `CertificationLevel` (Nebula Ready/Optimized/Native → green/silver/gold,
+  mapped onto the existing `VapLevel` LEVEL_0/1/2), `PluginCertification`
+  (catalog entry with yearly staleness per §13.7.2), and
+  `PluginCertificationCatalog` (case-insensitive searchable catalog backing
+  `/nebula plugins`, with level filters and stale-entry reporting).
+- **变更一 (Phase 1.5 annotation maintenance).** New `org.nebula.maintenance`
+  package: `ChangeLevel` (the MSD's Level 0/1/2 classification with its
+  auto-migrate / auto-draft / manual-review policy) and
+  `AnnotationCoverageDashboard` (per-subsystem coverage, Level-2 annotation
+  debt, and the patch's &lt;5%/year decay target via `meetsDecayTarget`). The
+  ASM bytecode-diff engine itself is out of scope here (needs decompiled MC
+  sources), but the classification and health-tracking model is in place and
+  tested.
+- **变更六/七 (perf model + competitor analysis).** Documentation-only items,
+  recorded in `docs/patch-002-perf-and-competitor.md` (revised 60–70%-efficiency
+  speedup table with historical references; Folia/Luminol/Nebula comparison and
+  the causal-preservation-vs-spatial-partition positioning), each cross-linked
+  to the code that backs its claims.
+- **Patch status:** 变更二/四 implemented earlier this session; 变更一/三/五/六/七
+  now done to the extent the environment allows. All seven patch items are
+  tracked in-repo. Full suite green.
+- **Next:** terrain-aware MOVE; combined redstone+entity tick; and the
+  externally-blocked Folia reference capture / benchmark.
