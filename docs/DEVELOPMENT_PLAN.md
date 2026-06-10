@@ -559,3 +559,35 @@ each item:
   and the CI regression runner (组件 B) + dashboard wiring (组件 C is modelled,
   not yet fed from a real annotation scan). Those remain future work; the
   signature classifier they build on is now real and tested.
+
+### 2026-06-10 (变更一 achieved — 组件 B regression runner + 组件 C real feed)
+
+- **组件 B — annotation regression runner.** `AnnotationRegressionRunner`
+  cross-references the declared annotation library against the methods actually
+  present in the decompiled source, classifying each reference PRESENT / MISSING
+  / AMBIGUOUS. This is the CI gate the patch requires so annotations cannot
+  "silently fail" when upstream code changes. `JavaSignatureExtractor` gained
+  `extractTree(Path)` (scan a whole source tree) and `superclassOf` (parse the
+  `extends` clause).
+- **Inheritance-aware resolution — driven by a real finding.** The first
+  real-source run flagged `RepeaterBlock.tick`, `RepeaterBlock.neighborChanged`,
+  and `ComparatorBlock.neighborChanged` as MISSING. That was correct: those
+  methods are declared on the parent `DiodeBlock` and inherited — the annotation
+  library legitimately references them by leaf class. So the runner now takes an
+  optional simple-name→superclass map and resolves a reference if the method
+  exists on the class **or any ancestor** (cycle-guarded). The class hierarchy
+  is extracted from the sources' `extends` clauses.
+- **组件 C — fed from a real scan.** `RedstoneAnnotationMaintenanceTest` pulls
+  every method reference declared across `RedstoneAnnotations.componentTemplates()`,
+  runs the inheritance-aware regression check against bundled decompiled MC
+  1.21.4 fixtures (RepeaterBlock, DiodeBlock, RedStoneWireBlock,
+  RedstoneTorchBlock, ComparatorBlock — 68K of real source), and builds the
+  `AnnotationCoverageDashboard` from the result. The bundled-subsystem
+  annotations all resolve to real methods (incl. inherited), proving the asset
+  is anchored to MC 1.21.4.
+- **变更一 status: achieved** to the extent the environment supports — 组件 A
+  (signature extractor + differ), 组件 B (regression runner), and 组件 C
+  (coverage dashboard fed from a real scan) are all implemented and validated
+  against real sources. Remaining future work is the bytecode data-flow summary
+  for finer Level 2 semantic detection (needs compiled classes, not just
+  source) and wiring the runner into an actual CI pipeline step.
