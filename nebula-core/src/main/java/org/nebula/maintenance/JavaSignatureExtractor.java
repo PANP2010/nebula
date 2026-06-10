@@ -1,9 +1,15 @@
 package org.nebula.maintenance;
 
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 /**
  * Extracts {@link MethodSignature}s from decompiled Java source
@@ -25,6 +31,9 @@ public final class JavaSignatureExtractor {
     private static final Pattern PACKAGE = Pattern.compile("package\\s+([\\w.]+)\\s*;");
     private static final Pattern TOP_CLASS =
         Pattern.compile("(?:public\\s+|final\\s+|abstract\\s+)*(?:class|interface|enum|record)\\s+(\\w+)");
+    // Captures "class Foo extends Bar" → simple superclass name "Bar" (generics stripped).
+    private static final Pattern EXTENDS =
+        Pattern.compile("\\bclass\\s+\\w+(?:<[^>]*>)?\\s+extends\\s+([\\w.]+)");
 
     // Modifier? returnType name(params) up to { or ;  — applied to flattened source.
     private static final Pattern METHOD = Pattern.compile(
@@ -58,6 +67,29 @@ public final class JavaSignatureExtractor {
         return result;
     }
 
+    /**
+     * Recursively extracts method signatures from every {@code .java} file under
+     * {@code root}. Used to scan a decompiled Minecraft source tree.
+     *
+     * @throws UncheckedIOException if the tree cannot be walked
+     */
+    public static List<MethodSignature> extractTree(Path root) {
+        List<MethodSignature> all = new ArrayList<>();
+        try (Stream<Path> paths = Files.walk(root)) {
+            paths.filter(p -> p.toString().endsWith(".java"))
+                 .forEach(p -> {
+                     try {
+                         all.addAll(extract(Files.readString(p, StandardCharsets.UTF_8)));
+                     } catch (IOException e) {
+                         throw new UncheckedIOException("Failed reading " + p, e);
+                     }
+                 });
+        } catch (IOException e) {
+            throw new UncheckedIOException("Failed walking " + root, e);
+        }
+        return all;
+    }
+
     static String ownerClassOf(String source) {
         String pkg = "";
         Matcher pm = PACKAGE.matcher(source);
@@ -65,6 +97,20 @@ public final class JavaSignatureExtractor {
         Matcher cm = TOP_CLASS.matcher(source);
         String cls = cm.find() ? cm.group(1) : "Unknown";
         return pkg.isEmpty() ? cls : pkg + "." + cls;
+    }
+
+    /**
+     * Returns the simple superclass name of the top-level class in {@code source},
+     * or {@code null} if it declares no {@code extends} clause (or is an interface/
+     * enum/record). Used to build the class-hierarchy map for inheritance-aware
+     * annotation resolution.
+     */
+    public static String superclassOf(String source) {
+        Matcher em = EXTENDS.matcher(flatten(source));
+        if (!em.find()) return null;
+        String sup = em.group(1);
+        int dot = sup.lastIndexOf('.');
+        return dot < 0 ? sup : sup.substring(dot + 1);
     }
 
     /** Collapse newlines/tabs/multiple spaces so multi-line signatures match. */
