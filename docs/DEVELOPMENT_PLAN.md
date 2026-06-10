@@ -435,3 +435,30 @@ Decision inputs:
   combined redstone+entity tick once a shared world-state facade exists; and,
   externally blocked, wiring any of the self-consistency harnesses to a real
   Folia capture for true zero-diff DG1/DG2.
+
+### 2026-06-09 (NEBULA-PATCH-2026-001 §变更四 — T2/T3 fidelity tiers)
+
+- **Applied the external review patch's fidelity-tier spec** (docs/星云布丁002.md).
+  The patch defines four tiers (T0 strict → T1 statistical → T2 relaxed → T3
+  max-parallelism) and a downgrade path `T0→T1→T2→T3→fallback`. The code had
+  only T0/T1/T2 and jumped T2→fallback.
+  - `FidelityTier`: added `T3` (maximum parallelism, no determinism guarantee)
+    with full per-tier semantics documented from the patch.
+  - `FidelityDowngradeController`: implemented `T2→T3` (MSPT >50ms for 60s =
+    1200 ticks) per the patch's updated §16.2 table; `T3` is terminal under
+    metric pressure (only an unrecoverable DAG error forces fallback). Added
+    tests for the new transition, the MSPT-streak reset at T2, T3 terminality,
+    and the per-tier `requiresBudget`/`strictRandom` contract.
+- **Closed the loop to the live DG2 metric.** `EntityFidelityDowngradeIntegrationTest`
+  feeds the runner's measured `currentOverBudgetRate()` into the controller and
+  proves the end-to-end T0→T1 trigger. This surfaced an important, non-obvious
+  property of `RandomBudget`: it is **adaptive** (budget = max(1.5×historical,
+  min)), so *steady* high RNG usage is absorbed and does NOT downgrade — only
+  consumption that keeps *outrunning* the adaptive budget (a sustained spike)
+  trips the trigger. Both behaviours are now pinned by tests.
+- **Patch items still open** (tracked for later): 变更一 (Phase 1.5 annotation
+  maintenance toolchain), 变更二 (DAG build-time budget + degrade — partially
+  related to the existing FastBuildStats), 变更三 (VAP plugin certification),
+  变更五 (lock target MC 1.21.4), 变更六/七 (perf model + competitor docs).
+- **Next:** terrain-aware MOVE; combined redstone+entity tick; and the
+  externally-blocked Folia reference capture.
