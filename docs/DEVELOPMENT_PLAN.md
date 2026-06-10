@@ -457,8 +457,43 @@ Decision inputs:
   consumption that keeps *outrunning* the adaptive budget (a sustained spike)
   trips the trigger. Both behaviours are now pinned by tests.
 - **Patch items still open** (tracked for later): 变更一 (Phase 1.5 annotation
-  maintenance toolchain), 变更二 (DAG build-time budget + degrade — partially
-  related to the existing FastBuildStats), 变更三 (VAP plugin certification),
+  maintenance toolchain), 变更三 (VAP plugin certification),
   变更五 (lock target MC 1.21.4), 变更六/七 (perf model + competitor docs).
+- **Next:** terrain-aware MOVE; combined redstone+entity tick; and the
+  externally-blocked Folia reference capture.
+
+### 2026-06-09 (NEBULA-PATCH-2026-001 §变更二 — DAG build-time budget + degrade)
+
+- **Applied the patch's avalanche-prevention spec** (§4.3.1, §16.1). The patch
+  mandates a hard build-time budget so a single slow build (redstone computer,
+  dense farm) can't snowball into consecutive per-tick timeouts. Three
+  deterministically-testable pieces:
+  - `CoarseDagBuilder` — the legal-but-suboptimal fallback the degrade path
+    falls back *to*: a serial chain in `DeterministicOrdering` order. Always
+    acyclic (a chain has no cycles), so a topological sort always exists;
+    correctness preserved (all pairs ordered), only parallelism lost. Matches
+    the patch's "粗粒度串行块".
+  - `DagBuildBudget` — budget thresholds (2ms total, 1.5ms per-bucket coarsen,
+    0.5ms merge-opt skip), degrade recording, the 10-consecutive-tick admin
+    warning, and the §4.3.1 diagnostics: `build_time_p50/p99/max` over a
+    100-tick ring buffer plus `degraded_ticks_ratio`.
+  - `BudgetedDagBuilder` — facade that times the optimal `BucketDagBuilder` and,
+    once degradation is sustained (warning active), proactively switches to the
+    coarse builder until builds recover. Both paths yield a legal DAG.
+- **Deliberate scope call.** The patch also describes interrupting an in-flight
+  *parallel* build at 1.5ms and coarsening only the unfinished buckets. The
+  current `BucketDagBuilder` joins its fork-join tasks and can't be pre-empted
+  without risking nondeterminism (and the blocker doc warns against
+  destabilising it). So I implemented the coarser, deterministic guard
+  (detect sustained overrun → switch the whole build to the serial fallback)
+  and documented the per-bucket interruption as deferred pending an
+  interruptible parallel build.
+- **A real finding from a test failure.** The first `CoarseDagBuilder` tests
+  assumed lexicographic task ordering; they failed because the project's
+  `DeterministicOrdering.compareTaskIds` orders by SHA-256 hash, not
+  alphabetically. The production code was right — I rewrote the tests to assert
+  order-agnostic structural invariants (N-1 chain edges, single head/tail,
+  one task per topological layer) instead of a hard-coded sequence. More robust
+  and correct.
 - **Next:** terrain-aware MOVE; combined redstone+entity tick; and the
   externally-blocked Folia reference capture.
