@@ -673,3 +673,17 @@ Three features built against the decompiled MC 1.21.4 Mojmaps sources.
 - **Next:** wire the block-entity runner into the combined tick (3-way:
   redstone + entity + block-entity); fluids/explosions live paths; and the
   externally-blocked Folia reference capture.
+
+### 2026-06-10 (3-way combined tick — all subsystems in one DAG)
+
+- **Full cross-subsystem integration.** `ThreeWayCombinedTickTest` routes
+  redstone, entity physics, AND block entities through one `CompositeTaskRunner`
+  (three sub-runners, routed by task-type prefix: `BLOCK_ENTITY_` → block-entity,
+  `ENTITY_` → entity, fallthrough → redstone). All three subsystems build into
+  one DAG, advance correctly in a single tick (wire→14, entity falls, furnace
+  begins burning), and the combined tick replays deterministically over the
+  union of all three worlds.
+- This required no new production code — `BlockEntityTaskRunner` already
+  implements `LayerCommitting`, so it dropped straight into the composite. The
+  uniform subsystem shape (versioned CAS state → snapshot → context →
+  LayerCommitting runner) is what made 3-way composition a test-only addition.
