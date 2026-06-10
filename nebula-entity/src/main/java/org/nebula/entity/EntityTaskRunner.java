@@ -6,6 +6,7 @@ import org.nebula.core.random.RandomBudget;
 import org.nebula.core.scheduler.CompoundTask;
 import org.nebula.core.scheduler.DeterministicOrdering;
 import org.nebula.core.scheduler.TaskNode;
+import org.nebula.core.scheduler.LayerCommitting;
 import org.nebula.core.scheduler.TaskRunner;
 import org.nebula.core.state.RandomInstance;
 import org.nebula.core.state.RandomUsage;
@@ -42,7 +43,7 @@ import java.util.logging.Logger;
  * the DG2 over-budget metric ("random over-budget re-execution rate &lt;1%",
  * arch doc §11.2), queryable via {@link #currentOverBudgetRate()}.
  */
-public final class EntityTaskRunner implements TaskRunner {
+public final class EntityTaskRunner implements LayerCommitting {
 
     private static final Logger LOG = Logger.getLogger(EntityTaskRunner.class.getName());
 

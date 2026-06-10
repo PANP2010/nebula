@@ -3,6 +3,7 @@ package org.nebula.redstone;
 import org.nebula.core.scheduler.CompoundTask;
 import org.nebula.core.scheduler.DeterministicOrdering;
 import org.nebula.core.scheduler.TaskNode;
+import org.nebula.core.scheduler.LayerCommitting;
 import org.nebula.core.scheduler.TaskRunner;
 import org.nebula.core.state.WorldPos;
 
@@ -29,7 +30,7 @@ import java.util.logging.Logger;
  * runner.resetLayer(); // prepare for next layer
  * }</pre>
  */
-public final class RedstoneTaskRunner implements TaskRunner {
+public final class RedstoneTaskRunner implements LayerCommitting {
 
     private static final Logger LOG = Logger.getLogger(RedstoneTaskRunner.class.getName());
 
