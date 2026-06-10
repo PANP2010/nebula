@@ -530,3 +530,32 @@ each item:
   tracked in-repo. Full suite green.
 - **Next:** terrain-aware MOVE; combined redstone+entity tick; and the
   externally-blocked Folia reference capture / benchmark.
+
+### 2026-06-10 (变更一 upgrade — real MSD signature engine on decompiled 1.21.4)
+
+- **Decompiled MC 1.21.4 Mojmaps sources became available** (`decompiled MC/`,
+  gitignored — 6.9k `.java` files, WORLD_VERSION 4788). This unblocked the
+  signature-engine part of 变更一 I had deferred for lack of source input.
+- **Built the actual §14.3.5 组件 A engine** (`org.nebula.maintenance`):
+  - `MethodSignature` — owner + name + param-type identity, with a name+arity
+    key for rename/reorder detection.
+  - `JavaSignatureExtractor` — parses method declarations from decompiled Java:
+    flattens multi-line signatures, keeps generics with nested commas
+    (`StateDefinition.Builder<Block, BlockState>`), strips parameter annotations
+    (`@Nullable`, `@Block.UpdateFlags`) and `final`, normalises varargs, and
+    excludes constructors/fields/control-flow.
+  - `SignatureDiffer` — classifies old↔new method diffs into the existing
+    `ChangeLevel` (Level 0 unchanged / Level 1 param-or-rename / Level 2
+    return-type, modifier, or disappeared), with per-level summary counts and
+    the patch's auto-migration-rate metric.
+- **Validated against real Mojmaps output**, not just synthetic input: a
+  copied `RepeaterBlock.java` fixture lives in test resources, and an ad-hoc
+  cross-check ran the extractor over RedStoneWireBlock (35 methods),
+  ComparatorBlock, RedstoneTorchBlock, and DefaultRedstoneWireEvaluator —
+  correctly extracting 8-parameter signatures (`updateShape`) and
+  `MapCodec<? extends RedstoneTorchBlock>` generics.
+- **Honest remaining scope:** this is a source-signature diff. The patch also
+  describes a bytecode data-flow summary for finer Level 2 (semantic) detection
+  and the CI regression runner (组件 B) + dashboard wiring (组件 C is modelled,
+  not yet fed from a real annotation scan). Those remain future work; the
+  signature classifier they build on is now real and tested.
