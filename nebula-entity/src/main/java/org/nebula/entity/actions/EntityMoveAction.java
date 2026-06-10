@@ -9,20 +9,21 @@ import org.nebula.entity.Vec3;
 /**
  * Entity movement physics (arch doc §6.2, ENTITY_MOVE).
  *
- * <p>Deterministic ballistic integration with terrain collision:
+ * <p>Deterministic ballistic integration with swept terrain collision:
  * <ol>
  *   <li>Read current position and velocity.</li>
  *   <li>Apply gravity to the vertical velocity component, then drag.</li>
- *   <li>Integrate position by the new velocity (Euler step).</li>
- *   <li>If the block at the new position's feet is solid (read via the
- *       {@link TerrainView}), clamp the entity to rest on the block top and zero
- *       the downward velocity — terrain collision.</li>
+ *   <li>Sweep the descent in ≤1-block sub-steps, checking each cell along the
+ *       path via the {@link TerrainView}. The entity lands on the top of the
+ *       <em>first</em> solid block encountered — so a fast fall cannot tunnel
+ *       through thin floors, and the collision read never skips a cell.</li>
  *   <li>Write back both position and velocity.</li>
  * </ol>
  *
- * <p>The collision read uses the block cell the MOVE RW-set already declares
- * (the destination cell and the one below it), so declared and actual access
- * stay consistent — the invariant the RW-Set Integrity Checker enforces.
+ * <p>Swept (vs single-cell) collision keeps the block reads within the declared
+ * RW-set even at high speed: each probed cell is one of the column cells the
+ * MOVE RW-set covers, walked one block at a time rather than jumping to the
+ * destination cell, which a &gt;1 block/tick fall would otherwise skip.
  */
 public final class EntityMoveAction implements EntityTaskAction {
 
@@ -52,23 +53,50 @@ public final class EntityMoveAction implements EntityTaskAction {
             vel.x() * DRAG,
             (vel.y() + GRAVITY) * DRAG,
             vel.z() * DRAG);
-        Vec3 newPos = pos.add(newVel);
+        Vec3 target = pos.add(newVel);
 
-        // Terrain collision: if descending into a solid block, rest on its top.
-        TerrainView terrain = ctx.terrain();
         if (newVel.y() < 0) {
-            int feetBlockY = (int) Math.floor(newPos.y());
-            WorldPos below = new WorldPos(dimensionId,
-                (int) Math.floor(newPos.x()), feetBlockY, (int) Math.floor(newPos.z()));
-            if (terrain.isSolid(below)) {
-                // Clamp feet to the top surface of the solid block and stop the
-                // downward component. (Block at integer y occupies [y, y+1).)
-                newPos = new Vec3(newPos.x(), feetBlockY + 1.0, newPos.z());
+            target = sweepDescent(ctx.terrain(), pos, target);
+            // Landed iff the swept result sits higher than the unobstructed
+            // target (collision clamped it); zero the downward velocity then.
+            if (restedOn(ctx.terrain(), target)) {
                 newVel = new Vec3(newVel.x(), 0.0, newVel.z());
             }
         }
 
         ctx.writeVec(entityId, "velocity", newVel);
-        ctx.writeVec(entityId, "position", newPos);
+        ctx.writeVec(entityId, "position", target);
+    }
+
+    /**
+     * Sweeps the vertical descent from {@code from} to {@code to} one block at a
+     * time. Returns the resting position on top of the first solid block in the
+     * column, or {@code to} if the path is clear. Horizontal components are
+     * applied at the final position (this model resolves only vertical terrain
+     * collision, matching the declared column reads).
+     */
+    private Vec3 sweepDescent(TerrainView terrain, Vec3 from, Vec3 to) {
+        int startFeet = (int) Math.floor(from.y());
+        int endFeet = (int) Math.floor(to.y());
+        int col_x = (int) Math.floor(to.x());
+        int col_z = (int) Math.floor(to.z());
+
+        // Walk each block cell from just below the start down to the target,
+        // landing on the top face of the first solid one.
+        for (int y = startFeet - 1; y >= endFeet; y--) {
+            if (terrain.isSolid(new WorldPos(dimensionId, col_x, y, col_z))) {
+                return new Vec3(to.x(), y + 1.0, to.z());
+            }
+        }
+        return to;
+    }
+
+    /** True if a solid block sits directly beneath {@code pos}'s feet. */
+    private boolean restedOn(TerrainView terrain, Vec3 pos) {
+        int feetY = (int) Math.floor(pos.y());
+        // After landing, feet sit exactly on an integer y == blockY+1.
+        return pos.y() == feetY
+            && terrain.isSolid(new WorldPos(dimensionId,
+                (int) Math.floor(pos.x()), feetY - 1, (int) Math.floor(pos.z())));
     }
 }

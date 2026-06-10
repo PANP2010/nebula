@@ -108,6 +108,48 @@ class TerrainCollisionTest {
             "terrain-collision physics must be reproducible");
     }
 
+    @Test
+    void fastFallDoesNotTunnelThroughThinFloor() throws Exception {
+        // A single solid floor block at y=63 with open air above and below.
+        // An entity given a large downward velocity (>1 block/tick) must land
+        // ON the floor, not tunnel through it — the swept-collision guarantee.
+        WorldPos floorBlock = new WorldPos(DIM, 0, 63, 0);
+        TerrainView thinFloor = TerrainView.ofSolids(Set.of(floorBlock));
+
+        EntityPhysicsState state = new EntityPhysicsState();
+        long id = 1L;
+        state.put(new EntityField(id, "position"), new Vec3(0.5, 70, 0.5));
+        state.put(new EntityField(id, "velocity"), new Vec3(0, -8.0, 0)); // ~8 blocks/tick
+
+        for (int i = 0; i < 10; i++) {
+            step(state, id, thinFloor);
+        }
+
+        Vec3 pos = state.getVec(new EntityField(id, "position"));
+        assertEquals(64.0, pos.y(), EPS,
+            "fast-falling entity must land on the thin floor (y=64), not tunnel through");
+        assertEquals(0.0, state.getVec(new EntityField(id, "velocity")).y(), EPS);
+    }
+
+    @Test
+    void sweepLandsOnFirstSolidBlockNotLast() throws Exception {
+        // Stack of solids at y=60 and y=63; entity falls fast from above. It must
+        // rest on the HIGHER block (y=63 → top y=64), not punch down to y=60.
+        TerrainView stacked = TerrainView.ofSolids(Set.of(
+            new WorldPos(DIM, 0, 60, 0), new WorldPos(DIM, 0, 63, 0)));
+        EntityPhysicsState state = new EntityPhysicsState();
+        long id = 1L;
+        state.put(new EntityField(id, "position"), new Vec3(0.5, 75, 0.5));
+        state.put(new EntityField(id, "velocity"), new Vec3(0, -10.0, 0));
+
+        for (int i = 0; i < 10; i++) {
+            step(state, id, stacked);
+        }
+
+        assertEquals(64.0, state.getVec(new EntityField(id, "position")).y(), EPS,
+            "must land on the first (highest) solid block encountered, not tunnel to the lower one");
+    }
+
     private double simulateLanding() throws Exception {
         TerrainView floor = TerrainView.flatFloor(63);
         EntityPhysicsState state = new EntityPhysicsState();
