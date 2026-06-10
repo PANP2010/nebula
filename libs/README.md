@@ -40,6 +40,22 @@ This is the exact API build the adapter targets
 (`FoliaAdapterBoundary.TARGET_FOLIA_BUILD = "26.1.2.build.8-stable"`),
 Java 25 bytecode (class-file major version 69).
 
+### Transitive runtime libraries (`libs/folia-runtime/`)
+
+The API jar references types from adventure-text, JetBrains annotations, etc.
+Those are extracted from the bundled server's `META-INF/libraries`:
+
+```bash
+mkdir -p libs/folia-runtime
+unzip -o -q -j folia-26.1.2-8.jar "META-INF/libraries/*.jar" -d libs/folia-runtime/
+```
+
+Two logging APIs the server provides on its own classpath (not in the bundle)
+are copied in so proxy-based tests can resolve `org.bukkit.Plugin`/`World`
+method return types: `slf4j-api` and `log4j-api` (any recent version). The
+adapter build adds this whole directory to the compile + test classpath. Both
+`libs/*.jar` and `libs/folia-runtime/` are gitignored (large binaries).
+
 ### Note on detection markers
 
 `RegionizedServer` is a Folia **server-internal** class — NOT in the API jar.

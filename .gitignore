@@ -13,6 +13,7 @@ decompiled MC/
 # Large binaries / external trees kept locally but not committed:
 folia-*.jar
 libs/*.jar
+libs/folia-runtime/
 Folia-ver-26.1.x/
 main.zip
 *.DS_Store

@@ -17,13 +17,21 @@ tasks.withType<JavaCompile>().configureEach {
 
 val foliaApi = rootProject.layout.projectDirectory.file(
     "libs/folia-api-26.1.2.build.8-stable.jar")
+// The API jar references transitive types (adventure-text, JetBrains
+// annotations, etc.). The full set was extracted from the bundled server's
+// META-INF/libraries into libs/folia-runtime/ — see libs/README.md.
+val foliaRuntime = rootProject.layout.projectDirectory.dir("libs/folia-runtime")
 
 dependencies {
     implementation(project(":nebula-core"))
     implementation(project(":nebula-guard-api"))
+    implementation(project(":nebula-folia-bridge"))
     compileOnly(files(foliaApi))
+    compileOnly(fileTree(foliaRuntime) { include("*.jar") })
     testImplementation(files(foliaApi))
+    testImplementation(fileTree(foliaRuntime) { include("*.jar") })
     testRuntimeOnly(files(foliaApi))
+    testRuntimeOnly(fileTree(foliaRuntime) { include("*.jar") })
 }
 
 // Run tests on the Java 25 toolchain so the Java-25 Folia API classes load.
