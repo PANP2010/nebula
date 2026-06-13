@@ -21,7 +21,7 @@ public class DagBuildBenchmark {
     @Param({"50", "200", "500"})
     private int taskCount;
 
-    @Param({"independent", "redstone"})
+    @Param({"independent", "redstone", "redstone_sparse"})
     private String workload;
 
     @Param({"16", "128"})
@@ -35,7 +35,8 @@ public class DagBuildBenchmark {
         Random rng = new Random(42);
         tasks = switch (workload) {
             case "independent" -> independentBlockTasks();
-            case "redstone" -> redstoneWireTasks();
+            case "redstone" -> redstoneWireTasks(1);
+            case "redstone_sparse" -> redstoneWireTasks(8);
             default -> throw new IllegalArgumentException("Unknown workload: " + workload);
         };
         edges = new HashSet<>();
@@ -62,12 +63,17 @@ public class DagBuildBenchmark {
         return List.copyOf(generated);
     }
 
-    private List<TaskNode> redstoneWireTasks() {
+    /**
+     * Synthetic wire grid. Spacing 1 intentionally creates adjacent neighbour
+     * reads and large SCCs; larger spacing keeps wires disconnected for DAG
+     * builder cost comparisons without oversized-SCC noise.
+     */
+    private List<TaskNode> redstoneWireTasks(int spacing) {
         List<TaskNode> generated = new ArrayList<>(taskCount);
         int side = (int) Math.ceil(Math.sqrt(taskCount));
         for (int i = 0; i < taskCount; i++) {
-            int x = i % side;
-            int z = i / side;
+            int x = (i % side) * spacing;
+            int z = (i / side) * spacing;
             WorldPos self = new WorldPos(0, x, 64, z);
             RWSet rwSet = RWSet.builder()
                 .readBlock(new WorldPos(0, x - 1, 64, z))
