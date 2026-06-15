@@ -28,7 +28,13 @@ subprojects {
     }
 
     tasks.withType<Test>().configureEach {
-        useJUnitPlatform()
+        useJUnitPlatform {
+            // Long-running DG1-scale replays are tagged "slow" and skipped by
+            // default. Run them with: ./gradlew test -Pslow
+            if (!project.hasProperty("slow")) {
+                excludeTags("slow")
+            }
+        }
     }
 
     dependencies {

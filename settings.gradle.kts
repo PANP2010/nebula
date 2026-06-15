@@ -31,5 +31,6 @@ include(
     "nebula-folia-bridge",
     "nebula-plugin",
     "nebula-bench",
-//    "nebula-folia-adapter",  // Requires Java 25 + Folia API
+    "nebula-integration",
+    "nebula-folia-adapter",  // Java 25 + Folia 26.1.2 API (libs/folia-api-*.jar)
 )

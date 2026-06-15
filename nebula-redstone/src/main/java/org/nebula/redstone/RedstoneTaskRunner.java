@@ -1,6 +1,9 @@
 package org.nebula.redstone;
 
+import org.nebula.core.scheduler.CompoundTask;
+import org.nebula.core.scheduler.DeterministicOrdering;
 import org.nebula.core.scheduler.TaskNode;
+import org.nebula.core.scheduler.LayerCommitting;
 import org.nebula.core.scheduler.TaskRunner;
 import org.nebula.core.state.WorldPos;
 
@@ -27,7 +30,7 @@ import java.util.logging.Logger;
  * runner.resetLayer(); // prepare for next layer
  * }</pre>
  */
-public final class RedstoneTaskRunner implements TaskRunner {
+public final class RedstoneTaskRunner implements LayerCommitting {
 
     private static final Logger LOG = Logger.getLogger(RedstoneTaskRunner.class.getName());
 
@@ -59,6 +62,17 @@ public final class RedstoneTaskRunner implements TaskRunner {
 
     @Override
     public void run(TaskNode task) throws Exception {
+        // SCC contraction merges mutually-dependent redstone components (e.g. a
+        // wire line, which forms RAW cycles on neighbouring blocks plus a shared
+        // region-signal global) into a single COMPOUND_SCC task. Dispatch each
+        // member through the action registry in deterministic order so live
+        // behaviour survives contraction; otherwise the compound's built-in
+        // action (inert member no-ops) would run and the simulation would stall.
+        if (CompoundTask.isCompound(task)) {
+            runCompound(task);
+            return;
+        }
+
         RedstoneTaskAction action = actionRegistry.get(task.taskType());
         if (action == null) {
             // Fallback: run the task's built-in action without context
@@ -66,13 +80,45 @@ public final class RedstoneTaskRunner implements TaskRunner {
             return;
         }
 
-        WorldPos pos = RedstoneTaskGenerator.parsePosition(task.taskId());
+        runMember(task.taskId(), action);
+    }
+
+    private void runCompound(TaskNode compound) throws Exception {
+        List<String> memberIds = new ArrayList<>(CompoundTask.memberIds(compound));
+        memberIds.sort(DeterministicOrdering::compareTaskIds);
+
+        boolean ranAny = false;
+        for (String memberId : memberIds) {
+            String taskType = typeOf(memberId);
+            RedstoneTaskAction action = taskType == null ? null : actionRegistry.get(taskType);
+            if (action == null) {
+                continue; // member type has no live action; nothing to do
+            }
+            runMember(memberId, action);
+            ranAny = true;
+        }
+
+        if (!ranAny) {
+            // No member had a registered action — preserve the compound's own
+            // built-in behaviour as a fallback.
+            compound.action().execute();
+        }
+    }
+
+    private void runMember(String taskId, RedstoneTaskAction action) throws Exception {
+        WorldPos pos = RedstoneTaskGenerator.parsePosition(taskId);
         RedstoneStateSnapshot snapshot = new RedstoneStateSnapshot();
         RedstoneTaskContext context = new RedstoneTaskContext(world, snapshot, pos, tracer);
 
         action.execute(context);
 
-        layerSnapshots.put(task.taskId(), snapshot);
+        layerSnapshots.put(taskId, snapshot);
+    }
+
+    /** Extracts the task-type prefix from a redstone task ID ({@code TYPE@dim:x,y,z}). */
+    private static String typeOf(String taskId) {
+        int at = taskId.indexOf('@');
+        return at < 0 ? null : taskId.substring(0, at);
     }
 
     /**

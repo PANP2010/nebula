@@ -76,13 +76,47 @@ class FidelityDowngradeControllerTest {
     }
 
     @Test
-    void t2DoesNotDowngradeFurther() {
+    void t2DowngradesToT3AfterSustainedMspt() {
+        // Per NEBULA-PATCH-2026-001 §变更四: T2 → T3 after MSPT > 50ms for 60s
+        // (1200 ticks). Below the threshold it stays at T2.
         FidelityDowngradeController ctrl = new FidelityDowngradeController(FidelityTier.T2);
-        // Many bad ticks at T2 — stays at T2
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 1199; i++) {
             ctrl.reportTick(0.5, 100);
         }
         assertEquals(FidelityTier.T2, ctrl.currentTier());
+
+        ctrl.reportTick(0.5, 100);
+        assertEquals(FidelityTier.T3, ctrl.currentTier());
+    }
+
+    @Test
+    void t2MsptCounterResetsOnGoodTick() {
+        FidelityDowngradeController ctrl = new FidelityDowngradeController(FidelityTier.T2);
+        for (int i = 0; i < 1000; i++) {
+            ctrl.reportTick(0.0, 100);
+        }
+        assertEquals(1000, ctrl.consecutiveMsptExceededCount());
+        ctrl.reportTick(0.0, 10); // good tick resets the streak
+        assertEquals(0, ctrl.consecutiveMsptExceededCount());
+        assertEquals(FidelityTier.T2, ctrl.currentTier());
+    }
+
+    @Test
+    void t3IsTerminalUnderMetricPressure() {
+        // T3 is "maximum parallelism"; only an unrecoverable DAG error
+        // (forceFallback) drops below it. Metric pressure alone keeps it at T3.
+        FidelityDowngradeController ctrl = new FidelityDowngradeController(FidelityTier.T3);
+        for (int i = 0; i < 2000; i++) {
+            ctrl.reportTick(0.9, 200);
+        }
+        assertEquals(FidelityTier.T3, ctrl.currentTier());
+    }
+
+    @Test
+    void t3DropsToFallbackOnForcedError() {
+        FidelityDowngradeController ctrl = new FidelityDowngradeController(FidelityTier.T3);
+        ctrl.forceFallback();
+        assertEquals(FidelityTier.FALLBACK, ctrl.currentTier());
     }
 
     @Test
@@ -90,5 +124,17 @@ class FidelityDowngradeControllerTest {
         assertFalse(FidelityTier.FALLBACK.dagEnabled());
         assertTrue(FidelityTier.T0.dagEnabled());
         assertTrue(FidelityTier.T2.dagEnabled());
+        assertTrue(FidelityTier.T3.dagEnabled());
+    }
+
+    @Test
+    void onlyT0EnforcesBudgetAndStrictRandom() {
+        assertTrue(FidelityTier.T0.requiresBudget());
+        assertTrue(FidelityTier.T0.strictRandom());
+        for (FidelityTier t : new FidelityTier[]{FidelityTier.T1, FidelityTier.T2,
+                FidelityTier.T3, FidelityTier.FALLBACK}) {
+            assertFalse(t.requiresBudget(), t + " must not enforce budget");
+            assertFalse(t.strictRandom(), t + " must not require strict random");
+        }
     }
 }

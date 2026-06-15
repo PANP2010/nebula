@@ -3,6 +3,7 @@ package org.nebula.bench;
 import org.nebula.core.bucket.BucketDagBuilder;
 import org.nebula.core.rw.RWSet;
 import org.nebula.core.scheduler.*;
+import org.nebula.core.state.EntityField;
 import org.nebula.core.state.WorldPos;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
@@ -18,10 +19,10 @@ import java.util.concurrent.TimeUnit;
 @Fork(1)
 public class DagBuildBenchmark {
 
-    @Param({"50", "200", "500"})
+    @Param({"50", "200", "500", "1000", "4000", "8000"})
     private int taskCount;
 
-    @Param({"independent", "redstone", "redstone_sparse"})
+    @Param({"independent", "redstone", "redstone_sparse", "entityOnly", "conflictHeavy"})
     private String workload;
 
     @Param({"16", "128"})
@@ -37,6 +38,8 @@ public class DagBuildBenchmark {
             case "independent" -> independentBlockTasks();
             case "redstone" -> redstoneWireTasks(1);
             case "redstone_sparse" -> redstoneWireTasks(8);
+            case "entityOnly" -> entityOnlyTasks();
+            case "conflictHeavy" -> conflictHeavyTasks();
             default -> throw new IllegalArgumentException("Unknown workload: " + workload);
         };
         edges = new HashSet<>();
@@ -85,6 +88,36 @@ public class DagBuildBenchmark {
                 .writeBlock(self)
                 .build();
             generated.add(new TaskNode("task-" + i, "redstone", rwSet, () -> {}));
+        }
+        return List.copyOf(generated);
+    }
+
+    private List<TaskNode> entityOnlyTasks() {
+        List<TaskNode> generated = new ArrayList<>(taskCount);
+        for (int i = 0; i < taskCount; i++) {
+            long entityId = i;
+            RWSet rwSet = RWSet.builder()
+                .readEntity(new EntityField(entityId, "position"))
+                .writeEntity(new EntityField(entityId, "velocity"))
+                .build();
+            generated.add(TaskNode.parallelSafe("task-" + i, "entityOnly", rwSet, () -> {}));
+        }
+        return List.copyOf(generated);
+    }
+
+    private List<TaskNode> conflictHeavyTasks() {
+        List<TaskNode> generated = new ArrayList<>(taskCount);
+        int hotSetSize = Math.max(1, Math.min(64, taskCount / 8));
+        for (int i = 0; i < taskCount; i++) {
+            WorldPos self = new WorldPos(0, i % hotSetSize, 64, 0);
+            WorldPos previous = new WorldPos(0, (i + hotSetSize - 1) % hotSetSize, 64, 0);
+            WorldPos next = new WorldPos(0, (i + 1) % hotSetSize, 64, 0);
+            RWSet rwSet = RWSet.builder()
+                .readBlock(previous)
+                .readBlock(next)
+                .writeBlock(self)
+                .build();
+            generated.add(new TaskNode("task-" + i, "conflictHeavy", rwSet, () -> {}));
         }
         return List.copyOf(generated);
     }

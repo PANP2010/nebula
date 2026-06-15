@@ -131,6 +131,10 @@ public final class EntityTaskFactory {
             .readBlock(new WorldPos(dim, e.x(), e.y(), e.z() + 1))
             .readBlock(new WorldPos(dim, e.x(), e.y(), e.z() - 1))
             .writeEntity(field(e.entityId(), "position"))
+            // The live MOVE action applies gravity to velocity then integrates
+            // position, so velocity is both read and written (declared here to
+            // keep the RW-set consistent with what the action touches).
+            .writeEntity(field(e.entityId(), "velocity"))
             .writeEvent(EventType.ENTITY_MOVED);
         return b.build();
     }

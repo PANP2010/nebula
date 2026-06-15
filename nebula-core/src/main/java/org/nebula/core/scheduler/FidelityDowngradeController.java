@@ -5,23 +5,26 @@ import org.nebula.core.random.FidelityTier;
 import java.util.Objects;
 
 /**
- * Monitors tick health and triggers fidelity tier downgrades (arch doc §16.2).
+ * Monitors tick health and triggers fidelity tier downgrades
+ * (arch doc §16.2; NEBULA-PATCH-2026-001 §变更四).
  *
- * <p>Downgrade path: T0 → T1 → T2 → single-thread fallback.
+ * <p>Downgrade path: T0 → T1 → T2 → T3 → single-thread fallback.
  * Upgrades are never automatic — admin must issue /nebula fidelity reset.
  *
  * <p>Triggers:
  * <ul>
  *   <li>T0→T1: consecutive 10 ticks with Random over-budget rate &gt; 5%</li>
  *   <li>T1→T2: MSPT &gt; 50ms for 30 consecutive seconds (600 ticks)</li>
- *   <li>T2→fallback: unrecoverable DAG build error</li>
+ *   <li>T2→T3: MSPT &gt; 50ms for 60 consecutive seconds (1200 ticks)</li>
+ *   <li>any→fallback: unrecoverable DAG build error (via {@link #forceFallback()})</li>
  * </ul>
  */
 public final class FidelityDowngradeController {
 
     private static final int RANDOM_DOWNGRADE_THRESHOLD_TICKS = 10;
     private static final double RANDOM_OVER_BUDGET_RATE = 0.05;
-    private static final int MSPT_DOWNGRADE_THRESHOLD_TICKS = 600;
+    private static final int MSPT_T1_T2_THRESHOLD_TICKS = 600;   // 30s at 20 TPS
+    private static final int MSPT_T2_T3_THRESHOLD_TICKS = 1200;  // 60s at 20 TPS
     private static final long MSPT_LIMIT_MS = 50;
 
     private FidelityTier currentTier;
@@ -47,7 +50,7 @@ public final class FidelityDowngradeController {
     public FidelityTier reportTick(double randomOverBudgetRate, long mspt) {
         if (forcedFallback) return FidelityTier.FALLBACK;
 
-        // T0 → T1: Random over-budget
+        // T0 → T1: Random over-budget for 10 consecutive ticks.
         if (currentTier == FidelityTier.T0) {
             if (randomOverBudgetRate > RANDOM_OVER_BUDGET_RATE) {
                 consecutiveRandomOverBudget++;
@@ -58,14 +61,22 @@ public final class FidelityDowngradeController {
             } else {
                 consecutiveRandomOverBudget = 0;
             }
+            return currentTier;
         }
 
-        // T1 → T2: MSPT exceeded
-        if (currentTier == FidelityTier.T1) {
+        // T1 → T2 (600 ticks over MSPT) and T2 → T3 (1200 ticks over MSPT) are
+        // both driven by sustained MSPT pressure. The threshold differs per
+        // tier; a clean tick resets the streak.
+        if (currentTier == FidelityTier.T1 || currentTier == FidelityTier.T2) {
             if (mspt > MSPT_LIMIT_MS) {
                 consecutiveMsptExceeded++;
-                if (consecutiveMsptExceeded >= MSPT_DOWNGRADE_THRESHOLD_TICKS) {
-                    currentTier = FidelityTier.T2;
+                int threshold = currentTier == FidelityTier.T1
+                    ? MSPT_T1_T2_THRESHOLD_TICKS
+                    : MSPT_T2_T3_THRESHOLD_TICKS;
+                if (consecutiveMsptExceeded >= threshold) {
+                    currentTier = currentTier == FidelityTier.T1
+                        ? FidelityTier.T2
+                        : FidelityTier.T3;
                     consecutiveMsptExceeded = 0;
                 }
             } else {

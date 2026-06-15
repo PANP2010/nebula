@@ -1,5 +1,115 @@
 # Nebula Blockers
 
+## Release-Blocker Update (2026-06-10) — Folia adapter now builds against the real API
+
+**The #1 playable-release blocker is resolved.** Previously the NMS/Folia
+binding (`nebula-folia-adapter`) was disabled — "Requires Java 25 + Folia API",
+neither of which was available. Both are now present and the module **compiles
+and tests green against the real Folia 26.1.2 API**:
+
+- Full **JDK 25** at `/home/kuli/jdks/jdk-25.0.3` (with `javac`).
+- **Folia 26.1.2** bundled server (`folia-26.1.2-8.jar`) + its API jar
+  (`folia-api-26.1.2.build.8-stable.jar`, extracted to `libs/`) — the exact
+  build the adapter targets.
+- Decompiled MC **26.1.2** Mojmaps sources (`decompiled MC/`, WORLD_VERSION 4790).
+- Mixed-toolchain build works: the adapter compiles + tests on Java 25, all
+  other modules on Java 21; `./gradlew test` builds all 10 modules green.
+
+**Real-API finding:** `RegionizedServer` is a Folia *server-internal* class,
+absent from the API jar — so the adapter's original detection marker would have
+silently failed when compiled against the API. `FoliaRuntimeDetector` now probes
+the API class `RegionScheduler` for `isFoliaRuntime()` and keeps `RegionizedServer`
+for the stricter `isFoliaServer()` runtime check.
+
+**What this unblocks (and what still remains):** the adapter can now be written
+against real Folia types (region schedulers, `Bukkit#isOwnedByCurrentRegion`,
+etc.). Still ahead to a playable jar: (1) implement the adapter's NMS hooks
+(currently just runtime detection + boundary constants); (2) wire the
+`CompositeTaskRunner` + subsystem runners into the live server tick; (3) bind the
+versioned CAS state stores to real NMS `ItemStack`/entity/block state; (4) run
+the reference-capture harness against this Folia server for true zero-diff
+DG1/DG2. But the environment wall is down — these are now in-repo engineering
+tasks, not "needs an environment we don't have".
+
+---
+
+## Progress Update (2026-06-10) — determinism foundation + patch NEBULA-PATCH-2026-001
+
+A focused build-out session (branch `fix/tarjan-scc-overflow-and-dag-baseline`)
+that turned several P6 "PARTIAL/STUB" rows into genuinely-live, test-backed
+subsystems and implemented the external-review patch end to end. This does **not**
+overturn the P6 verdict for *production-server* integration (the bundler still
+schedules without a live NMS binding, and zero-diff-vs-vanilla remains gated on a
+Folia capture environment) — but the deterministic-execution core is now real and
+exercised by automated tests, not just modelled.
+
+### What became genuinely live (was PARTIAL/STUB in P6)
+
+| P6 row | Was | Now |
+|---|---|---|
+| §5 Redstone | "live path uses empty action registry → inert no-ops" | **Live.** `RedstoneActions.defaults()` wired; wire/torch/repeater/comparator execute through the snapshot/CAS path. Found+fixed a real bug: live actions didn't survive SCC contraction (`COMPOUND_SCC` fell back to inert members) — `RedstoneTaskRunner` now dispatches compound members through the registry. |
+| §6 Physics+Collision | "named MOVE/COLLISION tasks are dead" | **Live.** `EntityPhysicsState` (versioned CAS store), `EntityMoveAction` (gravity+drag+Euler), `EntityCollisionResponseAction` (elastic), `EntityTickExecutor`. MOVE is now **terrain-aware** via a read-only `TerrainView` (closes the declared-vs-actual block-read gap). |
+| §11 Layered Random | "effectively always T1; T0 gen absent" | **Order-independent T0 seeding live.** `LayeredRandomSource` derives per-task streams from `(worldSeed, tick, entityId, instance)` via SplitMix64; proven order-independent two ways (shuffled DAG input + raw forward/reverse runner). `RandomBudget` now fed from real execution → live DG2 over-budget metric. |
+| §12 Determinism Verify | "replay = hash trail only" | **Self-consistency proven at scale.** Redstone replay determinism suite (wire line, single-source microstep, torch burnout, repeater delay) incl. a 10k-tick `slow`-tagged DG1-scale check; entity physics determinism to 5k ticks; a reference-capture harness (`save`→`load`→re-run→verify) ready to plug a Folia capture into. Still self-consistency, NOT zero-diff vs vanilla. |
+| §16 Errors/Degradation | "fidelity tier is a label" | **Downgrade path live.** `FidelityDowngradeController` implements T0→T1→T2→T3→fallback (T3 added per patch §变更四) driven by the live over-budget rate and MSPT; integration-tested end to end. |
+
+### Cross-subsystem integration (new — was not even a P6 row)
+
+- **Combined redstone+entity tick.** `CompositeTaskRunner` (nebula-core) routes
+  tasks to subsystem runners by type, so redstone wire propagation and entity
+  physics build into **one DAG** and execute together. New `nebula-integration`
+  test module proves both subsystems advance in one tick, the combined run
+  replays deterministically (hash of both worlds), and unrouted task types fail
+  loudly. This is the first concrete demonstration of the core architectural
+  claim — causally-independent tasks share one graph regardless of subsystem.
+- New core primitives: `LayerCommitting` interface (shared layer commit
+  lifecycle), `CoarseDagBuilder` + `DagBuildBudget` + `BudgetedDagBuilder`
+  (patch §变更二 — DAG build-time budget + avalanche guard with p50/p99/max
+  diagnostics), `TarjanScc` made iterative (fixed a real `StackOverflowError` on
+  deep dependency chains at the 4000-8000 task scale Nebula targets).
+
+### Subsystem build-out (2026-06-10, second pass)
+
+Three more P6 rows advanced, built against the decompiled MC 1.21.4 sources:
+
+| P6 row | Was | Now |
+|---|---|---|
+| §6 Physics+Collision | "single-cell collision; fast falls undeclared-read risk" | **Swept collision.** `EntityMoveAction` sweeps the descent block-by-block, landing on the first solid cell — a >1 block/tick fall can't tunnel, and every probed cell is RW-set-declared. |
+| §7 AI+POI | "AI 4-task split is test-only" | **AI pipeline live.** SENSE→GOAL_SELECT→PATHFIND→ACT execute as real actions over the entity state layer, forming a RAW chain (4 serial layers/entity), RNG within declared budget, deterministic + order-independent across a population. POI RCU still absent. |
+| §6 Block entities | "BE tasks exist; live behaviour absent" | **Hopper + furnace live.** New versioned `BlockEntityState` + `BlockEntityTaskRunner` (composes via `LayerCommitting`). Hopper = 1-item move + 8-tick cooldown (`MOVE_ITEM_SPEED`); furnace = smelt at 200 cook-ticks (`BURN_TIME_STANDARD`) consuming fuel — faithful to decompiled constants. |
+
+Same honest scope caveat: self-consistent and test-backed in the module
+libraries, not yet wired into the production bundler; fluids/explosions live
+paths and POI remain. The block-entity runner is not yet routed into the
+3-way combined tick (redstone + entity + block-entity) — next step.
+
+### NEBULA-PATCH-2026-001 — all 7 items addressed
+
+变更一 (Phase 1.5 annotation maintenance — MSD signature extractor + differ +
+regression runner + coverage dashboard, validated against **real decompiled MC
+1.21.4 Mojmaps sources**, with inheritance-aware resolution that caught the
+`RepeaterBlock.tick`→`DiodeBlock.tick` inheritance case); 变更二 (build budget,
+above); 变更三 (VAP plugin certification model + searchable catalog); 变更四
+(T2/T3 fidelity tiers, above); 变更五 (`TargetVersion` MC 1.21.4 anchor); 变更
+六/七 (revised perf model + competitor analysis, `docs/patch-002-perf-and-competitor.md`).
+
+### Honest scope of this update
+
+- Everything above is **self-consistent** (Nebula reproduces itself), validated
+  by automated tests in the gradle suite. The remaining gap to true DG1/DG2 is
+  **zero-diff against vanilla**, which needs a real Folia server capture — the
+  one external blocker, now a single well-defined plug-in point (the
+  reference-capture harness).
+- The §变更一 MSD is a *source-signature* diff; the bytecode data-flow summary
+  for finer Level 2 semantic detection needs compiled classes and is future work.
+- Terrain collision reads the cell below the new position; a >1 block/tick fall
+  could read an undeclared cell — swept/sub-stepped collision is future work.
+- These changes are in the module libraries, not yet wired into the live
+  production bundler/NMS path — the P6 "schedules without parallelizing in
+  production" observation still stands for the server jar.
+
+---
+
 ## Architecture Audit (2026-05-30) — P6 (adversarial, 16-section deep audit)
 
 A full adversarial re-audit of `docs/星云架构.md` against the codebase

@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.nebula.core.rw.RWSet;
 import org.nebula.core.state.WorldPos;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -135,5 +136,39 @@ class TarjanSccTest {
         assertEquals(1, components.size());
         assertTrue(components.get(0).containsAll(Set.of("C", "D")));
         assertFalse(components.get(0).contains("B"));
+    }
+
+    @Test
+    void deepLinearChainDoesNotOverflowStack() {
+        // A 20k-node linear chain n0 -> n1 -> ... would recurse ~20k deep in a
+        // naive recursive Tarjan and overflow the JVM stack. The iterative
+        // implementation must handle it and report no cycles.
+        int n = 20_000;
+        List<String> nodes = new ArrayList<>(n);
+        List<DependencyEdge> edges = new ArrayList<>(n - 1);
+        for (int i = 0; i < n; i++) {
+            nodes.add("n" + i);
+            if (i > 0) {
+                edges.add(new DependencyEdge("n" + (i - 1), "n" + i, DependencyType.RAW));
+            }
+        }
+        List<Set<String>> components = TarjanScc.compute(nodes, edges);
+        assertTrue(components.isEmpty(), "Deep linear chain has no cycles");
+    }
+
+    @Test
+    void deepCycleIsSingleComponent() {
+        // A large cycle n0 -> n1 -> ... -> n(N-1) -> n0 must be reported as one
+        // SCC containing every node, without overflowing the stack.
+        int n = 20_000;
+        List<String> nodes = new ArrayList<>(n);
+        List<DependencyEdge> edges = new ArrayList<>(n);
+        for (int i = 0; i < n; i++) {
+            nodes.add("n" + i);
+            edges.add(new DependencyEdge("n" + i, "n" + ((i + 1) % n), DependencyType.RAW));
+        }
+        List<Set<String>> components = TarjanScc.compute(nodes, edges);
+        assertEquals(1, components.size());
+        assertEquals(n, components.get(0).size());
     }
 }

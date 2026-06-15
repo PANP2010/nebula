@@ -61,6 +61,15 @@ class EntityTaskFactoryTest {
     }
 
     @Test
+    void moveTask_writesVelocity_forGravityIntegration() {
+        // The live MOVE action applies gravity to velocity then integrates
+        // position, so the RW-set must declare the velocity write to stay
+        // consistent with what EntityMoveAction touches.
+        TaskNode t = EntityTaskFactory.moveInert(ENTITY_A);
+        assertTrue(t.declaredRWSet().declaresEntityWrite(new EntityField(1L, "velocity")));
+    }
+
+    @Test
     void moveTask_readsTerrainBlocks() {
         TaskNode t = EntityTaskFactory.moveInert(ENTITY_A);
         RWSet rw = t.declaredRWSet();
