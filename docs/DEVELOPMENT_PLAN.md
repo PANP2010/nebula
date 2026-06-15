@@ -687,3 +687,26 @@ Three features built against the decompiled MC 1.21.4 Mojmaps sources.
   implements `LayerCommitting`, so it dropped straight into the composite. The
   uniform subsystem shape (versioned CAS state → snapshot → context →
   LayerCommitting runner) is what made 3-way composition a test-only addition.
+
+### 2026-06-10 (Folia region tick driver — region-aware scheduling)
+
+Building on FoliaRegionBridge, the adapter now has the seam between Nebula's
+per-position DAG and Folia's region threading.
+
+- **FoliaRegionTickDriver** (nebula-folia-adapter): per region tick it filters
+  the dirty task set to tasks whose position the *current* region owns
+  (`FoliaRegionBridge.ownsCurrentRegion`), runs only that subset through the
+  Nebula executor, and returns the foreign-region tasks so the caller can defer
+  them. `dispatchForeignTasks` hands each foreign task back to the region thread
+  that owns its position via `RegionScheduler.execute`. This keeps Nebula's
+  scheduling consistent with Folia ownership instead of touching foreign regions
+  from the wrong thread.
+- Tested against the real Folia API with a stubbed Server whose ownership
+  verdict is controllable per coordinate: owned/foreign partition, executor only
+  runs on owned tasks, and foreign-task dispatch lands on the owning region's
+  chunk (block>>4).
+- **Release-path position:** this is the region-aware half of "wire the
+  scheduler into the live tick" (#2). Still ahead: invoke this driver from the
+  actual Folia region tick lifecycle (the bridge's RedstoneTickHook beginTick/
+  endTick already models it), bind the CAS state stores to real NMS state (#3),
+  and run a zero-diff capture against the Folia server (#4).
