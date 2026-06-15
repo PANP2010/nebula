@@ -114,6 +114,7 @@ class SccContractionTest {
 
     @Test
     void oversizedSccIsSerialised() {
+        SccStats.reset();
         int threshold = 3;
         SccContractor contractor = new SccContractor(threshold);
 
@@ -134,6 +135,16 @@ class SccContractionTest {
 
         // Must be layerable (serialisation breaks the cycle)
         assertDoesNotThrow(() -> graph.topologicalLayers());
+        assertTrue(graph.edges().contains(new DependencyEdge("A", "B", DependencyType.WAW)));
+        assertTrue(graph.edges().contains(new DependencyEdge("B", "C", DependencyType.WAW)));
+        assertTrue(graph.edges().contains(new DependencyEdge("C", "D", DependencyType.WAW)));
+
+        assertEquals(1, SccStats.builds());
+        assertEquals(1, SccStats.buildsWithCycles());
+        assertEquals(1, SccStats.totalSccs());
+        assertEquals(0, SccStats.contracted());
+        assertEquals(1, SccStats.serialised());
+        assertEquals(4, SccStats.maxSccSize());
     }
 
     @Test
