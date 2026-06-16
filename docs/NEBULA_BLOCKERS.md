@@ -33,7 +33,46 @@ tasks, not "needs an environment we don't have".
 
 ---
 
+## Progress Update (2026-06-16) — region-aware tick executor closes the lifecycle seam
+
+Release-path task #2 ("wire the scheduler into the live region tick") had two
+halves. The first — `FoliaRegionTickDriver`, which partitions a dirty-task set
+into region-*owned* vs *foreign* and dispatches each to the correct region thread
+— landed earlier (PR #6). This update adds the **second half**:
+`FoliaRegionTickExecutor` (`nebula-folia-adapter`).
+
+It implements `RedstoneTickHook.TickExecutor` — the exact callback the modeled
+tick lifecycle (`beginTick → recordUpdate → endTick`) hands its per-tick dirty
+tasks to. On each invocation it:
+
+1. resolves the `World` for the ticking dimension (`Server#getWorld`);
+2. partitions dirty tasks via `FoliaRegionTickDriver#tickOwnedTasks`;
+3. runs the **owned** partition inline on the current region thread through an
+   injected `OwnedDagRunner` (the real DAG executor, e.g. `MicroStepScheduler`);
+4. dispatches each **foreign** task onto its owning region thread, where the same
+   runner executes it in the correct region context.
+
+It is deliberately subsystem-agnostic: the task-id→`WorldPos` decoder and the DAG
+runner are injected, so redstone, entity-physics, and block-entity subsystems
+reuse the same wiring. Four tests (owned-inline / foreign-dispatch partition,
+unresolvable-world drop, empty no-op, all-owned no-dispatch) pass against the real
+Folia API with a proxy-stubbed `Server`/`RegionScheduler`.
+
+**What still remains:** this executor is the region-aware successor to the
+region-*blind* shadow executor currently wired in `NebulaPlugin` (Phase-0 OBSERVE).
+Swapping it in is gated on a **plugin toolchain migration** — `nebula-plugin`
+still compiles against Java 21 / the old `folia-api:1.21.4` and links the
+`nebula-folia-bridge` abstractions, whereas the executor lives in the Java-25 /
+Folia-26.1.2 adapter. Reconciling those (move the plugin onto the 26.1.2 adapter,
+or bridge the executor behind a bridge-level interface) is the next concrete step,
+after which the live tick uses real region-aware dispatch instead of the shadow
+DAG. Remaining release-path tasks #3 (bind CAS stores to real NMS state) and #4
+(zero-diff capture against the Folia server) are unchanged.
+
+---
+
 ## Progress Update (2026-06-10) — determinism foundation + patch NEBULA-PATCH-2026-001
+
 
 A focused build-out session (branch `fix/tarjan-scc-overflow-and-dag-baseline`)
 that turned several P6 "PARTIAL/STUB" rows into genuinely-live, test-backed
