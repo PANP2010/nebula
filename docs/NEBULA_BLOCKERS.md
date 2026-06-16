@@ -112,7 +112,7 @@ above); 变更三 (VAP plugin certification model + searchable catalog); 变更�
 
 ## Architecture Audit (2026-05-30) — P6 (adversarial, 16-section deep audit)
 
-A full adversarial re-audit of `docs/星云架构.md` against the codebase
+A full adversarial re-audit of `docs/nebula-architecture.md` against the codebase
 (16 parallel section auditors + adversarial re-checks of every IMPLEMENTED
 claim). **Verdict: kernel-complete, integration-incomplete. NOT fully
 implemented.** This supersedes the more optimistic P5 summary below where they
@@ -231,7 +231,7 @@ no determinism or performance gate has been demonstrated.
 ## Architecture Audit (2026-05-29) — P5
 
 
-A second audit pass of `docs/星云架构.md` against the implementation found
+A second audit pass of `docs/nebula-architecture.md` against the implementation found
 the following NEW gaps (not in the 2026-05-28 list below). Resolved during
 this session unless noted:
 
@@ -278,7 +278,7 @@ this session unless noted:
 
 ## Architecture Audit (2026-05-28) — P0
 
-A full re-read of `docs/星云架构.md` against the implementation found and fixed
+A full re-read of `docs/nebula-architecture.md` against the implementation found and fixed
 the following deviations:
 
 1. **§4.1-§4.3 spatial bucket DAG building was unwired.** `BucketDagBuilder`

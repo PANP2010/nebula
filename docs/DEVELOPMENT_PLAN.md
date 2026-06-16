@@ -438,7 +438,7 @@ Decision inputs:
 
 ### 2026-06-09 (NEBULA-PATCH-2026-001 §变更四 — T2/T3 fidelity tiers)
 
-- **Applied the external review patch's fidelity-tier spec** (docs/星云布丁002.md).
+- **Applied the external review patch's fidelity-tier spec** (docs/nebula-patch-002.md).
   The patch defines four tiers (T0 strict → T1 statistical → T2 relaxed → T3
   max-parallelism) and a downgrade path `T0→T1→T2→T3→fallback`. The code had
   only T0/T1/T2 and jumped T2→fallback.

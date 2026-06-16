@@ -17,3 +17,6 @@ libs/folia-runtime/
 Folia-ver-26.1.x/
 main.zip
 *.DS_Store
+# Minecraft world saves (large binary, kept locally only):
+test world/
+测试存档，超大范围铁路系统/
