@@ -35,6 +35,22 @@ tasks, not "needs an environment we don't have".
 
 ---
 
+---
+
+## Progress Update (2026-06-18) — entity physics DAG runner wired
+
+Entity physics now executes through the same OwnedDagRunner pipeline as redstone.
+
+NebulaPlugin creates:
+- EntityTaskRunner with action resolver (MOVE, COLLISION)
+- EntityTickExecutor for layered DAG execution
+- resolveEntityAction() parses task IDs → entity IDs → constructs actions
+
+Entity actions are dynamically created per task (EntityMoveAction, EntityCollisionResponseAction)
+based on entity ID parsed from task ID suffix.
+
+Full build green (56 tasks).
+
 ## Progress Update (2026-06-18) — E2E integration test added
 
 Added `E2eIntegrationTest` (nebula-plugin) verifying all components wired together.
