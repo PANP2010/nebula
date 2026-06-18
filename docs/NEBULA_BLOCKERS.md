@@ -33,6 +33,20 @@ tasks, not "needs an environment we don't have".
 
 ---
 
+---
+
+## Progress Update (2026-06-18) — E2E integration test added
+
+Added `E2eIntegrationTest` (nebula-plugin) verifying all components wired together.
+
+Tests: allComponentsInitialized, registerComponentWorks, casStoreRoundTrip,
+stateHasherCreatedWithTrackedPositions, redstoneActionsRegistryIsComplete,
+emptyDagExecutionSucceeds.
+
+Full build green (56 tasks).
+
+**First playable release imminent.** Remaining: zero-diff validation, entity physics DAG.
+
 ## Progress Update (2026-06-18) — MicroStepScheduler wired into live DAG tick
 
 The DAG execution pipeline is now **fully wired**. The OwnedDagRunner in
