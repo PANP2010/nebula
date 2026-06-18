@@ -85,7 +85,9 @@ public final class NebulaPlugin extends JavaPlugin {
     // Entity physics DAG
     private EntityTickExecutor entityTickExecutor;
     private EntityTaskRunner entityRunner;
-    private Map<String, org.nebula.entity.EntityTaskAction> entityActions;
+
+    // Composite DAG runner (redstone + entity)
+    private CompositeTaskRunner compositeRunner;
 
     // Capture harness (optional)
     private FoliaCaptureHarness captureHarness;
@@ -122,6 +124,12 @@ public final class NebulaPlugin extends JavaPlugin {
         entityRunner = new EntityTaskRunner(entityState,
             taskId -> resolveEntityAction(taskId));
         entityTickExecutor = new EntityTickExecutor(entityRunner);
+
+        // Create composite runner for unified redstone + entity DAG
+        compositeRunner = new CompositeTaskRunner()
+            .routeByTypePrefix("REDSTONE_", redstoneRunner)
+            .routeByTypePrefix("MOVE", entityRunner)
+            .routeByTypePrefix("COLLISION", entityRunner);
 
         Server server = getServer();
         RWGuardConfig guardConfig = new RWGuardConfig(

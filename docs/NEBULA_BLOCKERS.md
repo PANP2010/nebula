@@ -37,6 +37,24 @@ tasks, not "needs an environment we don't have".
 
 ---
 
+---
+
+## Progress Update (2026-06-18) — CompositeTaskRunner unifies redstone + entity DAG
+
+The architecture's cross-subsystem claim is now live: causally-independent
+tasks — whether redstone or entity — share one combined DAG via CompositeTaskRunner.
+
+NebulaPlugin creates a CompositeTaskRunner that routes:
+- REDSTONE_* tasks → RedstoneTaskRunner
+- MOVE tasks → EntityTaskRunner
+- COLLISION tasks → EntityTaskRunner
+
+commitLayer/resetLayer fan out to both sub-runners, so a combined layer
+commits atomically across subsystems. This is the core of deterministic
+multi-core execution.
+
+Full build green (56 tasks).
+
 ## Progress Update (2026-06-18) — entity physics DAG runner wired
 
 Entity physics now executes through the same OwnedDagRunner pipeline as redstone.
