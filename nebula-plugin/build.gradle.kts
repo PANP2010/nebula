@@ -29,6 +29,10 @@ dependencies {
     implementation(project(":nebula-replay"))     // For ReplayRecorder, ReplayFrame
     compileOnly(files(foliaApi))
     compileOnly(fileTree(foliaRuntime) { include("*.jar") })
+    testImplementation(files(foliaApi))
+    testImplementation(fileTree(foliaRuntime) { include("*.jar") })
+    testRuntimeOnly(files(foliaApi))
+    testRuntimeOnly(fileTree(foliaRuntime) { include("*.jar") })
 }
 
 tasks.named<ShadowJar>("shadowJar") {
