@@ -7,6 +7,10 @@ import org.nebula.core.scheduler.TaskNode;
 import org.nebula.core.state.WorldPos;
 import org.nebula.entity.BlockEntityState;
 import org.nebula.entity.EntityPhysicsState;
+import org.nebula.entity.EntityTickExecutor;
+import org.nebula.entity.EntityTaskRunner;
+import org.nebula.entity.actions.EntityMoveAction;
+import org.nebula.entity.actions.EntityCollisionResponseAction;
 import org.nebula.folia.FoliaRegionBridge;
 import org.nebula.folia.FoliaRegionTickDriver;
 import org.nebula.folia.FoliaRegionTickExecutor;
@@ -27,6 +31,7 @@ import org.nebula.redstone.RedstoneTaskGenerator;
 import org.nebula.redstone.RedstoneTaskRunner;
 import org.nebula.redstone.RedstoneWorldState;
 import org.nebula.redstone.actions.RedstoneActions;
+import org.nebula.core.scheduler.CompositeTaskRunner;
 import org.nebula.replay.ReplayRecorder;
 
 import java.util.Map;
@@ -77,6 +82,11 @@ public final class NebulaPlugin extends JavaPlugin {
     private RedstoneTaskGenerator taskGenerator;
     private Map<WorldPos, RedstoneComponentType> componentMap;
 
+    // Entity physics DAG
+    private EntityTickExecutor entityTickExecutor;
+    private EntityTaskRunner entityRunner;
+    private Map<String, org.nebula.entity.EntityTaskAction> entityActions;
+
     // Capture harness (optional)
     private FoliaCaptureHarness captureHarness;
     private ReplayRecorder recorder;
@@ -102,12 +112,16 @@ public final class NebulaPlugin extends JavaPlugin {
         stateHasher = new WorldStateHasher(bytes -> WorldPos.parse(new String(bytes)));
 
         // Create DAG execution pipeline
-        Map<WorldPos, RedstoneComponentType> componentMap = new ConcurrentHashMap<>();
+        componentMap = new ConcurrentHashMap<>();
         Map<String, RedstoneTaskAction> actionRegistry = RedstoneActions.defaults();
         taskGenerator = new RedstoneTaskGenerator(componentMap, actionRegistry);
         redstoneRunner = new RedstoneTaskRunner(redstoneState, actionRegistry);
         microStepScheduler = new MicroStepScheduler(taskGenerator, redstoneRunner);
-        this.componentMap = componentMap;
+
+        // Create entity physics DAG pipeline
+        entityRunner = new EntityTaskRunner(entityState,
+            taskId -> resolveEntityAction(taskId));
+        entityTickExecutor = new EntityTickExecutor(entityRunner);
 
         Server server = getServer();
         RWGuardConfig guardConfig = new RWGuardConfig(
@@ -278,5 +292,45 @@ public final class NebulaPlugin extends JavaPlugin {
      */
     public void unregisterRedstoneComponent(WorldPos pos) {
         componentMap.remove(pos);
+    }
+
+    /**
+     * Resolves an entity task action by task ID prefix.
+     * Task IDs are of the form "MOVE@dim:entityId" or "COLLISION@dim:entityA:entityB".
+     */
+    private org.nebula.entity.EntityTaskAction resolveEntityAction(String taskId) {
+        int at = taskId.indexOf('@');
+        String suffix = at >= 0 ? taskId.substring(at + 1) : "";
+        String prefix = at >= 0 ? taskId.substring(0, at) : taskId;
+
+        if ("MOVE".equals(prefix)) {
+            long entityId = parseEntityId(suffix);
+            return new EntityMoveAction(entityId);
+        }
+        if ("COLLISION".equals(prefix)) {
+            long[] ids = parseCollisionIds(suffix);
+            return new EntityCollisionResponseAction(ids[0], ids[1]);
+        }
+        return null;
+    }
+
+    private static long parseEntityId(String suffix) {
+        // suffix is "dim:entityId" — take last part
+        String[] parts = suffix.split(":");
+        if (parts.length >= 2) {
+            try { return Long.parseLong(parts[parts.length - 1]); } catch (NumberFormatException e) { return 0; }
+        }
+        return 0;
+    }
+
+    private static long[] parseCollisionIds(String suffix) {
+        // suffix is "dim:entityA:entityB"
+        String[] parts = suffix.split(":");
+        long a = 0, b = 0;
+        if (parts.length >= 3) {
+            try { a = Long.parseLong(parts[parts.length - 2]); } catch (NumberFormatException e) {}
+            try { b = Long.parseLong(parts[parts.length - 1]); } catch (NumberFormatException e) {}
+        }
+        return new long[]{a, b};
     }
 }
