@@ -39,6 +39,20 @@ tasks, not "needs an environment we don't have".
 
 ---
 
+---
+
+## Progress Update (2026-06-18) — plugin commands for capture control
+
+Added `/nebula` command with subcommands for user control of capture harness:
+
+- `/nebula capture start [ticks]` — starts state capture for N ticks
+- `/nebula capture stop` — stops capture and reports frame count
+- `/nebula status` — shows plugin status (CAS store sizes, tracked positions)
+- `/nebula help` — shows command help
+
+Updated plugin.yml with commands, permissions (nebula.use, nebula.capture, nebula.status).
+Full build green (56 tasks).
+
 ## Progress Update (2026-06-18) — CompositeTaskRunner unifies redstone + entity DAG
 
 The architecture's cross-subsystem claim is now live: causally-independent

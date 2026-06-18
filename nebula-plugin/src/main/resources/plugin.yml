@@ -7,3 +7,21 @@ description: "Nebula multi-core DAG scheduler for Folia"
 authors:
   - NebulaArchTeam
 load: STARTUP
+
+commands:
+  nebula:
+    description: "Nebula plugin commands (capture, status)"
+    usage: "/nebula <capture|status|help>"
+    permission: nebula.use
+    aliases: [neb]
+
+permissions:
+  nebula.use:
+    description: "Basic Nebula command access"
+    default: op
+  nebula.capture:
+    description: "Start/stop state capture for zero-diff verification"
+    default: op
+  nebula.status:
+    description: "View plugin status"
+    default: op
