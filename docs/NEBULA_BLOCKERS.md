@@ -33,6 +33,31 @@ tasks, not "needs an environment we don't have".
 
 ---
 
+## Progress Update (2026-06-18) — MicroStepScheduler wired into live DAG tick
+
+The DAG execution pipeline is now **fully wired**. The OwnedDagRunner in
+NebulaPlugin executes real redstone logic via MicroStepScheduler with
+microstep expansion, CAS commits, and change-aware downstream generation.
+
+Changes to NebulaPlugin.java:
+- Creates MicroStepScheduler + RedstoneTaskRunner + RedstoneTaskGenerator
+- Uses RedstoneActions.defaults() for wire/torch/repeater/comparator actions
+- executeOwnedDag() now calls microStepScheduler.executeTick() for real DAG
+- registerRedstoneComponent/unregisterRedstoneComponent for dynamic scope
+- Logs CAS commit failures and microstep counts per tick
+
+**The three-phase tick is now live:**
+1. Sync FROM NMS → CAS stores
+2. MicroStepScheduler.executeTick() → DAG with microsteps
+3. Sync TO NMS → write changes back to world
+
+**What remains:**
+- End-to-end integration test
+- Zero-diff validation against vanilla Folia
+- Entity physics DAG runner (currently only redstone is wired)
+
+---
+
 ## Progress Update (2026-06-18) — full pipeline integration: NMS bridges + hasher wired into plugin
 
 **The first playable release is now within reach.** The plugin now:

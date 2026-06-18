@@ -20,9 +20,17 @@ import org.nebula.folia.bridge.NebulaFoliaBootstrap;
 import org.nebula.folia.bridge.RedstoneTickHook;
 import org.nebula.guard.RWGuardConfig;
 import org.nebula.guard.RWGuardMode;
+import org.nebula.redstone.MicroStepScheduler;
+import org.nebula.redstone.RedstoneComponentType;
+import org.nebula.redstone.RedstoneTaskAction;
+import org.nebula.redstone.RedstoneTaskGenerator;
+import org.nebula.redstone.RedstoneTaskRunner;
 import org.nebula.redstone.RedstoneWorldState;
+import org.nebula.redstone.actions.RedstoneActions;
 import org.nebula.replay.ReplayRecorder;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.logging.Logger;
 
@@ -63,6 +71,12 @@ public final class NebulaPlugin extends JavaPlugin {
     private NmsBlockEntityStateBridge blockEntityBridge;
     private WorldStateHasher stateHasher;
 
+    // DAG execution
+    private MicroStepScheduler microStepScheduler;
+    private RedstoneTaskRunner redstoneRunner;
+    private RedstoneTaskGenerator taskGenerator;
+    private Map<WorldPos, RedstoneComponentType> componentMap;
+
     // Capture harness (optional)
     private FoliaCaptureHarness captureHarness;
     private ReplayRecorder recorder;
@@ -86,6 +100,14 @@ public final class NebulaPlugin extends JavaPlugin {
 
         // Create state hasher for zero-diff verification
         stateHasher = new WorldStateHasher(bytes -> WorldPos.parse(new String(bytes)));
+
+        // Create DAG execution pipeline
+        Map<WorldPos, RedstoneComponentType> componentMap = new ConcurrentHashMap<>();
+        Map<String, RedstoneTaskAction> actionRegistry = RedstoneActions.defaults();
+        taskGenerator = new RedstoneTaskGenerator(componentMap, actionRegistry);
+        redstoneRunner = new RedstoneTaskRunner(redstoneState, actionRegistry);
+        microStepScheduler = new MicroStepScheduler(taskGenerator, redstoneRunner);
+        this.componentMap = componentMap;
 
         Server server = getServer();
         RWGuardConfig guardConfig = new RWGuardConfig(
@@ -126,12 +148,13 @@ public final class NebulaPlugin extends JavaPlugin {
     }
 
     /**
-     * Executes the owned DAG partition using NMS bridges for state sync.
+     * Executes the owned DAG partition using NMS bridges for state sync
+     * and MicroStepScheduler for real DAG execution.
      *
      * <p>For each tick:
      * <ol>
      *   <li>Sync FROM NMS: read current world state into CAS stores</li>
-     *   <li>Execute DAG: run MicroStepScheduler (placeholder for now)</li>
+     *   <li>Execute DAG: run MicroStepScheduler with microstep expansion</li>
      *   <li>Sync TO NMS: write CAS state back to world</li>
      * </ol>
      */
@@ -145,12 +168,22 @@ public final class NebulaPlugin extends JavaPlugin {
             WorldPos pos = POSITION_OF.apply(task);
             blockBridge.syncFromNms(world, pos);
             blockEntityBridge.syncFromNms(world, pos);
-            // Entity sync requires entity lookup by ID — skip for now
         }
 
-        // Phase 2: Execute DAG (placeholder — just count tasks for now)
-        // TODO: Wire MicroStepScheduler with real redstone/entity actions
-        int taskCount = ownedTasks.size();
+        // Phase 2: Execute DAG via MicroStepScheduler
+        int totalTasks = ownedTasks.size();
+        int microSteps = 0;
+        try {
+            MicroStepScheduler.TickResult result = microStepScheduler.executeTick(ownedTasks);
+            totalTasks = result.totalTasks();
+            microSteps = result.microSteps();
+            if (result.hasCommitFailures()) {
+                LOG.warning(() -> "DAG tick had " + result.commitFailures().size()
+                    + " CAS commit failures");
+            }
+        } catch (org.nebula.core.scheduler.DagExecutionException e) {
+            LOG.warning(() -> "DAG execution failed: " + e.getMessage());
+        }
 
         // Phase 3: Sync TO NMS (write back changes)
         for (TaskNode task : ownedTasks) {
@@ -160,7 +193,10 @@ public final class NebulaPlugin extends JavaPlugin {
         }
 
         long elapsedMs = (System.nanoTime() - t0) / 1_000_000;
-        LOG.fine(() -> "DAG tick: " + taskCount + " tasks in " + elapsedMs + "ms");
+        int finalTasks = totalTasks;
+        int finalMicroSteps = microSteps;
+        LOG.fine(() -> "DAG tick: " + finalTasks + " tasks, "
+            + finalMicroSteps + " microsteps in " + elapsedMs + "ms");
     }
 
     /**
@@ -226,4 +262,21 @@ public final class NebulaPlugin extends JavaPlugin {
     public NmsEntityStateBridge entityBridge() { return entityBridge; }
     public NmsBlockEntityStateBridge blockEntityBridge() { return blockEntityBridge; }
     public WorldStateHasher stateHasher() { return stateHasher; }
+    public MicroStepScheduler microStepScheduler() { return microStepScheduler; }
+    public RedstoneTaskGenerator taskGenerator() { return taskGenerator; }
+
+    /**
+     * Registers a redstone component position. Required for DAG execution
+     * to generate downstream tasks for signal propagation.
+     */
+    public void registerRedstoneComponent(WorldPos pos, RedstoneComponentType type) {
+        componentMap.put(pos, type);
+    }
+
+    /**
+     * Unregisters a redstone component position.
+     */
+    public void unregisterRedstoneComponent(WorldPos pos) {
+        componentMap.remove(pos);
+    }
 }
