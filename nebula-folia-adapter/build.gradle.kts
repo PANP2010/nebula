@@ -26,12 +26,18 @@ dependencies {
     implementation(project(":nebula-core"))
     implementation(project(":nebula-guard-api"))
     implementation(project(":nebula-folia-bridge"))
+    implementation(project(":nebula-redstone"))  // For RedstoneWorldState CAS store
+    implementation(project(":nebula-entity"))    // For EntityPhysicsState CAS store + Vec3
     compileOnly(files(foliaApi))
     compileOnly(fileTree(foliaRuntime) { include("*.jar") })
+    // Guava is referenced by Bukkit Material annotations but not bundled in folia-runtime
+    compileOnly("com.google.guava:guava:33.4.0-jre")
     testImplementation(files(foliaApi))
     testImplementation(fileTree(foliaRuntime) { include("*.jar") })
+    testImplementation("com.google.guava:guava:33.4.0-jre")
     testRuntimeOnly(files(foliaApi))
     testRuntimeOnly(fileTree(foliaRuntime) { include("*.jar") })
+    testRuntimeOnly("com.google.guava:guava:33.4.0-jre")
 }
 
 // Run tests on the Java 25 toolchain so the Java-25 Folia API classes load.
