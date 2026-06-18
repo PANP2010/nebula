@@ -1,0 +1,4 @@
+
+## Progress Update (2026-06-18) — CAS→NMS block state binding (redstone wire)
+
+Release-path task #3 begins with NmsBlockStateBridge (PR #10, merged).

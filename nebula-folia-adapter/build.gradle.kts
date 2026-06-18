@@ -27,7 +27,7 @@ dependencies {
     implementation(project(":nebula-guard-api"))
     implementation(project(":nebula-folia-bridge"))
     implementation(project(":nebula-redstone"))  // For RedstoneWorldState CAS store
-    implementation(project(":nebula-entity"))    // For EntityPhysicsState CAS store + Vec3
+    implementation(project(":nebula-entity"))    // For EntityPhysicsState + BlockEntityState + Vec3
     compileOnly(files(foliaApi))
     compileOnly(fileTree(foliaRuntime) { include("*.jar") })
     // Guava is referenced by Bukkit Material annotations but not bundled in folia-runtime
