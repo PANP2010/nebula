@@ -33,6 +33,44 @@ tasks, not "needs an environment we don't have".
 
 ---
 
+## Progress Update (2026-06-18) — CAS→NMS block state binding (redstone wire)
+
+Release-path task #3 ("bind CAS state stores to real NMS state") begins with
+`NmsBlockStateBridge` — the bridge between Nebula's `RedstoneWorldState` CAS
+store and real Bukkit `BlockState` through the Folia 26.1.2 API.
+
+What it does:
+- **Read path**: `syncFromNms(World, WorldPos)` fetches the block's `BlockData`,
+  extracts power from `AnaloguePowerable#getPower()` if the block is a redstone
+  component, and commits to the CAS store via versioned CAS.
+- **Write path**: `syncToNms(World, WorldPos, int power)` constructs new
+  `BlockData` with the target power, calls `Block#setBlockData()`, and updates
+  the CAS store. Power is clamped to 0–15 (max for `AnaloguePowerable`).
+- **Bulk read**: `bulkSyncFromNms(World, Set<WorldPos>)` for initial world-state
+  capture at startup.
+- **Region ownership**: all operations must occur on the region thread that owns
+  the target block — the caller (`FoliaRegionTickExecutor`) ensures this.
+
+Implementation notes:
+- Only `RedstoneWire` is fully bound in this iteration. Torches, repeaters,
+  and comparators will follow.
+- Connection states (`RedstoneWire.Connection` per face) are captured into
+  internal CAS state for wire-specific fidelity.
+- Added Guava dependency (`com.google.guava:guava:33.4.0-jre`) to adapter —
+  Bukkit's `Material` annotations reference `Multimap`.
+
+Tests: 6 tests against proxy-stubbed Bukkit objects (power read/write, non-powerable
+fallback, power clamping, bulk sync). Full build green (54 tasks).
+
+**What remains for task #3:**
+- Bind `EntityPhysicsState` to real entity position/velocity through region-owned
+  entity access.
+- Bind `BlockEntityState` (hopper, furnace) to real tile-entity state.
+- Integrate `NmsBlockStateBridge` into the live `OwnedDagRunner` in
+  `NebulaPlugin` so the DAG actually executes against real world state.
+
+---
+
 ## Progress Update (2026-06-16) — region-aware tick executor closes the lifecycle seam
 
 Release-path task #2 ("wire the scheduler into the live region tick") had two
