@@ -143,6 +143,11 @@ public final class NebulaPlugin extends JavaPlugin {
         } else {
             bootstrap = wireShadowExecutor(guardConfig);
         }
+
+        // Register commands
+        NebulaCommand nebulaCmd = new NebulaCommand(this);
+        getCommand("nebula").setExecutor(nebulaCmd);
+        getCommand("nebula").setTabCompleter(nebulaCmd);
     }
 
     /**
