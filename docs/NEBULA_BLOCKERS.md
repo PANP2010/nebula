@@ -33,6 +33,36 @@ tasks, not "needs an environment we don't have".
 
 ---
 
+## Progress Update (2026-06-18) — full pipeline integration: NMS bridges + hasher wired into plugin
+
+**The first playable release is now within reach.** The plugin now:
+- Initializes CAS state stores (RedstoneWorldState, EntityPhysicsState, BlockEntityState)
+- Creates NMS bridges (NmsBlockStateBridge, NmsEntityStateBridge, NmsBlockEntityStateBridge)
+- Creates WorldStateHasher for zero-diff verification
+- Wires OwnedDagRunner with three-phase tick execution:
+  1. Sync FROM NMS: read current world state into CAS stores
+  2. Execute DAG: placeholder (MicroStepScheduler pending)
+  3. Sync TO NMS: write CAS state back to world
+- Provides startCapture/stopCapture for zero-diff harness
+
+Changes to NebulaPlugin.java:
+- Added CAS store instances (redstoneState, entityState, blockEntityState)
+- Added NMS bridge instances (blockBridge, entityBridge, blockEntityBridge)
+- Added WorldStateHasher + optional FoliaCaptureHarness
+- executeOwnedDag() now performs real NMS sync per tick (read → exec → write)
+- Added capture lifecycle methods: startCapture(ticks), stopCapture()
+- Added diagnostic accessor methods for all bridges/stores
+
+Dependencies added to nebula-plugin/build.gradle.kts:
+- nebula-redstone, nebula-entity, nebula-replay
+
+**What remains:**
+- Wire MicroStepScheduler into executeOwnedDag() for real DAG execution
+- End-to-end integration test: plugin → Folia tick → DAG → capture → verify
+- Zero-diff validation against vanilla Folia server
+
+---
+
 ## Progress Update (2026-06-18) — plugin migrated to Java 25 + Folia 26.1.2, wires FoliaRegionTickExecutor
 
 The plugin/adapter toolchain gap is **resolved**. `nebula-plugin` now compiles

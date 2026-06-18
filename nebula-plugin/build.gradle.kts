@@ -24,6 +24,9 @@ dependencies {
     implementation(project(":nebula-guard-api"))
     implementation(project(":nebula-folia-bridge"))
     implementation(project(":nebula-folia-adapter"))
+    implementation(project(":nebula-redstone"))   // For RedstoneWorldState
+    implementation(project(":nebula-entity"))     // For EntityPhysicsState, BlockEntityState
+    implementation(project(":nebula-replay"))     // For ReplayRecorder, ReplayFrame
     compileOnly(files(foliaApi))
     compileOnly(fileTree(foliaRuntime) { include("*.jar") })
 }
