@@ -7,14 +7,3 @@ description: "Nebula multi-core DAG scheduler for Folia"
 authors:
   - NebulaArchTeam
 load: STARTUP
-
-commands:
-  nebula:
-    description: Nebula runtime diagnostics
-    usage: /nebula <status|dag|guard|mode>
-    aliases: [nb]
-
-permissions:
-  nebula.admin:
-    description: Access to all /nebula commands
-    default: op

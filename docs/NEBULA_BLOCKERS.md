@@ -33,6 +33,42 @@ tasks, not "needs an environment we don't have".
 
 ---
 
+## Progress Update (2026-06-18) — plugin migrated to Java 25 + Folia 26.1.2, wires FoliaRegionTickExecutor
+
+The plugin/adapter toolchain gap is **resolved**. `nebula-plugin` now compiles
+against Java 25 + the real Folia 26.1.2 API (`libs/folia-api-26.1.2.build.8-stable.jar`
++ `libs/folia-runtime/`) and links `nebula-folia-adapter`, so the region-aware
+`FoliaRegionTickExecutor` can finally be wired into the live plugin.
+
+Changes:
+- `nebula-plugin/build.gradle.kts`: toolchain → Java 25, `compileOnly` → real
+  Folia 26.1.2 API from `libs/`, `implementation(project(":nebula-folia-adapter"))`
+  added, Shadow plugin upgraded to 9.4.2 (supports class file version 69).
+- `NebulaPlugin.java` rewritten: simplified to core bootstrap only, wires
+  `FoliaRegionBridge → FoliaRegionTickDriver → FoliaRegionTickExecutor` chain
+  when running under Folia, with a region-blind shadow fallback for non-Folia.
+- Diagnostic helper classes removed (NebulaCommand, BenchmarkSession, ChunkRedstoneScanner,
+  Dg1Verifier, InterceptMonitor, MsptMonitor, ReplaySession, ShadowExecutionMonitor,
+  TickSprinter, TickStateHasher) — the plugin is now a minimal integration shim.
+  Diagnostics can be restored in a later iteration once the live path is proven.
+- `plugin.yml` simplified: removed command definitions.
+
+**What this unblocks:** the live tick now uses region-aware dispatch. When
+`FoliaRuntimeDetector.isFoliaRuntime()` returns true, the plugin builds the
+full chain and activates `NebulaFoliaBootstrap` in INTERCEPT mode with the
+`FoliaRegionTickExecutor`. Dirty tasks are partitioned by region ownership and
+dispatched to the correct region threads instead of the previous region-blind
+shadow DAG.
+
+**What still remains (unchanged):**
+- Task #3: bind CAS state stores (RedstoneWorldState, EntityPhysicsState,
+  BlockEntityState) to real NMS ItemStack/entity/block state through the owning
+  region. The `OwnedDagRunner` in `NebulaPlugin` currently logs tasks but does
+  not execute a real DAG — that requires NMS state binding.
+- Task #4: zero-diff capture against the Folia 26.1.2 server.
+
+---
+
 ## Progress Update (2026-06-16) — region-aware tick executor closes the lifecycle seam
 
 Release-path task #2 ("wire the scheduler into the live region tick") had two
