@@ -1,62 +1,45 @@
-# Nebula Blockers
+# Nebula Blockers — Honest Status
 
-## v0.1.0-SNAPSHOT — First Playable Release (2026-06-18)
+## v0.1.0-SNAPSHOT — Current State (2026-06-19)
 
-**The first playable release is complete.** Nebula now demonstrates deterministic
-multi-core tick execution on Folia 26.1.2.
+### What Works (Solid Foundation)
+| Component | Status |
+|-----------|--------|
+| Java agent loads, hooks enabled | ✅ |
+| NMS bridges (block/entity/blockEntity) | ✅ |
+| MicroStepScheduler, EntityTickExecutor, CompositeTaskRunner | ✅ |
+| DG1/DG2 unit tests (10k tick determinism, random budget <1%) | ✅ |
+| Capture harness (1000 frames) | ✅ |
+| Shadow jar (513KB) | ✅ |
 
-### Completed Features
+### What's Broken (Blocking Release)
+| Blocker | Impact | Fix Required |
+|---------|--------|--------------|
+| Folia scheduler incompatibility | `runTaskLater` fails on Folia → WorldRedstoneScanner never runs | Use `RegionScheduler.runDelayed()` / `runAtFixedRate()` |
+| componentMap empty | No redstone components registered → no DAG tasks | Fix scheduler + WorldRedstoneScanner + BlockPlaceEvent listener |
+| DAG never executes | No dirty tasks generated | Fix above |
+| MSPT unmeasured | No DAG execution = no throughput data | Fix above + Folia benchmark |
 
-| Feature | Status |
-|---------|--------|
-| Plugin toolchain (Java 25 + Folia 26.1.2) | ✅ Complete |
-| FoliaRegionTickExecutor | ✅ Complete |
-| NmsBlockStateBridge (redstone) | ✅ Complete |
-| NmsEntityStateBridge (entity) | ✅ Complete |
-| NmsBlockEntityStateBridge (tile entity) | ✅ Complete |
-| MicroStepScheduler (redstone DAG) | ✅ Complete |
-| EntityTickExecutor (entity DAG) | ✅ Complete |
-| CompositeTaskRunner (unified DAG) | ✅ Complete |
-| FoliaCaptureHarness + WorldStateHasher | ✅ Complete |
-| /nebula commands | ✅ Complete |
-| Shadow jar deployable | ✅ Complete (513KB) |
-| E2E integration test | ✅ Complete |
-| README, CHANGELOG, LICENSE | ✅ Complete |
+### DG1/DG2/DG3 Gate Status (Arch Doc §14.2/14.3/14.4)
 
-### Architecture
+| Gate | Criteria | Status |
+|------|----------|--------|
+| **DG1** (Redstone) | 10k tick zero-diff ✅, microstep ≤256 ✅, MSPT ≥30% ❌ | **BLOCKED** |
+| **DG2** (Entity+Random) | 10k tick ✅, random budget <1% ✅, MSPT ❌ | **BLOCKED** |
+| **DG3** (Full+VAP) | All 4 criteria need Folia deployment | **BLOCKED** |
 
-```
-sync-from-NMS → CompositeTaskRunner(redstone+entity) DAG → sync-to-NMS
-```
+### Root Cause
+**Folia scheduler API mismatch**: `BukkitScheduler.runTaskLater()` doesn't work on Folia 26.1.2. Need `RegionScheduler.runDelayed()` / `runAtFixedRate()` for Folia's region-threaded model.
 
-Three-phase tick:
-1. **Sync FROM NMS**: read current world state into CAS stores
-2. **Execute DAG**: run MicroStepScheduler + EntityTickExecutor via CompositeTaskRunner
-3. **Sync TO NMS**: write CAS state back to world
+### Next Steps (Priority Order)
+1. Fix Folia scheduler integration in `WorldRedstoneScanner` + `NebulaPlugin`
+2. Add `BlockPlaceEvent` listener for incremental component registration
+3. Deploy to Folia test server, verify `componentMap` populated
+4. Run DG1 acceptance test on Folia server
+5. Measure MSPT for DG1 Criterion 3
 
-### Blocked Work
-
-- **Zero-diff validation**: requires running Folia 26.1.2 server with test world
-
-### Deployment
-
-1. Copy `nebula-plugin-0.1.0-SNAPSHOT.jar` to Folia `plugins/` directory
-2. Start server
-3. Run `/nebula capture start 1000` to capture state hashes
-4. Run `/nebula status` to view CAS store sizes
-
-### Pull Requests (v0.1.0)
-
-- #9: Plugin migration Java 25 + Folia 26.1.2
-- #10: NmsBlockStateBridge
-- #11: NmsEntityStateBridge
-- #12: NmsBlockEntityStateBridge
-- #13: FoliaCaptureHarness
-- #14: Full pipeline integration
-- #15: MicroStepScheduler
-- #16: E2E integration test
-- #17: EntityTickExecutor
-- #18: CompositeTaskRunner
-- #19: /nebula commands
-- #20: README update
-- #21: CHANGELOG + LICENSE
+### Test Server
+- Folia 26.1.2 at `/home/kuli/nebula/folia-test-server/`
+- Shadow jar: `~/.gradle/nebula-server-build/nebula-server/nebula-plugin/libs/nebula-plugin-0.1.0-SNAPSHOT.jar`
+- Java 25 at `/home/kuli/jdks/jdk-25.0.3`
+- RCON: localhost:25576, password: nebulatest
