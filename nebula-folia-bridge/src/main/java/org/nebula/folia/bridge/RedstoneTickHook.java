@@ -2,27 +2,35 @@ package org.nebula.folia.bridge;
 
 import org.nebula.core.scheduler.DagExecutionException;
 import org.nebula.core.scheduler.TaskNode;
+import org.nebula.core.state.DimensionIds;
 import org.nebula.core.state.WorldPos;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Logger;
 
 /**
  * Bridges Folia's region tick lifecycle into the Nebula DAG execution pipeline.
  *
- * <p>Lifecycle per tick (per region thread):
+ * <p>Lifecycle per tick:
  * <pre>
- *   beginTick(regionId)
- *     ↓ Folia executes block/entity ticks as normal
- *   onBlockUpdate(worldName, x, y, z)  ← intercepted from CollectingNeighborUpdater
- *     ↓ dirty positions accumulate
- *   endTick(regionId)
+ *   [Global tick thread] beginTick("nebula-global")
+ *     ↓ region threads run and call recordUpdate("nebula-global", ...)
+ *   [Global tick thread, next tick] endTick("nebula-global", worldName)
  *     ↓ Nebula MicroStepScheduler executes accumulated dirty tasks via DAG
  *     ↓ ReplayRecorder records state hash (if enabled)
  * </pre>
+ *
+ * <p>All updates are accumulated into a single global bucket ("nebula-global")
+ * because the interceptor runs on region threads while beginTick/endTick run
+ * on the global tick thread.  Region-aware partitioning happens downstream at
+ * the {@link org.nebula.folia.FoliaRegionTickExecutor} level, which dispatches
+ * each task to its owning region thread via RegionScheduler.execute().
  *
  * <p>In Phase 0 OBSERVE mode, all Folia execution still happens normally.
  * The hook only records which positions were updated.  This produces a
@@ -64,11 +72,27 @@ public final class RedstoneTickHook {
     private static volatile TaskResolver resolver = null;
     private static volatile boolean active = false;
 
-    // Per-region dirty position accumulator
-    private static final ConcurrentHashMap<String, List<WorldPos>> dirtyPositions =
+    // Per-region dirty position accumulator, keyed by "regionId::worldName"
+    // so that each world gets its own accumulator.  This is necessary because
+    // endTick is called per-world from the global tick driver, and without
+    // the world suffix the first endTick call would drain the accumulator
+    // for all worlds.
+    private static final ConcurrentHashMap<String, Queue<WorldPos>> dirtyPositions =
+        new ConcurrentHashMap<>();
+
+    // Guards against concurrent endTick execution for the same key.
+    // endTick atomically marks the key as in-progress and skips if already running.
+    // This prevents re-entrant or overlapping execution when the global tick driver
+    // or multiple region threads call endTick for the same region-world combination.
+    private static final ConcurrentHashMap<String, AtomicBoolean> endTickInProgress =
         new ConcurrentHashMap<>();
 
     private RedstoneTickHook() {}
+
+    /** Builds the composite key "regionId::worldName". */
+    private static String key(String regionId, String worldName) {
+        return regionId + "::" + worldName;
+    }
 
     // ── Configuration ─────────────────────────────────────────────────────────
 
@@ -96,7 +120,13 @@ public final class RedstoneTickHook {
      */
     public static void beginTick(String regionId) {
         if (!active) return;
-        dirtyPositions.put(regionId, new ArrayList<>());
+        // Clear any stale dirty-position entries for this region.
+        // This ensures a clean slate at the start of each tick regardless
+        // of whether endTick was called for every world.
+        String prefix = regionId + "::";
+        dirtyPositions.entrySet().removeIf(entry -> entry.getKey().startsWith(prefix));
+        // Also clear any stale endTick-in-progress guards for this region.
+        endTickInProgress.entrySet().removeIf(entry -> entry.getKey().startsWith(prefix));
     }
 
     /**
@@ -105,12 +135,17 @@ public final class RedstoneTickHook {
      */
     public static void recordUpdate(String regionId, String worldName, int x, int y, int z) {
         if (!active) return;
-        List<WorldPos> dirty = dirtyPositions.get(regionId);
-        if (dirty != null) {
-            // dimensionId: 0=overworld, -1=nether, 1=end (simplified mapping)
-            int dimId = dimensionId(worldName);
-            dirty.add(new WorldPos(dimId, x, y, z));
+        String k = key(regionId, worldName);
+        Queue<WorldPos> dirty = dirtyPositions.get(k);
+        if (dirty == null) {
+            dirty = new ConcurrentLinkedQueue<>();
+            Queue<WorldPos> existing = dirtyPositions.putIfAbsent(k, dirty);
+            if (existing != null) {
+                dirty = existing;
+            }
         }
+        int dimId = DimensionIds.fromName(worldName);
+        dirty.add(new WorldPos(dimId, x, y, z));
     }
 
     /**
@@ -124,7 +159,26 @@ public final class RedstoneTickHook {
     public static List<TaskNode> endTick(String regionId, String worldName) {
         if (!active) return List.of();
 
-        List<WorldPos> dirty = dirtyPositions.remove(regionId);
+        String k = key(regionId, worldName);
+
+        // ── Guard: prevent concurrent endTick execution for the same key ──
+        // Atomically mark this key as in-progress.  If another thread is already
+        // executing endTick for this region-world combination, skip immediately.
+        AtomicBoolean guard = endTickInProgress.computeIfAbsent(k, _k -> new AtomicBoolean(false));
+        if (!guard.compareAndSet(false, true)) {
+            LOG.fine(() -> "endTick already in progress for " + k + " — skipping concurrent call");
+            return List.of();
+        }
+        try {
+            return doEndTick(k, regionId, worldName);
+        } finally {
+            guard.set(false);
+        }
+    }
+
+    /** Internal implementation of endTick, called under the AtomicBoolean guard. */
+    private static List<TaskNode> doEndTick(String k, String regionId, String worldName) {
+        Queue<WorldPos> dirty = dirtyPositions.remove(k);
         if (dirty == null || dirty.isEmpty()) return List.of();
 
         TaskResolver res = resolver;
@@ -162,19 +216,9 @@ public final class RedstoneTickHook {
         return List.copyOf(dirtyTasks);
     }
 
-    /** Simple dimension-name → integer mapping. */
-    private static int dimensionId(String worldName) {
-        if (worldName == null) return 0;
-        return switch (worldName) {
-            case "minecraft:the_nether" -> -1;
-            case "minecraft:the_end"    ->  1;
-            default                     ->  0;
-        };
-    }
-
-    /** Returns current dirty position count for the given region (for monitoring). */
-    public static int dirtyCount(String regionId) {
-        List<WorldPos> dirty = dirtyPositions.get(regionId);
+    /** Returns current dirty position count for the given region and world (for monitoring). */
+    public static int dirtyCount(String regionId, String worldName) {
+        Queue<WorldPos> dirty = dirtyPositions.get(key(regionId, worldName));
         return dirty == null ? 0 : dirty.size();
     }
 }

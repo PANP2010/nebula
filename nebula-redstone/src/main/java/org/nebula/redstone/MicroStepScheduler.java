@@ -76,11 +76,12 @@ public final class MicroStepScheduler {
      */
     public TickResult executeTick(List<TaskNode> initialDirtyTasks) throws DagExecutionException {
         if (initialDirtyTasks.isEmpty()) {
-            return new TickResult(0, 0, 0, List.of(), List.of());
+            return new TickResult(0, 0, 0, List.of(), List.of(), Set.of());
         }
 
         List<String> allCompletedIds = new ArrayList<>();
         List<String> commitFailures = new ArrayList<>();
+        Set<WorldPos> allModifiedPositions = new LinkedHashSet<>();
         int microSteps = 0;
         int totalLayers = 0;
 
@@ -171,6 +172,8 @@ public final class MicroStepScheduler {
                         }
                     }
                 }
+                // Accumulate all modified positions across layers for sync-back
+                allModifiedPositions.addAll(changedPositions);
 
                 totalLayers++;
             }
@@ -206,7 +209,8 @@ public final class MicroStepScheduler {
             totalLayers,
             microSteps,
             List.of(), // deferred tasks (future: from DEFERRED components)
-            commitFailures
+            commitFailures,
+            Set.copyOf(allModifiedPositions)
         );
     }
 
@@ -215,7 +219,8 @@ public final class MicroStepScheduler {
         int totalLayers,
         int microSteps,
         List<TaskNode> deferredToNextTick,
-        List<String> commitFailures
+        List<String> commitFailures,
+        Set<WorldPos> modifiedPositions
     ) {
         public boolean hasCommitFailures() {
             return commitFailures != null && !commitFailures.isEmpty();

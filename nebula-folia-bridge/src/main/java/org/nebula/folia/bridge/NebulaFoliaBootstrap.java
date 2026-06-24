@@ -83,8 +83,12 @@ public final class NebulaFoliaBootstrap {
         NeighborUpdateInterceptor.setMode(interceptMode);
 
         // Wire the interceptor listener to the tick hook
-        // Always use fixed regionId — globalTick() and region threads are on different threads,
-        // so we collect all updates into one global bucket regardless of which thread fires them.
+        // Use a single global bucket ("nebula-global") because the interceptor
+        // runs on region threads while beginTick/endTick run on the global tick
+        // thread.  Collecting all updates into one bucket avoids thread-handoff
+        // complexity.  Region-aware partitioning happens downstream at the
+        // FoliaRegionTickExecutor level, which dispatches each task to its
+        // owning region thread via RegionScheduler.execute().
         NeighborUpdateInterceptor.addListener((worldName, x, y, z) -> {
             RedstoneTickHook.recordUpdate("nebula-global", worldName, x, y, z);
             // Only suppress if in INTERCEPT mode
@@ -108,11 +112,23 @@ public final class NebulaFoliaBootstrap {
             Class<?> hooksClass = Class.forName(
                 "org.nebula.agent.NeighborUpdateHooks",
                 true, ClassLoader.getSystemClassLoader());
+            // Find NeighborUpdateCallback by name rather than assuming it is [0]
+            Class<?> callbackInterface = null;
+            for (Class<?> declared : hooksClass.getDeclaredClasses()) {
+                if ("NeighborUpdateCallback".equals(declared.getSimpleName())) {
+                    callbackInterface = declared;
+                    break;
+                }
+            }
+            if (callbackInterface == null) {
+                throw new ClassNotFoundException(
+                    "NeighborUpdateCallback not found among declared classes of NeighborUpdateHooks");
+            }
             // Create the callback as an anonymous class visible to the system classloader
             // via our own interceptor which IS accessible (both in same classpath)
             Object callbackProxy = java.lang.reflect.Proxy.newProxyInstance(
-                ClassLoader.getSystemClassLoader(),
-                new Class[]{ hooksClass.getDeclaredClasses()[0] }, // NeighborUpdateCallback
+                callbackInterface.getClassLoader(),
+                new Class[]{ callbackInterface },
                 (proxy, method, args) -> {
                     if ("onNeighborUpdate".equals(method.getName())) {
                         String worldName = (String) args[0];
@@ -123,7 +139,7 @@ public final class NebulaFoliaBootstrap {
                     }
                     return null;
                 });
-            hooksClass.getMethod("register", hooksClass.getDeclaredClasses()[0])
+            hooksClass.getMethod("register", callbackInterface)
                       .invoke(null, callbackProxy);
             hooksClass.getMethod("setEnabled", boolean.class).invoke(null, true);
             LOG.info("NeighborUpdateHooks callback registered and enabled");

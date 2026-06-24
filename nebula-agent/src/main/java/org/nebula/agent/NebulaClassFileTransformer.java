@@ -29,6 +29,22 @@ public final class NebulaClassFileTransformer implements ClassFileTransformer {
             System.err.println("[Nebula] InstantNeighborUpdater instrumentation complete");
             return result;
         }
+
+        // 2b. NeighborUpdater.executeUpdate static method — Folia 26.1.2 routing
+        if (ExecuteUpdateTransformer.TARGET_CLASS.equals(className)) {
+            System.err.println("[Nebula] Instrumenting NeighborUpdater.executeUpdate via agent");
+            byte[] result = ExecuteUpdateTransformer.maybeInstrument(className, classfileBuffer);
+            System.err.println("[Nebula] NeighborUpdater.executeUpdate instrumentation complete");
+            return result;
+        }
+
+        // 2c. RedstoneWireTurbo — Folia's optimized redstone wire update path
+        if (RedstoneWireTurboTransformer.TARGET_CLASS.equals(className)) {
+            System.err.println("[Nebula] Instrumenting RedstoneWireTurbo via agent");
+            byte[] result = RedstoneWireTurboTransformer.maybeInstrument(className, classfileBuffer);
+            System.err.println("[Nebula] RedstoneWireTurbo instrumentation complete");
+            return result;
+        }
         // Debug: log NMS class names seen
         if (className != null && className.startsWith("net/minecraft/world/level/redstone/")) {
             System.err.println("[Nebula/Debug] Saw class: " + className);

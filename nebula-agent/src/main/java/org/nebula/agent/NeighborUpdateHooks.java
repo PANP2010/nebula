@@ -24,6 +24,14 @@ public final class NeighborUpdateHooks {
     private static volatile boolean enabled = false;
     private static final AtomicLong callCount = new AtomicLong();
 
+    /**
+     * Sentinel flag set to {@code true} by the ASM transformer's injected bytecode
+     * at the start of each instrumented method.  If this remains {@code false}
+     * after retransform, the instrumentation silently failed and Nebula must
+     * fall back to the shadow executor to avoid data corruption.
+     */
+    public static volatile boolean hooksActive = false;
+
     private NeighborUpdateHooks() {}
 
     /** Called by the plugin at startup to register the callback. */

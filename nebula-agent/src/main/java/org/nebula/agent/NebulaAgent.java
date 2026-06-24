@@ -3,8 +3,10 @@ package org.nebula.agent;
 import java.lang.instrument.Instrumentation;
 
 public final class NebulaAgent {
-    private NebulaAgent() {
-    }
+
+    private static volatile Instrumentation globalInstrumentation = null;
+
+    private NebulaAgent() {}
 
     public static void premain(String agentArgs, Instrumentation instrumentation) {
         install(instrumentation);
@@ -15,6 +17,12 @@ public final class NebulaAgent {
     }
 
     private static void install(Instrumentation instrumentation) {
+        globalInstrumentation = instrumentation;
         instrumentation.addTransformer(new NebulaClassFileTransformer(), true);
+    }
+
+    /** Returns the global Instrumentation instance for retransform. */
+    public static Instrumentation getInstrumentation() {
+        return globalInstrumentation;
     }
 }

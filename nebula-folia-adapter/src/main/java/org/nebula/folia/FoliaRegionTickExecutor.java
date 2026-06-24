@@ -14,61 +14,56 @@ import java.util.logging.Logger;
 
 /**
  * The concrete {@link RedstoneTickHook.TickExecutor} that connects Nebula's
- * per-tick dirty-task set to Folia's region threading via
- * {@link FoliaRegionTickDriver}.
+ * per-tick dirty-task set to Folia's region threading.
  *
- * <p>This is release-path task #2's remaining half: the {@link RedstoneTickHook}
- * lifecycle ({@code beginTick → recordUpdate → endTick}) hands a region-blind
- * list of dirty {@link TaskNode}s to {@link #executeTasks}. Folia, however,
- * forbids touching a block from any thread other than the one ticking the region
- * that owns it. This executor reconciles the two:
+ * <p>This executor is invoked from the <em>global tick thread</em> (via
+ * {@code RedstoneTickHook.endTick()} driven by {@code GlobalRegionScheduler}).
+ * The {@code regionId} parameter is always {@code "nebula-global"} because all
+ * updates are accumulated into a single global bucket (see
+ * {@link RedstoneTickHook} javadoc).  Because no region thread is active,
+ * {@code isOwnedByCurrentRegion()} always returns false — making an
+ * owned/foreign partition pointless. Instead, every dirty task is dispatched
+ * to its owning region thread via
+ * {@link RegionScheduler#execute RegionScheduler.execute()}, where the injected
+ * {@link OwnedDagRunner} executes it in the correct region context.
  *
- * <ol>
- *   <li>resolve the {@link World} for the dimension being ticked;</li>
- *   <li>partition dirty tasks into <em>owned</em> (this region thread may run
- *       them now) and <em>foreign</em> via
- *       {@link FoliaRegionTickDriver#tickOwnedTasks};</li>
- *   <li>run the owned tasks inline through the injected {@link OwnedDagRunner}
- *       (the real DAG execution, e.g. {@code MicroStepScheduler});</li>
- *   <li>dispatch each foreign task onto the region thread that owns it via
- *       {@link FoliaRegionTickDriver#dispatchForeignTasks}, where the same
- *       runner executes it in the correct region context.</li>
- * </ol>
+ * <p>This is where region-aware partitioning actually happens: each task is
+ * dispatched to the region thread that owns its chunk coordinates, ensuring
+ * thread-safe access to the world state for that region.
  *
  * <p>Kept subsystem-agnostic: the {@link Function position function} and the
  * {@link OwnedDagRunner DAG runner} are injected, so redstone, entity-physics,
  * and block-entity subsystems all reuse this same wiring with their own
- * task-id → position decoding and their own scheduler.
+ * task-id to position decoding and their own scheduler.
  */
 public final class FoliaRegionTickExecutor implements RedstoneTickHook.TickExecutor {
 
     private static final Logger LOG = Logger.getLogger(FoliaRegionTickExecutor.class.getName());
 
     /**
-     * Runs a batch of tasks that are owned by the current region thread through
-     * the real Nebula DAG executor. Invoked both for the inline owned partition
-     * and, later, for each foreign task once it has been re-scheduled onto its
-     * owning region thread.
+     * Runs a batch of tasks through the real Nebula DAG executor. Invoked on
+     * the owning region thread for each task (or batch of tasks for the same
+     * region).
      */
     @FunctionalInterface
     public interface OwnedDagRunner {
-        void run(World world, String worldName, List<TaskNode> ownedTasks)
+        void run(World world, String worldName, List<TaskNode> tasks)
             throws DagExecutionException;
     }
 
     private final Server server;
-    private final FoliaRegionTickDriver driver;
     private final Function<TaskNode, WorldPos> positionOf;
     private final OwnedDagRunner ownedRunner;
+    private final org.bukkit.plugin.Plugin plugin;
 
     public FoliaRegionTickExecutor(Server server,
-                                   FoliaRegionTickDriver driver,
                                    Function<TaskNode, WorldPos> positionOf,
-                                   OwnedDagRunner ownedRunner) {
+                                   OwnedDagRunner ownedRunner,
+                                   org.bukkit.plugin.Plugin plugin) {
         this.server = Objects.requireNonNull(server, "server");
-        this.driver = Objects.requireNonNull(driver, "driver");
         this.positionOf = Objects.requireNonNull(positionOf, "positionOf");
         this.ownedRunner = Objects.requireNonNull(ownedRunner, "ownedRunner");
+        this.plugin = Objects.requireNonNull(plugin, "plugin");
     }
 
     @Override
@@ -84,33 +79,25 @@ public final class FoliaRegionTickExecutor implements RedstoneTickHook.TickExecu
             return;
         }
 
-        // (1)+(2)+(3): run the owned partition inline on this region thread, get the foreign rest.
-        List<TaskNode> foreign;
-        try {
-            foreign = driver.tickOwnedTasks(world, dirtyTasks, positionOf,
-                (w, owned) -> ownedRunner.run(w, worldName, owned));
-        } catch (DagExecutionException e) {
-            throw e;
-        } catch (Exception e) {
-            // Surface non-DAG failures (e.g. position decoding) as a DAG failure
-            // so the hook's existing diagnostics path reports them uniformly.
-            throw new DagExecutionException(-1, List.of(), List.of(e));
-        }
-
-        if (foreign.isEmpty()) {
-            return;
-        }
-
-        // (4): hand each foreign task to the region thread that owns it. The
-        // RegionScheduler runnable cannot propagate checked exceptions, so a DAG
-        // failure on a foreign region is logged rather than rethrown here.
-        driver.dispatchForeignTasks(world, foreign, positionOf, task -> {
-            try {
-                ownedRunner.run(world, worldName, List.of(task));
-            } catch (DagExecutionException e) {
-                LOG.warning(() -> "Foreign-region DAG execution failed for "
-                    + task.taskId() + " in " + worldName + ": " + e.getMessage());
+        // Dispatch every task to its owning region thread via RegionScheduler.
+        // This is always necessary because executeTasks runs on the global tick
+        // thread, not on any region thread.
+        var scheduler = server.getRegionScheduler();
+        for (TaskNode task : dirtyTasks) {
+            WorldPos pos = positionOf.apply(task);
+            if (pos == null) {
+                LOG.fine(() -> "Skipping task " + task.taskId()
+                    + " — positionOf returned null");
+                continue;
             }
-        });
+            scheduler.execute(plugin, world, pos.x() >> 4, pos.z() >> 4, () -> {
+                try {
+                    ownedRunner.run(world, worldName, List.of(task));
+                } catch (DagExecutionException e) {
+                    LOG.warning(() -> "DAG execution failed for "
+                        + task.taskId() + " in " + worldName + ": " + e.getMessage());
+                }
+            });
+        }
     }
 }

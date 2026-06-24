@@ -3,6 +3,7 @@ package org.nebula.plugin;
 import org.bukkit.Chunk;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.nebula.core.state.DimensionIds;
 import org.nebula.core.state.WorldPos;
 import org.nebula.redstone.RedstoneComponentType;
 
@@ -78,7 +79,7 @@ public final class WorldRedstoneScanner {
      */
     public int scanChunk(World world, Chunk chunk) {
         int count = 0;
-        int dimId = getDimensionId(world);
+        int dimId = DimensionIds.fromName(world.getName());
         int cx = chunk.getX() << 4;
         int cz = chunk.getZ() << 4;
 
@@ -109,7 +110,7 @@ public final class WorldRedstoneScanner {
         RedstoneComponentType type = TYPE_MAP.get(block.getType().name());
         if (type == null) return false;
 
-        int dimId = getDimensionId(block.getWorld());
+        int dimId = DimensionIds.fromName(block.getWorld().getName());
         WorldPos pos = new WorldPos(dimId, block.getX(), block.getY(), block.getZ());
         plugin.registerRedstoneComponent(pos, type);
         return true;
@@ -124,17 +125,9 @@ public final class WorldRedstoneScanner {
     public boolean unregisterBlock(Block block) {
         if (!TYPE_MAP.containsKey(block.getType().name())) return false;
 
-        int dimId = getDimensionId(block.getWorld());
+        int dimId = DimensionIds.fromName(block.getWorld().getName());
         WorldPos pos = new WorldPos(dimId, block.getX(), block.getY(), block.getZ());
         plugin.unregisterRedstoneComponent(pos);
         return true;
-    }
-
-    private static int getDimensionId(World world) {
-        String name = world.getName();
-        if (name.equals("world") || name.endsWith("overworld")) return 0;
-        if (name.endsWith("nether") || name.endsWith("the_nether")) return -1;
-        if (name.endsWith("end") || name.endsWith("the_end")) return 1;
-        return 0; // default to overworld
     }
 }

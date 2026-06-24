@@ -3,6 +3,7 @@ package org.nebula.agent;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
@@ -14,6 +15,10 @@ import org.objectweb.asm.Type;
  * any existing logic, enabling OBSERVE/INTERCEPT mode in Nebula.
  * Target: net/minecraft/world/level/redstone/CollectingNeighborUpdater
  * Method: a(BlockPosition, Block, Orientation) - obfuscated NMS
+ *
+ * <p>The World/Level field name is detected at transform time by scanning
+ * declared fields for the expected type descriptor, so this transformer
+ * works under both Mojang-mapped and obfuscated (Spigot/CraftBukkit) jars.</p>
  */
 public final class NeighborUpdateTransformer {
 
@@ -33,8 +38,7 @@ public final class NeighborUpdateTransformer {
         "(Lnet/minecraft/core/BlockPos;" +
         "Lnet/minecraft/world/level/redstone/CollectingNeighborUpdater$NeighborUpdates;)V";
 
-    // Mojang-mapped field name and descriptor
-    public static final String WORLD_FIELD = "level";
+    // Expected type descriptor for the World/Level field
     public static final String WORLD_FIELD_DESC =
         "Lnet/minecraft/world/level/Level;";
 
@@ -52,9 +56,16 @@ public final class NeighborUpdateTransformer {
             return bytecode;
         }
         try {
+            // First pass: scan declared fields to find the Level/World field name
+            String worldFieldName = findLevelField(bytecode);
+            if (worldFieldName == null) {
+                System.err.println("[Nebula/NeighborUpdateTransformer] Could not find Level field in " + TARGET_CLASS);
+                return bytecode;
+            }
+
             ClassReader reader = new ClassReader(bytecode);
             ClassWriter writer = new ClassWriter(reader, ClassWriter.COMPUTE_MAXS);
-            reader.accept(new NeighborUpdaterClassVisitor(writer), 0);
+            reader.accept(new NeighborUpdaterClassVisitor(writer, worldFieldName), 0);
             return writer.toByteArray();
         } catch (Exception e) {
             // Never break the server — log and return original bytes
@@ -63,11 +74,36 @@ public final class NeighborUpdateTransformer {
         }
     }
 
+    /**
+     * Scans the class bytecode for a field whose descriptor matches
+     * {@link #WORLD_FIELD_DESC} and returns its name.
+     *
+     * @return the field name, or {@code null} if no matching field is found
+     */
+    private static String findLevelField(byte[] bytecode) {
+        ClassReader reader = new ClassReader(bytecode);
+        String[] found = {null};
+        reader.accept(new ClassVisitor(Opcodes.ASM9) {
+            @Override
+            public FieldVisitor visitField(int access, String name, String descriptor,
+                                           String signature, Object value) {
+                if (WORLD_FIELD_DESC.equals(descriptor)) {
+                    found[0] = name;
+                }
+                return null;
+            }
+        }, ClassReader.SKIP_CODE | ClassReader.SKIP_DEBUG);
+        return found[0];
+    }
+
     // ── ASM visitors ─────────────────────────────────────────────────────────
 
     private static final class NeighborUpdaterClassVisitor extends ClassVisitor {
-        NeighborUpdaterClassVisitor(ClassVisitor cv) {
+        private final String worldFieldName;
+
+        NeighborUpdaterClassVisitor(ClassVisitor cv, String worldFieldName) {
             super(Opcodes.ASM9, cv);
+            this.worldFieldName = worldFieldName;
         }
 
         @Override
@@ -75,7 +111,7 @@ public final class NeighborUpdateTransformer {
                                          String signature, String[] exceptions) {
             MethodVisitor mv = super.visitMethod(access, name, descriptor, signature, exceptions);
             if (TARGET_METHOD_NAME.equals(name) && TARGET_METHOD_DESC.equals(descriptor)) {
-                return new NeighborUpdateMethodVisitor(mv);
+                return new NeighborUpdateMethodVisitor(mv, worldFieldName);
             }
             return mv;
         }
@@ -83,20 +119,32 @@ public final class NeighborUpdateTransformer {
 
     /**
      * Inserts NeighborUpdateHooks.onNeighborUpdate(world, blockPos) at method start.
-     * Loads this.c (World field) and arg1 (BlockPosition) before existing bytecode.
+     * Loads the discovered World field and arg1 (BlockPosition) before existing bytecode.
      */
     private static final class NeighborUpdateMethodVisitor extends MethodVisitor {
-        NeighborUpdateMethodVisitor(MethodVisitor mv) {
+        private final String worldFieldName;
+
+        NeighborUpdateMethodVisitor(MethodVisitor mv, String worldFieldName) {
             super(Opcodes.ASM9, mv);
+            this.worldFieldName = worldFieldName;
         }
 
         @Override
         public void visitCode() {
             super.visitCode();
 
-            // Load this.c (the World field) → arg 0 = this
+            // Set sentinel: hooksActive = true
+            super.visitInsn(Opcodes.ICONST_1);
+            super.visitFieldInsn(
+                Opcodes.PUTSTATIC,
+                "org/nebula/agent/NeighborUpdateHooks",
+                "hooksActive",
+                "Z"
+            );
+
+            // Load this.{worldFieldName} (the World field) → arg 0 = this
             super.visitVarInsn(Opcodes.ALOAD, 0);
-            super.visitFieldInsn(Opcodes.GETFIELD, TARGET_CLASS, WORLD_FIELD, WORLD_FIELD_DESC);
+            super.visitFieldInsn(Opcodes.GETFIELD, TARGET_CLASS, worldFieldName, WORLD_FIELD_DESC);
 
             // Load blockPos argument (arg 1)
             super.visitVarInsn(Opcodes.ALOAD, 1);
