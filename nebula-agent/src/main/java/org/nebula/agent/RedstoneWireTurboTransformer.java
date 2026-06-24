@@ -74,15 +74,6 @@ public final class RedstoneWireTurboTransformer {
         public void visitCode() {
             super.visitCode();
 
-            // Set sentinel: hooksActive = true
-            super.visitInsn(Opcodes.ICONST_1);
-            super.visitFieldInsn(
-                Opcodes.PUTSTATIC,
-                "org/nebula/agent/NeighborUpdateHooks",
-                "hooksActive",
-                "Z"
-            );
-
             // Load Level (arg 0)
             super.visitVarInsn(Opcodes.ALOAD, 0);
             // Load BlockPos (arg 1)
@@ -105,15 +96,6 @@ public final class RedstoneWireTurboTransformer {
         @Override
         public void visitCode() {
             super.visitCode();
-
-            // Set sentinel: hooksActive = true
-            super.visitInsn(Opcodes.ICONST_1);
-            super.visitFieldInsn(
-                Opcodes.PUTSTATIC,
-                "org/nebula/agent/NeighborUpdateHooks",
-                "hooksActive",
-                "Z"
-            );
 
             super.visitVarInsn(Opcodes.ALOAD, 0);
             super.visitVarInsn(Opcodes.ALOAD, 1);

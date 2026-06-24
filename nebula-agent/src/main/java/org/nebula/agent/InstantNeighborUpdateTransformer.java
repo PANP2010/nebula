@@ -98,14 +98,6 @@ public final class InstantNeighborUpdateTransformer {
         public void visitCode() {
             super.visitCode();
 
-            // Set sentinel: hooksActive = true
-            super.visitInsn(Opcodes.ICONST_1);
-            super.visitFieldInsn(
-                Opcodes.PUTSTATIC,
-                "org/nebula/agent/NeighborUpdateHooks",
-                "hooksActive",
-                "Z"
-            );
 
             // Load this.{worldFieldName} (World)
             super.visitVarInsn(Opcodes.ALOAD, 0);

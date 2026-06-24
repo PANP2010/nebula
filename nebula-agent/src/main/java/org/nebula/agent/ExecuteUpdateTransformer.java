@@ -77,14 +77,6 @@ public final class ExecuteUpdateTransformer {
         public void visitCode() {
             super.visitCode();
 
-            // Set sentinel: hooksActive = true
-            super.visitInsn(Opcodes.ICONST_1);
-            super.visitFieldInsn(
-                Opcodes.PUTSTATIC,
-                "org/nebula/agent/NeighborUpdateHooks",
-                "hooksActive",
-                "Z"
-            );
 
             // Load Level (arg 0)
             super.visitVarInsn(Opcodes.ALOAD, 0);
