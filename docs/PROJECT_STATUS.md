@@ -8,7 +8,7 @@
 
 ## Executive Summary
 
-Nebula has a solid architectural foundation with 17,305 lines of production code, 678 passing unit tests, and complete build toolchain integration.
+Nebula has a solid architectural foundation with 17,305 lines of production code, 691 passing unit tests, and complete build toolchain integration.
 
 **MILESTONE 1 (2026-07-08): The core DAG execution path now runs on a real Folia 26.1.2 server.** A live lever→wire→lamp circuit was toggled via RCON and produced repeatable, exception-free DAG ticks:
 
@@ -66,7 +66,7 @@ built, force-loaded, scanned, and *toggled*, the chain fired immediately.
 - Shadow jar packaging (513KB deployable plugin)
 - Java agent build and packaging
 - Java 21 (compile) + Java 25 (runtime for NMS adapter)
-- All 678 unit tests pass
+- All 691 unit tests pass
 
 ### ✅ Core Components (Unit-Tested)
 - **CAS state stores**: RedstoneWorldState, EntityPhysicsState, BlockEntityState
@@ -196,7 +196,7 @@ Detailed history of each blocker follows below (retained for the record).
 ## Test Coverage Analysis
 
 ### What's Tested
-- ✅ 678 unit tests, all passing
+- ✅ 691 unit tests, all passing
 - ✅ CAS state store operations
 - ✅ DAG topological sort
 - ✅ MicroStepScheduler logic

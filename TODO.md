@@ -12,7 +12,7 @@
 
 - ✅ **Verified working**: end-to-end DAG execution (live circuit toggles → DAG ticks) and
   deterministic zero-diff capture (two identical captures → byte-for-byte identical files)
-- ✅ **What works**: Architecture, unit tests (678 passing), build system, live redstone DAG, per-tick MSPT measurement (`/nebula perf`)
+- ✅ **What works**: Architecture, unit tests (691 passing), build system, live redstone DAG, per-tick MSPT measurement (`/nebula perf`)
 - ✅ **Now verified**: DAG shadow overhead *under a large multi-region load* (B4 — 16 circuits /
   238 components / 7097 ticks, p99 1.914ms < 3ms budget, auto-graded PASS 2026-07-08)
 - ✅ **Now verified**: 10k-tick zero-diff at multi-region scale (DG1 Criterion 1 — two independent

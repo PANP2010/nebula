@@ -7,7 +7,7 @@
 ## What You Need to Know
 
 ### The Situation (updated 2026-07-08)
-- **Code quality**: Good. 678 unit tests pass, architecture is solid.
+- **Code quality**: Good. 691 unit tests pass, architecture is solid.
 - **Integration status**: Core DAG execution and deterministic zero-diff capture are both VERIFIED on real Folia 26.1.2 (2026-07-08). B1/B2/B3/B6 are resolved.
 - **Verified**: live circuit toggles → DAG ticks; two identical captures → byte-for-byte identical `.nrp` files; DG1 Criteria 1/2/3 all PASS at multi-region scale (each with a documented caveat — see PROJECT_STATUS.md).
 - **Still unverified**: performance under sustained load, zero-diff under *live* redstone (needs a tick-deterministic input driver), and the entity subsystem on a live server.

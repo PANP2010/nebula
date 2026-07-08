@@ -40,7 +40,7 @@ verified on a real Folia 26.1.2 server (previously only unit-tested in isolation
 - Per-tick MSPT (B4): steady-state small circuit measured avg 1.24ms / p50 0.95ms /
   p95 2.86ms / p99 3.47ms over 100 ticks via `/nebula perf`, well under the
   50ms/20-TPS budget (a ~57ms first-tick JIT-warmup outlier ages out of the window).
-- 678 unit tests pass (was 659).
+- 691 unit tests pass (was 659).
 
 **Still unverified**: performance *under load* (B4) — per-tick cost is now measured on
 a small circuit, but large multi-region load testing and a baseline-vs-Nebula MSPT
@@ -128,5 +128,5 @@ with 659 passing unit tests. End-to-end integration testing is in progress.
 - Capture harness never run end-to-end → ✅ resolved (verified 2026-07-08)
 
 **Test Coverage**:
-- ✅ 659 unit tests pass (100% success rate) — now 669 as of 2026-07-08
+- ✅ 659 unit tests pass (100% success rate) — now 691 as of 2026-07-08
 - ✅ End-to-end DAG execution verified on real server (2026-07-08)
