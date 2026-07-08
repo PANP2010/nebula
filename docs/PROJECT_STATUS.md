@@ -1,8 +1,8 @@
 # Nebula Project Status Report
 
-**Date**: 2026-07-08 (updated 19:00 — DAG execution AND zero-diff capture VERIFIED on real Folia)
+**Date**: 2026-07-08 (updated 20:52 — DG1 Criterion 3 shadow-overhead budget VERIFIED AT SCALE on real Folia)
 **Branch**: feat/fix-folia-scheduler-v2  
-**Completion**: ~50% (two milestones reached: end-to-end DAG execution + deterministic zero-diff capture verified; per-tick MSPT measurement now exists and is Folia-verified, but load testing and a baseline-vs-Nebula comparison remain)
+**Completion**: ~50% (two milestones reached: end-to-end DAG execution + deterministic zero-diff capture verified; the DAG shadow-overhead budget (DG1 Criterion 3) is now met and verified on a large multi-region workload — p99 1.914ms over 7097 ticks / 16 circuits. Remaining DG1 gate: the 10k-tick zero-diff correctness run)
 
 ---
 
@@ -94,7 +94,7 @@ built, force-loaded, scanned, and *toggled*, the chain fired immediately.
 | B1: RedstoneTickHook lifecycle | ✅ **VERIFIED WORKING** | DAG ticks fire every redstone change; lifecycle driver drives begin/end |
 | B2: componentMap empty | ✅ **RESOLVED** | Async scan + new `/nebula scan` register components (16 found for test circuit) |
 | B3: Agent interception chain | ✅ **FIXED** (key mismatch) + ⚠️ fallback active | `BlockRedstoneEvent` listener confirmed firing; agent path now key-consistent |
-| B4: NMS sync overhead | ⚠️ Partially verified | Per-tick MSPT now measured (`/nebula perf`); small-circuit steady-state p99 3.47ms. Load testing + baseline comparison still open |
+| B4: NMS sync overhead | ✅ **Verified within budget at scale** | Per-tick MSPT auto-graded via `scripts/perf-harness.sh`; large multi-region run (16 circuits / 238 components / 7097 ticks) p99 1.914ms < 3ms budget. Phase-3 micro-optimization is now optional polish, not a blocker |
 | B5: Redstone test world | ✅ Circuit persists in flat world | lever→15 wire→lamp at y=-59 |
 | B6: Capture harness E2E | ✅ **VERIFIED WORKING** | Two identical 40-tick captures produced byte-for-byte identical `.nrp` files (deterministic zero-diff holds) |
 
@@ -224,9 +224,9 @@ Detailed history of each blocker follows below (retained for the record).
 |-----------|--------|----------------|
 | Zero-diff for 10k ticks | Pass | ⏳ DAG now executes; 10k-tick E2E zero-diff not yet run (B6) |
 | Microsteps ≤ 256 per tick | ≤256 | ⏳ Well within bound on tiny circuit; not yet stress-tested |
-| Shadow-overhead budget (redefined — see note) | p99 DAG tick < 5ms | ⏳ **Defined + auto-graded** by `scripts/perf-harness.sh`; last small run p99 3.672ms (PASS-range) but not yet run through the new grader on a large multi-region workload |
+| Shadow-overhead budget (redefined — see note) | p99 DAG tick < 3ms | ✅ **Defined, auto-graded, and verified at scale** by `scripts/perf-harness.sh`. Large multi-region run 2026-07-08 (16 circuits / 238 components / 604 loaded chunks / 7097 DAG ticks): p99 **1.914ms** → PASS. Budget tightened 5ms→3ms after two runs both landed ~2ms |
 
-**Verdict**: DG1 not yet accepted. The execution path is verified; the 10k-tick zero-diff correctness criterion still requires live measurement, and the shadow-overhead budget needs a graded large-workload run.
+**Verdict**: DG1 not yet accepted. Criterion 3 (shadow-overhead budget) is now **met and verified at scale** — the large multi-region graded run PASSed (p99 1.914ms < 3ms; see below). The remaining gate is Criterion 1: the 10k-tick zero-diff correctness run, which still requires live measurement. Criterion 2 (microsteps ≤256) holds on the workloads run so far but has not been stress-tested at the 10k-tick scale.
 
 > **DG1 Criterion 3 was redefined — decision recorded 2026-07-08 (Path 2).** The
 > original arch-doc criterion "MSPT reduction ≥30% vs vanilla" presupposes Nebula
@@ -246,13 +246,18 @@ Detailed history of each blocker follows below (retained for the record).
 > zero-diff validation, and is NOT required for DG1.
 >
 > **Path 2 (chosen): grade the DAG shadow's added overhead against a budget.**
-> Criterion 3 is now "**p99 DAG tick time < OVERHEAD_BUDGET_MS (default 5ms, =
-> 10% of the 50ms/20-TPS tick) under a driven multi-region workload**", measured
+> Criterion 3 is now "**p99 DAG tick time < OVERHEAD_BUDGET_MS (default 3ms, =
+> 6% of the 50ms/20-TPS tick) under a driven multi-region workload**", measured
 > and auto-graded (PASS/FAIL/INCONCLUSIVE, with a nonzero exit code on FAIL) by
 > `scripts/perf-harness.sh`. This grades what Nebula actually does today. The
 > budget is a starting bound, tightened as Phase-3 optimization lands — it is not
-> a physics constant. There is deliberately no baseline-vs-Nebula comparison:
-> the shadow replaces nothing, so there is nothing to compare against.
+> a physics constant. It was **lowered from the original 5ms placeholder to 3ms
+> on 2026-07-08** after two verified graded runs (small: p99 2.002ms / 1200
+> ticks / 68 components; large: p99 1.914ms / 7097 ticks / 16 circuits / 238
+> components) both landed near 2ms, leaving 5ms too loose to catch a real
+> regression; 3ms keeps ~50% headroom over observed p99 while gating a ~2x
+> regression. There is deliberately no baseline-vs-Nebula comparison: the shadow
+> replaces nothing, so there is nothing to compare against.
 
 ---
 

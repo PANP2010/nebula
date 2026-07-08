@@ -13,18 +13,20 @@
 - ✅ **Verified working**: end-to-end DAG execution (live circuit toggles → DAG ticks) and
   deterministic zero-diff capture (two identical captures → byte-for-byte identical files)
 - ✅ **What works**: Architecture, unit tests (678 passing), build system, live redstone DAG, per-tick MSPT measurement (`/nebula perf`)
-- ❌ **Not yet verified**: DAG shadow overhead *under load* (B4 — per-tick measured on a tiny
-  circuit only, no large multi-region load test); entity DAG not wired into the live tick
-  path; multi-region coordination untested
-- 🎯 **Next goal**: measure DAG *shadow overhead* on large multi-region circuits (via
-  `scripts/perf-harness.sh`) and profile `executeOwnedDag` under that load
+- ✅ **Now verified**: DAG shadow overhead *under a large multi-region load* (B4 — 16 circuits /
+  238 components / 7097 ticks, p99 1.914ms < 3ms budget, auto-graded PASS 2026-07-08)
+- ❌ **Not yet verified**: 10k-tick zero-diff correctness run (DG1 Criterion 1); entity DAG not
+  wired into the live tick path; multi-region *coordination* correctness (not just overhead)
+- 🎯 **Next goal**: run the 10k-tick zero-diff capture (DG1 Criterion 1) to close the last DG1 gate
 
 > ⚠️ **Do NOT chase a "baseline-vs-Nebula MSPT reduction."** Nebula is observe-only in both
 > AGENT and INTERCEPT modes — the DAG is a non-authoritative shadow on top of authoritative
 > Folia, so it can only *add* overhead; there is no serial work it removes and thus no
 > reduction to measure by construction. **DG1 Criterion 3 was formally redefined 2026-07-08
-> (Path 2): "p99 DAG tick < 5ms under a driven multi-region workload," auto-graded by
-> `scripts/perf-harness.sh`** (first live PASS: p99 2.002ms over 1200 ticks / 68 components).
+> (Path 2): "p99 DAG tick < 3ms under a driven multi-region workload," auto-graded by
+> `scripts/perf-harness.sh`** — now VERIFIED AT SCALE: large run (16 circuits / 238
+> components / 604 loaded chunks / 7097 DAG ticks) p99 **1.914ms** → PASS. Budget tightened
+> 5ms→3ms after two runs (small p99 2.002ms, large p99 1.914ms) both landed ~2ms.
 > See docs/PROJECT_STATUS.md → "DG1 Criterion 3" (the source of truth). This whole file's
 > "≥30% reduction" language below is retained only for historical context and is superseded
 > by that note.
@@ -145,10 +147,11 @@
 - [ ] Baseline: run vanilla Folia (no Nebula plugin) with the test circuits; record avg MSPT
 - [ ] Restart with Nebula plugin; record avg MSPT (use `/nebula perf`, not just Spark)
 - [ ] Compute added overhead: `MSPT_nebula - MSPT_vanilla` (expect a positive number)
-- [ ] **DG1 Criterion 3 (redefined — Path 2, decided 2026-07-08):** grade against the
-      shadow-overhead budget "p99 DAG tick < OVERHEAD_BUDGET_MS (default 5ms)" — now
-      AUTO-GRADED with a PASS/FAIL exit code by `scripts/perf-harness.sh`. First live run
-      PASSed (p99 2.002ms, 1200 ticks, 68 components); still needs a larger multi-region run
+- [x] **DG1 Criterion 3 (redefined — Path 2, decided 2026-07-08):** grade against the
+      shadow-overhead budget "p99 DAG tick < OVERHEAD_BUDGET_MS (default 3ms)" —
+      AUTO-GRADED with a PASS/FAIL exit code by `scripts/perf-harness.sh`. **VERIFIED at scale
+      2026-07-08**: large run p99 1.914ms over 7097 ticks (16 circuits / 238 components); small
+      run p99 2.002ms. Budget tightened 5ms→3ms since both landed ~2ms
 - [ ] Document actual overhead for Phase 3 optimization planning
 
 ---
@@ -376,9 +379,10 @@ Nebula is observe-only; see the DG1 Criterion 3 note in docs/PROJECT_STATUS.md)
 ### DG1 Complete (Redstone Subsystem)
 - [ ] 10k-tick zero-diff test passes
 - [ ] Microsteps ≤ 256 per tick
-- [ ] Criterion 3 (redefined, Path 2): p99 DAG shadow overhead < 5ms under a large
-      multi-region workload, auto-graded by `scripts/perf-harness.sh` (small run PASSed;
-      needs a large-workload confirmation) — see DG1 Criterion 3 note in docs/PROJECT_STATUS.md
+- [x] Criterion 3 (redefined, Path 2): p99 DAG shadow overhead < 3ms under a large
+      multi-region workload, auto-graded by `scripts/perf-harness.sh` — **VERIFIED 2026-07-08**
+      (large run: p99 1.914ms, 7097 ticks, 16 circuits / 238 components) — see DG1 Criterion 3
+      note in docs/PROJECT_STATUS.md
 
 ### DG2 Complete (Entity Subsystem)
 - [ ] 50k-tick entity zero-diff test passes

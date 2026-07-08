@@ -15,9 +15,9 @@
 # DG1 Criterion 3 (docs/PROJECT_STATUS.md, decided 2026-07-08 — Path 2). Nebula
 # is observe-only, so the old "≥30% MSPT reduction" is unreachable by
 # construction; instead we grade the DAG shadow's ADDED per-tick cost against a
-# budget: p99 DAG tick time must stay under OVERHEAD_BUDGET_MS at the driven
-# workload. There is no "nebula off" comparison because there is nothing the
-# shadow replaces — see the DG1 Criterion 3 note in docs/PROJECT_STATUS.md.
+# budget: p99 DAG tick time must stay under OVERHEAD_BUDGET_MS (default 3ms) at
+# the driven workload. There is no "nebula off" comparison because there is
+# nothing the shadow replaces — see the DG1 Criterion 3 note in docs/PROJECT_STATUS.md.
 #
 # Usage:  scripts/perf-harness.sh [circuits] [toggles] [--keep-running]
 #   circuits  number of independent redstone lines to place (default 8)
@@ -25,7 +25,9 @@
 #   --keep-running  leave the server up at the end (default: stop it cleanly)
 #
 # Env overrides: RCON_PORT (25576), RCON_PW (nebulatest), SERVER_DIR,
-#   OVERHEAD_BUDGET_MS (5.0 — the p99 budget; 10% of the 50ms/20-TPS tick).
+#   OVERHEAD_BUDGET_MS (3.0 — the p99 budget; 6% of the 50ms/20-TPS tick,
+#   tightened from the original 5ms placeholder after two verified runs both
+#   showed p99 ~2ms; see the DG1 Criterion 3 note in docs/PROJECT_STATUS.md).
 # Exit code: 0 if the verdict is PASS, 3 if FAIL, 4 if INCONCLUSIVE (no p99).
 set -uo pipefail
 
@@ -33,7 +35,7 @@ REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 SERVER_DIR="${SERVER_DIR:-$REPO_ROOT/folia-test-server}"
 RCON_PORT="${RCON_PORT:-25576}"
 RCON_PW="${RCON_PW:-nebulatest}"
-OVERHEAD_BUDGET_MS="${OVERHEAD_BUDGET_MS:-5.0}"
+OVERHEAD_BUDGET_MS="${OVERHEAD_BUDGET_MS:-3.0}"
 JAR_SRC="$HOME/.gradle/nebula-server-build/nebula-server/nebula-plugin/libs/nebula-plugin-0.1.0-SNAPSHOT.jar"
 
 CIRCUITS="${1:-8}"
@@ -187,8 +189,11 @@ exit "$verdict_code"
 #    per the DG1 Criterion 3 decision (Path 2, 2026-07-08, docs/PROJECT_STATUS.md),
 #    Nebula is observe-only, so the shadow replaces no serial work and there is
 #    nothing to compare against — only added overhead to bound.
-#  - The p99 budget (OVERHEAD_BUDGET_MS, default 5ms = 10% of the 50ms tick) is a
-#    starting bound, not a physics constant; tighten it as optimization lands.
+#  - The p99 budget (OVERHEAD_BUDGET_MS, default 3ms = 6% of the 50ms tick) is a
+#    starting bound, not a physics constant; tighten it further as optimization
+#    lands. It was lowered from 5ms to 3ms on 2026-07-08 after two verified runs
+#    (small: p99 2.002ms/1200 ticks; large: p99 1.914ms/7097 ticks, 16 circuits)
+#    both landed near 2ms, leaving 5ms too loose to catch a real regression.
 #  - RCON setblock does not fire BlockPlaceEvent, hence the /nebula scan step.
 #  - "Regions" spacing assumes Folia assigns distant chunks to distinct region
 #    threads; with no players, idle-region gating may reduce ticking. Treat the
