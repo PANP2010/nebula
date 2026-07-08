@@ -44,6 +44,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
             case "scan" -> handleScan(sender);
             case "perf" -> handlePerf(sender, args);
             case "diag" -> handleDiag(sender, args);
+            case "settled" -> handleSettled(sender);
             case "help" -> sendHelp(sender);
             default -> sender.sendMessage("§cUnknown subcommand: " + sub);
         }
@@ -293,6 +294,28 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
         }
     }
 
+    /**
+     * DG3 correctness: emit a settled-state SETTLED-DIAG snapshot. Snapshots every
+     * tracked position on its owning region thread, logging {@code nebula=X folia=Y}
+     * per position, so {@code SettledDivergenceGraderCli} can grade Folia-vs-Nebula
+     * divergence at quiescence — the load-bearing signal the residual dirty rate is
+     * not. Drive a toggle, let the circuit settle (watch for sustained
+     * {@code microsteps=0} / no DAG ticks), THEN run this so the snapshot captures the
+     * settled ON wires that never re-seed into the CASCADE-DIAG stream.
+     */
+    private void handleSettled(CommandSender sender) {
+        if (!sender.hasPermission("nebula.status")) {
+            sender.sendMessage("§cYou don't have permission to use this command.");
+            return;
+        }
+        int dispatched = plugin.emitSettledSnapshot();
+        sender.sendMessage("§aSETTLED-DIAG snapshot dispatched for " + dispatched
+            + " tracked position(s). Read the SETTLED-DIAG line(s) in server-run.log, "
+            + "then grade with SettledDivergenceGraderCli.");
+        LOG.info("Settled snapshot requested by " + sender.getName()
+            + " (" + dispatched + " positions dispatched)");
+    }
+
     private void sendHelp(CommandSender sender) {
         sender.sendMessage("§6Nebula Commands:");
         sender.sendMessage("  §e/nebula capture start [ticks] [--drive <seed>] [--period <n>] §7- Start state capture (--drive = live-load driven)");
@@ -301,6 +324,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
         sender.sendMessage("  §e/nebula status §7- Show plugin status");
         sender.sendMessage("  §e/nebula perf [reset] §7- Show DAG tick timing percentiles");
         sender.sendMessage("  §e/nebula diag <on|off> §7- Toggle per-tick cascade diagnostic (DG1 C2 probe)");
+        sender.sendMessage("  §e/nebula settled §7- Emit a settled-state SETTLED-DIAG snapshot (DG3 divergence)");
         sender.sendMessage("  §e/nebula help §7- Show this help");
     }
 
@@ -310,7 +334,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
                                       String alias,
                                       String[] args) {
         if (args.length == 1) {
-            return Arrays.asList("capture", "status", "scan", "perf", "diag", "help");
+            return Arrays.asList("capture", "status", "scan", "perf", "diag", "settled", "help");
         }
         if (args.length == 2 && args[0].equalsIgnoreCase("capture")) {
             return Arrays.asList("start", "stop");

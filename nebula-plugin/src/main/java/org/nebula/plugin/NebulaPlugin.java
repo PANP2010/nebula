@@ -33,6 +33,8 @@ import org.nebula.redstone.RedstoneWorldState;
 import org.nebula.redstone.actions.RedstoneActions;
 import org.nebula.core.scheduler.CompositeTaskRunner;
 import org.nebula.replay.ReplayRecorder;
+import org.nebula.replay.SettledDivergenceGrader;
+import org.nebula.replay.SettledSnapshotFormatter;
 
 import com.destroystokyo.paper.event.server.ServerTickEndEvent;
 import com.destroystokyo.paper.event.server.ServerTickStartEvent;
@@ -486,6 +488,100 @@ public final class NebulaPlugin extends JavaPlugin {
                 + " modified=" + modCount
                 + " seeds=" + diagSeeds);
         }
+    }
+
+    /**
+     * Emits one {@code SETTLED-DIAG} snapshot line per world, comparing Nebula's
+     * shadow power against Folia's authoritative power for every tracked position at
+     * quiescence. This is the load-bearing settled-state Folia-vs-Nebula divergence
+     * signal (DG3 correctness) that the residual-dirty-rate grade cannot be.
+     *
+     * <h3>Why this is on-demand and NOT auto-hooked into {@code executeOwnedDag}</h3>
+     * At steady state a fully-powered wire fires no {@code BLOCK_UPDATE}s, so it is
+     * never re-seeded into {@code executeOwnedDag} and never appears in the
+     * CASCADE-DIAG seed stream — a settled-only filter of that stream reports 0
+     * divergence <em>by construction</em> (a fake PASS; see
+     * {@link SettledDivergenceGrader}'s javadoc and memory
+     * divergence-grade-needs-settled-sampling). The honest surface is this one: the
+     * operator drives a toggle, lets the circuit settle, then invokes {@code /nebula
+     * settled}, which snapshots EVERY tracked position — including the settled ON
+     * wires that never re-seed.
+     *
+     * <h3>Region-thread safety</h3>
+     * Folia block reads NPE off the owning region thread, so this dispatches the
+     * snapshot of each tracked position via {@code RegionScheduler.execute} on the
+     * region that owns it, then logs one line per world once all its regions report.
+     * The per-position sample reads {@code nebula=redstoneState.getPowerLevel(pos)}
+     * (the shadow value) and {@code folia=blockBridge.readNmsPower(world, pos)} — the
+     * READ-ONLY NMS sample, NOT {@code syncFromNms}, which would clobber the shadow
+     * value with Folia's and make them equal by construction (the divergence
+     * tautology {@code readNmsPower}'s javadoc warns about).
+     *
+     * @return the number of tracked positions whose snapshot was dispatched
+     */
+    public int emitSettledSnapshot() {
+        if (stateHasher == null || blockBridge == null) {
+            LOG.warning("SETTLED-DIAG requested but bridges are not wired (non-Folia?)");
+            return 0;
+        }
+        java.util.List<WorldPos> tracked = stateHasher.trackedPositions().stream()
+            .sorted()
+            .toList();
+        if (tracked.isEmpty()) {
+            LOG.info("SETTLED-DIAG: tracked=0 — no positions registered; run /nebula scan first");
+            return 0;
+        }
+
+        Server server = getServer();
+        io.papermc.paper.threadedregions.scheduler.RegionScheduler regionScheduler =
+            server.getRegionScheduler();
+
+        int dispatched = 0;
+        for (World w : server.getWorlds()) {
+            int dim = org.nebula.core.state.DimensionIds.fromName(w.getName());
+            java.util.List<WorldPos> here = tracked.stream()
+                .filter(p -> p.dimensionId() == dim)
+                .toList();
+            if (here.isEmpty()) {
+                continue;
+            }
+            // One thread-safe accumulator per world; each owning region contributes
+            // its samples, and the last region to finish emits the world's line. Using
+            // a copy-on-write list keeps the accumulation safe across region threads
+            // without a lock, and the AtomicInteger tracks completion.
+            final World fw = w;
+            java.util.List<SettledDivergenceGrader.PositionSample> samples =
+                new java.util.concurrent.CopyOnWriteArrayList<>();
+            java.util.concurrent.atomic.AtomicInteger remaining =
+                new java.util.concurrent.atomic.AtomicInteger(here.size());
+            for (WorldPos pos : here) {
+                regionScheduler.execute(this, fw, pos.x() >> 4, pos.z() >> 4, () -> {
+                    int nebula = redstoneState.getPowerLevel(pos);
+                    int folia = blockBridge.readNmsPower(fw, pos);
+                    samples.add(new SettledDivergenceGrader.PositionSample(pos, nebula, folia));
+                    if (remaining.decrementAndGet() == 0) {
+                        // The tick label is read HERE, inside a ticking region task —
+                        // Server.getCurrentTick() throws "No currently ticking region"
+                        // off a region thread (e.g. the global command thread), so it
+                        // cannot be sampled in the dispatch loop above.
+                        int tick = server.getCurrentTick();
+                        // Sort by WorldPos so the emitted order is deterministic
+                        // regardless of region-thread completion order.
+                        java.util.List<SettledDivergenceGrader.PositionSample> ordered =
+                            samples.stream()
+                                .sorted(java.util.Comparator.comparing(
+                                    SettledDivergenceGrader.PositionSample::pos))
+                                .toList();
+                        LOG.info(SettledSnapshotFormatter.format(tick, ordered));
+                    }
+                });
+                dispatched++;
+            }
+        }
+        LOG.info("SETTLED-DIAG dispatched for " + dispatched
+            + " tracked position(s); snapshot line(s) follow asynchronously once each "
+            + "owning region reports.");
+        return dispatched;
     }
 
     /**
