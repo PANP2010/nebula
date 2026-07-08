@@ -16,7 +16,7 @@ import org.nebula.folia.FoliaRuntimeDetector;
 import org.nebula.folia.NmsBlockEntityStateBridge;
 import org.nebula.folia.NmsBlockStateBridge;
 import org.nebula.folia.NmsEntityStateBridge;
-import org.nebula.folia.WorldStateHasher;
+import org.nebula.folia.RedstoneCasStateHasher;
 import org.nebula.folia.bridge.FoliaCaptureHarness;
 import org.nebula.folia.bridge.NebulaFoliaBootstrap;
 import org.nebula.folia.bridge.RedstoneTickHook;
@@ -75,7 +75,7 @@ public final class NebulaPlugin extends JavaPlugin {
     private NmsBlockStateBridge blockBridge;
     private NmsEntityStateBridge entityBridge;
     private NmsBlockEntityStateBridge blockEntityBridge;
-    private WorldStateHasher stateHasher;
+    private RedstoneCasStateHasher stateHasher;
 
     // DAG execution
     private MicroStepScheduler microStepScheduler;
@@ -178,8 +178,11 @@ public final class NebulaPlugin extends JavaPlugin {
         entityBridge = new NmsEntityStateBridge(entityState);
         blockEntityBridge = new NmsBlockEntityStateBridge(blockEntityState);
 
-        // Create state hasher for zero-diff verification
-        stateHasher = new WorldStateHasher(bytes -> WorldPos.parse(new String(bytes)));
+        // Create state hasher for zero-diff verification.  Reads from the
+        // thread-safe RedstoneWorldState CAS store rather than live NMS blocks,
+        // so it is safe to invoke from the global tick thread (where the capture
+        // harness runs) and reflects the state Nebula's DAG actually computed.
+        stateHasher = new RedstoneCasStateHasher(redstoneState);
 
         // Create DAG execution pipeline
         componentMap = new ConcurrentHashMap<>();
@@ -469,6 +472,31 @@ public final class NebulaPlugin extends JavaPlugin {
         return java.util.List.of();
     }
 
+    /**
+     * Saves the most recently recorded capture to a timestamped {@code .nrp}
+     * file under the plugin data folder's {@code captures/} directory.  Two
+     * such files from separate runs can be compared with
+     * {@link org.nebula.replay.ReplayVerifier} for zero-diff verification.
+     *
+     * @return the saved path (as a string) relative reference, or {@code null}
+     *         if there was nothing to save or the write failed
+     */
+    public String saveLastCapture() {
+        if (recorder == null || recorder.frameCount() == 0) return null;
+        try {
+            java.nio.file.Path dir = getDataFolder().toPath().resolve("captures");
+            java.nio.file.Files.createDirectories(dir);
+            String name = "capture-" + java.time.LocalDateTime.now()
+                .format(java.time.format.DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss")) + ".nrp";
+            java.nio.file.Path path = dir.resolve(name);
+            recorder.save(path);
+            return "captures/" + name;
+        } catch (java.io.IOException e) {
+            LOG.warning("Failed to save capture: " + e.getMessage());
+            return null;
+        }
+    }
+
     @Override
     public void onDisable() {
         if (captureHarness != null) {
@@ -488,7 +516,7 @@ public final class NebulaPlugin extends JavaPlugin {
     public NmsBlockStateBridge blockBridge() { return blockBridge; }
     public NmsEntityStateBridge entityBridge() { return entityBridge; }
     public NmsBlockEntityStateBridge blockEntityBridge() { return blockEntityBridge; }
-    public WorldStateHasher stateHasher() { return stateHasher; }
+    public RedstoneCasStateHasher stateHasher() { return stateHasher; }
     public MicroStepScheduler microStepScheduler() { return microStepScheduler; }
     public RedstoneTaskGenerator taskGenerator() { return taskGenerator; }
 
@@ -498,6 +526,12 @@ public final class NebulaPlugin extends JavaPlugin {
      */
     public void registerRedstoneComponent(WorldPos pos, RedstoneComponentType type) {
         componentMap.put(pos, type);
+        // Track the position for zero-diff capture so the state hasher knows
+        // which components to include.  Without this the hasher's tracked set
+        // stays empty and capture hashes carry no redstone state.
+        if (stateHasher != null) {
+            stateHasher.trackPosition(pos);
+        }
     }
 
     /**
@@ -505,6 +539,9 @@ public final class NebulaPlugin extends JavaPlugin {
      */
     public void unregisterRedstoneComponent(WorldPos pos) {
         componentMap.remove(pos);
+        if (stateHasher != null) {
+            stateHasher.untrackPosition(pos);
+        }
     }
 
     /** Number of registered redstone components (for diagnostics / {@code /nebula status}). */

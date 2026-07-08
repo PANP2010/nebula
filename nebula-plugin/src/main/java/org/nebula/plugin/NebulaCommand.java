@@ -90,10 +90,35 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
             case "stop" -> {
                 var frames = plugin.stopCapture();
                 sender.sendMessage("§aCapture stopped: " + frames.size() + " frames recorded");
-                LOG.info("Capture stopped by " + sender.getName() + ": " + frames.size() + " frames");
+
+                // Summarise the recorded hashes so zero-diff behaviour is
+                // observable: how many DISTINCT state hashes appeared, plus the
+                // first/last for eyeballing.  A static world yields 1 distinct
+                // hash; a world with redstone activity yields several.
+                long distinct = frames.stream()
+                    .map(org.nebula.replay.ReplayFrame::stateHashHex)
+                    .distinct().count();
+                sender.sendMessage("  §7Distinct state hashes: §f" + distinct);
+                if (!frames.isEmpty()) {
+                    sender.sendMessage("  §7First: §f" + shortHash(frames.get(0).stateHashHex()));
+                    sender.sendMessage("  §7Last:  §f" + shortHash(frames.get(frames.size() - 1).stateHashHex()));
+                }
+
+                // Persist to disk so runs can be compared for zero-diff.
+                String saved = plugin.saveLastCapture();
+                if (saved != null) {
+                    sender.sendMessage("  §7Saved: §f" + saved);
+                }
+                LOG.info("Capture stopped by " + sender.getName() + ": " + frames.size()
+                    + " frames, " + distinct + " distinct hashes"
+                    + (saved != null ? ", saved to " + saved : ""));
             }
             default -> sender.sendMessage("§cUnknown capture action: " + action);
         }
+    }
+
+    private static String shortHash(String hex) {
+        return hex.length() <= 16 ? hex : hex.substring(0, 16) + "…";
     }
 
     private void handleStatus(CommandSender sender) {
