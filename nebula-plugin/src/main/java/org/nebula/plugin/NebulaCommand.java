@@ -17,6 +17,7 @@ import java.util.logging.Logger;
  *   <li>{@code /nebula capture start <ticks>} — starts capture for N ticks</li>
  *   <li>{@code /nebula capture stop} — stops capture and reports frame count</li>
  *   <li>{@code /nebula status} — shows plugin status (running, capture active)</li>
+ *   <li>{@code /nebula perf [reset]} — shows DAG tick timing percentiles</li>
  * </ul>
  */
 public final class NebulaCommand implements CommandExecutor, TabExecutor {
@@ -41,6 +42,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
             case "capture" -> handleCapture(sender, args);
             case "status" -> handleStatus(sender);
             case "scan" -> handleScan(sender);
+            case "perf" -> handlePerf(sender, args);
             case "help" -> sendHelp(sender);
             default -> sender.sendMessage("§cUnknown subcommand: " + sub);
         }
@@ -130,12 +132,42 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
         sender.sendMessage("  §7StateHasher tracked: §f" + plugin.stateHasher().trackedPositions().size() + " positions");
     }
 
+    private void handlePerf(CommandSender sender, String[] args) {
+        if (!sender.hasPermission("nebula.status")) {
+            sender.sendMessage("§cYou don't have permission to view Nebula performance.");
+            return;
+        }
+        if (args.length >= 2 && args[1].equalsIgnoreCase("reset")) {
+            plugin.tickTimeRecorder().reset();
+            sender.sendMessage("§aNebula DAG tick metrics reset.");
+            return;
+        }
+        var s = plugin.tickTimeRecorder().snapshot();
+        sender.sendMessage("§6Nebula DAG tick performance:");
+        if (s.count() == 0) {
+            sender.sendMessage("  §7No DAG ticks recorded yet. Place redstone and run /nebula scan.");
+            return;
+        }
+        sender.sendMessage(String.format("  §7Ticks recorded: §f%d §7(window %d)",
+            s.count(), s.windowSize()));
+        sender.sendMessage(String.format("  §7avg §f%.3f ms  §7min §f%.3f ms  §7max §f%.3f ms",
+            s.avgMs(), s.minMs(), s.maxMs()));
+        sender.sendMessage(String.format("  §7p50 §f%.3f ms  §7p95 §f%.3f ms  §7p99 §f%.3f ms",
+            s.p50Ms(), s.p95Ms(), s.p99Ms()));
+        // 50ms is the 20-TPS budget for the whole server tick; the DAG is only
+        // part of that, so flag when a single p99 DAG tick alone eats the budget.
+        if (s.p99Ms() >= 50.0) {
+            sender.sendMessage("  §cWARNING: p99 DAG tick alone exceeds the 50ms/20-TPS budget.");
+        }
+    }
+
     private void sendHelp(CommandSender sender) {
         sender.sendMessage("§6Nebula Commands:");
         sender.sendMessage("  §e/nebula capture start [ticks] §7- Start state capture");
         sender.sendMessage("  §e/nebula capture stop §7- Stop capture and report");
         sender.sendMessage("  §e/nebula scan §7- Rescan loaded chunks for redstone components");
         sender.sendMessage("  §e/nebula status §7- Show plugin status");
+        sender.sendMessage("  §e/nebula perf [reset] §7- Show DAG tick timing percentiles");
         sender.sendMessage("  §e/nebula help §7- Show this help");
     }
 
@@ -145,10 +177,13 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
                                       String alias,
                                       String[] args) {
         if (args.length == 1) {
-            return Arrays.asList("capture", "status", "scan", "help");
+            return Arrays.asList("capture", "status", "scan", "perf", "help");
         }
         if (args.length == 2 && args[0].equalsIgnoreCase("capture")) {
             return Arrays.asList("start", "stop");
+        }
+        if (args.length == 2 && args[0].equalsIgnoreCase("perf")) {
+            return List.of("reset");
         }
         if (args.length == 3 && args[0].equalsIgnoreCase("capture") && args[1].equalsIgnoreCase("start")) {
             return Arrays.asList("100", "1000", "5000", "10000");

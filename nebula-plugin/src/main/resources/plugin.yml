@@ -10,8 +10,8 @@ load: STARTUP
 
 commands:
   nebula:
-    description: "Nebula plugin commands (capture, scan, status)"
-    usage: "/nebula <capture|scan|status|help>"
+    description: "Nebula plugin commands (capture, scan, status, perf)"
+    usage: "/nebula <capture|scan|status|perf|help>"
     permission: nebula.use
     aliases: [neb]
 

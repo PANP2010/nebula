@@ -83,6 +83,10 @@ public final class NebulaPlugin extends JavaPlugin {
     private RedstoneTaskGenerator taskGenerator;
     private Map<WorldPos, RedstoneComponentType> componentMap;
 
+    // B4: honest per-tick cost measurement
+    private final org.nebula.core.metrics.TickTimeRecorder tickTimeRecorder =
+        new org.nebula.core.metrics.TickTimeRecorder();
+
     // Entity physics DAG
     private EntityTickExecutor entityTickExecutor;
     private EntityTaskRunner entityRunner;
@@ -422,10 +426,15 @@ public final class NebulaPlugin extends JavaPlugin {
             blockEntityBridge.syncToNms(world, pos);
         }
 
-        long elapsedMs = (System.nanoTime() - t0) / 1_000_000;
+        long elapsedNs = System.nanoTime() - t0;
+        tickTimeRecorder.record(elapsedNs);
+        long elapsedMs = elapsedNs / 1_000_000;
         int finalTasks = totalTasks;
         int finalMicroSteps = microSteps;
-        LOG.info(() -> "DAG tick: " + finalTasks + " tasks, "
+        // Per-tick logging is FINE: at 20 TPS an INFO line here floods the log and
+        // its own I/O skews the very MSPT we're measuring. Use /nebula perf for
+        // aggregated percentiles instead.
+        LOG.fine(() -> "DAG tick: " + finalTasks + " tasks, "
             + finalMicroSteps + " microsteps in " + elapsedMs + "ms");
     }
 
@@ -519,6 +528,7 @@ public final class NebulaPlugin extends JavaPlugin {
     public RedstoneCasStateHasher stateHasher() { return stateHasher; }
     public MicroStepScheduler microStepScheduler() { return microStepScheduler; }
     public RedstoneTaskGenerator taskGenerator() { return taskGenerator; }
+    public org.nebula.core.metrics.TickTimeRecorder tickTimeRecorder() { return tickTimeRecorder; }
 
     /**
      * Registers a redstone component position. Required for DAG execution
