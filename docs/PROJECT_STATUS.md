@@ -2,13 +2,13 @@
 
 **Date**: 2026-07-08 (updated 19:00 — DAG execution AND zero-diff capture VERIFIED on real Folia)
 **Branch**: feat/fix-folia-scheduler-v2  
-**Completion**: ~50% (two milestones reached: end-to-end DAG execution + deterministic zero-diff capture verified; performance/MSPT remains unverified)
+**Completion**: ~50% (two milestones reached: end-to-end DAG execution + deterministic zero-diff capture verified; per-tick MSPT measurement now exists and is Folia-verified, but load testing and a baseline-vs-Nebula comparison remain)
 
 ---
 
 ## Executive Summary
 
-Nebula has a solid architectural foundation with 17,305 lines of production code, 669 passing unit tests, and complete build toolchain integration.
+Nebula has a solid architectural foundation with 17,305 lines of production code, 678 passing unit tests, and complete build toolchain integration.
 
 **MILESTONE 1 (2026-07-08): The core DAG execution path now runs on a real Folia 26.1.2 server.** A live lever→wire→lamp circuit was toggled via RCON and produced repeatable, exception-free DAG ticks:
 
@@ -20,7 +20,7 @@ Toggling the lever ON produced 30 DAG ticks; toggling OFF produced 15 more. Zero
 
 **MILESTONE 2 (2026-07-08): Deterministic zero-diff capture now works end-to-end.** After fixing the capture path (see B6 below), two identical 40-tick captures on the live server produced **byte-for-byte identical `.nrp` files** — empirically demonstrating the deterministic-replay property the project was built to prove.
 
-**What is still NOT verified**: performance. No MSPT measurement or load testing exists yet (B4). The project is a working prototype with two proven properties, not a performance-validated or "playable" release.
+**What is still NOT verified**: performance under load. Per-tick MSPT measurement now exists (`TickTimeRecorder` + `/nebula perf`, commit be85033) and is Folia-verified on a small circuit (steady-state avg 1.24ms / p50 0.95ms / p95 2.86ms / p99 3.47ms over 100 ticks). What remains: load testing on large multi-region circuits and a baseline-Folia-vs-Nebula MSPT comparison against DG1's 30%-reduction target. The project is a working prototype with two proven properties and a working perf-measurement surface, not a performance-validated or "playable" release.
 
 This document provides an honest assessment of what works, what doesn't, and the path forward.
 
@@ -66,7 +66,7 @@ built, force-loaded, scanned, and *toggled*, the chain fired immediately.
 - Shadow jar packaging (513KB deployable plugin)
 - Java agent build and packaging
 - Java 21 (compile) + Java 25 (runtime for NMS adapter)
-- All 662 unit tests pass
+- All 678 unit tests pass
 
 ### ✅ Core Components (Unit-Tested)
 - **CAS state stores**: RedstoneWorldState, EntityPhysicsState, BlockEntityState
@@ -94,7 +94,7 @@ built, force-loaded, scanned, and *toggled*, the chain fired immediately.
 | B1: RedstoneTickHook lifecycle | ✅ **VERIFIED WORKING** | DAG ticks fire every redstone change; lifecycle driver drives begin/end |
 | B2: componentMap empty | ✅ **RESOLVED** | Async scan + new `/nebula scan` register components (16 found for test circuit) |
 | B3: Agent interception chain | ✅ **FIXED** (key mismatch) + ⚠️ fallback active | `BlockRedstoneEvent` listener confirmed firing; agent path now key-consistent |
-| B4: NMS sync overhead | ⏳ Not yet profiled | DAG ticks 0–51ms observed (tiny circuit) — needs load testing |
+| B4: NMS sync overhead | ⚠️ Partially verified | Per-tick MSPT now measured (`/nebula perf`); small-circuit steady-state p99 3.47ms. Load testing + baseline comparison still open |
 | B5: Redstone test world | ✅ Circuit persists in flat world | lever→15 wire→lamp at y=-59 |
 | B6: Capture harness E2E | ✅ **VERIFIED WORKING** | Two identical 40-tick captures produced byte-for-byte identical `.nrp` files (deterministic zero-diff holds) |
 
@@ -140,11 +140,11 @@ Detailed history of each blocker follows below (retained for the record).
 
 ---
 
-### ⏳ B4: NMS Bridge Performance (NEXT — unverified)
+### ⚠️ B4: NMS Bridge Performance (partially verified)
 
 **Problem**: `executeOwnedDag()` calls `syncFromNms()` and `syncToNms()` for every task position. For large task sets, this may create unacceptable overhead.
 
-**Status**: No measurements exist yet. DAG ticks of 0–51ms observed on a tiny circuit, but this has NOT been profiled under load. May block DG1's 30% MSPT-reduction criterion. **This is the single remaining next milestone.**
+**Status**: Per-tick measurement infrastructure now exists — `TickTimeRecorder` (nebula-core/metrics) records every DAG tick's elapsed time and `/nebula perf` reports p50/p95/p99 (commit be85033). Folia-verified on a small circuit: steady-state avg 1.24ms / p50 0.95ms / p95 2.86ms / p99 3.47ms over 100 ticks, well under the 50ms/20-TPS budget (a ~57ms first-tick JIT-warmup outlier correctly ages out of the recent-sample window). **Still open**: load testing on large multi-region circuits and a baseline-Folia-vs-Nebula MSPT comparison against DG1's 30%-reduction criterion. This is the next milestone.
 
 ---
 
@@ -175,7 +175,7 @@ Detailed history of each blocker follows below (retained for the record).
 | "Zero-diff capture framework" | Framework existed, never captured anything |
 | "In-game commands" | Commands existed, `/capture start` untested |
 
-**Update (2026-07-08)**: The first four rows are now resolved — DAG execution is verified on real Folia. Zero-diff capture (B6) and NMS performance (B4) remain unverified; do not treat those as working yet.
+**Update (2026-07-08)**: The first four rows are now resolved — DAG execution is verified on real Folia, and zero-diff capture (B6) is verified (byte-identical replay files). NMS performance (B4) is now partially verified: per-tick MSPT is measured and Folia-checked on a small circuit, but load testing and the baseline comparison remain — do not treat B4 as fully done yet.
 
 ### CHANGELOG.md Claims vs. Reality (as of pre-verification)
 
@@ -185,7 +185,7 @@ Detailed history of each blocker follows below (retained for the record).
 | MicroStepScheduler with microstep expansion | Now exercised by real redstone (2026-07-08) |
 | EntityTickExecutor MOVE/COLLISION | Created; not yet wired into the live tick path |
 | CompositeTaskRunner unified DAG | Wired; redstone path verified, entity path not yet |
-| NMS bridges | Interfaces work; sync overhead still unmeasured (B4) |
+| NMS bridges | Interfaces work; per-tick sync cost now measured (B4), load testing open |
 | Zero-diff capture framework | Still never run end-to-end (B6) |
 | In-game commands | `/status`, `/scan` work; `/capture` still untested |
 
@@ -194,7 +194,7 @@ Detailed history of each blocker follows below (retained for the record).
 ## Test Coverage Analysis
 
 ### What's Tested
-- ✅ 662 unit tests, all passing
+- ✅ 678 unit tests, all passing
 - ✅ CAS state store operations
 - ✅ DAG topological sort
 - ✅ MicroStepScheduler logic
@@ -205,12 +205,12 @@ Detailed history of each blocker follows below (retained for the record).
 
 ### What's NOT Tested
 - ❌ Zero-diff capture recording real frames end-to-end (B6)
-- ❌ NMS bridge performance under real load / MSPT (B4)
+- ⚠️ NMS bridge performance under real *load* / MSPT comparison (B4 — per-tick measured, load testing open)
 - ❌ Multi-region coordination at scale
 - ❌ Entity subsystem on a live server
 - ❌ Automated (non-manual) integration regression for the E2E path
 
-**Note**: Unit coverage is high and the core E2E path is now verified once, manually. Correctness (zero-diff) and performance remain unverified — do not read the single manual verification as proof of either.
+**Note**: Unit coverage is high and the core E2E path is verified on real Folia, as is deterministic zero-diff capture. Per-tick performance is measured but only on a small circuit; performance *under load* remains unverified — do not read the single small-circuit measurement as proof of scale.
 
 ---
 

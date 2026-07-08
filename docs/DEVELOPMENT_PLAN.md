@@ -19,7 +19,7 @@
 |-----------|--------|
 | Architecture design | Complete (1546-line whitepaper) |
 | Code volume | 187 source files / 17,305 LOC main / 16,326 LOC test |
-| Unit tests | 669 tests, all passing (was 659) |
+| Unit tests | 678 tests, all passing (was 659) |
 | Build toolchain | Gradle multi-module, shadow jar, agent all working |
 | **End-to-end DAG execution** | ✅ **Verified on real Folia (2026-07-08)** |
 | **Zero-diff capture** | ✅ **Verified deterministic (2026-07-08)** |

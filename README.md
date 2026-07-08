@@ -8,7 +8,7 @@ Nebula is a proof-of-concept for deterministic, region-aware tick execution on F
 1. **End-to-end DAG execution** — a live lever→wire→lamp circuit toggled via RCON produced repeatable, exception-free DAG ticks (`DAG tick: 3 tasks, 1 microsteps in 12ms`).
 2. **Deterministic zero-diff capture** — two identical 40-tick captures produced byte-for-byte identical replay files.
 
-Core components are built and unit-tested (669 tests passing). **Performance (MSPT) is the remaining unverified milestone** — no load testing exists yet. This is a working prototype, not a performance-validated or "playable" release. See [PROJECT_STATUS.md](docs/PROJECT_STATUS.md) for detailed status.
+Core components are built and unit-tested (678 tests passing). **Performance under load is the remaining unverified milestone** — per-tick MSPT is now measured (`/nebula perf`, Folia-verified on a small circuit) but load testing and a baseline-vs-Nebula comparison do not exist yet. This is a working prototype, not a performance-validated or "playable" release. See [PROJECT_STATUS.md](docs/PROJECT_STATUS.md) for detailed status.
 
 ## Features (v0.1.0)
 
@@ -106,7 +106,7 @@ JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 ./gradlew :nebula-plugin:test
 | Shadow jar deployable | ✅ Pass | ✅ Works | Deploys successfully |
 | **End-to-end DAG execution** | N/A | ✅ **Verified** | **Fires on real Folia** — 45 DAG ticks from live circuit toggles, 0 exceptions (2026-07-08) |
 
-**Summary**: All components pass unit tests (669). End-to-end DAG execution and deterministic zero-diff capture are both verified on real Folia. Performance (MSPT) verification is the remaining milestone. See [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) for detailed status.
+**Summary**: All components pass unit tests (678). End-to-end DAG execution and deterministic zero-diff capture are both verified on real Folia. Per-tick MSPT is now measured (`/nebula perf`); performance verification *under load* is the remaining milestone. See [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) for detailed status.
 
 ## License
 

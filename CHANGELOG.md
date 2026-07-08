@@ -18,6 +18,11 @@ verified on a real Folia 26.1.2 server (previously only unit-tested in isolation
   hashing safe from the global tick thread and reflective of Nebula's computed state.
 - `/nebula capture stop` now saves a timestamped `.nrp` replay file under
   `plugins/Nebula/captures/` and reports distinct-hash count + first/last hash.
+- `TickTimeRecorder` (nebula-core/metrics) + `/nebula perf [reset]` (B4) — a
+  thread-safe percentile recorder for DAG tick execution time (p50/p95/p99 over a
+  recent-sample window plus lifetime count/min/max/avg). Replaces the per-tick INFO
+  log line (demoted to FINE) that both flooded the log and skewed the cost it
+  measured. Warns when p99 alone exceeds the 50ms/20-TPS budget.
 
 **Fixed**
 - **World-name key mismatch (B3)**: `RedstoneTickHook` recorded dirty positions
@@ -32,9 +37,14 @@ verified on a real Folia 26.1.2 server (previously only unit-tested in isolation
   ticks (`DAG tick: 16 tasks, 14 microsteps`).
 - Deterministic zero-diff: two identical 40-tick captures produced byte-for-byte
   identical replay files.
-- 669 unit tests pass (was 659).
+- Per-tick MSPT (B4): steady-state small circuit measured avg 1.24ms / p50 0.95ms /
+  p95 2.86ms / p99 3.47ms over 100 ticks via `/nebula perf`, well under the
+  50ms/20-TPS budget (a ~57ms first-tick JIT-warmup outlier ages out of the window).
+- 678 unit tests pass (was 659).
 
-**Still unverified**: performance/MSPT (B4) — no load testing yet.
+**Still unverified**: performance *under load* (B4) — per-tick cost is now measured on
+a small circuit, but large multi-region load testing and a baseline-vs-Nebula MSPT
+comparison do not exist yet.
 
 ## [0.1.0-SNAPSHOT] - 2026-06-18
 

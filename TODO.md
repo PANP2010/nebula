@@ -12,8 +12,8 @@
 
 - ✅ **Verified working**: end-to-end DAG execution (live circuit toggles → DAG ticks) and
   deterministic zero-diff capture (two identical captures → byte-for-byte identical files)
-- ✅ **What works**: Architecture, unit tests (669 passing), build system, live redstone DAG
-- ❌ **Not yet verified**: performance/MSPT (B4, no load testing); entity DAG not wired into
+- ✅ **What works**: Architecture, unit tests (678 passing), build system, live redstone DAG, per-tick MSPT measurement (`/nebula perf`)
+- ❌ **Not yet verified**: performance *under load* (B4 — per-tick measured, no load testing / baseline comparison); entity DAG not wired into
   the live tick path; multi-region coordination untested
 - 🎯 **Next goal**: measure MSPT (baseline vs Nebula) and profile `executeOwnedDag` under load
 
