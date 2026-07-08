@@ -12,7 +12,7 @@
 
 - ✅ **Verified working**: end-to-end DAG execution (live circuit toggles → DAG ticks) and
   deterministic zero-diff capture (two identical captures → byte-for-byte identical files)
-- ✅ **What works**: Architecture, unit tests (715 passing), build system, live redstone DAG, per-tick MSPT measurement (`/nebula perf`)
+- ✅ **What works**: Architecture, unit tests (727 passing), build system, live redstone DAG, per-tick MSPT measurement (`/nebula perf`)
 - ✅ **Now verified**: DAG shadow overhead *under a large multi-region load* (B4 — 16 circuits /
   238 components / 7097 ticks, p99 1.914ms < 3ms budget, auto-graded PASS 2026-07-08)
 - ✅ **Now verified**: 10k-tick zero-diff at multi-region scale (DG1 Criterion 1 — two independent
@@ -68,6 +68,23 @@
   through `scripts/zerodiff-harness.sh --drive <seed>`. That wiring step touches the tick pipeline →
   live-Folia decisive experiment required (place circuits, `/nebula scan`, drive seeded toggles,
   diff two runs byte-for-byte).
+  **Progress slice 4 (2026-07-09)**: the last determinism hazard in the pure stack is now closed —
+  `org.nebula.replay.CanonicalToggleSources` turns an *unordered* set of toggle-source positions into
+  a **canonically ordered** `sourceIds` list + bindings and assembles a ready-to-drive
+  `DeterministicToggleSchedule`/`LiveLoadToggleDriver`. This matters because the schedule derives each
+  source's flip *phase from its list INDEX*, so if the game layer built `sourceIds` by iterating
+  `componentMap.keySet()` (a `ConcurrentHashMap`, unspecified order), two runs of the same world would
+  assign different phases → *legitimately different* toggle streams → false zero-diff divergence (the B3
+  invisible-gap class). `CanonicalToggleSources.of(...)` sorts by `WorldPos.compareTo` + de-dups, so the
+  stream depends only on the *set* of positions, never enumeration order; source ids are `dim:x,y,z`
+  (round-trip via `WorldPos.parse`). 12 tests cover canonical order, order-independence across
+  permutations, identical toggle-stream across input orders, de-dup, empty/null handling, and
+  driver assembly. Pure `nebula-replay` logic — does NOT touch the tick pipeline. **Remaining (the
+  wiring epic, unchanged)**: construct a `CanonicalToggleSources.of(scannedLeverPositions).newDriver(
+  seed, period, new FoliaToggleApplier(regionBridge, world))` in `NebulaPlugin`, drive
+  `driver.driveTick(tick)` from the capture tick loop, and run two seeded live-load captures through
+  `scripts/zerodiff-harness.sh --drive <seed>`. That step touches the tick pipeline → live-Folia
+  decisive experiment required.
 
 > ⚠️ **Do NOT chase a "baseline-vs-Nebula MSPT reduction."** Nebula is observe-only in both
 > AGENT and INTERCEPT modes — the DAG is a non-authoritative shadow on top of authoritative
