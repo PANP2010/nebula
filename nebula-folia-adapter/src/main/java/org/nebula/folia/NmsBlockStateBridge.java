@@ -5,6 +5,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.AnaloguePowerable;
 import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.Powerable;
 import org.bukkit.block.data.type.RedstoneWire;
 import org.nebula.core.state.WorldPos;
 import org.nebula.redstone.RedstoneWorldState;
@@ -20,8 +21,10 @@ import java.util.logging.Logger;
  * is responsible for ensuring this via {@link FoliaRegionBridge#ownsCurrentRegion}.
  *
  * <p>Read path: fetch {@link Block#getBlockData()}, extract power level from
- * {@link AnaloguePowerable#getPower()} if the block is a redstone component,
- * then commit to {@link RedstoneWorldState} via CAS.
+ * {@link AnaloguePowerable#getPower()} for analogue components (wire, repeater,
+ * comparator), or 15/0 from {@link Powerable#isPowered()} for boolean sources
+ * (levers, buttons — {@code Switch extends Powerable}), then commit to
+ * {@link RedstoneWorldState} via CAS.
  *
  * <p>Write path: construct a new {@link BlockData} with the target power level,
  * call {@link Block#setBlockData(BlockData)}, and update the CAS store.
@@ -67,6 +70,12 @@ public final class NmsBlockStateBridge {
                     internal.put("conn_" + face.name(), wire.getFace(face).name());
                 }
             }
+        } else if (data instanceof Powerable p) {
+            // Boolean sources (levers, buttons — Switch extends Powerable) emit a
+            // full-strength signal when on. They are NOT AnaloguePowerable, so
+            // without this branch a lever-fed wire line reads all nebula=0 (the
+            // source's power never enters the CAS store — DG3 gap (1)).
+            power = p.isPowered() ? 15 : 0;
         }
 
         // Read current version for CAS commit
@@ -93,6 +102,13 @@ public final class NmsBlockStateBridge {
      * {@code SettledDivergenceGrader}'s javadoc warns about. Use this to sample
      * Folia's power for a SETTLED-DIAG snapshot, leaving the shadow value intact.
      *
+     * <p>Analogue components (wire, repeater, comparator) report their 0–15
+     * {@link AnaloguePowerable#getPower()} directly; boolean sources (levers,
+     * buttons — {@code Switch extends Powerable}) report 15 when powered and 0
+     * otherwise, matching {@link #syncFromNms}. Without the boolean branch a
+     * settled lever samples {@code folia=-1} against a shadow of 15 — a spurious
+     * divergence at the source position (DG3 gap (2)).
+     *
      * <p>Must be called on the region thread that owns {@code pos} (Folia block
      * reads NPE off the owning region thread).
      */
@@ -105,6 +121,9 @@ public final class NmsBlockStateBridge {
 
         if (data instanceof AnaloguePowerable ap) {
             return ap.getPower();
+        }
+        if (data instanceof Powerable p) {
+            return p.isPowered() ? 15 : 0;
         }
         return -1;
     }

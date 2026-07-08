@@ -6,7 +6,9 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.AnaloguePowerable;
 import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.Powerable;
 import org.bukkit.block.data.type.RedstoneWire;
+import org.bukkit.block.data.type.Switch;
 import org.bukkit.plugin.Plugin;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -88,6 +90,29 @@ class NmsBlockStateBridgeTest {
             });
     }
 
+    /**
+     * Creates a Block stub for a boolean source (lever/button — a {@link Switch},
+     * which extends {@link Powerable} but NOT {@link AnaloguePowerable}) with the
+     * given powered state.
+     */
+    private static Block leverWithPowered(boolean powered) {
+        Switch switchData = (Switch) Proxy.newProxyInstance(
+            Switch.class.getClassLoader(),
+            new Class<?>[]{Switch.class},
+            (p, m, a) -> {
+                if (m.getName().equals("isPowered")) return powered;
+                if (m.getName().equals("getMaterial")) return Material.LEVER;
+                return def(m);
+            });
+        return (Block) Proxy.newProxyInstance(
+            Block.class.getClassLoader(), new Class<?>[]{Block.class},
+            (p, m, a) -> {
+                if (m.getName().equals("getBlockData")) return switchData;
+                if (m.getName().equals("getType")) return Material.LEVER;
+                return def(m);
+            });
+    }
+
     /** Creates a World stub that returns a specific Block for given coordinates. */
     private static World worldFor(WorldPos pos, Block block) {
         return (World) Proxy.newProxyInstance(
@@ -124,6 +149,51 @@ class NmsBlockStateBridgeTest {
         bridge.syncFromNms(world, pos);
 
         assertEquals(-1, casStore.getPowerLevel(pos));
+    }
+
+    @Test
+    void syncFromNms_poweredLeverStoresFullStrength() {
+        // A lever is a Switch (Powerable, not AnaloguePowerable). When on it must
+        // enter the CAS store as a full-strength 15 source — otherwise a lever-fed
+        // wire line reads all nebula=0 (DG3 gap (1)).
+        WorldPos pos = new WorldPos(DIM, 300, 64, 0);
+        World world = worldFor(pos, leverWithPowered(true));
+
+        bridge.syncFromNms(world, pos);
+
+        assertEquals(15, casStore.getPowerLevel(pos),
+            "a powered lever/button must store 15 (full-strength source)");
+    }
+
+    @Test
+    void syncFromNms_unpoweredLeverStoresZero() {
+        WorldPos pos = new WorldPos(DIM, 300, 64, 0);
+        World world = worldFor(pos, leverWithPowered(false));
+
+        bridge.syncFromNms(world, pos);
+
+        assertEquals(0, casStore.getPowerLevel(pos),
+            "an unpowered lever/button emits no signal (0, not -1)");
+    }
+
+    @Test
+    void readNmsPower_poweredLeverReturnsFullStrength() {
+        // Gap (2): sampling a settled lever must report Folia=15 when on, so it does
+        // not read as a spurious divergence (folia=-1) against a shadow of 15.
+        WorldPos pos = new WorldPos(DIM, 300, 64, 0);
+        World world = worldFor(pos, leverWithPowered(true));
+
+        assertEquals(15, bridge.readNmsPower(world, pos));
+        assertEquals(-1, casStore.getPowerLevel(pos),
+            "read-only sample must not create a CAS entry");
+    }
+
+    @Test
+    void readNmsPower_unpoweredLeverReturnsZero() {
+        WorldPos pos = new WorldPos(DIM, 300, 64, 0);
+        World world = worldFor(pos, leverWithPowered(false));
+
+        assertEquals(0, bridge.readNmsPower(world, pos));
     }
 
     @Test
