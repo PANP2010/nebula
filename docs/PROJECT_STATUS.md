@@ -144,6 +144,8 @@ Detailed history of each blocker follows below (retained for the record).
 
 **Problem**: `executeOwnedDag()` calls `syncFromNms()` and `syncToNms()` for every task position. For large task sets, this may create unacceptable overhead.
 
+**Architectural note (verified 2026-07-08)**: Nebula is currently **observe-only** on the redstone path in BOTH modes. All four agent bytecode transformers (`NeighborUpdateTransformer` + 3 siblings) inject a *void* `NeighborUpdateHooks.onNeighborUpdate(...)` call at method entry and let Folia's original method run to completion — no early RETURN. `NeighborUpdateInterceptor.shouldSuppress()` computes a suppression decision in INTERCEPT mode, but the agent path discards that boolean, so it has no effect. Therefore Folia's redstone stays authoritative and the DAG runs in parallel as a non-authoritative shadow. **Consequence for B4**: `/nebula perf` measures the DAG's *added* overhead on top of Folia — the "baseline" is simply Folia's own MSPT, and Nebula's cost is additive, not a replacement. A true suppress-and-replace INTERCEPT mode is future work and must be gated behind zero-diff validation first.
+
 **Status**: Per-tick measurement infrastructure now exists — `TickTimeRecorder` (nebula-core/metrics) records every DAG tick's elapsed time and `/nebula perf` reports p50/p95/p99 (commit be85033). Folia-verified on a small circuit: steady-state avg 1.24ms / p50 0.95ms / p95 2.86ms / p99 3.47ms over 100 ticks, well under the 50ms/20-TPS budget (a ~57ms first-tick JIT-warmup outlier correctly ages out of the recent-sample window). **Still open**: load testing on large multi-region circuits and a baseline-Folia-vs-Nebula MSPT comparison against DG1's 30%-reduction criterion. This is the next milestone.
 
 ---

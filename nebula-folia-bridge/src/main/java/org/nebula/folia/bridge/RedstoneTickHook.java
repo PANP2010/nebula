@@ -32,12 +32,23 @@ import java.util.logging.Logger;
  * the {@link org.nebula.folia.FoliaRegionTickExecutor} level, which dispatches
  * each task to its owning region thread via RegionScheduler.execute().
  *
- * <p>In Phase 0 OBSERVE mode, all Folia execution still happens normally.
- * The hook only records which positions were updated.  This produces a
- * ground-truth dataset for later comparison with the DAG execution path.
+ * <p>In OBSERVE mode, all Folia execution happens normally and the hook only
+ * records which positions were updated, producing a ground-truth dataset for
+ * comparison with the DAG execution path.
  *
- * <p>In Phase 0 INTERCEPT mode (after validation), the hook suppresses
- * Folia's native propagation and replaces it with the DAG executor.
+ * <p>NOTE (verified 2026-07-08): INTERCEPT mode does NOT currently suppress
+ * Folia's native propagation. The agent bytecode (see NeighborUpdateTransformer
+ * and the three sibling redstone transformers) injects a void
+ * {@code NeighborUpdateHooks.onNeighborUpdate(...)} call at method entry and
+ * then lets the original method run to completion — it emits no early RETURN.
+ * {@code NeighborUpdateInterceptor.shouldSuppress()} computes a suppression
+ * decision, but that boolean is discarded by the agent path, so it has no
+ * effect. Consequently Nebula is architecturally observe-only on the redstone
+ * path in both modes: Folia's redstone remains authoritative and the DAG runs
+ * in parallel as a non-authoritative shadow. This means {@code /nebula perf}
+ * measures the DAG's ADDED overhead on top of Folia, not a replacement cost.
+ * Making INTERCEPT actually suppress-and-replace is future work and must be
+ * gated behind zero-diff validation before it can be trusted.
  */
 public final class RedstoneTickHook {
 
