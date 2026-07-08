@@ -12,7 +12,7 @@
 
 - ✅ **Verified working**: end-to-end DAG execution (live circuit toggles → DAG ticks) and
   deterministic zero-diff capture (two identical captures → byte-for-byte identical files)
-- ✅ **What works**: Architecture, unit tests (691 passing), build system, live redstone DAG, per-tick MSPT measurement (`/nebula perf`)
+- ✅ **What works**: Architecture, unit tests (700 passing), build system, live redstone DAG, per-tick MSPT measurement (`/nebula perf`)
 - ✅ **Now verified**: DAG shadow overhead *under a large multi-region load* (B4 — 16 circuits /
   238 components / 7097 ticks, p99 1.914ms < 3ms budget, auto-graded PASS 2026-07-08)
 - ✅ **Now verified**: 10k-tick zero-diff at multi-region scale (DG1 Criterion 1 — two independent
@@ -44,7 +44,11 @@
 - 🎯 **Next goal**: the DG1 Criterion 2 caveat is now closed with evidence. The single remaining DG1
   caveat is Criterion 1's static-world method — build a tick-deterministic input driver so zero-diff can
   be tested under LIVE redstone activity, not just a static captured world. That is the last unverified-at-live
-  gap in DG1.
+  gap in DG1. **Progress (2026-07-09)**: the SCHEDULING half now exists as pure, unit-tested logic —
+  `org.nebula.replay.DeterministicToggleSchedule` (+ `ToggleAction`) maps `tick -> toggle actions`
+  reproducibly from a seed, so two runs emit byte-identical toggle streams tick-for-tick. **Remaining**:
+  wire the game layer to apply those actions on the correct region thread at the scheduled tick (touches
+  the tick pipeline → needs the live-Folia decisive experiment), then run the live-load zero-diff comparison.
 
 > ⚠️ **Do NOT chase a "baseline-vs-Nebula MSPT reduction."** Nebula is observe-only in both
 > AGENT and INTERCEPT modes — the DAG is a non-authoritative shadow on top of authoritative

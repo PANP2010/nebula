@@ -28,6 +28,11 @@
 #   accumulated state creep). It does NOT test DAG-under-sustained-load
 #   correctness or Folia-vs-Nebula divergence — those need a tick-deterministic
 #   input driver and are explicitly future work (see docs/PROJECT_STATUS.md).
+#   The SCHEDULING half of that driver now exists as pure, unit-tested logic:
+#   org.nebula.replay.DeterministicToggleSchedule maps tick -> toggle actions
+#   reproducibly from a seed, so two runs would emit byte-identical toggle streams
+#   tick-for-tick. What remains is the game-layer wiring to apply those actions on
+#   the correct region thread at the scheduled tick (touches the tick pipeline).
 #
 # Usage:  scripts/zerodiff-harness.sh [ticks] [circuits] [--keep-running]
 #   ticks     ticks to capture per run (default 10000 = the DG1 bar)
