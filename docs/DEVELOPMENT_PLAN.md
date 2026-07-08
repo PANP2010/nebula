@@ -7,25 +7,33 @@
 
 ---
 
+> **Update 2026-07-08**: Phase 1 (make the DAG execute) and the Phase 2 zero-diff
+> goal are DONE and verified on a real server. The status below reflects the
+> original 2026-06-24 plan; see docs/PROJECT_STATUS.md for current state.
+
 ## 1. Project Status Summary
 
-### Actual completion: ~35%
+### Completion: ~50% (was ~35% at 2026-06-24)
 
 | Dimension | Status |
 |-----------|--------|
 | Architecture design | Complete (1546-line whitepaper) |
 | Code volume | 187 source files / 17,305 LOC main / 16,326 LOC test |
-| Unit tests | 659 tests, all passing |
+| Unit tests | 669 tests, all passing (was 659) |
 | Build toolchain | Gradle multi-module, shadow jar, agent all working |
-| **End-to-end** | **DAG execution path never triggered on real Folia server** |
+| **End-to-end DAG execution** | ✅ **Verified on real Folia (2026-07-08)** |
+| **Zero-diff capture** | ✅ **Verified deterministic (2026-07-08)** |
+| **Performance / MSPT** | ❌ Not measured (remaining milestone) |
 
-### Core problem
+### Core problem (RESOLVED as of 2026-07-08)
 
-**Code quality is solid, but an integration gap prevents core functionality from running on a real server.** Three key blockers:
+The integration gap that prevented core functionality from running has been closed:
 
-1. **B1**: `RedstoneTickHook` lifecycle (`beginTick`/`endTick`) never called → DAG never executes
-2. **B2**: `componentMap` may be empty when DAG runs → no tasks to execute
-3. **B3**: `NeighborUpdateInterceptor` BLOCK_UPDATE interception chain unverified
+1. **B1**: `RedstoneTickHook` lifecycle never called → ✅ resolved (GlobalRegionScheduler driver)
+2. **B2**: `componentMap` empty when DAG runs → ✅ resolved (sync scan + `/nebula scan`)
+3. **B3**: `NeighborUpdateInterceptor` chain unverified → ✅ fixed (world-name key mismatch)
+
+The remaining core problem is **performance**: NMS sync overhead (B4) is unmeasured.
 
 ---
 
@@ -208,7 +216,7 @@ Total: ~16-24 days
 
 ### 3.4 Entity DAG Integration
 
-**Problem**: `EntityTickExecutor` and `CompositeTaskRunner` are created but never execute on a real server.
+**Problem**: `EntityTickExecutor` is created but not wired into the live tick path — only the redstone route of `CompositeTaskRunner` has been exercised on a real server (verified 2026-07-08). Entity physics DAG execution remains unverified live.
 
 **Steps**:
 - [ ] Verify entity task generation logic
@@ -270,8 +278,8 @@ Total: ~16-24 days
 
 | Gate | Criterion | Current Status | Target |
 |------|-----------|---------------|--------|
-| **DG1** | Redstone 10k-tick zero diff | ❌ DAG not executing | TBD |
-| **DG1** | Microsteps ≤ 256 | ❌ Not verified | TBD |
+| **DG1** | Redstone 10k-tick zero diff | ⏳ DAG executes; 40-tick zero-diff verified, 10k not yet run | TBD |
+| **DG1** | Microsteps ≤ 256 | ✅ Observed ≤14 on test circuit (not stress-tested) | TBD |
 | **DG1** | MSPT reduction ≥ 30% | ❌ Not measured | TBD |
 | **DG2** | Entity 50k-tick zero diff | ❌ Not verified | TBD |
 | **DG2** | Random over-budget rate < 1% | ✅ Unit tests pass | TBD |

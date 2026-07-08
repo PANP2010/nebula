@@ -1,6 +1,12 @@
 # Documentation Update Summary
 
-**Date**: 2026-07-08  
+> ⚠️ **SUPERSEDED (later on 2026-07-08)**: This summarises the *earlier* doc-drift
+> cleanup, done before any server verification. Its "35% / 659 tests / DAG never
+> executed / core blocker" framing is now out of date — DAG execution and zero-diff
+> capture are verified, 669 tests pass. See [PROJECT_STATUS.md](PROJECT_STATUS.md)
+> for current status. Kept as a record of the drift-resolution effort.
+
+**Date**: 2026-07-08 (early-session snapshot)  
 **Branch**: feat/fix-folia-scheduler-v2  
 **Issue**: Long-standing documentation drift between claimed functionality and actual implementation
 

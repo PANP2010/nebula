@@ -4,7 +4,11 @@
 
 Nebula is a proof-of-concept for deterministic, region-aware tick execution on Folia. It aims to demonstrate that causally-independent tasks (redstone, entity physics, tile entities) can share a unified DAG and execute in parallel across regions while maintaining deterministic semantics.
 
-✅ **Milestone (2026-07-08)**: End-to-end DAG execution is now **verified on a real Folia 26.1.2 server**. A live lever→wire→lamp circuit toggled via RCON produced repeatable, exception-free DAG ticks (`DAG tick: 3 tasks, 1 microsteps in 12ms`). Core components are built and unit-tested (662 tests passing). Correctness (zero-diff) and performance verification are the next milestones. See [PROJECT_STATUS.md](docs/PROJECT_STATUS.md) for detailed status.
+✅ **Milestones (2026-07-08)**: Two core properties are now **verified on a real Folia 26.1.2 server**:
+1. **End-to-end DAG execution** — a live lever→wire→lamp circuit toggled via RCON produced repeatable, exception-free DAG ticks (`DAG tick: 3 tasks, 1 microsteps in 12ms`).
+2. **Deterministic zero-diff capture** — two identical 40-tick captures produced byte-for-byte identical replay files.
+
+Core components are built and unit-tested (669 tests passing). **Performance (MSPT) is the remaining unverified milestone** — no load testing exists yet. This is a working prototype, not a performance-validated or "playable" release. See [PROJECT_STATUS.md](docs/PROJECT_STATUS.md) for detailed status.
 
 ## Features (v0.1.0)
 
@@ -93,16 +97,16 @@ JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 ./gradlew :nebula-plugin:test
 | Component | Unit Tests | Integration | Status |
 |-----------|------------|-------------|--------|
 | Plugin toolchain (Java 25 + Folia 26.1.2) | ✅ Pass | ✅ Loads | Complete |
-| NMS bridges (Block, Entity, BlockEntity) | ✅ Pass | ⏳ Testing | Interfaces complete, sync path unverified |
-| MicroStepScheduler (redstone DAG) | ✅ Pass | ⏳ Testing | Logic complete, needs real redstone |
-| EntityTickExecutor (entity DAG) | ✅ Pass | ❌ Not wired | Created but not integrated |
-| CompositeTaskRunner (unified DAG) | ✅ Pass | ⏳ Testing | Wired but not verified |
-| Zero-diff capture framework | ✅ Pass | ❌ Not run | Framework exists, never captured |
-| In-game commands | ✅ Pass | ⚠️ Partial | `/status` works, `/capture` untested |
+| NMS bridges (Block, Entity, BlockEntity) | ✅ Pass | ✅ Redstone verified | Block sync drives live redstone; perf unmeasured |
+| MicroStepScheduler (redstone DAG) | ✅ Pass | ✅ Verified | Runs on real redstone (up to 16 tasks / 14 microsteps observed) |
+| EntityTickExecutor (entity DAG) | ✅ Pass | ❌ Not wired | Created but not integrated into live tick path |
+| CompositeTaskRunner (unified DAG) | ✅ Pass | ⏳ Redstone only | Redstone route verified; entity route not exercised live |
+| Zero-diff capture framework | ✅ Pass | ✅ Verified | Two identical captures → byte-for-byte identical replay files |
+| In-game commands | ✅ Pass | ✅ Verified | `/status`, `/scan`, `/capture` all exercised on live server |
 | Shadow jar deployable | ✅ Pass | ✅ Works | Deploys successfully |
 | **End-to-end DAG execution** | N/A | ✅ **Verified** | **Fires on real Folia** — 45 DAG ticks from live circuit toggles, 0 exceptions (2026-07-08) |
 
-**Summary**: All components pass unit tests (662) and end-to-end DAG execution is verified on real Folia. Correctness (zero-diff capture) and performance (MSPT) verification are next. See [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) for detailed status.
+**Summary**: All components pass unit tests (669). End-to-end DAG execution and deterministic zero-diff capture are both verified on real Folia. Performance (MSPT) verification is the remaining milestone. See [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) for detailed status.
 
 ## License
 

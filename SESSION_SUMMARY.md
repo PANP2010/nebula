@@ -1,5 +1,11 @@
 # Project Continuation Summary - Session 2026-07-08
 
+> ⚠️ **SUPERSEDED (later on 2026-07-08)**: This summary was written when the goal
+> was still to *prepare for* Phase 1 testing. Since then, Phase 1 was executed and
+> **both DAG execution and zero-diff capture were verified on a real Folia server**.
+> For current status see [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md). This file
+> is kept as a record of the earlier point in the session.
+
 ## Mission Accomplished ✅
 
 Successfully resolved the long-standing documentation drift issue and prepared the Nebula project for Phase 1 integration testing.
