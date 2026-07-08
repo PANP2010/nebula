@@ -85,8 +85,19 @@
   `driver.driveTick(tick)` from the capture tick loop, and run two seeded live-load captures through
   `scripts/zerodiff-harness.sh --drive <seed>`. That step touches the tick pipeline → live-Folia
   decisive experiment required.
-
-> ⚠️ **Do NOT chase a "baseline-vs-Nebula MSPT reduction."** Nebula is observe-only in both
+  **Progress slice 6 (2026-07-09) — WIRING DONE + VERIFIED AT THE DG1 TICK BAR (supersedes the "Remaining: wiring epic" text above).** The whole driver stack IS now wired into the running
+  capture tick loop (`FoliaCaptureHarness.TickDriver` seam, commits 81b9dfc→f1e52f0) and automated in
+  `scripts/zerodiff-harness.sh --drive` (commit 646d9cd). This cycle ran the decisive experiment at the
+  **DG1 tick count**: `./scripts/zerodiff-harness.sh 10000 8 --drive 42 --period 8` on real Folia 26.1.2
+  → **CONVERGENT PASS**: 9994/10000 frames byte-identical, a 6-frame contiguous cold-CAS opening
+  transient (last-diff frame 5), then locked identical through frame 10000. Both 10k runs finished
+  within the wall-clock cap (no CAP_TIMEOUT); the transient grew only 3→6 frames going from 2→8 sources
+  (result: `bench-results/zerodiff-20260709-032503.txt`). This is the driven live-load claim scaled to
+  the DG1 bar. **Still DISTINCT from static Criterion 1**: it is a Nebula-vs-Nebula seed-consistency
+  check (same engine, same seed), NOT a Folia-vs-Nebula divergence check, so it does NOT upgrade
+  Criterion 1 — that still stands only on the static-world 10k run. **Remaining live-load work**: a
+  Folia-vs-Nebula divergence check (does the DAG shadow's CAS trajectory match Folia's own authoritative
+  redstone under the same driven load?) — that is the last thing driven mode does NOT yet prove. Nebula is observe-only in both
 > AGENT and INTERCEPT modes — the DAG is a non-authoritative shadow on top of authoritative
 > Folia, so it can only *add* overhead; there is no serial work it removes and thus no
 > reduction to measure by construction. **DG1 Criterion 3 was formally redefined 2026-07-08
