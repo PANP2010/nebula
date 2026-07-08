@@ -12,7 +12,7 @@
 
 - ✅ **Verified working**: end-to-end DAG execution (live circuit toggles → DAG ticks) and
   deterministic zero-diff capture (two identical captures → byte-for-byte identical files)
-- ✅ **What works**: Architecture, unit tests (700 passing), build system, live redstone DAG, per-tick MSPT measurement (`/nebula perf`)
+- ✅ **What works**: Architecture, unit tests (709 passing), build system, live redstone DAG, per-tick MSPT measurement (`/nebula perf`)
 - ✅ **Now verified**: DAG shadow overhead *under a large multi-region load* (B4 — 16 circuits /
   238 components / 7097 ticks, p99 1.914ms < 3ms budget, auto-graded PASS 2026-07-08)
 - ✅ **Now verified**: 10k-tick zero-diff at multi-region scale (DG1 Criterion 1 — two independent
@@ -49,6 +49,17 @@
   reproducibly from a seed, so two runs emit byte-identical toggle streams tick-for-tick. **Remaining**:
   wire the game layer to apply those actions on the correct region thread at the scheduled tick (touches
   the tick pipeline → needs the live-Folia decisive experiment), then run the live-load zero-diff comparison.
+  **Progress slice 2 (2026-07-09)**: the RESOLUTION half is now pure, unit-tested logic too —
+  `org.nebula.replay.LiveLoadToggleDriver` binds each opaque `sourceId` to a concrete `WorldPos`,
+  resolves the schedule's per-tick actions into `ResolvedToggle`s (position + powered) in stable
+  source order, and delegates the one Folia/NMS step to an injected `ToggleApplier` seam. It
+  fail-fasts if any schedule source is unbound (so an unbound source can NEVER be silently dropped —
+  guarding against the B3 key-mismatch wound). **Remaining**: implement `ToggleApplier` in the
+  plugin/adapter layer to dispatch each `ResolvedToggle` to its position's owning region thread via
+  `RegionScheduler.execute` (firing the real neighbour-update path, not a suppress-updates write),
+  drive it from the capture tick loop, and run two seeded live-load captures through
+  `scripts/zerodiff-harness.sh --drive <seed>`. That last step touches the tick pipeline → live-Folia
+  decisive experiment required.
 
 > ⚠️ **Do NOT chase a "baseline-vs-Nebula MSPT reduction."** Nebula is observe-only in both
 > AGENT and INTERCEPT modes — the DAG is a non-authoritative shadow on top of authoritative
