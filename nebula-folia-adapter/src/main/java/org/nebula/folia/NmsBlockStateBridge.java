@@ -57,7 +57,7 @@ public final class NmsBlockStateBridge {
         BlockData data = block.getBlockData();
 
         int power = -1;
-        Map<String, Object> internal = Map.of();
+        Map<String, Object> internal = new java.util.HashMap<>();
 
         if (data instanceof AnaloguePowerable ap) {
             power = ap.getPower();

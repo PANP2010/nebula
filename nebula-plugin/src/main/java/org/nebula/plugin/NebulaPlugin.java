@@ -311,6 +311,9 @@ public final class NebulaPlugin extends JavaPlugin {
             }, 1, 1);
             LOG.info("RedstoneTickHook lifecycle driver registered (global tick, alternating begin/end)");
         }
+        // Temporary diagnostic: register Bukkit event listener
+        getServer().getPluginManager().registerEvents(new RedstoneEventListener(), this);
+        LOG.info("[Nebula] Registered RedstoneEventListener for diagnostics");
     }
 
     /**
