@@ -83,6 +83,13 @@ public final class NebulaPlugin extends JavaPlugin {
     private RedstoneTaskGenerator taskGenerator;
     private Map<WorldPos, RedstoneComponentType> componentMap;
 
+    // Live-load driver input: manual toggle-source (lever/button) positions,
+    // tracked separately from componentMap because the scanner collapses those
+    // materials into REDSTONE_TORCH and so loses their identity. Populated at
+    // scan/register time; consumed only when a live-load driver is assembled —
+    // NOT read on the per-tick pipeline.
+    private final ToggleSourceRegistry toggleSources = new ToggleSourceRegistry();
+
     // B4: honest per-tick cost measurement
     private final org.nebula.core.metrics.TickTimeRecorder tickTimeRecorder =
         new org.nebula.core.metrics.TickTimeRecorder();
@@ -603,6 +610,36 @@ public final class NebulaPlugin extends JavaPlugin {
     /** Number of registered redstone components (for diagnostics / {@code /nebula status}). */
     public int componentCount() {
         return componentMap.size();
+    }
+
+    /**
+     * Records a manual toggle-source (lever/button) position for the live-load
+     * driver. Called by the scanner when a scanned/placed block is classified as a
+     * toggle source ({@link ToggleSourceClassifier}). This is separate from
+     * {@link #registerRedstoneComponent} because the component map collapses
+     * levers/buttons into {@code REDSTONE_TORCH}, erasing their identity.
+     */
+    public void registerToggleSource(WorldPos pos) {
+        toggleSources.register(pos);
+    }
+
+    /** Removes a toggle-source position (e.g. the lever was broken). */
+    public void unregisterToggleSource(WorldPos pos) {
+        toggleSources.unregister(pos);
+    }
+
+    /** Number of tracked manual toggle sources (for {@code /nebula status}). */
+    public int toggleSourceCount() {
+        return toggleSources.size();
+    }
+
+    /**
+     * The toggle-source registry, exposed for the live-load driver wiring (a future
+     * cycle) to build a {@link org.nebula.replay.CanonicalToggleSources} plan from
+     * {@link ToggleSourceRegistry#canonical()}.
+     */
+    public ToggleSourceRegistry toggleSources() {
+        return toggleSources;
     }
 
     /**

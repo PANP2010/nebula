@@ -87,10 +87,17 @@ public final class WorldRedstoneScanner {
             for (int z = 0; z < 16; z++) {
                 for (int y = world.getMinHeight(); y < world.getMaxHeight(); y++) {
                     Block block = chunk.getBlock(x, y, z);
-                    RedstoneComponentType type = TYPE_MAP.get(block.getType().name());
+                    String matName = block.getType().name();
+                    RedstoneComponentType type = TYPE_MAP.get(matName);
                     if (type != null) {
                         WorldPos pos = new WorldPos(dimId, cx + x, y, cz + z);
                         plugin.registerRedstoneComponent(pos, type);
+                        // Levers/buttons collapse to REDSTONE_TORCH in componentMap
+                        // (see ToggleSourceClassifier); track their identity here so
+                        // the live-load driver can recover the toggle-source set.
+                        if (ToggleSourceClassifier.isToggleSource(matName)) {
+                            plugin.registerToggleSource(pos);
+                        }
                         count++;
                     }
                 }
@@ -107,12 +114,16 @@ public final class WorldRedstoneScanner {
      * @return true if a redstone component was registered
      */
     public boolean scanBlock(Block block) {
-        RedstoneComponentType type = TYPE_MAP.get(block.getType().name());
+        String matName = block.getType().name();
+        RedstoneComponentType type = TYPE_MAP.get(matName);
         if (type == null) return false;
 
         int dimId = DimensionIds.fromName(block.getWorld().getName());
         WorldPos pos = new WorldPos(dimId, block.getX(), block.getY(), block.getZ());
         plugin.registerRedstoneComponent(pos, type);
+        if (ToggleSourceClassifier.isToggleSource(matName)) {
+            plugin.registerToggleSource(pos);
+        }
         return true;
     }
 
@@ -123,11 +134,15 @@ public final class WorldRedstoneScanner {
      * @return true if a component was unregistered
      */
     public boolean unregisterBlock(Block block) {
-        if (!TYPE_MAP.containsKey(block.getType().name())) return false;
+        String matName = block.getType().name();
+        if (!TYPE_MAP.containsKey(matName)) return false;
 
         int dimId = DimensionIds.fromName(block.getWorld().getName());
         WorldPos pos = new WorldPos(dimId, block.getX(), block.getY(), block.getZ());
         plugin.unregisterRedstoneComponent(pos);
+        if (ToggleSourceClassifier.isToggleSource(matName)) {
+            plugin.unregisterToggleSource(pos);
+        }
         return true;
     }
 }

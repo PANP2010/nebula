@@ -10,6 +10,15 @@ The two core properties Nebula was built to demonstrate are now empirically
 verified on a real Folia 26.1.2 server (previously only unit-tested in isolation).
 
 **Added**
+- `ToggleSourceClassifier` + `ToggleSourceRegistry` (nebula-plugin) — the game
+  layer now tracks manual toggle-source (lever/button) positions separately from
+  `componentMap`. The scanner collapses `LEVER`/`STONE_BUTTON`/`OAK_BUTTON`/… into
+  `REDSTONE_TORCH` in `componentMap` (correct for the DAG, but it erases toggle-
+  source identity), so the live-load driver could not recover which components are
+  drivable levers. `WorldRedstoneScanner` now records classified toggle sources into
+  `NebulaPlugin.toggleSources()`, whose `canonical()` feeds `CanonicalToggleSources`.
+  Toggle-source count surfaced in `/nebula status`. Pure bookkeeping — NOT read on
+  the per-tick pipeline. Clears the first blocker for wiring the live-load driver.
 - `/nebula scan` — region-thread-safe rescan of loaded chunks, so redstone placed
   via commands (RCON `setblock`, which does not fire `BlockPlaceEvent`) can be
   registered for DAG execution. Registered-component count added to `/nebula status`.
@@ -40,7 +49,7 @@ verified on a real Folia 26.1.2 server (previously only unit-tested in isolation
 - Per-tick MSPT (B4): steady-state small circuit measured avg 1.24ms / p50 0.95ms /
   p95 2.86ms / p99 3.47ms over 100 ticks via `/nebula perf`, well under the
   50ms/20-TPS budget (a ~57ms first-tick JIT-warmup outlier ages out of the window).
-- 727 unit tests pass (was 659; +9 for the DeterministicToggleSchedule schedule slice, +9 for the LiveLoadToggleDriver resolution slice, +6 for the FoliaToggleApplier live seam, and +12 for the CanonicalToggleSources deterministic source-ordering slice, 2026-07-09).
+- 742 unit tests pass (was 659; +9 for the DeterministicToggleSchedule schedule slice, +9 for the LiveLoadToggleDriver resolution slice, +6 for the FoliaToggleApplier live seam, +12 for the CanonicalToggleSources deterministic source-ordering slice, and +15 for the toggle-source tracking slice (ToggleSourceClassifier + ToggleSourceRegistry), 2026-07-09).
 
 **Still unverified**: performance *under load* (B4) — per-tick cost is now measured on
 a small circuit, but large multi-region load testing and a baseline-vs-Nebula MSPT

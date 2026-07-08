@@ -132,6 +132,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
     private void handleStatus(CommandSender sender) {
         sender.sendMessage("§6Nebula Status:");
         sender.sendMessage("  §7Registered redstone components: §f" + plugin.componentCount());
+        sender.sendMessage("  §7Toggle sources (levers/buttons): §f" + plugin.toggleSourceCount());
         sender.sendMessage("  §7RedstoneWorldState: §f" + plugin.redstoneState().size() + " entries");
         sender.sendMessage("  §7EntityPhysicsState: §f" + plugin.entityState().size() + " entries");
         sender.sendMessage("  §7BlockEntityState: §f" + plugin.blockEntityState().size() + " entries");

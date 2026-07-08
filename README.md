@@ -8,7 +8,7 @@ Nebula is a proof-of-concept for deterministic, region-aware tick execution on F
 1. **End-to-end DAG execution** — a live lever→wire→lamp circuit toggled via RCON produced repeatable, exception-free DAG ticks (`DAG tick: 3 tasks, 1 microsteps in 12ms`).
 2. **Deterministic zero-diff capture** — two identical 40-tick captures produced byte-for-byte identical replay files.
 
-Core components are built and unit-tested (727 tests passing). **Performance under load is the remaining unverified milestone** — per-tick MSPT is now measured (`/nebula perf`, Folia-verified on a small circuit) but load testing and a baseline-vs-Nebula comparison do not exist yet. This is a working prototype, not a performance-validated or "playable" release. See [PROJECT_STATUS.md](docs/PROJECT_STATUS.md) for detailed status.
+Core components are built and unit-tested (742 tests passing). **Performance under load is the remaining unverified milestone** — per-tick MSPT is now measured (`/nebula perf`, Folia-verified on a small circuit) but load testing and a baseline-vs-Nebula comparison do not exist yet. This is a working prototype, not a performance-validated or "playable" release. See [PROJECT_STATUS.md](docs/PROJECT_STATUS.md) for detailed status.
 
 ## Features (v0.1.0)
 
