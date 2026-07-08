@@ -28,6 +28,7 @@ dependencies {
     implementation(project(":nebula-folia-bridge"))
     implementation(project(":nebula-redstone"))  // For RedstoneWorldState CAS store
     implementation(project(":nebula-entity"))    // For EntityPhysicsState + BlockEntityState + Vec3
+    implementation(project(":nebula-replay"))     // For ToggleApplier seam + ResolvedToggle (live-load driver)
     compileOnly(files(foliaApi))
     compileOnly(fileTree(foliaRuntime) { include("*.jar") })
     // Guava is referenced by Bukkit Material annotations but not bundled in folia-runtime
