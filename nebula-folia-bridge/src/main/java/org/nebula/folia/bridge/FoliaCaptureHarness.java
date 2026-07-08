@@ -40,6 +40,7 @@ public final class FoliaCaptureHarness {
     private final ReplayRecorder recorder;
     private final StateHasher hasher;
     private final InputCapture inputCapture;
+    private final TickDriver tickDriver;
 
     private volatile boolean running = false;
     private volatile long targetTicks = 0;
@@ -60,16 +61,64 @@ public final class FoliaCaptureHarness {
         Map<String, List<byte[]>> captureInputs();
     }
 
+    /**
+     * Drives deterministic input into the world at the start of each captured tick,
+     * <em>before</em> the state hash is taken (the live-load-driver seam, arch doc
+     * §12.1; DG1 Criterion 1 live-load slice).
+     *
+     * <p>This is the receiving seam the live-load driver plugs into: a capture run
+     * that supplies a {@code TickDriver} (built from
+     * {@code CanonicalToggleSources.newDriver(seed, period, applier)}) becomes a
+     * <em>driven</em> capture — the same seed produces the identical toggle stream
+     * tick-for-tick across two independent runs, so their {@code .nrp} files stay
+     * byte-comparable and any divergence is attributable to the engine, not the
+     * input. When no driver is supplied the harness captures a static world exactly
+     * as before (the two-arg / three-arg constructors pass {@code null} here), so
+     * this seam is inert by default and changes no existing capture behaviour.
+     *
+     * <h3>Why drive before hashing, on the same tick counter</h3>
+     * The hash recorded for tick T must reflect the world <em>after</em> tick T's
+     * input was applied, and both runs must key their drive decisions off the same
+     * monotonic tick number the frame is recorded under — otherwise the two runs
+     * would flip different sources on the "same" frame and diverge for a reason that
+     * has nothing to do with the engine (the invisible-gap class of the B3
+     * key-mismatch wound this whole driver exists to guard against). The harness
+     * therefore calls {@link #driveTick} with its own {@code tickNumber} at the top
+     * of {@code onTickEnd}, immediately before hashing.
+     */
+    @FunctionalInterface
+    public interface TickDriver {
+        /**
+         * Applies this tick's deterministic input. Invoked once per captured tick on
+         * the global tick thread, keyed off the harness tick counter (starts at 0).
+         *
+         * @param tickNumber the capture-local tick number this frame is recorded under
+         */
+        void driveTick(long tickNumber);
+    }
+
     public FoliaCaptureHarness(Plugin plugin, ReplayRecorder recorder, StateHasher hasher) {
-        this(plugin, recorder, hasher, null);
+        this(plugin, recorder, hasher, null, null);
     }
 
     public FoliaCaptureHarness(Plugin plugin, ReplayRecorder recorder,
                                 StateHasher hasher, InputCapture inputCapture) {
+        this(plugin, recorder, hasher, inputCapture, null);
+    }
+
+    /**
+     * Full constructor. Supply a non-null {@link TickDriver} to make this a
+     * <em>driven</em> capture (see {@link TickDriver}); pass {@code null} for a
+     * static capture.
+     */
+    public FoliaCaptureHarness(Plugin plugin, ReplayRecorder recorder,
+                                StateHasher hasher, InputCapture inputCapture,
+                                TickDriver tickDriver) {
         this.plugin = Objects.requireNonNull(plugin, "plugin");
         this.recorder = Objects.requireNonNull(recorder, "recorder");
         this.hasher = Objects.requireNonNull(hasher, "hasher");
         this.inputCapture = inputCapture;
+        this.tickDriver = tickDriver;
     }
 
     /**
@@ -113,7 +162,20 @@ public final class FoliaCaptureHarness {
         LOG.info("FoliaCaptureHarness stopped: captured " + capturedTicks + " ticks");
     }
 
-    private void onTickEnd() {
+    /**
+     * Runs one captured tick: drives this tick's deterministic input (if a
+     * {@link TickDriver} was supplied), records inputs, hashes the primary world,
+     * and advances the tick counter. Package-private so the drive-then-hash ordering
+     * can be unit-tested without a running Folia scheduler.
+     */
+    void onTickEnd() {
+        // Drive this tick's deterministic input BEFORE hashing, keyed off the same
+        // tick counter the frame is recorded under, so two runs of the same seed
+        // stay byte-comparable (see TickDriver). Inert when no driver was supplied.
+        if (tickDriver != null) {
+            tickDriver.driveTick(tickNumber);
+        }
+
         recorder.beginTick(tickNumber);
 
         // Record player inputs if available

@@ -73,6 +73,58 @@ class FoliaCaptureHarnessTest {
     }
 
     @Test
+    void tickDriverInvokedOncePerTickBeforeHashing() {
+        // Driven capture: the TickDriver must fire once per captured tick, keyed off
+        // the harness tick counter (0,1,2,...), and BEFORE the state hash is taken —
+        // the hash for tick T must reflect the world after tick T's input.
+        Plugin plugin = pluginWithWorld();
+        ReplayRecorder recorder = new ReplayRecorder();
+        java.util.List<Long> order = new java.util.ArrayList<>();
+
+        FoliaCaptureHarness.TickDriver driver = tick -> order.add(tick); // "drive" marker: negated below
+        FoliaCaptureHarness.StateHasher hasher = (world, tick) -> {
+            order.add(-1L - tick); // "hash" marker for tick T (distinct from drive marker)
+            return ("tick-" + tick).getBytes(StandardCharsets.UTF_8);
+        };
+
+        FoliaCaptureHarness harness = new FoliaCaptureHarness(plugin, recorder, hasher, null, driver);
+        recorder.start();
+        harness.onTickEnd(); // tick 0
+        harness.onTickEnd(); // tick 1
+        recorder.stop();
+
+        // Drive(0), Hash(0), Drive(1), Hash(1) — strictly interleaved, drive first.
+        assertEquals(java.util.List.of(0L, -1L, 1L, -2L), order);
+
+        List<ReplayFrame> frames = recorder.getFrames();
+        assertEquals(2, frames.size());
+        assertEquals(0, frames.get(0).tickNumber());
+        assertEquals(1, frames.get(1).tickNumber());
+    }
+
+    @Test
+    void nullTickDriverIsInert() {
+        // A static capture (no driver) must behave exactly as before: hashing still
+        // happens, no NPE from the absent driver.
+        Plugin plugin = pluginWithWorld();
+        ReplayRecorder recorder = new ReplayRecorder();
+        java.util.concurrent.atomic.AtomicInteger hashes = new java.util.concurrent.atomic.AtomicInteger();
+        FoliaCaptureHarness.StateHasher hasher = (world, tick) -> {
+            hashes.incrementAndGet();
+            return new byte[]{(byte) tick};
+        };
+
+        FoliaCaptureHarness harness = new FoliaCaptureHarness(plugin, recorder, hasher);
+        recorder.start();
+        harness.onTickEnd();
+        harness.onTickEnd();
+        recorder.stop();
+
+        assertEquals(2, hashes.get());
+        assertEquals(2, recorder.getFrames().size());
+    }
+
+    @Test
     void startAndStopUpdatesState() {
         Plugin plugin = pluginStub();
         ReplayRecorder recorder = new ReplayRecorder();
