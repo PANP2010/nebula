@@ -33,14 +33,48 @@
 # later slice). Treat MAX_DIRTY_RATE as a loose starting bound, not a physics
 # constant, and tune CONVERGE_WINDOW to the circuit's settle time.
 #
+# ============================================================================
+# SETTLED MODE (--settled): the standing DG3 settled-state acceptance run.
+# ============================================================================
+# The default (CASCADE-DIAG) mode above grades the residual dirty rate of a
+# never-settling square wave — a NECESSARY-BUT-NOT-SUFFICIENT signal that cannot
+# separate one-cycle observe lag from a real bug (see the HONEST LIMITATION note).
+# `--settled` runs the load-bearing complement: it drives the WHOLE multi-region
+# tracked set to true quiescence, then grades a single `/nebula settled` snapshot
+# of EVERY tracked position at once with the tested SettledDivergenceGrader
+# (0.0 threshold — at quiescence a correct observe-only shadow must match Folia
+# exactly, having had every intervening tick to catch up).
+#
+#   METHOD (--settled):
+#     1. Place CIRCUITS lever-headed lines spaced 512 blocks apart (distinct
+#        region threads), forceload + `/nebula scan` register them.
+#     2. (optional) run a driven `--drive <seed>` warm-up capture so the pipeline
+#        is exercised under a seed-deterministic multi-region toggle stream before
+#        it is brought to rest (--warmup 0 skips it). A warm-up that does not
+#        finish is a WARN, not a failure — the gate stands on the settled snapshot.
+#     3. Toggle EVERY lever ON via setblock and wait SETTLE_S for Folia to drain
+#        each 15-wire line to its settled 15..0 profile and the observe-only DAG
+#        shadow to follow — a definite, non-trivial quiescent state (not all-off,
+#        which would be a trivial nebula=0=folia=0 pass).
+#     4. `/nebula settled` emits ONE SETTLED-DIAG line per world snapshotting the
+#        whole tracked set; grade it with the SAME tested SettledDivergenceGraderCli
+#        the unit tests exercise (exit 0 PASS / 3 FAIL / 4 INCONCLUSIVE).
+#   A FAIL here (nebula!=folia at quiescence) is a GENUINE divergence — do NOT
+#   raise --max-diverge to paper over it (that is the project's defining wound).
+#
 # Usage:  scripts/divergence-grade.sh [ticks] [circuits] [--seed <n>] [--period <n>] \
 #            [--converge <n>] [--max-dirty <rate>] [--keep-running]
+#         scripts/divergence-grade.sh --settled [circuits] [--seed <n>] [--period <n>] \
+#            [--warmup <ticks>] [--max-diverge <rate>] [--keep-running]
 #   ticks       driven ticks to capture (default 400 — start small, per the Next: pointer)
-#   circuits    lever-headed circuits to place (default 1)
+#   circuits    lever-headed circuits to place (default 1; default 4 in --settled mode)
+#   --settled   run the DG3 settled-state acceptance gate (see SETTLED MODE above)
 #   --seed      driver seed (default 42)
 #   --period    per-source flip period in ticks (default 8)
 #   --converge  leading invocations to skip as the cold-CAS transient (default 8)
-#   --max-dirty residual dirty-rate pass threshold in [0,1] (default 0.05)
+#   --max-dirty residual dirty-rate pass threshold in [0,1] (default 0.05; default mode)
+#   --warmup    driven warm-up ticks before settling (--settled mode; default 200, 0 skips)
+#   --max-diverge settled divergence-rate pass threshold in [0,1] (--settled; default 0.0)
 #   --keep-running  leave the server up at the end (default: stop cleanly)
 #
 # Env overrides: RCON_PORT (25576), RCON_PW (nebulatest), SERVER_DIR,
@@ -62,27 +96,42 @@ JAVA21="${JAVA21:-/usr/lib/jvm/java-21-openjdk-amd64}"
 BUILD_ROOT="$HOME/.gradle/nebula-server-build/nebula-server"
 GRADER_CP="$BUILD_ROOT/nebula-replay/classes/java/main:$BUILD_ROOT/nebula-core/classes/java/main"
 GRADER_CLASS="org.nebula.replay.FoliaDivergenceGraderCli"
+SETTLED_GRADER_CLASS="org.nebula.replay.SettledDivergenceGraderCli"
 
 # --- Args ---
+# In --settled mode the FIRST positional is CIRCUITS (there is no capture-ticks
+# arg — the snapshot is a single instant, not a driven window); in default mode
+# it is TICKS then CIRCUITS. SETTLED is parsed first so the positional split knows
+# which arm it is on.
 TICKS=""; CIRCUITS=""
 SEED=42; PERIOD=8; CONVERGE=8; MAX_DIRTY=0.05; KEEP_RUNNING=0
-args=("$@"); _i=1; _pos=0
+SETTLED=0; WARMUP=200; MAX_DIVERGE=0.0
+args=("$@"); _i=1; _pos=0; _POS=()
 while [ "$_i" -le "$#" ]; do
     a="${args[$((_i-1))]}"
     case "$a" in
+        --settled)   SETTLED=1 ;;
         --seed)      _i=$((_i+1)); SEED="${args[$((_i-1))]:-}" ;;
         --period)    _i=$((_i+1)); PERIOD="${args[$((_i-1))]:-}" ;;
         --converge)  _i=$((_i+1)); CONVERGE="${args[$((_i-1))]:-}" ;;
         --max-dirty) _i=$((_i+1)); MAX_DIRTY="${args[$((_i-1))]:-}" ;;
+        --warmup)    _i=$((_i+1)); WARMUP="${args[$((_i-1))]:-}" ;;
+        --max-diverge) _i=$((_i+1)); MAX_DIVERGE="${args[$((_i-1))]:-}" ;;
         --keep-running) KEEP_RUNNING=1 ;;
         --*) echo "ERROR: unknown option $a"; exit 2 ;;
-        *) if [ "$_pos" -eq 0 ]; then TICKS="$a"; elif [ "$_pos" -eq 1 ]; then CIRCUITS="$a"; fi
-           _pos=$((_pos+1)) ;;
+        *) _POS[$_pos]="$a"; _pos=$((_pos+1)) ;;
     esac
     _i=$((_i+1))
 done
-TICKS="${TICKS:-400}"
-CIRCUITS="${CIRCUITS:-1}"
+if [ "$SETTLED" -eq 1 ]; then
+    # --settled: [circuits] only.
+    CIRCUITS="${_POS[0]:-4}"
+    TICKS="$WARMUP"
+else
+    # default: [ticks] [circuits].
+    TICKS="${_POS[0]:-400}"
+    CIRCUITS="${_POS[1]:-1}"
+fi
 CAP_TIMEOUT_S="${CAP_TIMEOUT_S:-$(( TICKS / 20 * 3 + 120 ))}"
 
 RESULT_DIR="$REPO_ROOT/bench-results"
@@ -129,7 +178,16 @@ fi
 echo "Placing $CIRCUITS lever-headed redstone circuit(s)..."
 for c in $(seq 0 $((CIRCUITS - 1))); do
     bx=$((c * 512)); bz=0
-    R "forceload add $bx $((bz - 2)) $((bx + 20)) $((bz + 2))" >/dev/null
+    # Forceload the WHOLE build+clear footprint (incl. z out to +12) so the air-fill
+    # below actually applies — fill is a no-op on unloaded chunks, and stray redstone
+    # a prior cycle left at e.g. z=10 sits outside the tight z=-2..2 tick footprint.
+    R "forceload add $((bx - 1)) $((bz - 4)) $((bx + 20)) $((bz + 12))" >/dev/null
+    # Clear the whole build volume (incl. z!=0) first: the flat test world PERSISTS
+    # across cycles, so stray redstone a prior run left in this footprint would be
+    # picked up by /nebula scan and inflate the tracked set with unrelated positions
+    # (observed: leftover wire at z=10 graded as spurious divergence). fill air is a
+    # no-op where the world is already air.
+    R "fill $((bx - 1)) -60 $((bz - 4)) $((bx + 17)) -60 $((bz + 12)) minecraft:air" >/dev/null
     R "setblock $bx -61 $bz minecraft:stone" >/dev/null
     R "setblock $bx -60 $bz minecraft:lever[face=floor,powered=false]" >/dev/null
     for i in $(seq 1 15); do
@@ -149,6 +207,117 @@ if echo "$STATUS_RAW" | grep -qE "Toggle sources.*: 0$"; then
     echo "ERROR: /nebula scan registered 0 toggle sources — cannot drive. Aborting."
     [ "$KEEP_RUNNING" -eq 0 ] && [ "$started_here" -eq 1 ] && R stop >/dev/null
     exit 4
+fi
+
+# Clean teardown helper shared by both arms.
+teardown() {
+    if [ "$KEEP_RUNNING" -eq 0 ] && [ "$started_here" -eq 1 ]; then
+        echo "Stopping server cleanly..."
+        R "stop" >/dev/null
+        for i in $(seq 1 40); do
+            sleep 1
+            pgrep -f "$SERVER_DIR.*server.jar" >/dev/null 2>&1 || { echo "Stopped."; break; }
+        done
+    fi
+}
+
+# ============================================================================
+# SETTLED MODE — the standing DG3 settled-state acceptance gate.
+# ============================================================================
+if [ "$SETTLED" -eq 1 ]; then
+    SETTLE_S="${SETTLE_S:-5}"
+
+    # 1. (optional) Exercise the whole tracked set under a seed-deterministic
+    #    multi-region toggle stream before bringing it to rest. This is a WARM-UP,
+    #    not the graded signal — the gate stands on the settled snapshot in step 3.
+    if [ "${WARMUP:-0}" -gt 0 ]; then
+        echo "Warm-up: driving a $WARMUP-tick capture (seed=$SEED period=$PERIOD)..."
+        WARM_MARK="$(wc -l < "$SERVER_LOG" 2>/dev/null || echo 0)"
+        R "nebula capture start $WARMUP --drive $SEED --period $PERIOD" | strip
+        warm_ok=0
+        for _ in $(seq 1 "$CAP_TIMEOUT_S"); do
+            sleep 1
+            if tail -n +"$WARM_MARK" "$SERVER_LOG" 2>/dev/null \
+                 | grep -q "FoliaCaptureHarness stopped: captured $WARMUP ticks"; then
+                warm_ok=1; break
+            fi
+        done
+        R "nebula capture stop" | strip >/dev/null 2>&1
+        [ "$warm_ok" -eq 1 ] || echo "WARN: warm-up did not reach $WARMUP ticks — continuing to the settled snapshot anyway."
+    else
+        echo "Warm-up skipped (--warmup 0)."
+    fi
+
+    # 2. Drive EVERY lever through a real OFF->ON transition, then settle to a
+    #    definite, NON-TRIVIAL quiescent state (each 15-wire line at 15..0). The
+    #    OFF pass first is load-bearing: `setblock lever[powered=true]` on a lever
+    #    the warm-up square wave already left ON is a NO-OP that fires no
+    #    BLOCK_UPDATE, so the observe-only shadow would never re-seed that line and
+    #    it would read a stale value at snapshot time (a false divergence that is a
+    #    harness artifact, not a Nebula bug). Forcing OFF first guarantees every
+    #    lever makes a false->true transition, which fires the neighbour update that
+    #    seeds each circuit's DAG cascade. All-off would be a trivial
+    #    nebula=0=folia=0 pass, so we settle ON on purpose.
+    echo "Forcing all $CIRCUITS lever(s) OFF, then settling for ${SETTLE_S}s..."
+    for c in $(seq 0 $((CIRCUITS - 1))); do
+        bx=$((c * 512))
+        R "setblock $bx -60 0 minecraft:lever[face=floor,powered=false]" >/dev/null
+    done
+    sleep "$SETTLE_S"
+    echo "Toggling all $CIRCUITS lever(s) ON, then settling for ${SETTLE_S}s..."
+    for c in $(seq 0 $((CIRCUITS - 1))); do
+        bx=$((c * 512))
+        R "setblock $bx -60 0 minecraft:lever[face=floor,powered=true]" >/dev/null
+    done
+    sleep "$SETTLE_S"
+
+    # 3. Snapshot the WHOLE tracked set at quiescence and grade the one line.
+    echo "Emitting /nebula settled over the whole tracked set..."
+    SETTLED_MARK="$(wc -l < "$SERVER_LOG" 2>/dev/null || echo 0)"
+    R "nebula settled" | strip
+    # The snapshot lines are logged asynchronously once each owning region reports;
+    # wait until at least one SETTLED-DIAG line appears (or time out).
+    settled_ok=0
+    for _ in $(seq 1 60); do
+        sleep 1
+        if tail -n +"$SETTLED_MARK" "$SERVER_LOG" 2>/dev/null | grep -q "SETTLED-DIAG:"; then
+            settled_ok=1; break
+        fi
+    done
+
+    SETTLED_SLICE="$RESULT_DIR/divergence-$STAMP.settledlog"
+    tail -n +"$SETTLED_MARK" "$SERVER_LOG" 2>/dev/null | grep "SETTLED-DIAG:" > "$SETTLED_SLICE" || true
+    SETTLED_COUNT="$(wc -l < "$SETTLED_SLICE" | tr -d ' ')"
+    echo "Captured $SETTLED_COUNT SETTLED-DIAG line(s) from this run."
+
+    if [ "$settled_ok" -ne 1 ] || [ "$SETTLED_COUNT" -eq 0 ]; then
+        echo "ERROR: no SETTLED-DIAG line emitted within 60s — cannot grade the settled gate."
+        teardown
+        exit 4
+    fi
+
+    echo "Grading with the tested SettledDivergenceGrader (max-diverge=$MAX_DIVERGE)..."
+    GRADE_OUT="$("$JAVA21/bin/java" -cp "$GRADER_CP" "$SETTLED_GRADER_CLASS" "$SETTLED_SLICE" "$MAX_DIVERGE" 2>&1)"
+    grade_code=$?
+
+    {
+        echo "=== Nebula DG3 SETTLED-state acceptance grade ==="
+        echo "Date:      $(date)"
+        echo "Mode:      --settled (whole tracked set at quiescence, all levers ON)"
+        echo "Circuits:  $CIRCUITS  (lever-headed, spaced 512 blocks / distinct regions)"
+        echo "Warm-up:   $WARMUP driven ticks (seed=$SEED period=$PERIOD)"
+        echo "Settle:    ${SETTLE_S}s after toggling all levers ON"
+        echo "SETTLED-DIAG lines graded: $SETTLED_COUNT  (raw slice: $SETTLED_SLICE)"
+        echo
+        echo "--- /nebula status (post-scan) ---"
+        echo "$STATUS_RAW"
+        echo
+        echo "$GRADE_OUT"
+    } | tee "$RESULT_FILE"
+
+    teardown
+    echo "Result written to: $RESULT_FILE"
+    exit "$grade_code"
 fi
 
 # --- Enable the divergence diagnostic, then run one driven capture. ---
@@ -201,14 +370,7 @@ grade_code=$?
 } | tee "$RESULT_FILE"
 
 # --- Teardown. ---
-if [ "$KEEP_RUNNING" -eq 0 ] && [ "$started_here" -eq 1 ]; then
-    echo "Stopping server cleanly..."
-    R "stop" >/dev/null
-    for i in $(seq 1 40); do
-        sleep 1
-        pgrep -f "$SERVER_DIR.*server.jar" >/dev/null 2>&1 || { echo "Stopped."; break; }
-    done
-fi
+teardown
 
 echo "Result written to: $RESULT_FILE"
 exit "$grade_code"
