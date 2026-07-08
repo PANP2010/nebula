@@ -49,8 +49,10 @@ Shadow jar output: `~/.gradle/nebula-server-build/nebula-server/nebula-plugin/li
 | Command | Description | Permission |
 |---------|-------------|------------|
 | `/nebula capture start [ticks]` | Start state capture for N ticks (default 1000) | `nebula.capture` |
-| `/nebula capture stop` | Stop capture, report frame count | `nebula.capture` |
-| `/nebula status` | Show CAS store sizes and tracked positions | `nebula.status` |
+| `/nebula capture stop` | Stop capture, save a timestamped `.nrp`, report frame + distinct-hash count | `nebula.capture` |
+| `/nebula scan` | Rescan loaded chunks for redstone components (needed for RCON/command-placed redstone) | `nebula.status` |
+| `/nebula status` | Show component count, CAS store sizes, and tracked positions | `nebula.use` |
+| `/nebula perf [reset]` | Show DAG tick timing + microstep percentiles, auto-graded against DG1 Criteria 2/3 | `nebula.status` |
 | `/nebula help` | Show command help | `nebula.use` |
 
 ## Architecture Overview

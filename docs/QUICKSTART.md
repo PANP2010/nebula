@@ -6,17 +6,17 @@
 
 ## What You Need to Know
 
-### The Situation
-- **Code quality**: Good. 659 unit tests pass, architecture is solid.
-- **Integration status**: Incomplete. Core DAG execution never verified on real server.
-- **Main blockers**: B1 (lifecycle), B2 (component scanning), B3 (agent interception).
-- **Fixes committed**: B1 and B2 have code fixes, need verification.
+### The Situation (updated 2026-07-08)
+- **Code quality**: Good. 678 unit tests pass, architecture is solid.
+- **Integration status**: Core DAG execution and deterministic zero-diff capture are both VERIFIED on real Folia 26.1.2 (2026-07-08). B1/B2/B3/B6 are resolved.
+- **Verified**: live circuit toggles → DAG ticks; two identical captures → byte-for-byte identical `.nrp` files; DG1 Criteria 1/2/3 all PASS at multi-region scale (each with a documented caveat — see PROJECT_STATUS.md).
+- **Still unverified**: performance under sustained load, zero-diff under *live* redstone (needs a tick-deterministic input driver), and the entity subsystem on a live server.
 
 ### The Plan
-1. Deploy to test server and verify B1/B2 fixes work
-2. If yes → move to correctness testing (zero-diff)
-3. If no → debug and iterate
-4. Then optimize for performance
+1. ✅ Deploy to test server and verify B1/B2 fixes work — DONE (DAG ticks fire)
+2. ✅ Correctness testing (zero-diff) — DONE (byte-identical captures)
+3. Next: tick-deterministic input driver so zero-diff can be tested under live redstone, not just a static world
+4. Then: wire the entity subsystem into the live tick path (DG2)
 
 ---
 
@@ -60,8 +60,11 @@ rcon -H localhost -p 25576 -P nebulatest
 ```rcon
 /nebula status
 /nebula help
-/nebula capture start 100
 /setblock 0 72 0 minecraft:redstone_wire
+/nebula scan           # REQUIRED: RCON setblock does not fire BlockPlaceEvent,
+                       # so command-placed redstone is invisible until scanned
+/nebula perf           # DAG tick timing + microstep percentiles (DG1 Criteria 2/3)
+/nebula capture start 100
 ```
 
 ---
@@ -70,28 +73,28 @@ rcon -H localhost -p 25576 -P nebulatest
 
 ### B1 Fix: RedstoneTickHook Lifecycle
 - **File**: `nebula-plugin/src/main/java/org/nebula/plugin/NebulaPlugin.java`
-- **Lines**: 292-313
+- **Lines**: 303-324 (`runAtFixedRate` alternating begin/end driver)
 - **What**: GlobalRegionScheduler task that alternates beginTick/endTick calls
-- **Status**: Committed, needs verification
+- **Status**: ✅ VERIFIED WORKING on real Folia 2026-07-08 (DAG ticks fire on every redstone change)
 
 ### B2 Fix: Sync Component Scan
 - **File**: `nebula-plugin/src/main/java/org/nebula/plugin/NebulaPlugin.java`
-- **Lines**: 221-226
-- **What**: Synchronous scan of loaded chunks during onEnable
-- **Status**: Committed, needs verification
+- **Lines**: 232-237 (synchronous loaded-chunk scan in `onEnable`)
+- **What**: Synchronous scan of loaded chunks during onEnable, plus `/nebula scan` for command-placed redstone
+- **Status**: ✅ RESOLVED — components register (16 found for the test circuit via `/nebula scan`)
 
 ### B3: Agent Interception Chain
 - **Files**: 
   - `nebula-agent/src/main/java/org/nebula/agent/NeighborUpdateTransformer.java`
   - `nebula-agent/src/main/java/org/nebula/agent/NeighborUpdateHooks.java`
 - **What**: ASM injection into Folia's neighbor update methods
-- **Status**: Code exists, never verified on real server
+- **Status**: ✅ FIXED (world-name key mismatch) 2026-07-08; `BlockRedstoneEvent` listener confirmed firing as a stable Bukkit-API fallback. Note: the agent path is observe-only (void hook, no early RETURN) — see docs/PROJECT_STATUS.md B4
 
 ### DAG Execution Entry Point
 - **File**: `nebula-plugin/src/main/java/org/nebula/plugin/NebulaPlugin.java`
-- **Method**: `executeOwnedDag()` (lines 357-427)
+- **Method**: `executeOwnedDag()` (lines 368-444)
 - **What**: Three-phase execution (syncFromNms → DAG → syncToNms)
-- **Status**: Wired but never called (depends on B1)
+- **Status**: ✅ Runs on real Folia — 45 DAG ticks from live circuit toggles, 0 exceptions (2026-07-08)
 
 ---
 
