@@ -419,8 +419,10 @@ public final class NebulaPlugin extends JavaPlugin {
         java.util.List<String> diagSeeds = diag ? new java.util.ArrayList<>() : null;
 
         // Phase 1: Sync FROM NMS for all affected positions
+        java.util.List<WorldPos> seedPositions = new java.util.ArrayList<>(ownedTasks.size());
         for (TaskNode task : ownedTasks) {
             WorldPos pos = POSITION_OF.apply(task);
+            seedPositions.add(pos);
             if (!componentSnapshot.isEmpty() && !componentSnapshot.contains(pos)) {
                 LOG.fine(() -> "executeOwnedDag: position " + pos
                     + " not found in componentMap — this specific position is not registered "
@@ -434,6 +436,29 @@ public final class NebulaPlugin extends JavaPlugin {
                 int casAfter = redstoneState.getPowerLevel(pos);
                 diagSeeds.add(pos + " cas=" + casBefore + "→nms=" + casAfter
                     + (casBefore == casAfter ? " (settled)" : " (dirty)"));
+            }
+        }
+
+        // Phase 1b (DG3 multi-region seeding-race fix): a source (lever/button/
+        // torch) feeds an adjacent wire its power UNDECAYED, but the cascade reads
+        // that power from the CAS store — and a source only lands in CAS if its OWN
+        // BLOCK_UPDATE was drained as a seed this tick, which races region-thread
+        // timing on an OFF→ON toggle. When it isn't, the wire reads the source as
+        // -1 and the whole line collapses to 0 (the run-varying nebula=-1-at-lever
+        // divergence the --settled gate exposes). Seeding the source off its
+        // adjacent WIRE seed is deterministic: a wire next to a toggled lever
+        // reliably fires when the lever flips, so it is always a seed. Same-chunk
+        // only — a cross-chunk neighbour may be owned by another region and reading
+        // it here would NPE on Folia (SourceSeedPlanner enforces this).
+        java.util.Set<WorldPos> sourceSeeds = SourceSeedPlanner.plan(
+            seedPositions, componentMap::get);
+        for (WorldPos src : sourceSeeds) {
+            int casBefore = diag ? redstoneState.getPowerLevel(src) : 0;
+            blockBridge.syncFromNms(world, src);
+            if (diag) {
+                int casAfter = redstoneState.getPowerLevel(src);
+                diagSeeds.add(src + " cas=" + casBefore + "→nms=" + casAfter
+                    + (casBefore == casAfter ? " (settled)" : " (dirty)") + " [source-seed]");
             }
         }
 
