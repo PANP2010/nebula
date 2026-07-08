@@ -11,8 +11,10 @@ import org.nebula.entity.EntityTickExecutor;
 import org.nebula.entity.EntityTaskRunner;
 import org.nebula.entity.actions.EntityMoveAction;
 import org.nebula.entity.actions.EntityCollisionResponseAction;
+import org.nebula.folia.FoliaRegionBridge;
 import org.nebula.folia.FoliaRegionTickExecutor;
 import org.nebula.folia.FoliaRuntimeDetector;
+import org.nebula.folia.FoliaToggleApplier;
 import org.nebula.folia.NmsBlockEntityStateBridge;
 import org.nebula.folia.NmsBlockStateBridge;
 import org.nebula.folia.NmsEntityStateBridge;
@@ -506,18 +508,77 @@ public final class NebulaPlugin extends JavaPlugin {
     }
 
     /**
-     * Starts the capture harness for zero-diff verification.
-     * Records state hashes for the specified number of ticks.
+     * Starts a <em>static</em> capture for zero-diff verification (no driven
+     * input). Records state hashes for the specified number of ticks.
      */
     public void startCapture(long ticks) {
+        startCapture(ticks, null, DEFAULT_DRIVE_PERIOD);
+    }
+
+    /** Default per-source flip period (ticks) when {@code --drive} omits one. */
+    public static final int DEFAULT_DRIVE_PERIOD = 8;
+
+    /**
+     * Starts the capture harness. When {@code driveSeed} is non-null, this is a
+     * <em>driven live-load</em> capture: each captured tick the harness applies a
+     * deterministic square-wave toggle stream to the registered toggle sources
+     * (levers/buttons) BEFORE hashing, keyed off the harness tick counter, via the
+     * {@link FoliaCaptureHarness.TickDriver} seam. Two runs of the same seed emit a
+     * byte-identical toggle stream tick-for-tick, so the two {@code .nrp} files stay
+     * comparable and any divergence is attributable to the engine, not the input —
+     * this is the game-layer wiring the pure driver stack was built for (DG1
+     * Criterion 1 live-load slice).
+     *
+     * <p>When {@code driveSeed} is null the capture is static, exactly as before —
+     * the harness receives a null {@link FoliaCaptureHarness.TickDriver} and this
+     * behaves identically to the legacy path.
+     *
+     * @param ticks     number of ticks to capture
+     * @param driveSeed determinism seed, or null for a static (undriven) capture
+     * @param period    per-source flip period in ticks (≥ 1); ignored when driveSeed is null
+     */
+    public void startCapture(long ticks, Long driveSeed, int period) {
         if (captureHarness != null && captureHarness.isRunning()) {
             LOG.warning("Capture already running");
             return;
         }
         recorder = new ReplayRecorder();
-        captureHarness = new FoliaCaptureHarness(this, recorder, stateHasher);
+
+        FoliaCaptureHarness.TickDriver driver = null;
+        if (driveSeed != null) {
+            // Build the live-load driver from the SAME toggle-source set the scanner
+            // populated, in canonical order (CanonicalToggleSources sorts by WorldPos,
+            // so the source ordering — and thus the seed-derived phases — depend only
+            // on the SET of sources, never on enumeration order). Applying via
+            // FoliaToggleApplier flips the real lever with physics so the observe-only
+            // DAG shadow sees it exactly as an organic edit.
+            if (toggleSources.size() == 0) {
+                LOG.warning("Driven capture requested (seed=" + driveSeed
+                    + ") but no toggle sources are registered — run /nebula scan after "
+                    + "placing levers/buttons. Falling back to a STATIC capture.");
+            } else {
+                World world = getServer().getWorlds().isEmpty()
+                    ? null : getServer().getWorlds().get(0);
+                if (world == null) {
+                    LOG.warning("Driven capture requested but no world is loaded — "
+                        + "falling back to a STATIC capture.");
+                } else {
+                    FoliaToggleApplier applier = new FoliaToggleApplier(
+                        new FoliaRegionBridge(getServer(), this), world);
+                    var liveDriver = toggleSources.canonical()
+                        .newDriver(driveSeed, period, applier);
+                    driver = liveDriver::driveTick;
+                    LOG.info("Driven capture armed: seed=" + driveSeed + " period=" + period
+                        + " over " + toggleSources.size() + " toggle source(s) in world '"
+                        + world.getName() + "'");
+                }
+            }
+        }
+
+        captureHarness = new FoliaCaptureHarness(this, recorder, stateHasher, null, driver);
         captureHarness.start(ticks);
-        LOG.info("Capture harness started: " + ticks + " ticks");
+        LOG.info("Capture harness started: " + ticks + " ticks"
+            + (driver != null ? " (DRIVEN, seed=" + driveSeed + ")" : " (static)"));
     }
 
     /** Stops the capture harness and returns recorded frames. */

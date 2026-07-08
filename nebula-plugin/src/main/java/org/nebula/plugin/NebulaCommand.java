@@ -70,25 +70,31 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
         }
 
         if (args.length < 2) {
-            sender.sendMessage("§cUsage: /nebula capture <start|stop> [ticks]");
+            sender.sendMessage("§cUsage: /nebula capture <start|stop> [ticks] [--drive <seed>] [--period <n>]");
             return;
         }
 
         String action = args[1].toLowerCase();
         switch (action) {
             case "start" -> {
-                long ticks = 1000; // default
-                if (args.length >= 3) {
-                    try {
-                        ticks = Long.parseLong(args[2]);
-                    } catch (NumberFormatException e) {
-                        sender.sendMessage("§cInvalid tick count: " + args[2]);
-                        return;
-                    }
+                // Parse `[ticks] [--drive <seed>] [--period <n>]` with the pure
+                // parser so the flag grammar is unit-testable without a live plugin.
+                CaptureStartArgs parsed = parseCaptureStart(args);
+                if (parsed.error() != null) {
+                    sender.sendMessage("§c" + parsed.error());
+                    return;
                 }
-                plugin.startCapture(ticks);
-                sender.sendMessage("§aCapture started for " + ticks + " ticks");
-                LOG.info("Capture started by " + sender.getName() + " for " + ticks + " ticks");
+                plugin.startCapture(parsed.ticks(), parsed.driveSeed(), parsed.period());
+                if (parsed.driveSeed() != null) {
+                    sender.sendMessage("§aDriven capture started for " + parsed.ticks()
+                        + " ticks (seed=" + parsed.driveSeed() + ", period=" + parsed.period() + ", "
+                        + plugin.toggleSourceCount() + " toggle source(s))");
+                    LOG.info("Driven capture started by " + sender.getName() + " for " + parsed.ticks()
+                        + " ticks, seed=" + parsed.driveSeed() + ", period=" + parsed.period());
+                } else {
+                    sender.sendMessage("§aCapture started for " + parsed.ticks() + " ticks");
+                    LOG.info("Capture started by " + sender.getName() + " for " + parsed.ticks() + " ticks");
+                }
             }
             case "stop" -> {
                 var frames = plugin.stopCapture();
@@ -123,6 +129,68 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
             }
             default -> sender.sendMessage("§cUnknown capture action: " + action);
         }
+    }
+
+    /**
+     * The parsed result of {@code /nebula capture start [ticks] [--drive <seed>]
+     * [--period <n>]}. Exactly one of {@link #error} (a user-facing message, no
+     * colour code) or a valid set of fields is meaningful: when {@code error} is
+     * non-null the other fields must be ignored.
+     */
+    record CaptureStartArgs(long ticks, Long driveSeed, int period, String error) {
+        static CaptureStartArgs ok(long ticks, Long driveSeed, int period) {
+            return new CaptureStartArgs(ticks, driveSeed, period, null);
+        }
+        static CaptureStartArgs fail(String error) {
+            return new CaptureStartArgs(0, null, 0, error);
+        }
+    }
+
+    /**
+     * Pure parser for {@code capture start} arguments (index 0 = "capture", 1 =
+     * "start"). Kept static and free of Bukkit/plugin state so the flag grammar —
+     * default ticks, {@code --drive <seed>}, {@code --period <n>}, and every error
+     * path — is unit-testable without a running server. Absent {@code --drive}
+     * yields a null seed (a static capture, byte-identical to the legacy path).
+     */
+    static CaptureStartArgs parseCaptureStart(String[] args) {
+        long ticks = 1000; // default
+        if (args.length >= 3) {
+            try {
+                ticks = Long.parseLong(args[2]);
+            } catch (NumberFormatException e) {
+                return CaptureStartArgs.fail("Invalid tick count: " + args[2]);
+            }
+        }
+        Long driveSeed = null;
+        int period = NebulaPlugin.DEFAULT_DRIVE_PERIOD;
+        for (int i = 3; i < args.length; i++) {
+            if (args[i].equalsIgnoreCase("--drive")) {
+                if (i + 1 >= args.length) {
+                    return CaptureStartArgs.fail("--drive requires a seed value");
+                }
+                try {
+                    driveSeed = Long.parseLong(args[++i]);
+                } catch (NumberFormatException e) {
+                    return CaptureStartArgs.fail("Invalid drive seed: " + args[i]);
+                }
+            } else if (args[i].equalsIgnoreCase("--period")) {
+                if (i + 1 >= args.length) {
+                    return CaptureStartArgs.fail("--period requires a tick count");
+                }
+                try {
+                    period = Integer.parseInt(args[++i]);
+                } catch (NumberFormatException e) {
+                    return CaptureStartArgs.fail("Invalid period: " + args[i]);
+                }
+                if (period < 1) {
+                    return CaptureStartArgs.fail("period must be >= 1");
+                }
+            } else {
+                return CaptureStartArgs.fail("Unknown capture option: " + args[i]);
+            }
+        }
+        return CaptureStartArgs.ok(ticks, driveSeed, period);
     }
 
     private static String shortHash(String hex) {
@@ -227,7 +295,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
 
     private void sendHelp(CommandSender sender) {
         sender.sendMessage("§6Nebula Commands:");
-        sender.sendMessage("  §e/nebula capture start [ticks] §7- Start state capture");
+        sender.sendMessage("  §e/nebula capture start [ticks] [--drive <seed>] [--period <n>] §7- Start state capture (--drive = live-load driven)");
         sender.sendMessage("  §e/nebula capture stop §7- Stop capture and report");
         sender.sendMessage("  §e/nebula scan §7- Rescan loaded chunks for redstone components");
         sender.sendMessage("  §e/nebula status §7- Show plugin status");
@@ -255,6 +323,12 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
         }
         if (args.length == 3 && args[0].equalsIgnoreCase("capture") && args[1].equalsIgnoreCase("start")) {
             return Arrays.asList("100", "1000", "5000", "10000");
+        }
+        if (args.length >= 4 && args[0].equalsIgnoreCase("capture") && args[1].equalsIgnoreCase("start")) {
+            String prev = args[args.length - 2];
+            if (prev.equalsIgnoreCase("--drive")) return List.of("1", "42", "12345");
+            if (prev.equalsIgnoreCase("--period")) return Arrays.asList("4", "8", "16");
+            return Arrays.asList("--drive", "--period");
         }
         return List.of();
     }
