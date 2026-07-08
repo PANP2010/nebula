@@ -23,7 +23,7 @@
 | Build toolchain | Gradle multi-module, shadow jar, agent all working |
 | **End-to-end DAG execution** | ✅ **Verified on real Folia (2026-07-08)** |
 | **Zero-diff capture** | ✅ **Verified deterministic (2026-07-08)** |
-| **Performance / MSPT** | ❌ Not measured (remaining milestone) |
+| **Performance / MSPT** | ✅ **Per-tick DAG overhead measured & within budget at scale (p99 1.914ms < 3ms, 2026-07-08)**; load testing at 100 players still open |
 
 ### Core problem (RESOLVED as of 2026-07-08)
 
@@ -33,7 +33,9 @@ The integration gap that prevented core functionality from running has been clos
 2. **B2**: `componentMap` empty when DAG runs → ✅ resolved (sync scan + `/nebula scan`)
 3. **B3**: `NeighborUpdateInterceptor` chain unverified → ✅ fixed (world-name key mismatch)
 
-The remaining core problem is **performance**: NMS sync overhead (B4) is unmeasured.
+Per-tick NMS sync overhead (B4) is now **measured and within budget** at
+multi-region scale. What remains is load testing (100 players @ 20 TPS) and the
+entity subsystem — not the redstone performance question.
 
 ---
 
@@ -162,22 +164,36 @@ Total: ~16-24 days
 
 ### 2.3 MSPT Measurement
 
-**Steps**:
-1. [ ] Run Folia without Nebula, measure baseline MSPT (via spark)
-2. [ ] Run same workload with Nebula, measure MSPT
-3. [ ] Calculate MSPT reduction
+> **Superseded 2026-07-08.** The "reduction ≥30% vs vanilla" framing below
+> presupposes Nebula *replaces* Folia's serial redstone. It does not — the
+> verified architecture (commit 4a934bb) is **observe-only** in both AGENT and
+> INTERCEPT modes, so the DAG is a non-authoritative shadow and there is no
+> serial work to reduce. DG1 Criterion 3 was redefined (Path 2) to grade the
+> shadow's *added* overhead against a budget — see docs/PROJECT_STATUS.md. This
+> is DONE: `TickTimeRecorder` + `/nebula perf` + `scripts/perf-harness.sh`
+> auto-grade p99 DAG tick time < 3ms, verified at multi-region scale
+> (p99 1.914ms, 2026-07-08). The original steps are retained for the record.
 
-**Acceptance**: MSPT reduction ≥ 30% (DG1 Criterion 3)
+**Steps (original 2026-06-24 plan — superseded)**:
+1. [x] ~~Run Folia without Nebula, measure baseline MSPT~~ — no baseline exists to compare against (observe-only shadow)
+2. [x] Measure per-tick DAG overhead with Nebula (`/nebula perf`, `TickTimeRecorder`)
+3. [x] ~~Calculate MSPT reduction~~ — replaced by shadow-overhead budget
+
+**Acceptance (redefined)**: p99 DAG tick time < 3ms under a driven multi-region workload (DG1 Criterion 3, Path 2) — ✅ verified 2026-07-08
 
 ---
 
-### 2.4 Capture Harness End-to-End Verification
+### 2.4 Capture Harness End-to-End Verification — ✅ DONE (2026-07-08, B6)
 
 **Steps**:
-1. [ ] Start Capture Harness
-2. [ ] Verify `WorldStateHasher.hashState()` works on real Folia world
-3. [ ] Verify `ReplayRecorder` correctly records frames
-4. [ ] Verify `ReplayVerifier` can compare two recorded runs
+1. [x] Start Capture Harness (`/nebula capture start N`)
+2. [x] Verify hashing works on real Folia — `RedstoneCasStateHasher` reads the
+       thread-safe CAS store (the old `WorldStateHasher.hashState()` NPE'd on
+       Folia's region-thread-only NMS reads; see B6)
+3. [x] Verify `ReplayRecorder` correctly records frames (zero exceptions)
+4. [x] Verify two runs compare — two identical 40-tick captures produced
+       **byte-for-byte identical** `.nrp` files; scaled to 10k ticks by
+       `scripts/zerodiff-harness.sh` (DG1 Criterion 1)
 
 ---
 
@@ -261,14 +277,18 @@ Total: ~16-24 days
 
 ## 7. Blocker Priority
 
+> **Status updated 2026-07-08** to match the verified reality in
+> docs/PROJECT_STATUS.md (source of truth). The 2026-06-24 statuses were all
+> "needs verification"; the P0 integration gap is now closed.
+
 | Pri | ID | Description | Status | Owner |
 |-----|----|-------------|--------|-------|
-| **P0** | B1 | RedstoneTickHook lifecycle not triggered | 🔧 Fixed, needs verification | - |
-| **P0** | B2 | componentMap may be empty | 🔧 Fixed, needs verification | - |
-| **P0** | B3 | NeighborUpdateInterceptor chain unverified | 📝 Needs verification | - |
-| **P1** | B4 | executeOwnedDag NMS sync overhead | 📝 Needs optimization | - |
-| **P1** | B5 | Missing redstone test world | 📝 Needs creation | - |
-| **P1** | B6 | Capture Harness never run end-to-end | 📝 Needs verification | - |
+| **P0** | B1 | RedstoneTickHook lifecycle not triggered | ✅ Verified working (real Folia) | - |
+| **P0** | B2 | componentMap may be empty | ✅ Resolved (sync scan + `/nebula scan`) | - |
+| **P0** | B3 | NeighborUpdateInterceptor chain unverified | ✅ Fixed (world-name key mismatch) | - |
+| **P1** | B4 | executeOwnedDag NMS sync overhead | ✅ Measured & within budget at scale (p99 1.914ms); Phase-3 dedup optional | - |
+| **P1** | B5 | Missing redstone test world | ✅ Circuit persists in flat world | - |
+| **P1** | B6 | Capture Harness never run end-to-end | ✅ Verified (byte-identical `.nrp`) | - |
 | **P2** | B7 | Build environment JDK paths hardcoded | 📝 Needs fix | - |
 | **P2** | B8 | @NebulaRW annotation coverage low | 📝 Needs expansion | - |
 
@@ -276,11 +296,17 @@ Total: ~16-24 days
 
 ## 8. Acceptance Criteria Summary
 
+> **Status updated 2026-07-08.** DG1's three criteria now all have a verified
+> PASS at multi-region scale (with documented caveats — see the DG1 section of
+> docs/PROJECT_STATUS.md). Criterion 3 was redefined from "reduction ≥30%" to a
+> shadow-overhead budget (Path 2), because the observe-only architecture has no
+> serial work to reduce.
+
 | Gate | Criterion | Current Status | Target |
 |------|-----------|---------------|--------|
-| **DG1** | Redstone 10k-tick zero diff | ⏳ DAG executes; 40-tick zero-diff verified, 10k not yet run | TBD |
-| **DG1** | Microsteps ≤ 256 | ✅ Observed ≤14 on test circuit (not stress-tested) | TBD |
-| **DG1** | MSPT reduction ≥ 30% | ❌ Not measured | TBD |
+| **DG1** | Redstone 10k-tick zero diff | ✅ PASS at scale — two 10k-tick captures byte-identical (`zerodiff-harness.sh`); caveat: static world | Pass |
+| **DG1** | Microsteps ≤ 256 | ✅ PASS at scale — max 1 over 7200 driven ticks (`MicroStepRecorder`); broad-dirty-set workload | ≤256 |
+| **DG1** | ~~MSPT reduction ≥ 30%~~ → Shadow-overhead budget | ✅ PASS — p99 1.914ms < 3ms at multi-region scale | p99 < 3ms |
 | **DG2** | Entity 50k-tick zero diff | ❌ Not verified | TBD |
 | **DG2** | Random over-budget rate < 1% | ✅ Unit tests pass | TBD |
 | **DG3** | Full system zero diff | ❌ Not verified | TBD |
