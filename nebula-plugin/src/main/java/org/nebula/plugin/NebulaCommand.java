@@ -95,8 +95,13 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
 
                 // Summarise the recorded hashes so zero-diff behaviour is
                 // observable: how many DISTINCT state hashes appeared, plus the
-                // first/last for eyeballing.  A static world yields 1 distinct
-                // hash; a world with redstone activity yields several.
+                // first/last for eyeballing.  NOTE: RedstoneCasStateHasher folds
+                // the tick number into every hash, so even a perfectly static
+                // world yields one distinct hash PER TICK (== frame count) — this
+                // count is NOT the zero-diff signal.  Zero-diff is proven by
+                // comparing two independent capture FILES (tickNumber resets to 0
+                // each run): identical files ⇒ deterministic. See
+                // scripts/zerodiff-harness.sh.
                 long distinct = frames.stream()
                     .map(org.nebula.replay.ReplayFrame::stateHashHex)
                     .distinct().count();

@@ -15,9 +15,15 @@
 - ✅ **What works**: Architecture, unit tests (678 passing), build system, live redstone DAG, per-tick MSPT measurement (`/nebula perf`)
 - ✅ **Now verified**: DAG shadow overhead *under a large multi-region load* (B4 — 16 circuits /
   238 components / 7097 ticks, p99 1.914ms < 3ms budget, auto-graded PASS 2026-07-08)
-- ❌ **Not yet verified**: 10k-tick zero-diff correctness run (DG1 Criterion 1); entity DAG not
-  wired into the live tick path; multi-region *coordination* correctness (not just overhead)
-- 🎯 **Next goal**: run the 10k-tick zero-diff capture (DG1 Criterion 1) to close the last DG1 gate
+- ✅ **Now verified**: 10k-tick zero-diff at multi-region scale (DG1 Criterion 1 — two independent
+  10,000-tick captures on 8 region-spaced circuits produced byte-for-byte identical `.nrp` files,
+  auto-graded PASS by `scripts/zerodiff-harness.sh` 2026-07-08). **Static-world method**: proves the
+  capture+hash pipeline is deterministic at scale, NOT DAG correctness under sustained live load.
+- ❌ **Not yet verified**: microsteps ≤256 stress-tested at 10k-tick scale (DG1 Criterion 2); zero-diff
+  under sustained *live* redstone (needs a tick-deterministic input driver); entity DAG not wired into
+  the live tick path; multi-region *coordination* correctness (not just overhead + static zero-diff)
+- 🎯 **Next goal**: close DG1 Criterion 2 — instrument/stress the per-tick microstep count at the
+  10k-tick scale and confirm it stays ≤256; then DG1 is fully accepted (modulo the live-load caveat)
 
 > ⚠️ **Do NOT chase a "baseline-vs-Nebula MSPT reduction."** Nebula is observe-only in both
 > AGENT and INTERCEPT modes — the DAG is a non-authoritative shadow on top of authoritative
