@@ -20,7 +20,7 @@ Toggling the lever ON produced 30 DAG ticks; toggling OFF produced 15 more. Zero
 
 **MILESTONE 2 (2026-07-08): Deterministic zero-diff capture now works end-to-end.** After fixing the capture path (see B6 below), two identical 40-tick captures on the live server produced **byte-for-byte identical `.nrp` files** — empirically demonstrating the deterministic-replay property the project was built to prove.
 
-**What is still NOT verified**: performance under load. Per-tick MSPT measurement now exists (`TickTimeRecorder` + `/nebula perf`, commit be85033) and is Folia-verified on a small circuit (steady-state avg 1.24ms / p50 0.95ms / p95 2.86ms / p99 3.47ms over 100 ticks). What remains: load testing on large multi-region circuits and a baseline-Folia-vs-Nebula MSPT comparison against DG1's 30%-reduction target. The project is a working prototype with two proven properties and a working perf-measurement surface, not a performance-validated or "playable" release.
+**What is still NOT verified**: performance under load. Per-tick MSPT measurement now exists (`TickTimeRecorder` + `/nebula perf`, commit be85033) and is Folia-verified on a small circuit (steady-state avg 1.24ms / p50 0.95ms / p95 2.86ms / p99 3.47ms over 100 ticks). What remains is load testing on large multi-region circuits. Note that `/nebula perf` measures the DAG's *added* overhead on top of Folia — it is not, and under the current architecture cannot be, a reduction (see the DG1 Criterion 3 note below). The project is a working prototype with two proven properties and a working perf-measurement surface, not a performance-validated or "playable" release.
 
 This document provides an honest assessment of what works, what doesn't, and the path forward.
 
@@ -146,7 +146,7 @@ Detailed history of each blocker follows below (retained for the record).
 
 **Architectural note (verified 2026-07-08)**: Nebula is currently **observe-only** on the redstone path in BOTH modes. All four agent bytecode transformers (`NeighborUpdateTransformer` + 3 siblings) inject a *void* `NeighborUpdateHooks.onNeighborUpdate(...)` call at method entry and let Folia's original method run to completion — no early RETURN. `NeighborUpdateInterceptor.shouldSuppress()` computes a suppression decision in INTERCEPT mode, but the agent path discards that boolean, so it has no effect. Therefore Folia's redstone stays authoritative and the DAG runs in parallel as a non-authoritative shadow. **Consequence for B4**: `/nebula perf` measures the DAG's *added* overhead on top of Folia — the "baseline" is simply Folia's own MSPT, and Nebula's cost is additive, not a replacement. A true suppress-and-replace INTERCEPT mode is future work and must be gated behind zero-diff validation first.
 
-**Status**: Per-tick measurement infrastructure now exists — `TickTimeRecorder` (nebula-core/metrics) records every DAG tick's elapsed time and `/nebula perf` reports p50/p95/p99 (commit be85033). Folia-verified on a small circuit: steady-state avg 1.24ms / p50 0.95ms / p95 2.86ms / p99 3.47ms over 100 ticks, well under the 50ms/20-TPS budget (a ~57ms first-tick JIT-warmup outlier correctly ages out of the recent-sample window). **Still open**: load testing on large multi-region circuits and a baseline-Folia-vs-Nebula MSPT comparison against DG1's 30%-reduction criterion. This is the next milestone.
+**Status**: Per-tick measurement infrastructure now exists — `TickTimeRecorder` (nebula-core/metrics) records every DAG tick's elapsed time and `/nebula perf` reports p50/p95/p99 (commit be85033). Folia-verified on a small circuit: steady-state avg 1.24ms / p50 0.95ms / p95 2.86ms / p99 3.47ms over 100 ticks, well under the 50ms/20-TPS budget (a ~57ms first-tick JIT-warmup outlier correctly ages out of the recent-sample window). **Still open**: load testing on large multi-region circuits. **What is NOT open and must not be re-listed as a "next milestone": a baseline-vs-Nebula MSPT *reduction* comparison.** As the observe-only note above establishes, the DAG runs as a non-authoritative shadow on top of Folia, so it can only add overhead — there is no serial workload it replaces, hence no reduction to measure. DG1 Criterion 3 (≥30% reduction) is unreachable under the current architecture; see the corrected DG1 criteria below.
 
 ---
 
@@ -224,9 +224,31 @@ Detailed history of each blocker follows below (retained for the record).
 |-----------|--------|----------------|
 | Zero-diff for 10k ticks | Pass | ⏳ DAG now executes; 10k-tick E2E zero-diff not yet run (B6) |
 | Microsteps ≤ 256 per tick | ≤256 | ⏳ Well within bound on tiny circuit; not yet stress-tested |
-| MSPT reduction | ≥30% | ❌ Not measured (B4) |
+| MSPT reduction | ≥30% | 🚫 **Unreachable as written** — Nebula is observe-only (shadow DAG on top of Folia), so it adds overhead and reduces nothing. Criterion needs redefinition (see note). |
 
-**Verdict**: DG1 not yet accepted. The execution path is verified, but the correctness and performance criteria still require live measurement.
+**Verdict**: DG1 not yet accepted. The execution path is verified; the 10k-tick zero-diff correctness criterion still requires live measurement.
+
+> **DG1 Criterion 3 must be redefined (honesty note, 2026-07-08).** The
+> arch-doc criterion "MSPT reduction ≥30% vs vanilla" presupposes Nebula
+> *replaces* Folia's serial redstone with a parallel DAG. It does not: the
+> verified architecture (commit 4a934bb) is observe-only in both AGENT and
+> INTERCEPT modes — the DAG is a non-authoritative shadow and Folia stays
+> authoritative. There is therefore no serial work Nebula removes, and a
+> "reduction" cannot exist by construction; `/nebula perf` can only ever
+> report *added* overhead. Two honest paths forward, one of which must be
+> chosen before DG1 can be graded:
+> 1. **Build a real suppress-and-replace INTERCEPT mode** (early-RETURN in the
+>    agent transformers so the DAG becomes authoritative), gated behind
+>    zero-diff validation. Only then is a with/without-executor reduction
+>    measurable and the ≥30% target meaningful.
+> 2. **Redefine Criterion 3 for an observe-only engine** — e.g. "DAG shadow
+>    overhead stays under an X ms/tick budget at N components across M
+>    regions", measured by the existing `scripts/perf-harness.sh`. This grades
+>    what Nebula actually does today.
+>
+> Until one is chosen, Criterion 3 is neither "measured" nor "not yet
+> measured" — it is **ill-defined for the shipped architecture** and is
+> tracked as such rather than as a pending measurement.
 
 ---
 
@@ -304,7 +326,7 @@ Detailed history of each blocker follows below (retained for the record).
 
 ### Phase 3: Make It Fast (Priority: P1)
 
-**Goal**: Optimize NMS sync overhead to meet 30% MSPT reduction target.
+**Goal**: Minimize the DAG shadow's *added* overhead (not a "reduction" — see the DG1 Criterion 3 honesty note above; there is nothing to reduce while Nebula is observe-only).
 
 **Tasks**:
 1. Profile `executeOwnedDag` execution time breakdown
