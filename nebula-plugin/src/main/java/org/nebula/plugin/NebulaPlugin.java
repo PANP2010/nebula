@@ -216,7 +216,12 @@ public final class NebulaPlugin extends JavaPlugin {
 
         // Create DAG execution pipeline
         componentMap = new ConcurrentHashMap<>();
-        Map<String, RedstoneTaskAction> actionRegistry = RedstoneActions.defaults();
+        // The wire action needs to tell a source neighbour (undecayed) from a wire
+        // neighbour (decays by 1) — vanilla parity, closes the DG3 settled-state
+        // off-by-one. Classify against the live componentMap: a neighbour is a
+        // wire iff it is registered as REDSTONE_WIRE.
+        Map<String, RedstoneTaskAction> actionRegistry = RedstoneActions.defaults(
+            neighbour -> componentMap.get(neighbour) == RedstoneComponentType.REDSTONE_WIRE);
         taskGenerator = new RedstoneTaskGenerator(componentMap, actionRegistry);
         redstoneRunner = new RedstoneTaskRunner(redstoneState, actionRegistry);
         microStepScheduler = new MicroStepScheduler(taskGenerator, redstoneRunner);

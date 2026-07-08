@@ -33,7 +33,7 @@ class RedstoneActionsTest {
 
         @Test
         void propagatesFromStrongerNeighbour() throws Exception {
-            // North neighbour has power 15
+            // North neighbour (treated as a wire) has power 15 → decays by 1.
             WorldPos north = RedstoneTaskFactory.neighbour(WIRE, 0, 0, -1);
             world.putPowerLevel(north, 15);
             world.putPowerLevel(WIRE, 0);
@@ -41,6 +41,39 @@ class RedstoneActionsTest {
             runAction(RedstoneComponentType.REDSTONE_WIRE, WIRE, new RedstoneWireAction());
 
             assertEquals(14, world.getPowerLevel(WIRE));
+        }
+
+        @Test
+        void takesSourceNeighbourUndecayed() throws Exception {
+            // A non-wire (source) neighbour feeds its full power with no decay —
+            // vanilla parity (DefaultRedstoneWireEvaluator: blockSignal wins
+            // undecayed). This is the DG3 off-by-one fix: without the source
+            // distinction the wire would read 14 instead of 15.
+            WorldPos source = RedstoneTaskFactory.neighbour(WIRE, 0, 0, -1);
+            world.putPowerLevel(source, 15);
+            world.putPowerLevel(WIRE, 0);
+
+            // Classifier: the source position is NOT a wire; all else is.
+            RedstoneWireAction action = new RedstoneWireAction(pos -> !pos.equals(source));
+            runAction(RedstoneComponentType.REDSTONE_WIRE, WIRE, action);
+
+            assertEquals(15, world.getPowerLevel(WIRE));
+        }
+
+        @Test
+        void sourceBeatsDecayedWireNeighbour() throws Exception {
+            // Source at 12 (undecayed) vs a wire neighbour at 15 (→14 after decay):
+            // the decayed wire (14) still wins here, proving max(source, wire-1).
+            WorldPos source = RedstoneTaskFactory.neighbour(WIRE, 0, 0, -1);
+            WorldPos wireNbr = RedstoneTaskFactory.neighbour(WIRE, 1, 0, 0);
+            world.putPowerLevel(source, 12);
+            world.putPowerLevel(wireNbr, 15);
+            world.putPowerLevel(WIRE, 0);
+
+            RedstoneWireAction action = new RedstoneWireAction(pos -> !pos.equals(source));
+            runAction(RedstoneComponentType.REDSTONE_WIRE, WIRE, action);
+
+            assertEquals(14, world.getPowerLevel(WIRE)); // max(12, 15-1) = 14
         }
 
         @Test
