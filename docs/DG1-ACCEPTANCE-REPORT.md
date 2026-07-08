@@ -33,11 +33,14 @@
 >      input driver, still open).
 >    - **Criterion 2 (microsteps ≤256):** observed **max 1** over 7200 driven DAG
 >      ticks (`MicroStepRecorder` + `/nebula perf`, auto-graded by
->      `scripts/perf-harness.sh`). *Caveat:* the max of 1 reflects the **broad dirty
->      set** the observe-only pipeline produces, NOT circuit topology — a straight
->      wire expands over ~14 microsteps under narrow-frontier seeding
->      (`MicroStepDepthTest`). The ≤256 bound and the instrument are confirmed; deep
->      live expansion needs narrow seeding.
+>      `scripts/perf-harness.sh`). *Caveat (corrected 2026-07-09):* the max of 1 is
+>      NOT "a broad dirty set contracting to one layer" — `FoliaRegionTickExecutor`
+>      dispatches each dirty task individually as `List.of(task)`, so the scheduler is
+>      seeded with one task per invocation (the narrowest frontier). Deep expansion
+>      (~14 microsteps) is proven in-process by `MicroStepDepthTest` (single
+>      leading-edge seed into a freshly-unsettled wire), but NOT live; why the live
+>      single-task seed does not cascade is unverified. The ≤256 bound and the
+>      instrument are confirmed.
 >    - **Criterion 3 (shadow-overhead budget):** large multi-region run (16 circuits
 >      / 238 components / 7097 DAG ticks) p99 **1.914ms** < 3ms → PASS.
 >
