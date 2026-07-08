@@ -13,9 +13,18 @@
 - ✅ **Verified working**: end-to-end DAG execution (live circuit toggles → DAG ticks) and
   deterministic zero-diff capture (two identical captures → byte-for-byte identical files)
 - ✅ **What works**: Architecture, unit tests (678 passing), build system, live redstone DAG, per-tick MSPT measurement (`/nebula perf`)
-- ❌ **Not yet verified**: performance *under load* (B4 — per-tick measured, no load testing / baseline comparison); entity DAG not wired into
-  the live tick path; multi-region coordination untested
-- 🎯 **Next goal**: measure MSPT (baseline vs Nebula) and profile `executeOwnedDag` under load
+- ❌ **Not yet verified**: DAG shadow overhead *under load* (B4 — per-tick measured on a tiny
+  circuit only, no large multi-region load test); entity DAG not wired into the live tick
+  path; multi-region coordination untested
+- 🎯 **Next goal**: measure DAG *shadow overhead* on large multi-region circuits (via
+  `scripts/perf-harness.sh`) and profile `executeOwnedDag` under that load
+
+> ⚠️ **Do NOT chase a "baseline-vs-Nebula MSPT reduction."** Nebula is observe-only in both
+> AGENT and INTERCEPT modes — the DAG is a non-authoritative shadow on top of authoritative
+> Folia, so it can only *add* overhead; there is no serial work it removes and thus no
+> reduction to measure by construction. See docs/PROJECT_STATUS.md → "DG1 Criterion 3"
+> (the source of truth). This whole file's "≥30% reduction" language below is retained
+> only for historical context and is superseded by that note.
 
 > Phase 1 (make the DAG execute) and the Phase 2 zero-diff goal are DONE. The
 > remaining work below starts effectively at performance measurement.
@@ -125,24 +134,25 @@
 - [ ] If exceeds 256: Investigate why (circuit design or algorithm issue)
 - [ ] Document microstep distribution (min/avg/max/p95/p99)
 
-### 2.5 MSPT Baseline Measurement (Day 10)
-- [ ] Stop Nebula server
-- [ ] Remove Nebula plugin from plugins/
-- [ ] Start vanilla Folia with same test circuits
-- [ ] Install Spark plugin: `/spark tps`
-- [ ] Run for 5 minutes, record average MSPT
-- [ ] Restart with Nebula plugin
-- [ ] Run for 5 minutes, record average MSPT
-- [ ] Calculate: `(MSPT_nebula - MSPT_vanilla) / MSPT_vanilla * 100%`
-- [ ] **DG1 Criterion 3**: MSPT reduction ≥ 30%
-- [ ] **Realistic expectation for v0.1**: Likely OVERHEAD not reduction
+### 2.5 DAG Shadow-Overhead Measurement (Day 10)
+> Reframed 2026-07-08: this is **added overhead**, not a "reduction." Nebula is
+> observe-only, so measuring `MSPT_nebula - MSPT_vanilla` gives the DAG shadow's cost
+> on top of Folia; it is additive by construction and cannot go negative. See the
+> DG1 Criterion 3 note in docs/PROJECT_STATUS.md.
+- [ ] Baseline: run vanilla Folia (no Nebula plugin) with the test circuits; record avg MSPT
+- [ ] Restart with Nebula plugin; record avg MSPT (use `/nebula perf`, not just Spark)
+- [ ] Compute added overhead: `MSPT_nebula - MSPT_vanilla` (expect a positive number)
+- [ ] **DG1 Criterion 3 (as-written ≥30% reduction is UNREACHABLE)** — instead grade against a
+      shadow-overhead budget, e.g. "added overhead < X ms/tick at N components across M
+      regions" measured by `scripts/perf-harness.sh`
 - [ ] Document actual overhead for Phase 3 optimization planning
 
 ---
 
 ## PHASE 3: Optimize Performance (P1 - Days 11-17)
 
-**Goal**: Reduce overhead, ideally achieve 30% MSPT reduction
+**Goal**: Minimize the DAG shadow's *added* overhead (there is no "reduction" to achieve —
+Nebula is observe-only; see the DG1 Criterion 3 note in docs/PROJECT_STATUS.md)
 
 ### 3.1 Profile executeOwnedDag() (Day 11)
 - [ ] Add timing instrumentation to each phase:
@@ -197,9 +207,10 @@
 ### 3.5 Final MSPT Measurement (Day 16)
 - [ ] Run all optimizations together
 - [ ] 5-minute MSPT test with Spark
-- [ ] Calculate final overhead/reduction vs baseline
-- [ ] **Target**: ≥30% reduction (DG1 Criterion 3)
-- [ ] **Realistic**: May still have overhead in v0.1
+- [ ] Calculate final added overhead vs baseline
+- [ ] **Target**: minimize added overhead (the ≥30% *reduction* target is unreachable for an
+      observe-only shadow — see DG1 Criterion 3 note in docs/PROJECT_STATUS.md)
+- [ ] Nebula is observe-only, so overhead is expected and additive by construction
 - [ ] Document actual result, plan further optimizations if needed
 
 ### 3.6 Add Guards and Error Handling (Day 17)
@@ -335,8 +346,8 @@
    - Fallback: RedstoneEventListener provides stable Bukkit API path
 
 3. **NMS Bridge Overhead (B4)**
-   - Risk: Too slow, can't achieve 30% MSPT reduction
-   - Monitor: Phase 3 profiling will reveal this
+   - Risk: DAG shadow adds too much per-tick overhead on large circuits
+   - Monitor: Phase 3 profiling will reveal this (measure *added* overhead, not a reduction)
    - Mitigation: Extensive optimization in Phase 3
 
 4. **Java 25 Compatibility**
@@ -361,7 +372,8 @@
 ### DG1 Complete (Redstone Subsystem)
 - [ ] 10k-tick zero-diff test passes
 - [ ] Microsteps ≤ 256 per tick
-- [ ] MSPT reduction ≥ 30% (or document actual overhead)
+- [ ] Criterion 3: DAG shadow overhead within budget (the as-written "≥30% reduction" is
+      unreachable for an observe-only engine — see DG1 Criterion 3 note in docs/PROJECT_STATUS.md)
 
 ### DG2 Complete (Entity Subsystem)
 - [ ] 50k-tick entity zero-diff test passes
