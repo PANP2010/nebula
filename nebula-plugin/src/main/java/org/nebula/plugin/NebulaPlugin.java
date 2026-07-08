@@ -91,6 +91,17 @@ public final class NebulaPlugin extends JavaPlugin {
     private final org.nebula.core.metrics.MicroStepRecorder microStepRecorder =
         new org.nebula.core.metrics.MicroStepRecorder();
 
+    // DG1 Criterion 2 caveat investigation: opt-in per-invocation cascade diagnostic.
+    // When enabled (via /nebula diag on), executeOwnedDag logs one INFO line per
+    // invocation showing the seed-task count and, for each seed, its CAS power
+    // BEFORE syncFromNms vs. the NMS value read INTO the CAS store by syncFromNms,
+    // plus the resulting microsteps/modified count. This gathers live EVIDENCE for
+    // why the live microstep max stays at 1: if the synced NMS value already equals
+    // the value the DAG would compute (i.e. Folia has already settled the signal
+    // before the observe-only shadow runs), the task produces no change and nothing
+    // cascades. Off by default — the log is per-tick and would flood + skew MSPT.
+    private volatile boolean cascadeDiag = false;
+
     // Entity physics DAG
     private EntityTickExecutor entityTickExecutor;
     private EntityTaskRunner entityRunner;
@@ -384,6 +395,13 @@ public final class NebulaPlugin extends JavaPlugin {
 
         long t0 = System.nanoTime();
 
+        // DG1 Criterion 2 caveat probe: when enabled, record each seed position's
+        // CAS power BEFORE syncFromNms vs. the value syncFromNms pulls in from NMS.
+        // If they already match, Folia settled the signal before this shadow ran, so
+        // the task produces no change and the tick cannot cascade (max microsteps 1).
+        final boolean diag = cascadeDiag;
+        java.util.List<String> diagSeeds = diag ? new java.util.ArrayList<>() : null;
+
         // Phase 1: Sync FROM NMS for all affected positions
         for (TaskNode task : ownedTasks) {
             WorldPos pos = POSITION_OF.apply(task);
@@ -393,8 +411,14 @@ public final class NebulaPlugin extends JavaPlugin {
                     + "as a redstone component (componentMap has " + componentMap.size()
                     + " entries for other positions)");
             }
+            int casBefore = diag ? redstoneState.getPowerLevel(pos) : 0;
             blockBridge.syncFromNms(world, pos);
             blockEntityBridge.syncFromNms(world, pos);
+            if (diag) {
+                int casAfter = redstoneState.getPowerLevel(pos);
+                diagSeeds.add(pos + " cas=" + casBefore + "→nms=" + casAfter
+                    + (casBefore == casAfter ? " (settled)" : " (dirty)"));
+            }
         }
 
         // Phase 2: Execute DAG via MicroStepScheduler
@@ -441,6 +465,18 @@ public final class NebulaPlugin extends JavaPlugin {
         // aggregated percentiles instead.
         LOG.fine(() -> "DAG tick: " + finalTasks + " tasks, "
             + finalMicroSteps + " microsteps in " + elapsedMs + "ms");
+
+        // DG1 Criterion 2 caveat probe (opt-in, INFO): one line per invocation with
+        // the seed count and each seed's settled/dirty state, so the live cause of
+        // "max microsteps = 1" can be read off server-run.log instead of inferred.
+        if (diag) {
+            int seedCount = ownedTasks.size();
+            int modCount = modifiedPositions.size();
+            LOG.info("CASCADE-DIAG: seedTasks=" + seedCount
+                + " microsteps=" + finalMicroSteps
+                + " modified=" + modCount
+                + " seeds=" + diagSeeds);
+        }
     }
 
     /**
@@ -535,6 +571,10 @@ public final class NebulaPlugin extends JavaPlugin {
     public RedstoneTaskGenerator taskGenerator() { return taskGenerator; }
     public org.nebula.core.metrics.TickTimeRecorder tickTimeRecorder() { return tickTimeRecorder; }
     public org.nebula.core.metrics.MicroStepRecorder microStepRecorder() { return microStepRecorder; }
+
+    /** DG1 Criterion 2 caveat probe: enable/disable the per-invocation cascade diagnostic log. */
+    public void setCascadeDiag(boolean on) { this.cascadeDiag = on; }
+    public boolean cascadeDiag() { return cascadeDiag; }
 
     /**
      * Registers a redstone component position. Required for DAG execution

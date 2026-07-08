@@ -31,16 +31,17 @@
 >      captured world — proves the capture+hash pipeline is deterministic at scale,
 >      not DAG correctness under sustained *live* redstone (needs a tick-deterministic
 >      input driver, still open).
->    - **Criterion 2 (microsteps ≤256):** observed **max 1** over 7200 driven DAG
->      ticks (`MicroStepRecorder` + `/nebula perf`, auto-graded by
->      `scripts/perf-harness.sh`). *Caveat (corrected 2026-07-09):* the max of 1 is
->      NOT "a broad dirty set contracting to one layer" — `FoliaRegionTickExecutor`
->      dispatches each dirty task individually as `List.of(task)`, so the scheduler is
->      seeded with one task per invocation (the narrowest frontier). Deep expansion
->      (~14 microsteps) is proven in-process by `MicroStepDepthTest` (single
->      leading-edge seed into a freshly-unsettled wire), but NOT live; why the live
->      single-task seed does not cascade is unverified. The ≤256 bound and the
->      instrument are confirmed.
+>    - **Criterion 2 (microsteps ≤256):** ≤256 bound holds, and deep expansion is now
+>      verified **LIVE (2026-07-09)**. A cold-toggle probe (`/nebula diag on` + a 15-wire
+>      line) recorded `seedTasks=1 microsteps=14 modified=15` on the first `executeOwnedDag`
+>      invocation — a single-task seed cascading the whole line in ONE `executeTick`;
+>      `/nebula perf` recorded max 14. The pipeline single-task-seeds
+>      (`FoliaRegionTickExecutor` dispatches `List.of(task)`, confirmed by `seedTasks=1`
+>      on every diag line); the 7200-tick perf-harness "max 1" was the SETTLED-STATE case
+>      (re-toggle logged `cas=0→nms=0` → 0 microsteps: Folia propagated before the
+>      observe-only shadow ran). Deep expansion is thus proven BOTH in-process
+>      (`MicroStepDepthTest`) AND live — the earlier "not cascading live" caveat is closed
+>      with evidence.
 >    - **Criterion 3 (shadow-overhead budget):** large multi-region run (16 circuits
 >      / 238 components / 7097 DAG ticks) p99 **1.914ms** < 3ms → PASS.
 >
@@ -132,9 +133,10 @@ criteria now have a verified PASS at multi-region scale on real Folia 26.1.2 (se
 the banner at the top of this report and [docs/PROJECT_STATUS.md](PROJECT_STATUS.md)
 → "DG1" for the authoritative status). Criterion 3's original "≥30% reduction"
 target is **retired** (impossible for an observe-only shadow) and replaced by the
-p99 < 3ms shadow-overhead budget, which PASSed (p99 1.914ms / 7097 ticks). Two
-caveats keep DG1 from *unconditional* acceptance: Criterion 1's live run uses a
-**static** captured world (a tick-deterministic input driver for sustained-live
-zero-diff is still open), and Criterion 2's observed max of 1 reflects the broad
-dirty set, not deep expansion (which is proven in-process by `MicroStepDepthTest`,
-not yet on a live narrow-frontier seed).
+p99 < 3ms shadow-overhead budget, which PASSed (p99 1.914ms / 7097 ticks). Criterion
+2's deep-expansion caveat is now **closed with live evidence (2026-07-09)**: a cold-toggle
+`/nebula diag` probe recorded `seedTasks=1 microsteps=14 modified=15` on a 15-wire line —
+a single-task seed cascading deeply in one `executeTick` (`/nebula perf` max 14). The one
+remaining caveat that keeps DG1 from *unconditional* acceptance is Criterion 1's live run
+using a **static** captured world (a tick-deterministic input driver for sustained-live
+zero-diff is still open).

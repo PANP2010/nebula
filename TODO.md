@@ -19,31 +19,32 @@
   10,000-tick captures on 8 region-spaced circuits produced byte-for-byte identical `.nrp` files,
   auto-graded PASS by `scripts/zerodiff-harness.sh` 2026-07-08). **Static-world method**: proves the
   capture+hash pipeline is deterministic at scale, NOT DAG correctness under sustained live load.
-- ✅ **Now verified**: microstep-count bound (DG1 Criterion 2) — `MicroStepRecorder` + `/nebula perf`
-  observed max 1 microstep/tick over 7200 driven DAG ticks (8 circuits / 256 components), auto-graded
-  PASS ≤256 by `scripts/perf-harness.sh` 2026-07-08.
+- ✅ **Now verified**: microstep-count bound AND deep live expansion (DG1 Criterion 2) — `MicroStepRecorder`
+  + `/nebula perf` auto-grade PASS ≤256; the 2026-07-08 perf-harness run saw max 1 (settled re-toggles), and a
+  dedicated cold-toggle probe (`/nebula diag on`, 2026-07-09) recorded **max 14 microsteps from a single-task
+  seed** (`seedTasks=1 microsteps=14 modified=15` on a 15-wire line). Deep expansion is now proven live.
 - ✅ **Now verified (2026-07-08, corrects an earlier misconception)**: microstep depth is governed by
   **dirty-set shape, not circuit topology** (`MicroStepDepthTest`). A single leading-edge seed into a
   freshly-unsettled straight wire expands over ~14 microsteps, and the same wire collapses to ≤1 when the
   whole line is seeded at once (SCC contraction).
-- ⚠️ **Correction (2026-07-09)**: the earlier claim that the live max of 1 is "a **broad dirty set** the
-  observe-only pipeline feeds the scheduler" is **FALSE by construction**. `FoliaRegionTickExecutor`
-  dispatches each dirty task to its region thread individually as `List.of(task)` (line 95), so
-  `MicroStepScheduler.executeTick` is seeded with exactly ONE task per invocation — the *narrowest*
-  possible frontier, never a broad batch. So neither swapping the circuit topology NOR harness-level
-  narrow seeding would lift the live max (the pipeline already single-task-seeds). The likely real cause
-  (Folia settles the signal before the observe-only shadow runs, so `syncFromNms` reads already-settled
-  state and nothing cascades) is **NOT verified** — see 🎯 below.
-- ❌ **Not yet verified**: deep microstep expansion *on a live server*. Since the pipeline already
-  single-task-seeds, the open question is why that single seed does not cascade live (the in-process proof
-  that it *should* cascade is `MicroStepDepthTest`);
-  zero-diff under sustained *live* redstone (needs a tick-deterministic input driver); entity DAG not
-  wired into the live tick path; multi-region *coordination* correctness (not just overhead + static zero-diff)
-- 🎯 **Next goal**: verify the live-cascade hypothesis directly — add per-invocation task-count + a
-  before/after cascade log in `executeOwnedDag`, deploy to live Folia, toggle a wire, and confirm whether
-  `executeTick` is called once-per-task and whether `syncFromNms` reads already-settled state. That closes
-  the Criterion 2 caveat with evidence instead of inference. Longer-horizon: a tick-deterministic input
-  driver so zero-diff can be tested under live redstone activity, not just a static world.
+- ✅ **VERIFIED LIVE (2026-07-09)**: the pipeline single-task-seeds AND that single seed cascades
+  deeply on real Folia. `FoliaRegionTickExecutor` dispatches each dirty task as `List.of(task)` (line 95),
+  confirmed by the new `/nebula diag` probe logging `seedTasks=1` on every `executeOwnedDag` invocation.
+  The first (cold) toggle of a 15-wire line logged `seedTasks=1 microsteps=14 modified=15` — a single-task
+  seed cascading the whole line in ONE `executeTick`. So neither swapping topology nor harness narrow-seeding
+  was ever the issue; deep live expansion just requires the seed to read freshly-changed NMS state.
+- ✅ **RESOLVED (2026-07-09)**: deep microstep expansion *on a live server*. Previously "not yet verified".
+  `/nebula diag on` recorded max 14 microsteps live (see above). The earlier "live max = 1" was confirmed to
+  be the SETTLED-STATE case: on a re-toggle every seed logged `cas=0→nms=0 (settled)` → 0 microsteps, because
+  the observe-only shadow ran after Folia had already propagated the signal. The observe-only-ordering
+  hypothesis is now verified with evidence, not inferred.
+- ❌ **Still not verified**: zero-diff under sustained *live* redstone (needs a tick-deterministic input
+  driver); entity DAG not wired into the live tick path; multi-region *coordination* correctness
+  (not just overhead + static zero-diff)
+- 🎯 **Next goal**: the DG1 Criterion 2 caveat is now closed with evidence. The single remaining DG1
+  caveat is Criterion 1's static-world method — build a tick-deterministic input driver so zero-diff can
+  be tested under LIVE redstone activity, not just a static captured world. That is the last unverified-at-live
+  gap in DG1.
 
 > ⚠️ **Do NOT chase a "baseline-vs-Nebula MSPT reduction."** Nebula is observe-only in both
 > AGENT and INTERCEPT modes — the DAG is a non-authoritative shadow on top of authoritative
@@ -167,11 +168,11 @@
 - [x] Document microstep distribution (min/avg/max/p95/p99) — now on the `/nebula perf` surface
 - [x] Establish what drives microstep depth — **dirty-set shape, not topology** (`MicroStepDepthTest`,
       2026-07-08): single leading-edge seed → ~14 microsteps; whole-line seeded → ≤1
-- [ ] Live deep-expansion demo: the pipeline **already** single-task-seeds (`FoliaRegionTickExecutor`
-      dispatches `List.of(task)`), so a feedback circuit AND harness-level narrow seeding are both ruled out.
-      The open question is why that single seed does not cascade live — verify with per-invocation
-      task-count + cascade logging on live Folia (corrected 2026-07-09; the old "needs narrow-frontier
-      seeding" line was wrong)
+- [x] Live deep-expansion demo — **DONE 2026-07-09**. The pipeline already single-task-seeds
+      (`FoliaRegionTickExecutor` dispatches `List.of(task)`), confirmed by `/nebula diag` logging
+      `seedTasks=1` on every invocation. A cold toggle of a 15-wire line recorded `seedTasks=1
+      microsteps=14 modified=15` — deep live cascade from a single seed. The earlier max=1 was the
+      settled-state case (`cas=0→nms=0` on re-toggle). Caveat closed with evidence.
 
 ### 2.5 DAG Shadow-Overhead Measurement (Day 10)
 > Reframed 2026-07-08: this is **added overhead**, not a "reduction." Nebula is
@@ -412,10 +413,11 @@ Nebula is observe-only; see the DG1 Criterion 3 note in docs/PROJECT_STATUS.md)
 
 ### DG1 Complete (Redstone Subsystem)
 - [x] 10k-tick zero-diff test passes — VERIFIED 2026-07-08 (static world; `scripts/zerodiff-harness.sh`)
-- [x] Microsteps ≤ 256 per tick — VERIFIED AT SCALE 2026-07-08 (max 1 over 7200 ticks via
-      `MicroStepRecorder`/`/nebula perf`). Live max=1 is NOT "a broad dirty set" (corrected 2026-07-09):
-      `FoliaRegionTickExecutor` dispatches `List.of(task)`, so the scheduler is single-task-seeded per
-      invocation; depth is governed by dirty-set shape (`MicroStepDepthTest`) — see DG1 verdict in docs/PROJECT_STATUS.md
+- [x] Microsteps ≤ 256 per tick — VERIFIED AT SCALE 2026-07-08, and deep live expansion VERIFIED
+      2026-07-09 (`/nebula diag`: `seedTasks=1 microsteps=14 modified=15` on a cold 15-wire toggle;
+      `/nebula perf` recorded max 14). Pipeline single-task-seeds (`FoliaRegionTickExecutor` dispatches
+      `List.of(task)`, confirmed by `seedTasks=1` per line); earlier max=1 was the settled-state case
+      (`cas=0→nms=0` on re-toggle) — see DG1 verdict in docs/PROJECT_STATUS.md
 - [x] Criterion 3 (redefined, Path 2): p99 DAG shadow overhead < 3ms under a large
       multi-region workload, auto-graded by `scripts/perf-harness.sh` — **VERIFIED 2026-07-08**
       (large run: p99 1.914ms, 7097 ticks, 16 circuits / 238 components) — see DG1 Criterion 3

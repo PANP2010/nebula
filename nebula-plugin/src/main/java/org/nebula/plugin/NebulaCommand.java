@@ -43,6 +43,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
             case "status" -> handleStatus(sender);
             case "scan" -> handleScan(sender);
             case "perf" -> handlePerf(sender, args);
+            case "diag" -> handleDiag(sender, args);
             case "help" -> sendHelp(sender);
             default -> sender.sendMessage("§cUnknown subcommand: " + sub);
         }
@@ -187,6 +188,42 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
         }
     }
 
+    /**
+     * DG1 Criterion 2 caveat probe. Toggles a per-invocation cascade diagnostic in
+     * {@code executeOwnedDag} that logs, for each DAG tick, the seed-task count and
+     * whether each seed position was already "settled" by Folia before the shadow
+     * ran (CAS power == synced NMS power). Read the resulting {@code CASCADE-DIAG:}
+     * lines in server-run.log to explain live "max microsteps = 1" with evidence.
+     * INFO-level and per-tick, so leave it OFF during perf measurement.
+     */
+    private void handleDiag(CommandSender sender, String[] args) {
+        if (!sender.hasPermission("nebula.status")) {
+            sender.sendMessage("§cYou don't have permission to use this command.");
+            return;
+        }
+        if (args.length < 2) {
+            sender.sendMessage("§eCascade diagnostic is "
+                + (plugin.cascadeDiag() ? "§aON" : "§7OFF")
+                + "§e. Usage: /nebula diag <on|off>");
+            return;
+        }
+        String action = args[1].toLowerCase();
+        switch (action) {
+            case "on" -> {
+                plugin.setCascadeDiag(true);
+                sender.sendMessage("§aCascade diagnostic ON — toggle redstone, then read "
+                    + "CASCADE-DIAG lines in server-run.log. Turn OFF before /nebula perf.");
+                LOG.info("Cascade diagnostic enabled by " + sender.getName());
+            }
+            case "off" -> {
+                plugin.setCascadeDiag(false);
+                sender.sendMessage("§aCascade diagnostic OFF.");
+                LOG.info("Cascade diagnostic disabled by " + sender.getName());
+            }
+            default -> sender.sendMessage("§cUsage: /nebula diag <on|off>");
+        }
+    }
+
     private void sendHelp(CommandSender sender) {
         sender.sendMessage("§6Nebula Commands:");
         sender.sendMessage("  §e/nebula capture start [ticks] §7- Start state capture");
@@ -194,6 +231,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
         sender.sendMessage("  §e/nebula scan §7- Rescan loaded chunks for redstone components");
         sender.sendMessage("  §e/nebula status §7- Show plugin status");
         sender.sendMessage("  §e/nebula perf [reset] §7- Show DAG tick timing percentiles");
+        sender.sendMessage("  §e/nebula diag <on|off> §7- Toggle per-tick cascade diagnostic (DG1 C2 probe)");
         sender.sendMessage("  §e/nebula help §7- Show this help");
     }
 
@@ -203,13 +241,16 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
                                       String alias,
                                       String[] args) {
         if (args.length == 1) {
-            return Arrays.asList("capture", "status", "scan", "perf", "help");
+            return Arrays.asList("capture", "status", "scan", "perf", "diag", "help");
         }
         if (args.length == 2 && args[0].equalsIgnoreCase("capture")) {
             return Arrays.asList("start", "stop");
         }
         if (args.length == 2 && args[0].equalsIgnoreCase("perf")) {
             return List.of("reset");
+        }
+        if (args.length == 2 && args[0].equalsIgnoreCase("diag")) {
+            return Arrays.asList("on", "off");
         }
         if (args.length == 3 && args[0].equalsIgnoreCase("capture") && args[1].equalsIgnoreCase("start")) {
             return Arrays.asList("100", "1000", "5000", "10000");

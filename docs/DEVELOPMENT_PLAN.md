@@ -305,7 +305,7 @@ Total: ~16-24 days
 | Gate | Criterion | Current Status | Target |
 |------|-----------|---------------|--------|
 | **DG1** | Redstone 10k-tick zero diff | ✅ PASS at scale — two 10k-tick captures byte-identical (`zerodiff-harness.sh`); caveat: static world | Pass |
-| **DG1** | Microsteps ≤ 256 | ✅ PASS at scale — max 1 over 7200 driven ticks (`MicroStepRecorder`); note: pipeline single-task-seeds the scheduler (`FoliaRegionTickExecutor` dispatches `List.of(task)`), so deep expansion is not exercised live — see PROJECT_STATUS.md DG1 Criterion 2 | ≤256 |
+| **DG1** | Microsteps ≤ 256 | ✅ PASS at scale, deep live expansion VERIFIED 2026-07-09 — `/nebula diag` recorded `seedTasks=1 microsteps=14 modified=15` on a cold 15-wire toggle (single-task seed cascading in one `executeTick`; `/nebula perf` max 14). Pipeline single-task-seeds (`FoliaRegionTickExecutor` dispatches `List.of(task)`); earlier max=1 was the settled-state case — see PROJECT_STATUS.md DG1 Criterion 2 | ≤256 |
 | **DG1** | ~~MSPT reduction ≥ 30%~~ → Shadow-overhead budget | ✅ PASS — p99 1.914ms < 3ms at multi-region scale | p99 < 3ms |
 | **DG2** | Entity 50k-tick zero diff | ❌ Not verified | TBD |
 | **DG2** | Random over-budget rate < 1% | ✅ Unit tests pass | TBD |
