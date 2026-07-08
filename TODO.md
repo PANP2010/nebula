@@ -22,9 +22,12 @@
 > ⚠️ **Do NOT chase a "baseline-vs-Nebula MSPT reduction."** Nebula is observe-only in both
 > AGENT and INTERCEPT modes — the DAG is a non-authoritative shadow on top of authoritative
 > Folia, so it can only *add* overhead; there is no serial work it removes and thus no
-> reduction to measure by construction. See docs/PROJECT_STATUS.md → "DG1 Criterion 3"
-> (the source of truth). This whole file's "≥30% reduction" language below is retained
-> only for historical context and is superseded by that note.
+> reduction to measure by construction. **DG1 Criterion 3 was formally redefined 2026-07-08
+> (Path 2): "p99 DAG tick < 5ms under a driven multi-region workload," auto-graded by
+> `scripts/perf-harness.sh`** (first live PASS: p99 2.002ms over 1200 ticks / 68 components).
+> See docs/PROJECT_STATUS.md → "DG1 Criterion 3" (the source of truth). This whole file's
+> "≥30% reduction" language below is retained only for historical context and is superseded
+> by that note.
 
 > Phase 1 (make the DAG execute) and the Phase 2 zero-diff goal are DONE. The
 > remaining work below starts effectively at performance measurement.
@@ -142,9 +145,10 @@
 - [ ] Baseline: run vanilla Folia (no Nebula plugin) with the test circuits; record avg MSPT
 - [ ] Restart with Nebula plugin; record avg MSPT (use `/nebula perf`, not just Spark)
 - [ ] Compute added overhead: `MSPT_nebula - MSPT_vanilla` (expect a positive number)
-- [ ] **DG1 Criterion 3 (as-written ≥30% reduction is UNREACHABLE)** — instead grade against a
-      shadow-overhead budget, e.g. "added overhead < X ms/tick at N components across M
-      regions" measured by `scripts/perf-harness.sh`
+- [ ] **DG1 Criterion 3 (redefined — Path 2, decided 2026-07-08):** grade against the
+      shadow-overhead budget "p99 DAG tick < OVERHEAD_BUDGET_MS (default 5ms)" — now
+      AUTO-GRADED with a PASS/FAIL exit code by `scripts/perf-harness.sh`. First live run
+      PASSed (p99 2.002ms, 1200 ticks, 68 components); still needs a larger multi-region run
 - [ ] Document actual overhead for Phase 3 optimization planning
 
 ---
@@ -372,8 +376,9 @@ Nebula is observe-only; see the DG1 Criterion 3 note in docs/PROJECT_STATUS.md)
 ### DG1 Complete (Redstone Subsystem)
 - [ ] 10k-tick zero-diff test passes
 - [ ] Microsteps ≤ 256 per tick
-- [ ] Criterion 3: DAG shadow overhead within budget (the as-written "≥30% reduction" is
-      unreachable for an observe-only engine — see DG1 Criterion 3 note in docs/PROJECT_STATUS.md)
+- [ ] Criterion 3 (redefined, Path 2): p99 DAG shadow overhead < 5ms under a large
+      multi-region workload, auto-graded by `scripts/perf-harness.sh` (small run PASSed;
+      needs a large-workload confirmation) — see DG1 Criterion 3 note in docs/PROJECT_STATUS.md
 
 ### DG2 Complete (Entity Subsystem)
 - [ ] 50k-tick entity zero-diff test passes

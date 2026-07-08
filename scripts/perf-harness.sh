@@ -11,22 +11,29 @@
 # hardcoded macOS paths), this script uses only the commands that actually
 # exist: /nebula scan, /nebula perf. Redstone is placed and toggled via RCON.
 #
-# It measures NEBULA's DAG tick cost. A true baseline-Folia comparison needs a
-# nebula-off mode that does not exist yet (see LIMITATIONS at bottom) — this
-# slice establishes the repeatable Nebula-side measurement first.
+# It measures NEBULA's DAG shadow overhead and GRADES it against the redefined
+# DG1 Criterion 3 (docs/PROJECT_STATUS.md, decided 2026-07-08 — Path 2). Nebula
+# is observe-only, so the old "≥30% MSPT reduction" is unreachable by
+# construction; instead we grade the DAG shadow's ADDED per-tick cost against a
+# budget: p99 DAG tick time must stay under OVERHEAD_BUDGET_MS at the driven
+# workload. There is no "nebula off" comparison because there is nothing the
+# shadow replaces — see the DG1 Criterion 3 note in docs/PROJECT_STATUS.md.
 #
 # Usage:  scripts/perf-harness.sh [circuits] [toggles] [--keep-running]
 #   circuits  number of independent redstone lines to place (default 8)
 #   toggles   number of on/off toggle pairs to drive after warmup (default 60)
 #   --keep-running  leave the server up at the end (default: stop it cleanly)
 #
-# Env overrides: RCON_PORT (25576), RCON_PW (nebulatest), SERVER_DIR.
+# Env overrides: RCON_PORT (25576), RCON_PW (nebulatest), SERVER_DIR,
+#   OVERHEAD_BUDGET_MS (5.0 — the p99 budget; 10% of the 50ms/20-TPS tick).
+# Exit code: 0 if the verdict is PASS, 3 if FAIL, 4 if INCONCLUSIVE (no p99).
 set -uo pipefail
 
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 SERVER_DIR="${SERVER_DIR:-$REPO_ROOT/folia-test-server}"
 RCON_PORT="${RCON_PORT:-25576}"
 RCON_PW="${RCON_PW:-nebulatest}"
+OVERHEAD_BUDGET_MS="${OVERHEAD_BUDGET_MS:-5.0}"
 JAR_SRC="$HOME/.gradle/nebula-server-build/nebula-server/nebula-plugin/libs/nebula-plugin-0.1.0-SNAPSHOT.jar"
 
 CIRCUITS="${1:-8}"
@@ -132,6 +139,35 @@ STATUS_RAW="$(R 'nebula status' | sed 's/§[0-9a-fk-or;]*//g')"
     echo "$PERF_RAW"
 } | tee "$RESULT_FILE"
 
+# --- Grade against the redefined DG1 Criterion 3 (shadow-overhead budget). ---
+# Pull the p99 figure out of the "p50 X  p95 Y  p99 Z ms" line. Color codes were
+# already stripped from PERF_RAW above.
+# mcrcon renders Minecraft §-codes as ANSI terminal codes, so strip ANSI here
+# (the §-sed above does not touch them) before matching numbers.
+PERF_CLEAN="$(printf '%s\n' "$PERF_RAW" | sed 's/\x1b\[[0-9;]*m//g')"
+P99="$(printf '%s\n' "$PERF_CLEAN" | grep -oE 'p99[[:space:]]+[0-9]+\.[0-9]+' | grep -oE '[0-9]+\.[0-9]+' | tail -1)"
+TICKS="$(printf '%s\n' "$PERF_CLEAN" | grep -oE 'Ticks recorded:[[:space:]]+[0-9]+' | grep -oE '[0-9]+' | tail -1)"
+
+verdict=""
+verdict_code=0
+if [ -z "$P99" ] || [ -z "$TICKS" ] || [ "${TICKS:-0}" -eq 0 ]; then
+    verdict="INCONCLUSIVE — no DAG ticks recorded (did /nebula scan find components? was the workload toggled?)"
+    verdict_code=4
+elif awk "BEGIN{exit !($P99 < $OVERHEAD_BUDGET_MS)}"; then
+    verdict="PASS — p99 DAG shadow overhead ${P99}ms < budget ${OVERHEAD_BUDGET_MS}ms (${TICKS} ticks, $CIRCUITS circuits)"
+    verdict_code=0
+else
+    verdict="FAIL — p99 DAG shadow overhead ${P99}ms >= budget ${OVERHEAD_BUDGET_MS}ms (${TICKS} ticks, $CIRCUITS circuits)"
+    verdict_code=3
+fi
+
+{
+    echo
+    echo "--- DG1 Criterion 3 verdict (shadow-overhead budget, Path 2) ---"
+    echo "Budget:  p99 DAG tick < ${OVERHEAD_BUDGET_MS} ms"
+    echo "Verdict: $verdict"
+} | tee -a "$RESULT_FILE"
+
 # --- Teardown. ---
 if [ "$KEEP_RUNNING" -eq 0 ] && [ "$started_here" -eq 1 ]; then
     echo "Stopping server cleanly..."
@@ -143,11 +179,16 @@ if [ "$KEEP_RUNNING" -eq 0 ] && [ "$started_here" -eq 1 ]; then
 fi
 
 echo "Result written to: $RESULT_FILE"
+exit "$verdict_code"
 
 # LIMITATIONS (honest):
-#  - This measures NEBULA's DAG tick cost only. A real baseline-Folia-vs-Nebula
-#    MSPT comparison needs a "nebula off" mode (vanilla Folia redstone with the
-#    plugin inert) that does not exist yet — that is the NEXT slice.
+#  - This measures NEBULA's DAG shadow overhead and grades it against a budget.
+#    It deliberately does NOT attempt a baseline-Folia-vs-Nebula MSPT comparison:
+#    per the DG1 Criterion 3 decision (Path 2, 2026-07-08, docs/PROJECT_STATUS.md),
+#    Nebula is observe-only, so the shadow replaces no serial work and there is
+#    nothing to compare against — only added overhead to bound.
+#  - The p99 budget (OVERHEAD_BUDGET_MS, default 5ms = 10% of the 50ms tick) is a
+#    starting bound, not a physics constant; tighten it as optimization lands.
 #  - RCON setblock does not fire BlockPlaceEvent, hence the /nebula scan step.
 #  - "Regions" spacing assumes Folia assigns distant chunks to distinct region
 #    threads; with no players, idle-region gating may reduce ticking. Treat the
