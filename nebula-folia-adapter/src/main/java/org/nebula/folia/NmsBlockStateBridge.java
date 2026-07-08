@@ -79,6 +79,37 @@ public final class NmsBlockStateBridge {
     }
 
     /**
+     * Reads the current power level from the real block at {@code pos} in
+     * {@code world} <em>without touching the CAS store</em>. Returns the block's
+     * {@link AnaloguePowerable#getPower()} value, or -1 if the block is not
+     * powerable (air, stone, etc.).
+     *
+     * <p>This is the read-only complement to {@link #syncFromNms}: that method
+     * commits Folia's value <em>into</em> the CAS store, which is exactly the
+     * wrong thing when the caller wants to compare Nebula's independently-computed
+     * shadow value against Folia's authoritative one. Committing first would
+     * overwrite {@code nebula=X} with {@code folia=Y} and make them equal by
+     * construction — the settled-state divergence tautology
+     * {@code SettledDivergenceGrader}'s javadoc warns about. Use this to sample
+     * Folia's power for a SETTLED-DIAG snapshot, leaving the shadow value intact.
+     *
+     * <p>Must be called on the region thread that owns {@code pos} (Folia block
+     * reads NPE off the owning region thread).
+     */
+    public int readNmsPower(World world, WorldPos pos) {
+        Objects.requireNonNull(world, "world");
+        Objects.requireNonNull(pos, "pos");
+
+        Block block = world.getBlockAt(pos.x(), pos.y(), pos.z());
+        BlockData data = block.getBlockData();
+
+        if (data instanceof AnaloguePowerable ap) {
+            return ap.getPower();
+        }
+        return -1;
+    }
+
+    /**
      * Writes {@code power} to the real block at {@code pos} in {@code world}
      * and updates the CAS store. Returns true if the write succeeded.
      *

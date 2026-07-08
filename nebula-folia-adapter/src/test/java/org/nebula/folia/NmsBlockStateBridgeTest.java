@@ -127,6 +127,40 @@ class NmsBlockStateBridgeTest {
     }
 
     @Test
+    void readNmsPower_returnsFoliaPowerWithoutTouchingCas() {
+        WorldPos pos = new WorldPos(DIM, 10, 64, 20);
+        Block block = blockWithPower(11);
+        World world = worldFor(pos, block);
+
+        // Seed the CAS store with a DIFFERENT (shadow-computed) value. A read-only
+        // NMS sample must return Folia's 11 while leaving the shadow's 3 intact —
+        // this is what lets a SETTLED-DIAG snapshot compare nebula!=folia honestly
+        // instead of clobbering nebula=X to folia=Y (the divergence tautology).
+        casStore.putPowerLevel(pos, 3);
+
+        int foliaPower = bridge.readNmsPower(world, pos);
+
+        assertEquals(11, foliaPower, "should return Folia's authoritative power");
+        assertEquals(3, casStore.getPowerLevel(pos),
+            "read-only sample must NOT overwrite the shadow value in the CAS store");
+    }
+
+    @Test
+    void readNmsPower_nonPowerableReturnsMinusOne() {
+        WorldPos pos = new WorldPos(DIM, 5, 64, 5);
+        Block block = blockNonPowerable();
+        World world = worldFor(pos, block);
+
+        // A previously-tracked position that is now air/stone: report -1, and do
+        // NOT create or alter a CAS entry as a side effect of sampling.
+        int foliaPower = bridge.readNmsPower(world, pos);
+
+        assertEquals(-1, foliaPower, "non-powerable block reads as -1");
+        assertEquals(-1, casStore.getPowerLevel(pos),
+            "sampling a non-powerable block must not create a CAS entry (untracked reads as -1)");
+    }
+
+    @Test
     void syncToNms_writesPowerToPowerableBlock() {
         WorldPos pos = new WorldPos(DIM, 10, 64, 20);
         int[] capturedPower = {0};
