@@ -19,11 +19,19 @@
   10,000-tick captures on 8 region-spaced circuits produced byte-for-byte identical `.nrp` files,
   auto-graded PASS by `scripts/zerodiff-harness.sh` 2026-07-08). **Static-world method**: proves the
   capture+hash pipeline is deterministic at scale, NOT DAG correctness under sustained live load.
-- ❌ **Not yet verified**: microsteps ≤256 stress-tested at 10k-tick scale (DG1 Criterion 2); zero-diff
-  under sustained *live* redstone (needs a tick-deterministic input driver); entity DAG not wired into
-  the live tick path; multi-region *coordination* correctness (not just overhead + static zero-diff)
-- 🎯 **Next goal**: close DG1 Criterion 2 — instrument/stress the per-tick microstep count at the
-  10k-tick scale and confirm it stays ≤256; then DG1 is fully accepted (modulo the live-load caveat)
+- ✅ **Now verified**: microstep-count bound (DG1 Criterion 2) — `MicroStepRecorder` + `/nebula perf`
+  observed max 1 microstep/tick over 7200 driven DAG ticks (8 circuits / 256 components), auto-graded
+  PASS ≤256 by `scripts/perf-harness.sh` 2026-07-08. **Straight-wire caveat**: those circuits resolve in
+  one propagation wave, so max 1 confirms the bound + the instrument, NOT behavior under a high-fan-out
+  feedback circuit (torch oscillator / comparator loop), which has not yet been run at scale.
+- ❌ **Not yet verified**: microstep bound under a *high-fan-out feedback* workload (see caveat above);
+  zero-diff under sustained *live* redstone (needs a tick-deterministic input driver); entity DAG not
+  wired into the live tick path; multi-region *coordination* correctness (not just overhead + static zero-diff)
+- 🎯 **Next goal**: exercise the microstep counter under a real cascading circuit — add a torch-oscillator
+  or comparator-loop workload to `scripts/perf-harness.sh` (or a new harness) so the max climbs above 1,
+  confirming both the ≤256 bound AND that microstep expansion actually runs deep on live Folia. That
+  closes the Criterion 2 straight-wire caveat. Longer-horizon: a tick-deterministic input driver so
+  zero-diff can be tested under live redstone activity, not just a static world.
 
 > ⚠️ **Do NOT chase a "baseline-vs-Nebula MSPT reduction."** Nebula is observe-only in both
 > AGENT and INTERCEPT modes — the DAG is a non-authoritative shadow on top of authoritative
@@ -141,9 +149,11 @@
 ### 2.4 Microstep Count Verification (Day 9)
 - [ ] Analyze DAG tick logs: `grep "DAG tick" logs/latest.log | awk '{print $4}'`
 - [ ] Find maximum microstep count across all ticks
-- [ ] **DG1 Criterion 2**: Microsteps ≤ 256 per tick
+- [x] **DG1 Criterion 2**: Microsteps ≤ 256 per tick — **VERIFIED AT SCALE 2026-07-08** via
+      `MicroStepRecorder` + `/nebula perf` (max 1 over 7200 driven DAG ticks; straight-wire caveat)
 - [ ] If exceeds 256: Investigate why (circuit design or algorithm issue)
-- [ ] Document microstep distribution (min/avg/max/p95/p99)
+- [x] Document microstep distribution (min/avg/max/p95/p99) — now on the `/nebula perf` surface
+- [ ] Exercise it under a high-fan-out feedback circuit so the max climbs above 1 (closes the caveat)
 
 ### 2.5 DAG Shadow-Overhead Measurement (Day 10)
 > Reframed 2026-07-08: this is **added overhead**, not a "reduction." Nebula is
@@ -383,8 +393,9 @@ Nebula is observe-only; see the DG1 Criterion 3 note in docs/PROJECT_STATUS.md)
 - [ ] Lever → wire → lamp circuit works correctly
 
 ### DG1 Complete (Redstone Subsystem)
-- [ ] 10k-tick zero-diff test passes
-- [ ] Microsteps ≤ 256 per tick
+- [x] 10k-tick zero-diff test passes — VERIFIED 2026-07-08 (static world; `scripts/zerodiff-harness.sh`)
+- [x] Microsteps ≤ 256 per tick — VERIFIED AT SCALE 2026-07-08 (max 1 over 7200 ticks via
+      `MicroStepRecorder`/`/nebula perf`; straight-wire caveat — see DG1 verdict in docs/PROJECT_STATUS.md)
 - [x] Criterion 3 (redefined, Path 2): p99 DAG shadow overhead < 3ms under a large
       multi-region workload, auto-graded by `scripts/perf-harness.sh` — **VERIFIED 2026-07-08**
       (large run: p99 1.914ms, 7097 ticks, 16 circuits / 238 components) — see DG1 Criterion 3

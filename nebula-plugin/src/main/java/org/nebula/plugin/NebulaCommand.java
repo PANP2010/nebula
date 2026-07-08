@@ -144,6 +144,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
         }
         if (args.length >= 2 && args[1].equalsIgnoreCase("reset")) {
             plugin.tickTimeRecorder().reset();
+            plugin.microStepRecorder().reset();
             sender.sendMessage("§aNebula DAG tick metrics reset.");
             return;
         }
@@ -163,6 +164,26 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
         // part of that, so flag when a single p99 DAG tick alone eats the budget.
         if (s.p99Ms() >= 50.0) {
             sender.sendMessage("  §cWARNING: p99 DAG tick alone exceeds the 50ms/20-TPS budget.");
+        }
+
+        // DG1 Criterion 2: microsteps per tick must stay ≤ MAX_MICRO_STEPS (256).
+        // The scheduler throws if a single tick exceeds the cap mid-run; this line
+        // reports the observed distribution so the bound can be confirmed at scale.
+        var m = plugin.microStepRecorder().snapshot();
+        final int MAX_MICRO_STEPS = org.nebula.redstone.MicroStepScheduler.MAX_MICRO_STEPS;
+        sender.sendMessage("§6Nebula microsteps per tick (DG1 Criterion 2, bound "
+            + MAX_MICRO_STEPS + "):");
+        sender.sendMessage(String.format(
+            "  §7avg §f%.2f  §7min §f%d  §7max §f%d  §7p50 §f%d  §7p95 §f%d  §7p99 §f%d",
+            m.avg(), m.min(), m.max(), m.p50(), m.p95(), m.p99()));
+        if (m.max() > MAX_MICRO_STEPS) {
+            sender.sendMessage(String.format(
+                "  §cFAIL: max microsteps %d exceeds bound %d (DG1 Criterion 2 violated).",
+                m.max(), MAX_MICRO_STEPS));
+        } else {
+            sender.sendMessage(String.format(
+                "  §aPASS: max microsteps %d ≤ %d (DG1 Criterion 2 holds so far).",
+                m.max(), MAX_MICRO_STEPS));
         }
     }
 

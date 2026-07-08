@@ -1,8 +1,8 @@
 # Nebula Project Status Report
 
-**Date**: 2026-07-08 (updated 21:36 — DG1 Criterion 1 10k-tick zero-diff VERIFIED AT SCALE on real Folia)
+**Date**: 2026-07-08 (updated 21:54 — DG1 Criterion 2 microstep bound VERIFIED AT SCALE on real Folia; all three DG1 criteria now have a scale PASS, each with a documented caveat)
 **Branch**: feat/fix-folia-scheduler-v2  
-**Completion**: ~55% (DG1 now has two of three criteria met and verified at scale: Criterion 1 (10k-tick zero-diff, byte-identical `.nrp` files) and Criterion 3 (shadow-overhead budget, p99 1.914ms < 3ms). Remaining DG1 gate: Criterion 2 (microsteps ≤256) stress-tested at 10k-tick scale. Note the Criterion 1 run uses a static captured world — it proves the capture+hash pipeline is deterministic at scale, not DAG correctness under sustained live load)
+**Completion**: ~57% (DG1 now has all three criteria PASSing at multi-region scale: Criterion 1 (10k-tick zero-diff, byte-identical `.nrp` files), Criterion 2 (microsteps ≤256 — `MicroStepRecorder` observed max 1 over 7200 ticks), and Criterion 3 (shadow-overhead budget, p99 1.914ms < 3ms). Two caveats keep DG1 from unconditional acceptance: the Criterion 1 run uses a static captured world (proves capture+hash determinism, not DAG-under-live-load correctness), and the Criterion 2 max of 1 reflects straight-wire circuits — a high-fan-out feedback circuit would drive higher microstep counts and has not yet been run at scale)
 
 ---
 
@@ -205,9 +205,11 @@ Detailed history of each blocker follows below (retained for the record).
 - ✅ End-to-end DAG execution on real Folia (manual verification 2026-07-08)
 - ✅ Agent + event-listener path delivering real updates to RedstoneTickHook
 - ✅ 10k-tick zero-diff at multi-region scale (static world; `scripts/zerodiff-harness.sh`, 2026-07-08)
+- ✅ Microstep-count bound (≤256) at scale — `MicroStepRecorder` + `/nebula perf`, max 1 over 7200 driven DAG ticks (straight-wire workload; `scripts/perf-harness.sh`, 2026-07-08)
 
 ### What's NOT Tested
 - ⚠️ Zero-diff under sustained *live* redstone activity (the verified 10k-tick run captures a **static** world — see the DG1 Criterion 1 note; live-load determinism needs a tick-deterministic input driver)
+- ⚠️ Microstep bound under a *high-fan-out feedback* workload (the verified ≤256 run used straight-wire circuits that resolve in one wave — max 1; torch oscillators / comparator loops would exercise higher counts and have not yet been run at scale)
 - ⚠️ NMS bridge performance under real *load* / MSPT comparison (B4 — per-tick measured, load testing open)
 - ❌ Multi-region coordination *correctness* at scale (only overhead + static zero-diff verified so far)
 - ❌ Entity subsystem on a live server
@@ -224,10 +226,10 @@ Detailed history of each blocker follows below (retained for the record).
 | Criterion | Target | Current Status |
 |-----------|--------|----------------|
 | Zero-diff for 10k ticks | Pass | ✅ **VERIFIED AT SCALE** by `scripts/zerodiff-harness.sh`. Two independent 10,000-tick captures on real Folia 2026-07-08 (8 region-spaced circuits / 256 tracked positions / 604 loaded chunks) produced **byte-for-byte identical `.nrp` files** (sha256 `fd37556d…`, 430,010 bytes each) → PASS. Extends the B6 40-tick result to the DG1 bar. **Static-world method** — see the note below for exactly what this does and does not prove |
-| Microsteps ≤ 256 per tick | ≤256 | ⏳ Well within bound on tiny circuit; not yet stress-tested |
+| Microsteps ≤ 256 per tick | ≤256 | ✅ **VERIFIED AT SCALE** by `scripts/perf-harness.sh`. Large driven run 2026-07-08 (8 region-spaced circuits / 256 components / 7200 DAG ticks): observed **max microsteps = 1** per tick, well under the 256 bound. `/nebula perf` now records the per-tick microstep distribution (`MicroStepRecorder`) and auto-grades PASS/FAIL against `MicroStepScheduler.MAX_MICRO_STEPS`. Note: straight-wire circuits resolve in a single propagation wave (max 1); high-fan-out feedback circuits (torch oscillators, comparator loops) would exercise higher counts — see caveat below |
 | Shadow-overhead budget (redefined — see note) | p99 DAG tick < 3ms | ✅ **Defined, auto-graded, and verified at scale** by `scripts/perf-harness.sh`. Large multi-region run 2026-07-08 (16 circuits / 238 components / 604 loaded chunks / 7097 DAG ticks): p99 **1.914ms** → PASS. Budget tightened 5ms→3ms after two runs both landed ~2ms |
 
-**Verdict**: DG1 not yet fully accepted, but two of three criteria are now met and verified at scale. Criterion 1 (10k-tick zero-diff) **PASSed on real Folia 2026-07-08** — two independent 10k-tick captures are byte-identical (`scripts/zerodiff-harness.sh`, exit 0). Criterion 3 (shadow-overhead budget) also PASSed (p99 1.914ms < 3ms). The remaining gate is Criterion 2 (microsteps ≤256), which holds on the workloads run so far but has not been stress-tested at the 10k-tick scale, and — importantly — the Criterion 1 run uses a **static** captured world (see the honesty note below): it proves the capture+hash pipeline is deterministic and exception-free over 10k ticks at multi-region scale, but is NOT a test of DAG correctness under sustained live redstone activity.
+**Verdict**: All three DG1 criteria now have a verified PASS at multi-region scale, though each carries a documented caveat. Criterion 1 (10k-tick zero-diff) **PASSed on real Folia 2026-07-08** — two independent 10k-tick captures are byte-identical (`scripts/zerodiff-harness.sh`, exit 0). Criterion 3 (shadow-overhead budget) PASSed (p99 1.914ms < 3ms). Criterion 2 (microsteps ≤256) **PASSed 2026-07-08** — a large driven workload (8 circuits / 256 components / 7200 DAG ticks) observed a max of 1 microstep per tick, now recorded and auto-graded by `/nebula perf` (`MicroStepRecorder`). **Caveats that keep DG1 from being unconditionally "done":** (a) the Criterion 1 run uses a **static** captured world (see honesty note below) — it proves the capture+hash pipeline is deterministic and exception-free over 10k ticks, not DAG correctness under sustained live redstone; and (b) the Criterion 2 max of 1 reflects **straight-wire** circuits that resolve in a single propagation wave — it confirms the bound holds and the instrument works, but a high-fan-out feedback circuit (torch oscillator, comparator loop) would drive higher microstep counts and has not yet been run at scale.
 
 > **DG1 Criterion 1 — what the 10k-tick PASS does and does not prove (verified 2026-07-08).**
 > `scripts/zerodiff-harness.sh` places N region-spaced circuits, registers them

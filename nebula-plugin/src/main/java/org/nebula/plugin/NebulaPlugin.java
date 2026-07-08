@@ -87,6 +87,10 @@ public final class NebulaPlugin extends JavaPlugin {
     private final org.nebula.core.metrics.TickTimeRecorder tickTimeRecorder =
         new org.nebula.core.metrics.TickTimeRecorder();
 
+    // DG1 Criterion 2: per-tick microstep-count distribution (max must stay ≤256)
+    private final org.nebula.core.metrics.MicroStepRecorder microStepRecorder =
+        new org.nebula.core.metrics.MicroStepRecorder();
+
     // Entity physics DAG
     private EntityTickExecutor entityTickExecutor;
     private EntityTaskRunner entityRunner;
@@ -428,6 +432,7 @@ public final class NebulaPlugin extends JavaPlugin {
 
         long elapsedNs = System.nanoTime() - t0;
         tickTimeRecorder.record(elapsedNs);
+        microStepRecorder.record(microSteps);
         long elapsedMs = elapsedNs / 1_000_000;
         int finalTasks = totalTasks;
         int finalMicroSteps = microSteps;
@@ -529,6 +534,7 @@ public final class NebulaPlugin extends JavaPlugin {
     public MicroStepScheduler microStepScheduler() { return microStepScheduler; }
     public RedstoneTaskGenerator taskGenerator() { return taskGenerator; }
     public org.nebula.core.metrics.TickTimeRecorder tickTimeRecorder() { return tickTimeRecorder; }
+    public org.nebula.core.metrics.MicroStepRecorder microStepRecorder() { return microStepRecorder; }
 
     /**
      * Registers a redstone component position. Required for DAG execution
