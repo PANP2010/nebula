@@ -1,8 +1,10 @@
 # Nebula Server
 
-**Deterministic multi-core Minecraft server architecture — First playable release v0.1.0**
+**Deterministic multi-core Minecraft server architecture — Development Preview v0.1.0-SNAPSHOT**
 
-Nebula is a proof-of-concept for deterministic, region-aware tick execution on Folia. It demonstrates that causally-independent tasks (redstone, entity physics, tile entities) can share a unified DAG and execute in parallel across regions while maintaining deterministic semantics.
+Nebula is a proof-of-concept for deterministic, region-aware tick execution on Folia. It aims to demonstrate that causally-independent tasks (redstone, entity physics, tile entities) can share a unified DAG and execute in parallel across regions while maintaining deterministic semantics.
+
+⚠️ **Current Status**: Core components are built and unit-tested (659 tests passing), but end-to-end DAG execution on real Folia servers is under active development. See [PROJECT_STATUS.md](docs/PROJECT_STATUS.md) for detailed status and known issues.
 
 ## Features (v0.1.0)
 
@@ -88,17 +90,19 @@ JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 ./gradlew :nebula-plugin:test
 
 ## Current Status
 
-| Feature | Status |
-|---------|--------|
-| Plugin toolchain (Java 25 + Folia 26.1.2) | ✅ Complete |
-| NMS bridges (Block, Entity, BlockEntity) | ✅ Complete |
-| MicroStepScheduler (redstone DAG) | ✅ Complete |
-| EntityTickExecutor (entity DAG) | ✅ Complete |
-| CompositeTaskRunner (unified DAG) | ✅ Complete |
-| Zero-diff capture framework | ✅ Complete |
-| In-game commands | ✅ Complete |
-| Shadow jar deployable | ✅ Complete |
-| Zero-diff validation | ⏳ Blocked (needs real Folia server) |
+| Component | Unit Tests | Integration | Status |
+|-----------|------------|-------------|--------|
+| Plugin toolchain (Java 25 + Folia 26.1.2) | ✅ Pass | ✅ Loads | Complete |
+| NMS bridges (Block, Entity, BlockEntity) | ✅ Pass | ⏳ Testing | Interfaces complete, sync path unverified |
+| MicroStepScheduler (redstone DAG) | ✅ Pass | ⏳ Testing | Logic complete, needs real redstone |
+| EntityTickExecutor (entity DAG) | ✅ Pass | ❌ Not wired | Created but not integrated |
+| CompositeTaskRunner (unified DAG) | ✅ Pass | ⏳ Testing | Wired but not verified |
+| Zero-diff capture framework | ✅ Pass | ❌ Not run | Framework exists, never captured |
+| In-game commands | ✅ Pass | ⚠️ Partial | `/status` works, `/capture` untested |
+| Shadow jar deployable | ✅ Pass | ✅ Works | Deploys successfully |
+| **End-to-end DAG execution** | N/A | ⏳ **In Progress** | **Core blocker** — see B1/B2/B3 in PROJECT_STATUS.md |
+
+**Summary**: All components pass unit tests. Integration testing in progress. See [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) for detailed blocker analysis and fixes.
 
 ## License
 

@@ -4,10 +4,12 @@ All notable changes to Nebula will be documented in this file.
 
 ## [0.1.0-SNAPSHOT] - 2026-06-18
 
-### First Playable Release
+### Development Preview Release
 
-This release marks the first playable version of Nebula, demonstrating deterministic
-multi-core tick execution on Folia 26.1.2.
+This release contains all core components for deterministic multi-core tick execution on Folia 26.1.2, 
+with 659 passing unit tests. End-to-end integration testing is in progress.
+
+**Status**: Components built and tested in isolation. DAG execution on real Folia server under active development (see docs/PROJECT_STATUS.md for detailed status).
 
 ### Features
 
@@ -63,8 +65,21 @@ multi-core tick execution on Folia 26.1.2.
 - E2E integration test validates all components wired correctly
 - Unit tests for NMS bridges, state hasher, capture harness
 
-### Known Limitations
+### Known Limitations & Active Work
 
+**Integration Blockers** (see docs/PROJECT_STATUS.md):
+- **B1**: RedstoneTickHook lifecycle driver implementation in progress
+- **B2**: WorldRedstoneScanner async timing race (fix committed, needs verification)
+- **B3**: Agent bytecode injection chain not yet verified on real server
+- **B4**: NMS bridge performance not yet measured under real load
+
+**Feature Limitations**:
 - Zero-diff validation requires running against real Folia server with test world
 - Entity physics DAG runner does not yet integrate with MicroStepScheduler microstep expansion
 - Command permissions are op-only by default
+- Capture harness never run end-to-end
+
+**Test Coverage**:
+- ✅ 659 unit tests pass (100% success rate)
+- ⏳ Integration tests in progress
+- ❌ End-to-end DAG execution not yet verified on real server
