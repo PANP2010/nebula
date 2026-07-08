@@ -171,9 +171,9 @@ class FoliaRegionTickExecutorTest {
 
         assertEquals(3, executed.size());
         assertEquals(3, f.scheduled().size());
-        assertEquals(8, f.scheduled().get(0)[0]);   // 137 >> 4
-        assertEquals(-3, f.scheduled().get(0)[1]);  // -42 >> 4
-        assertEquals(0, f.scheduled().get(1)[0]);   // 15 >> 4
-        assertEquals(0, f.scheduled().get(2)[0]);   // -1 >> 4
+        assertEquals(8, f.scheduled().get(0)[0]);   // 137 >> 4 = 8
+        assertEquals(-3, f.scheduled().get(0)[1]);  // -42 >> 4 = -3
+        assertEquals(0, f.scheduled().get(1)[0]);   // 15 >> 4 = 0
+        assertEquals(-1, f.scheduled().get(2)[0]);  // -1 >> 4 = -1 (arithmetic shift)
     }
 }
