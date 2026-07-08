@@ -4,7 +4,7 @@
 
 Nebula is a proof-of-concept for deterministic, region-aware tick execution on Folia. It aims to demonstrate that causally-independent tasks (redstone, entity physics, tile entities) can share a unified DAG and execute in parallel across regions while maintaining deterministic semantics.
 
-⚠️ **Current Status**: Core components are built and unit-tested (659 tests passing), but end-to-end DAG execution on real Folia servers is under active development. See [PROJECT_STATUS.md](docs/PROJECT_STATUS.md) for detailed status and known issues.
+✅ **Milestone (2026-07-08)**: End-to-end DAG execution is now **verified on a real Folia 26.1.2 server**. A live lever→wire→lamp circuit toggled via RCON produced repeatable, exception-free DAG ticks (`DAG tick: 3 tasks, 1 microsteps in 12ms`). Core components are built and unit-tested (662 tests passing). Correctness (zero-diff) and performance verification are the next milestones. See [PROJECT_STATUS.md](docs/PROJECT_STATUS.md) for detailed status.
 
 ## Features (v0.1.0)
 
@@ -100,9 +100,9 @@ JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 ./gradlew :nebula-plugin:test
 | Zero-diff capture framework | ✅ Pass | ❌ Not run | Framework exists, never captured |
 | In-game commands | ✅ Pass | ⚠️ Partial | `/status` works, `/capture` untested |
 | Shadow jar deployable | ✅ Pass | ✅ Works | Deploys successfully |
-| **End-to-end DAG execution** | N/A | ⏳ **In Progress** | **Core blocker** — see B1/B2/B3 in PROJECT_STATUS.md |
+| **End-to-end DAG execution** | N/A | ✅ **Verified** | **Fires on real Folia** — 45 DAG ticks from live circuit toggles, 0 exceptions (2026-07-08) |
 
-**Summary**: All components pass unit tests. Integration testing in progress. See [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) for detailed blocker analysis and fixes.
+**Summary**: All components pass unit tests (662) and end-to-end DAG execution is verified on real Folia. Correctness (zero-diff capture) and performance (MSPT) verification are next. See [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) for detailed status.
 
 ## License
 

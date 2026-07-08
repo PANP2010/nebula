@@ -153,4 +153,64 @@ class RedstoneTickHookTest {
         assertEquals(1, positions.size());
         assertEquals(2, positions.get(0).x());
     }
+
+    /**
+     * Regression test for the production world-name key mismatch: the agent
+     * interceptor records dirty positions using the NMS namespaced dimension key
+     * ("minecraft:overworld"), while the global-tick lifecycle driver drains
+     * using the Bukkit world folder name ("world").  These must land in the same
+     * accumulator bucket (both map to dimension 0) or agent-recorded updates are
+     * silently dropped and the DAG never executes.
+     */
+    @Test
+    void recordAndDrainUseDifferentWorldNameFormsForSameDimension() {
+        RedstoneTickHook.setActive(true);
+        List<WorldPos> resolved = new ArrayList<>();
+        RedstoneTickHook.setResolver((worldName, pos) -> { resolved.add(pos); return null; });
+
+        RedstoneTickHook.beginTick("nebula-global");
+        // Agent path records with the NMS namespaced key ...
+        RedstoneTickHook.recordUpdate("nebula-global", "minecraft:overworld", 7, 72, 7);
+        // ... but the lifecycle driver drains with the Bukkit folder name.
+        RedstoneTickHook.endTick("nebula-global", "world");
+
+        assertEquals(1, resolved.size(),
+            "record(minecraft:overworld) and drain(world) must share the overworld bucket");
+        assertEquals(0, resolved.get(0).dimensionId());
+        assertEquals(7, resolved.get(0).x());
+    }
+
+    /** The same mismatch must also converge for the nether. */
+    @Test
+    void recordAndDrainConvergeForNether() {
+        RedstoneTickHook.setActive(true);
+        List<WorldPos> resolved = new ArrayList<>();
+        RedstoneTickHook.setResolver((worldName, pos) -> { resolved.add(pos); return null; });
+
+        RedstoneTickHook.beginTick("nebula-global");
+        RedstoneTickHook.recordUpdate("nebula-global", "minecraft:the_nether", 1, 64, 1);
+        RedstoneTickHook.endTick("nebula-global", "world_nether");
+
+        assertEquals(1, resolved.size(),
+            "record(minecraft:the_nether) and drain(world_nether) must share the nether bucket");
+        assertEquals(-1, resolved.get(0).dimensionId());
+    }
+
+    /** Distinct dimensions must NOT be merged, even after normalization. */
+    @Test
+    void distinctDimensionsRemainSeparate() {
+        RedstoneTickHook.setActive(true);
+        List<WorldPos> resolved = new ArrayList<>();
+        RedstoneTickHook.setResolver((worldName, pos) -> { resolved.add(pos); return null; });
+
+        RedstoneTickHook.beginTick("nebula-global");
+        RedstoneTickHook.recordUpdate("nebula-global", "minecraft:overworld", 1, 64, 1);
+        RedstoneTickHook.recordUpdate("nebula-global", "minecraft:the_end", 2, 64, 2);
+        // Draining the overworld must not pull the end position.
+        RedstoneTickHook.endTick("nebula-global", "world");
+
+        assertEquals(1, resolved.size(),
+            "draining overworld must not drain the_end bucket");
+        assertEquals(0, resolved.get(0).dimensionId());
+    }
 }

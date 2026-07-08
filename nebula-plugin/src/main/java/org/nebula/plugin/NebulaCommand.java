@@ -40,10 +40,24 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
         switch (sub) {
             case "capture" -> handleCapture(sender, args);
             case "status" -> handleStatus(sender);
+            case "scan" -> handleScan(sender);
             case "help" -> sendHelp(sender);
             default -> sender.sendMessage("§cUnknown subcommand: " + sub);
         }
         return true;
+    }
+
+    private void handleScan(CommandSender sender) {
+        if (!sender.hasPermission("nebula.status")) {
+            sender.sendMessage("§cYou don't have permission to use this command.");
+            return;
+        }
+        int dispatched = plugin.rescanLoadedChunks();
+        sender.sendMessage("§aRescan dispatched for " + dispatched
+            + " loaded chunk(s). Registered components: " + plugin.componentCount()
+            + " (updates asynchronously — run /nebula status shortly).");
+        LOG.info("Manual rescan requested by " + sender.getName()
+            + " (" + dispatched + " chunks dispatched)");
     }
 
     private void handleCapture(CommandSender sender, String[] args) {
@@ -84,6 +98,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
 
     private void handleStatus(CommandSender sender) {
         sender.sendMessage("§6Nebula Status:");
+        sender.sendMessage("  §7Registered redstone components: §f" + plugin.componentCount());
         sender.sendMessage("  §7RedstoneWorldState: §f" + plugin.redstoneState().size() + " entries");
         sender.sendMessage("  §7EntityPhysicsState: §f" + plugin.entityState().size() + " entries");
         sender.sendMessage("  §7BlockEntityState: §f" + plugin.blockEntityState().size() + " entries");
@@ -94,6 +109,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
         sender.sendMessage("§6Nebula Commands:");
         sender.sendMessage("  §e/nebula capture start [ticks] §7- Start state capture");
         sender.sendMessage("  §e/nebula capture stop §7- Stop capture and report");
+        sender.sendMessage("  §e/nebula scan §7- Rescan loaded chunks for redstone components");
         sender.sendMessage("  §e/nebula status §7- Show plugin status");
         sender.sendMessage("  §e/nebula help §7- Show this help");
     }
@@ -104,7 +120,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
                                       String alias,
                                       String[] args) {
         if (args.length == 1) {
-            return Arrays.asList("capture", "status", "help");
+            return Arrays.asList("capture", "status", "scan", "help");
         }
         if (args.length == 2 && args[0].equalsIgnoreCase("capture")) {
             return Arrays.asList("start", "stop");

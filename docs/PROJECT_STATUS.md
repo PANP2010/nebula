@@ -1,16 +1,51 @@
 # Nebula Project Status Report
 
-**Date**: 2026-07-08  
+**Date**: 2026-07-08 (updated 18:20 — DAG execution VERIFIED on real Folia)
 **Branch**: feat/fix-folia-scheduler-v2  
-**Completion**: ~35% (revised from initial optimistic estimates)
+**Completion**: ~45% (Phase 1 milestone reached: end-to-end DAG execution verified)
 
 ---
 
 ## Executive Summary
 
-Nebula has a solid architectural foundation with 17,305 lines of production code, 659 passing unit tests, and complete build toolchain integration. However, **the core DAG execution path has never successfully run on a real Folia server**, creating a significant gap between documented capabilities and actual functionality.
+Nebula has a solid architectural foundation with 17,305 lines of production code, 662 passing unit tests, and complete build toolchain integration.
+
+**MILESTONE (2026-07-08): The core DAG execution path now runs on a real Folia 26.1.2 server.** A live lever→wire→lamp circuit was toggled via RCON and produced repeatable, exception-free DAG ticks:
+
+```
+[18:17:48] [org.nebula.plugin.NebulaPlugin] DAG tick: 3 tasks, 1 microsteps in 12ms
+```
+
+Toggling the lever ON produced 30 DAG ticks; toggling OFF produced 15 more. Zero commit failures, zero DAG exceptions, microsteps well within the ≤256 bound. This closes the central integration gap (B1/B2/B3) that had blocked the project since inception.
 
 This document provides an honest assessment of what works, what doesn't, and the path forward.
+
+---
+
+## The Fix That Unblocked It (2026-07-08)
+
+Two concrete issues were preventing the first DAG tick:
+
+1. **World-name key mismatch (B3, real bug).** The agent interceptor recorded
+   dirty positions under the NMS namespaced key `nebula-global::minecraft:overworld`
+   (from `Level.dimension().location()`), but the global-tick lifecycle driver
+   drained with the Bukkit folder name `nebula-global::world` (from
+   `World.getName()`). The two never matched, so every recorded update was
+   silently dropped. Fixed by normalizing `RedstoneTickHook.key()` through
+   `DimensionIds.fromName()` so both name forms converge on the same
+   dimension-keyed bucket — consistent with the rest of the pipeline, which is
+   dimension-keyed everywhere else. Regression tests added.
+
+2. **Empty componentMap for command-placed redstone (observability gap).** RCON
+   `setblock`/`fill` do not fire `BlockPlaceEvent`, so redstone placed via
+   commands was never registered and the DAG resolver returned null for every
+   position. Added `/nebula scan` (region-thread-safe rescan of loaded chunks)
+   and surfaced the registered-component count in `/nebula status`.
+
+**The other reason no DAG tick had ever appeared:** the decisive experiment was
+never actually performed on a running server — a static circuit generates no
+`BLOCK_UPDATE`s, so nothing ever exercised the pipeline. Once a real circuit was
+built, force-loaded, scanned, and *toggled*, the chain fired immediately.
 
 ---
 
@@ -48,9 +83,24 @@ This document provides an honest assessment of what works, what doesn't, and the
 
 ---
 
-## What Doesn't Work (Critical Blockers)
+## Blocker Status After 2026-07-08 Verification
 
-### ❌ B1: RedstoneTickHook Lifecycle Never Triggers
+| Blocker | Status | Evidence |
+|---------|--------|----------|
+| B1: RedstoneTickHook lifecycle | ✅ **VERIFIED WORKING** | DAG ticks fire every redstone change; lifecycle driver drives begin/end |
+| B2: componentMap empty | ✅ **RESOLVED** | Async scan + new `/nebula scan` register components (16 found for test circuit) |
+| B3: Agent interception chain | ✅ **FIXED** (key mismatch) + ⚠️ fallback active | `BlockRedstoneEvent` listener confirmed firing; agent path now key-consistent |
+| B4: NMS sync overhead | ⏳ Not yet profiled | DAG ticks 0–12ms observed (tiny circuit) — needs load testing |
+| B5: Redstone test world | ✅ Circuit persists in flat world | lever→15 wire→lamp at y=-59 |
+| B6: Capture harness E2E | ⏳ Not yet run | Unblocked now that DAG executes |
+
+Detailed original analysis of each blocker follows below (retained for history).
+
+---
+
+## Original Blocker Analysis (pre-verification)
+
+### ~~❌~~ B1: RedstoneTickHook Lifecycle Never Triggers
 
 **Problem**: `RedstoneTickHook.beginTick()` and `endTick()` are never called, so the DAG execution pipeline remains dormant.
 

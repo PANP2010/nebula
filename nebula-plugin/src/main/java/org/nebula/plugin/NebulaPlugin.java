@@ -507,6 +507,49 @@ public final class NebulaPlugin extends JavaPlugin {
         componentMap.remove(pos);
     }
 
+    /** Number of registered redstone components (for diagnostics / {@code /nebula status}). */
+    public int componentCount() {
+        return componentMap.size();
+    }
+
+    /**
+     * Rescans every loaded chunk in every world for redstone components,
+     * repopulating the component map.  Used by {@code /nebula scan} so an
+     * operator can register redstone that was placed via commands (e.g. RCON
+     * {@code setblock}), which do not fire {@link org.bukkit.event.block.BlockPlaceEvent}.
+     *
+     * <p>Block reads must happen on the region thread that owns each chunk, so
+     * each chunk scan is dispatched via {@code RegionScheduler.execute}.  This
+     * method therefore returns immediately; the component map is populated
+     * asynchronously.  The returned value is the current (pre-dispatch) count
+     * for reference — check {@link #componentCount()} again after a tick.
+     *
+     * @return the number of chunks whose scan was dispatched
+     */
+    public int rescanLoadedChunks() {
+        if (worldScanner == null) return 0;
+        Server server = getServer();
+        io.papermc.paper.threadedregions.scheduler.RegionScheduler regionScheduler = server.getRegionScheduler();
+        int dispatched = 0;
+        for (World w : server.getWorlds()) {
+            for (org.bukkit.Chunk chunk : w.getLoadedChunks()) {
+                final World fw = w;
+                final org.bukkit.Chunk fc = chunk;
+                regionScheduler.execute(this, fw, fc.getX(), fc.getZ(), () -> {
+                    int n = worldScanner.scanChunk(fw, fc);
+                    if (n > 0) {
+                        LOG.info("Rescan of chunk " + fc.getX() + "," + fc.getZ()
+                            + " in " + fw.getName() + ": " + n + " redstone components (total "
+                            + componentMap.size() + ")");
+                    }
+                });
+                dispatched++;
+            }
+        }
+        LOG.info("Manual rescan dispatched for " + dispatched + " loaded chunk(s)");
+        return dispatched;
+    }
+
     /**
      * Resolves an entity task action by task ID prefix.
      * Task IDs are of the form "MOVE@dim:entityId" or "COLLISION@dim:entityA:entityB".

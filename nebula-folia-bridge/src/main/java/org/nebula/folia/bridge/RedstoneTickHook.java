@@ -89,9 +89,25 @@ public final class RedstoneTickHook {
 
     private RedstoneTickHook() {}
 
-    /** Builds the composite key "regionId::worldName". */
+    /**
+     * Builds the composite key "regionId::dimId".
+     *
+     * <p>The world name is normalized to its canonical dimension ID via
+     * {@link DimensionIds#fromName(String)} so that the two name forms that
+     * reach this hook converge on the same bucket:
+     * <ul>
+     *   <li>the agent interceptor records updates using the NMS namespaced key
+     *       ({@code "minecraft:overworld"}, from {@code Level.dimension().location()}), while</li>
+     *   <li>the global-tick lifecycle driver drains with the Bukkit world folder
+     *       name ({@code "world"}, from {@code World.getName()}).</li>
+     * </ul>
+     * Keying by the raw string left these in different buckets, so
+     * agent-recorded dirty positions were never drained by {@code endTick}.
+     * Normalizing to the dimension ID also matches the rest of the pipeline,
+     * where {@link WorldPos} and the plugin's component map are dimension-keyed.
+     */
     private static String key(String regionId, String worldName) {
-        return regionId + "::" + worldName;
+        return regionId + "::" + DimensionIds.fromName(worldName);
     }
 
     // ── Configuration ─────────────────────────────────────────────────────────
