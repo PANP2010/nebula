@@ -169,6 +169,16 @@ public final class NebulaPlugin extends JavaPlugin {
     private final java.util.concurrent.atomic.AtomicBoolean firstBlockEntityDagTickLogged =
         new java.util.concurrent.atomic.AtomicBoolean(false);
 
+    // B8 C3: taskId → the snapshot that seeded it. A block-entity taskId
+    // (TYPE@dim:x,y,z) drops the hopper's facing/slot count, which
+    // BlockEntityActionResolver needs, so the runner (dispatched to region threads)
+    // recovers the snapshot from here. Populated by the hook's TaskResolver; keyed by
+    // the stable taskId, so it grows only to the count of distinct ticking
+    // block-entity positions (bounded, small). Concurrent because the resolver runs on
+    // the global drain thread while the runner reads on region threads.
+    private final java.util.concurrent.ConcurrentHashMap<String, org.nebula.entity.BlockEntitySnapshot>
+        blockEntitySnapshots = new java.util.concurrent.ConcurrentHashMap<>();
+
     // B8 C1 divergence signal (observe-only): quantifies how far EntityMoveAction's
     // approximate shadow physics drift from Folia's authoritative movement, frame for
     // frame. Gated behind -Dnebula.entity.divergence=true (default OFF) so an ordinary
@@ -334,16 +344,17 @@ public final class NebulaPlugin extends JavaPlugin {
             .withTerrain(new org.nebula.folia.NmsTerrainView(getServer()));
         entityTickExecutor = new EntityTickExecutor(entityRunner);
 
-        // Create block-entity physics DAG pipeline (B8 C3). OBSERVE mode: the runner's
-        // action resolver is inert (id -> null), so a drained hopper/dropper snapshot
-        // is resolved to a TaskNode carrying its REAL RW-set (real self/above/output
-        // slot fields), built into the conflict DAG, layered and committed — but no CAS
-        // mutation runs. This exercises the full block-entity pipeline end-to-end
-        // (snapshot → resolve → DagBuilder → topologicalLayers → commitLayer) on the
-        // global tick thread without any NMS read. Wiring syncFromNms/real actions +
-        // per-region dispatch is the next slice, exactly as the entity path did its
-        // first live tick in OBSERVE mode (74a8bd3) before arming region-thread writes.
-        blockEntityRunner = new org.nebula.entity.BlockEntityTaskRunner(blockEntityState, id -> null);
+        // Create block-entity physics DAG pipeline (B8 C3). The runner resolves each
+        // drained task to its REAL BlockEntityAction (hopper/furnace item math) via the
+        // canonical taskId → snapshot → action composition, backed by the
+        // blockEntitySnapshots registry the tick hook's resolver populates. Real actions
+        // only mutate anything once the CAS store holds real inventory counts, which the
+        // region-thread syncFromNms read (in executeOwnedBlockEntityDag) supplies — so
+        // unlike the prior inert-on-the-global-thread stage, this stage's math is
+        // observable. NMS write-back (syncToNms) stays gated OFF by default, exactly as
+        // the entity path armed its region-threaded read before its write-back.
+        blockEntityRunner = org.nebula.entity.BlockEntityTaskRunner.withSnapshotResolver(
+            blockEntityState, blockEntitySnapshots::get);
         blockEntityTickExecutor = new org.nebula.entity.BlockEntityTickExecutor(blockEntityRunner);
 
         // Create composite runner for unified redstone + entity DAG.
@@ -587,20 +598,24 @@ public final class NebulaPlugin extends JavaPlugin {
      * it real ticking block entities — the hopper/dropper analogue of
      * {@link #wireEntityTickHook}.
      *
-     * <h3>OBSERVE mode, exactly like the entity path's first live tick</h3>
-     * This slice's milestone is the FIRST live block-entity DAG tick: proving a real
-     * hopper transfer drives the full pipeline (snapshot → resolve → DagBuilder →
-     * layered CAS commit) on real Folia, exception-free. Like the entity bring-up
-     * (74a8bd3) it does NOT read or write NMS state:
+     * <h3>Region-threaded tile read + real action math (entity-C1 analogue)</h3>
+     * This slice runs each ticking block entity's REAL hopper/furnace action against a
+     * CAS store primed from live tile state on the OWNING region thread, with NMS
+     * write-back gated OFF — the block-entity analogue of the entity path's first
+     * region-threaded tick (its region-thread NMS read armed before write-back):
      * <ul>
      *   <li><b>Resolver:</b> a ticking block entity's snapshot →
      *       {@code BlockEntityTaskFactory.inert(snapshot)}, a BLOCK_ENTITY_* TaskNode
-     *       carrying its real RW-set (self/above/output slot fields) but a no-op action.</li>
-     *   <li><b>Executor:</b> runs the drained tasks through the
-     *       {@link org.nebula.entity.BlockEntityTickExecutor} on the GLOBAL tick thread.
-     *       Safe here precisely because the inert action touches only the CAS store via
-     *       the DAG — no Bukkit block-entity reads (which would need the owning region
-     *       thread).</li>
+     *       carrying its real RW-set (self/above/output slot fields). The snapshot is
+     *       also registered under the stamped taskId ({@link #blockEntitySnapshots}) so
+     *       the runner can recover the facing/slot topology the taskId drops and resolve
+     *       the real {@link org.nebula.entity.actions.BlockEntityActions}.</li>
+     *   <li><b>Executor:</b> a {@link FoliaRegionTickExecutor} dispatches each task to
+     *       its owning region thread, where {@link #executeOwnedBlockEntityDag} does
+     *       {@code syncFromNms(self)} → {@link org.nebula.entity.BlockEntityTickExecutor}
+     *       → (gated OFF) {@code syncToNms(self)}. The region-thread tile read is exactly
+     *       what the prior global-thread stage could not do, and it is what makes the
+     *       real item math observable rather than a silent all-zero no-op.</li>
      *   <li><b>Seed source:</b> {@link org.bukkit.event.inventory.InventoryMoveItemEvent}
      *       fires on the region thread whenever a hopper (or dropper/hopper-minecart)
      *       moves an item — the block-entity analogue of {@code EntityMoveEvent}. Each
@@ -614,29 +629,42 @@ public final class NebulaPlugin extends JavaPlugin {
      *       in-flight dirties.</li>
      * </ul>
      *
-     * <p>Wiring {@code NmsBlockEntityStateBridge} sync + the real
-     * {@link org.nebula.entity.actions.BlockEntityActions} + per-region dispatch is
-     * the next slice — the C3 analogue of arming entity write-back.
+     * <p>Only {@code self} is synced (not the hopper's neighbours, which may live on
+     * another region thread); neighbour sync for a full multi-container transfer and
+     * arming write-back are the next slices — see {@link #executeOwnedBlockEntityDag}
+     * and {@link #blockEntityWriteBackEnabled}.
      */
     private void wireBlockEntityTickHook(Server server) {
         // Resolver: a ticking block-entity snapshot → a BLOCK_ENTITY_* TaskNode with
-        // its real RW-set. inert(...) dispatches by type (hopper/furnace/dropper/…).
-        org.nebula.folia.bridge.BlockEntityTickHook.setResolver(
-            (worldName, snapshot) -> org.nebula.entity.BlockEntityTaskFactory.inert(snapshot));
+        // its real RW-set. inert(...) stamps the RW-set by type; we ALSO register the
+        // snapshot under the stamped taskId so the region-thread runner can recover the
+        // facing/slot topology the taskId drops and resolve the real action. The node's
+        // own action stays a no-op — the runner re-resolves from the snapshot registry,
+        // mirroring how the entity path re-resolves ENTITY_MOVE from the stamped ID.
+        org.nebula.folia.bridge.BlockEntityTickHook.setResolver((worldName, snapshot) -> {
+            TaskNode task = org.nebula.entity.BlockEntityTaskFactory.inert(snapshot);
+            blockEntitySnapshots.put(task.taskId(), snapshot);
+            return task;
+        });
 
-        // Executor: run the drained block-entity tasks through the DAG on the global
-        // tick thread (OBSERVE mode — CAS-only, no NMS touch). Latch the first live
-        // tick as ONE explicit INFO line for the bring-up milestone evidence.
+        // Executor: dispatch each block-entity task to its OWNING region thread via the
+        // subsystem-agnostic FoliaRegionTickExecutor (POSITION_OF decodes the 2-token
+        // BLOCK_ENTITY_* taskId — the existing redstone decoder handles it, per the
+        // block-entity-dag-live-verified memory; no new decoder needed). On that region
+        // thread executeOwnedBlockEntityDag runs the real syncFromNms → DAG → (gated OFF)
+        // syncToNms cycle. This is the block-entity analogue of the entity path's
+        // region-dispatch: NmsBlockEntityStateBridge.syncFromNms reads Bukkit tile state,
+        // which — like every Folia block read — NPEs off the owning region thread, so the
+        // prior global-thread executor could only ever touch an all-zero CAS store (the
+        // real item math was a silent no-op). Dispatching to the owning region is what
+        // makes the read legal and the math observable.
+        FoliaRegionTickExecutor blockEntityRegionExecutor = new FoliaRegionTickExecutor(
+            server, POSITION_OF, this::executeOwnedBlockEntityDag, this);
         org.nebula.folia.bridge.BlockEntityTickHook.setExecutor((regionId, worldName, dirtyTasks) -> {
             try {
-                int layers = blockEntityTickExecutor.executeTick(dirtyTasks);
-                if (firstBlockEntityDagTickLogged.compareAndSet(false, true)) {
-                    LOG.info("⚡ FIRST live block-entity DAG tick: " + dirtyTasks.size()
-                        + " ticking block-entity task(s), " + layers + " layer(s) in " + worldName
-                        + " — the block-entity DAG is now live (OBSERVE mode, no NMS write-back yet)");
-                }
-            } catch (Exception e) {
-                LOG.warning(() -> "Block-entity DAG tick failed in " + worldName
+                blockEntityRegionExecutor.executeTasks(regionId, worldName, dirtyTasks);
+            } catch (org.nebula.core.scheduler.DagExecutionException e) {
+                LOG.warning(() -> "Block-entity region dispatch failed in " + worldName
                     + ": " + e.getMessage());
             }
         });
@@ -698,8 +726,109 @@ public final class NebulaPlugin extends JavaPlugin {
 
         org.nebula.folia.bridge.BlockEntityTickHook.setActive(true);
         LOG.info("BlockEntityTickHook lifecycle driver + InventoryMoveItemEvent seed "
-            + "registered (begin+drain every game tick; block-entity DAG runs OBSERVE mode "
-            + "on the global tick thread — CAS-only, no NMS write-back yet)");
+            + "registered (begin+drain every game tick; each ticking block entity now "
+            + "dispatched to its OWNING region thread where syncFromNms reads live tile "
+            + "state and the real hopper/furnace action runs on the CAS DAG; NMS "
+            + "write-back " + (blockEntityWriteBackEnabled()
+                ? "ARMED (-Dnebula.blockentity.writeback=true)"
+                : "OFF — observe-only") + ")");
+    }
+
+    /**
+     * The block-entity analogue of {@link #executeOwnedEntityDag}, invoked by
+     * {@link FoliaRegionTickExecutor} on the region thread that owns each ticking
+     * block entity's chunk. Running here — not on the global tick thread — is what
+     * makes the {@link NmsBlockEntityStateBridge} tile read legal (off-region block
+     * reads NPE on Folia).
+     *
+     * <p>Per task:
+     * <ol>
+     *   <li>Decode the block-entity position from the {@code BLOCK_ENTITY_*@dim:x,y,z}
+     *       task ID via {@link #POSITION_OF}.</li>
+     *   <li>{@code syncFromNms(self)}: read the live hopper/furnace's transfer cooldown,
+     *       timers and per-slot item counts into the CAS store — the region-thread tile
+     *       read this slice unlocks. Without it the real action math runs on an all-zero
+     *       store and mutates nothing (the silent no-op the prior global-thread stage
+     *       could not escape).</li>
+     *   <li>Run the task through {@link #blockEntityTickExecutor}; the runner resolves
+     *       the real {@link org.nebula.entity.actions.BlockEntityActions} from the
+     *       snapshot registry and mutates CAS.</li>
+     *   <li>Only if {@link #blockEntityWriteBackEnabled()}: {@code syncToNms(self)} the
+     *       computed CAS state back onto the live tile. Off by default (lossy int-count
+     *       model — see that flag's javadoc).</li>
+     * </ol>
+     *
+     * <p><b>Scope of the region-thread read.</b> Only {@code self} is synced, not the
+     * hopper's above/output neighbours. The neighbours may be owned by a different
+     * region thread, so reading them here would risk the very cross-region NMS access
+     * this dispatch exists to avoid; and this bring-up's honest claim is "the real
+     * action runs region-threaded against live self state", not "a full multi-container
+     * transfer mirrors Folia". Neighbour sync (and the deduplicated multi-position read
+     * a real transfer needs) is the next slice.
+     */
+    private void executeOwnedBlockEntityDag(World world, String worldName,
+                                            java.util.List<TaskNode> ownedTasks)
+            throws org.nebula.core.scheduler.DagExecutionException {
+        if (ownedTasks.isEmpty()) return;
+
+        final boolean writeBack = blockEntityWriteBackEnabled();
+        int layers = 0;
+        int applied = 0;
+        for (TaskNode task : ownedTasks) {
+            WorldPos self = POSITION_OF.apply(task);
+            if (self == null) {
+                LOG.fine(() -> "executeOwnedBlockEntityDag: no position for " + task.taskId()
+                    + " — skipping");
+                continue;
+            }
+
+            // Region-thread NMS read: the capability this slice unlocks. Feeds the live
+            // hopper cooldown / furnace timers / slot counts into CAS so the resolved
+            // action has real numbers to work on.
+            blockEntityBridge.syncFromNms(world, self);
+
+            try {
+                layers = blockEntityTickExecutor.executeTick(java.util.List.of(task));
+            } catch (Exception e) {
+                LOG.warning(() -> "block-entity DAG tick failed for " + task.taskId()
+                    + " in " + worldName + ": " + e.getMessage());
+                continue;
+            }
+
+            if (writeBack) {
+                blockEntityBridge.syncToNms(world, self);
+                applied++;
+            }
+        }
+
+        if (firstBlockEntityDagTickLogged.compareAndSet(false, true)) {
+            LOG.info("⚡ FIRST region-threaded block-entity DAG tick: " + ownedTasks.size()
+                + " ticking block-entity task(s), " + layers + " layer(s) in " + worldName
+                + " on thread '" + Thread.currentThread().getName() + "' — the tile read + "
+                + "real hopper/furnace action now run on the OWNING region thread "
+                + "(region-thread NMS tile read is legal here). NMS write-back "
+                + (writeBack ? "ARMED, applied to " + applied + " tile(s)"
+                   : "OFF (observe-only; -Dnebula.blockentity.writeback=true to arm)"));
+        }
+    }
+
+    /**
+     * Whether the block-entity DAG's computed CAS state is written back to the live
+     * tile entity via {@link NmsBlockEntityStateBridge#syncToNms}. Overridable via
+     * {@code -Dnebula.blockentity.writeback=true}; defaults to {@code false}.
+     *
+     * <p><b>Why OFF by default (the honesty gate).</b> Folia stays authoritative on the
+     * block-entity path exactly as on redstone and entities: the DAG is a
+     * non-authoritative shadow. Arming write-back would push the CAS store's integer
+     * item-count model back onto real {@code ItemStack}s, and that model is lossy —
+     * {@link NmsBlockEntityStateBridge#setSlotAmount} cannot even create an item in an
+     * empty slot (it tracks amounts, not material types). So write-back is NOT
+     * zero-diff and must not be armed as a side effect of this bring-up. The verified
+     * new capability is the region-threaded tick with a legal region-thread tile read
+     * feeding real action math — the block-entity analogue of the entity C1 milestone.
+     */
+    static boolean blockEntityWriteBackEnabled() {
+        return Boolean.getBoolean("nebula.blockentity.writeback");
     }
 
     /**

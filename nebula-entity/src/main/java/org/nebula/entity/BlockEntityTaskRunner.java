@@ -35,6 +35,35 @@ public final class BlockEntityTaskRunner implements LayerCommitting {
         this.actionResolver = actionResolver != null ? actionResolver : id -> null;
     }
 
+    /**
+     * Builds a runner whose action resolver is the canonical
+     * {@code taskId → snapshot → action} composition (B8 C3).
+     *
+     * <p>Why this composition needs a snapshot lookup, not just the task ID: a
+     * block-entity {@code taskId} is {@code TYPE@dim:x,y,z} — it carries the type and
+     * position but <em>not</em> the hopper's facing/output direction or slot count,
+     * all of which {@link BlockEntityActionResolver#resolve} needs (see that class's
+     * javadoc). So unlike the entity runner (which re-decodes an ENTITY_MOVE action
+     * straight from its ID), the block-entity action must be resolved from the
+     * {@link BlockEntitySnapshot} the tick hook already accumulated. This factory keeps
+     * that composition in ONE place so the live plugin wiring and the unit tests share
+     * it — a diverging copy would be exactly the silent-mismatch wound (B3) this
+     * subsystem keeps re-learning.
+     *
+     * @param state       the shared CAS store
+     * @param snapshotById maps a live task ID back to the snapshot that seeded it
+     *                     (the plugin backs this with the per-tick snapshot registry
+     *                     the hook's {@code TaskResolver} populates); a {@code null}
+     *                     lookup result resolves to a no-op action
+     */
+    public static BlockEntityTaskRunner withSnapshotResolver(
+            BlockEntityState state, Function<String, BlockEntitySnapshot> snapshotById) {
+        Function<String, BlockEntitySnapshot> lookup =
+            snapshotById != null ? snapshotById : id -> null;
+        return new BlockEntityTaskRunner(state,
+            taskId -> BlockEntityActionResolver.resolve(lookup.apply(taskId)));
+    }
+
     @Override
     public void run(TaskNode task) throws Exception {
         if (CompoundTask.isCompound(task)) {
