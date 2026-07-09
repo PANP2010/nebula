@@ -236,6 +236,91 @@ public final class EntityDivergenceTracker {
     }
 
     /**
+     * A horizontal-axis error whose mean magnitude is below this floor (blocks/tick) is
+     * treated as clean — not enough drift on that axis to characterize. Chosen well under
+     * one tick of gravity (0.08) so it excludes numeric jitter, not real movement.
+     */
+    public static final double HORIZONTAL_DRIFT_FLOOR = 1e-4;
+
+    /**
+     * Fraction of an axis's error that is <em>directional</em> at or above which the drift
+     * is deemed systematic rather than stochastic. 0.5 = the signed mean is at least half
+     * the magnitude mean, i.e. the error leans one way more than it cancels.
+     */
+    public static final double SYSTEMATIC_BIAS_THRESHOLD = 0.5;
+
+    /**
+     * Bias-to-noise ratio for the X axis: {@code |meanSigned| / meanAbs}, in [0,1]. This is
+     * the metric that answers option (a) of the C1 write-back pointer — <em>is the
+     * horizontal drift a missing deterministic term or genuinely unpredictable AI motion?</em>
+     * <ul>
+     *   <li>≈1.0 — the per-frame error is one-directional (it barely cancels), the signature
+     *       of a systematic term {@link org.nebula.entity.actions.EntityMoveAction} omits
+     *       (e.g. horizontal friction/drag). <b>Modelable</b>: worth building a horizontal
+     *       model before arming write-back.</li>
+     *   <li>≈0.0 — the error is zero-mean scatter (signs cancel over samples), the signature
+     *       of stochastic AI pathing/knockback. A deterministic vertical-or-horizontal mirror
+     *       <b>can never</b> reproduce it; write-back must diff-only the horizontal.</li>
+     * </ul>
+     * Returns 0 when no sample has paired (no magnitude to divide).
+     */
+    public double biasRatioX() {
+        return absSumX == 0.0 ? 0.0 : Math.abs(signedSumX) / absSumX;
+    }
+
+    /** Bias-to-noise ratio for the Y axis ({@code |meanSigned|/meanAbs}); see {@link #biasRatioX()}. */
+    public double biasRatioY() {
+        return absSumY == 0.0 ? 0.0 : Math.abs(signedSumY) / absSumY;
+    }
+
+    /** Bias-to-noise ratio for the Z axis ({@code |meanSigned|/meanAbs}); see {@link #biasRatioX()}. */
+    public double biasRatioZ() {
+        return absSumZ == 0.0 ? 0.0 : Math.abs(signedSumZ) / absSumZ;
+    }
+
+    /**
+     * Classifies the horizontal (X/Z) drift into the verdict the write-back-arming decision
+     * turns on. Only axes carrying more than {@link #HORIZONTAL_DRIFT_FLOOR} of mean-absolute
+     * error are considered (a near-zero axis is neither systematic nor stochastic — it is
+     * clean). Among the significant horizontal axes:
+     * <ul>
+     *   <li>{@code "horizontal-clean"} — neither X nor Z drifts meaningfully; a vertical
+     *       model already tracks Folia horizontally.</li>
+     *   <li>{@code "SYSTEMATIC"} — every significant axis is directional
+     *       ({@link #biasRatioX()}/{@link #biasRatioZ()} ≥ {@link #SYSTEMATIC_BIAS_THRESHOLD}):
+     *       a missing friction-like term, modelable.</li>
+     *   <li>{@code "STOCHASTIC"} — every significant axis is zero-mean scatter (ratio below
+     *       threshold): AI pathing a deterministic mirror can't reproduce.</li>
+     *   <li>{@code "MIXED"} — one horizontal axis is systematic and the other stochastic.</li>
+     *   <li>{@code "no-samples"} — nothing paired yet.</li>
+     * </ul>
+     */
+    public String horizontalCharacter() {
+        if (sampleCount == 0) return "no-samples";
+        boolean xSignificant = meanAbsDriftX() > HORIZONTAL_DRIFT_FLOOR;
+        boolean zSignificant = meanAbsDriftZ() > HORIZONTAL_DRIFT_FLOOR;
+        if (!xSignificant && !zSignificant) return "horizontal-clean";
+        boolean xSystematic = xSignificant && biasRatioX() >= SYSTEMATIC_BIAS_THRESHOLD;
+        boolean zSystematic = zSignificant && biasRatioZ() >= SYSTEMATIC_BIAS_THRESHOLD;
+        // A significant axis that isn't systematic is stochastic.
+        boolean anyStochastic = (xSignificant && !xSystematic) || (zSignificant && !zSystematic);
+        boolean anySystematic = xSystematic || zSystematic;
+        if (anySystematic && anyStochastic) return "MIXED";
+        return anySystematic ? "SYSTEMATIC" : "STOCHASTIC";
+    }
+
+    /**
+     * One-line horizontal characterization: the {@link #horizontalCharacter()} verdict plus
+     * the per-axis bias ratios that produced it. This is the direct answer to "is the X/Z
+     * drift friction (modelable) or AI pathing (un-mirrorable)?".
+     */
+    public String horizontalProfile() {
+        return String.format(
+            "horizProfile: verdict=%s biasRatio[x=%.3f z=%.3f] (|signed|/|abs|; ~1=directional/modelable, ~0=stochastic/AI)",
+            horizontalCharacter(), biasRatioX(), biasRatioZ());
+    }
+
+    /**
      * Names the axis carrying the largest mean absolute error — the axis that dominates
      * the drift, and thus the one a write-back-arming decision must scrutinize first.
      * Returns {@code "none"} when no sample has paired yet. Ties resolve X &gt; Y &gt; Z.
@@ -272,9 +357,9 @@ public final class EntityDivergenceTracker {
     public String summary() {
         return String.format(
             "entity-divergence: obs=%d samples=%d nonContiguousSkips=%d lastGap=%d "
-                + "meanDrift=%.6f maxDrift=%.6f (entity=%d @tick=%d) tracked=%d | %s",
+                + "meanDrift=%.6f maxDrift=%.6f (entity=%d @tick=%d) tracked=%d | %s | %s",
             observationCount, sampleCount, nonContiguousSkips, lastGap,
             meanDrift(), maxDrift, maxDriftEntityId, maxDriftTick, pending.size(),
-            driftProfile());
+            driftProfile(), horizontalProfile());
     }
 }

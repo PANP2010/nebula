@@ -218,4 +218,72 @@ class EntityDivergenceTrackerTest {
         assertTrue(summary.contains("axisProfile:"), "summary must fold in the per-axis breakdown");
         assertTrue(summary.contains("dominant=Z"), "Z dominates this drift");
     }
+
+    @Test
+    void horizontalCharacterIsNoSamplesBeforeAnyPair() {
+        EntityDivergenceTracker tracker = new EntityDivergenceTracker();
+        assertEquals("no-samples", tracker.horizontalCharacter());
+    }
+
+    @Test
+    void horizontalCharacterIsCleanWhenXZBarelyMove() {
+        // A pure vertical fall: X and Z errors stay under the floor, so there is no
+        // horizontal drift to characterize — a vertical model already tracks Folia.
+        EntityDivergenceTracker tracker = new EntityDivergenceTracker();
+        tracker.record(1L, 0L, new Vec3(0, 100, 0), new Vec3(0, 99.92, 0));
+        tracker.record(1L, 1L, new Vec3(0, 99.92, 0), new Vec3(0, 99.84, 0)); // matched exactly
+        assertEquals("horizontal-clean", tracker.horizontalCharacter());
+    }
+
+    @Test
+    void horizontalCharacterIsSystematicWhenErrorIsOneDirectional() {
+        // Every frame the model predicts X further along than Folia by the same sign:
+        // signs never cancel, so |signed|/|abs| ≈ 1 — a missing friction-like term, modelable.
+        EntityDivergenceTracker tracker = new EntityDivergenceTracker();
+        tracker.record(1L, 0L, new Vec3(0, 64, 0), new Vec3(0.10, 64, 0)); // predict x=0.10
+        tracker.record(1L, 1L, new Vec3(0.05, 64, 0), new Vec3(0.15, 64, 0)); // actual 0.05 → Δx=+0.05
+        tracker.record(1L, 2L, new Vec3(0.10, 64, 0), new Vec3(0.20, 64, 0)); // actual 0.10 → Δx=+0.05
+        assertEquals(2, tracker.sampleCount());
+        assertEquals(1.0, tracker.biasRatioX(), EPS, "one-directional error: |signed| == |abs|");
+        assertEquals("SYSTEMATIC", tracker.horizontalCharacter());
+    }
+
+    @Test
+    void horizontalCharacterIsStochasticWhenSignsCancel() {
+        // Same |Δx| each frame but alternating sign: magnitude stays high while the signed
+        // sum cancels toward 0 — zero-mean scatter, the signature of AI pathing a
+        // deterministic mirror cannot reproduce.
+        EntityDivergenceTracker tracker = new EntityDivergenceTracker();
+        tracker.record(1L, 0L, new Vec3(0, 64, 0), new Vec3(0.10, 64, 0));  // predict x=0.10
+        tracker.record(1L, 1L, new Vec3(0.00, 64, 0), new Vec3(-0.10, 64, 0)); // actual 0.00 → Δx=+0.10
+        tracker.record(1L, 2L, new Vec3(0.00, 64, 0), new Vec3(0.10, 64, 0));  // actual 0.00 → Δx=-0.10
+        assertEquals(2, tracker.sampleCount());
+        assertEquals(0.0, tracker.biasRatioX(), EPS, "+0.10 and -0.10 cancel: no directional bias");
+        assertEquals(0.10, tracker.meanAbsDriftX(), EPS, "but the magnitude is real");
+        assertEquals("STOCHASTIC", tracker.horizontalCharacter());
+    }
+
+    @Test
+    void horizontalCharacterIsMixedWhenAxesDiffer() {
+        // X drifts one-directionally (systematic) while Z scatters symmetrically (stochastic).
+        EntityDivergenceTracker tracker = new EntityDivergenceTracker();
+        tracker.record(1L, 0L, new Vec3(0, 64, 0), new Vec3(0.10, 64, 0.10));
+        tracker.record(1L, 1L, new Vec3(0.05, 64, 0.00), new Vec3(0.15, 64, -0.10)); // Δx=+0.05, Δz=+0.10
+        tracker.record(1L, 2L, new Vec3(0.10, 64, 0.00), new Vec3(0.20, 64, 0.10));  // Δx=+0.05, Δz=-0.10
+        assertEquals(2, tracker.sampleCount());
+        assertEquals(1.0, tracker.biasRatioX(), EPS, "X is one-directional");
+        assertEquals(0.0, tracker.biasRatioZ(), EPS, "Z cancels");
+        assertEquals("MIXED", tracker.horizontalCharacter());
+    }
+
+    @Test
+    void summaryCarriesTheHorizontalProfile() {
+        EntityDivergenceTracker tracker = new EntityDivergenceTracker();
+        tracker.record(1L, 0L, new Vec3(0, 64, 0), new Vec3(0.10, 64, 0));
+        tracker.record(1L, 1L, new Vec3(0.05, 64, 0), new Vec3(0.15, 64, 0));
+        tracker.record(1L, 2L, new Vec3(0.10, 64, 0), new Vec3(0.20, 64, 0));
+        String summary = tracker.summary();
+        assertTrue(summary.contains("horizProfile:"), "summary must fold in the horizontal verdict");
+        assertTrue(summary.contains("verdict=SYSTEMATIC"), "one-directional X drift is systematic");
+    }
 }
