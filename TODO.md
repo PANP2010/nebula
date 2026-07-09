@@ -626,11 +626,15 @@ requires the decisive Folia experiment, not just a green unit test.
       complement of B2b's clean run: the guard has REAL detection power on live Folia, not just a green
       no-op path. Server stopped cleanly via RCON; temp launch harness removed; break reverted in the same
       cycle (`RedstoneTaskFactory` byte-identical to HEAD, tests cached green).
-      **FOLLOW-UP (separate task, not B3):** the `access_target` BLOCK object in the JSONL is malformed —
-      `"dimension":WorldPos[dimensionId=0,"x": x=1,...]` — because `RWSetViolationJson.accessTarget()`
-      splits `AccessTarget.value()` on `,` assuming a bare `dim,x,y,z` but the value is now the full
-      `WorldPos.toString()`. The actionable coord survives cleanly in `suggested_fix`, so B3's "actionable
-      report" bar is met, but the machine-readable BLOCK fields should be fixed so `fromJson` can round-trip.
+      **FOLLOW-UP (separate task, not B3) — DONE (unit-fixed 2026-07-09):** the `access_target` BLOCK
+      object in the JSONL was malformed — `"dimension":WorldPos[dimensionId=0,"x": x=1,...]` — because
+      `RWSetViolationJson.accessTarget()` split `AccessTarget.value()` on `,` assuming a bare `dim,x,y,z`
+      but the value is now the full `WorldPos.toString()`. Fixed by pulling the four signed ints out of
+      the value with a regex (`parseBlockCoords`, tolerant of both the `WorldPos[...]` record form and the
+      legacy bare form), and by making `extractIntField` match a *signed* integer so negative coords
+      (`y=-59`) round-trip. `access_target` now emits clean `{"type":"BLOCK","dimension":0,"x":2,"y":-59,"z":0}`
+      and `RWSetViolationJsonTest.blockAccessTargetEmitsCleanIntFieldsAndRoundTrips` proves toJson→fromJson
+      yields the same `AccessTarget.block`. Pure-unit fix in nebula-guard-api; no live Folia run needed.
 
 **C. Extend & verify coverage subsystem by subsystem (each ⚡ needs the guard from B live)**
 - [ ] ⚡ C1. Wire the **entity** DAG (`EntityTaskFactory` MOVE/COLLISION) into the live tick path for

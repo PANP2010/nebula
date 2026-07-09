@@ -8,6 +8,8 @@ import org.nebula.core.state.WorldPos;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class RWSetViolationJsonTest {
@@ -34,6 +36,41 @@ class RWSetViolationJsonTest {
         assertTrue(json.contains("\"entities_read\""));
         assertTrue(json.contains("position"));
         assertTrue(json.contains("health"));
+    }
+
+    @Test
+    void blockAccessTargetEmitsCleanIntFieldsAndRoundTrips() {
+        // Regression for the B8-B3 follow-up: AccessTarget.block(pos) stores WorldPos.toString()
+        // ("WorldPos[dimensionId=0, x=1, y=-59, z=0]"), which the serializer used to split on ','
+        // and splat into "dimension", producing malformed JSON that fromJson() could not parse.
+        WorldPos pos = new WorldPos(0, 2, -59, 0);
+        RWSetViolation violation = RWSetViolation.create(
+            15432L,
+            "T_REDSTONE_WIRE_OVERWORLD_1_-59_0",
+            "REDSTONE_WIRE",
+            ViolationType.UNDECLARED_READ,
+            AccessTarget.block(pos),
+            RWSet.empty(),
+            "Add block read to REDSTONE_WIRE: " + pos
+        );
+
+        String json = RWSetViolationJson.toJson(violation);
+
+        // Clean, machine-readable integer fields — not the raw record toString.
+        assertTrue(json.contains("\"access_target\":{\"type\":\"BLOCK\",\"dimension\":0,\"x\":2,\"y\":-59,\"z\":0}"),
+            "access_target should be clean int fields, was: " + json);
+        // The raw WorldPos.toString() must not leak into the access_target object. (It may still
+        // appear in the human-readable suggested_fix message, which is fine.)
+        int atStart = json.indexOf("\"access_target\":");
+        int atEnd = json.indexOf('}', atStart);
+        String accessTargetObj = json.substring(atStart, atEnd + 1);
+        assertFalse(accessTargetObj.contains("WorldPos["),
+            "raw WorldPos.toString() leaked into access_target: " + accessTargetObj);
+
+        // Round-trips: toJson -> fromJson yields the same BLOCK AccessTarget.
+        RWSetViolation restored = RWSetViolationJson.fromJson(json);
+        assertEquals(AccessTarget.block(pos), restored.accessTarget());
+        assertEquals(AccessTargetType.BLOCK, restored.accessTarget().type());
     }
 
     @Test

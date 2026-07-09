@@ -145,21 +145,42 @@ public final class RWSetViolationJson {
         // Output type-specific fields
         switch (target.type()) {
             case BLOCK -> {
-                String val = target.value();
-                String[] parts = val.split(",");
-                if (parts.length == 4) {
-                    json.append("\"dimension\":").append(parts[0]).append(',');
-                    json.append("\"x\":").append(parts[1]).append(',');
-                    json.append("\"y\":").append(parts[2]).append(',');
-                    json.append("\"z\":").append(parts[3]);
+                // AccessTarget.block(pos) stores WorldPos.toString(), i.e. the record form
+                // "WorldPos[dimensionId=D, x=X, y=Y, z=Z]". Pull the four signed ints out of
+                // it (also tolerates the legacy bare "dim,x,y,z" form) so we emit clean
+                // integer fields instead of splatting the raw toString into "dimension".
+                int[] coords = parseBlockCoords(target.value());
+                if (coords != null) {
+                    json.append("\"dimension\":").append(coords[0]).append(',');
+                    json.append("\"x\":").append(coords[1]).append(',');
+                    json.append("\"y\":").append(coords[2]).append(',');
+                    json.append("\"z\":").append(coords[3]);
                 } else {
-                    field(json, "value", val);
+                    field(json, "value", target.value());
                 }
             }
             default -> field(json, "value", target.value());
         }
         json.append('}');
         return json;
+    }
+
+    private static final Pattern SIGNED_INT = Pattern.compile("-?\\d+");
+
+    /**
+     * Extracts dimension/x/y/z from a BLOCK AccessTarget value. Handles both the current
+     * {@code WorldPos.toString()} record form ("WorldPos[dimensionId=0, x=1, y=-59, z=0]")
+     * and the legacy bare "dim,x,y,z" form by reading the first four signed integers in order.
+     * Returns null if fewer than four integers are present.
+     */
+    private static int[] parseBlockCoords(String value) {
+        Matcher matcher = SIGNED_INT.matcher(value);
+        int[] coords = new int[4];
+        int found = 0;
+        while (found < 4 && matcher.find()) {
+            coords[found++] = Integer.parseInt(matcher.group());
+        }
+        return found == 4 ? coords : null;
     }
 
     private static StringBuilder field(StringBuilder json, String name, String value) {
@@ -232,7 +253,14 @@ public final class RWSetViolationJson {
     }
 
     private static int extractIntField(String json, String fieldName) {
-        return (int) extractNumericField(json, fieldName);
+        // Coordinates can be negative (e.g. y=-59), so match a signed integer rather than
+        // reusing the unsigned tick_number extractor.
+        Pattern pattern = Pattern.compile("\"" + fieldName + "\"\\s*:\\s*(-?\\d+)");
+        Matcher matcher = pattern.matcher(json);
+        if (matcher.find()) {
+            return Integer.parseInt(matcher.group(1));
+        }
+        return 0;
     }
 
     private static String extractObject(String json, String fieldName) {
