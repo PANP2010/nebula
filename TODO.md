@@ -564,9 +564,17 @@ requires the decisive Folia experiment, not just a green unit test.
       Also preserves the `templates().size() == enum length` invariant.
 
 **B. Prove the guard actually works (unblocks all runtime verification — do before B/C annotation sweeps)**
-- [ ] B1. Unit-drive the RW-guard end to end in `nebula-guard-api`: run a task whose declared RWSet
+- [x] B1. Unit-drive the RW-guard end to end in `nebula-guard-api`: run a task whose declared RWSet
       deliberately omits one access, assert `RWSetConsistencyChecker` flags exactly that violation with
       the right `AccessTarget`. Confirms components A/B/C are wired together before trusting them live.
+      — **DONE**: `RWGuardTaskRunnerTest.wiredGuardFlagsExactlyTheOmittedAccessWithTheRightTarget`
+      drives the full runner→`DagExecutor`→`ThreadLocalAccessTrace`→`RWSetConsistencyChecker`→
+      `RWGuardReportWriter` path and asserts the surfaced violation is *exactly* the omitted access
+      (`UNDECLARED_READ` on `AccessTarget.entityField(health)`, declared `position` NOT flagged) with the
+      right task id/type/tick. Companion `wiredGuardReportsNoViolationsWhenTraceMatchesDeclaredSet` proves
+      the wired path doesn't cry wolf (ENFORCE mode completes cleanly on a fully-declared trace). The
+      prior `dagExecutorCanRunTasksThroughRwGuard` only asserted violation *count* + JSON substrings, so a
+      wrong-target bug could slip through the live path. Guard components A/B/C now proven wired together.
 - [ ] ⚡ B2. Wire `RWGuardTaskRunner` into the live redstone executor behind `-Dnebula.rw.guard=true`
       (low sample rate), deploy, toggle a lever→wire→lamp line, and confirm the tracer records real NMS
       block accesses with **zero** violations against the (known-complete) redstone RW-sets. This is the

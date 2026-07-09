@@ -9,6 +9,7 @@ import org.nebula.core.scheduler.TaskNode;
 import org.nebula.core.state.EntityField;
 
 import java.nio.file.Files;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
@@ -48,5 +49,52 @@ class RWGuardTaskRunnerTest {
         );
 
         assertInstanceOf(RWGuardViolationException.class, ex.failures().getFirst());
+    }
+
+    @Test
+    void wiredGuardFlagsExactlyTheOmittedAccessWithTheRightTarget() throws Exception {
+        // B1: the isolated RWSetConsistencyCheckerTest asserts the right AccessTarget, and
+        // dagExecutorCanRunTasksThroughRwGuard asserts the full runner->DAG->trace->checker->report
+        // stack surfaces *a* violation — but nothing asserts that the wired path surfaces exactly the
+        // omitted access with the correct target. A tracer/checker mismatch would slip through the
+        // count-only assertion. Pin the whole A/B/C path down to the AccessTarget here.
+        long entityId = 77L;
+        EntityField declared = new EntityField(entityId, "position");
+        EntityField omitted = new EntityField(entityId, "health");
+        TaskNode task = new TaskNode("T_AI", "AI_TICK", RWSet.builder()
+            .readEntity(declared)
+            .build(), () -> {
+                ThreadLocalAccessTrace.traceEntityRead(declared); // declared read — must NOT be flagged
+                ThreadLocalAccessTrace.traceEntityRead(omitted);  // undeclared read — must be flagged
+            });
+        RWGuard.configure(RWGuardConfig.enabled(RWGuardMode.WARN));
+
+        DagExecutor.execute(DagBuilder.build(List.of(task)), new RWGuardTaskRunner(4242L));
+
+        List<RWSetViolation> violations = RWGuard.getLastViolations();
+        assertEquals(1, violations.size(), "only the omitted access should be flagged, not the declared one");
+        RWSetViolation violation = violations.getFirst();
+        assertEquals(ViolationType.UNDECLARED_READ, violation.violationType());
+        assertEquals(AccessTarget.entityField(omitted), violation.accessTarget());
+        assertEquals("T_AI", violation.taskId());
+        assertEquals("AI_TICK", violation.taskType());
+        assertEquals(4242L, violation.tickNumber());
+    }
+
+    @Test
+    void wiredGuardReportsNoViolationsWhenTraceMatchesDeclaredSet() throws Exception {
+        // The other half of B1: prove the wired path does not cry wolf. A task that touches exactly
+        // its declared read set must trace clean through the full runner/DAG/checker stack.
+        long entityId = 88L;
+        EntityField declared = new EntityField(entityId, "position");
+        TaskNode task = new TaskNode("T_CLEAN", "AI_TICK", RWSet.builder()
+            .readEntity(declared)
+            .build(), () -> ThreadLocalAccessTrace.traceEntityRead(declared));
+        RWGuard.configure(RWGuardConfig.enabled(RWGuardMode.ENFORCE));
+
+        // ENFORCE would throw on any violation; a clean trace must complete normally.
+        DagExecutor.execute(DagBuilder.build(List.of(task)), new RWGuardTaskRunner(7L));
+
+        assertTrue(RWGuard.getLastViolations().isEmpty(), "a fully-declared access set must trace clean");
     }
 }
