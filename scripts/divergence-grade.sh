@@ -66,7 +66,7 @@
 #            [--converge <n>] [--max-dirty <rate>] [--keep-running]
 #         scripts/divergence-grade.sh --settled [circuits] [--seed <n>] [--period <n>] \
 #            [--warmup <ticks>] [--max-diverge <rate>] [--keep-running]
-#         scripts/divergence-grade.sh --be-settled [--hoppers <n>] [--feeds <n>] \
+#         scripts/divergence-grade.sh --be-settled [--hoppers <n>] [--furnaces <n>] [--feeds <n>] \
 #            [--max-diverge <rate>] [--fault <offset>] [--keep-running]
 #   ticks       driven ticks to capture (default 400 — start small, per the Next: pointer)
 #   circuits    lever-headed circuits to place (default 1; default 4 in --settled mode)
@@ -75,7 +75,15 @@
 #   --hoppers   hopper→chest pairs to place, spaced 512 blocks apart so each lands on a
 #               DISTINCT region thread (--be-settled; default 1). >1 exercises the emit's
 #               concurrent region fan-in (CopyOnWriteArrayList + AtomicInteger)
-#   --feeds     item stacks summoned to feed EACH hopper (--be-settled; default 6)
+#   --furnaces  fuel-less furnaces to place, each fed by an overhead hopper (--be-settled;
+#               default 0). Exercises the FURNACE branch the single-slot hopper never does:
+#               syncFurnaceFromNms + BlockEntitySnapshot.furnace (slotCount=3) + a 3-slot
+#               sumSlots. Deliberately FUEL-LESS — a smelting furnace mutates its slots
+#               autonomously with NO InventoryMoveItemEvent to re-seed the shadow, so its
+#               CAS would go stale and the gate would FAIL spuriously (the observe-only
+#               settled-state trap). A fuel-less furnace fed from above holds its input
+#               inertly and reaches genuine quiescence where nebula==folia is honest.
+#   --feeds     item stacks summoned to feed EACH hopper/furnace-feeder (--be-settled; default 6)
 #   --fault     (--be-settled) gate-TEETH test: offset every emitted nebula= count by this
 #               integer so the shadow diverges from Folia BY CONSTRUCTION. The run PASSES
 #               (exit 0) only if the grader correctly returns FAIL; a wrongly-PASSed
@@ -120,7 +128,7 @@ BE_SETTLED_GRADER_CLASS="org.nebula.replay.BlockEntitySettledGraderCli"
 TICKS=""; CIRCUITS=""
 SEED=42; PERIOD=8; CONVERGE=8; MAX_DIRTY=0.05; KEEP_RUNNING=0
 SETTLED=0; WARMUP=200; MAX_DIVERGE=0.0
-BE_SETTLED=0; FEEDS=6; HOPPERS=1; FAULT=0
+BE_SETTLED=0; FEEDS=6; HOPPERS=1; FURNACES=0; FAULT=0
 args=("$@"); _i=1; _pos=0; _POS=()
 while [ "$_i" -le "$#" ]; do
     a="${args[$((_i-1))]}"
@@ -129,6 +137,7 @@ while [ "$_i" -le "$#" ]; do
         --be-settled) BE_SETTLED=1 ;;
         --feeds)     _i=$((_i+1)); FEEDS="${args[$((_i-1))]:-}" ;;
         --hoppers)   _i=$((_i+1)); HOPPERS="${args[$((_i-1))]:-}" ;;
+        --furnaces)  _i=$((_i+1)); FURNACES="${args[$((_i-1))]:-}" ;;
         --fault)     _i=$((_i+1)); FAULT="${args[$((_i-1))]:-}" ;;
         --seed)      _i=$((_i+1)); SEED="${args[$((_i-1))]:-}" ;;
         --period)    _i=$((_i+1)); PERIOD="${args[$((_i-1))]:-}" ;;
@@ -279,7 +288,16 @@ teardown() {
 #   A FAIL here (nebula!=folia at quiescence) is a GENUINE divergence — do NOT
 #   raise --max-diverge to paper over it.
 if [ "$BE_SETTLED" -eq 1 ]; then
-    SETTLE_S="${SETTLE_S:-6}"
+    # A hopper→chest transfer drains in a few seconds, but a hopper FEEDING a furnace
+    # is throttled by the furnace's slower intake (one item per hopper cooldown into a
+    # single input slot), so a furnace workload needs longer to reach true quiescence —
+    # LIVE-VERIFIED 2026-07-10: at 6s the furnace read nebula=31 folia=32 (one item
+    # mid-flight, a spurious ±1), and only at ~45s did it converge to nebula=64 folia=64.
+    if [ "$FURNACES" -gt 0 ]; then
+        SETTLE_S="${SETTLE_S:-45}"
+    else
+        SETTLE_S="${SETTLE_S:-6}"
+    fi
     HY=64               # hopper Y; chest sits at HY-1
     HZ=0
     REGION_STRIDE=512   # 512 blocks = 32 chunks apart → distinct region threads
@@ -291,6 +309,28 @@ if [ "$BE_SETTLED" -eq 1 ]; then
         R "setblock $HX $((HY - 1)) $HZ minecraft:chest" >/dev/null
         R "setblock $HX $HY $HZ minecraft:hopper[facing=down]" >/dev/null
     done
+
+    # Fuel-less furnaces, each fed by an overhead hopper. Placed in a distinct X band
+    # (FURNACE_BASE well clear of any hopper band) so hoppers and furnaces can coexist
+    # or run independently. A furnace does NOT pick up dropped item entities (only a
+    # hopper does), so the feed path is: summon item above the feeder hopper → hopper
+    # pulls it in → hopper pushes DOWN into the furnace's INPUT slot, firing
+    # InventoryMoveItemEvent with the FURNACE as the destination endpoint (classified
+    # FURNACE → seeded as a 3-slot task). The furnace is fuel-less on purpose: with no
+    # fuel it never smelts, so its input slot holds the cobblestone inertly and it
+    # reaches genuine quiescence. A SMELTING furnace would mutate its slots every tick
+    # with NO InventoryMoveItemEvent to re-seed the observe-only shadow, so its CAS
+    # would go stale and the gate would FAIL spuriously — the settled-state trap.
+    FURNACE_BASE=8192
+    if [ "$FURNACES" -gt 0 ]; then
+        echo "Building $FURNACES fuel-less furnace(s) (overhead-hopper fed), spaced ${REGION_STRIDE} apart..."
+        for f in $(seq 0 $((FURNACES - 1))); do
+            FX=$((FURNACE_BASE + f * REGION_STRIDE))
+            R "forceload add $((FX - 2)) $((HZ - 2)) $((FX + 2)) $((HZ + 2))" >/dev/null
+            R "setblock $FX $((HY - 1)) $HZ minecraft:furnace" >/dev/null
+            R "setblock $FX $HY $HZ minecraft:hopper[facing=down]" >/dev/null
+        done
+    fi
     sleep 2
 
     echo "Feeding each hopper with $FEEDS item stack(s) (summon above the hopper)..."
@@ -299,10 +339,16 @@ if [ "$BE_SETTLED" -eq 1 ]; then
             HX=$((h * REGION_STRIDE))
             R "summon item $HX.5 $((HY + 1)).2 $HZ.5 {Item:{id:\"minecraft:cobblestone\",count:32}}" >/dev/null
         done
+        if [ "$FURNACES" -gt 0 ]; then
+            for f in $(seq 0 $((FURNACES - 1))); do
+                FX=$((FURNACE_BASE + f * REGION_STRIDE))
+                R "summon item $FX.5 $((HY + 1)).2 $HZ.5 {Item:{id:\"minecraft:cobblestone\",count:32}}" >/dev/null
+            done
+        fi
         sleep 1
     done
 
-    echo "Settling for ${SETTLE_S}s (feed stopped; hoppers drain to quiescence)..."
+    echo "Settling for ${SETTLE_S}s (feed stopped; hoppers/furnaces drain to quiescence)..."
     sleep "$SETTLE_S"
 
     echo "Emitting /nebula be-settled over the tracked block entities..."
@@ -359,7 +405,7 @@ if [ "$BE_SETTLED" -eq 1 ]; then
         echo "=== Nebula B8 C3 BLOCK-ENTITY SETTLED-state acceptance grade ==="
         echo "Date:      $(date)"
         echo "Mode:      --be-settled (hopper→chest at quiescence)$( [ "$FAULT" -ne 0 ] && echo " [FAULT=$FAULT gate-teeth test]" )"
-        echo "Workload:  $HOPPERS hopper[facing=down]-over-chest pair(s) spaced ${REGION_STRIDE} apart, fed $FEEDS x count:32 each"
+        echo "Workload:  $HOPPERS hopper[facing=down]-over-chest pair(s)$( [ "$FURNACES" -gt 0 ] && echo " + $FURNACES fuel-less furnace(s) (overhead-hopper fed)" ) spaced ${REGION_STRIDE} apart, fed $FEEDS x count:32 each"
         echo "Settle:    ${SETTLE_S}s after the last feed"
         echo "BE-SETTLED lines graded: $BE_COUNT  (raw slice: $BE_SLICE)"
         echo
