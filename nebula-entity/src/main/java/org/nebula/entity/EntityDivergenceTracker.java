@@ -60,6 +60,25 @@ import java.util.Optional;
  * only counted samples would be indistinguishable from one that never ran (the exact
  * documentation-drift trap this project exists to avoid).
  *
+ * <h3>Per-axis drift profile (which axis dominates? — 2026-07-09)</h3>
+ * A scalar Euclidean drift says <em>how far</em> the model strayed but not <em>along
+ * which axis</em> — and that is the question that decides whether write-back can be
+ * armed. {@link org.nebula.entity.actions.EntityMoveAction} models only vertical
+ * gravity/drag and resolves collision on the Y column alone, applying the horizontal
+ * velocity components through unchanged. So the shape of the drift is diagnostic: if
+ * the <b>Y</b> axis dominates, the gravity/drag constants (or the swept-collision
+ * landing) are the systematic error to fix before arming write-back; if <b>X/Z</b>
+ * dominate, the model simply isn't tracking Folia's horizontal movement (friction,
+ * knockback, block collision) and a vertical-only mirror can never match. This tracker
+ * therefore accumulates, alongside the scalar drift, the per-axis error
+ * {@code predicted − authoritative}: both its <em>magnitude</em> (mean |Δx|,|Δy|,|Δz|,
+ * to rank the axes) and its <em>signed</em> mean (to expose a systematic directional
+ * bias — e.g. a persistently positive mean Δy means the model consistently predicts the
+ * entity <em>higher</em> than Folia, i.e. it under-falls). {@link #dominantAxis()} names
+ * the largest-magnitude axis and {@link #driftProfile()} renders the whole breakdown;
+ * both are folded into {@link #summary()} so the live heartbeat answers "which axis
+ * dominates?" directly, rather than leaving it to be inferred from a single number.
+ *
  * <p>Pure and single-threaded: one instance is driven from a region thread's
  * {@code executeOwnedEntityDag}; it holds no NMS or Folia references and is fully
  * unit-provable without a live server.
@@ -82,6 +101,16 @@ public final class EntityDivergenceTracker {
     private long maxDriftEntityId;
     private long maxDriftTick;
 
+    // Per-axis drift accumulators (predicted − authoritative), so the live heartbeat can
+    // answer "which axis dominates?" — see the per-axis-profile section of the class doc.
+    // absSum* ranks the axes by magnitude; signedSum* exposes a systematic directional bias.
+    private double absSumX;
+    private double absSumY;
+    private double absSumZ;
+    private double signedSumX;
+    private double signedSumY;
+    private double signedSumZ;
+
     /**
      * Records tick {@code tick} for {@code entityId}: {@code authoritative} is the
      * position Folia produced for this tick, {@code predicted} is the position
@@ -101,6 +130,18 @@ public final class EntityDivergenceTracker {
                 Sample sample = new Sample(entityId, tick, prev.predicted(), authoritative, drift);
                 sampleCount++;
                 driftSum += drift;
+                // Per-axis error = predicted − authoritative. |Δ| ranks the axes;
+                // the signed value carries the directional bias (e.g. +Δy ⇒ model
+                // predicts higher than Folia ⇒ under-falls).
+                double dx = prev.predicted().x() - authoritative.x();
+                double dy = prev.predicted().y() - authoritative.y();
+                double dz = prev.predicted().z() - authoritative.z();
+                absSumX += Math.abs(dx);
+                absSumY += Math.abs(dy);
+                absSumZ += Math.abs(dz);
+                signedSumX += dx;
+                signedSumY += dy;
+                signedSumZ += dz;
                 if (drift > maxDrift) {
                     maxDrift = drift;
                     maxDriftEntityId = entityId;
@@ -161,6 +202,67 @@ public final class EntityDivergenceTracker {
         return maxDriftTick;
     }
 
+    /** Mean magnitude of the per-frame X error (|predicted.x − authoritative.x|), 0 if none. */
+    public double meanAbsDriftX() {
+        return sampleCount == 0 ? 0.0 : absSumX / sampleCount;
+    }
+
+    /** Mean magnitude of the per-frame Y error, 0 if none. */
+    public double meanAbsDriftY() {
+        return sampleCount == 0 ? 0.0 : absSumY / sampleCount;
+    }
+
+    /** Mean magnitude of the per-frame Z error, 0 if none. */
+    public double meanAbsDriftZ() {
+        return sampleCount == 0 ? 0.0 : absSumZ / sampleCount;
+    }
+
+    /**
+     * Mean <em>signed</em> X error (predicted − authoritative), 0 if none. A nonzero mean
+     * is a systematic directional bias, not just noise; the sign says which way.
+     */
+    public double meanSignedDriftX() {
+        return sampleCount == 0 ? 0.0 : signedSumX / sampleCount;
+    }
+
+    /** Mean signed Y error (predicted − authoritative), 0 if none. Positive ⇒ model predicts higher (under-falls). */
+    public double meanSignedDriftY() {
+        return sampleCount == 0 ? 0.0 : signedSumY / sampleCount;
+    }
+
+    /** Mean signed Z error (predicted − authoritative), 0 if none. */
+    public double meanSignedDriftZ() {
+        return sampleCount == 0 ? 0.0 : signedSumZ / sampleCount;
+    }
+
+    /**
+     * Names the axis carrying the largest mean absolute error — the axis that dominates
+     * the drift, and thus the one a write-back-arming decision must scrutinize first.
+     * Returns {@code "none"} when no sample has paired yet. Ties resolve X &gt; Y &gt; Z.
+     */
+    public String dominantAxis() {
+        if (sampleCount == 0) return "none";
+        double x = meanAbsDriftX();
+        double y = meanAbsDriftY();
+        double z = meanAbsDriftZ();
+        if (x >= y && x >= z) return "X";
+        if (y >= z) return "Y";
+        return "Z";
+    }
+
+    /**
+     * One-line per-axis breakdown: mean |Δ| per axis (magnitude ranking) plus the mean
+     * signed Δ (directional bias) and the {@link #dominantAxis()}. This is the answer to
+     * "which axis dominates the EntityMoveAction-vs-Folia drift?".
+     */
+    public String driftProfile() {
+        return String.format(
+            "axisProfile: dominant=%s meanAbs[x=%.6f y=%.6f z=%.6f] meanSigned[x=%+.6f y=%+.6f z=%+.6f]",
+            dominantAxis(),
+            meanAbsDriftX(), meanAbsDriftY(), meanAbsDriftZ(),
+            meanSignedDriftX(), meanSignedDriftY(), meanSignedDriftZ());
+    }
+
     /** Number of entities currently carrying a pending (unmatched) prediction. */
     public int trackedEntities() {
         return pending.size();
@@ -170,8 +272,9 @@ public final class EntityDivergenceTracker {
     public String summary() {
         return String.format(
             "entity-divergence: obs=%d samples=%d nonContiguousSkips=%d lastGap=%d "
-                + "meanDrift=%.6f maxDrift=%.6f (entity=%d @tick=%d) tracked=%d",
+                + "meanDrift=%.6f maxDrift=%.6f (entity=%d @tick=%d) tracked=%d | %s",
             observationCount, sampleCount, nonContiguousSkips, lastGap,
-            meanDrift(), maxDrift, maxDriftEntityId, maxDriftTick, pending.size());
+            meanDrift(), maxDrift, maxDriftEntityId, maxDriftTick, pending.size(),
+            driftProfile());
     }
 }

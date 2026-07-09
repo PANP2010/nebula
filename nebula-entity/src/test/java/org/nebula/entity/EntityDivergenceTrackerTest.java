@@ -153,4 +153,69 @@ class EntityDivergenceTrackerTest {
         assertTrue(tracker.summary().contains("nonContiguousSkips=1"));
         assertTrue(tracker.summary().contains("lastGap=2"));
     }
+
+    @Test
+    void perAxisDriftDecomposesTheEuclideanScalar() {
+        EntityDivergenceTracker tracker = new EntityDivergenceTracker();
+        // predicted (3, 100, 0), authoritative next tick (0, 96, 0):
+        // Δx=+3, Δy=+4, Δz=0 → |Δ| ranks Y>X>Z, scalar drift = 5.
+        tracker.record(1L, 0L, new Vec3(0, 0, 0), new Vec3(3, 100, 0));
+        Optional<EntityDivergenceTracker.Sample> s =
+            tracker.record(1L, 1L, new Vec3(0, 96, 0), new Vec3(0, 0, 0));
+        assertTrue(s.isPresent());
+        assertEquals(5.0, s.get().drift(), EPS, "3-4-5 scalar drift");
+        assertEquals(3.0, tracker.meanAbsDriftX(), EPS);
+        assertEquals(4.0, tracker.meanAbsDriftY(), EPS);
+        assertEquals(0.0, tracker.meanAbsDriftZ(), EPS);
+        assertEquals("Y", tracker.dominantAxis(), "|Δy|=4 is the largest-magnitude axis");
+    }
+
+    @Test
+    void signedDriftExposesDirectionalBias() {
+        // The model consistently predicts the entity HIGHER than Folia (under-falls):
+        // every frame predicted.y − authoritative.y is positive. The signed mean must
+        // stay positive, not cancel to ~0 the way symmetric noise would.
+        EntityDivergenceTracker tracker = new EntityDivergenceTracker();
+        tracker.record(1L, 0L, new Vec3(0, 100, 0), new Vec3(0, 99.94, 0)); // predict y=99.94
+        tracker.record(1L, 1L, new Vec3(0, 99.90, 0), new Vec3(0, 99.82, 0)); // actual 99.90 → Δy=+0.04
+        tracker.record(1L, 2L, new Vec3(0, 99.78, 0), new Vec3(0, 99.68, 0)); // actual 99.78 → Δy=+0.04
+        assertEquals(2, tracker.sampleCount());
+        assertEquals(0.04, tracker.meanSignedDriftY(), EPS, "persistent positive Δy = under-fall bias");
+        assertEquals(0.04, tracker.meanAbsDriftY(), EPS, "magnitude equals signed when bias is one-directional");
+        assertEquals(0.0, tracker.meanSignedDriftX(), EPS);
+        assertEquals(0.0, tracker.meanSignedDriftZ(), EPS);
+        assertEquals("Y", tracker.dominantAxis());
+    }
+
+    @Test
+    void signedDriftCancelsWhenErrorIsSymmetric() {
+        // Same |Δy| each frame but alternating sign: the magnitude mean stays nonzero
+        // while the signed mean cancels toward 0 — that contrast is exactly how a caller
+        // tells a systematic bias apart from symmetric jitter.
+        EntityDivergenceTracker tracker = new EntityDivergenceTracker();
+        tracker.record(1L, 0L, new Vec3(0, 100, 0), new Vec3(0, 100.10, 0));  // predict high
+        tracker.record(1L, 1L, new Vec3(0, 100.00, 0), new Vec3(0, 99.90, 0)); // Δy=+0.10
+        tracker.record(1L, 2L, new Vec3(0, 100.00, 0), new Vec3(0, 0, 0));     // Δy=-0.10
+        assertEquals(2, tracker.sampleCount());
+        assertEquals(0.0, tracker.meanSignedDriftY(), EPS, "+0.10 and -0.10 cancel");
+        assertEquals(0.10, tracker.meanAbsDriftY(), EPS, "but the magnitude is unmistakable");
+    }
+
+    @Test
+    void dominantAxisIsNoneBeforeAnySample() {
+        EntityDivergenceTracker tracker = new EntityDivergenceTracker();
+        assertEquals("none", tracker.dominantAxis());
+        tracker.record(1L, 0L, new Vec3(0, 0, 0), new Vec3(0, 0, 0)); // first sighting, no sample
+        assertEquals("none", tracker.dominantAxis(), "a pending prediction is not yet a sample");
+    }
+
+    @Test
+    void summaryCarriesTheAxisProfile() {
+        EntityDivergenceTracker tracker = new EntityDivergenceTracker();
+        tracker.record(1L, 0L, new Vec3(0, 0, 0), new Vec3(0, 0, 5));   // predict z=5
+        tracker.record(1L, 1L, new Vec3(0, 0, 0), new Vec3(0, 0, 0));   // actual z=0 → |Δz|=5
+        String summary = tracker.summary();
+        assertTrue(summary.contains("axisProfile:"), "summary must fold in the per-axis breakdown");
+        assertTrue(summary.contains("dominant=Z"), "Z dominates this drift");
+    }
 }
