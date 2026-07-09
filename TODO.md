@@ -580,10 +580,29 @@ requires the decisive Folia experiment, not just a green unit test.
       block accesses with **zero** violations against the (known-complete) redstone RW-sets. This is the
       first time the Achilles'-heel protection runs against real Folia — patch-001's core promise. If it
       reports violations on *correct* redstone sets, the tracer itself is wrong; fix that first.
-- [ ] ⚡ B3. Deliberately break one redstone RWSet (drop a neighbour read), re-run B2, confirm the guard
+      **B2a DONE (pure-unit bridge slice, 2026-07-09)** — the literal instruction had a FALSE PREMISE:
+      `RWGuardTaskRunner` traces `task.action().execute()`, but live redstone tasks are
+      `RedstoneTaskFactory.inert(...)` (no-op action); real logic runs through `RedstoneTaskRunner` +
+      action registry, whose accesses flow through `RedstoneAccessTracer`, a hook NEVER connected to the
+      guard's `ThreadLocalAccessTrace`. Dropping the guard runner into `executeOwnedDag` as-is would trace
+      nothing and report a false "zero violations". Built the missing bridge
+      (`nebula-plugin/.../RedstoneRwGuardTracer` — forwards `RedstoneAccessTracer` → `ThreadLocalAccessTrace`)
+      and unit-proved (`RedstoneRwGuardBridgeTest`, 5 tests): wire/torch/repeater/comparator run through the
+      REAL runner+action+context with the bridge tracer trace CLEAN against their REAL factory RW-sets, plus
+      a negative control (drop the +X wire neighbour read → checker flags exactly it). "Redstone RW-sets are
+      known-complete" is now checker-verified for block accesses, not just asserted.
+      **B2b REMAINING (⚡ live):** install `RedstoneRwGuardTracer.INSTANCE` on the `RedstoneTaskRunner`
+      built in `NebulaPlugin` (constructor already accepts a tracer), gate it behind `-Dnebula.rw.guard`
+      + low sample, run `RWSetConsistencyChecker` per task in `executeOwnedDag`'s Phase 2 (or after
+      `microStepScheduler.executeTick`), append to `rw-violations.jsonl`, then toggle a lever→wire→lamp
+      line on real Folia and confirm zero violations in the log. Only THAT is the true first live guard run.
+      NOTE: block-entity/entity/global/random accesses are NOT routed through `RedstoneTaskContext` yet, so
+      the live run verifies block-level reads/writes only (which is all the redstone actions perform today).
+- [ ] ⚡ B3. Deliberately break one redstone RWSet (drop a neighbour read), re-run B2b, confirm the guard
       catches it live and `RWGuardReportWriter` emits an actionable report (coords + stack + declared set).
       Revert the break in the same cycle. This proves the guard has real detection power, not just a
-      green no-op path.
+      green no-op path. (The pure-unit analogue is already covered by
+      `RedstoneRwGuardBridgeTest.bridgeHasRealDetectionPowerWhenAnAccessIsUndeclared`.)
 
 **C. Extend & verify coverage subsystem by subsystem (each ⚡ needs the guard from B live)**
 - [ ] ⚡ C1. Wire the **entity** DAG (`EntityTaskFactory` MOVE/COLLISION) into the live tick path for
