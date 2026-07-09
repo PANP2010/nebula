@@ -133,6 +133,36 @@ class RWSetViolationJsonTest {
         assertEquals(target, restored);
     }
 
+    // ── Bracket-containing field paths (the C3 inventory-slot case) ───────────────────
+    // FieldPath explicitly supports '[' segment notation (see FieldPath.hasSegmentPrefix),
+    // and the C3 block-entity coverage loop will emit hopper/dispenser inventory-slot
+    // accesses like "inventory.slots[3]". The FIELD_PATH_VALUE regex is written greedily
+    // ("match up to the trailing ]]") for exactly this reason, but no test exercised a
+    // path whose own value contains ']'. These pin that documented behavior: a bracket
+    // path must survive toJson -> fromJson intact, not be truncated at the first ']'.
+
+    @Test
+    void entityFieldWithBracketPathRoundTrips() {
+        AccessTarget target = AccessTarget.entityField(new EntityField(77L, "inventory.slots[0]"));
+        AccessTarget restored = roundTrip(target);
+        assertEquals(AccessTargetType.ENTITY_FIELD, restored.type());
+        assertEquals(target, restored);
+        assertTrue(restored.value().contains("inventory.slots[0]"),
+            "bracket path truncated: " + restored.value());
+    }
+
+    @Test
+    void blockEntityFieldWithBracketPathRoundTrips() {
+        // Hopper/dispenser transfer — the highest inventory-corruption-risk C3 case.
+        AccessTarget target = AccessTarget.blockEntityField(
+            new BlockEntityField(new WorldPos(0, 100, 64, -200), "items[2].count"));
+        AccessTarget restored = roundTrip(target);
+        assertEquals(AccessTargetType.BLOCK_ENTITY_FIELD, restored.type());
+        assertEquals(target, restored);
+        assertTrue(restored.value().contains("items[2].count"),
+            "bracket path truncated: " + restored.value());
+    }
+
     @Test
     void serializesPatchSuggestions() {
         RWSet declared = RWSet.empty();
