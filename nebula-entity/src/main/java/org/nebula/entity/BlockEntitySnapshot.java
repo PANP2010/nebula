@@ -43,6 +43,28 @@ public record BlockEntitySnapshot(
         return new BlockEntitySnapshot(pos, BlockEntityTaskType.DISPENSER, 9, facingX, facingY, facingZ);
     }
 
+    /**
+     * Builds the snapshot with the correct slot count for a classified
+     * {@link BlockEntityTaskType}, applying the given facing only to the directional
+     * types (hopper/dropper/dispenser); furnace and brewing stand ignore facing.
+     *
+     * <p>This is the seam the live seed listener uses once it has classified a block
+     * (via {@link BlockEntityClassifier}): it turns a type + position + facing into the
+     * right per-type snapshot, instead of stamping every endpoint as a hopper.
+     *
+     * @throws NullPointerException if {@code type} is null
+     */
+    public static BlockEntitySnapshot forType(BlockEntityTaskType type, WorldPos pos,
+                                              int facingX, int facingY, int facingZ) {
+        return switch (type) {
+            case HOPPER -> hopper(pos, facingX, facingY, facingZ);
+            case DROPPER -> dropper(pos, facingX, facingY, facingZ);
+            case DISPENSER -> dispenser(pos, facingX, facingY, facingZ);
+            case FURNACE -> furnace(pos);
+            case BREWING_STAND -> brewingStand(pos);
+        };
+    }
+
     public WorldPos outputPos() {
         return new WorldPos(pos.dimensionId(), pos.x() + facingX, pos.y() + facingY, pos.z() + facingZ);
     }

@@ -603,9 +603,11 @@ public final class NebulaPlugin extends JavaPlugin {
      *       thread).</li>
      *   <li><b>Seed source:</b> {@link org.bukkit.event.inventory.InventoryMoveItemEvent}
      *       fires on the region thread whenever a hopper (or dropper/hopper-minecart)
-     *       moves an item — the block-entity analogue of {@code EntityMoveEvent}. The
-     *       source inventory's holder position seeds one HOPPER snapshot per ticking
-     *       block entity via {@link BlockEntityTickHook#recordDirty}.</li>
+     *       moves an item — the block-entity analogue of {@code EntityMoveEvent}. Each
+     *       block-holder endpoint is classified by {@link org.nebula.entity.BlockEntityClassifier};
+     *       an autonomously-ticking type (hopper/dropper/dispenser/furnace/brewing stand)
+     *       seeds one correctly-typed snapshot via {@link BlockEntityTickHook#recordDirty},
+     *       while a non-ticking transfer target (chest/barrel) is skipped.</li>
      *   <li><b>Driver:</b> begin + drain every game tick (same cadence as the entity
      *       hook), so a DAG pass maps to one game tick. The DG3 fix makes beginTick a
      *       no-op on the accumulator, so begin-then-end in one tick never wipes
@@ -666,15 +668,31 @@ public final class NebulaPlugin extends JavaPlugin {
             private void recordBlockHolder(org.bukkit.inventory.InventoryHolder holder) {
                 if (!(holder instanceof org.bukkit.block.BlockState blockState)) return;
                 org.bukkit.block.Block block = blockState.getBlock();
+                // Classify the block: only an autonomously-ticking block entity
+                // (hopper/dropper/dispenser/furnace/brewing stand) seeds a task. A chest
+                // or barrel destination is a transfer TARGET, not a ticking task, so it
+                // classifies null and is skipped — the hopper's own task already declares
+                // the write into the target's slots. (ce6abf2 wrongly stamped every
+                // endpoint as HOPPER; this is the fix.)
+                org.nebula.entity.BlockEntityTaskType type =
+                    org.nebula.entity.BlockEntityClassifier.classify(block.getType().name());
+                if (type == null) return;
                 int dim = org.nebula.core.state.DimensionIds.fromName(block.getWorld().getName());
                 WorldPos pos = new WorldPos(dim, block.getX(), block.getY(), block.getZ());
-                // Facing is unused by the inert HOPPER RW-set's above/self reads (only
-                // outputPos needs it); 0,0,0 keeps the output at self, which is safe
-                // for OBSERVE mode where no slot mutation runs. Real facing + the
-                // correct per-type snapshot land with the NMS-sync slice.
+                // Real facing from the block's directional data (hopper/dropper/dispenser
+                // eject toward getFacing()); furnace/brewing stand ignore facing in
+                // forType. This gives the correct per-type RW-set and output position,
+                // vs. the old hard-coded HOPPER@…,0,0,0 that put every output at self.
+                int fx = 0, fy = 0, fz = 0;
+                if (block.getBlockData() instanceof org.bukkit.block.data.Directional dir) {
+                    org.bukkit.block.BlockFace face = dir.getFacing();
+                    fx = face.getModX();
+                    fy = face.getModY();
+                    fz = face.getModZ();
+                }
                 org.nebula.folia.bridge.BlockEntityTickHook.recordDirty("nebula-global",
                     block.getWorld().getName(),
-                    org.nebula.entity.BlockEntitySnapshot.hopper(pos, 0, 0, 0));
+                    org.nebula.entity.BlockEntitySnapshot.forType(type, pos, fx, fy, fz));
             }
         }, this);
 
