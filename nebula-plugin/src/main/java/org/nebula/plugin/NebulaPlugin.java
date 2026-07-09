@@ -429,24 +429,33 @@ public final class NebulaPlugin extends JavaPlugin {
 
     /**
      * B8 C1 ⚡ live: wires the {@link EntityTickHook} accumulator + resolver + executor
-     * into the live Folia tick and starts feeding it real moved entities.
+     * into the live Folia tick and starts feeding it real moved entities, now with
+     * per-entity <em>region-thread dispatch</em> (the entity analogue of the redstone
+     * {@link #wireRegionAwareExecutor} path).
      *
-     * <h3>OBSERVE mode (why no NMS write-back yet)</h3>
-     * This is the entity analogue of the redstone bring-up, and — exactly like that
-     * bring-up — it runs the DAG in OBSERVE mode: the executor runs the real
-     * {@link EntityMoveAction} physics against the thread-safe {@link EntityPhysicsState}
-     * CAS store, but does NOT teleport the entity via {@link NmsEntityStateBridge}.
-     * Writing computed positions back would fight vanilla movement and needs the
-     * per-entity region-thread dispatch (the {@link FoliaRegionTickExecutor} analogue
-     * for entities). The milestone here is the FIRST live entity DAG tick from a real
-     * moving mob; zero-diff write-back is the next slice.
+     * <h3>Region-thread dispatch + why write-back is gated OFF by default</h3>
+     * The drained ENTITY_MOVE tasks are handed to a {@link FoliaRegionTickExecutor}
+     * that dispatches each to the region thread owning its destination chunk. On that
+     * thread {@link #executeOwnedEntityDag} runs the full cycle: look up the entity,
+     * {@code syncPhysicsFromNms} (an NMS entity read that is ONLY legal on the owning
+     * region thread — it NPEs elsewhere, exactly like a Folia block read), run the DAG,
+     * then optionally {@code syncPhysicsToNms}.
+     *
+     * <p><b>The write-back stays OFF unless {@code -Dnebula.entity.writeback=true}.</b>
+     * {@link EntityMoveAction} does not mirror Folia's position — it recomputes an
+     * <em>approximate</em> trajectory (its own gravity/drag constants, vertical-only
+     * collision) and writes that new position. Teleporting the live entity to it every
+     * tick would fight vanilla movement, so it is emphatically NOT zero-diff. The
+     * genuinely new, safe capability proven here is the region-threaded tick with a
+     * legal region-thread NMS read; arming write-back into a true Folia mirror (or
+     * validating its divergence) is the next slice.
      *
      * <h3>Thread-safety</h3>
-     * The executor runs on the global tick thread (where {@code endTick} drains). That
-     * is safe here because it touches ONLY the CAS store and the pure DAG — no Bukkit
-     * entity reads/writes, which would require the owning region thread. The
-     * {@link EntityMoveEvent} listener that seeds moves runs on the entity's own region
-     * thread, and {@link EntityTickHook#recordMove} is a concurrent-safe enqueue.
+     * The lifecycle driver and {@code endTick} drain run on the global tick thread, but
+     * the actual entity read/DAG/write-back now runs on each entity's OWNING region
+     * thread via the region executor — which is exactly what makes the NMS entity read
+     * legal. The {@link EntityMoveEvent} listener that seeds moves runs on the entity's
+     * own region thread, and {@link EntityTickHook#recordMove} is a concurrent-safe enqueue.
      */
     private void wireEntityTickHook(Server server) {
         // Resolver: a moved-entity snapshot → an ENTITY_MOVE TaskNode. The runner
@@ -454,17 +463,27 @@ public final class NebulaPlugin extends JavaPlugin {
         // an inert node carries the correct id/coords and the executor runs real physics.
         EntityTickHook.setResolver((worldName, snapshot) -> EntityTaskFactory.moveInert(snapshot));
 
-        // Executor: run the drained moved-entity tasks through the entity DAG (CAS only).
+        // Executor: dispatch each moved-entity task to its OWNING region thread via
+        // the subsystem-agnostic FoliaRegionTickExecutor (ENTITY_POSITION_OF decodes
+        // the ENTITY_MOVE destination block; pair-types decode to null and are
+        // skipped). On that region thread executeOwnedEntityDag runs the real
+        // read → DAG → (gated) write-back cycle. This is the entity analogue of the
+        // redstone wireRegionAwareExecutor path.
+        //
+        // Why region dispatch matters: NmsEntityStateBridge.syncPhysicsFromNms reads
+        // Entity#getLocation/#getVelocity, which — like a Folia block read — NPEs off
+        // the entity's owning region thread. The prior OBSERVE executor ran on the
+        // global tick thread and so could ONLY touch the CAS store, never a real
+        // entity. Dispatching to the owning region is what makes the NMS read legal.
+        FoliaRegionTickExecutor entityRegionExecutor = new FoliaRegionTickExecutor(
+            server, ENTITY_POSITION_OF,
+            this::executeOwnedEntityDag, this);
         EntityTickHook.setExecutor((regionId, worldName, dirtyTasks) -> {
             try {
-                int microsteps = entityTickExecutor.executeTick(dirtyTasks);
-                if (firstEntityDagTickLogged.compareAndSet(false, true)) {
-                    LOG.info("⚡ FIRST live entity DAG tick: " + dirtyTasks.size()
-                        + " moved-entity task(s), " + microsteps + " layer(s) in " + worldName
-                        + " — the entity DAG is now live (OBSERVE mode, no NMS write-back yet)");
-                }
-            } catch (Exception e) {
-                LOG.warning(() -> "Entity DAG tick failed in " + worldName + ": " + e.getMessage());
+                entityRegionExecutor.executeTasks(regionId, worldName, dirtyTasks);
+            } catch (org.nebula.core.scheduler.DagExecutionException e) {
+                LOG.warning(() -> "Entity region dispatch failed in " + worldName
+                    + ": " + e.getMessage());
             }
         });
 
@@ -500,7 +519,93 @@ public final class NebulaPlugin extends JavaPlugin {
 
         EntityTickHook.setActive(true);
         LOG.info("EntityTickHook lifecycle driver + EntityMoveEvent seed registered "
-            + "(global tick, alternating begin/end; OBSERVE mode)");
+            + "(alternating begin/end on the global tick; per-entity DAG dispatched to "
+            + "owning region threads; NMS write-back "
+            + (entityWriteBackEnabled() ? "ARMED (-Dnebula.entity.writeback=true)"
+                                        : "OFF — observe-only") + ")");
+    }
+
+    /**
+     * Whether the entity DAG's computed position/velocity is written back to the live
+     * entity via {@link NmsEntityStateBridge#syncPhysicsToNms}. Overridable via
+     * {@code -Dnebula.entity.writeback=true}; defaults to {@code false}.
+     *
+     * <p><b>Off by default on purpose.</b> {@link EntityMoveAction} recomputes an
+     * approximate trajectory (its own gravity/drag, vertical-only collision) rather
+     * than mirroring Folia's authoritative position, so arming write-back teleports
+     * live mobs onto Nebula's shadow path every tick — decidedly NOT zero-diff. The
+     * flag exists so the write-back seam can be exercised deliberately (e.g. for
+     * divergence measurement) without perturbing an ordinary server.
+     *
+     * <p>Package-private so {@code EntityTaskResolutionTest} can pin the default OFF.
+     */
+    static boolean entityWriteBackEnabled() {
+        return Boolean.getBoolean("nebula.entity.writeback");
+    }
+
+    /**
+     * The entity analogue of {@link #executeOwnedDag}, invoked by
+     * {@link FoliaRegionTickExecutor} on the region thread that owns each moved
+     * entity's destination chunk. Running here — not on the global tick thread — is
+     * what makes the {@link NmsEntityStateBridge} entity read legal (off-region entity
+     * reads NPE on Folia, exactly like block reads).
+     *
+     * <p>Per task:
+     * <ol>
+     *   <li>Decode the entity id from the ENTITY_MOVE task and look up the live entity
+     *       (skip silently if it has since despawned or moved worlds).</li>
+     *   <li>{@code syncPhysicsFromNms}: read the entity's real position/velocity into
+     *       the CAS store — the region-thread NMS read this whole slice unlocks.</li>
+     *   <li>Run the task through {@link #entityTickExecutor}.</li>
+     *   <li>Only if {@link #entityWriteBackEnabled()}: {@code syncPhysicsToNms} the
+     *       computed state back onto the live entity. Off by default (see that helper).</li>
+     * </ol>
+     */
+    private void executeOwnedEntityDag(World world, String worldName,
+                                       java.util.List<TaskNode> ownedTasks)
+            throws org.nebula.core.scheduler.DagExecutionException {
+        if (ownedTasks.isEmpty()) return;
+
+        final boolean writeBack = entityWriteBackEnabled();
+        int layers = 0;
+        int applied = 0;
+        for (TaskNode task : ownedTasks) {
+            long entityId = parseMoveEntityId(task.taskId().substring(task.taskId().indexOf('@') + 1));
+            java.util.Optional<org.bukkit.entity.Entity> found =
+                NmsEntityStateBridge.findEntityById(world, (int) entityId);
+            if (found.isEmpty()) {
+                LOG.fine(() -> "executeOwnedEntityDag: entity " + entityId
+                    + " not found in " + worldName + " — skipping (despawned or moved worlds)");
+                continue;
+            }
+            org.bukkit.entity.Entity entity = found.get();
+
+            // Region-thread NMS read: the capability this slice unlocks.
+            entityBridge.syncPhysicsFromNms(entity);
+
+            try {
+                layers = entityTickExecutor.executeTick(java.util.List.of(task));
+            } catch (Exception e) {
+                LOG.warning(() -> "entity DAG tick failed for " + task.taskId()
+                    + " in " + worldName + ": " + e.getMessage());
+                continue;
+            }
+
+            if (writeBack) {
+                entityBridge.syncPhysicsToNms(entity, world);
+                applied++;
+            }
+        }
+
+        if (firstEntityDagTickLogged.compareAndSet(false, true)) {
+            LOG.info("⚡ FIRST region-threaded entity DAG tick: " + ownedTasks.size()
+                + " moved-entity task(s), " + layers + " layer(s) in " + worldName
+                + " on thread '" + Thread.currentThread().getName() + "' — the entity "
+                + "read/DAG now run on the OWNING region thread (region-thread NMS read "
+                + "is legal here). NMS write-back "
+                + (writeBack ? "ARMED, applied to " + applied + " entity(ies)"
+                             : "OFF (observe-only; -Dnebula.entity.writeback=true to arm)"));
+        }
     }
 
     /**

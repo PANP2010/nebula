@@ -15,6 +15,7 @@ import org.nebula.redstone.RedstoneTaskFactory;
 import org.nebula.core.state.WorldPos;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -135,6 +136,23 @@ class EntityTaskResolutionTest {
             new TaskNode("no-at-sign", "ENTITY_MOVE", org.nebula.core.rw.RWSet.empty(), () -> {})));
         assertNull(NebulaPlugin.ENTITY_POSITION_OF.apply(
             new TaskNode("ENTITY_MOVE@0:42", "ENTITY_MOVE", org.nebula.core.rw.RWSet.empty(), () -> {})));
+    }
+
+    // ── Entity NMS write-back gate: OFF by default ────────────────────────────
+
+    @Test
+    void entityWriteBackIsOffByDefault() {
+        // The region-threaded entity DAG runs read → DAG on the owning region thread,
+        // but must NOT teleport live mobs onto Nebula's approximate shadow physics
+        // unless explicitly armed. EntityMoveAction recomputes an approximate
+        // trajectory (its own gravity/drag, vertical-only collision), so an
+        // always-on write-back would fight vanilla movement — the opposite of
+        // zero-diff and a violation of the project's observe-only invariant.
+        // Guard: absent the opt-in system property, write-back stays OFF.
+        assertNull(System.getProperty("nebula.entity.writeback"),
+            "test env must not pre-set the write-back property");
+        assertFalse(NebulaPlugin.entityWriteBackEnabled(),
+            "entity NMS write-back must default OFF (observe-only)");
     }
 
     // ── CompositeTaskRunner routing: prefixes must match stamped types ────────
