@@ -44,8 +44,15 @@ deleted as misleading — the whitepaper is a multi-year plan, not days of work.
 ### ❌ Designed in the whitepaper, essentially UNBUILT
 - **Light subsystem** (whitepaper ch.10) — 0 implementation files.
 - **Entity AI / pathfinding** (ch.7: Sense/GoalSelect/Pathfind/Act) — 0 implementation files.
-- **@NebulaRW annotation coverage** — **7 of ~250 (~3%)**. The determinism theorem *depends* on this;
-  patch-001 calls it the project's Achilles' heel. This is the single widest designed-vs-done gap.
+- **RW-set coverage** — the determinism theorem *depends* on this; patch-001 calls it the project's
+  Achilles' heel. Honest state (verified 2026-07-09, not the old "7 of ~250 / 3%" which conflated two
+  things): the `@NebulaRW` *annotation* is applied to **0 methods** — RW-sets live instead as hand-built
+  `RWSet` builders in each `*TaskFactory` (the live path) plus `ComponentTemplate` reference records.
+  **Redstone RW-sets are complete** (27/27 component types, live + templated). **Entity subsystems** carry
+  real `RWSet`s but per-*task-type*, not per-NMS-method, and are not live-wired. The whitepaper's DG3
+  deliverable is a "full-system RW library (~250 functions)"; only redstone is inventoried against it.
+  **Zero annotations are runtime-*verified*** — the RW-guard (patch-001's whole point) has never run
+  against live NMS. See the full task breakdown section below.
 - **Folia-vs-Nebula divergence under sustained LIVE load** — settled-state passes; the driven
   square-wave residual-rate check is a known-limited signal (observe lag, not a bug). See memory
   `divergence-grade-needs-settled-sampling`.
@@ -455,8 +462,10 @@ Nebula is observe-only; see the DG1 Criterion 3 note in docs/PROJECT_STATUS.md)
 
 ### P2 — open technical debt
 - [ ] B7: Build environment portability — `gradle.properties` hardcodes JDK paths (Linux-only build)
-- [ ] B8: **@NebulaRW annotation coverage — 7 of ~250 (~3%).** Highest-leverage open item; the
-      determinism theorem depends on it (patch-001). An epic — slice it subsystem by subsystem.
+- [ ] B8: **RW-set coverage & verification** — redstone complete (27/27), but 0 annotations are
+      runtime-verified and entity/BE/fluid/explosion/AI RW-sets are per-task-type + not live-wired.
+      Highest-leverage open item; the determinism theorem depends on it (patch-001). An epic — slice
+      it subsystem by subsystem. **Full breakdown: see the "@NebulaRW / RW-SET COVERAGE" section below.**
 
 ---
 
@@ -474,8 +483,10 @@ whitepaper scope is years of work. Pick the next slice by honest value, not by a
 2. **Folia-vs-Nebula divergence under sustained live load** — the last correctness gap driven mode
    does not prove. Needs settled-state sampling, not the known-limited square-wave residual rate
    (see memory `divergence-grade-needs-settled-sampling`).
-3. **@NebulaRW annotation coverage (B8, ~3% → higher)** — the widest designed-vs-done gap and the
-   theorem's precondition. Slice by subsystem; pair with the RW-guard to verify each annotation live.
+3. **RW-set coverage & verification (B8)** — the widest designed-vs-done gap and the theorem's
+   precondition. Redstone is complete (27/27) but *nothing* is runtime-verified. Full cycle-sized task
+   breakdown is in the **"@NebulaRW / RW-SET COVERAGE"** section below; start with A1 (drift test) and
+   B1–B2 (make the guard work, then run it live).
 4. **Verify the RW-Set Integrity Guard against real NMS** (patch-001 P0) — the API exists but its
    bytecode tracer has never run against real Folia access. Until it does, annotation completeness
    is unchecked in practice.
@@ -488,6 +499,95 @@ whitepaper scope is years of work. Pick the next slice by honest value, not by a
 **Ground rules that keep this honest** (from ralph_prompt.txt): never upgrade a claim past what was
 verified *this session*; if a change touches the tick pipeline, a green unit test is not proof — run
 the live-Folia decisive experiment; one scoped, committed slice at a time.
+
+---
+
+## @NebulaRW / RW-SET COVERAGE — full task breakdown (B8, the Achilles' heel)
+
+**Why this is the top structural task.** patch-001 (`docs/nebula-server-patch-001.md`) names RW-set
+completeness the project's *阿喀琉斯之踵* (Achilles' heel): if a task's declared read/write set omits a
+real access, the DAG loses a dependency edge, two tasks that should serialize run in parallel, and state
+corrupts non-deterministically — the exact "ghost bug" T0 mode promises to prevent. The whitepaper's DG3
+deliverable (`docs/nebula-architecture.md:1217`) is a **full-system RW library of ~250 functions**.
+
+**Honest starting state (verified 2026-07-09 — read before trusting older "3%" claims):**
+- The `@NebulaRW` *annotation type* (`nebula-core/.../annotations/NebulaRW.java`) is applied to **0 methods**.
+  Real RW-sets are hand-built `RWSet` objects in the `*TaskFactory` classes (the live path), mirrored by
+  `ComponentTemplate` reference records in `RedstoneAnnotations`.
+- There are **two parallel representations** (factory `RWSet` vs annotation `ComponentTemplate`) that can
+  silently drift — no test asserts they agree field-by-field.
+- **Nothing is runtime-verified.** The RW-guard (patch-001 components A/B/C) exists in `nebula-guard-api`
+  but has never traced a real NMS access.
+
+**Per-subsystem status (methods with a real RWSet today):**
+
+| Subsystem            | RW-sets present                    | Live-wired | Runtime-verified | Gap |
+|----------------------|------------------------------------|-----------|------------------|-----|
+| Redstone             | ✅ 27/27 component types + templates | ✅ yes    | ❌ no            | verify vs guard; factory-vs-template drift test |
+| Entity (`nebula-entity`) | ⚠️ per task-type (MOVE/COLLISION/…), 7 types | ❌ no | ❌ no | wire into live tick path, then verify |
+| Block-entity         | ⚠️ per task-type, 6 types           | ❌ no      | ❌ no            | same |
+| Fluid                | ⚠️ per task-type, 4 types           | ❌ no      | ❌ no            | same |
+| Explosion            | ⚠️ per task-type, 5 types           | ❌ no      | ❌ no            | same |
+| Entity AI/pathfinding | ⚠️ per task-type, 5 types (`AITaskFactory`) | ❌ no | ❌ no    | ch.7 subsystem largely design-only |
+| Light (ch.10)        | ❌ 0 files                          | ❌         | ❌               | unbuilt |
+
+### Tasks — ordered so each is ONE verifiable Ralph cycle
+
+Do these top-to-bottom; each is scoped to a single commit. Prefer the cheap high-signal ones first
+(they de-risk everything below them). A ⚡ marks a task that touches the live tick pipeline and therefore
+requires the decisive Folia experiment, not just a green unit test.
+
+**A. Close the drift between the two RW representations (cheap, pure nebula-core/redstone, no Folia)**
+- [ ] A1. Add a test asserting each redstone `ComponentTemplate` agrees field-by-field with the live
+      `RedstoneTaskFactory` RWSet for the same type (block footprint, globals, events). Today only
+      `size()` is asserted equal — the *contents* can diverge silently. This is the guardrail that keeps
+      redstone honest as new types land. (Extends `RedstoneTaskFactoryTest`.)
+- [ ] A2. Audit the 7 remaining orphaned method constants in `RedstoneAnnotations`
+      (`WIRE_GET_SIGNAL`, `WIRE_GET_DIRECT_SIGNAL`, `WIRE_TURBO_SHAPE`, `REPEATER_GET_SIGNAL`,
+      `WEIGHTED_PRESSURE_PLATE_SIGNAL_FOR_STATE`, `COLLECTING_NEIGHBOR_UPDATER`, `SCULK_SENSOR_TICK`).
+      For each: either fold its read/write facts into the owning component's template, or delete it as a
+      dead reference. Leave a comment recording the decision so it doesn't get re-added.
+- [ ] A3. Decide SculkSensor's home. It has a fully-documented `SCULK_SENSOR_TICK` RW-set but is
+      vibration-driven, not neighbour/signal-driven. Confirm whether it belongs in the redstone DAG or the
+      game-event subsystem *before* adding an enum constant (avoid a wrong-subsystem commit). Record the
+      decision in a comment or PROJECT_STATUS.md; only add the type if redstone is the right home.
+
+**B. Prove the guard actually works (unblocks all runtime verification — do before B/C annotation sweeps)**
+- [ ] B1. Unit-drive the RW-guard end to end in `nebula-guard-api`: run a task whose declared RWSet
+      deliberately omits one access, assert `RWSetConsistencyChecker` flags exactly that violation with
+      the right `AccessTarget`. Confirms components A/B/C are wired together before trusting them live.
+- [ ] ⚡ B2. Wire `RWGuardTaskRunner` into the live redstone executor behind `-Dnebula.rw.guard=true`
+      (low sample rate), deploy, toggle a lever→wire→lamp line, and confirm the tracer records real NMS
+      block accesses with **zero** violations against the (known-complete) redstone RW-sets. This is the
+      first time the Achilles'-heel protection runs against real Folia — patch-001's core promise. If it
+      reports violations on *correct* redstone sets, the tracer itself is wrong; fix that first.
+- [ ] ⚡ B3. Deliberately break one redstone RWSet (drop a neighbour read), re-run B2, confirm the guard
+      catches it live and `RWGuardReportWriter` emits an actionable report (coords + stack + declared set).
+      Revert the break in the same cycle. This proves the guard has real detection power, not just a
+      green no-op path.
+
+**C. Extend & verify coverage subsystem by subsystem (each ⚡ needs the guard from B live)**
+- [ ] ⚡ C1. Wire the **entity** DAG (`EntityTaskFactory` MOVE/COLLISION) into the live tick path for
+      entity-dirty regions — the DG2 analogue of the first redstone DAG tick. First live entity DAG tick
+      is the milestone; zero-diff comes after.
+- [ ] ⚡ C2. Run the guard against live entity movement; reconcile every violation into `EntityTaskFactory`
+      RW-sets until a moving-mob workload traces clean. Use `AnnotationCoverageDashboard.report(...)` to
+      record entity coverage as annotated/total once the hotspot method list is known.
+- [ ] ⚡ C3. Same loop for **block-entity** (`BlockEntityTaskFactory`: hopper/dispenser/dropper item moves)
+      — SERIALIZED inventory transfers are the highest corruption risk if an RW-set is incomplete.
+- [ ] ⚡ C4. Same loop for **fluid** (`FluidTaskFactory`) and **explosion** (`ExplosionTaskFactory`) once
+      C1–C3 hold; these fan out widely so verify at small scale first.
+- [ ] C5. Populate `AnnotationCoverageDashboard` from a real per-subsystem hotspot inventory (not
+      hand-typed numbers) and surface it via a `/nebula coverage` command, so "coverage %" becomes a
+      measured signal instead of a doc claim. Targets patch-002's decay goal (<5%/yr).
+
+**Not in scope until the above lands:** AI/pathfinding (ch.7) and light (ch.10) RW-sets — those
+subsystems are essentially unbuilt; annotating them is premature before the guard-verified loop exists.
+
+**Definition of done for B8:** every live-wired subsystem traces clean under the RW-guard on a
+representative workload, a factory-vs-template drift test guards redstone, and the coverage dashboard
+reports measured (not asserted) per-subsystem ratios. "~250 functions" is the whitepaper's DG3 finish
+line; the honest interim goal is **every subsystem that runs live is guard-verified complete.**
 
 ---
 
