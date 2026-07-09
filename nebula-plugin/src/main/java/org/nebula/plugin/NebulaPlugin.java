@@ -212,6 +212,11 @@ public final class NebulaPlugin extends JavaPlugin {
     // one-line RW-GUARD summary per invocation.
     private RedstoneRwGuardHook rwGuardHook;
 
+    // B8 C3: live RW-guard bridge, installed on the block-entity runner only when
+    // -Dnebula.rw.guard=true. Null when the guard is off (the default). When present,
+    // executeOwnedBlockEntityDag logs a one-line RW-GUARD summary per invocation.
+    private BlockEntityRwGuardHook blockEntityRwGuardHook;
+
     // World scanner
     private WorldRedstoneScanner worldScanner;
 
@@ -363,6 +368,28 @@ public final class NebulaPlugin extends JavaPlugin {
         // the entity path armed its region-threaded read before its write-back.
         blockEntityRunner = org.nebula.entity.BlockEntityTaskRunner.withSnapshotResolver(
             blockEntityState, blockEntitySnapshots::get);
+        if (rwGuardEnabled) {
+            // Same opt-in flag as the redstone guard: install the block-entity tracer
+            // (BlockEntityAccessTracer → ThreadLocalAccessTrace) AND the per-task hook
+            // that checks each task's real slot/timer accesses against its declared
+            // RW-set. This is C3's definition-of-done seam — the now-correct declared
+            // sets become guard-VERIFIED once a live hopper/furnace tick traces clean.
+            RWGuardConfig blockEntityGuardConfig = new RWGuardConfig(
+                true,
+                rwGuardSamplingRate(),
+                RWGuardMode.WARN,
+                getDataFolder().toPath().resolve("rw-violations.jsonl"),
+                200, false
+            );
+            blockEntityRwGuardHook = new BlockEntityRwGuardHook(blockEntityGuardConfig);
+            blockEntityRunner = org.nebula.entity.BlockEntityTaskRunner.withSnapshotResolver(
+                blockEntityState, blockEntitySnapshots::get,
+                BlockEntityRwGuardTracer.INSTANCE, blockEntityRwGuardHook);
+            LOG.info("RW-GUARD ENABLED for block-entity DAG (WARN mode, sampling="
+                + blockEntityGuardConfig.samplingRate() + ") — hopper/furnace field accesses "
+                + "will be checked against declared RW-sets; violations → "
+                + blockEntityGuardConfig.violationLog());
+        }
         blockEntityTickExecutor = new org.nebula.entity.BlockEntityTickExecutor(blockEntityRunner);
 
         // Create composite runner for unified redstone + entity DAG.
@@ -877,6 +904,16 @@ public final class NebulaPlugin extends JavaPlugin {
                 + "counts, not a phantom-empty container. NMS write-back "
                 + (writeBack ? "ARMED, applied to " + applied + " tile(s)"
                    : "OFF (observe-only; -Dnebula.blockentity.writeback=true to arm)"));
+        }
+
+        // B8 C3: when the RW-guard is armed, log a one-line summary per invocation so the
+        // clean-vs-violation verdict is readable straight off server-run.log (mirrors the
+        // redstone guard's summary in executeOwnedDag). A "traced N, violations 0" line is
+        // the honest proof the guard actually saw the block-entity actions' field accesses.
+        if (blockEntityRwGuardHook != null) {
+            LOG.info("RW-GUARD (block-entity): tracedTasks=" + blockEntityRwGuardHook.tracedTasks()
+                + " violations=" + blockEntityRwGuardHook.violationCount()
+                + (blockEntityRwGuardHook.violationCount() == 0 ? " (clean)" : " (SEE rw-violations.jsonl)"));
         }
     }
 

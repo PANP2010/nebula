@@ -77,10 +77,30 @@ public final class BlockEntityTaskRunner implements LayerCommitting {
      */
     public static BlockEntityTaskRunner withSnapshotResolver(
             BlockEntityState state, Function<String, BlockEntitySnapshot> snapshotById) {
+        return withSnapshotResolver(state, snapshotById, null, null);
+    }
+
+    /**
+     * Guard-aware variant of {@link #withSnapshotResolver(BlockEntityState, Function)}:
+     * builds the same canonical {@code taskId → snapshot → action} resolver but also
+     * installs the RW-guard seams so a live guard bridge can verify each task's actual
+     * field accesses against its declared {@code RWSet}. Keeping BOTH factories on the
+     * same resolver composition is deliberate — a diverging copy of the snapshot lookup
+     * would be the silent-mismatch wound (B3) this subsystem keeps re-learning.
+     *
+     * @param tracer    per-access hook feeding the guard's thread-local trace (installed
+     *                  on each task's {@link BlockEntityContext}); null → untraced
+     * @param guardHook per-task bracket the guard resets/snapshots the trace around;
+     *                  null → the runner brackets nothing
+     */
+    public static BlockEntityTaskRunner withSnapshotResolver(
+            BlockEntityState state, Function<String, BlockEntitySnapshot> snapshotById,
+            BlockEntityAccessTracer tracer, BlockEntityTaskGuardHook guardHook) {
         Function<String, BlockEntitySnapshot> lookup =
             snapshotById != null ? snapshotById : id -> null;
         return new BlockEntityTaskRunner(state,
-            taskId -> BlockEntityActionResolver.resolve(lookup.apply(taskId)));
+            taskId -> BlockEntityActionResolver.resolve(lookup.apply(taskId)),
+            tracer, guardHook);
     }
 
     @Override
