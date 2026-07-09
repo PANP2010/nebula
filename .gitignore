@@ -23,3 +23,7 @@ bench-results/
 test world/
 测试存档，超大范围铁路系统/
 ralph-logs/
+# Private local automation tooling — must never be committed:
+ralph.sh
+ralph_prompt.txt
+ralph-runner.log
