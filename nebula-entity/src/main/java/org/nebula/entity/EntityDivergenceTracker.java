@@ -43,18 +43,22 @@ import java.util.Optional;
  * "entity physics matches vanilla."
  *
  * <h3>Observability of a silent run (live cadence finding, 2026-07-09)</h3>
- * When wired live, the entity DAG drains on the plugin's begin/end phase alternation,
- * so {@code Server.getCurrentTick()} advances by <b>2</b> between consecutive entity
- * DAG ticks for the same entity — every pair is non-contiguous and yields zero
- * frame-for-frame samples. That is the correct, honest behaviour (the guard must not
- * be loosened; {@code EntityMoveAction} forecasts one tick ahead, not two), but a
- * tracker that only counted samples would then be indistinguishable from one that
- * never ran. So {@link #observationCount()}, {@link #nonContiguousSkips()} and
- * {@link #lastGap()} are exposed and folded into {@link #summary()}: a live heartbeat
- * of {@code obs=N samples=0 nonContiguousSkips=N lastGap=2} positively evidences that
- * the signal is live and pinpoints the cadence as the reason for zero samples — the
- * thing a future cycle must fix (a per-entity monotonic frame counter, or draining
- * every game tick) before the drift number means anything.
+ * The drain cadence is what makes frame-for-frame pairing possible or not, and this is
+ * a live-verified subtlety worth stating. {@code EntityMoveAction} forecasts exactly
+ * <b>one game tick</b> of gravity/drag ahead, so the tracker samples only when
+ * consecutive observations for an entity are one game tick apart ({@link #lastGap()}==1).
+ * An earlier driver alternated begin/end (running the entity DAG every OTHER game tick),
+ * so {@code Server.getCurrentTick()} jumped by <b>2</b> between passes and every pair was
+ * non-contiguous — zero samples, correctly. That was NOT to be fixed by loosening the
+ * guard (a 1-tick forecast diffed against a 2-tick-later reality is a spurious
+ * "divergence"); it was fixed by draining the entity hook <em>every</em> game tick so one
+ * DAG pass == one game tick and the {@code gap==1} guard yields honest samples.
+ * Regardless, {@link #observationCount()}, {@link #nonContiguousSkips()} and
+ * {@link #lastGap()} are exposed and folded into {@link #summary()}: a heartbeat of
+ * {@code obs=N samples=M nonContiguousSkips=K lastGap=G} positively evidences the signal
+ * is live and, if samples stay 0, pinpoints the cadence as the reason — a tracker that
+ * only counted samples would be indistinguishable from one that never ran (the exact
+ * documentation-drift trap this project exists to avoid).
  *
  * <p>Pure and single-threaded: one instance is driven from a region thread's
  * {@code executeOwnedEntityDag}; it holds no NMS or Folia references and is fully

@@ -138,10 +138,10 @@ class EntityDivergenceTrackerTest {
 
     @Test
     void nonContiguousSkipsAreCountedNotSilentlyDropped() {
-        // The live drain cadence advances the tick by 2 per entity DAG tick (begin/end
-        // alternation), so a naive game-tick key produces gap=2 pairs that never sample.
-        // A silent tracker would then read as "never ran" — indistinguishable from a
-        // dead pipeline. nonContiguousSkips must make that observable.
+        // A tick gap > 1 (an entity that stood still for a tick so EntityMoveEvent
+        // didn't fire, or left the region and returned) is not a frame-for-frame pair.
+        // A silent tracker would drop it and read as "never ran" — indistinguishable
+        // from a dead pipeline. nonContiguousSkips must make that observable.
         EntityDivergenceTracker tracker = new EntityDivergenceTracker();
         tracker.record(1L, 10L, new Vec3(0, 100, 0), new Vec3(0, 99.92, 0)); // first sighting
         Optional<EntityDivergenceTracker.Sample> s =

@@ -503,21 +503,26 @@ public final class NebulaPlugin extends JavaPlugin {
             }
         });
 
-        // Lifecycle driver: alternate begin/end on the global tick, mirroring the
-        // redstone driver. endTick drains each world's moved-entity bucket.
-        java.util.concurrent.atomic.AtomicBoolean entityPhase =
-            new java.util.concurrent.atomic.AtomicBoolean(false);
+        // Lifecycle driver: begin AND drain every game tick (not the redstone driver's
+        // begin/end alternation). Why the entity path must NOT alternate:
+        // EntityMoveAction forecasts exactly ONE game tick of gravity/drag ahead, but an
+        // alternating driver runs the DAG only every OTHER game tick — so between two
+        // consecutive entity-DAG passes for the same entity, TWO real ticks of Folia
+        // physics elapse and getCurrentTick() jumps by 2. The divergence tracker's
+        // contiguity guard (gap==1) then correctly rejects every pair (samples=0), and
+        // pairing them anyway would diff a 1-tick forecast against a 2-tick reality — a
+        // spurious drift, the dishonest fix the C1 pointer warned against. Draining every
+        // tick makes one DAG pass == one game tick, so getCurrentTick() advances by 1 and
+        // the guard yields HONEST frame-for-frame samples. This is safe because the DG3
+        // fix already made beginTick a no-op on the accumulator (endTick is the sole
+        // drain-and-remove consumer): calling begin then end in the same tick no longer
+        // wipes in-flight moves — beginTick here only reaps stale endTickInProgress guards.
         server.getGlobalRegionScheduler().runAtFixedRate(this, task -> {
             if (!EntityTickHook.isActive()) return;
-            boolean isBeginPhase = entityPhase.get();
-            if (isBeginPhase) {
-                EntityTickHook.beginTick("nebula-global");
-            } else {
-                for (World w : server.getWorlds()) {
-                    EntityTickHook.endTick("nebula-global", w.getName());
-                }
+            EntityTickHook.beginTick("nebula-global");
+            for (World w : server.getWorlds()) {
+                EntityTickHook.endTick("nebula-global", w.getName());
             }
-            entityPhase.set(!isBeginPhase);
         }, 1, 1);
 
         // Seed source: every non-player LivingEntity move fires EntityMoveEvent on its
@@ -535,7 +540,8 @@ public final class NebulaPlugin extends JavaPlugin {
 
         EntityTickHook.setActive(true);
         LOG.info("EntityTickHook lifecycle driver + EntityMoveEvent seed registered "
-            + "(alternating begin/end on the global tick; per-entity DAG dispatched to "
+            + "(begin+drain every game tick so a DAG pass == one game tick, keeping the "
+            + "divergence tracker's frame-for-frame guard honest; per-entity DAG dispatched to "
             + "owning region threads; NMS write-back "
             + (entityWriteBackEnabled() ? "ARMED (-Dnebula.entity.writeback=true)"
                                         : "OFF — observe-only") + ")");
