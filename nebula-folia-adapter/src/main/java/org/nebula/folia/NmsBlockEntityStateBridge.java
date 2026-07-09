@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
+import org.bukkit.block.Container;
 import org.bukkit.block.Furnace;
 import org.bukkit.block.Hopper;
 import org.bukkit.block.TileState;
@@ -82,6 +83,43 @@ public final class NmsBlockEntityStateBridge {
             syncFurnaceFromNms(pos, furnace);
         }
         // Unknown tile entity types are silently skipped
+    }
+
+    /**
+     * Reads ONLY the inventory slot counts of any {@link Container} tile entity at
+     * {@code pos} into the CAS store — the read a hopper's transfer math needs of its
+     * <em>neighbours</em>, not its own cooldown/timers.
+     *
+     * <p>Why a distinct entry point and not {@link #syncFromNms}: a hopper's above/output
+     * neighbour is frequently a plain chest/barrel, which is neither a {@link Hopper} nor
+     * a {@link Furnace}, so {@code syncFromNms} silently skips it — leaving the transfer
+     * action reading a phantom-empty neighbour (the exact silent no-op the block-entity
+     * subsystem keeps re-learning). {@link Container} is the common Bukkit supertype of
+     * hopper/furnace/chest/dropper/dispenser (all expose {@code getInventory()}), so this
+     * reads the slot counts uniformly regardless of the neighbour's concrete type. It
+     * deliberately does NOT touch cooldown/timer fields — those belong to the neighbour's
+     * own {@code syncFromNms} when it is itself a ticking task, and clobbering them here
+     * would corrupt a neighbour hopper's cooldown.
+     *
+     * <p>Must be called on the region thread that owns {@code pos}. A non-container block
+     * (e.g. air above a bottom hopper) is a clean no-op.
+     */
+    public void syncInventoryFromNms(World world, WorldPos pos) {
+        Objects.requireNonNull(world, "world");
+        Objects.requireNonNull(pos, "pos");
+
+        Block block = world.getBlockAt(pos.x(), pos.y(), pos.z());
+        BlockState state = block.getState();
+
+        if (state instanceof Container container) {
+            Inventory inv = container.getInventory();
+            for (int slot = 0; slot < inv.getSize(); slot++) {
+                ItemStack item = inv.getItem(slot);
+                int amount = item == null || item.getType() == Material.AIR ? 0 : item.getAmount();
+                casCommitField(pos, slotPath(slot), amount);
+            }
+        }
+        // Non-container blocks (air, solid) are silently skipped.
     }
 
     private void syncHopperFromNms(WorldPos pos, Hopper hopper) {

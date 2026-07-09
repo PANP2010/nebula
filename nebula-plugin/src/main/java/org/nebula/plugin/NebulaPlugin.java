@@ -169,6 +169,14 @@ public final class NebulaPlugin extends JavaPlugin {
     private final java.util.concurrent.atomic.AtomicBoolean firstBlockEntityDagTickLogged =
         new java.util.concurrent.atomic.AtomicBoolean(false);
 
+    // B8 C3: fired once when the block-entity DAG first moves a real item count between
+    // a hopper self-slot and a region-owned neighbour (above/output) in the CAS store —
+    // the honest "a full transfer's item math actually ran" signal, distinct from the
+    // "first tick ran" milestone above. Logged as one INFO line so server-run.log shows
+    // the slot delta without needing an off-region NMS read (which NPEs on Folia).
+    private final java.util.concurrent.atomic.AtomicBoolean firstBlockEntityTransferLogged =
+        new java.util.concurrent.atomic.AtomicBoolean(false);
+
     // B8 C3: taskId → the snapshot that seeded it. A block-entity taskId
     // (TYPE@dim:x,y,z) drops the hopper's facing/slot count, which
     // BlockEntityActionResolver needs, so the runner (dispatched to region threads)
@@ -758,13 +766,15 @@ public final class NebulaPlugin extends JavaPlugin {
      *       model — see that flag's javadoc).</li>
      * </ol>
      *
-     * <p><b>Scope of the region-thread read.</b> Only {@code self} is synced, not the
-     * hopper's above/output neighbours. The neighbours may be owned by a different
-     * region thread, so reading them here would risk the very cross-region NMS access
-     * this dispatch exists to avoid; and this bring-up's honest claim is "the real
-     * action runs region-threaded against live self state", not "a full multi-container
-     * transfer mirrors Folia". Neighbour sync (and the deduplicated multi-position read
-     * a real transfer needs) is the next slice.
+     * <p><b>Scope of the region-thread read.</b> {@code self} is always synced. The
+     * hopper's above/output neighbours are synced too, but each is <em>region-gated</em>
+     * ({@link #syncNeighbourIfOwned}): a neighbour is read only when the current region
+     * owns it, so a neighbour in another region is skipped rather than read cross-region
+     * (which would NPE / race on Folia). {@code abovePos} shares self's (x,z) column and
+     * is therefore always same-region; {@code outputPos} can point into an adjacent region
+     * and is the one that may be skipped — making a region-straddling transfer an honest
+     * partial, not a faked full mirror. Write-back stays OFF (see
+     * {@link #blockEntityWriteBackEnabled()}).
      */
     private void executeOwnedBlockEntityDag(World world, String worldName,
                                             java.util.List<TaskNode> ownedTasks)
@@ -774,6 +784,8 @@ public final class NebulaPlugin extends JavaPlugin {
         final boolean writeBack = blockEntityWriteBackEnabled();
         int layers = 0;
         int applied = 0;
+        int neighboursSynced = 0;
+        int neighboursSkippedCrossRegion = 0;
         for (TaskNode task : ownedTasks) {
             WorldPos self = POSITION_OF.apply(task);
             if (self == null) {
@@ -787,12 +799,65 @@ public final class NebulaPlugin extends JavaPlugin {
             // action has real numbers to work on.
             blockEntityBridge.syncFromNms(world, self);
 
+            // Sync the hopper's NEIGHBOURS (above=pull source, output=push target) so the
+            // transfer action reads real neighbour item counts instead of a phantom-empty
+            // container. WITHOUT a cross-region NMS read: a neighbour may be owned by a
+            // different region thread, and reading it here would NPE / race. So each
+            // neighbour is region-gated — synced only if the CURRENT region owns it, else
+            // left to Folia (honest partial). abovePos shares self's (x,z) column, so it is
+            // always same-region; outputPos can point into an adjacent region and is the one
+            // that may be skipped.
+            org.nebula.entity.BlockEntitySnapshot snap = blockEntitySnapshots.get(task.taskId());
+            WorldPos above = null, output = null;
+            if (snap != null && snap.type() == org.nebula.entity.BlockEntityTaskType.HOPPER) {
+                above = syncNeighbourIfOwned(world, snap.abovePos());
+                if (above != null) neighboursSynced++;
+                else neighboursSkippedCrossRegion++;
+                output = syncNeighbourIfOwned(world, snap.outputPos());
+                if (output != null) neighboursSynced++;
+                else neighboursSkippedCrossRegion++;
+            }
+
+            // Capture pre-tick CAS slot state so a real item move is observable in
+            // server-run.log without an off-region NMS read (block reads NPE on Folia).
+            final int selfBefore = (snap != null) ? sumSlots(self, snap.slotCount()) : 0;
+            final int aboveBefore = (above != null) ? slot0(above) : 0;
+            final int outputBefore = (output != null) ? slot0(output) : 0;
+
             try {
                 layers = blockEntityTickExecutor.executeTick(java.util.List.of(task));
             } catch (Exception e) {
                 LOG.warning(() -> "block-entity DAG tick failed for " + task.taskId()
                     + " in " + worldName + ": " + e.getMessage());
                 continue;
+            }
+
+            // Did a real item count actually move? Compare post-tick CAS to the pre-tick
+            // snapshot. A nonzero delta on self or a synced neighbour is the honest proof
+            // the transfer math ran against live counts. NOTE: because Nebula is
+            // observe-only, Folia usually settles the hopper (arms its 8-tick cooldown)
+            // before this shadow's syncFromNms reads it, so on a real toggle this line
+            // often does NOT fire on the first tick — the same settled-state ordering the
+            // redstone/entity paths hit. It fires when the shadow reads a hopper mid-cycle
+            // (cooldown 0, items present).
+            if (snap != null && firstBlockEntityTransferLogged.get() == false) {
+                int selfAfter = sumSlots(self, snap.slotCount());
+                int aboveAfter = (above != null) ? slot0(above) : 0;
+                int outputAfter = (output != null) ? slot0(output) : 0;
+                if (selfAfter != selfBefore || aboveAfter != aboveBefore
+                        || outputAfter != outputBefore) {
+                    if (firstBlockEntityTransferLogged.compareAndSet(false, true)) {
+                        LOG.info("⚡ FIRST block-entity item transfer in CAS: hopper " + self
+                            + " self-slots " + selfBefore + "→" + selfAfter
+                            + ", above(" + (above != null ? above : "cross-region/absent")
+                            + ") slot0 " + aboveBefore + "→" + aboveAfter
+                            + ", output(" + (output != null ? output : "cross-region/absent")
+                            + ") slot0 " + outputBefore + "→" + outputAfter
+                            + " on thread '" + Thread.currentThread().getName()
+                            + "' — the transfer math ran against LIVE neighbour counts, "
+                            + "region-gated (no cross-region NMS read). Write-back still OFF.");
+                    }
+                }
             }
 
             if (writeBack) {
@@ -806,10 +871,45 @@ public final class NebulaPlugin extends JavaPlugin {
                 + " ticking block-entity task(s), " + layers + " layer(s) in " + worldName
                 + " on thread '" + Thread.currentThread().getName() + "' — the tile read + "
                 + "real hopper/furnace action now run on the OWNING region thread "
-                + "(region-thread NMS tile read is legal here). NMS write-back "
+                + "(region-thread NMS tile read is legal here). Neighbours synced this tick: "
+                + neighboursSynced + " (region-owned), " + neighboursSkippedCrossRegion
+                + " skipped cross-region — the transfer action now reads LIVE neighbour "
+                + "counts, not a phantom-empty container. NMS write-back "
                 + (writeBack ? "ARMED, applied to " + applied + " tile(s)"
                    : "OFF (observe-only; -Dnebula.blockentity.writeback=true to arm)"));
         }
+    }
+
+    /**
+     * Syncs a hopper neighbour's inventory slot counts into CAS <em>only if the current
+     * region owns it</em>, returning the position when synced or {@code null} when the
+     * neighbour lives in another region (skipped to avoid a cross-region NMS read that
+     * would NPE / race on Folia). This is the honest gate the neighbour-sync slice needs:
+     * a full transfer whose output crosses a region boundary is graded partial, not faked.
+     */
+    private WorldPos syncNeighbourIfOwned(World world, WorldPos neighbour) {
+        if (neighbour == null) return null;
+        if (!getServer().isOwnedByCurrentRegion(world, neighbour.x(), neighbour.z())) {
+            return null;
+        }
+        blockEntityBridge.syncInventoryFromNms(world, neighbour);
+        return neighbour;
+    }
+
+    /** Sum of CAS item counts across a container's declared slots (transfer observability). */
+    private int sumSlots(WorldPos pos, int slotCount) {
+        int sum = 0;
+        for (int s = 0; s < slotCount; s++) {
+            sum += blockEntityState.get(new org.nebula.core.state.BlockEntityField(
+                pos, "inventory.slots[" + s + "]"));
+        }
+        return sum;
+    }
+
+    /** CAS item count in slot 0 — the slot the hopper action pulls-from-above / pushes-to-output. */
+    private int slot0(WorldPos pos) {
+        return blockEntityState.get(new org.nebula.core.state.BlockEntityField(
+            pos, "inventory.slots[0]"));
     }
 
     /**

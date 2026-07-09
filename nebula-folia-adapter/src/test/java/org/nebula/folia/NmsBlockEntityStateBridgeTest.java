@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
+import org.bukkit.block.Container;
 import org.bukkit.block.Furnace;
 import org.bukkit.block.Hopper;
 import org.bukkit.inventory.FurnaceInventory;
@@ -272,5 +273,94 @@ class NmsBlockEntityStateBridgeTest {
         // A stale key from before the fix must NOT be where the value went.
         assertEquals(0, casStore.get(new BlockEntityField(p, "transferCooldown")),
             "nothing should be written under the old camelCase key");
+    }
+
+    /**
+     * A plain Container stub (e.g. a chest) with {@code size} empty slots. We cannot
+     * construct a real non-empty {@link ItemStack} in a unit test (its static init needs
+     * a live Bukkit registry — the same limitation is why no existing test reads a
+     * non-zero amount either), so slots return null. The discriminating signal this stub
+     * proves is that a Container's slots are <em>iterated</em> at all — which
+     * {@link NmsBlockEntityStateBridge#syncFromNms} does NOT do for a non-Hopper/Furnace.
+     */
+    private static Container containerStub(int size) {
+        Inventory inv = (Inventory) Proxy.newProxyInstance(
+            Inventory.class.getClassLoader(), new Class<?>[]{Inventory.class},
+            (p, m, a) -> {
+                if (m.getName().equals("getSize")) return size;
+                if (m.getName().equals("getItem")) return null; // empty slots
+                return def(m);
+            });
+        return (Container) Proxy.newProxyInstance(
+            Container.class.getClassLoader(), new Class<?>[]{Container.class},
+            (p, m, a) -> {
+                if (m.getName().equals("getInventory")) return inv;
+                return def(m);
+            });
+    }
+
+    /**
+     * The neighbour-sync read the hopper transfer slice needs: a plain chest neighbour
+     * (a {@link Container} but NOT a Hopper/Furnace) must have its slots iterated into
+     * CAS. {@link NmsBlockEntityStateBridge#syncFromNms} silently skips such a block (the
+     * phantom-empty-neighbour bug), so {@code syncInventoryFromNms} exists to read it.
+     * Proven by the entry count: syncFromNms writes 0 entries for the chest, while
+     * syncInventoryFromNms writes one per slot.
+     */
+    @Test
+    void syncInventoryFromNms_iteratesContainerSlots_whereSyncFromNmsSkips() {
+        WorldPos p = pos(30);
+        Container chest = containerStub(27);
+        Block block = blockWithState(chest);
+        World world = worldFor(p, block);
+
+        // syncFromNms treats the chest as a non-tile-entity → nothing written.
+        bridge.syncFromNms(world, p);
+        assertEquals(0, casStore.size(), "syncFromNms must skip a plain container");
+
+        // syncInventoryFromNms iterates its slots → one CAS entry per slot.
+        bridge.syncInventoryFromNms(world, p);
+        assertEquals(27, casStore.size(), "every container slot must be read into CAS");
+        assertEquals(0, casStore.get(new BlockEntityField(p, "inventory.slots[0]")),
+            "slot 0 must land at the canonical path the hopper action reads");
+        assertEquals(0, casStore.get(new BlockEntityField(p, "inventory.slots[26]")),
+            "last slot must be read too");
+    }
+
+    /**
+     * {@code syncInventoryFromNms} must read ONLY slots, never the neighbour's own
+     * cooldown/timer fields — clobbering a neighbour hopper's transfer_cooldown here
+     * would corrupt its own ticking state.
+     */
+    @Test
+    void syncInventoryFromNms_doesNotTouchCooldownOrTimers() {
+        WorldPos p = pos(31);
+        Container chest = containerStub(27);
+        Block block = blockWithState(chest);
+        World world = worldFor(p, block);
+
+        bridge.syncInventoryFromNms(world, p);
+
+        assertTrue(casStore.fields().stream()
+                .noneMatch(f -> f.fieldPath().value().equals("transfer_cooldown")),
+            "neighbour inventory sync must not write a cooldown");
+        assertTrue(casStore.fields().stream()
+                .noneMatch(f -> f.fieldPath().value().equals("fuel_time")),
+            "neighbour inventory sync must not write furnace timers");
+    }
+
+    /** A non-container neighbour (air above a bottom hopper) is a clean no-op, not an NPE. */
+    @Test
+    void syncInventoryFromNms_ignoresNonContainer() {
+        WorldPos p = pos(32);
+        BlockState genericState = (BlockState) Proxy.newProxyInstance(
+            BlockState.class.getClassLoader(), new Class<?>[]{BlockState.class},
+            (p2, m, a) -> def(m));
+        Block block = blockWithState(genericState);
+        World world = worldFor(p, block);
+
+        bridge.syncInventoryFromNms(world, p);
+
+        assertEquals(0, casStore.size(), "non-container neighbour writes nothing");
     }
 }
