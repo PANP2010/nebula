@@ -405,4 +405,47 @@ class NmsBlockEntityStateBridgeTest {
             "a non-container block reads -1, never a fabricated 0");
         assertEquals(0, casStore.size(), "the read-only sampler must never write CAS");
     }
+
+    /**
+     * The read-only furnace-timer sampler ({@code readNmsFurnaceTimers}) reads Folia's
+     * authoritative burn/cook/total timers WITHOUT touching CAS — the {@code folia=} value
+     * a timer-divergence grade compares against Nebula's shadow. Committing into CAS
+     * instead (via {@code syncFromNms}) would overwrite the shadow timers and make
+     * {@code nebula == folia} by construction (the divergence tautology). It maps the
+     * Bukkit API names onto the canonical model names exactly as {@code syncFurnaceFromNms}
+     * does: burnTime→fuel_time, cookTime→cook_progress, cookTimeTotal→cook_total.
+     */
+    @Test
+    void readNmsFurnaceTimers_readsTimersInModelUnitsWithoutTouchingCas() {
+        WorldPos p = pos(50);
+        Furnace furnace = furnaceStub((short)120, (short)66, 200);
+        Block block = blockWithState(furnace);
+        World world = worldFor(p, block);
+
+        NmsBlockEntityStateBridge.FurnaceTimerSample sample = bridge.readNmsFurnaceTimers(world, p);
+
+        assertEquals(120, sample.fuelTime(), "burnTime maps to fuel_time");
+        assertEquals(66, sample.cookProgress(), "cookTime maps to cook_progress");
+        assertEquals(200, sample.cookTotal(), "cookTimeTotal maps to cook_total");
+        assertEquals(0, casStore.size(), "the read-only sampler must never write CAS");
+    }
+
+    /**
+     * A non-furnace block (a hopper, a chest, air, a solid) sampled for a furnace-timer
+     * snapshot returns {@code null} — the sentinel a grader reads as "not a furnace",
+     * distinct from a furnace whose timers happen to be zero. A hopper is the sharp case:
+     * it is a tile entity {@code syncFromNms} DOES handle, so this proves the sampler
+     * discriminates on {@link Furnace}, not merely on "is a tile entity".
+     */
+    @Test
+    void readNmsFurnaceTimers_returnsNullForNonFurnace() {
+        WorldPos p = pos(51);
+        Hopper hopper = hopperStub(4);
+        Block block = blockWithState(hopper);
+        World world = worldFor(p, block);
+
+        assertEquals(null, bridge.readNmsFurnaceTimers(world, p),
+            "a non-furnace tile (hopper) reads null, never fabricated timers");
+        assertEquals(0, casStore.size(), "the read-only sampler must never write CAS");
+    }
 }

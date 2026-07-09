@@ -168,6 +168,63 @@ public final class NmsBlockEntityStateBridge {
         return sum;
     }
 
+    /**
+     * A read-only snapshot of a furnace's three authoritative timers, in the canonical
+     * model units the furnace action computes on: {@code fuelTime} (remaining burn ticks,
+     * Bukkit {@code getBurnTime()} ↔ model {@code "fuel_time"}), {@code cookProgress}
+     * (Bukkit {@code getCookTime()} ↔ model {@code "cook_progress"}) and {@code cookTotal}
+     * (Bukkit {@code getCookTimeTotal()} ↔ model {@code "cook_total"}).
+     *
+     * <p>The value {@link #readNmsFurnaceTimers} returns for Folia's authoritative furnace,
+     * to be compared against the DAG's independently-computed CAS timers WITHOUT writing
+     * either side — see that method for why a read-only sampler (not {@code syncFromNms})
+     * is the honest surface for a timer-divergence grade.
+     */
+    public record FurnaceTimerSample(int fuelTime, int cookProgress, int cookTotal) {}
+
+    /**
+     * Reads a furnace's three authoritative timers at {@code pos} <em>without touching the
+     * CAS store</em>, returning them under the canonical model names, or {@code null} if
+     * the block is not a {@link Furnace} (air, solid, a hopper, a non-tile block).
+     *
+     * <p>This is the timer twin of {@link #readNmsInventoryCount}: the read-only settled
+     * sampler a {@code BE-SETTLED}-style grade needs to compare Folia's authoritative
+     * furnace {@code fuel_time}/{@code cook_progress} against the DAG's independently
+     * computed CAS timers. Going through {@link #syncFromNms} instead would commit Folia's
+     * timers <em>into</em> CAS, overwriting the shadow value and making {@code
+     * nebula == folia} by construction — the settled-state divergence tautology the
+     * inventory sampler was carved out of {@code syncFromNms} to avoid.
+     *
+     * <p><b>Why this must exist before furnace-timer write-back is armed.</b> Nebula is
+     * observe-only on the block-entity path: Folia advances the furnace's timers
+     * authoritatively every game tick, and the DAG re-derives them in CAS from a fresh
+     * {@code syncFromNms} read. Arming {@link #syncFurnaceToNms} to push the DAG's
+     * {@code cook_progress + 1} back onto the live tile would race Folia's own advance and
+     * risk over-advancing the timer (a divergence, not convergence) — exactly the trap the
+     * entity path avoided by measuring drift with {@code EntityDivergenceTracker} and
+     * proving it ≈0 <em>before</em> arming the narrow vertical mirror. This sampler is that
+     * measurement instrument for furnace timers: it lets a later cycle grade the live
+     * timer gap first, so any write-back arm rests on evidence, not assumption.
+     *
+     * <p>Must be called on the region thread that owns {@code pos} (Folia block reads NPE
+     * off the owning region thread).
+     */
+    public FurnaceTimerSample readNmsFurnaceTimers(World world, WorldPos pos) {
+        Objects.requireNonNull(world, "world");
+        Objects.requireNonNull(pos, "pos");
+
+        Block block = world.getBlockAt(pos.x(), pos.y(), pos.z());
+        BlockState state = block.getState();
+
+        if (!(state instanceof Furnace furnace)) {
+            return null;
+        }
+        // Map the Bukkit API names onto the canonical model names, exactly as
+        // syncFurnaceFromNms does — but return them instead of committing to CAS.
+        return new FurnaceTimerSample(
+            furnace.getBurnTime(), furnace.getCookTime(), furnace.getCookTimeTotal());
+    }
+
     private void syncHopperFromNms(WorldPos pos, Hopper hopper) {
         // Transfer cooldown — canonical model field name (matches BlockEntityActions.hopper).
         casCommitField(pos, "transfer_cooldown", hopper.getTransferCooldown());
