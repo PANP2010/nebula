@@ -19,9 +19,12 @@ import org.nebula.folia.NmsBlockEntityStateBridge;
 import org.nebula.folia.NmsBlockStateBridge;
 import org.nebula.folia.NmsEntityStateBridge;
 import org.nebula.folia.RedstoneCasStateHasher;
+import org.nebula.folia.bridge.EntityTickHook;
 import org.nebula.folia.bridge.FoliaCaptureHarness;
 import org.nebula.folia.bridge.NebulaFoliaBootstrap;
 import org.nebula.folia.bridge.RedstoneTickHook;
+import org.nebula.entity.EntitySnapshot;
+import org.nebula.entity.EntityTaskFactory;
 import org.nebula.guard.RWGuardConfig;
 import org.nebula.guard.RWGuardMode;
 import org.nebula.redstone.MicroStepScheduler;
@@ -116,6 +119,13 @@ public final class NebulaPlugin extends JavaPlugin {
     // Entity physics DAG
     private EntityTickExecutor entityTickExecutor;
     private EntityTaskRunner entityRunner;
+
+    // B8 C1 ⚡ live: latches false→true the first time a real moving entity drives
+    // an entity DAG tick, so the bring-up milestone lands as ONE explicit INFO line
+    // in server-run.log rather than being lost in per-tick FINE noise. Mirrors the
+    // redstone bring-up's "first DAG tick" evidence.
+    private final java.util.concurrent.atomic.AtomicBoolean firstEntityDagTickLogged =
+        new java.util.concurrent.atomic.AtomicBoolean(false);
 
     // Composite DAG runner (redstone + entity)
     private CompositeTaskRunner compositeRunner;
@@ -379,10 +389,88 @@ public final class NebulaPlugin extends JavaPlugin {
                 tickPhase.set(!isBeginPhase);
             }, 1, 1);
             LOG.info("RedstoneTickHook lifecycle driver registered (global tick, alternating begin/end)");
+
+            wireEntityTickHook(server);
         }
         // Temporary diagnostic: register Bukkit event listener
         getServer().getPluginManager().registerEvents(new RedstoneEventListener(), this);
         LOG.info("[Nebula] Registered RedstoneEventListener for diagnostics");
+    }
+
+    /**
+     * B8 C1 ⚡ live: wires the {@link EntityTickHook} accumulator + resolver + executor
+     * into the live Folia tick and starts feeding it real moved entities.
+     *
+     * <h3>OBSERVE mode (why no NMS write-back yet)</h3>
+     * This is the entity analogue of the redstone bring-up, and — exactly like that
+     * bring-up — it runs the DAG in OBSERVE mode: the executor runs the real
+     * {@link EntityMoveAction} physics against the thread-safe {@link EntityPhysicsState}
+     * CAS store, but does NOT teleport the entity via {@link NmsEntityStateBridge}.
+     * Writing computed positions back would fight vanilla movement and needs the
+     * per-entity region-thread dispatch (the {@link FoliaRegionTickExecutor} analogue
+     * for entities). The milestone here is the FIRST live entity DAG tick from a real
+     * moving mob; zero-diff write-back is the next slice.
+     *
+     * <h3>Thread-safety</h3>
+     * The executor runs on the global tick thread (where {@code endTick} drains). That
+     * is safe here because it touches ONLY the CAS store and the pure DAG — no Bukkit
+     * entity reads/writes, which would require the owning region thread. The
+     * {@link EntityMoveEvent} listener that seeds moves runs on the entity's own region
+     * thread, and {@link EntityTickHook#recordMove} is a concurrent-safe enqueue.
+     */
+    private void wireEntityTickHook(Server server) {
+        // Resolver: a moved-entity snapshot → an ENTITY_MOVE TaskNode. The runner
+        // re-resolves the action from the stamped taskId via resolveEntityAction, so
+        // an inert node carries the correct id/coords and the executor runs real physics.
+        EntityTickHook.setResolver((worldName, snapshot) -> EntityTaskFactory.moveInert(snapshot));
+
+        // Executor: run the drained moved-entity tasks through the entity DAG (CAS only).
+        EntityTickHook.setExecutor((regionId, worldName, dirtyTasks) -> {
+            try {
+                int microsteps = entityTickExecutor.executeTick(dirtyTasks);
+                if (firstEntityDagTickLogged.compareAndSet(false, true)) {
+                    LOG.info("⚡ FIRST live entity DAG tick: " + dirtyTasks.size()
+                        + " moved-entity task(s), " + microsteps + " layer(s) in " + worldName
+                        + " — the entity DAG is now live (OBSERVE mode, no NMS write-back yet)");
+                }
+            } catch (Exception e) {
+                LOG.warning(() -> "Entity DAG tick failed in " + worldName + ": " + e.getMessage());
+            }
+        });
+
+        // Lifecycle driver: alternate begin/end on the global tick, mirroring the
+        // redstone driver. endTick drains each world's moved-entity bucket.
+        java.util.concurrent.atomic.AtomicBoolean entityPhase =
+            new java.util.concurrent.atomic.AtomicBoolean(false);
+        server.getGlobalRegionScheduler().runAtFixedRate(this, task -> {
+            if (!EntityTickHook.isActive()) return;
+            boolean isBeginPhase = entityPhase.get();
+            if (isBeginPhase) {
+                EntityTickHook.beginTick("nebula-global");
+            } else {
+                for (World w : server.getWorlds()) {
+                    EntityTickHook.endTick("nebula-global", w.getName());
+                }
+            }
+            entityPhase.set(!isBeginPhase);
+        }, 1, 1);
+
+        // Seed source: every non-player LivingEntity move fires EntityMoveEvent on its
+        // owning region thread. Record the block-truncated destination into the hook.
+        server.getPluginManager().registerEvents(new org.bukkit.event.Listener() {
+            @org.bukkit.event.EventHandler(ignoreCancelled = true)
+            public void onEntityMove(io.papermc.paper.event.entity.EntityMoveEvent event) {
+                if (!EntityTickHook.isActive()) return;
+                org.bukkit.entity.Entity e = event.getEntity();
+                org.bukkit.Location to = event.getTo();
+                EntityTickHook.recordMove("nebula-global", e.getWorld().getName(),
+                    e.getEntityId(), to.getBlockX(), to.getBlockY(), to.getBlockZ());
+            }
+        }, this);
+
+        EntityTickHook.setActive(true);
+        LOG.info("EntityTickHook lifecycle driver + EntityMoveEvent seed registered "
+            + "(global tick, alternating begin/end; OBSERVE mode)");
     }
 
     /**
@@ -811,6 +899,7 @@ public final class NebulaPlugin extends JavaPlugin {
         if (bootstrap != null) {
             bootstrap.deactivate();
         }
+        EntityTickHook.setActive(false);
         LOG.info("Nebula plugin disabled");
     }
 
