@@ -67,7 +67,7 @@
 #         scripts/divergence-grade.sh --settled [circuits] [--seed <n>] [--period <n>] \
 #            [--warmup <ticks>] [--max-diverge <rate>] [--keep-running]
 #         scripts/divergence-grade.sh --be-settled [--hoppers <n>] [--feeds <n>] \
-#            [--max-diverge <rate>] [--keep-running]
+#            [--max-diverge <rate>] [--fault <offset>] [--keep-running]
 #   ticks       driven ticks to capture (default 400 — start small, per the Next: pointer)
 #   circuits    lever-headed circuits to place (default 1; default 4 in --settled mode)
 #   --settled   run the DG3 settled-state acceptance gate (see SETTLED MODE above)
@@ -76,6 +76,10 @@
 #               DISTINCT region thread (--be-settled; default 1). >1 exercises the emit's
 #               concurrent region fan-in (CopyOnWriteArrayList + AtomicInteger)
 #   --feeds     item stacks summoned to feed EACH hopper (--be-settled; default 6)
+#   --fault     (--be-settled) gate-TEETH test: offset every emitted nebula= count by this
+#               integer so the shadow diverges from Folia BY CONSTRUCTION. The run PASSES
+#               (exit 0) only if the grader correctly returns FAIL; a wrongly-PASSed
+#               divergent run exits 3 (a toothless gate). Default 0 (honest measurement)
 #   --seed      driver seed (default 42)
 #   --period    per-source flip period in ticks (default 8)
 #   --converge  leading invocations to skip as the cold-CAS transient (default 8)
@@ -87,6 +91,8 @@
 # Env overrides: RCON_PORT (25576), RCON_PW (nebulatest), SERVER_DIR,
 #   CAP_TIMEOUT_S (per-run wait cap; default ticks/20 * 3 + 120s).
 # Exit code: mirrors the grader CLI — 0 PASS, 3 FAIL, 4 INCONCLUSIVE, 2 usage/IO.
+#   EXCEPTION: --be-settled --fault <offset> inverts the block-entity grade (0 iff the
+#   grader FAILed as it must on an injected divergence; 3 if the gate wrongly PASSed).
 set -uo pipefail
 
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -114,7 +120,7 @@ BE_SETTLED_GRADER_CLASS="org.nebula.replay.BlockEntitySettledGraderCli"
 TICKS=""; CIRCUITS=""
 SEED=42; PERIOD=8; CONVERGE=8; MAX_DIRTY=0.05; KEEP_RUNNING=0
 SETTLED=0; WARMUP=200; MAX_DIVERGE=0.0
-BE_SETTLED=0; FEEDS=6; HOPPERS=1
+BE_SETTLED=0; FEEDS=6; HOPPERS=1; FAULT=0
 args=("$@"); _i=1; _pos=0; _POS=()
 while [ "$_i" -le "$#" ]; do
     a="${args[$((_i-1))]}"
@@ -123,6 +129,7 @@ while [ "$_i" -le "$#" ]; do
         --be-settled) BE_SETTLED=1 ;;
         --feeds)     _i=$((_i+1)); FEEDS="${args[$((_i-1))]:-}" ;;
         --hoppers)   _i=$((_i+1)); HOPPERS="${args[$((_i-1))]:-}" ;;
+        --fault)     _i=$((_i+1)); FAULT="${args[$((_i-1))]:-}" ;;
         --seed)      _i=$((_i+1)); SEED="${args[$((_i-1))]:-}" ;;
         --period)    _i=$((_i+1)); PERIOD="${args[$((_i-1))]:-}" ;;
         --converge)  _i=$((_i+1)); CONVERGE="${args[$((_i-1))]:-}" ;;
@@ -300,7 +307,13 @@ if [ "$BE_SETTLED" -eq 1 ]; then
 
     echo "Emitting /nebula be-settled over the tracked block entities..."
     BE_MARK="$(wc -l < "$SERVER_LOG" 2>/dev/null || echo 0)"
-    R "nebula be-settled" | strip
+    if [ "$FAULT" -ne 0 ]; then
+        echo "  FAULT INJECTION: offsetting every nebula= count by $FAULT — this is a"
+        echo "  gate-TEETH test; the grader MUST return FAIL for this run to PASS."
+        R "nebula be-settled fault $FAULT" | strip
+    else
+        R "nebula be-settled" | strip
+    fi
     be_ok=0
     for _ in $(seq 1 60); do
         sleep 1
@@ -326,10 +339,26 @@ if [ "$BE_SETTLED" -eq 1 ]; then
     GRADE_OUT="$("$JAVA21/bin/java" -cp "$GRADER_CP" "$BE_SETTLED_GRADER_CLASS" "$BE_SLICE" "$MAX_DIVERGE" 2>&1)"
     grade_code=$?
 
+    # In FAULT mode this is a gate-TEETH test: the injected nebula!=folia divergence
+    # MUST be graded FAIL (grader exit 3). Invert the exit so the harness returns 0
+    # (teeth proven) only when the grader actually FAILed, and returns 3 if the gate
+    # wrongly PASSed a divergent run (a toothless gate — the real failure here).
+    result_code="$grade_code"
+    if [ "$FAULT" -ne 0 ]; then
+        if [ "$grade_code" -eq 3 ]; then
+            echo "TEETH PROVEN: injected divergence was correctly graded FAIL."
+            result_code=0
+        else
+            echo "TEETH TEST FAILED: injected divergence did NOT grade FAIL (grader exit"
+            echo "  $grade_code) — the gate is toothless and would miss a real divergence."
+            result_code=3
+        fi
+    fi
+
     {
         echo "=== Nebula B8 C3 BLOCK-ENTITY SETTLED-state acceptance grade ==="
         echo "Date:      $(date)"
-        echo "Mode:      --be-settled (hopper→chest at quiescence)"
+        echo "Mode:      --be-settled (hopper→chest at quiescence)$( [ "$FAULT" -ne 0 ] && echo " [FAULT=$FAULT gate-teeth test]" )"
         echo "Workload:  $HOPPERS hopper[facing=down]-over-chest pair(s) spaced ${REGION_STRIDE} apart, fed $FEEDS x count:32 each"
         echo "Settle:    ${SETTLE_S}s after the last feed"
         echo "BE-SETTLED lines graded: $BE_COUNT  (raw slice: $BE_SLICE)"
@@ -339,7 +368,7 @@ if [ "$BE_SETTLED" -eq 1 ]; then
 
     teardown
     echo "Result written to: $RESULT_FILE"
-    exit "$grade_code"
+    exit "$result_code"
 fi
 
 # ============================================================================

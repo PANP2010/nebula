@@ -1547,9 +1547,39 @@ public final class NebulaPlugin extends JavaPlugin {
      * @return the number of tracked block-entity positions whose snapshot was dispatched
      */
     public int emitBlockEntitySettledSnapshot() {
+        return emitBlockEntitySettledSnapshot(0);
+    }
+
+    /**
+     * As {@link #emitBlockEntitySettledSnapshot()}, but adds {@code faultOffset} to every
+     * emitted {@code nebula=} count. This is a <strong>test-only fault injector</strong>
+     * that proves the settled-state gate has TEETH: with a nonzero offset the shadow count
+     * diverges from Folia's authoritative count <em>by construction</em>, so the whole live
+     * pipeline (region fan-in → {@link BlockEntitySettledFormatter} → log →
+     * {@code divergence-grade.sh} slice → {@link
+     * org.nebula.replay.BlockEntitySettledGraderCli}) must turn that into a graded FAIL
+     * with a nonzero exit. A gate that has only ever gone PASS is an unproven gate; this
+     * is the block-entity twin of the redstone gate's "do not raise --max-diverge to paper
+     * over a real FAIL" discipline.
+     *
+     * <p>When {@code faultOffset != 0} a loud WARNING is logged so a reader of
+     * {@code server-run.log} can never mistake the injected divergence for a real one —
+     * the perturbed {@code nebula=} value is NOT the shadow's true CAS count.
+     *
+     * @param faultOffset a count added to each position's {@code nebula=} value; 0 is the
+     *                    honest production path (no perturbation)
+     * @return the number of tracked block-entity positions whose snapshot was dispatched
+     */
+    public int emitBlockEntitySettledSnapshot(int faultOffset) {
         if (blockEntityBridge == null || blockEntityState == null) {
             LOG.warning("BE-SETTLED requested but block-entity bridge is not wired (non-Folia?)");
             return 0;
+        }
+        if (faultOffset != 0) {
+            LOG.warning("BE-SETTLED: FAULT INJECTION ACTIVE — offsetting every nebula= count by "
+                + faultOffset + ". This is a gate-teeth test; the emitted nebula= values are "
+                + "DELIBERATELY divergent and are NOT the shadow's true CAS counts. A correct "
+                + "gate MUST grade this run FAIL.");
         }
         // Dedup the ticking block entities by position (many taskIds can map to the same
         // hopper across ticks); keep each position's type + slotCount for the sample.
@@ -1585,7 +1615,7 @@ public final class NebulaPlugin extends JavaPlugin {
             for (org.nebula.entity.BlockEntitySnapshot snap : here) {
                 final WorldPos pos = snap.pos();
                 regionScheduler.execute(this, fw, pos.x() >> 4, pos.z() >> 4, () -> {
-                    int nebula = sumSlots(pos, snap.slotCount());
+                    int nebula = sumSlots(pos, snap.slotCount()) + faultOffset;
                     int folia = blockEntityBridge.readNmsInventoryCount(fw, pos);
                     samples.add(new BlockEntitySettledGrader.BlockEntitySample(
                         pos, snap.type().name(), nebula, folia));

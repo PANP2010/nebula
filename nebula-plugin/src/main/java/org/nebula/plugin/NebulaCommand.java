@@ -45,7 +45,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
             case "perf" -> handlePerf(sender, args);
             case "diag" -> handleDiag(sender, args);
             case "settled" -> handleSettled(sender);
-            case "be-settled" -> handleBlockEntitySettled(sender);
+            case "be-settled" -> handleBlockEntitySettled(sender, args);
             case "help" -> sendHelp(sender);
             default -> sender.sendMessage("§cUnknown subcommand: " + sub);
         }
@@ -330,18 +330,39 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
      * transfer (summon an item over a hopper), let it settle (watch for the item feed
      * stopping and the hopper's self-slots stabilising), THEN run this so the snapshot
      * captures the resting inventory count, not a mid-cooldown sample.
+     *
+     * <p>Optional test-only argument {@code fault <offset>}: perturbs every emitted
+     * {@code nebula=} count by {@code <offset>} so the shadow diverges from Folia by
+     * construction. This is how the gate's TEETH are proven live — a nonzero offset must
+     * drive {@code BlockEntitySettledGraderCli} to a graded FAIL. Omit it (the default,
+     * offset 0) for an honest measurement.
      */
-    private void handleBlockEntitySettled(CommandSender sender) {
+    private void handleBlockEntitySettled(CommandSender sender, String[] args) {
         if (!sender.hasPermission("nebula.status")) {
             sender.sendMessage("§cYou don't have permission to use this command.");
             return;
         }
-        int dispatched = plugin.emitBlockEntitySettledSnapshot();
+        int faultOffset = 0;
+        for (int i = 1; i < args.length - 1; i++) {
+            if (args[i].equalsIgnoreCase("fault")) {
+                try {
+                    faultOffset = Integer.parseInt(args[i + 1]);
+                } catch (NumberFormatException e) {
+                    sender.sendMessage("§cUsage: /nebula be-settled [fault <offset>] — offset must be an integer");
+                    return;
+                }
+            }
+        }
+        int dispatched = plugin.emitBlockEntitySettledSnapshot(faultOffset);
+        if (faultOffset != 0) {
+            sender.sendMessage("§6FAULT INJECTION: nebula= counts offset by " + faultOffset
+                + " — this run is a gate-teeth test and MUST grade FAIL.");
+        }
         sender.sendMessage("§aBE-SETTLED snapshot dispatched for " + dispatched
             + " tracked block-entity position(s). Read the BE-SETTLED line(s) in "
             + "server-run.log, then grade with BlockEntitySettledGraderCli.");
         LOG.info("Block-entity settled snapshot requested by " + sender.getName()
-            + " (" + dispatched + " positions dispatched)");
+            + " (" + dispatched + " positions dispatched, faultOffset=" + faultOffset + ")");
     }
 
     private void sendHelp(CommandSender sender) {
@@ -373,6 +394,13 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
         }
         if (args.length == 2 && args[0].equalsIgnoreCase("diag")) {
             return Arrays.asList("on", "off");
+        }
+        if (args.length == 2 && args[0].equalsIgnoreCase("be-settled")) {
+            return List.of("fault");
+        }
+        if (args.length == 3 && args[0].equalsIgnoreCase("be-settled")
+                && args[1].equalsIgnoreCase("fault")) {
+            return Arrays.asList("1", "-1", "64");
         }
         if (args.length == 3 && args[0].equalsIgnoreCase("capture") && args[1].equalsIgnoreCase("start")) {
             return Arrays.asList("100", "1000", "5000", "10000");
