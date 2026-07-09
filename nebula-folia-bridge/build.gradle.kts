@@ -18,6 +18,7 @@ val foliaRuntime = rootProject.layout.projectDirectory.dir("libs/folia-runtime")
 dependencies {
     api(project(":nebula-core"))
     api(project(":nebula-guard-api"))
+    api(project(":nebula-entity"))  // EntitySnapshot for the entity tick hook (B8 C1)
     implementation(project(":nebula-agent"))
     implementation(project(":nebula-replay"))  // For capture harness
     compileOnly(files(foliaApi))
