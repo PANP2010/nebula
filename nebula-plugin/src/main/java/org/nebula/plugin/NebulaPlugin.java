@@ -809,6 +809,14 @@ public final class NebulaPlugin extends JavaPlugin {
         if (ownedTasks.isEmpty()) return;
 
         final boolean writeBack = blockEntityWriteBackEnabled();
+        // Reuse the same opt-in probe flag as the redstone CASCADE-DIAG (/nebula diag on).
+        // When on, each block-entity task emits a BE-CAS-DIAG line with the hopper's live
+        // CAS cooldown + self/neighbour slot counts BEFORE→AFTER the tick. Sampling this
+        // across consecutive ticks is how you catch a mid-cycle transfer: Folia arms the
+        // hopper's 8-tick cooldown before the observe-only shadow reads it, so the one-shot
+        // "FIRST transfer" line usually never fires — but the cooldown counting 7→6→…→0 and
+        // then a slot delta on the zero-cooldown tick is directly readable off server-run.log.
+        final boolean diag = cascadeDiag;
         int layers = 0;
         int applied = 0;
         int neighboursSynced = 0;
@@ -890,6 +898,28 @@ public final class NebulaPlugin extends JavaPlugin {
             if (writeBack) {
                 blockEntityBridge.syncToNms(world, self);
                 applied++;
+            }
+
+            // BE-CAS-DIAG (opt-in): one line per block-entity task with the live CAS cooldown
+            // and self/neighbour slot deltas this tick. Sampled across consecutive ticks it
+            // catches the mid-cycle transfer the one-shot FIRST-transfer line usually misses:
+            // watch cooldown count down to 0 and a slot count change on that tick. INFO-level
+            // and per-tick, so it is gated behind the same /nebula diag flag as CASCADE-DIAG.
+            if (diag && snap != null) {
+                int cooldown = blockEntityState.get(new org.nebula.core.state.BlockEntityField(
+                    self, "transfer_cooldown"));
+                int selfAfter = sumSlots(self, snap.slotCount());
+                int aboveAfter = (above != null) ? slot0(above) : 0;
+                int outputAfter = (output != null) ? slot0(output) : 0;
+                LOG.info("BE-CAS-DIAG: " + snap.type() + " " + self
+                    + " cooldown=" + cooldown
+                    + " self-slots " + selfBefore + "→" + selfAfter
+                    + " above(" + (above != null ? above : "cross-region/absent")
+                    + ") slot0 " + aboveBefore + "→" + aboveAfter
+                    + " output(" + (output != null ? output : "cross-region/absent")
+                    + ") slot0 " + outputBefore + "→" + outputAfter
+                    + (selfAfter != selfBefore || aboveAfter != aboveBefore
+                        || outputAfter != outputBefore ? " [MOVED]" : " [no-change]"));
             }
         }
 

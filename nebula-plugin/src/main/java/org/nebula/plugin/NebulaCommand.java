@@ -259,12 +259,15 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
     }
 
     /**
-     * DG1 Criterion 2 caveat probe. Toggles a per-invocation cascade diagnostic in
-     * {@code executeOwnedDag} that logs, for each DAG tick, the seed-task count and
-     * whether each seed position was already "settled" by Folia before the shadow
-     * ran (CAS power == synced NMS power). Read the resulting {@code CASCADE-DIAG:}
-     * lines in server-run.log to explain live "max microsteps = 1" with evidence.
-     * INFO-level and per-tick, so leave it OFF during perf measurement.
+     * DG1 Criterion 2 caveat probe (redstone) + B8 C3 transfer probe (block-entity).
+     * Toggles a per-invocation cascade diagnostic. On the redstone path
+     * ({@code executeOwnedDag}) it logs each DAG tick's seed-task count and whether each
+     * seed was already "settled" by Folia before the shadow ran (CAS power == synced NMS
+     * power) as {@code CASCADE-DIAG:} lines. On the block-entity path
+     * ({@code executeOwnedBlockEntityDag}) it logs each hopper/furnace task's live CAS
+     * cooldown + self/neighbour slot deltas as {@code BE-CAS-DIAG:} lines — sample these
+     * across consecutive ticks to catch a mid-cycle item transfer. Read both in
+     * server-run.log. INFO-level and per-tick, so leave it OFF during perf measurement.
      */
     private void handleDiag(CommandSender sender, String[] args) {
         if (!sender.hasPermission("nebula.status")) {
@@ -281,8 +284,9 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
         switch (action) {
             case "on" -> {
                 plugin.setCascadeDiag(true);
-                sender.sendMessage("§aCascade diagnostic ON — toggle redstone, then read "
-                    + "CASCADE-DIAG lines in server-run.log. Turn OFF before /nebula perf.");
+                sender.sendMessage("§aCascade diagnostic ON — toggle redstone (CASCADE-DIAG) or "
+                    + "run a hopper (BE-CAS-DIAG), then read the lines in server-run.log. "
+                    + "Turn OFF before /nebula perf.");
                 LOG.info("Cascade diagnostic enabled by " + sender.getName());
             }
             case "off" -> {
