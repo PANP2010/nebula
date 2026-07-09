@@ -35,6 +35,21 @@ import java.util.logging.Logger;
  * matching the fidelity level described in the arch doc §3.3 — sufficient for
  * deterministic transfer/smelt logic without holding live {@code ItemStack}
  * references.
+ *
+ * <p><b>Field-path naming is canonical, not ad-hoc.</b> The bridge reads/writes
+ * the SAME {@link BlockEntityField} paths the pure action math uses, so a synced
+ * NMS value feeds the DAG and a DAG mutation flows back to NMS:
+ * <ul>
+ *   <li>slots → {@code "inventory.slots[N]"} (see {@link #slotPath}), matching
+ *       {@link org.nebula.entity.BlockEntityContext#readSlot};</li>
+ *   <li>hopper cooldown → {@code "transfer_cooldown"} (matches
+ *       {@code BlockEntityActions.hopper});</li>
+ *   <li>furnace: Bukkit's {@code burnTime} (remaining fuel ticks) ↔ {@code "fuel_time"},
+ *       {@code cookTime} (progress) ↔ {@code "cook_progress"}, {@code cookTimeTotal} ↔
+ *       {@code "cook_total"} (matches {@code BlockEntityActions.furnace}).</li>
+ * </ul>
+ * Diverging from these names silently severs the bridge from the DAG — the exact
+ * key-mismatch failure mode (B3) the project was built to catch.
  */
 public final class NmsBlockEntityStateBridge {
 
@@ -70,30 +85,34 @@ public final class NmsBlockEntityStateBridge {
     }
 
     private void syncHopperFromNms(WorldPos pos, Hopper hopper) {
-        // Transfer cooldown
-        casCommitField(pos, "transferCooldown", hopper.getTransferCooldown());
+        // Transfer cooldown — canonical model field name (matches BlockEntityActions.hopper).
+        casCommitField(pos, "transfer_cooldown", hopper.getTransferCooldown());
 
         // Inventory slots (5 slots for a hopper)
         Inventory inv = hopper.getInventory();
         for (int slot = 0; slot < inv.getSize(); slot++) {
             ItemStack item = inv.getItem(slot);
             int amount = item == null || item.getType() == Material.AIR ? 0 : item.getAmount();
-            casCommitField(pos, "slot_" + slot, amount);
+            casCommitField(pos, slotPath(slot), amount);
         }
     }
 
     private void syncFurnaceFromNms(WorldPos pos, Furnace furnace) {
-        // Timers
-        casCommitField(pos, "burnTime", furnace.getBurnTime());
-        casCommitField(pos, "cookTime", furnace.getCookTime());
-        casCommitField(pos, "cookTimeTotal", furnace.getCookTimeTotal());
+        // Timers — map the Bukkit API names onto the canonical model field names the
+        // furnace action reads: getBurnTime()==remaining fuel ticks == "fuel_time";
+        // getCookTime()==progress counting up to total == "cook_progress". cook_total
+        // is a constant in the model (BlockEntityActions.COOK_TOTAL), not read from CAS,
+        // so it round-trips through the bridge under its own name harmlessly.
+        casCommitField(pos, "fuel_time", furnace.getBurnTime());
+        casCommitField(pos, "cook_progress", furnace.getCookTime());
+        casCommitField(pos, "cook_total", furnace.getCookTimeTotal());
 
         // Inventory slots (3 slots: input=0, fuel=1, result=2)
         Inventory inv = furnace.getInventory();
         for (int slot = 0; slot < inv.getSize(); slot++) {
             ItemStack item = inv.getItem(slot);
             int amount = item == null || item.getType() == Material.AIR ? 0 : item.getAmount();
-            casCommitField(pos, "slot_" + slot, amount);
+            casCommitField(pos, slotPath(slot), amount);
         }
     }
 
@@ -120,14 +139,14 @@ public final class NmsBlockEntityStateBridge {
     }
 
     private void syncHopperToNms(WorldPos pos, Hopper hopper) {
-        // Transfer cooldown
-        int cooldown = casStore.get(new BlockEntityField(pos, "transferCooldown"));
+        // Transfer cooldown — canonical model field name (matches the action's write).
+        int cooldown = casStore.get(new BlockEntityField(pos, "transfer_cooldown"));
         hopper.setTransferCooldown(cooldown);
 
         // Inventory slots
         Inventory inv = hopper.getInventory();
         for (int slot = 0; slot < inv.getSize(); slot++) {
-            int amount = casStore.get(new BlockEntityField(pos, "slot_" + slot));
+            int amount = casStore.get(new BlockEntityField(pos, slotPath(slot)));
             setSlotAmount(inv, slot, amount);
         }
 
@@ -135,16 +154,16 @@ public final class NmsBlockEntityStateBridge {
     }
 
     private void syncFurnaceToNms(WorldPos pos, Furnace furnace, World world) {
-        // Timers
-        furnace.setBurnTime((short) casStore.get(new BlockEntityField(pos, "burnTime")));
-        furnace.setCookTime((short) casStore.get(new BlockEntityField(pos, "cookTime")));
-        furnace.setCookTimeTotal(casStore.get(new BlockEntityField(pos, "cookTimeTotal")));
+        // Timers — read back under the canonical model names the furnace action writes.
+        furnace.setBurnTime((short) casStore.get(new BlockEntityField(pos, "fuel_time")));
+        furnace.setCookTime((short) casStore.get(new BlockEntityField(pos, "cook_progress")));
+        furnace.setCookTimeTotal(casStore.get(new BlockEntityField(pos, "cook_total")));
 
         // Inventory slots — skip write for empty slots (material type unknown)
         // Only resize existing items
         Inventory inv = furnace.getInventory();
         for (int slot = 0; slot < inv.getSize(); slot++) {
-            int amount = casStore.get(new BlockEntityField(pos, "slot_" + slot));
+            int amount = casStore.get(new BlockEntityField(pos, slotPath(slot)));
             setSlotAmount(inv, slot, amount);
         }
 
@@ -152,6 +171,18 @@ public final class NmsBlockEntityStateBridge {
     }
 
     // ── Helpers ─────────────────────────────────────────────────────────────────
+
+    /**
+     * Canonical inventory-slot field path — must match {@link org.nebula.entity.BlockEntityContext#readSlot}
+     * / {@code writeSlot}, which key slots as {@code "inventory.slots[N]"}. The bridge
+     * and the pure action math read/write the SAME {@link BlockEntityField}, so a hopper
+     * action's slot mutation is visible to {@code syncToNms} and vice-versa. Diverging
+     * here (the old {@code "slot_N"}) would silently sever the bridge from the DAG — the
+     * key-mismatch bug class that severed the redstone path before B3.
+     */
+    private static String slotPath(int slot) {
+        return "inventory.slots[" + slot + "]";
+    }
 
     private void casCommitField(WorldPos pos, String fieldPath, int value) {
         BlockEntityField field = new BlockEntityField(pos, fieldPath);

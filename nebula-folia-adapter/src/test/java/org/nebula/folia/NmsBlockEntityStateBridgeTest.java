@@ -134,10 +134,10 @@ class NmsBlockEntityStateBridgeTest {
 
         bridge.syncFromNms(world, p);
 
-        assertEquals(8, casStore.get(new BlockEntityField(p, "transferCooldown")));
+        assertEquals(8, casStore.get(new BlockEntityField(p, "transfer_cooldown")));
         // Slots are empty (null items) → 0 in CAS
-        assertEquals(0, casStore.get(new BlockEntityField(p, "slot_0")));
-        assertEquals(0, casStore.get(new BlockEntityField(p, "slot_2")));
+        assertEquals(0, casStore.get(new BlockEntityField(p, "inventory.slots[0]")));
+        assertEquals(0, casStore.get(new BlockEntityField(p, "inventory.slots[2]")));
     }
 
     @Test
@@ -149,17 +149,19 @@ class NmsBlockEntityStateBridgeTest {
 
         bridge.syncFromNms(world, p);
 
-        assertEquals(100, casStore.get(new BlockEntityField(p, "burnTime")));
-        assertEquals(50, casStore.get(new BlockEntityField(p, "cookTime")));
-        assertEquals(200, casStore.get(new BlockEntityField(p, "cookTimeTotal")));
+        // Bukkit burnTime (remaining fuel) maps to the model's fuel_time; cookTime
+        // (progress) maps to cook_progress; cookTimeTotal to cook_total.
+        assertEquals(100, casStore.get(new BlockEntityField(p, "fuel_time")));
+        assertEquals(50, casStore.get(new BlockEntityField(p, "cook_progress")));
+        assertEquals(200, casStore.get(new BlockEntityField(p, "cook_total")));
         // Slots are empty → 0 in CAS
-        assertEquals(0, casStore.get(new BlockEntityField(p, "slot_0")));
+        assertEquals(0, casStore.get(new BlockEntityField(p, "inventory.slots[0]")));
     }
 
     @Test
     void syncHopperToNms_writesCooldownFromCas() {
         WorldPos p = pos(10);
-        casStore.put(new BlockEntityField(p, "transferCooldown"), 12);
+        casStore.put(new BlockEntityField(p, "transfer_cooldown"), 12);
 
         int[] writtenCooldown = {0};
         Hopper hopper = (Hopper) Proxy.newProxyInstance(
@@ -187,9 +189,9 @@ class NmsBlockEntityStateBridgeTest {
     @Test
     void syncFurnaceToNms_writesTimersFromCas() {
         WorldPos p = pos(20);
-        casStore.put(new BlockEntityField(p, "burnTime"), 80);
-        casStore.put(new BlockEntityField(p, "cookTime"), 30);
-        casStore.put(new BlockEntityField(p, "cookTimeTotal"), 200);
+        casStore.put(new BlockEntityField(p, "fuel_time"), 80);
+        casStore.put(new BlockEntityField(p, "cook_progress"), 30);
+        casStore.put(new BlockEntityField(p, "cook_total"), 200);
 
         short[] writtenBurn = {0}, writtenCook = {0};
         Furnace furnace = (Furnace) Proxy.newProxyInstance(
@@ -239,10 +241,36 @@ class NmsBlockEntityStateBridgeTest {
     void roundTrip_hopperCooldownPreserved() {
         WorldPos p = pos(10);
         // Write to CAS
-        casStore.put(new BlockEntityField(p, "transferCooldown"), 5);
+        casStore.put(new BlockEntityField(p, "transfer_cooldown"), 5);
 
         // Read back from CAS
-        int read = casStore.get(new BlockEntityField(p, "transferCooldown"));
+        int read = casStore.get(new BlockEntityField(p, "transfer_cooldown"));
         assertEquals(5, read, "CAS round-trip should preserve value");
+    }
+
+    /**
+     * Regression guard for the field-path key mismatch (the B3-class bug): the bridge
+     * MUST populate the exact {@link BlockEntityField} path the pure action math reads,
+     * or a synced NMS value never reaches the DAG. {@code BlockEntityActions.hopper}
+     * reads its cooldown at {@code "transfer_cooldown"} (see the resolver's own tests in
+     * nebula-entity, which read that literal key); this proves {@code syncFromNms} writes
+     * there — the old {@code "transferCooldown"} would have left the action reading zero
+     * and silently doing nothing.
+     */
+    @Test
+    void syncFromNms_populatesTheCanonicalCooldownPathTheHopperActionReads() {
+        WorldPos p = pos(10);
+        Hopper hopper = hopperStub(3);
+        Block block = blockWithState(hopper);
+        World world = worldFor(p, block);
+
+        bridge.syncFromNms(world, p);
+
+        // The literal key BlockEntityActions.hopper / BlockEntityContext read.
+        assertEquals(3, casStore.get(new BlockEntityField(p, "transfer_cooldown")),
+            "cooldown must land where the hopper action reads it");
+        // A stale key from before the fix must NOT be where the value went.
+        assertEquals(0, casStore.get(new BlockEntityField(p, "transferCooldown")),
+            "nothing should be written under the old camelCase key");
     }
 }
