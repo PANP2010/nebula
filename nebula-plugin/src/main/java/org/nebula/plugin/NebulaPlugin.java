@@ -73,6 +73,36 @@ public final class NebulaPlugin extends JavaPlugin {
             return WorldPos.parse(at >= 0 ? id.substring(at + 1) : id);
         };
 
+    /**
+     * Decodes an entity task's <em>destination</em> {@link WorldPos} — the block the
+     * entity moved into this tick — from a factory-stamped task ID, or {@code null}
+     * if the ID carries no position.
+     *
+     * <p>This is the entity analogue of {@link #POSITION_OF}, and it is deliberately
+     * NOT {@code WorldPos.parse}: the redstone grammar is a 2-token {@code dim:x,y,z}
+     * suffix, whereas an entity {@code ENTITY_MOVE} ID is 3-token
+     * {@code dim:<entityId>:x,y,z} (the entity id sits between the dimension and the
+     * coordinates). Feeding an ENTITY_MOVE suffix to {@code WorldPos.parse} throws a
+     * {@link NumberFormatException} on the {@code "0:42:10"}-style leading token.
+     *
+     * <p>Only {@code ENTITY_MOVE} carries coordinates; the pair-based types
+     * ({@code ENTITY_COLLISION[_RESPONSE]}, {@code ENTITY_ITEM_PICKUP},
+     * {@code ENTITY_DAMAGE}) stamp {@code dim:<idA>,<idB>} with no block, so this
+     * returns {@code null} for them — matching {@link FoliaRegionTickExecutor}'s
+     * contract that a {@code null} position skips region dispatch. The destination
+     * block is the correct dispatch key for write-back: it is the region that will
+     * own the entity after the move, so {@code NmsEntityStateBridge.syncPhysicsToNms}
+     * runs on the owning region thread.
+     */
+    static final Function<TaskNode, WorldPos> ENTITY_POSITION_OF =
+        t -> {
+            String id = t.taskId();
+            int at = id.indexOf('@');
+            if (at < 0) return null;
+            if (!"ENTITY_MOVE".equals(id.substring(0, at))) return null;
+            return parseMovePosition(id.substring(at + 1));
+        };
+
     // CAS state stores
     private RedstoneWorldState redstoneState;
     private EntityPhysicsState entityState;
@@ -1073,6 +1103,31 @@ public final class NebulaPlugin extends JavaPlugin {
             try { return Long.parseLong(parts[1]); } catch (NumberFormatException e) { return 0; }
         }
         return 0;
+    }
+
+    /**
+     * Destination {@link WorldPos} for a MOVE suffix
+     * {@code <dim>:<entityId>:<x>,<y>,<z>} — dimension from the first token, block
+     * coordinates from the comma-separated third token. Returns {@code null} if the
+     * suffix is not the 3-token MOVE grammar (e.g. a malformed or pair-based ID), so
+     * a caller can skip region dispatch rather than crash. Kept tolerant of stray
+     * whitespace but strict about the token count, so a wrong-arity ID never
+     * silently decodes to a bogus position.
+     */
+    private static WorldPos parseMovePosition(String suffix) {
+        String[] parts = suffix.split(":");
+        if (parts.length < 3) return null;
+        try {
+            int dim = Integer.parseInt(parts[0].trim());
+            String[] coords = parts[2].split(",");
+            if (coords.length < 3) return null;
+            int x = Integer.parseInt(coords[0].trim());
+            int y = Integer.parseInt(coords[1].trim());
+            int z = Integer.parseInt(coords[2].trim());
+            return new WorldPos(dim, x, y, z);
+        } catch (NumberFormatException e) {
+            return null;
+        }
     }
 
     /**

@@ -92,6 +92,51 @@ class EntityTaskResolutionTest {
         assertNull(NebulaPlugin.resolveEntityAction("no-at-sign"));
     }
 
+    // ── ENTITY_POSITION_OF: destination decode for region-thread write-back ───
+
+    @Test
+    void entityPositionDecodesDestinationBlockFromFactoryStampedMoveId() {
+        // The 3-token ENTITY_MOVE grammar (dim:entityId:x,y,z) is exactly what the
+        // region executor must decode to dispatch write-back to the owning region —
+        // and it is NOT what the redstone WorldPos.parse (2-token dim:x,y,z) handles.
+        EntitySnapshot e = EntitySnapshot.of(42L, 10, 64, -3, DIM);
+        TaskNode move = EntityTaskFactory.moveInert(e);
+        assertEquals("ENTITY_MOVE@0:42:10,64,-3", move.taskId());
+
+        WorldPos pos = NebulaPlugin.ENTITY_POSITION_OF.apply(move);
+        assertNotNull(pos, "ENTITY_MOVE must decode to its destination block");
+        assertEquals(new WorldPos(DIM, 10, 64, -3), pos);
+    }
+
+    @Test
+    void entityPositionRoundTripsNegativeAndCrossChunkCoords() {
+        // Negative coords (region-boundary math uses x>>4) and a large dim must
+        // survive the decode intact so the chunk key is correct.
+        EntitySnapshot e = EntitySnapshot.of(1000L, -17, 5, 300, 1);
+        WorldPos pos = NebulaPlugin.ENTITY_POSITION_OF.apply(EntityTaskFactory.moveInert(e));
+        assertEquals(new WorldPos(1, -17, 5, 300), pos);
+        // Chunk index the region scheduler would dispatch on.
+        assertEquals(-2, pos.x() >> 4);
+        assertEquals(18, pos.z() >> 4);
+    }
+
+    @Test
+    void entityPositionIsNullForPairTypesAndMalformedIds() {
+        // Pair-based entity tasks carry two ids and NO block, so there is no
+        // position to dispatch on — must be null, not a bogus WorldPos.
+        EntitySnapshot a = EntitySnapshot.of(7L, 0, 64, 0, DIM);
+        EntitySnapshot b = EntitySnapshot.of(9L, 1, 64, 0, DIM);
+        assertNull(NebulaPlugin.ENTITY_POSITION_OF.apply(
+            EntityTaskFactory.collisionInert(a, b)));
+        assertNull(NebulaPlugin.ENTITY_POSITION_OF.apply(
+            EntityTaskFactory.collisionResponseInert(a, b)));
+        // No '@', wrong token count, non-numeric coords → null (skip dispatch), no throw.
+        assertNull(NebulaPlugin.ENTITY_POSITION_OF.apply(
+            new TaskNode("no-at-sign", "ENTITY_MOVE", org.nebula.core.rw.RWSet.empty(), () -> {})));
+        assertNull(NebulaPlugin.ENTITY_POSITION_OF.apply(
+            new TaskNode("ENTITY_MOVE@0:42", "ENTITY_MOVE", org.nebula.core.rw.RWSet.empty(), () -> {})));
+    }
+
     // ── CompositeTaskRunner routing: prefixes must match stamped types ────────
 
     @Test
