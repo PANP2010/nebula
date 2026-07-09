@@ -98,6 +98,25 @@ public final class BlockEntityTaskFactory {
         return dispenser(snapshot, () -> {});
     }
 
+    /**
+     * Dispatches to the correct inert task factory for a snapshot's
+     * {@link BlockEntityTaskType}. This is the snapshot→{@link TaskNode} seam the
+     * block-entity tick hook resolves each dirty position through (B8 C3), the
+     * analogue of {@code EntityTaskFactory.moveInert(...)} for the entity hook.
+     *
+     * @throws NullPointerException if {@code snapshot} or its type is null
+     */
+    public static TaskNode inert(BlockEntitySnapshot snapshot) {
+        Objects.requireNonNull(snapshot, "snapshot");
+        return switch (snapshot.type()) {
+            case HOPPER -> hopperInert(snapshot);
+            case FURNACE -> furnaceInert(snapshot);
+            case BREWING_STAND -> brewingStandInert(snapshot);
+            case DROPPER -> dropperInert(snapshot);
+            case DISPENSER -> dispenserInert(snapshot);
+        };
+    }
+
     // ── RW-set templates ──────────────────────────────────────────────────────
 
     /**
