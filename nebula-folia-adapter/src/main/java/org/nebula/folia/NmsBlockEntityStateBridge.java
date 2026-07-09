@@ -122,6 +122,52 @@ public final class NmsBlockEntityStateBridge {
         // Non-container blocks (air, solid) are silently skipped.
     }
 
+    /**
+     * Reads the summed inventory item count of any {@link Container} tile entity at
+     * {@code pos} <em>without touching the CAS store</em>. Returns the total item
+     * amount across all inventory slots, or {@code -1} if the block is not a container
+     * (air, solid, a non-tile block).
+     *
+     * <p>This is the read-only complement to {@link #syncFromNms} / {@link
+     * #syncInventoryFromNms} — the block-entity twin of {@link
+     * NmsBlockStateBridge#readNmsPower}. It samples Folia's authoritative inventory
+     * count for a {@code BE-SETTLED} snapshot so the caller can compare it against
+     * Nebula's independently-computed CAS count. Going through {@code syncFromNms}
+     * instead would commit Folia's counts <em>into</em> the CAS store, overwriting the
+     * shadow value and making {@code nebula == folia} by construction — the
+     * settled-state divergence tautology (see {@link
+     * org.nebula.replay.BlockEntitySettledGrader}). This method reads and sums only; it
+     * never writes CAS.
+     *
+     * <p>The sum matches the CAS model's quantity exactly: {@link #syncInventoryFromNms}
+     * commits each slot's item {@code amount} under {@code inventory.slots[N]}, so the
+     * summed CAS slots the plugin reports as {@code nebula=} and this summed live count
+     * ({@code folia=}) are the same quantity at quiescence.
+     *
+     * <p>Must be called on the region thread that owns {@code pos} (Folia block reads
+     * NPE off the owning region thread).
+     */
+    public int readNmsInventoryCount(World world, WorldPos pos) {
+        Objects.requireNonNull(world, "world");
+        Objects.requireNonNull(pos, "pos");
+
+        Block block = world.getBlockAt(pos.x(), pos.y(), pos.z());
+        BlockState state = block.getState();
+
+        if (!(state instanceof Container container)) {
+            return -1;
+        }
+        Inventory inv = container.getInventory();
+        int sum = 0;
+        for (int slot = 0; slot < inv.getSize(); slot++) {
+            ItemStack item = inv.getItem(slot);
+            if (item != null && item.getType() != Material.AIR) {
+                sum += item.getAmount();
+            }
+        }
+        return sum;
+    }
+
     private void syncHopperFromNms(WorldPos pos, Hopper hopper) {
         // Transfer cooldown — canonical model field name (matches BlockEntityActions.hopper).
         casCommitField(pos, "transfer_cooldown", hopper.getTransferCooldown());

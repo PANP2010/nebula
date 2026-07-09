@@ -363,4 +363,46 @@ class NmsBlockEntityStateBridgeTest {
 
         assertEquals(0, casStore.size(), "non-container neighbour writes nothing");
     }
+
+    /**
+     * The read-only settled sampler ({@code readNmsInventoryCount}) sums a container's
+     * slot amounts WITHOUT touching CAS — the {@code folia=} value a BE-SETTLED snapshot
+     * compares against Nebula's shadow. Committing into CAS instead would overwrite the
+     * shadow count and make {@code nebula == folia} by construction (the divergence
+     * tautology). We cannot build a non-empty ItemStack in a unit test (registry
+     * limitation — the same reason no other test reads a non-zero amount), so an empty
+     * 27-slot chest sums to 0; the discriminating signals are that it returns a
+     * non-negative count for a container and writes ZERO CAS entries.
+     */
+    @Test
+    void readNmsInventoryCount_sumsContainerSlotsWithoutTouchingCas() {
+        WorldPos p = pos(40);
+        Container chest = containerStub(27);
+        Block block = blockWithState(chest);
+        World world = worldFor(p, block);
+
+        int folia = bridge.readNmsInventoryCount(world, p);
+
+        assertEquals(0, folia, "empty container sums to 0 (not -1)");
+        assertEquals(0, casStore.size(), "the read-only sampler must never write CAS");
+    }
+
+    /**
+     * A non-container block (air, solid, a non-tile block) sampled for a BE-SETTLED
+     * snapshot returns {@code -1} — the sentinel a grader reads as "not a tracked
+     * container", distinct from an empty container's honest 0.
+     */
+    @Test
+    void readNmsInventoryCount_returnsMinusOneForNonContainer() {
+        WorldPos p = pos(41);
+        BlockState genericState = (BlockState) Proxy.newProxyInstance(
+            BlockState.class.getClassLoader(), new Class<?>[]{BlockState.class},
+            (p2, m, a) -> def(m));
+        Block block = blockWithState(genericState);
+        World world = worldFor(p, block);
+
+        assertEquals(-1, bridge.readNmsInventoryCount(world, p),
+            "a non-container block reads -1, never a fabricated 0");
+        assertEquals(0, casStore.size(), "the read-only sampler must never write CAS");
+    }
 }

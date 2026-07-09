@@ -66,15 +66,19 @@
 #            [--converge <n>] [--max-dirty <rate>] [--keep-running]
 #         scripts/divergence-grade.sh --settled [circuits] [--seed <n>] [--period <n>] \
 #            [--warmup <ticks>] [--max-diverge <rate>] [--keep-running]
+#         scripts/divergence-grade.sh --be-settled [--feeds <n>] [--max-diverge <rate>] \
+#            [--keep-running]
 #   ticks       driven ticks to capture (default 400 — start small, per the Next: pointer)
 #   circuits    lever-headed circuits to place (default 1; default 4 in --settled mode)
 #   --settled   run the DG3 settled-state acceptance gate (see SETTLED MODE above)
+#   --be-settled  run the B8 C3 block-entity settled-state gate (hopper→chest quiescence)
+#   --feeds     item stacks summoned to feed the hopper (--be-settled; default 6)
 #   --seed      driver seed (default 42)
 #   --period    per-source flip period in ticks (default 8)
 #   --converge  leading invocations to skip as the cold-CAS transient (default 8)
 #   --max-dirty residual dirty-rate pass threshold in [0,1] (default 0.05; default mode)
 #   --warmup    driven warm-up ticks before settling (--settled mode; default 200, 0 skips)
-#   --max-diverge settled divergence-rate pass threshold in [0,1] (--settled; default 0.0)
+#   --max-diverge settled divergence-rate pass threshold in [0,1] (--settled/--be-settled; default 0.0)
 #   --keep-running  leave the server up at the end (default: stop cleanly)
 #
 # Env overrides: RCON_PORT (25576), RCON_PW (nebulatest), SERVER_DIR,
@@ -97,6 +101,7 @@ BUILD_ROOT="$HOME/.gradle/nebula-server-build/nebula-server"
 GRADER_CP="$BUILD_ROOT/nebula-replay/classes/java/main:$BUILD_ROOT/nebula-core/classes/java/main"
 GRADER_CLASS="org.nebula.replay.FoliaDivergenceGraderCli"
 SETTLED_GRADER_CLASS="org.nebula.replay.SettledDivergenceGraderCli"
+BE_SETTLED_GRADER_CLASS="org.nebula.replay.BlockEntitySettledGraderCli"
 
 # --- Args ---
 # In --settled mode the FIRST positional is CIRCUITS (there is no capture-ticks
@@ -106,11 +111,14 @@ SETTLED_GRADER_CLASS="org.nebula.replay.SettledDivergenceGraderCli"
 TICKS=""; CIRCUITS=""
 SEED=42; PERIOD=8; CONVERGE=8; MAX_DIRTY=0.05; KEEP_RUNNING=0
 SETTLED=0; WARMUP=200; MAX_DIVERGE=0.0
+BE_SETTLED=0; FEEDS=6
 args=("$@"); _i=1; _pos=0; _POS=()
 while [ "$_i" -le "$#" ]; do
     a="${args[$((_i-1))]}"
     case "$a" in
         --settled)   SETTLED=1 ;;
+        --be-settled) BE_SETTLED=1 ;;
+        --feeds)     _i=$((_i+1)); FEEDS="${args[$((_i-1))]:-}" ;;
         --seed)      _i=$((_i+1)); SEED="${args[$((_i-1))]:-}" ;;
         --period)    _i=$((_i+1)); PERIOD="${args[$((_i-1))]:-}" ;;
         --converge)  _i=$((_i+1)); CONVERGE="${args[$((_i-1))]:-}" ;;
@@ -127,6 +135,11 @@ if [ "$SETTLED" -eq 1 ]; then
     # --settled: [circuits] only.
     CIRCUITS="${_POS[0]:-4}"
     TICKS="$WARMUP"
+elif [ "$BE_SETTLED" -eq 1 ]; then
+    # --be-settled: no lever circuits, no capture window — a hopper+chest workload
+    # driven to quiescence, then one BE-SETTLED snapshot. Positional is ignored.
+    CIRCUITS=0
+    TICKS=0
 else
     # default: [ticks] [circuits].
     TICKS="${_POS[0]:-400}"
@@ -175,6 +188,9 @@ else
 fi
 
 # --- Build a lever-headed workload (a real toggle source per region). ---
+# Skipped in --be-settled mode, which drives a hopper+chest block-entity workload
+# (no redstone toggle sources) built in its own arm below.
+if [ "$BE_SETTLED" -ne 1 ]; then
 echo "Placing $CIRCUITS lever-headed redstone circuit(s)..."
 for c in $(seq 0 $((CIRCUITS - 1))); do
     bx=$((c * 512)); bz=0
@@ -208,6 +224,7 @@ if echo "$STATUS_RAW" | grep -qE "Toggle sources.*: 0$"; then
     [ "$KEEP_RUNNING" -eq 0 ] && [ "$started_here" -eq 1 ] && R stop >/dev/null
     exit 4
 fi
+fi
 
 # Clean teardown helper shared by both arms.
 teardown() {
@@ -220,6 +237,92 @@ teardown() {
         done
     fi
 }
+
+# ============================================================================
+# BE-SETTLED MODE (--be-settled) — the block-entity settled-state gate (B8 C3).
+# ============================================================================
+# The block-entity twin of --settled: it drives a hopper→chest transfer to
+# quiescence, then grades ONE /nebula be-settled snapshot comparing each tracked
+# hopper's CAS inventory count (nebula=) against Folia's live count (folia=) with
+# the tested BlockEntitySettledGraderCli (0.0 threshold — at quiescence a correct
+# observe-only shadow must match Folia exactly, having had every intervening tick
+# to catch up; see memory block-entity-dag-live-verified for why per-tick sampling
+# cannot catch a mid-cooldown move).
+#
+#   METHOD (--be-settled):
+#     1. Build hopper[facing=down] over a chest at (0,64/63,0), forceload the chunk.
+#     2. Feed the hopper by summoning item entities just above it (--feeds times);
+#        each fires InventoryMoveItemEvent, seeding the block-entity DAG. RCON has
+#        NO working container-fill command on this Folia build (memory), so summon
+#        is the only way to load a hopper with no players online.
+#     3. Wait for the feed to drain and the hopper's self-slots to stabilise
+#        (quiescence — the item stream has stopped and Folia is no longer moving
+#        items), then /nebula be-settled emits ONE BE-SETTLED line per world.
+#     4. Grade it with BlockEntitySettledGraderCli (exit 0 PASS / 3 FAIL / 4 INCONCLUSIVE).
+#   A FAIL here (nebula!=folia at quiescence) is a GENUINE divergence — do NOT
+#   raise --max-diverge to paper over it.
+if [ "$BE_SETTLED" -eq 1 ]; then
+    SETTLE_S="${SETTLE_S:-6}"
+    HX=0; HY=64; HZ=0   # hopper position; chest sits at HY-1
+
+    echo "Building hopper→chest block-entity workload at ($HX,$HY,$HZ)..."
+    R "forceload add $((HX - 2)) $((HZ - 2)) $((HX + 2)) $((HZ + 2))" >/dev/null
+    R "setblock $HX $((HY - 1)) $HZ minecraft:chest" >/dev/null
+    R "setblock $HX $HY $HZ minecraft:hopper[facing=down]" >/dev/null
+    sleep 2
+
+    echo "Feeding the hopper with $FEEDS item stack(s) (summon above the hopper)..."
+    for _ in $(seq 1 "$FEEDS"); do
+        R "summon item $HX.5 $((HY + 1)).2 $HZ.5 {Item:{id:\"minecraft:cobblestone\",count:32}}" >/dev/null
+        sleep 1
+    done
+
+    echo "Settling for ${SETTLE_S}s (feed stopped; hopper drains to quiescence)..."
+    sleep "$SETTLE_S"
+
+    echo "Emitting /nebula be-settled over the tracked block entities..."
+    BE_MARK="$(wc -l < "$SERVER_LOG" 2>/dev/null || echo 0)"
+    R "nebula be-settled" | strip
+    be_ok=0
+    for _ in $(seq 1 60); do
+        sleep 1
+        if tail -n +"$BE_MARK" "$SERVER_LOG" 2>/dev/null | grep -q "BE-SETTLED:"; then
+            be_ok=1; break
+        fi
+    done
+
+    BE_SLICE="$RESULT_DIR/divergence-$STAMP.beSettledlog"
+    tail -n +"$BE_MARK" "$SERVER_LOG" 2>/dev/null | grep "BE-SETTLED:" > "$BE_SLICE" || true
+    BE_COUNT="$(wc -l < "$BE_SLICE" | tr -d ' ')"
+    echo "Captured $BE_COUNT BE-SETTLED line(s) from this run."
+
+    if [ "$be_ok" -ne 1 ] || [ "$BE_COUNT" -eq 0 ]; then
+        echo "ERROR: no BE-SETTLED line emitted within 60s — the hopper never seeded a"
+        echo "       block-entity task (no InventoryMoveItemEvent fired?), or the plugin"
+        echo "       emit is absent. Cannot grade the block-entity settled gate."
+        teardown
+        exit 4
+    fi
+
+    echo "Grading with the tested BlockEntitySettledGrader (max-diverge=$MAX_DIVERGE)..."
+    GRADE_OUT="$("$JAVA21/bin/java" -cp "$GRADER_CP" "$BE_SETTLED_GRADER_CLASS" "$BE_SLICE" "$MAX_DIVERGE" 2>&1)"
+    grade_code=$?
+
+    {
+        echo "=== Nebula B8 C3 BLOCK-ENTITY SETTLED-state acceptance grade ==="
+        echo "Date:      $(date)"
+        echo "Mode:      --be-settled (hopper→chest at quiescence)"
+        echo "Workload:  hopper[facing=down] over chest at ($HX,$HY,$HZ), fed $FEEDS x count:32"
+        echo "Settle:    ${SETTLE_S}s after the last feed"
+        echo "BE-SETTLED lines graded: $BE_COUNT  (raw slice: $BE_SLICE)"
+        echo
+        echo "$GRADE_OUT"
+    } | tee "$RESULT_FILE"
+
+    teardown
+    echo "Result written to: $RESULT_FILE"
+    exit "$grade_code"
+fi
 
 # ============================================================================
 # SETTLED MODE — the standing DG3 settled-state acceptance gate.

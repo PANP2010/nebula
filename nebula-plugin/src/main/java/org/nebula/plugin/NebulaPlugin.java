@@ -35,6 +35,8 @@ import org.nebula.redstone.RedstoneTaskRunner;
 import org.nebula.redstone.RedstoneWorldState;
 import org.nebula.redstone.actions.RedstoneActions;
 import org.nebula.core.scheduler.CompositeTaskRunner;
+import org.nebula.replay.BlockEntitySettledFormatter;
+import org.nebula.replay.BlockEntitySettledGrader;
 import org.nebula.replay.ReplayRecorder;
 import org.nebula.replay.SettledDivergenceGrader;
 import org.nebula.replay.SettledSnapshotFormatter;
@@ -1505,6 +1507,106 @@ public final class NebulaPlugin extends JavaPlugin {
         LOG.info("SETTLED-DIAG dispatched for " + dispatched
             + " tracked position(s); snapshot line(s) follow asynchronously once each "
             + "owning region reports.");
+        return dispatched;
+    }
+
+    /**
+     * Emits one {@code BE-SETTLED} snapshot line per world, comparing Nebula's shadow
+     * inventory count against Folia's authoritative inventory count for every tracked
+     * <em>block entity</em> at quiescence. This is the block-entity twin of {@link
+     * #emitSettledSnapshot} (redstone), and the load-bearing settled-state
+     * Folia-vs-Nebula divergence signal for B8 C3 (see {@link BlockEntitySettledGrader}).
+     *
+     * <h3>Why a settled snapshot and not the per-tick BE-CAS-DIAG delta</h3>
+     * The {@code BE-CAS-DIAG} stream proved LIVE (commit 3858abb) that the observe-only
+     * shadow cannot catch a mid-cooldown CAS move: Folia arms a hopper's 8-tick transfer
+     * cooldown before the shadow's {@code syncFromNms} samples it, so every tick reads
+     * {@code cooldown=7} and no {@code [MOVED]} instant ever fires. The per-tick delta is
+     * therefore the wrong correctness surface. But the same trace showed each hopper's
+     * self-slot count <em>converges to a stable resting value once its feed stops</em>,
+     * so quiescence is well-defined: after transfers cease, the observe-only shadow has
+     * had every intervening tick to catch up, so any {@code nebula != folia} on the
+     * settled inventory count is a genuine divergence, not cooldown lag.
+     *
+     * <h3>The tracked set is the ticking block entities the hook seeded</h3>
+     * Unlike redstone (whose {@code trackedPositions} the hasher owns), the block-entity
+     * positions are the ticking block entities the {@code BlockEntityTickHook} recorded,
+     * held in {@link #blockEntitySnapshots} (keyed by taskId → {@link
+     * org.nebula.entity.BlockEntitySnapshot} carrying pos + type + slotCount). Each
+     * distinct position is snapshotted once, deduplicated across taskIds.
+     *
+     * <h3>Region-thread safety and the divergence tautology</h3>
+     * Folia tile reads NPE off the owning region thread, so this dispatches each
+     * position's sample via {@code RegionScheduler.execute} on its owning region, then
+     * logs one line per world once all its regions report. The sample reads {@code
+     * nebula=sumSlots(pos, slotCount)} (the shadow CAS count) and {@code
+     * folia=blockEntityBridge.readNmsInventoryCount(world, pos)} — the READ-ONLY NMS
+     * sample, NOT {@code syncFromNms}, which would clobber the shadow value and make
+     * them equal by construction.
+     *
+     * @return the number of tracked block-entity positions whose snapshot was dispatched
+     */
+    public int emitBlockEntitySettledSnapshot() {
+        if (blockEntityBridge == null || blockEntityState == null) {
+            LOG.warning("BE-SETTLED requested but block-entity bridge is not wired (non-Folia?)");
+            return 0;
+        }
+        // Dedup the ticking block entities by position (many taskIds can map to the same
+        // hopper across ticks); keep each position's type + slotCount for the sample.
+        java.util.Map<WorldPos, org.nebula.entity.BlockEntitySnapshot> byPos =
+            new java.util.LinkedHashMap<>();
+        for (org.nebula.entity.BlockEntitySnapshot snap : blockEntitySnapshots.values()) {
+            byPos.putIfAbsent(snap.pos(), snap);
+        }
+        if (byPos.isEmpty()) {
+            LOG.info("BE-SETTLED: tracked=0 — no ticking block entities recorded; "
+                + "drive a hopper transfer (summon an item over a hopper) first");
+            return 0;
+        }
+
+        Server server = getServer();
+        io.papermc.paper.threadedregions.scheduler.RegionScheduler regionScheduler =
+            server.getRegionScheduler();
+
+        int dispatched = 0;
+        for (World w : server.getWorlds()) {
+            int dim = org.nebula.core.state.DimensionIds.fromName(w.getName());
+            java.util.List<org.nebula.entity.BlockEntitySnapshot> here = byPos.values().stream()
+                .filter(s -> s.pos().dimensionId() == dim)
+                .toList();
+            if (here.isEmpty()) {
+                continue;
+            }
+            final World fw = w;
+            java.util.List<BlockEntitySettledGrader.BlockEntitySample> samples =
+                new java.util.concurrent.CopyOnWriteArrayList<>();
+            java.util.concurrent.atomic.AtomicInteger remaining =
+                new java.util.concurrent.atomic.AtomicInteger(here.size());
+            for (org.nebula.entity.BlockEntitySnapshot snap : here) {
+                final WorldPos pos = snap.pos();
+                regionScheduler.execute(this, fw, pos.x() >> 4, pos.z() >> 4, () -> {
+                    int nebula = sumSlots(pos, snap.slotCount());
+                    int folia = blockEntityBridge.readNmsInventoryCount(fw, pos);
+                    samples.add(new BlockEntitySettledGrader.BlockEntitySample(
+                        pos, snap.type().name(), nebula, folia));
+                    if (remaining.decrementAndGet() == 0) {
+                        // Server.getCurrentTick() must be read inside a ticking region
+                        // task — it throws off a region thread (e.g. the command thread).
+                        int tick = server.getCurrentTick();
+                        java.util.List<BlockEntitySettledGrader.BlockEntitySample> ordered =
+                            samples.stream()
+                                .sorted(java.util.Comparator.comparing(
+                                    BlockEntitySettledGrader.BlockEntitySample::pos))
+                                .toList();
+                        LOG.info(BlockEntitySettledFormatter.format(tick, ordered));
+                    }
+                });
+                dispatched++;
+            }
+        }
+        LOG.info("BE-SETTLED dispatched for " + dispatched
+            + " tracked block-entity position(s); snapshot line(s) follow asynchronously "
+            + "once each owning region reports.");
         return dispatched;
     }
 

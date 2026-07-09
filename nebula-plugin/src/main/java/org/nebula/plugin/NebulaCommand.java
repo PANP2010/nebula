@@ -45,6 +45,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
             case "perf" -> handlePerf(sender, args);
             case "diag" -> handleDiag(sender, args);
             case "settled" -> handleSettled(sender);
+            case "be-settled" -> handleBlockEntitySettled(sender);
             case "help" -> sendHelp(sender);
             default -> sender.sendMessage("§cUnknown subcommand: " + sub);
         }
@@ -320,6 +321,29 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
             + " (" + dispatched + " positions dispatched)");
     }
 
+    /**
+     * B8 C3 correctness: emit a settled-state {@code BE-SETTLED} snapshot for the
+     * tracked block entities. Snapshots each ticking block entity on its owning region
+     * thread, logging {@code nebula=X folia=Y} inventory counts per position, so
+     * {@code BlockEntitySettledGraderCli} can grade Folia-vs-Nebula divergence at
+     * quiescence — the block-entity twin of {@code /nebula settled}. Drive a hopper
+     * transfer (summon an item over a hopper), let it settle (watch for the item feed
+     * stopping and the hopper's self-slots stabilising), THEN run this so the snapshot
+     * captures the resting inventory count, not a mid-cooldown sample.
+     */
+    private void handleBlockEntitySettled(CommandSender sender) {
+        if (!sender.hasPermission("nebula.status")) {
+            sender.sendMessage("§cYou don't have permission to use this command.");
+            return;
+        }
+        int dispatched = plugin.emitBlockEntitySettledSnapshot();
+        sender.sendMessage("§aBE-SETTLED snapshot dispatched for " + dispatched
+            + " tracked block-entity position(s). Read the BE-SETTLED line(s) in "
+            + "server-run.log, then grade with BlockEntitySettledGraderCli.");
+        LOG.info("Block-entity settled snapshot requested by " + sender.getName()
+            + " (" + dispatched + " positions dispatched)");
+    }
+
     private void sendHelp(CommandSender sender) {
         sender.sendMessage("§6Nebula Commands:");
         sender.sendMessage("  §e/nebula capture start [ticks] [--drive <seed>] [--period <n>] §7- Start state capture (--drive = live-load driven)");
@@ -329,6 +353,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
         sender.sendMessage("  §e/nebula perf [reset] §7- Show DAG tick timing percentiles");
         sender.sendMessage("  §e/nebula diag <on|off> §7- Toggle per-tick cascade diagnostic (DG1 C2 probe)");
         sender.sendMessage("  §e/nebula settled §7- Emit a settled-state SETTLED-DIAG snapshot (DG3 divergence)");
+        sender.sendMessage("  §e/nebula be-settled §7- Emit a settled-state BE-SETTLED snapshot (block-entity divergence)");
         sender.sendMessage("  §e/nebula help §7- Show this help");
     }
 
@@ -338,7 +363,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
                                       String alias,
                                       String[] args) {
         if (args.length == 1) {
-            return Arrays.asList("capture", "status", "scan", "perf", "diag", "settled", "help");
+            return Arrays.asList("capture", "status", "scan", "perf", "diag", "settled", "be-settled", "help");
         }
         if (args.length == 2 && args[0].equalsIgnoreCase("capture")) {
             return Arrays.asList("start", "stop");
