@@ -17,10 +17,17 @@ public final class BlockEntityContext {
 
     private final BlockEntityState state;
     private final BlockEntitySnapshotState snapshot;
+    private final BlockEntityAccessTracer tracer;
 
     BlockEntityContext(BlockEntityState state, BlockEntitySnapshotState snapshot) {
+        this(state, snapshot, null);
+    }
+
+    BlockEntityContext(BlockEntityState state, BlockEntitySnapshotState snapshot,
+                       BlockEntityAccessTracer tracer) {
         this.state = state;
         this.snapshot = snapshot;
+        this.tracer = tracer;
     }
 
     public int readSlot(WorldPos pos, int slot) {
@@ -32,11 +39,15 @@ public final class BlockEntityContext {
     }
 
     public int read(WorldPos pos, String field) {
-        return snapshot.read(state, new BlockEntityField(pos, field));
+        BlockEntityField f = new BlockEntityField(pos, field);
+        if (tracer != null) tracer.onFieldRead(f);
+        return snapshot.read(state, f);
     }
 
     public void write(WorldPos pos, String field, int value) {
-        snapshot.write(new BlockEntityField(pos, field), value);
+        BlockEntityField f = new BlockEntityField(pos, field);
+        if (tracer != null) tracer.onFieldWrite(f);
+        snapshot.write(f, value);
     }
 
     BlockEntitySnapshotState snapshot() {

@@ -29,10 +29,29 @@ public final class BlockEntityTaskRunner implements LayerCommitting {
     private final BlockEntityState state;
     private final Function<String, BlockEntityAction> actionResolver;
     private final ConcurrentHashMap<String, BlockEntitySnapshotState> layerSnapshots = new ConcurrentHashMap<>();
+    private final BlockEntityAccessTracer tracer;
+    private final BlockEntityTaskGuardHook guardHook;
 
     public BlockEntityTaskRunner(BlockEntityState state, Function<String, BlockEntityAction> actionResolver) {
+        this(state, actionResolver, null, null);
+    }
+
+    /**
+     * @param tracer    optional per-access hook feeding the RW-guard's thread-local
+     *                  trace (see {@link BlockEntityAccessTracer}); installed on each
+     *                  task's {@link BlockEntityContext} so every field read/write the
+     *                  action performs is observed. Null → the context runs untraced.
+     * @param guardHook optional per-task hook (see {@link BlockEntityTaskGuardHook})
+     *                  that brackets each dispatched task's execution so a guard can
+     *                  reset the trace before it runs and check the snapshot after.
+     *                  Null → the runner behaves exactly as before.
+     */
+    public BlockEntityTaskRunner(BlockEntityState state, Function<String, BlockEntityAction> actionResolver,
+                                 BlockEntityAccessTracer tracer, BlockEntityTaskGuardHook guardHook) {
         this.state = state;
         this.actionResolver = actionResolver != null ? actionResolver : id -> null;
+        this.tracer = tracer;
+        this.guardHook = guardHook;
     }
 
     /**
@@ -66,6 +85,22 @@ public final class BlockEntityTaskRunner implements LayerCommitting {
 
     @Override
     public void run(TaskNode task) throws Exception {
+        // The guard hook brackets the WHOLE dispatched task — including a compound's
+        // members — so the accesses it observes match the declared RW-set it checks
+        // against (a compound's merged set covers the union of its members' accesses).
+        if (guardHook != null) {
+            guardHook.beforeTask(task);
+        }
+        try {
+            dispatch(task);
+        } finally {
+            if (guardHook != null) {
+                guardHook.afterTask(task);
+            }
+        }
+    }
+
+    private void dispatch(TaskNode task) throws Exception {
         if (CompoundTask.isCompound(task)) {
             List<String> memberIds = new ArrayList<>(CompoundTask.memberIds(task));
             memberIds.sort(DeterministicOrdering::compareTaskIds);
@@ -83,7 +118,7 @@ public final class BlockEntityTaskRunner implements LayerCommitting {
             return;
         }
         BlockEntitySnapshotState snapshot = new BlockEntitySnapshotState();
-        action.execute(new BlockEntityContext(state, snapshot));
+        action.execute(new BlockEntityContext(state, snapshot, tracer));
         if (!snapshot.isEmpty()) {
             layerSnapshots.put(taskId, snapshot);
         }
