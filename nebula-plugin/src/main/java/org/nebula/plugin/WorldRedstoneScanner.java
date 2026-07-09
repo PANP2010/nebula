@@ -43,6 +43,7 @@ public final class WorldRedstoneScanner {
         TYPE_MAP.put("STONE_BUTTON", RedstoneComponentType.REDSTONE_TORCH);
         TYPE_MAP.put("OAK_BUTTON", RedstoneComponentType.REDSTONE_TORCH);
         TYPE_MAP.put("OBSERVER", RedstoneComponentType.REDSTONE_TORCH);
+        TYPE_MAP.put("DETECTOR_RAIL", RedstoneComponentType.DETECTOR_RAIL);
     }
 
     private final NebulaPlugin plugin;

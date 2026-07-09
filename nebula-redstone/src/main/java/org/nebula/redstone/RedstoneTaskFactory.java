@@ -61,6 +61,7 @@ public final class RedstoneTaskFactory {
             case PRESSURE_PLATE -> pressurePlateRw(pos);
             case FENCE_GATE, TRAPDOOR, IRON_DOOR -> gateRw(pos);
             case PISTON_HEAD -> pistonHeadRw(pos);
+            case DETECTOR_RAIL -> detectorRailRw(pos);
         };
         return new TaskNode(taskId(componentType, pos), componentType.taskType(), rw,
             () -> action.run());
@@ -190,7 +191,29 @@ public final class RedstoneTaskFactory {
             .build();
     }
 
-    // ── New RW-set templates (Phase 1C) ────────────────────────────────────────
+    /**
+     * Detector rail (DetectorRailBlock.checkPressed / updatePowerToConnected).
+     * Reads its own POWERED state plus the rail-connected neighbours and the block
+     * below (support), and inspects minecarts in its search AABB (approximated by
+     * the {pos} footprint since entity reads are not modelled at block granularity).
+     * On a press/release it writes POWERED, fans neighbour updates to {pos} and
+     * {pos.below}, and schedules a 20-tick release check.
+     */
+    private static RWSet detectorRailRw(WorldPos pos) {
+        return RWSet.builder()
+            .readBlock(pos)                       // own POWERED state
+            .readBlock(neighbour(pos, 0, 0, -1))  // rail-connected neighbours
+            .readBlock(neighbour(pos, 0, 0, 1))
+            .readBlock(neighbour(pos, -1, 0, 0))
+            .readBlock(neighbour(pos, 1, 0, 0))
+            .readBlock(attachedBlock(pos))        // support block below (canSurvive)
+            .writeBlock(pos)                      // POWERED toggled
+            // updateNeighborsAt(pos) + updateNeighborsAt(pos.below); scheduleTick(pos, 20).
+            .writeGlobal(GlobalKey.REGION_BLOCK_LEVEL_TICKS)
+            .writeGlobal(GlobalKey.REGION_NEIGHBOR_UPDATER)
+            .writeEvent(EventType.BLOCK_UPDATE)
+            .build();
+    }
 
     private static RWSet tripwireHookRw(WorldPos pos) {
         return RWSet.builder()

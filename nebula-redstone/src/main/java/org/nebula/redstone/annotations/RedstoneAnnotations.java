@@ -258,6 +258,15 @@ public final class RedstoneAnnotations {
             methods("PistonHeadBlock.onRemove"),
             blocks("{pos}", "{pos.attached}"), blocks("{pos}"), globals(), globals(), events("BLOCK_UPDATE"),
             "Piston head reads the body behind and writes/removes itself.");
+        put(templates, RedstoneComponentType.DETECTOR_RAIL,
+            methods(DETECTOR_RAIL_UPDATE_STATE),
+            blocks("{pos}", "{pos.north}", "{pos.south}", "{pos.west}", "{pos.east}", "{pos.down}"),
+            blocks("{pos}"),
+            globals(),
+            globals("region.block_level_ticks", "region.neighbor_updater"),
+            events("BLOCK_UPDATE"),
+            "Minecart-driven source: reads rail neighbours plus support, writes POWERED, "
+                + "fans updates to self and below, and schedules a 20-tick release.");
         return Map.copyOf(templates);
     }
 

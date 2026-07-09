@@ -22,9 +22,9 @@ class RedstoneComponentTypeTest {
     }
 
     @Test
-    void totalCountIs26() {
-        assertEquals(26, RedstoneComponentType.values().length,
-            "Expected 26 redstone component types (9 original + 17 new)");
+    void totalCountIs27() {
+        assertEquals(27, RedstoneComponentType.values().length,
+            "Expected 27 redstone component types (9 original + 17 new + DETECTOR_RAIL)");
     }
 
     @Test
@@ -68,7 +68,7 @@ class RedstoneComponentTypeTest {
             "TRIPWIRE_HOOK", "TRIPWIRE", "REDSTONE_LAMP", "DAYLIGHT_DETECTOR",
             "HOPPER", "DISPENSER", "DROPPER", "TNT", "ACTIVATOR_RAIL",
             "REDSTONE_BLOCK", "LEVER", "BUTTON", "PRESSURE_PLATE",
-            "FENCE_GATE", "TRAPDOOR", "IRON_DOOR", "PISTON_HEAD"
+            "FENCE_GATE", "TRAPDOOR", "IRON_DOOR", "PISTON_HEAD", "DETECTOR_RAIL"
         }) {
             assertTrue(names.contains(newType), "Missing new type: " + newType);
         }

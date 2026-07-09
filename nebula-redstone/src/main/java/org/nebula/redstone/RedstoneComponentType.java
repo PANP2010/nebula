@@ -170,7 +170,20 @@ public enum RedstoneComponentType {
     PISTON_HEAD(
         "PISTON_HEAD",
         MicroStepBehavior.DEFERRED,
-        SccBehavior.SERIALIZED);
+        SccBehavior.SERIALIZED),
+
+    /**
+     * Detector rail: a signal source that powers ON while a minecart sits in its
+     * search AABB and schedules a 20-tick release check. A press ripples power to
+     * connected rails and fans neighbour updates to both {@code pos} and
+     * {@code pos.below}, so it propagates within the tick; the release is deferred
+     * via the scheduled tick. Verified against DetectorRailBlock.checkPressed
+     * (mojmaps 1.21.x): {@code isSignalSource == true}, {@code getSignal == 15} when powered.
+     */
+    DETECTOR_RAIL(
+        "DETECTOR_RAIL",
+        MicroStepBehavior.PROPAGATES,
+        SccBehavior.CONTRACTIBLE);
 
     private final String taskType;
     private final MicroStepBehavior microStep;
