@@ -3,7 +3,10 @@ package org.nebula.guard;
 import org.junit.jupiter.api.Test;
 import org.nebula.core.rw.RWSet;
 import org.nebula.core.scheduler.TaskNode;
+import org.nebula.core.state.BlockEntityField;
 import org.nebula.core.state.EntityField;
+import org.nebula.core.state.GlobalKey;
+import org.nebula.core.state.RandomInstance;
 import org.nebula.core.state.WorldPos;
 
 import java.util.List;
@@ -71,6 +74,63 @@ class RWSetViolationJsonTest {
         RWSetViolation restored = RWSetViolationJson.fromJson(json);
         assertEquals(AccessTarget.block(pos), restored.accessTarget());
         assertEquals(AccessTargetType.BLOCK, restored.accessTarget().type());
+    }
+
+    // ── Round-trip coverage for the four NON-BLOCK AccessTarget types ─────────────────
+    // Prior to this cycle only BLOCK round-tripped. The write side splatted every non-BLOCK
+    // type under a single "value" holding the record toString(), while the read side expected
+    // structured fields ("key"/"instance") or called *.parse() on the wrong serialization form.
+    // So the C-series coverage loop (which emits ENTITY_FIELD / BLOCK_ENTITY_FIELD / GLOBAL /
+    // RANDOM violations) could not machine-read its own JSONL back. These lock the whole
+    // serializer, not just BLOCK.
+
+    private static AccessTarget roundTrip(AccessTarget target) {
+        RWSetViolation violation = RWSetViolation.create(
+            42L, "T", "TASK_TYPE", ViolationType.UNDECLARED_READ, target, RWSet.empty(), "fix"
+        );
+        String json = RWSetViolationJson.toJson(violation);
+        assertFalse(extractAccessTargetObject(json).contains("FieldPath["),
+            "raw record toString leaked into access_target: " + json);
+        return RWSetViolationJson.fromJson(json).accessTarget();
+    }
+
+    private static String extractAccessTargetObject(String json) {
+        int atStart = json.indexOf("\"access_target\":");
+        int atEnd = json.indexOf('}', atStart);
+        return json.substring(atStart, atEnd + 1);
+    }
+
+    @Test
+    void entityFieldAccessTargetRoundTrips() {
+        AccessTarget target = AccessTarget.entityField(new EntityField(-987654321L, "movement.velocity"));
+        AccessTarget restored = roundTrip(target);
+        assertEquals(AccessTargetType.ENTITY_FIELD, restored.type());
+        assertEquals(target, restored);
+    }
+
+    @Test
+    void blockEntityFieldAccessTargetRoundTrips() {
+        AccessTarget target = AccessTarget.blockEntityField(
+            new BlockEntityField(new WorldPos(0, 12, -59, -8), "inventory.slot_3"));
+        AccessTarget restored = roundTrip(target);
+        assertEquals(AccessTargetType.BLOCK_ENTITY_FIELD, restored.type());
+        assertEquals(target, restored);
+    }
+
+    @Test
+    void globalKeyAccessTargetRoundTrips() {
+        AccessTarget target = AccessTarget.globalKey(GlobalKey.REGION_SHOULD_SIGNAL);
+        AccessTarget restored = roundTrip(target);
+        assertEquals(AccessTargetType.GLOBAL_KEY, restored.type());
+        assertEquals(target, restored);
+    }
+
+    @Test
+    void randomAccessTargetRoundTrips() {
+        AccessTarget target = AccessTarget.random(RandomInstance.WORLD_RANDOM);
+        AccessTarget restored = roundTrip(target);
+        assertEquals(AccessTargetType.RANDOM, restored.type());
+        assertEquals(target, restored);
     }
 
     @Test

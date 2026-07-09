@@ -150,7 +150,9 @@ class RWSetViolationTest {
         String json = RWSetViolationJson.toJson(violation);
 
         assertTrue(json.contains("\"type\":\"ENTITY_FIELD\""));
-        assertTrue(json.contains("\"value\":\""));
+        assertTrue(json.contains("\"entity_id\":12345"));
+        assertTrue(json.contains("\"field_path\":\"health\""));
+        assertEquals(AccessTarget.entityField(entity), RWSetViolationJson.fromJson(json).accessTarget());
     }
 
     @Test
@@ -170,7 +172,8 @@ class RWSetViolationTest {
         String json = RWSetViolationJson.toJson(violation);
 
         assertTrue(json.contains("\"type\":\"GLOBAL_KEY\""));
-        assertTrue(json.contains("\"value\":\""));
+        assertTrue(json.contains("\"key\":\"weather\""));
+        assertEquals(AccessTarget.globalKey(weather), RWSetViolationJson.fromJson(json).accessTarget());
     }
 
     @Test
@@ -189,7 +192,9 @@ class RWSetViolationTest {
         String json = RWSetViolationJson.toJson(violation);
 
         assertTrue(json.contains("\"type\":\"RANDOM\""));
-        assertTrue(json.contains("\"value\":\""));
+        assertTrue(json.contains("\"instance\":\"WORLD_RANDOM\""));
+        assertEquals(AccessTarget.random(RandomInstance.WORLD_RANDOM),
+            RWSetViolationJson.fromJson(json).accessTarget());
     }
 
     @Test
@@ -210,7 +215,8 @@ class RWSetViolationTest {
         String json = RWSetViolationJson.toJson(violation);
 
         assertTrue(json.contains("\"type\":\"BLOCK_ENTITY_FIELD\""));
-        assertTrue(json.contains("\"value\":\""));
+        assertTrue(json.contains("\"field_path\":\"inventory.slots[0]\""));
+        assertEquals(AccessTarget.blockEntityField(field), RWSetViolationJson.fromJson(json).accessTarget());
     }
 
     @Test

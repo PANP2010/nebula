@@ -74,11 +74,18 @@ public final class RWSetViolationJson {
                 int z = extractIntField(targetSection, "z");
                 yield AccessTarget.block(new org.nebula.core.state.WorldPos(dimension, x, y, z));
             }
-            case ENTITY_FIELD -> AccessTarget.entityField(org.nebula.core.state.EntityField.parse(
-                extractStringField(targetSection, "value")
+            case ENTITY_FIELD -> AccessTarget.entityField(new org.nebula.core.state.EntityField(
+                extractLongField(targetSection, "entity_id"),
+                extractStringField(targetSection, "field_path")
             ));
-            case BLOCK_ENTITY_FIELD -> AccessTarget.blockEntityField(org.nebula.core.state.BlockEntityField.parse(
-                extractStringField(targetSection, "value")
+            case BLOCK_ENTITY_FIELD -> AccessTarget.blockEntityField(new org.nebula.core.state.BlockEntityField(
+                new org.nebula.core.state.WorldPos(
+                    extractIntField(targetSection, "dimension"),
+                    extractIntField(targetSection, "x"),
+                    extractIntField(targetSection, "y"),
+                    extractIntField(targetSection, "z")
+                ),
+                extractStringField(targetSection, "field_path")
             ));
             case GLOBAL, GLOBAL_KEY -> AccessTarget.globalKey(new org.nebula.core.state.GlobalKey(
                 extractStringField(targetSection, "key")
@@ -142,7 +149,14 @@ public final class RWSetViolationJson {
     private static StringBuilder accessTarget(StringBuilder json, AccessTarget target) {
         json.append('{');
         field(json, "type", target.type().name()).append(',');
-        // Output type-specific fields
+        // Emit type-specific STRUCTURED fields the read side can round-trip. Every non-BLOCK
+        // type used to be splatted under a single "value" holding the record toString()
+        // (e.g. "EntityField[entityId=12345, fieldPath=FieldPath[value=health]]"), which the
+        // read side could not recover: it reads GLOBAL from "key", RANDOM from "instance", and
+        // called EntityField/BlockEntityField.parse() expecting their delimited serialization
+        // forms — not the record toString. So NONE of the four non-BLOCK types round-tripped.
+        // Structured fields (matching the read side's existing expectations) fix that and avoid
+        // fragile toString parsing.
         switch (target.type()) {
             case BLOCK -> {
                 // AccessTarget.block(pos) stores WorldPos.toString(), i.e. the record form
@@ -159,7 +173,38 @@ public final class RWSetViolationJson {
                     field(json, "value", target.value());
                 }
             }
-            default -> field(json, "value", target.value());
+            case ENTITY_FIELD -> {
+                // value == EntityField.toString() "EntityField[entityId=E, fieldPath=FieldPath[value=P]]"
+                long[] entityId = new long[1];
+                String path = parseEntityField(target.value(), entityId);
+                if (path != null) {
+                    json.append("\"entity_id\":").append(entityId[0]).append(',');
+                    field(json, "field_path", path);
+                } else {
+                    field(json, "value", target.value());
+                }
+            }
+            case BLOCK_ENTITY_FIELD -> {
+                // value == BlockEntityField.toString()
+                // "BlockEntityField[pos=WorldPos[dimensionId=D, x=X, y=Y, z=Z], fieldPath=FieldPath[value=P]]"
+                int[] coords = parseBlockCoords(target.value());
+                String path = parseTrailingFieldPath(target.value());
+                if (coords != null && path != null) {
+                    json.append("\"dimension\":").append(coords[0]).append(',');
+                    json.append("\"x\":").append(coords[1]).append(',');
+                    json.append("\"y\":").append(coords[2]).append(',');
+                    json.append("\"z\":").append(coords[3]).append(',');
+                    field(json, "field_path", path);
+                } else {
+                    field(json, "value", target.value());
+                }
+            }
+            case GLOBAL, GLOBAL_KEY ->
+                // value == GlobalKey.value() (bare key string, e.g. "game_time")
+                field(json, "key", target.value());
+            case RANDOM ->
+                // value == RandomInstance.name() (e.g. "WORLD_RANDOM")
+                field(json, "instance", target.value());
         }
         json.append('}');
         return json;
@@ -181,6 +226,37 @@ public final class RWSetViolationJson {
             coords[found++] = Integer.parseInt(matcher.group());
         }
         return found == 4 ? coords : null;
+    }
+
+    // FieldPath values may themselves contain ']' (e.g. "inventory.slots[0]"). Since an
+    // ENTITY_FIELD / BLOCK_ENTITY_FIELD toString always wraps the FieldPath and closes with
+    // "]]" (FieldPath's own ']' plus the outer record's), match greedily up to the trailing "]]".
+    private static final Pattern FIELD_PATH_VALUE = Pattern.compile("FieldPath\\[value=(.*)\\]\\]");
+    private static final Pattern ENTITY_ID = Pattern.compile("entityId=(-?\\d+)");
+
+    /**
+     * Extracts the entity id (into {@code out[0]}) and field-path string from an
+     * {@link org.nebula.core.state.EntityField#toString()} record form
+     * ("EntityField[entityId=E, fieldPath=FieldPath[value=P]]"). Returns the field-path string,
+     * or null if the value is not in that form.
+     */
+    private static String parseEntityField(String value, long[] out) {
+        Matcher id = ENTITY_ID.matcher(value);
+        Matcher path = FIELD_PATH_VALUE.matcher(value);
+        if (id.find() && path.find()) {
+            out[0] = Long.parseLong(id.group(1));
+            return path.group(1);
+        }
+        return null;
+    }
+
+    /**
+     * Extracts the inner FieldPath value from any record toString that ends in a
+     * {@code FieldPath[value=P]} fragment (used by BLOCK_ENTITY_FIELD). Returns null if absent.
+     */
+    private static String parseTrailingFieldPath(String value) {
+        Matcher path = FIELD_PATH_VALUE.matcher(value);
+        return path.find() ? path.group(1) : null;
     }
 
     private static StringBuilder field(StringBuilder json, String name, String value) {
@@ -261,6 +337,16 @@ public final class RWSetViolationJson {
             return Integer.parseInt(matcher.group(1));
         }
         return 0;
+    }
+
+    private static long extractLongField(String json, String fieldName) {
+        // Entity ids are 64-bit and can be negative; match a signed long.
+        Pattern pattern = Pattern.compile("\"" + fieldName + "\"\\s*:\\s*(-?\\d+)");
+        Matcher matcher = pattern.matcher(json);
+        if (matcher.find()) {
+            return Long.parseLong(matcher.group(1));
+        }
+        return 0L;
     }
 
     private static String extractObject(String json, String fieldName) {
