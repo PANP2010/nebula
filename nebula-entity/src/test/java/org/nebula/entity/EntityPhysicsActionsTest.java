@@ -25,21 +25,31 @@ class EntityPhysicsActionsTest {
     }
 
     @Test
-    void moveAppliesGravityAndIntegratesPosition() throws Exception {
+    void moveUsesVanillaMoveThenIntegrateOrder() throws Exception {
         EntityPhysicsState state = new EntityPhysicsState();
         long id = 1L;
         state.put(new EntityField(id, "position"), new Vec3(0, 100, 0));
         state.put(new EntityField(id, "velocity"), Vec3.ZERO);
 
+        // Tick 1 from rest: vanilla moves by the CURRENT velocity (0) FIRST, so
+        // the position does not change this tick; gravity+drag are integrated
+        // AFTER the move into the velocity carried to the next tick.
         commitOnce(state, new EntityMoveAction(id));
+        Vec3 vel1 = state.getVec(new EntityField(id, "velocity"));
+        Vec3 pos1 = state.getVec(new EntityField(id, "position"));
+        assertEquals(-0.0784, vel1.y(), EPS, "velocity integrated: (0 + -0.08) * 0.98");
+        assertEquals(100.0, pos1.y(), EPS, "move-then-integrate: no position change on the first tick from rest");
+        assertEquals(0.0, vel1.x(), EPS);
+        assertEquals(0.0, vel1.z(), EPS);
 
-        // After one tick from rest: v = (0 + -0.08) * 0.98 = -0.0784; pos.y += v.
-        Vec3 vel = state.getVec(new EntityField(id, "velocity"));
-        Vec3 pos = state.getVec(new EntityField(id, "position"));
-        assertEquals(-0.0784, vel.y(), EPS, "vertical velocity after gravity+drag");
-        assertEquals(100 + -0.0784, pos.y(), EPS, "position integrated by new velocity");
-        assertEquals(0.0, vel.x(), EPS);
-        assertEquals(0.0, vel.z(), EPS);
+        // Tick 2: now moves by the velocity computed last tick, then integrates
+        // again. This is the ordering that eliminates the systematic Y over-fall
+        // against Folia (an earlier revision folded gravity in BEFORE moving).
+        commitOnce(state, new EntityMoveAction(id));
+        Vec3 vel2 = state.getVec(new EntityField(id, "velocity"));
+        Vec3 pos2 = state.getVec(new EntityField(id, "position"));
+        assertEquals(100 + -0.0784, pos2.y(), EPS, "position stepped by the prior tick's velocity");
+        assertEquals((-0.0784 + -0.08) * 0.98, vel2.y(), EPS, "velocity integrated again for the next tick");
     }
 
     @Test

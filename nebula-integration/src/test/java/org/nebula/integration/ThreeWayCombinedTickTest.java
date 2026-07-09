@@ -135,7 +135,11 @@ class ThreeWayCombinedTickTest {
 
         long entityId = 1L;
         w.entities.put(new EntityField(entityId, "position"), new Vec3(0, 100, 0));
-        w.entities.put(new EntityField(entityId, "velocity"), Vec3.ZERO);
+        // Seed a downward velocity: vanilla move-then-integrate order means a
+        // single tick from ZERO velocity does not move the position (it steps by
+        // the current velocity first). A nonzero velocity makes the one-tick
+        // move observable, which is what this test asserts.
+        w.entities.put(new EntityField(entityId, "velocity"), new Vec3(0, -0.1, 0));
 
         WorldPos furnacePos = new WorldPos(DIM, 50, 64, 50);
         w.blockEntities.put(new BlockEntityField(furnacePos, "inventory.slots[0]"), 5);

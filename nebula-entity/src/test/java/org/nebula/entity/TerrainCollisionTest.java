@@ -34,6 +34,10 @@ class TerrainCollisionTest {
         state.put(new EntityField(id, "position"), new Vec3(0.5, 100, 0.5));
         state.put(new EntityField(id, "velocity"), Vec3.ZERO);
 
+        // Two ticks: the first integrates gravity into the velocity (vanilla
+        // move-then-integrate does not move on tick 1 from rest); the second
+        // steps the position by that now-nonzero velocity.
+        step(state, id, TerrainView.EMPTY);
         step(state, id, TerrainView.EMPTY);
 
         Vec3 pos = state.getVec(new EntityField(id, "position"));

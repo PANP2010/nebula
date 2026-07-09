@@ -125,7 +125,11 @@ class CombinedTickTest {
 
         long entityId = 1L;
         c.entities.put(new EntityField(entityId, "position"), new Vec3(50, 100, 0));
-        c.entities.put(new EntityField(entityId, "velocity"), Vec3.ZERO);
+        // Seed a downward velocity: vanilla move-then-integrate order means a
+        // single tick from ZERO velocity does not move the position (it steps by
+        // the current velocity first). A nonzero velocity makes the one-tick
+        // move observable, which is what this test asserts.
+        c.entities.put(new EntityField(entityId, "velocity"), new Vec3(0, -0.1, 0));
 
         List<TaskNode> tasks = new ArrayList<>();
         tasks.add(RedstoneTaskFactory.inert(RedstoneComponentType.REDSTONE_WIRE, wire1));

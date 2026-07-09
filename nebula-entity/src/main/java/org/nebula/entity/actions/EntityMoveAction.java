@@ -9,16 +9,31 @@ import org.nebula.entity.Vec3;
 /**
  * Entity movement physics (arch doc §6.2, ENTITY_MOVE).
  *
- * <p>Deterministic ballistic integration with swept terrain collision:
+ * <p>Deterministic ballistic integration with swept terrain collision. The
+ * integration <em>order</em> mirrors vanilla's {@code LivingEntity.travelInAir}
+ * (move-then-integrate), which is the crucial ordering for zero-diff — vanilla
+ * calls {@code move(SELF, deltaMovement)} <em>first</em> (stepping position by
+ * the <em>current</em> velocity) and only then applies {@code -= gravity} and
+ * {@code * 0.98} to compute the velocity for the <em>next</em> tick
+ * (decompiled {@code LivingEntity.java:2605} → {@code :2419} → {@code :2430}):
  * <ol>
  *   <li>Read current position and velocity.</li>
- *   <li>Apply gravity to the vertical velocity component, then drag.</li>
+ *   <li>Step the position by the <em>current</em> velocity (the vanilla
+ *       {@code move()} call), sweeping the descent for terrain collision.</li>
  *   <li>Sweep the descent in ≤1-block sub-steps, checking each cell along the
  *       path via the {@link TerrainView}. The entity lands on the top of the
  *       <em>first</em> solid block encountered — so a fast fall cannot tunnel
  *       through thin floors, and the collision read never skips a cell.</li>
- *   <li>Write back both position and velocity.</li>
+ *   <li><em>Then</em> integrate gravity+drag into the velocity for the next
+ *       tick, and write back both position and velocity.</li>
  * </ol>
+ *
+ * <p><b>Why order matters (B8 C1, 2026-07-09).</b> An earlier revision applied
+ * gravity+drag to the velocity <em>before</em> stepping position, folding one
+ * extra tick of deceleration into every step. Against Folia that produced a
+ * systematic single-axis Y over-fall (predicted.y &lt; authoritative.y by
+ * ~0.04–0.078/tick — see {@code EntityDivergenceTracker}). Moving by the
+ * current velocity first eliminates that directional bias.
  *
  * <p>Swept (vs single-cell) collision keeps the block reads within the declared
  * RW-set even at high speed: each probed cell is one of the column cells the
@@ -49,20 +64,38 @@ public final class EntityMoveAction implements EntityTaskAction {
         Vec3 pos = ctx.readVec(entityId, "position");
         Vec3 vel = ctx.readVec(entityId, "velocity");
 
-        Vec3 newVel = new Vec3(
-            vel.x() * DRAG,
-            (vel.y() + GRAVITY) * DRAG,
-            vel.z() * DRAG);
-        Vec3 target = pos.add(newVel);
-
-        if (newVel.y() < 0) {
-            target = sweepDescent(ctx.terrain(), pos, target);
-            // Landed iff the swept result sits higher than the unobstructed
-            // target (collision clamped it); zero the downward velocity then.
-            if (restedOn(ctx.terrain(), target)) {
-                newVel = new Vec3(newVel.x(), 0.0, newVel.z());
-            }
+        // Grounded fixed point: an entity already sitting exactly on a solid
+        // block top with no upward velocity stays put. Vanilla achieves the
+        // same stable rest via move()'s internal vertical-collision cancel; we
+        // model it explicitly so rest is a clean fixed point (vel.y == 0) rather
+        // than a per-tick oscillation between 0 and -0.0784.
+        if (vel.y() <= 0 && restedOn(ctx.terrain(), pos)) {
+            ctx.writeVec(entityId, "velocity", new Vec3(vel.x() * DRAG, 0.0, vel.z() * DRAG));
+            ctx.writeVec(entityId, "position", pos);
+            return;
         }
+
+        // Vanilla order: step the position by the CURRENT velocity first
+        // (LivingEntity.move(SELF, deltaMovement)), sweeping for terrain
+        // collision, THEN integrate gravity+drag for the next tick's velocity.
+        Vec3 target = pos.add(vel);
+
+        boolean landed = false;
+        if (vel.y() < 0) {
+            target = sweepDescent(ctx.terrain(), pos, target);
+            // Landed iff the swept result sits on a solid block (collision
+            // clamped the descent); zero the downward velocity then.
+            landed = restedOn(ctx.terrain(), target);
+        }
+
+        // Integrate gravity+drag AFTER moving — this is the velocity carried
+        // into the next tick (vanilla travelInAir: movementY -= gravity; * 0.98).
+        Vec3 newVel = landed
+            ? new Vec3(vel.x() * DRAG, 0.0, vel.z() * DRAG)
+            : new Vec3(
+                vel.x() * DRAG,
+                (vel.y() + GRAVITY) * DRAG,
+                vel.z() * DRAG);
 
         ctx.writeVec(entityId, "velocity", newVel);
         ctx.writeVec(entityId, "position", target);
