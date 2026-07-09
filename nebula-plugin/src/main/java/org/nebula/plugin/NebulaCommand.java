@@ -46,7 +46,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
             case "diag" -> handleDiag(sender, args);
             case "settled" -> handleSettled(sender);
             case "be-settled" -> handleBlockEntitySettled(sender, args);
-            case "be-furnace-timer" -> handleFurnaceTimer(sender);
+            case "be-furnace-timer" -> handleFurnaceTimer(sender, args);
             case "help" -> sendHelp(sender);
             default -> sender.sendMessage("§cUnknown subcommand: " + sub);
         }
@@ -378,10 +378,32 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
      * seeder keeps it DAG-ticked), THEN run this while it is mid-smelt to measure the
      * live timer gap. A gap of ~0 is the precondition any furnace-timer write-back must
      * meet before it is armed.
+     *
+     * <p>With an optional {@code <count>} argument, fires a once-per-tick <em>burst</em> of
+     * that many snapshots ({@code /nebula be-furnace-timer 200}) instead of a single shot.
+     * A single shot almost never lands mid-cook — {@code cook_progress} climbs 0..200 and
+     * resets each smelt, so a sparse sample overwhelmingly catches the resting 0. The burst
+     * straddles the climb, giving the grader a real nonzero-{@code cook} sample.
      */
-    private void handleFurnaceTimer(CommandSender sender) {
+    private void handleFurnaceTimer(CommandSender sender, String[] args) {
         if (!sender.hasPermission("nebula.status")) {
             sender.sendMessage("§cYou don't have permission to use this command.");
+            return;
+        }
+        if (args.length >= 2) {
+            int samples;
+            try {
+                samples = Integer.parseInt(args[1]);
+            } catch (NumberFormatException e) {
+                sender.sendMessage("§cUsage: /nebula be-furnace-timer [count] — count must be an integer");
+                return;
+            }
+            int scheduled = plugin.emitFurnaceTimerBurst(samples);
+            sender.sendMessage("§aBE-FURNACE-TIMER burst scheduled: " + scheduled
+                + " once-per-tick snapshot(s) to catch cook_progress mid-climb. Read the "
+                + "BE-FURNACE-TIMER lines in server-run.log, then grade with FurnaceTimerGapGraderCli.");
+            LOG.info("Furnace-timer burst requested by " + sender.getName()
+                + " (" + scheduled + " samples scheduled)");
             return;
         }
         int dispatched = plugin.emitFurnaceTimerSnapshot();
@@ -402,7 +424,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
         sender.sendMessage("  §e/nebula diag <on|off> §7- Toggle per-tick cascade diagnostic (DG1 C2 probe)");
         sender.sendMessage("  §e/nebula settled §7- Emit a settled-state SETTLED-DIAG snapshot (DG3 divergence)");
         sender.sendMessage("  §e/nebula be-settled §7- Emit a settled-state BE-SETTLED snapshot (block-entity divergence)");
-        sender.sendMessage("  §e/nebula be-furnace-timer §7- Emit a BE-FURNACE-TIMER gap snapshot (furnace timer divergence)");
+        sender.sendMessage("  §e/nebula be-furnace-timer [count] §7- Emit BE-FURNACE-TIMER gap snapshot(s); [count] = once-per-tick burst to catch cook mid-climb");
         sender.sendMessage("  §e/nebula help §7- Show this help");
     }
 

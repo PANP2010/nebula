@@ -1783,6 +1783,52 @@ public final class NebulaPlugin extends JavaPlugin {
     }
 
     /**
+     * Fires {@link #emitFurnaceTimerSnapshot} once per game tick for {@code samples} ticks,
+     * a <em>dense burst sampler</em> for the furnace {@code cook_progress} axis. This exists
+     * because a single manual {@code /nebula be-furnace-timer} shot (or even a hand-paced RCON
+     * poll) almost never lands mid-cook: {@code cook_progress} climbs 0→{@link
+     * org.nebula.entity.actions.BlockEntityActions#COOK_TOTAL} and resets each smelt, so a
+     * sparse sample overwhelmingly catches the {@code 0} resting value on both nebula and
+     * folia — the "cook was only ever 0==0" gap the prior cycle left open. A once-per-tick
+     * burst is guaranteed to straddle the climb, giving {@link FurnaceTimerGapGrader} a real
+     * nonzero-{@code cook} measurement (and a nonzero cook <em>gap</em> if the shadow drifts).
+     *
+     * <p>Each tick's snapshot is dispatched exactly as the single-shot command does (one
+     * region-gated read per furnace, one {@code BE-FURNACE-TIMER} line per world), so every
+     * burst sample is graded by the same {@link FurnaceTimerGapGraderCli} with no format
+     * drift. The burst is a fixed-count {@link
+     * io.papermc.paper.threadedregions.scheduler.GlobalRegionScheduler#runAtFixedRate} that
+     * cancels itself after {@code samples} fires — bounded so it cannot leak a ticking task
+     * past the measurement window. Observe-only-safe: it only reads (never writes NMS), so a
+     * burst cannot perturb the live furnace it is measuring.
+     *
+     * @param samples the number of once-per-tick snapshots to emit; clamped to [1, 400]
+     *                 (400 ≈ two full 200-tick cook cycles, ample to catch the climb)
+     * @return the clamped sample count actually scheduled
+     */
+    public int emitFurnaceTimerBurst(int samples) {
+        final int clamped = Math.max(1, Math.min(400, samples));
+        if (blockEntityBridge == null || blockEntityState == null) {
+            LOG.warning("BE-FURNACE-TIMER burst requested but block-entity bridge is not wired (non-Folia?)");
+            return clamped;
+        }
+        java.util.concurrent.atomic.AtomicInteger fired =
+            new java.util.concurrent.atomic.AtomicInteger(0);
+        LOG.info("BE-FURNACE-TIMER burst starting: " + clamped
+            + " once-per-tick snapshots to catch cook_progress mid-climb (0.."
+            + org.nebula.entity.actions.BlockEntityActions.COOK_TOTAL + ").");
+        getServer().getGlobalRegionScheduler().runAtFixedRate(this, task -> {
+            emitFurnaceTimerSnapshot();
+            if (fired.incrementAndGet() >= clamped) {
+                task.cancel();
+                LOG.info("BE-FURNACE-TIMER burst complete: emitted " + clamped
+                    + " snapshot(s); grade the run with FurnaceTimerGapGraderCli.");
+            }
+        }, 1, 1);
+        return clamped;
+    }
+
+    /**
      * Non-Folia fallback: OBSERVE mode with shadow executor.
      */
     private NebulaFoliaBootstrap wireShadowExecutor(RWGuardConfig guardConfig) {
