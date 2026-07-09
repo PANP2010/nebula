@@ -14,6 +14,8 @@ import org.nebula.redstone.annotations.RedstoneAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -223,5 +225,110 @@ class RedstoneTaskFactoryTest {
         assertTrue(pressurePlate.readBlocks().contains("{pos.down}"));
         assertTrue(pressurePlate.writeGlobals().contains(GlobalKey.REGION_BLOCK_LEVEL_TICKS.value()));
         assertTrue(pressurePlate.writeGlobals().contains(GlobalKey.REGION_NEIGHBOR_UPDATER.value()));
+    }
+
+    // ── Drift guard: the factory RWSet and the annotation ComponentTemplate are
+    //    two independent representations of the same RW-set. They agree today;
+    //    this pins that agreement for EVERY component so a future one-sided edit
+    //    (a global/event added to the factory but not the template, or vice
+    //    versa) fails the build instead of drifting silently. Block footprints
+    //    are compared as physical (dx,dy,dz) deltas so that placeholder aliases
+    //    like {pos.input}=={pos.north} line up with the factory's neighbour()
+    //    offsets. Position placeholders that the annotation library documents
+    //    but the factory does not model at block granularity (inventory slots,
+    //    multi-block push chains, entity AABBs) are excluded — see
+    //    NON_POSITIONAL_PLACEHOLDERS below.
+
+    /**
+     * Placeholders that describe conceptual reads the factory deliberately does
+     * NOT model as a single concrete block (inventory slots, entity/minecart
+     * AABBs, variable-length piston push chains, block-entity behind a
+     * comparator). These are documentation-only in the template and have no
+     * factory counterpart, so they are dropped before the delta comparison.
+     */
+    private static final java.util.Set<String> NON_POSITIONAL_PLACEHOLDERS = java.util.Set.of(
+        "{pos.6 neighbours}",
+        "{pos.facing + 12 blocks}",
+        "{pos.power_source}",
+        "{pos.input_be}",
+        "{pos.facing.inventory}",
+        "{pos.facing.inventory.slots[*]}",
+        "{pos.inventory.slots[*]}",
+        "{pos.inventory.slots[0..4]}",
+        "{pos.inventory.slots[0..8]}",
+        "{pos.up.inventory.slots[*]}");
+
+    /** Map a documented position placeholder to its (dx,dy,dz) delta from {pos}. */
+    private static WorldPos placeholderDelta(String placeholder) {
+        return switch (placeholder) {
+            case "{pos}" -> new WorldPos(DIM, 0, 0, 0);
+            case "{pos.north}" -> new WorldPos(DIM, 0, 0, -1);
+            case "{pos.south}" -> new WorldPos(DIM, 0, 0, 1);
+            case "{pos.west}" -> new WorldPos(DIM, -1, 0, 0);
+            case "{pos.east}" -> new WorldPos(DIM, 1, 0, 0);
+            case "{pos.down}" -> new WorldPos(DIM, 0, -1, 0);
+            case "{pos.up}" -> new WorldPos(DIM, 0, 1, 0);
+            // Aliases that resolve onto the factory's default facing convention
+            // (RedstoneTaskFactory: input=-Z, output=+Z, side_input=-X,
+            // attached=-Y, front=+Z). Documented in RedstoneAnnotations header.
+            case "{pos.input}" -> new WorldPos(DIM, 0, 0, -1);
+            case "{pos.output}" -> new WorldPos(DIM, 0, 0, 1);
+            case "{pos.side_input}", "{pos.side2}" -> new WorldPos(DIM, -1, 0, 0);
+            case "{pos.side1}" -> new WorldPos(DIM, 1, 0, 0);
+            case "{pos.attached}" -> new WorldPos(DIM, 0, -1, 0);
+            case "{pos.front}", "{pos.facing}" -> new WorldPos(DIM, 0, 0, 1);
+            default -> throw new AssertionError("unmapped position placeholder: " + placeholder
+                + " — add it to placeholderDelta() or NON_POSITIONAL_PLACEHOLDERS");
+        };
+    }
+
+    /** Template placeholder block list → the concrete delta positions the factory would use. */
+    private static java.util.Set<WorldPos> templateDeltas(List<String> placeholders) {
+        return placeholders.stream()
+            .filter(p -> !NON_POSITIONAL_PLACEHOLDERS.contains(p))
+            .map(RedstoneTaskFactoryTest::placeholderDelta)
+            .collect(Collectors.toCollection(TreeSet::new));
+    }
+
+    /** Factory RWSet block positions (absolute) → deltas relative to ORIGIN. */
+    private static java.util.Set<WorldPos> factoryDeltas(java.util.Set<WorldPos> abs) {
+        return abs.stream()
+            .map(p -> new WorldPos(DIM, p.x() - ORIGIN.x(), p.y() - ORIGIN.y(), p.z() - ORIGIN.z()))
+            .collect(Collectors.toCollection(TreeSet::new));
+    }
+
+    @Test
+    void annotationTemplateBlockFootprintMatchesFactoryForEveryComponent() {
+        for (RedstoneComponentType type : RedstoneComponentType.values()) {
+            RWSet rw = RedstoneTaskFactory.inert(type, ORIGIN).declaredRWSet();
+            RedstoneAnnotations.ComponentTemplate t = RedstoneAnnotations.componentTemplate(type);
+
+            assertEquals(templateDeltas(t.readBlocks()), factoryDeltas(rw.readBlocks()),
+                type + ": annotation readBlocks disagree with factory read footprint");
+            assertEquals(templateDeltas(t.writeBlocks()), factoryDeltas(rw.writtenBlocks()),
+                type + ": annotation writeBlocks disagree with factory write footprint");
+        }
+    }
+
+    @Test
+    void annotationTemplateGlobalsAndEventsMatchFactoryForEveryComponent() {
+        for (RedstoneComponentType type : RedstoneComponentType.values()) {
+            RWSet rw = RedstoneTaskFactory.inert(type, ORIGIN).declaredRWSet();
+            RedstoneAnnotations.ComponentTemplate t = RedstoneAnnotations.componentTemplate(type);
+
+            assertEquals(globalValues(rw.readGlobalKeys()), new TreeSet<>(t.readGlobals()),
+                type + ": annotation readGlobals disagree with factory read globals");
+            assertEquals(globalValues(rw.writtenGlobalKeys()), new TreeSet<>(t.writeGlobals()),
+                type + ": annotation writeGlobals disagree with factory write globals");
+
+            java.util.Set<String> factoryEvents = rw.writtenEvents().stream()
+                .map(EventType::name).collect(Collectors.toCollection(TreeSet::new));
+            assertEquals(factoryEvents, new TreeSet<>(t.events()),
+                type + ": annotation events disagree with factory written events");
+        }
+    }
+
+    private static java.util.Set<String> globalValues(java.util.Set<GlobalKey> keys) {
+        return keys.stream().map(GlobalKey::value).collect(Collectors.toCollection(TreeSet::new));
     }
 }
