@@ -179,6 +179,14 @@ public final class NebulaPlugin extends JavaPlugin {
     private final java.util.concurrent.atomic.AtomicBoolean firstBlockEntityTransferLogged =
         new java.util.concurrent.atomic.AtomicBoolean(false);
 
+    // B8 C3: fired once when the cook-tick furnace seeder first re-records an
+    // autonomously-smelting furnace off its live CAS state — the honest "a furnace that
+    // fires NO InventoryMoveItemEvent keeps getting DAG-ticked" signal. An idle furnace
+    // never trips this; a burning one that BlockEntityActivityGate.furnaceActive grades
+    // active does, proving the self-sustaining re-seed loop runs on real Folia.
+    private final java.util.concurrent.atomic.AtomicBoolean firstFurnaceReseedLogged =
+        new java.util.concurrent.atomic.AtomicBoolean(false);
+
     // B8 C3: taskId → the snapshot that seeded it. A block-entity taskId
     // (TYPE@dim:x,y,z) drops the hopper's facing/slot count, which
     // BlockEntityActionResolver needs, so the runner (dispatched to region threads)
@@ -860,6 +868,34 @@ public final class NebulaPlugin extends JavaPlugin {
             final int selfBefore = (snap != null) ? sumSlots(self, snap.slotCount()) : 0;
             final int aboveBefore = (above != null) ? slot0(above) : 0;
             final int outputBefore = (output != null) ? slot0(output) : 0;
+
+            // Cook-tick furnace seeder (B8 C3). An autonomously-smelting furnace fires NO
+            // InventoryMoveItemEvent, so the live seed listener never re-seeds it once it
+            // starts cooking — its 200-tick progression would go untracked after the single
+            // event that first registered it. Here, on the OWNING region thread with CAS
+            // freshly primed by syncFromNms(self), ask BlockEntityActivityGate.furnaceActive
+            // whether the furnace would still mutate; if so, re-record its snapshot so the
+            // NEXT endTick re-seeds it. This is a self-sustaining loop bounded by LIVE furnace
+            // state: when Folia's furnace goes idle (input consumed / output full and timers
+            // decayed to 0) furnaceActive returns false and the loop stops. Observe-only-safe:
+            // it only re-enqueues a dirty snapshot, it does not touch NMS.
+            if (snap != null && snap.type() == org.nebula.entity.BlockEntityTaskType.FURNACE
+                    && org.nebula.entity.BlockEntityActivityGate.furnaceActive(blockEntityState, self)) {
+                org.nebula.folia.bridge.BlockEntityTickHook.recordDirty(
+                    "nebula-global", worldName, snap);
+                if (firstFurnaceReseedLogged.compareAndSet(false, true)) {
+                    LOG.info("⚡ FIRST cook-tick furnace re-seed: furnace " + self
+                        + " graded ACTIVE off live CAS (cook_progress="
+                        + blockEntityState.get(new org.nebula.core.state.BlockEntityField(
+                            self, "cook_progress"))
+                        + " fuel_time=" + blockEntityState.get(new org.nebula.core.state.BlockEntityField(
+                            self, "fuel_time"))
+                        + ") on thread '" + Thread.currentThread().getName()
+                        + "' — re-recorded for the next endTick with NO InventoryMoveItemEvent, "
+                        + "so an autonomously-smelting furnace keeps getting DAG-ticked. The "
+                        + "re-seed loop stops when furnaceActive grades it idle.");
+                }
+            }
 
             try {
                 layers = blockEntityTickExecutor.executeTick(java.util.List.of(task));
