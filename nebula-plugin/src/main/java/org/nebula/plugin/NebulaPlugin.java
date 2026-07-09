@@ -256,14 +256,17 @@ public final class NebulaPlugin extends JavaPlugin {
 
         // Create entity physics DAG pipeline
         entityRunner = new EntityTaskRunner(entityState,
-            taskId -> resolveEntityAction(taskId));
+            NebulaPlugin::resolveEntityAction);
         entityTickExecutor = new EntityTickExecutor(entityRunner);
 
-        // Create composite runner for unified redstone + entity DAG
+        // Create composite runner for unified redstone + entity DAG.
+        // Route on the canonical task-type prefixes that the factories actually
+        // stamp: RedstoneComponentType → "REDSTONE_*", EntityTaskType → "ENTITY_*".
+        // (The earlier "MOVE"/"COLLISION" prefixes never matched a stamped type,
+        // so every entity task fell through to the no-route hard error.)
         compositeRunner = new CompositeTaskRunner()
             .routeByTypePrefix("REDSTONE_", redstoneRunner)
-            .routeByTypePrefix("MOVE", entityRunner)
-            .routeByTypePrefix("COLLISION", entityRunner);
+            .routeByTypePrefix("ENTITY_", entityRunner);
 
         Server server = getServer();
         RWGuardConfig guardConfig = new RWGuardConfig(
@@ -927,41 +930,75 @@ public final class NebulaPlugin extends JavaPlugin {
     }
 
     /**
-     * Resolves an entity task action by task ID prefix.
-     * Task IDs are of the form "MOVE@dim:entityId" or "COLLISION@dim:entityA:entityB".
+     * Resolves an entity task action from its canonical task ID, or {@code null}
+     * for a task that mutates no state (pure-read {@code ENTITY_COLLISION}, or an
+     * unmodelled type). The IDs are the ones {@link org.nebula.entity.EntityTaskFactory}
+     * / {@link org.nebula.entity.EntitySnapshot} actually stamp:
+     * <ul>
+     *   <li>{@code ENTITY_MOVE@<dim>:<entityId>:<x>,<y>,<z>} → {@link EntityMoveAction}</li>
+     *   <li>{@code ENTITY_COLLISION_RESPONSE@<dim>:<lo>,<hi>} → {@link EntityCollisionResponseAction}</li>
+     *   <li>{@code ENTITY_COLLISION@<dim>:<lo>,<hi>} → {@code null} (pure read, no writes)</li>
+     * </ul>
+     * The dimension is the first token of the {@code @}-suffix; entity IDs follow.
      */
-    private org.nebula.entity.EntityTaskAction resolveEntityAction(String taskId) {
+    static org.nebula.entity.EntityTaskAction resolveEntityAction(String taskId) {
         int at = taskId.indexOf('@');
-        String suffix = at >= 0 ? taskId.substring(at + 1) : "";
-        String prefix = at >= 0 ? taskId.substring(0, at) : taskId;
-
-        if ("MOVE".equals(prefix)) {
-            long entityId = parseEntityId(suffix);
-            return new EntityMoveAction(entityId);
+        if (at < 0) {
+            return null;
         }
-        if ("COLLISION".equals(prefix)) {
-            long[] ids = parseCollisionIds(suffix);
+        String type = taskId.substring(0, at);
+        String suffix = taskId.substring(at + 1);
+        int dim = parseDimension(suffix);
+
+        if ("ENTITY_MOVE".equals(type)) {
+            long entityId = parseMoveEntityId(suffix);
+            return new EntityMoveAction(entityId, dim);
+        }
+        if ("ENTITY_COLLISION_RESPONSE".equals(type)) {
+            long[] ids = parsePairIds(suffix);
             return new EntityCollisionResponseAction(ids[0], ids[1]);
         }
+        // ENTITY_COLLISION is a pure read (no writes) and any other type is
+        // unmodelled here → no action, so the runner treats it as a no-op.
         return null;
     }
 
-    private static long parseEntityId(String suffix) {
-        // suffix is "dim:entityId" — take last part
+    /** Dimension is the first {@code :}-delimited token of a task-ID suffix. */
+    private static int parseDimension(String suffix) {
+        int colon = suffix.indexOf(':');
+        String head = colon < 0 ? suffix : suffix.substring(0, colon);
+        try {
+            return Integer.parseInt(head);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    /**
+     * Entity ID for a MOVE suffix {@code <dim>:<entityId>:<x>,<y>,<z>} — the
+     * second {@code :}-delimited token.
+     */
+    private static long parseMoveEntityId(String suffix) {
         String[] parts = suffix.split(":");
         if (parts.length >= 2) {
-            try { return Long.parseLong(parts[parts.length - 1]); } catch (NumberFormatException e) { return 0; }
+            try { return Long.parseLong(parts[1]); } catch (NumberFormatException e) { return 0; }
         }
         return 0;
     }
 
-    private static long[] parseCollisionIds(String suffix) {
-        // suffix is "dim:entityA:entityB"
-        String[] parts = suffix.split(":");
+    /**
+     * The two entity IDs for a collision-pair suffix {@code <dim>:<lo>,<hi>} —
+     * the comma-separated pair after the dimension.
+     */
+    private static long[] parsePairIds(String suffix) {
         long a = 0, b = 0;
-        if (parts.length >= 3) {
-            try { a = Long.parseLong(parts[parts.length - 2]); } catch (NumberFormatException e) {}
-            try { b = Long.parseLong(parts[parts.length - 1]); } catch (NumberFormatException e) {}
+        int colon = suffix.indexOf(':');
+        if (colon >= 0) {
+            String[] pair = suffix.substring(colon + 1).split(",");
+            if (pair.length >= 2) {
+                try { a = Long.parseLong(pair[0]); } catch (NumberFormatException e) {}
+                try { b = Long.parseLong(pair[1]); } catch (NumberFormatException e) {}
+            }
         }
         return new long[]{a, b};
     }
