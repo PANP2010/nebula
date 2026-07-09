@@ -66,13 +66,16 @@
 #            [--converge <n>] [--max-dirty <rate>] [--keep-running]
 #         scripts/divergence-grade.sh --settled [circuits] [--seed <n>] [--period <n>] \
 #            [--warmup <ticks>] [--max-diverge <rate>] [--keep-running]
-#         scripts/divergence-grade.sh --be-settled [--feeds <n>] [--max-diverge <rate>] \
-#            [--keep-running]
+#         scripts/divergence-grade.sh --be-settled [--hoppers <n>] [--feeds <n>] \
+#            [--max-diverge <rate>] [--keep-running]
 #   ticks       driven ticks to capture (default 400 — start small, per the Next: pointer)
 #   circuits    lever-headed circuits to place (default 1; default 4 in --settled mode)
 #   --settled   run the DG3 settled-state acceptance gate (see SETTLED MODE above)
 #   --be-settled  run the B8 C3 block-entity settled-state gate (hopper→chest quiescence)
-#   --feeds     item stacks summoned to feed the hopper (--be-settled; default 6)
+#   --hoppers   hopper→chest pairs to place, spaced 512 blocks apart so each lands on a
+#               DISTINCT region thread (--be-settled; default 1). >1 exercises the emit's
+#               concurrent region fan-in (CopyOnWriteArrayList + AtomicInteger)
+#   --feeds     item stacks summoned to feed EACH hopper (--be-settled; default 6)
 #   --seed      driver seed (default 42)
 #   --period    per-source flip period in ticks (default 8)
 #   --converge  leading invocations to skip as the cold-CAS transient (default 8)
@@ -111,7 +114,7 @@ BE_SETTLED_GRADER_CLASS="org.nebula.replay.BlockEntitySettledGraderCli"
 TICKS=""; CIRCUITS=""
 SEED=42; PERIOD=8; CONVERGE=8; MAX_DIRTY=0.05; KEEP_RUNNING=0
 SETTLED=0; WARMUP=200; MAX_DIVERGE=0.0
-BE_SETTLED=0; FEEDS=6
+BE_SETTLED=0; FEEDS=6; HOPPERS=1
 args=("$@"); _i=1; _pos=0; _POS=()
 while [ "$_i" -le "$#" ]; do
     a="${args[$((_i-1))]}"
@@ -119,6 +122,7 @@ while [ "$_i" -le "$#" ]; do
         --settled)   SETTLED=1 ;;
         --be-settled) BE_SETTLED=1 ;;
         --feeds)     _i=$((_i+1)); FEEDS="${args[$((_i-1))]:-}" ;;
+        --hoppers)   _i=$((_i+1)); HOPPERS="${args[$((_i-1))]:-}" ;;
         --seed)      _i=$((_i+1)); SEED="${args[$((_i-1))]:-}" ;;
         --period)    _i=$((_i+1)); PERIOD="${args[$((_i-1))]:-}" ;;
         --converge)  _i=$((_i+1)); CONVERGE="${args[$((_i-1))]:-}" ;;
@@ -241,8 +245,8 @@ teardown() {
 # ============================================================================
 # BE-SETTLED MODE (--be-settled) — the block-entity settled-state gate (B8 C3).
 # ============================================================================
-# The block-entity twin of --settled: it drives a hopper→chest transfer to
-# quiescence, then grades ONE /nebula be-settled snapshot comparing each tracked
+# The block-entity twin of --settled: it drives one or more hopper→chest transfers
+# to quiescence, then grades ONE /nebula be-settled snapshot comparing each tracked
 # hopper's CAS inventory count (nebula=) against Folia's live count (folia=) with
 # the tested BlockEntitySettledGraderCli (0.0 threshold — at quiescence a correct
 # observe-only shadow must match Folia exactly, having had every intervening tick
@@ -250,34 +254,48 @@ teardown() {
 # cannot catch a mid-cooldown move).
 #
 #   METHOD (--be-settled):
-#     1. Build hopper[facing=down] over a chest at (0,64/63,0), forceload the chunk.
-#     2. Feed the hopper by summoning item entities just above it (--feeds times);
+#     1. Build --hoppers hopper[facing=down]-over-chest pairs, spaced 512 blocks
+#        apart on the X axis so each lands on a DISTINCT Folia region thread, and
+#        forceload each chunk. With --hoppers>1 the snapshot's per-position samples
+#        arrive from SEPARATE region threads, exercising the emit's concurrent
+#        region fan-in (CopyOnWriteArrayList + AtomicInteger + sort-by-pos) that a
+#        single tracked hopper never does.
+#     2. Feed each hopper by summoning item entities just above it (--feeds times);
 #        each fires InventoryMoveItemEvent, seeding the block-entity DAG. RCON has
 #        NO working container-fill command on this Folia build (memory), so summon
 #        is the only way to load a hopper with no players online.
-#     3. Wait for the feed to drain and the hopper's self-slots to stabilise
+#     3. Wait for the feed to drain and the hoppers' self-slots to stabilise
 #        (quiescence — the item stream has stopped and Folia is no longer moving
-#        items), then /nebula be-settled emits ONE BE-SETTLED line per world.
+#        items), then /nebula be-settled emits ONE BE-SETTLED line per world listing
+#        every tracked position.
 #     4. Grade it with BlockEntitySettledGraderCli (exit 0 PASS / 3 FAIL / 4 INCONCLUSIVE).
 #   A FAIL here (nebula!=folia at quiescence) is a GENUINE divergence — do NOT
 #   raise --max-diverge to paper over it.
 if [ "$BE_SETTLED" -eq 1 ]; then
     SETTLE_S="${SETTLE_S:-6}"
-    HX=0; HY=64; HZ=0   # hopper position; chest sits at HY-1
+    HY=64               # hopper Y; chest sits at HY-1
+    HZ=0
+    REGION_STRIDE=512   # 512 blocks = 32 chunks apart → distinct region threads
 
-    echo "Building hopper→chest block-entity workload at ($HX,$HY,$HZ)..."
-    R "forceload add $((HX - 2)) $((HZ - 2)) $((HX + 2)) $((HZ + 2))" >/dev/null
-    R "setblock $HX $((HY - 1)) $HZ minecraft:chest" >/dev/null
-    R "setblock $HX $HY $HZ minecraft:hopper[facing=down]" >/dev/null
+    echo "Building $HOPPERS hopper→chest pair(s), spaced ${REGION_STRIDE} blocks apart..."
+    for h in $(seq 0 $((HOPPERS - 1))); do
+        HX=$((h * REGION_STRIDE))
+        R "forceload add $((HX - 2)) $((HZ - 2)) $((HX + 2)) $((HZ + 2))" >/dev/null
+        R "setblock $HX $((HY - 1)) $HZ minecraft:chest" >/dev/null
+        R "setblock $HX $HY $HZ minecraft:hopper[facing=down]" >/dev/null
+    done
     sleep 2
 
-    echo "Feeding the hopper with $FEEDS item stack(s) (summon above the hopper)..."
+    echo "Feeding each hopper with $FEEDS item stack(s) (summon above the hopper)..."
     for _ in $(seq 1 "$FEEDS"); do
-        R "summon item $HX.5 $((HY + 1)).2 $HZ.5 {Item:{id:\"minecraft:cobblestone\",count:32}}" >/dev/null
+        for h in $(seq 0 $((HOPPERS - 1))); do
+            HX=$((h * REGION_STRIDE))
+            R "summon item $HX.5 $((HY + 1)).2 $HZ.5 {Item:{id:\"minecraft:cobblestone\",count:32}}" >/dev/null
+        done
         sleep 1
     done
 
-    echo "Settling for ${SETTLE_S}s (feed stopped; hopper drains to quiescence)..."
+    echo "Settling for ${SETTLE_S}s (feed stopped; hoppers drain to quiescence)..."
     sleep "$SETTLE_S"
 
     echo "Emitting /nebula be-settled over the tracked block entities..."
@@ -312,7 +330,7 @@ if [ "$BE_SETTLED" -eq 1 ]; then
         echo "=== Nebula B8 C3 BLOCK-ENTITY SETTLED-state acceptance grade ==="
         echo "Date:      $(date)"
         echo "Mode:      --be-settled (hopper→chest at quiescence)"
-        echo "Workload:  hopper[facing=down] over chest at ($HX,$HY,$HZ), fed $FEEDS x count:32"
+        echo "Workload:  $HOPPERS hopper[facing=down]-over-chest pair(s) spaced ${REGION_STRIDE} apart, fed $FEEDS x count:32 each"
         echo "Settle:    ${SETTLE_S}s after the last feed"
         echo "BE-SETTLED lines graded: $BE_COUNT  (raw slice: $BE_SLICE)"
         echo
