@@ -125,4 +125,39 @@ public final class BlockEntityActions {
             }
         };
     }
+
+    /**
+     * Pure activity gate for the furnace: {@code true} iff {@link #furnace} would buffer
+     * at least one CAS write on its next tick, given the same five inputs the action
+     * reads (slot 0=input, 1=fuel, 2=output, plus {@code cook_progress} and
+     * {@code fuel_time}).
+     *
+     * <p><b>Why this exists.</b> An autonomously-smelting furnace fires no
+     * {@code InventoryMoveItemEvent}, so the live seed path — which reacts only to that
+     * event — never re-seeds a furnace once it starts cooking, and its 200-tick cook
+     * progression goes untracked. The live cook-tick seeder (the named next epic) needs
+     * exactly this predicate to decide which furnaces are still <em>active</em> and must
+     * be re-seeded each tick; and the {@code BE-SETTLED} grader needs it to decide when a
+     * furnace has reached true quiescence (no pending mutation), where a
+     * {@code nebula != folia} count is a genuine divergence rather than observe-lag.
+     *
+     * <p>Kept colocated with {@link #furnace} on purpose: a gate that lived elsewhere
+     * could silently drift from the action's real branch structure (the
+     * under-declaration class of bug — see the RW-set drift lesson). The branches below
+     * mirror {@link #furnace} exactly, and {@code BlockEntityActivityGateTest}
+     * cross-checks this predicate against actually running the action over a state
+     * matrix, so any future edit to one that is not reflected in the other fails a test.
+     */
+    public static boolean furnaceWillMutate(int input, int fuel, int output,
+                                            int cookProgress, int fuelTime) {
+        if (input <= 0 || output >= 64) {
+            // Idle branch: no input or full output. The action only decays leftover
+            // cook progress and burn time, so it mutates iff either is non-zero.
+            return cookProgress > 0 || fuelTime > 0;
+        }
+        // Can smelt: a burning furnace (fuel_time>0) always advances, and a cold one
+        // with a fuel item available ignites (consuming it) — both mutate. With neither,
+        // the action can only decay existing cook progress.
+        return fuelTime > 0 || fuel > 0 || cookProgress > 0;
+    }
 }
