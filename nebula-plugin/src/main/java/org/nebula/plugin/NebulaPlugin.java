@@ -37,6 +37,8 @@ import org.nebula.redstone.actions.RedstoneActions;
 import org.nebula.core.scheduler.CompositeTaskRunner;
 import org.nebula.replay.BlockEntitySettledFormatter;
 import org.nebula.replay.BlockEntitySettledGrader;
+import org.nebula.replay.FurnaceTimerFormatter;
+import org.nebula.replay.FurnaceTimerGapGrader;
 import org.nebula.replay.ReplayRecorder;
 import org.nebula.replay.SettledDivergenceGrader;
 import org.nebula.replay.SettledSnapshotFormatter;
@@ -1672,6 +1674,110 @@ public final class NebulaPlugin extends JavaPlugin {
         }
         LOG.info("BE-SETTLED dispatched for " + dispatched
             + " tracked block-entity position(s); snapshot line(s) follow asynchronously "
+            + "once each owning region reports.");
+        return dispatched;
+    }
+
+    /**
+     * Emits one {@code BE-FURNACE-TIMER} line per world, comparing Nebula's shadow CAS
+     * furnace timers ({@code fuel_time}, {@code cook_progress}) against Folia's
+     * authoritative timers for every tracked <em>furnace</em>. This is the timer twin of
+     * {@link #emitBlockEntitySettledSnapshot} — but where that grades a settled inventory
+     * <em>count</em> for exact equality, this grades a per-furnace timer <em>gap</em>
+     * (see {@link FurnaceTimerGapGrader}), because a furnace's timers never settle:
+     * {@code cook_progress} climbs 0..cookTotal and resets every smelt, {@code fuel_time}
+     * counts a fuel item down and refills. There is no resting value to demand
+     * {@code nebula == folia} on, so the honest correctness surface is the gap magnitude
+     * between the observe-only shadow's timers and Folia's — the block-entity analogue of
+     * {@code EntityDivergenceTracker}'s per-frame drift.
+     *
+     * <h3>Why measure the gap before arming write-back</h3>
+     * A gap of ~0 is precisely the safe-mirror precondition a furnace-timer write-back must
+     * meet before it is armed (the entity Y-drift met the same bar). The DOUBLE-WRITER trap
+     * — Folia and the DAG both advancing the timer, ≈2x cook speed — shows up here as a
+     * large, growing gap this emit + grader will catch. So this measurement must exist and
+     * grade ~0 <em>before</em> {@link #blockEntityWriteBackEnabled} is armed for timers; it
+     * is not a settled-equality gate.
+     *
+     * <h3>Region-thread safety and the divergence tautology</h3>
+     * Folia tile reads NPE off the owning region thread, so each furnace's sample is
+     * dispatched via {@code RegionScheduler.execute} on its owning region. {@code nebula=}
+     * reads the shadow CAS timers via {@link org.nebula.core.state.BlockEntityField}
+     * ({@code fuel_time}/{@code cook_progress}); {@code folia=} reads
+     * {@link NmsBlockEntityStateBridge#readNmsFurnaceTimers} — the READ-ONLY NMS sample, NOT
+     * {@code syncFromNms}, which would clobber the shadow value and make them equal by
+     * construction. The tracked set is filtered to {@link
+     * org.nebula.entity.BlockEntityTaskType#FURNACE}; a furnace that has since been broken
+     * (bridge returns {@code null}) is skipped so a stale snapshot cannot manufacture a
+     * phantom sample.
+     *
+     * @return the number of tracked furnace positions whose snapshot was dispatched
+     */
+    public int emitFurnaceTimerSnapshot() {
+        if (blockEntityBridge == null || blockEntityState == null) {
+            LOG.warning("BE-FURNACE-TIMER requested but block-entity bridge is not wired (non-Folia?)");
+            return 0;
+        }
+        // Dedup the ticking block entities by position, keeping only furnaces.
+        java.util.Map<WorldPos, org.nebula.entity.BlockEntitySnapshot> byPos =
+            new java.util.LinkedHashMap<>();
+        for (org.nebula.entity.BlockEntitySnapshot snap : blockEntitySnapshots.values()) {
+            if (snap.type() == org.nebula.entity.BlockEntityTaskType.FURNACE) {
+                byPos.putIfAbsent(snap.pos(), snap);
+            }
+        }
+        if (byPos.isEmpty()) {
+            LOG.info("BE-FURNACE-TIMER: tracked=0 — no ticking furnaces recorded; "
+                + "place a lit furnace with a raw input + fuel (so it smelts) first");
+            return 0;
+        }
+
+        Server server = getServer();
+        io.papermc.paper.threadedregions.scheduler.RegionScheduler regionScheduler =
+            server.getRegionScheduler();
+
+        int dispatched = 0;
+        for (World w : server.getWorlds()) {
+            int dim = org.nebula.core.state.DimensionIds.fromName(w.getName());
+            java.util.List<org.nebula.entity.BlockEntitySnapshot> here = byPos.values().stream()
+                .filter(s -> s.pos().dimensionId() == dim)
+                .toList();
+            if (here.isEmpty()) {
+                continue;
+            }
+            final World fw = w;
+            java.util.List<FurnaceTimerGapGrader.FurnaceTimerSample> samples =
+                new java.util.concurrent.CopyOnWriteArrayList<>();
+            java.util.concurrent.atomic.AtomicInteger remaining =
+                new java.util.concurrent.atomic.AtomicInteger(here.size());
+            for (org.nebula.entity.BlockEntitySnapshot snap : here) {
+                final WorldPos pos = snap.pos();
+                regionScheduler.execute(this, fw, pos.x() >> 4, pos.z() >> 4, () -> {
+                    NmsBlockEntityStateBridge.FurnaceTimerSample folia =
+                        blockEntityBridge.readNmsFurnaceTimers(fw, pos);
+                    if (folia != null) {
+                        int nebulaFuel = blockEntityState.get(
+                            new org.nebula.core.state.BlockEntityField(pos, "fuel_time"));
+                        int nebulaCook = blockEntityState.get(
+                            new org.nebula.core.state.BlockEntityField(pos, "cook_progress"));
+                        samples.add(new FurnaceTimerGapGrader.FurnaceTimerSample(
+                            pos, nebulaFuel, folia.fuelTime(), nebulaCook, folia.cookProgress()));
+                    }
+                    if (remaining.decrementAndGet() == 0) {
+                        int tick = server.getCurrentTick();
+                        java.util.List<FurnaceTimerGapGrader.FurnaceTimerSample> ordered =
+                            samples.stream()
+                                .sorted(java.util.Comparator.comparing(
+                                    FurnaceTimerGapGrader.FurnaceTimerSample::pos))
+                                .toList();
+                        LOG.info(FurnaceTimerFormatter.format(tick, ordered));
+                    }
+                });
+                dispatched++;
+            }
+        }
+        LOG.info("BE-FURNACE-TIMER dispatched for " + dispatched
+            + " tracked furnace position(s); snapshot line(s) follow asynchronously "
             + "once each owning region reports.");
         return dispatched;
     }

@@ -46,6 +46,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
             case "diag" -> handleDiag(sender, args);
             case "settled" -> handleSettled(sender);
             case "be-settled" -> handleBlockEntitySettled(sender, args);
+            case "be-furnace-timer" -> handleFurnaceTimer(sender);
             case "help" -> sendHelp(sender);
             default -> sender.sendMessage("§cUnknown subcommand: " + sub);
         }
@@ -365,6 +366,32 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
             + " (" + dispatched + " positions dispatched, faultOffset=" + faultOffset + ")");
     }
 
+    /**
+     * B8 C3 correctness: emit a {@code BE-FURNACE-TIMER} gap snapshot for the tracked
+     * furnaces. Snapshots each ticking furnace on its owning region thread, logging
+     * {@code nebulaFuel/foliaFuel} and {@code nebulaCook/foliaCook} per position, so
+     * {@code FurnaceTimerGapGraderCli} can grade the observe-only shadow's timer gap
+     * against Folia's authoritative timers. Unlike {@code /nebula be-settled} (which
+     * grades a settled inventory count for equality), this grades a GAP magnitude —
+     * furnace timers never settle, so a resting-equality check does not apply. Place a
+     * lit furnace with a raw input + fuel so it smelts autonomously (the cook-tick
+     * seeder keeps it DAG-ticked), THEN run this while it is mid-smelt to measure the
+     * live timer gap. A gap of ~0 is the precondition any furnace-timer write-back must
+     * meet before it is armed.
+     */
+    private void handleFurnaceTimer(CommandSender sender) {
+        if (!sender.hasPermission("nebula.status")) {
+            sender.sendMessage("§cYou don't have permission to use this command.");
+            return;
+        }
+        int dispatched = plugin.emitFurnaceTimerSnapshot();
+        sender.sendMessage("§aBE-FURNACE-TIMER snapshot dispatched for " + dispatched
+            + " tracked furnace position(s). Read the BE-FURNACE-TIMER line(s) in "
+            + "server-run.log, then grade the gap with FurnaceTimerGapGraderCli.");
+        LOG.info("Furnace-timer snapshot requested by " + sender.getName()
+            + " (" + dispatched + " positions dispatched)");
+    }
+
     private void sendHelp(CommandSender sender) {
         sender.sendMessage("§6Nebula Commands:");
         sender.sendMessage("  §e/nebula capture start [ticks] [--drive <seed>] [--period <n>] §7- Start state capture (--drive = live-load driven)");
@@ -375,6 +402,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
         sender.sendMessage("  §e/nebula diag <on|off> §7- Toggle per-tick cascade diagnostic (DG1 C2 probe)");
         sender.sendMessage("  §e/nebula settled §7- Emit a settled-state SETTLED-DIAG snapshot (DG3 divergence)");
         sender.sendMessage("  §e/nebula be-settled §7- Emit a settled-state BE-SETTLED snapshot (block-entity divergence)");
+        sender.sendMessage("  §e/nebula be-furnace-timer §7- Emit a BE-FURNACE-TIMER gap snapshot (furnace timer divergence)");
         sender.sendMessage("  §e/nebula help §7- Show this help");
     }
 
@@ -384,7 +412,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
                                       String alias,
                                       String[] args) {
         if (args.length == 1) {
-            return Arrays.asList("capture", "status", "scan", "perf", "diag", "settled", "be-settled", "help");
+            return Arrays.asList("capture", "status", "scan", "perf", "diag", "settled", "be-settled", "be-furnace-timer", "help");
         }
         if (args.length == 2 && args[0].equalsIgnoreCase("capture")) {
             return Arrays.asList("start", "stop");
