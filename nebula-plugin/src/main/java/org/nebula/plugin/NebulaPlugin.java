@@ -310,9 +310,16 @@ public final class NebulaPlugin extends JavaPlugin {
         }
         microStepScheduler = new MicroStepScheduler(taskGenerator, redstoneRunner);
 
-        // Create entity physics DAG pipeline
+        // Create entity physics DAG pipeline. Wire a LIVE terrain oracle so
+        // EntityMoveAction.restedOn() can fire: without it the runner defaults to
+        // TerrainView.EMPTY (open void) and every grounded mob is modelled as
+        // free-falling — the live divergence probe measured a constant Y over-fall
+        // of exactly -0.0784/tick (one tick of ungrounded gravity+drag) for a mob
+        // resting on the ground (B8 C1, diagnosed 2026-07-10). NmsTerrainView reads
+        // block solidity on the owning region thread, matching the MOVE RW-set.
         entityRunner = new EntityTaskRunner(entityState,
-            NebulaPlugin::resolveEntityAction);
+            NebulaPlugin::resolveEntityAction)
+            .withTerrain(new org.nebula.folia.NmsTerrainView(getServer()));
         entityTickExecutor = new EntityTickExecutor(entityRunner);
 
         // Create composite runner for unified redstone + entity DAG.
