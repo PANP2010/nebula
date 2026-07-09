@@ -89,9 +89,12 @@ class RedstoneAnnotationMaintenanceTest {
      *   <li>{@code CollectingNeighborUpdater.runNext} — cross-cutting fan-out
      *       infrastructure; its RW fact is the {@code region.neighbor_updater}
      *       global that every firing component already declares.</li>
-     *   <li>{@code SculkSensorBlock.tick} — vibration-driven; DAG home undecided,
-     *       deferred to task A3 (adding a template now would break the
-     *       template-count == enum-count invariant).</li>
+     *   <li>{@code SculkSensorBlock.tick} — A3 RESOLVED (2026-07-09): its home is
+     *       the game-event / vibration subsystem, NOT the redstone DAG (it is
+     *       vibration-triggered + scheduled-tick-driven, so the BLOCK_UPDATE-seeded
+     *       redstone pipeline can never seed it). Intentionally kept as a reference
+     *       constant with no {@code RedstoneComponentType} — see the field javadoc
+     *       on {@code RedstoneAnnotations.SCULK_SENSOR_TICK} for the full rationale.</li>
      * </ul>
      * Anything else that is declared-but-unreferenced is an accidental orphan and
      * must fail {@link #everyDeclaredMethodConstantIsEitherWiredOrExplicitlyUnwired}.

@@ -1143,14 +1143,34 @@ public final class RedstoneAnnotations {
      *          Vibration listener is a separate game-event subsystem hook.
      * </pre>
      *
-     * <p><b>A2 audit decision (2026-07-09):</b> deliberately NOT folded into a
-     * {@code ComponentTemplate} yet — this is deferred to task A3. SculkSensor is
-     * vibration-driven, not neighbour/signal-driven, so its DAG home (redstone vs.
-     * the game-event subsystem) must be decided before adding a
-     * {@code RedstoneComponentType} enum value + factory case for it. Adding the
-     * template now, without the enum/factory side, would break the invariant that
-     * {@code componentTemplates().size() == RedstoneComponentType.values().length}.
-     * Kept as a documented reference constant until A3 resolves the home.
+     * <p><b>A3 decision — RESOLVED (2026-07-09): SculkSensor's home is the
+     * game-event / vibration subsystem, NOT the redstone DAG.</b> It is therefore
+     * deliberately NOT given a {@code RedstoneComponentType} enum value or a
+     * {@code ComponentTemplate}, and stays a documented reference constant.
+     * Rationale:
+     * <ul>
+     *   <li>The redstone DAG is seeded <em>exclusively</em> by {@code BLOCK_UPDATE}
+     *       / neighbour-update interception. A sculk sensor's activation is
+     *       triggered by a <em>vibration</em> game event, which fires no
+     *       {@code BLOCK_UPDATE} that would ever seed a redstone task for it, and
+     *       its ACTIVE→COOLDOWN→INACTIVE transitions run off scheduled ticks
+     *       ({@code region.block_level_ticks}), not neighbour signals. A
+     *       {@code SCULK_SENSOR} redstone type would thus be a component the live
+     *       pipeline can never seed — dead code and a false "supported" claim, the
+     *       exact doc-vs-reality drift this project treats as its defining wound.</li>
+     *   <li>The sensor's <em>output</em> power edge needs no dedicated redstone
+     *       task: when an ACTIVE sensor's power reaches a neighbour, the normal
+     *       neighbour-update path already seeds the <em>neighbour's</em> redstone
+     *       task. The sensor itself does not have to be a redstone task for the
+     *       circuit it feeds to react correctly.</li>
+     *   <li>Nebula has no game-event / vibration subsystem yet (it is design-only
+     *       and explicitly out of B8 scope until the guard-verified loop exists —
+     *       see TODO.md). That subsystem, once built, is the correct owner of the
+     *       phase machine + vibration listener; this constant is the RW-set it will
+     *       consume.</li>
+     * </ul>
+     * Keeping it here (rather than a wrong-subsystem enum value) also preserves the
+     * invariant {@code componentTemplates().size() == RedstoneComponentType.values().length}.
      */
     public static final String SCULK_SENSOR_TICK = "SculkSensorBlock.tick";
 

@@ -551,11 +551,17 @@ requires the decisive Folia experiment, not just a green unit test.
       (commit d38705d): the five getSignal-family constants folded into their owning templates
       (wire/repeater/pressure-plate); `CollectingNeighborUpdater.runNext` and `SculkSensorBlock.tick`
       kept as documented exceptions in `KNOWN_UNWIRED_METHOD_REFS`; a new orphan-guard test fails the
-      build on any future unjustified orphan. A3 (SculkSensor home) still open below.
-- [ ] A3. Decide SculkSensor's home. It has a fully-documented `SCULK_SENSOR_TICK` RW-set but is
-      vibration-driven, not neighbour/signal-driven. Confirm whether it belongs in the redstone DAG or the
-      game-event subsystem *before* adding an enum constant (avoid a wrong-subsystem commit). Record the
-      decision in a comment or PROJECT_STATUS.md; only add the type if redstone is the right home.
+      build on any future unjustified orphan. A3 (SculkSensor home) now RESOLVED below.
+- [x] A3. Decide SculkSensor's home. **DONE (2026-07-09): home is the game-event / vibration subsystem,
+      NOT the redstone DAG — so NO `RedstoneComponentType` value was added.** The redstone DAG is seeded
+      only by BLOCK_UPDATE / neighbour-update interception; a sculk sensor is vibration-triggered and its
+      phase transitions run off scheduled ticks, so it fires no BLOCK_UPDATE that could ever seed a redstone
+      task — a `SCULK_SENSOR` type would be un-seedable dead code (the exact doc-vs-reality drift this
+      project fights). Its output power edge needs no dedicated task: an ACTIVE sensor powering a neighbour
+      already seeds the *neighbour's* redstone task via the normal path. `SCULK_SENSOR_TICK` stays a
+      documented reference constant (the RW-set the future game-event subsystem will consume). Decision
+      recorded on the `RedstoneAnnotations.SCULK_SENSOR_TICK` javadoc and the maintenance-test allow-list.
+      Also preserves the `templates().size() == enum length` invariant.
 
 **B. Prove the guard actually works (unblocks all runtime verification — do before B/C annotation sweeps)**
 - [ ] B1. Unit-drive the RW-guard end to end in `nebula-guard-api`: run a task whose declared RWSet
