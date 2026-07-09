@@ -133,7 +133,7 @@ class RedstoneTickHookTest {
     }
 
     @Test
-    void beginTickClearsPreviousDirtyPositions() {
+    void eachDrainedUpdateResolvedExactlyOnceAcrossTicks() {
         RedstoneTickHook.setActive(true);
         List<WorldPos> positions = new ArrayList<>();
         RedstoneTickHook.setResolver((wn, pos) -> { positions.add(pos); return null; });
@@ -145,13 +145,47 @@ class RedstoneTickHookTest {
 
         positions.clear();
 
-        // Tick 2 — new beginTick should clear the old positions
+        // Tick 2 — endTick removed tick 1's bucket, so only tick 2's update remains.
         RedstoneTickHook.beginTick("r1");
         RedstoneTickHook.recordUpdate("r1", "minecraft:overworld", 2, 64, 2);
         RedstoneTickHook.endTick("r1", "minecraft:overworld");
 
         assertEquals(1, positions.size());
         assertEquals(2, positions.get(0).x());
+    }
+
+    /**
+     * Regression for the DG3 {@code nebula=-1} whole-circuit-absent race: an update
+     * recorded on a region thread <em>between</em> an {@code endTick} drain and the
+     * following {@code beginTick} must NOT be discarded by that {@code beginTick} — it
+     * has to survive to the next {@code endTick} that drains it.
+     *
+     * <p>The live driver alternates {@code endTick, beginTick, endTick, beginTick, …}
+     * (one game tick each). Before this fix {@code beginTick} wiped every undrained
+     * dirty position, so a circuit whose OFF→ON {@code BLOCK_UPDATE} burst landed in
+     * the {@code endTick}→{@code beginTick} window contributed zero seeds and never
+     * entered CAS — nondeterministic, binary per-circuit. {@code endTick} is now the
+     * sole consumer (it drains-and-removes each bucket), so no recorded update is lost.
+     */
+    @Test
+    void beginTickDoesNotDropUpdatesRecordedBeforeIt() {
+        RedstoneTickHook.setActive(true);
+        List<WorldPos> resolved = new ArrayList<>();
+        RedstoneTickHook.setResolver((wn, pos) -> { resolved.add(pos); return null; });
+
+        // A region thread records an update in the "deaf" window (after an endTick
+        // drained an empty bucket, before the next beginTick).
+        RedstoneTickHook.endTick("nebula-global", "world");   // drains nothing
+        RedstoneTickHook.recordUpdate("nebula-global", "minecraft:overworld", 9, 70, 9);
+
+        // The following beginTick must NOT wipe that recorded update ...
+        RedstoneTickHook.beginTick("nebula-global");
+        // ... so the next endTick drains it.
+        RedstoneTickHook.endTick("nebula-global", "world");
+
+        assertEquals(1, resolved.size(),
+            "an update recorded before beginTick must survive to the next endTick");
+        assertEquals(9, resolved.get(0).x());
     }
 
     /**

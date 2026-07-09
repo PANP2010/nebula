@@ -143,16 +143,29 @@ public final class RedstoneTickHook {
 
     /**
      * Called at the start of each Folia region tick.
-     * Clears the dirty-position accumulator for this region.
+     *
+     * <p><b>Does NOT clear the dirty-position accumulator.</b> {@link #endTick}
+     * is the sole consumer — it drains <em>and removes</em> each world's bucket, so
+     * an update is processed exactly once and the accumulator self-empties on drain.
+     *
+     * <p>DG3 {@code nebula=-1} whole-circuit-absent race (fixed 2026-07-09): the live
+     * driver alternates {@code endTick, beginTick, endTick, beginTick, …} (one game
+     * tick each), while {@code recordUpdate} fires continuously on region threads. When
+     * {@code beginTick} wiped undrained positions, any update recorded in the
+     * {@code endTick}→{@code beginTick} window was destroyed before an {@code endTick}
+     * could drain it. A circuit whose entire OFF→ON {@code BLOCK_UPDATE} burst landed
+     * in that "deaf" window contributed zero seeds and never entered CAS —
+     * nondeterministic and binary per-circuit (memory dg3-settled-gate-multiregion-race).
+     * Removing the wipe closes that window: every recorded update survives to the next
+     * {@code endTick}.
      */
     public static void beginTick(String regionId) {
         if (!active) return;
-        // Clear any stale dirty-position entries for this region.
-        // This ensures a clean slate at the start of each tick regardless
-        // of whether endTick was called for every world.
+        // Clear only the stale endTick-in-progress guards for this region (bounded,
+        // self-resetting set). The dirty-position accumulator is intentionally NOT
+        // touched here — see the class/method javadoc: endTick drains-and-removes it,
+        // and wiping it here dropped in-flight updates (the DG3 nebula=-1 race).
         String prefix = regionId + "::";
-        dirtyPositions.entrySet().removeIf(entry -> entry.getKey().startsWith(prefix));
-        // Also clear any stale endTick-in-progress guards for this region.
         endTickInProgress.entrySet().removeIf(entry -> entry.getKey().startsWith(prefix));
     }
 

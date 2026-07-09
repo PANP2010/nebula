@@ -305,7 +305,25 @@ Detailed history of each blocker follows below (retained for the record).
 | VAP plugin compat | Level 0 ≥80% | ❌ Not tested |
 | Load testing | 100 players @ 20 TPS | ❌ Not tested |
 
-**Verdict**: DG3 acceptance blocked by DG1/DG2.
+**Verdict**: DG3 formal acceptance (full-system zero-diff, VAP compat, load
+testing) is still blocked by DG1/DG2 — those criteria remain untouched.
+
+> **DG3 settled-state divergence gate now PASSes deterministically (2026-07-09).**
+> `scripts/divergence-grade.sh --settled 4 --warmup 100` — the standing settled-state
+> Folia-vs-Nebula correctness gate — had FAILed since it was introduced (0.2794, 19/68;
+> a run-varying whole circuit read `nebula=-1`, having never entered CAS). Root cause
+> was **not** a redstone-logic bug but a tick-lifecycle race: the driver alternates
+> `endTick, beginTick, endTick, beginTick, …` (one game tick each), and `beginTick`
+> used to wipe every *undrained* dirty position. Any `BLOCK_UPDATE` recorded on a
+> region thread in the `endTick`→`beginTick` window was destroyed before an `endTick`
+> could drain it, so a circuit whose whole OFF→ON burst landed in that "deaf" half-tick
+> contributed zero seeds — nondeterministic, binary per-circuit. Fix: `endTick` is now
+> the sole consumer (it already drains-and-removes each bucket); `beginTick` no longer
+> touches the accumulator. **Live-verified on real Folia 26.1.2: three consecutive
+> fresh-boot `--settled 4 --warmup 100` runs all graded PASS (0 diverged; all 4
+> circuits present and `nebula==folia` exactly along every 15..0 line), zero
+> `nebula=-1 folia=positive` entries.** This is a correctness signal, not a formal DG3
+> criterion — it does not upgrade the table above.
 
 ---
 
