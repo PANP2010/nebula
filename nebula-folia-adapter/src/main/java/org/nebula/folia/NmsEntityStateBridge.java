@@ -168,6 +168,55 @@ public final class NmsEntityStateBridge {
     }
 
     /**
+     * Writes back ONLY the vertical (Y) component of the CAS-stored position and
+     * velocity, leaving the entity's live X/Z authoritative to Folia. This is the
+     * honest write-back scope established by the divergence finding (B8 C1,
+     * 2026-07-10): {@link org.nebula.entity.actions.EntityMoveAction}'s Y matches Folia
+     * on the vertical path, but its horizontal X/Z drift is STOCHASTIC AI pathing a
+     * deterministic mirror cannot reproduce. See
+     * {@link org.nebula.entity.VerticalWriteBackGate} for the arming predicate the
+     * caller must satisfy first.
+     *
+     * <p>The teleport target keeps the entity's <em>current</em> live X/Z (read fresh
+     * from {@link Entity#getLocation()}) and substitutes only the CAS Y, so a wandering
+     * mob's horizontal position is never perturbed. Likewise only {@code velocity.y}
+     * is replaced; the live {@code velocity.x/z} are preserved.
+     *
+     * <p>Must be called on the region thread that owns the entity.
+     */
+    public boolean syncVerticalPhysicsToNms(Entity entity, World world) {
+        Objects.requireNonNull(entity, "entity");
+        Objects.requireNonNull(world, "world");
+
+        EntityField posField = new EntityField(entity.getEntityId(), "position");
+        Vec3 casPos = casStore.getVec(posField);
+        if (casPos.equals(Vec3.ZERO)) {
+            LOG.fine(() -> "No position in CAS store for entity " + entity.getEntityId());
+            return false;
+        }
+
+        // Keep Folia's live X/Z; overwrite only Y with the DAG's computed value.
+        Location live = entity.getLocation();
+        Location target = new Location(world, live.getX(), casPos.y(), live.getZ(),
+            live.getYaw(), live.getPitch());
+        boolean success = entity.teleport(target);
+
+        if (success) {
+            // Preserve the live horizontal velocity; mirror only the vertical.
+            Vector liveVel = entity.getVelocity();
+            EntityField velField = new EntityField(entity.getEntityId(), "velocity");
+            Vec3 casVel = casStore.getVec(velField);
+            entity.setVelocity(new Vector(liveVel.getX(), casVel.y(), liveVel.getZ()));
+            LOG.fine(() -> "Vertical write-back for entity " + entity.getEntityId()
+                + ": y=" + casPos.y() + " vy=" + casVel.y());
+        } else {
+            LOG.warning(() -> "Vertical write-back teleport failed for entity "
+                + entity.getEntityId());
+        }
+        return success;
+    }
+
+    /**
      * Returns the CAS store this bridge is bound to.
      */
     public EntityPhysicsState casStore() {

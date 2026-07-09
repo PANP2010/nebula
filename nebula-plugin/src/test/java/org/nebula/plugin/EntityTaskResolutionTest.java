@@ -167,6 +167,17 @@ class EntityTaskResolutionTest {
             "entity divergence tracker must default OFF (observe-only)");
     }
 
+    @Test
+    void entityVerticalWriteBackIsOffByDefault() {
+        // Vertical-only write-back is the honest B8 C1 scope (mirror Y on the verified
+        // vertical path, leave stochastic X/Z to Folia), but it still perturbs live
+        // mobs, so it must be explicitly armed. Absent the opt-in property it stays OFF.
+        assertNull(System.getProperty("nebula.entity.writeback.vertical"),
+            "test env must not pre-set the vertical write-back property");
+        assertFalse(NebulaPlugin.entityVerticalWriteBackEnabled(),
+            "entity vertical-only write-back must default OFF");
+    }
+
     // ── CompositeTaskRunner routing: prefixes must match stamped types ────────
 
     @Test

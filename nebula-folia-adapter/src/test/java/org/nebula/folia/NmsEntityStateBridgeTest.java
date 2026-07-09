@@ -195,4 +195,70 @@ class NmsEntityStateBridgeTest {
 
         assertTrue(found.isPresent());
     }
+
+    @Test
+    void syncVerticalPhysicsToNms_mirrorsYButKeepsLiveXZ() {
+        // Live entity is at (10, 64, 20) moving horizontally; CAS holds the DAG's
+        // computed position/velocity with a DIFFERENT Y and X/Z. Vertical write-back
+        // must teleport to (liveX, casY, liveZ) — Folia keeps X/Z, Nebula supplies Y.
+        Location[] teleportedTo = {null};
+        Vector[] velSet = {null};
+        Location live = new Location(stubWorld(), 10.0, 64.0, 20.0);
+        Vector liveVel = new Vector(0.12, -0.4, -0.07);
+
+        Entity entity = (Entity) Proxy.newProxyInstance(
+            Entity.class.getClassLoader(), new Class<?>[]{Entity.class},
+            (p, m, a) -> {
+                switch (m.getName()) {
+                    case "getEntityId": return ENTITY_ID;
+                    case "getLocation": return live;
+                    case "getVelocity": return liveVel;
+                    case "teleport":
+                        if (a != null && a.length >= 1 && a[0] instanceof Location loc) {
+                            teleportedTo[0] = loc;
+                            return true;
+                        }
+                        return false;
+                    case "setVelocity":
+                        if (a != null && a.length == 1 && a[0] instanceof Vector v) {
+                            velSet[0] = v;
+                        }
+                        return null;
+                    default: return def(m);
+                }
+            });
+        World world = worldWith(entity);
+
+        // DAG computed a different position AND velocity than the live entity.
+        casStore.casCommit(new EntityField(ENTITY_ID, "position"), 0, new Vec3(999.0, 62.5, 999.0));
+        casStore.casCommit(new EntityField(ENTITY_ID, "velocity"), 0, new Vec3(999.0, -0.48, 999.0));
+
+        boolean result = bridge.syncVerticalPhysicsToNms(entity, world);
+
+        assertTrue(result, "vertical write-back should succeed");
+        // X/Z stay LIVE (Folia authoritative); only Y comes from CAS.
+        assertEquals(10.0, teleportedTo[0].getX(), 0.001, "X must stay Folia-live");
+        assertEquals(62.5, teleportedTo[0].getY(), 0.001, "Y must be mirrored from CAS");
+        assertEquals(20.0, teleportedTo[0].getZ(), 0.001, "Z must stay Folia-live");
+        // Velocity: horizontal stays live, only vy is mirrored.
+        assertEquals(0.12, velSet[0].getX(), 0.001, "vx must stay Folia-live");
+        assertEquals(-0.48, velSet[0].getY(), 0.001, "vy must be mirrored from CAS");
+        assertEquals(-0.07, velSet[0].getZ(), 0.001, "vz must stay Folia-live");
+    }
+
+    @Test
+    void syncVerticalPhysicsToNms_noopWhenCasEmpty() {
+        // No CAS position → nothing to write back (Vec3.ZERO sentinel), returns false.
+        Entity entity = entityAt(5.0, 70.0, 5.0, 0, 0, 0);
+        World world = worldWith(entity);
+
+        assertFalse(bridge.syncVerticalPhysicsToNms(entity, world),
+            "vertical write-back is a no-op when CAS has no position");
+    }
+
+    private static World stubWorld() {
+        return (World) Proxy.newProxyInstance(
+            World.class.getClassLoader(), new Class<?>[]{World.class},
+            (p, m, a) -> def(m));
+    }
 }

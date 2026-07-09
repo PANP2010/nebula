@@ -550,8 +550,10 @@ public final class NebulaPlugin extends JavaPlugin {
             + "(begin+drain every game tick so a DAG pass == one game tick, keeping the "
             + "divergence tracker's frame-for-frame guard honest; per-entity DAG dispatched to "
             + "owning region threads; NMS write-back "
-            + (entityWriteBackEnabled() ? "ARMED (-Dnebula.entity.writeback=true)"
-                                        : "OFF — observe-only") + ")");
+            + (entityWriteBackEnabled() ? "ARMED full (-Dnebula.entity.writeback=true)"
+               : entityVerticalWriteBackEnabled()
+                   ? "ARMED vertical-only (-Dnebula.entity.writeback.vertical=true)"
+                   : "OFF — observe-only") + ")");
     }
 
     /**
@@ -570,6 +572,30 @@ public final class NebulaPlugin extends JavaPlugin {
      */
     static boolean entityWriteBackEnabled() {
         return Boolean.getBoolean("nebula.entity.writeback");
+    }
+
+    /**
+     * Whether <em>vertical-only</em> entity write-back is armed. Overridable via
+     * {@code -Dnebula.entity.writeback.vertical=true}; defaults to {@code false}.
+     *
+     * <p>This is the honest write-back scope established by the B8 C1 divergence
+     * finding (2026-07-10): {@link EntityMoveAction}'s Y matches Folia on the
+     * verified vertical path (grounded rest / straight fall) while its horizontal
+     * X/Z drift is STOCHASTIC AI pathing a deterministic mirror can never reproduce.
+     * So when armed, {@link #executeOwnedEntityDag} writes back only the Y position
+     * and Y velocity — and only for entities the {@link org.nebula.entity.VerticalWriteBackGate}
+     * deems on the vertical path (negligible authoritative horizontal speed) — leaving
+     * X/Z authoritative to Folia. A wandering or knocked mob is left entirely untouched.
+     *
+     * <p>Distinct from and safer than {@link #entityWriteBackEnabled()} (full write-back,
+     * which teleports every moved entity onto Nebula's approximate trajectory and fights
+     * vanilla AI). Full write-back stays off until — if ever — an AI-intent mirror exists.
+     * If both flags are set, full write-back takes precedence (the superset).
+     *
+     * <p>Package-private so {@code EntityTaskResolutionTest} can pin the default OFF.
+     */
+    static boolean entityVerticalWriteBackEnabled() {
+        return Boolean.getBoolean("nebula.entity.writeback.vertical");
     }
 
     /**
@@ -618,6 +644,7 @@ public final class NebulaPlugin extends JavaPlugin {
         if (ownedTasks.isEmpty()) return;
 
         final boolean writeBack = entityWriteBackEnabled();
+        final boolean verticalWriteBack = !writeBack && entityVerticalWriteBackEnabled();
         final boolean diverge = entityDivergenceEnabled();
         // Tick label for the frame-for-frame divergence pairing. We are on the owning
         // region thread here, so getCurrentTick() is legal (it NPEs off a region
@@ -647,6 +674,14 @@ public final class NebulaPlugin extends JavaPlugin {
             org.nebula.entity.Vec3 authoritative =
                 diverge ? entityBridge.casStore().getVec(posField) : null;
 
+            // For the vertical-only gate we need Folia's authoritative HORIZONTAL
+            // velocity (is it moving this mob sideways right now?). Captured pre-DAG for
+            // the same reason: the DAG overwrites velocity with its own integration.
+            final org.nebula.entity.Vec3 authoritativeVel = verticalWriteBack
+                ? entityBridge.casStore().getVec(
+                    new org.nebula.core.state.EntityField(entityId, "velocity"))
+                : null;
+
             try {
                 layers = entityTickExecutor.executeTick(java.util.List.of(task));
             } catch (Exception e) {
@@ -667,6 +702,13 @@ public final class NebulaPlugin extends JavaPlugin {
             if (writeBack) {
                 entityBridge.syncPhysicsToNms(entity, world);
                 applied++;
+            } else if (verticalWriteBack
+                    && org.nebula.entity.VerticalWriteBackGate.onVerticalPath(authoritativeVel)) {
+                // Vertical path only (grounded rest / straight fall): mirror Y, leave
+                // Folia's stochastic X/Z untouched. A wandering/knocked mob (nonzero
+                // horizontal speed) fails the gate and is left entirely to Folia.
+                entityBridge.syncVerticalPhysicsToNms(entity, world);
+                applied++;
             }
         }
 
@@ -676,8 +718,10 @@ public final class NebulaPlugin extends JavaPlugin {
                 + " on thread '" + Thread.currentThread().getName() + "' — the entity "
                 + "read/DAG now run on the OWNING region thread (region-thread NMS read "
                 + "is legal here). NMS write-back "
-                + (writeBack ? "ARMED, applied to " + applied + " entity(ies)"
-                             : "OFF (observe-only; -Dnebula.entity.writeback=true to arm)"));
+                + (writeBack ? "ARMED (full), applied to " + applied + " entity(ies)"
+                   : verticalWriteBack
+                       ? "ARMED (vertical-only), applied to " + applied + " entity(ies) on the vertical path"
+                       : "OFF (observe-only; -Dnebula.entity.writeback[.vertical]=true to arm)"));
         }
     }
 
