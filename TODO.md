@@ -538,15 +538,20 @@ Do these top-to-bottom; each is scoped to a single commit. Prefer the cheap high
 requires the decisive Folia experiment, not just a green unit test.
 
 **A. Close the drift between the two RW representations (cheap, pure nebula-core/redstone, no Folia)**
-- [ ] A1. Add a test asserting each redstone `ComponentTemplate` agrees field-by-field with the live
+- [x] A1. Add a test asserting each redstone `ComponentTemplate` agrees field-by-field with the live
       `RedstoneTaskFactory` RWSet for the same type (block footprint, globals, events). Today only
       `size()` is asserted equal — the *contents* can diverge silently. This is the guardrail that keeps
-      redstone honest as new types land. (Extends `RedstoneTaskFactoryTest`.)
-- [ ] A2. Audit the 7 remaining orphaned method constants in `RedstoneAnnotations`
+      redstone honest as new types land. (Extends `RedstoneTaskFactoryTest`.) — **DONE** (commit 16a77dd,
+      "pin the factory-vs-annotation RW-set agreement for all 27 redstone components").
+- [x] A2. Audit the 7 remaining orphaned method constants in `RedstoneAnnotations`
       (`WIRE_GET_SIGNAL`, `WIRE_GET_DIRECT_SIGNAL`, `WIRE_TURBO_SHAPE`, `REPEATER_GET_SIGNAL`,
       `WEIGHTED_PRESSURE_PLATE_SIGNAL_FOR_STATE`, `COLLECTING_NEIGHBOR_UPDATER`, `SCULK_SENSOR_TICK`).
       For each: either fold its read/write facts into the owning component's template, or delete it as a
-      dead reference. Leave a comment recording the decision so it doesn't get re-added.
+      dead reference. Leave a comment recording the decision so it doesn't get re-added. — **DONE**
+      (commit d38705d): the five getSignal-family constants folded into their owning templates
+      (wire/repeater/pressure-plate); `CollectingNeighborUpdater.runNext` and `SculkSensorBlock.tick`
+      kept as documented exceptions in `KNOWN_UNWIRED_METHOD_REFS`; a new orphan-guard test fails the
+      build on any future unjustified orphan. A3 (SculkSensor home) still open below.
 - [ ] A3. Decide SculkSensor's home. It has a fully-documented `SCULK_SENSOR_TICK` RW-set but is
       vibration-driven, not neighbour/signal-driven. Confirm whether it belongs in the redstone DAG or the
       game-event subsystem *before* adding an enum constant (avoid a wrong-subsystem commit). Record the
