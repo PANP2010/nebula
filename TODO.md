@@ -608,11 +608,29 @@ requires the decisive Folia experiment, not just a green unit test.
       unit-proven in `RedstoneRwGuardBridgeTest`). NOTE: block-entity/entity/global/random accesses are NOT
       routed through `RedstoneTaskContext` yet, so this verifies block-level reads/writes only (all the
       redstone actions perform today). Unit-guarded by `RedstoneRwGuardHookTest` (3 tests).
-- [ ] ⚡ B3. Deliberately break one redstone RWSet (drop a neighbour read), re-run B2b, confirm the guard
+- [x] ⚡ B3. Deliberately break one redstone RWSet (drop a neighbour read), re-run B2b, confirm the guard
       catches it live and `RWGuardReportWriter` emits an actionable report (coords + stack + declared set).
       Revert the break in the same cycle. This proves the guard has real detection power, not just a
       green no-op path. (The pure-unit analogue is already covered by
       `RedstoneRwGuardBridgeTest.bridgeHasRealDetectionPowerWhenAnAccessIsUndeclared`.)
+      **DONE (⚡ LIVE-VERIFIED 2026-07-09):** dropped the +X neighbour read from `wireRw()` in
+      `RedstoneTaskFactory`, built the shaded jar on Java 21, deployed to folia-test-server, launched
+      Folia 26.1.2 with `-Dnebula.rw.guard=true`, built a lever→9-wire→lamp line, `/nebula scan` (64
+      components), and TOGGLED the lever 5×. The guard caught it LIVE: `RW-GUARD: tracedTasks=5488
+      violations=5147`, one WARN per violating wire task, and `plugins/Nebula/rw-violations.jsonl` grew
+      to 5147 lines — EVERY line `violation_type=UNDECLARED_READ`, each `REDSTONE_WIRE@x` flagging exactly
+      its dropped +X neighbour (`x=1`→reads `x=2`, … `x=8`→reads `x=9`/lamp), with the declared set
+      (self + 5 of 6 neighbours, +X missing), a full stack trace through
+      `RedstoneRwGuardHook.afterTask`→`RWSetConsistencyChecker.check`, and
+      `suggested_fix":"Add block read to REDSTONE_WIRE: WorldPos[... x=2, y=-59, z=0]"`. This is the
+      complement of B2b's clean run: the guard has REAL detection power on live Folia, not just a green
+      no-op path. Server stopped cleanly via RCON; temp launch harness removed; break reverted in the same
+      cycle (`RedstoneTaskFactory` byte-identical to HEAD, tests cached green).
+      **FOLLOW-UP (separate task, not B3):** the `access_target` BLOCK object in the JSONL is malformed —
+      `"dimension":WorldPos[dimensionId=0,"x": x=1,...]` — because `RWSetViolationJson.accessTarget()`
+      splits `AccessTarget.value()` on `,` assuming a bare `dim,x,y,z` but the value is now the full
+      `WorldPos.toString()`. The actionable coord survives cleanly in `suggested_fix`, so B3's "actionable
+      report" bar is met, but the machine-readable BLOCK fields should be fixed so `fromJson` can round-trip.
 
 **C. Extend & verify coverage subsystem by subsystem (each ⚡ needs the guard from B live)**
 - [ ] ⚡ C1. Wire the **entity** DAG (`EntityTaskFactory` MOVE/COLLISION) into the live tick path for
