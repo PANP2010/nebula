@@ -118,7 +118,8 @@ public final class RedstoneAnnotations {
     private static Map<RedstoneComponentType, ComponentTemplate> buildComponentTemplates() {
         EnumMap<RedstoneComponentType, ComponentTemplate> templates = new EnumMap<>(RedstoneComponentType.class);
         put(templates, RedstoneComponentType.REDSTONE_WIRE,
-            methods(WIRE_NEIGHBOR_CHANGED, WIRE_GET_BLOCK_SIGNAL, WIRE_TURBO_UPDATE),
+            methods(WIRE_NEIGHBOR_CHANGED, WIRE_GET_BLOCK_SIGNAL, WIRE_TURBO_UPDATE,
+                WIRE_GET_SIGNAL, WIRE_GET_DIRECT_SIGNAL, WIRE_TURBO_SHAPE),
             blocks("{pos}", "{pos.north}", "{pos.south}", "{pos.west}", "{pos.east}", "{pos.down}", "{pos.up}"),
             blocks("{pos}"),
             globals("region.should_signal", "region.wire_turbo"),
@@ -126,7 +127,7 @@ public final class RedstoneAnnotations {
             events("BLOCK_UPDATE"),
             "Wire reads self plus six neighbours and writes its own power level.");
         put(templates, RedstoneComponentType.REPEATER,
-            methods(REPEATER_TICK, REPEATER_NEIGHBOR_CHANGED),
+            methods(REPEATER_TICK, REPEATER_NEIGHBOR_CHANGED, REPEATER_GET_SIGNAL),
             blocks("{pos.input}", "{pos}", "{pos.output}"),
             blocks("{pos.output}", "{pos}"),
             globals(),
@@ -239,7 +240,8 @@ public final class RedstoneAnnotations {
             blocks("{pos}"), blocks("{pos}"), globals(), globals("region.neighbor_updater"), events("BLOCK_UPDATE"),
             "Press/release writes self; scheduled release is approximated by the component metadata.");
         put(templates, RedstoneComponentType.PRESSURE_PLATE,
-            methods(PRESSURE_PLATE_ENTITY_INSIDE, PRESSURE_PLATE_TICK, PRESSURE_PLATE_GET_SIGNAL),
+            methods(PRESSURE_PLATE_ENTITY_INSIDE, PRESSURE_PLATE_TICK, PRESSURE_PLATE_GET_SIGNAL,
+                WEIGHTED_PRESSURE_PLATE_SIGNAL_FOR_STATE),
             blocks("{pos}", "{pos.down}"), blocks("{pos}"), globals(), globals("region.block_level_ticks", "region.neighbor_updater"), events("BLOCK_UPDATE"),
             "Entity collision is approximated by the block below/floor position in RWSet.");
         put(templates, RedstoneComponentType.FENCE_GATE,
@@ -606,6 +608,14 @@ public final class RedstoneAnnotations {
      *          - The ownership check maps to: only process if the target
      *            position is in the current BucketDagBuilder's scope
      * </pre>
+     *
+     * <p><b>A2 audit decision (2026-07-09):</b> deliberately NOT folded into any
+     * {@code ComponentTemplate.methods()} list. This is cross-cutting fan-out
+     * infrastructure, not a per-component method — its only durable RW fact is the
+     * {@code region.neighbor_updater} global, which every firing component already
+     * declares in its own template (wire/torch/repeater/… write globals). Modelling
+     * it as a component method would double-count that global. Kept as a reference
+     * constant documenting the interception seam.
      */
     public static final String COLLECTING_NEIGHBOR_UPDATER = "CollectingNeighborUpdater.runNext";
 
@@ -1132,6 +1142,15 @@ public final class RedstoneAnnotations {
      * Notes:   ACTIVE phase lasts 40 ticks, COOLDOWN 20 ticks (vanilla constants).
      *          Vibration listener is a separate game-event subsystem hook.
      * </pre>
+     *
+     * <p><b>A2 audit decision (2026-07-09):</b> deliberately NOT folded into a
+     * {@code ComponentTemplate} yet — this is deferred to task A3. SculkSensor is
+     * vibration-driven, not neighbour/signal-driven, so its DAG home (redstone vs.
+     * the game-event subsystem) must be decided before adding a
+     * {@code RedstoneComponentType} enum value + factory case for it. Adding the
+     * template now, without the enum/factory side, would break the invariant that
+     * {@code componentTemplates().size() == RedstoneComponentType.values().length}.
+     * Kept as a documented reference constant until A3 resolves the home.
      */
     public static final String SCULK_SENSOR_TICK = "SculkSensorBlock.tick";
 

@@ -12,6 +12,8 @@ import org.nebula.redstone.RedstoneComponentType;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -19,6 +21,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -76,6 +79,91 @@ class RedstoneAnnotationMaintenanceTest {
             refs.addAll(template.methods());
         }
         return new ArrayList<>(refs);
+    }
+
+    /**
+     * Method-ref constants in {@link RedstoneAnnotations} that are deliberately
+     * NOT wired into any {@code ComponentTemplate.methods()} list, with the A2
+     * audit reason recorded on each field's javadoc (2026-07-09):
+     * <ul>
+     *   <li>{@code CollectingNeighborUpdater.runNext} — cross-cutting fan-out
+     *       infrastructure; its RW fact is the {@code region.neighbor_updater}
+     *       global that every firing component already declares.</li>
+     *   <li>{@code SculkSensorBlock.tick} — vibration-driven; DAG home undecided,
+     *       deferred to task A3 (adding a template now would break the
+     *       template-count == enum-count invariant).</li>
+     * </ul>
+     * Anything else that is declared-but-unreferenced is an accidental orphan and
+     * must fail {@link #everyDeclaredMethodConstantIsEitherWiredOrExplicitlyUnwired}.
+     */
+    private static final Set<String> KNOWN_UNWIRED_METHOD_REFS = Set.of(
+        "CollectingNeighborUpdater.runNext",
+        "SculkSensorBlock.tick");
+
+    /** Every {@code public static final String} method-ref constant declared on the library. */
+    private static Set<String> declaredMethodConstants() {
+        Set<String> constants = new TreeSet<>();
+        for (Field f : RedstoneAnnotations.class.getDeclaredFields()) {
+            int mods = f.getModifiers();
+            if (Modifier.isPublic(mods) && Modifier.isStatic(mods) && Modifier.isFinal(mods)
+                    && f.getType() == String.class) {
+                try {
+                    constants.add((String) f.get(null));
+                } catch (IllegalAccessException e) {
+                    throw new AssertionError("could not read constant " + f.getName(), e);
+                }
+            }
+        }
+        return constants;
+    }
+
+    @Test
+    void everyDeclaredMethodConstantIsEitherWiredOrExplicitlyUnwired() {
+        // A2 orphan guard (2026-07-09): a method-ref constant is either referenced
+        // by some ComponentTemplate.methods() list (wired into the live per-component
+        // metadata) or explicitly enumerated in KNOWN_UNWIRED_METHOD_REFS with a
+        // recorded reason. A new constant that is neither is an accidental orphan —
+        // exactly the doc-vs-path drift this project treats as its defining wound —
+        // and fails the build here until it is folded in or justified.
+        Set<String> wired = new TreeSet<>(allDeclaredMethodRefs());
+        Set<String> orphans = new TreeSet<>();
+        for (String constant : declaredMethodConstants()) {
+            if (!wired.contains(constant) && !KNOWN_UNWIRED_METHOD_REFS.contains(constant)) {
+                orphans.add(constant);
+            }
+        }
+        assertTrue(orphans.isEmpty(),
+            "orphaned method-ref constants (fold into the owning ComponentTemplate or add to "
+                + "KNOWN_UNWIRED_METHOD_REFS with a reason): " + orphans);
+
+        // Keep the allow-list honest: every KNOWN_UNWIRED ref must actually exist as
+        // a declared constant, so a renamed/removed constant can't leave a stale entry.
+        Set<String> declared = declaredMethodConstants();
+        for (String unwired : KNOWN_UNWIRED_METHOD_REFS) {
+            assertTrue(declared.contains(unwired),
+                "KNOWN_UNWIRED_METHOD_REFS names a constant that no longer exists: " + unwired);
+        }
+    }
+
+    @Test
+    void foldedSignalConstantsAreWiredIntoTheirOwningTemplates() {
+        // Pins the A2 folding decision: the five getSignal-family constants that were
+        // orphaned before 2026-07-09 are now referenced by their owning component's
+        // template. This is a behavioural assertion, not just a count.
+        Map<String, RedstoneComponentType> expected = new LinkedHashMap<>();
+        expected.put(RedstoneAnnotations.WIRE_GET_SIGNAL, RedstoneComponentType.REDSTONE_WIRE);
+        expected.put(RedstoneAnnotations.WIRE_GET_DIRECT_SIGNAL, RedstoneComponentType.REDSTONE_WIRE);
+        expected.put(RedstoneAnnotations.WIRE_TURBO_SHAPE, RedstoneComponentType.REDSTONE_WIRE);
+        expected.put(RedstoneAnnotations.REPEATER_GET_SIGNAL, RedstoneComponentType.REPEATER);
+        expected.put(RedstoneAnnotations.WEIGHTED_PRESSURE_PLATE_SIGNAL_FOR_STATE,
+            RedstoneComponentType.PRESSURE_PLATE);
+
+        for (var e : expected.entrySet()) {
+            List<String> methods = RedstoneAnnotations.componentTemplate(e.getValue()).methods();
+            assertTrue(methods.contains(e.getKey()),
+                e.getValue() + " template must reference folded constant " + e.getKey()
+                    + " (methods=" + methods + ")");
+        }
     }
 
     @Test
