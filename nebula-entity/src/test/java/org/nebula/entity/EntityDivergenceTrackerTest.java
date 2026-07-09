@@ -125,4 +125,32 @@ class EntityDivergenceTrackerTest {
         assertFalse(tracker.summary().isEmpty());
         assertTrue(tracker.summary().contains("samples=0"));
     }
+
+    @Test
+    void countsEveryObservationWhetherOrNotItSamples() {
+        EntityDivergenceTracker tracker = new EntityDivergenceTracker();
+        tracker.record(1L, 10L, new Vec3(0, 100, 0), new Vec3(0, 99.9, 0)); // first sighting
+        tracker.record(1L, 11L, new Vec3(0, 99.9, 0), new Vec3(0, 99.8, 0)); // contiguous sample
+        assertEquals(2, tracker.observationCount(),
+            "both records are observations, even the first sighting that yields no sample");
+        assertEquals(1, tracker.sampleCount());
+    }
+
+    @Test
+    void nonContiguousSkipsAreCountedNotSilentlyDropped() {
+        // The live drain cadence advances the tick by 2 per entity DAG tick (begin/end
+        // alternation), so a naive game-tick key produces gap=2 pairs that never sample.
+        // A silent tracker would then read as "never ran" — indistinguishable from a
+        // dead pipeline. nonContiguousSkips must make that observable.
+        EntityDivergenceTracker tracker = new EntityDivergenceTracker();
+        tracker.record(1L, 10L, new Vec3(0, 100, 0), new Vec3(0, 99.92, 0)); // first sighting
+        Optional<EntityDivergenceTracker.Sample> s =
+            tracker.record(1L, 12L, new Vec3(0, 99.84, 0), new Vec3(0, 99.76, 0)); // gap=2
+        assertTrue(s.isEmpty(), "gap of 2 is not a frame-for-frame pair");
+        assertEquals(0, tracker.sampleCount());
+        assertEquals(1, tracker.nonContiguousSkips(), "the gap-2 pair is counted, not dropped");
+        assertEquals(2, tracker.lastGap(), "lastGap exposes the observed cadence");
+        assertTrue(tracker.summary().contains("nonContiguousSkips=1"));
+        assertTrue(tracker.summary().contains("lastGap=2"));
+    }
 }

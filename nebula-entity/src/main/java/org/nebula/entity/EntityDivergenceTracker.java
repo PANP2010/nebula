@@ -42,6 +42,20 @@ import java.util.Optional;
  * measurement, not a pass/fail correctness proof — do not read "low drift" as
  * "entity physics matches vanilla."
  *
+ * <h3>Observability of a silent run (live cadence finding, 2026-07-09)</h3>
+ * When wired live, the entity DAG drains on the plugin's begin/end phase alternation,
+ * so {@code Server.getCurrentTick()} advances by <b>2</b> between consecutive entity
+ * DAG ticks for the same entity — every pair is non-contiguous and yields zero
+ * frame-for-frame samples. That is the correct, honest behaviour (the guard must not
+ * be loosened; {@code EntityMoveAction} forecasts one tick ahead, not two), but a
+ * tracker that only counted samples would then be indistinguishable from one that
+ * never ran. So {@link #observationCount()}, {@link #nonContiguousSkips()} and
+ * {@link #lastGap()} are exposed and folded into {@link #summary()}: a live heartbeat
+ * of {@code obs=N samples=0 nonContiguousSkips=N lastGap=2} positively evidences that
+ * the signal is live and pinpoints the cadence as the reason for zero samples — the
+ * thing a future cycle must fix (a per-entity monotonic frame counter, or draining
+ * every game tick) before the drift number means anything.
+ *
  * <p>Pure and single-threaded: one instance is driven from a region thread's
  * {@code executeOwnedEntityDag}; it holds no NMS or Folia references and is fully
  * unit-provable without a live server.
@@ -55,7 +69,10 @@ public final class EntityDivergenceTracker {
 
     private final Map<Long, Pending> pending = new HashMap<>();
 
+    private long observationCount;
     private long sampleCount;
+    private long nonContiguousSkips;
+    private long lastGap;
     private double driftSum;
     private double maxDrift;
     private long maxDriftEntityId;
@@ -70,22 +87,51 @@ public final class EntityDivergenceTracker {
      * otherwise stores the prediction and returns empty.
      */
     public Optional<Sample> record(long entityId, long tick, Vec3 authoritative, Vec3 predicted) {
+        observationCount++;
         Pending prev = pending.get(entityId);
         Optional<Sample> result = Optional.empty();
-        if (prev != null && prev.tick() == tick - 1) {
-            double drift = prev.predicted().distanceTo(authoritative);
-            Sample sample = new Sample(entityId, tick, prev.predicted(), authoritative, drift);
-            sampleCount++;
-            driftSum += drift;
-            if (drift > maxDrift) {
-                maxDrift = drift;
-                maxDriftEntityId = entityId;
-                maxDriftTick = tick;
+        if (prev != null) {
+            lastGap = tick - prev.tick();
+            if (prev.tick() == tick - 1) {
+                double drift = prev.predicted().distanceTo(authoritative);
+                Sample sample = new Sample(entityId, tick, prev.predicted(), authoritative, drift);
+                sampleCount++;
+                driftSum += drift;
+                if (drift > maxDrift) {
+                    maxDrift = drift;
+                    maxDriftEntityId = entityId;
+                    maxDriftTick = tick;
+                }
+                result = Optional.of(sample);
+            } else {
+                // A prior prediction existed but this observation is not the immediately
+                // following tick — a non-contiguous pair. Counted (not silently dropped)
+                // so a caller can distinguish "tracker never ran" from "tracker ran but
+                // no frame-for-frame pair was comparable". See class doc on contiguity.
+                nonContiguousSkips++;
             }
-            result = Optional.of(sample);
         }
         pending.put(entityId, new Pending(tick, predicted));
         return result;
+    }
+
+    /** Total observations fed in, whether or not they yielded a contiguous sample. */
+    public long observationCount() {
+        return observationCount;
+    }
+
+    /**
+     * Observations that had a prior prediction but were not the immediately following
+     * tick (tick gap != 1). A high count with {@link #sampleCount()} == 0 means the
+     * drain cadence isn't frame-for-frame — the signal to fix, not to loosen the guard.
+     */
+    public long nonContiguousSkips() {
+        return nonContiguousSkips;
+    }
+
+    /** Tick gap of the most recent paired observation (0 if none seen yet). */
+    public long lastGap() {
+        return lastGap;
     }
 
     /** Number of contiguous frame-for-frame samples graded so far. */
@@ -119,7 +165,9 @@ public final class EntityDivergenceTracker {
     /** One-line human summary for a diagnostic log line. */
     public String summary() {
         return String.format(
-            "entity-divergence: samples=%d meanDrift=%.6f maxDrift=%.6f (entity=%d @tick=%d) tracked=%d",
-            sampleCount, meanDrift(), maxDrift, maxDriftEntityId, maxDriftTick, pending.size());
+            "entity-divergence: obs=%d samples=%d nonContiguousSkips=%d lastGap=%d "
+                + "meanDrift=%.6f maxDrift=%.6f (entity=%d @tick=%d) tracked=%d",
+            observationCount, sampleCount, nonContiguousSkips, lastGap,
+            meanDrift(), maxDrift, maxDriftEntityId, maxDriftTick, pending.size());
     }
 }

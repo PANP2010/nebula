@@ -155,6 +155,18 @@ class EntityTaskResolutionTest {
             "entity NMS write-back must default OFF (observe-only)");
     }
 
+    @Test
+    void entityDivergenceIsOffByDefault() {
+        // The observe-only divergence tracker adds a per-tick CAS read + synchronised
+        // record() when armed. An ordinary server must pay nothing for it, so absent
+        // the opt-in system property the tracker stays OFF — the same posture as the
+        // write-back gate, and independent of it.
+        assertNull(System.getProperty("nebula.entity.divergence"),
+            "test env must not pre-set the divergence property");
+        assertFalse(NebulaPlugin.entityDivergenceEnabled(),
+            "entity divergence tracker must default OFF (observe-only)");
+    }
+
     // ── CompositeTaskRunner routing: prefixes must match stamped types ────────
 
     @Test

@@ -157,6 +157,22 @@ public final class NebulaPlugin extends JavaPlugin {
     private final java.util.concurrent.atomic.AtomicBoolean firstEntityDagTickLogged =
         new java.util.concurrent.atomic.AtomicBoolean(false);
 
+    // B8 C1 divergence signal (observe-only): quantifies how far EntityMoveAction's
+    // approximate shadow physics drift from Folia's authoritative movement, frame for
+    // frame. Gated behind -Dnebula.entity.divergence=true (default OFF) so an ordinary
+    // server pays nothing. Driven from executeOwnedEntityDag, which runs concurrently
+    // across region threads, so every touch of this tracker is synchronised on it (its
+    // per-entity HashMap is not thread-safe). This is a MEASUREMENT, never a pass/fail
+    // proof — see EntityDivergenceTracker's class doc for the honesty framing.
+    private final org.nebula.entity.EntityDivergenceTracker entityDivergenceTracker =
+        new org.nebula.entity.EntityDivergenceTracker();
+    private final java.util.concurrent.atomic.AtomicBoolean firstDivergenceSampleLogged =
+        new java.util.concurrent.atomic.AtomicBoolean(false);
+    // How often (in tracker OBSERVATIONS) to log the accruing divergence heartbeat.
+    // Keyed on observations, not samples, so the tracker's liveness is visible even
+    // when no contiguous frame-for-frame pair forms. Kept coarse to avoid log flood.
+    private static final long DIVERGENCE_SUMMARY_EVERY = 20L;
+
     // Composite DAG runner (redstone + entity)
     private CompositeTaskRunner compositeRunner;
 
@@ -544,6 +560,24 @@ public final class NebulaPlugin extends JavaPlugin {
     }
 
     /**
+     * Whether the observe-only entity divergence tracker is armed. Overridable via
+     * {@code -Dnebula.entity.divergence=true}; defaults to {@code false}.
+     *
+     * <p>When on, {@link #executeOwnedEntityDag} feeds each entity's authoritative
+     * (pre-DAG, from {@code syncPhysicsFromNms}) and predicted (post-DAG, from
+     * {@link EntityMoveAction}) position into {@link org.nebula.entity.EntityDivergenceTracker}
+     * and periodically logs its {@code summary()}. This does NOT arm write-back and
+     * does NOT teleport anything — it is a pure measurement of the gap between
+     * Nebula's approximate shadow physics and vanilla, so a later cycle can judge how
+     * close the model is. Independent of (and safe to combine with) the write-back gate.
+     *
+     * <p>Package-private so {@code EntityTaskResolutionTest} can pin the default OFF.
+     */
+    static boolean entityDivergenceEnabled() {
+        return Boolean.getBoolean("nebula.entity.divergence");
+    }
+
+    /**
      * The entity analogue of {@link #executeOwnedDag}, invoked by
      * {@link FoliaRegionTickExecutor} on the region thread that owns each moved
      * entity's destination chunk. Running here — not on the global tick thread — is
@@ -557,6 +591,10 @@ public final class NebulaPlugin extends JavaPlugin {
      *   <li>{@code syncPhysicsFromNms}: read the entity's real position/velocity into
      *       the CAS store — the region-thread NMS read this whole slice unlocks.</li>
      *   <li>Run the task through {@link #entityTickExecutor}.</li>
+     *   <li>Only if {@link #entityDivergenceEnabled()}: feed the authoritative
+     *       (pre-DAG) and predicted (post-DAG) position into the observe-only
+     *       {@link org.nebula.entity.EntityDivergenceTracker}. Pure measurement, no
+     *       write-back. Off by default.</li>
      *   <li>Only if {@link #entityWriteBackEnabled()}: {@code syncPhysicsToNms} the
      *       computed state back onto the live entity. Off by default (see that helper).</li>
      * </ol>
@@ -567,6 +605,11 @@ public final class NebulaPlugin extends JavaPlugin {
         if (ownedTasks.isEmpty()) return;
 
         final boolean writeBack = entityWriteBackEnabled();
+        final boolean diverge = entityDivergenceEnabled();
+        // Tick label for the frame-for-frame divergence pairing. We are on the owning
+        // region thread here, so getCurrentTick() is legal (it NPEs off a region
+        // thread). Only needed when the tracker is armed.
+        final long tick = diverge ? getServer().getCurrentTick() : 0L;
         int layers = 0;
         int applied = 0;
         for (TaskNode task : ownedTasks) {
@@ -583,12 +626,29 @@ public final class NebulaPlugin extends JavaPlugin {
             // Region-thread NMS read: the capability this slice unlocks.
             entityBridge.syncPhysicsFromNms(entity);
 
+            // Authoritative position = the value Folia just produced, captured BEFORE
+            // the DAG overwrites CAS with its own prediction. Only meaningful when the
+            // divergence tracker is armed, so skip the read otherwise.
+            final org.nebula.core.state.EntityField posField =
+                new org.nebula.core.state.EntityField(entityId, "position");
+            org.nebula.entity.Vec3 authoritative =
+                diverge ? entityBridge.casStore().getVec(posField) : null;
+
             try {
                 layers = entityTickExecutor.executeTick(java.util.List.of(task));
             } catch (Exception e) {
                 LOG.warning(() -> "entity DAG tick failed for " + task.taskId()
                     + " in " + worldName + ": " + e.getMessage());
                 continue;
+            }
+
+            if (diverge) {
+                // Predicted next position = the value EntityMoveAction just wrote over
+                // the authoritative one. Diff them across contiguous ticks. The tracker
+                // is not thread-safe and executeOwnedEntityDag runs on many region
+                // threads at once, so serialise every touch of it.
+                org.nebula.entity.Vec3 predicted = entityBridge.casStore().getVec(posField);
+                recordEntityDivergence(entityId, tick, authoritative, predicted, worldName);
             }
 
             if (writeBack) {
@@ -605,6 +665,56 @@ public final class NebulaPlugin extends JavaPlugin {
                 + "is legal here). NMS write-back "
                 + (writeBack ? "ARMED, applied to " + applied + " entity(ies)"
                              : "OFF (observe-only; -Dnebula.entity.writeback=true to arm)"));
+        }
+    }
+
+    /**
+     * Feeds one entity's authoritative (Folia-produced) and predicted
+     * ({@link EntityMoveAction}-computed) position for {@code tick} into the
+     * observe-only {@link org.nebula.entity.EntityDivergenceTracker}, and logs the
+     * first contiguous drift sample as an explicit bring-up line (mirroring the
+     * ⚡ first-DAG-tick evidence). Synchronised because {@code executeOwnedEntityDag}
+     * runs concurrently across region threads and the tracker's per-entity map is not
+     * thread-safe. Nonzero drift is EXPECTED (write-back is off, the model is
+     * approximate) — this quantifies the gap, it does not judge correctness.
+     */
+    private void recordEntityDivergence(long entityId, long tick,
+                                        org.nebula.entity.Vec3 authoritative,
+                                        org.nebula.entity.Vec3 predicted,
+                                        String worldName) {
+        final java.util.Optional<org.nebula.entity.EntityDivergenceTracker.Sample> sample;
+        final long obs;
+        final String periodicSummary;
+        synchronized (entityDivergenceTracker) {
+            sample = entityDivergenceTracker.record(entityId, tick, authoritative, predicted);
+            obs = entityDivergenceTracker.observationCount();
+            // Heartbeat every DIVERGENCE_SUMMARY_EVERY OBSERVATIONS (not samples): the
+            // tracker's liveness must be legible even when zero contiguous samples pair
+            // up, so a silent run reads as "obs=N samples=0 nonContiguousSkips=N gap=2"
+            // rather than nothing at all — the anti-drift posture. Snapshotted under the
+            // same lock; logged outside it.
+            periodicSummary = (obs % DIVERGENCE_SUMMARY_EVERY == 0)
+                ? entityDivergenceTracker.summary() : null;
+        }
+        if (periodicSummary != null) {
+            LOG.info("entity-divergence heartbeat: " + periodicSummary);
+        }
+        if (sample.isPresent() && firstDivergenceSampleLogged.compareAndSet(false, true)) {
+            org.nebula.entity.EntityDivergenceTracker.Sample s = sample.get();
+            LOG.info(String.format(
+                "⚡ FIRST entity divergence sample in %s on thread '%s': entity=%d tick=%d "
+                    + "drift=%.6f (authoritative=%s predicted=%s) — observe-only measurement of "
+                    + "EntityMoveAction vs Folia; nonzero drift is EXPECTED (write-back off, model "
+                    + "approximate). %s",
+                worldName, Thread.currentThread().getName(), s.entityId(), s.tick(), s.drift(),
+                s.authoritative(), s.predicted(), summarizeEntityDivergence()));
+        }
+    }
+
+    /** Thread-safe snapshot of the divergence tracker's one-line summary. */
+    private String summarizeEntityDivergence() {
+        synchronized (entityDivergenceTracker) {
+            return entityDivergenceTracker.summary();
         }
     }
 
