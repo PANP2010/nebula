@@ -157,6 +157,18 @@ public final class NebulaPlugin extends JavaPlugin {
     private final java.util.concurrent.atomic.AtomicBoolean firstEntityDagTickLogged =
         new java.util.concurrent.atomic.AtomicBoolean(false);
 
+    // B8 C3 block-entity physics DAG (hopper/dropper/dispenser/furnace/brewing).
+    // The block-entity analogue of entityTickExecutor/entityRunner.
+    private org.nebula.entity.BlockEntityTaskRunner blockEntityRunner;
+    private org.nebula.entity.BlockEntityTickExecutor blockEntityTickExecutor;
+
+    // B8 C3 ⚡ live: latches false→true the first time a real ticking block entity
+    // (a hopper transferring an item, seeded by InventoryMoveItemEvent) drives a
+    // block-entity DAG tick, so the bring-up milestone lands as ONE explicit INFO
+    // line in server-run.log. Mirrors firstEntityDagTickLogged.
+    private final java.util.concurrent.atomic.AtomicBoolean firstBlockEntityDagTickLogged =
+        new java.util.concurrent.atomic.AtomicBoolean(false);
+
     // B8 C1 divergence signal (observe-only): quantifies how far EntityMoveAction's
     // approximate shadow physics drift from Folia's authoritative movement, frame for
     // frame. Gated behind -Dnebula.entity.divergence=true (default OFF) so an ordinary
@@ -322,6 +334,18 @@ public final class NebulaPlugin extends JavaPlugin {
             .withTerrain(new org.nebula.folia.NmsTerrainView(getServer()));
         entityTickExecutor = new EntityTickExecutor(entityRunner);
 
+        // Create block-entity physics DAG pipeline (B8 C3). OBSERVE mode: the runner's
+        // action resolver is inert (id -> null), so a drained hopper/dropper snapshot
+        // is resolved to a TaskNode carrying its REAL RW-set (real self/above/output
+        // slot fields), built into the conflict DAG, layered and committed — but no CAS
+        // mutation runs. This exercises the full block-entity pipeline end-to-end
+        // (snapshot → resolve → DagBuilder → topologicalLayers → commitLayer) on the
+        // global tick thread without any NMS read. Wiring syncFromNms/real actions +
+        // per-region dispatch is the next slice, exactly as the entity path did its
+        // first live tick in OBSERVE mode (74a8bd3) before arming region-thread writes.
+        blockEntityRunner = new org.nebula.entity.BlockEntityTaskRunner(blockEntityState, id -> null);
+        blockEntityTickExecutor = new org.nebula.entity.BlockEntityTickExecutor(blockEntityRunner);
+
         // Create composite runner for unified redstone + entity DAG.
         // Route on the canonical task-type prefixes that the factories actually
         // stamp: RedstoneComponentType → "REDSTONE_*", EntityTaskType → "ENTITY_*".
@@ -444,6 +468,7 @@ public final class NebulaPlugin extends JavaPlugin {
             LOG.info("RedstoneTickHook lifecycle driver registered (global tick, alternating begin/end)");
 
             wireEntityTickHook(server);
+            wireBlockEntityTickHook(server);
         }
         // Temporary diagnostic: register Bukkit event listener
         getServer().getPluginManager().registerEvents(new RedstoneEventListener(), this);
@@ -554,6 +579,109 @@ public final class NebulaPlugin extends JavaPlugin {
                : entityVerticalWriteBackEnabled()
                    ? "ARMED vertical-only (-Dnebula.entity.writeback.vertical=true)"
                    : "OFF — observe-only") + ")");
+    }
+
+    /**
+     * B8 C3 ⚡ live: wires the {@link org.nebula.folia.bridge.BlockEntityTickHook}
+     * accumulator + resolver + executor into the live Folia tick and starts feeding
+     * it real ticking block entities — the hopper/dropper analogue of
+     * {@link #wireEntityTickHook}.
+     *
+     * <h3>OBSERVE mode, exactly like the entity path's first live tick</h3>
+     * This slice's milestone is the FIRST live block-entity DAG tick: proving a real
+     * hopper transfer drives the full pipeline (snapshot → resolve → DagBuilder →
+     * layered CAS commit) on real Folia, exception-free. Like the entity bring-up
+     * (74a8bd3) it does NOT read or write NMS state:
+     * <ul>
+     *   <li><b>Resolver:</b> a ticking block entity's snapshot →
+     *       {@code BlockEntityTaskFactory.inert(snapshot)}, a BLOCK_ENTITY_* TaskNode
+     *       carrying its real RW-set (self/above/output slot fields) but a no-op action.</li>
+     *   <li><b>Executor:</b> runs the drained tasks through the
+     *       {@link org.nebula.entity.BlockEntityTickExecutor} on the GLOBAL tick thread.
+     *       Safe here precisely because the inert action touches only the CAS store via
+     *       the DAG — no Bukkit block-entity reads (which would need the owning region
+     *       thread).</li>
+     *   <li><b>Seed source:</b> {@link org.bukkit.event.inventory.InventoryMoveItemEvent}
+     *       fires on the region thread whenever a hopper (or dropper/hopper-minecart)
+     *       moves an item — the block-entity analogue of {@code EntityMoveEvent}. The
+     *       source inventory's holder position seeds one HOPPER snapshot per ticking
+     *       block entity via {@link BlockEntityTickHook#recordDirty}.</li>
+     *   <li><b>Driver:</b> begin + drain every game tick (same cadence as the entity
+     *       hook), so a DAG pass maps to one game tick. The DG3 fix makes beginTick a
+     *       no-op on the accumulator, so begin-then-end in one tick never wipes
+     *       in-flight dirties.</li>
+     * </ul>
+     *
+     * <p>Wiring {@code NmsBlockEntityStateBridge} sync + the real
+     * {@link org.nebula.entity.actions.BlockEntityActions} + per-region dispatch is
+     * the next slice — the C3 analogue of arming entity write-back.
+     */
+    private void wireBlockEntityTickHook(Server server) {
+        // Resolver: a ticking block-entity snapshot → a BLOCK_ENTITY_* TaskNode with
+        // its real RW-set. inert(...) dispatches by type (hopper/furnace/dropper/…).
+        org.nebula.folia.bridge.BlockEntityTickHook.setResolver(
+            (worldName, snapshot) -> org.nebula.entity.BlockEntityTaskFactory.inert(snapshot));
+
+        // Executor: run the drained block-entity tasks through the DAG on the global
+        // tick thread (OBSERVE mode — CAS-only, no NMS touch). Latch the first live
+        // tick as ONE explicit INFO line for the bring-up milestone evidence.
+        org.nebula.folia.bridge.BlockEntityTickHook.setExecutor((regionId, worldName, dirtyTasks) -> {
+            try {
+                int layers = blockEntityTickExecutor.executeTick(dirtyTasks);
+                if (firstBlockEntityDagTickLogged.compareAndSet(false, true)) {
+                    LOG.info("⚡ FIRST live block-entity DAG tick: " + dirtyTasks.size()
+                        + " ticking block-entity task(s), " + layers + " layer(s) in " + worldName
+                        + " — the block-entity DAG is now live (OBSERVE mode, no NMS write-back yet)");
+                }
+            } catch (Exception e) {
+                LOG.warning(() -> "Block-entity DAG tick failed in " + worldName
+                    + ": " + e.getMessage());
+            }
+        });
+
+        // Lifecycle driver: begin AND drain every game tick, mirroring the entity hook.
+        server.getGlobalRegionScheduler().runAtFixedRate(this, task -> {
+            if (!org.nebula.folia.bridge.BlockEntityTickHook.isActive()) return;
+            org.nebula.folia.bridge.BlockEntityTickHook.beginTick("nebula-global");
+            for (World w : server.getWorlds()) {
+                org.nebula.folia.bridge.BlockEntityTickHook.endTick("nebula-global", w.getName());
+            }
+        }, 1, 1);
+
+        // Seed source: a hopper (or dropper/hopper-minecart) moving an item fires
+        // InventoryMoveItemEvent on its owning region thread. EITHER endpoint may be a
+        // ticking block entity at a fixed WorldPos (a hopper pushing into a chest below
+        // is a block source; a hopper-minecart pushing into a chest is a block
+        // destination), so record BOTH block-holder endpoints. Non-block holders
+        // (minecart inventories) have no fixed position and are skipped. The hook
+        // dedups by position, so recording both never double-seeds one block.
+        server.getPluginManager().registerEvents(new org.bukkit.event.Listener() {
+            @org.bukkit.event.EventHandler(ignoreCancelled = true)
+            public void onInventoryMoveItem(org.bukkit.event.inventory.InventoryMoveItemEvent event) {
+                if (!org.nebula.folia.bridge.BlockEntityTickHook.isActive()) return;
+                recordBlockHolder(event.getSource().getHolder());
+                recordBlockHolder(event.getDestination().getHolder());
+            }
+
+            private void recordBlockHolder(org.bukkit.inventory.InventoryHolder holder) {
+                if (!(holder instanceof org.bukkit.block.BlockState blockState)) return;
+                org.bukkit.block.Block block = blockState.getBlock();
+                int dim = org.nebula.core.state.DimensionIds.fromName(block.getWorld().getName());
+                WorldPos pos = new WorldPos(dim, block.getX(), block.getY(), block.getZ());
+                // Facing is unused by the inert HOPPER RW-set's above/self reads (only
+                // outputPos needs it); 0,0,0 keeps the output at self, which is safe
+                // for OBSERVE mode where no slot mutation runs. Real facing + the
+                // correct per-type snapshot land with the NMS-sync slice.
+                org.nebula.folia.bridge.BlockEntityTickHook.recordDirty("nebula-global",
+                    block.getWorld().getName(),
+                    org.nebula.entity.BlockEntitySnapshot.hopper(pos, 0, 0, 0));
+            }
+        }, this);
+
+        org.nebula.folia.bridge.BlockEntityTickHook.setActive(true);
+        LOG.info("BlockEntityTickHook lifecycle driver + InventoryMoveItemEvent seed "
+            + "registered (begin+drain every game tick; block-entity DAG runs OBSERVE mode "
+            + "on the global tick thread — CAS-only, no NMS write-back yet)");
     }
 
     /**
@@ -1202,6 +1330,7 @@ public final class NebulaPlugin extends JavaPlugin {
             bootstrap.deactivate();
         }
         EntityTickHook.setActive(false);
+        org.nebula.folia.bridge.BlockEntityTickHook.setActive(false);
         LOG.info("Nebula plugin disabled");
     }
 
