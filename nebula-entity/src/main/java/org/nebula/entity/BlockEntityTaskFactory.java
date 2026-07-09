@@ -15,10 +15,17 @@ import java.util.Objects;
  * Creates {@link TaskNode}s for block entity tick tasks (arch doc §3.3, §14.3 Month 4-6).
  *
  * <h3>RW-set templates</h3>
+ * <p>Each template is the conservative envelope of what its
+ * {@link org.nebula.entity.actions.BlockEntityActions} counterpart actually touches —
+ * every field the action reads is declared read, every field it writes is declared write.
+ * Under-declaring a write (e.g. the hopper's pull-source decrement) would let the DAG
+ * conflict detector alias two tasks as non-conflicting and schedule them in parallel while
+ * they race on the same slot, so the templates deliberately over-declare in the safe
+ * (write) direction rather than mirror only the "primary" role.
  * <ul>
- *   <li><b>HOPPER:</b> reads above container slots, reads self block state,
- *       writes self inventory + output container inventory</li>
- *   <li><b>FURNACE:</b> reads input+fuel slots, writes output slot + cook progress + fuel time</li>
+ *   <li><b>HOPPER:</b> reads+writes above (pull source) and output (push target) slots,
+ *       reads+writes self inventory + transfer_cooldown, reads self block state</li>
+ *   <li><b>FURNACE:</b> reads+writes all three slots (input/fuel/output) + cook progress + fuel time</li>
  *   <li><b>BREWING_STAND:</b> reads ingredient+fuel, writes output slots + brew time</li>
  *   <li><b>DROPPER:</b> reads self inventory, writes self inventory + spawns item or transfers</li>
  *   <li><b>DISPENSER:</b> reads self inventory, writes self inventory + may spawn entity</li>
@@ -131,19 +138,32 @@ public final class BlockEntityTaskFactory {
         RWSet.Builder b = RWSet.builder()
             .readBlock(self);
 
-        // Read above container (source for pull)
+        // The 8-tick transfer cooldown is both read (gate) and written (armed after a
+        // move / decremented while ticking down) by BlockEntityActions.hopper — declare
+        // both, or the RW-guard flags the cooldown access and the conflict detector
+        // under-reports a hopper's self footprint.
+        b.readBlockEntity(new BlockEntityField(self, "transfer_cooldown"));
+        b.writeBlockEntity(new BlockEntityField(self, "transfer_cooldown"));
+
+        // Above container is the pull SOURCE: the action reads it AND writes it (the pull
+        // decrements the source slot). It must be declared write, not read-only — else two
+        // hoppers pulling from one shared container read-read alias (no conflict) and get
+        // scheduled in parallel while actually racing to decrement the same slot.
         for (int slot = 0; slot < 27; slot++) {
             b.readBlockEntity(new BlockEntityField(above, "inventory.slots[" + slot + "]"));
+            b.writeBlockEntity(new BlockEntityField(above, "inventory.slots[" + slot + "]"));
         }
 
-        // Write self slots
+        // Read + write self slots
         for (int slot = 0; slot < s.slotCount(); slot++) {
             b.readBlockEntity(new BlockEntityField(self, "inventory.slots[" + slot + "]"));
             b.writeBlockEntity(new BlockEntityField(self, "inventory.slots[" + slot + "]"));
         }
 
-        // Write output container slots
+        // Output container is the push TARGET: the action reads it (the out<64 capacity
+        // check) AND writes it. Declare both — a write-only declaration hides the read.
         for (int slot = 0; slot < 27; slot++) {
+            b.readBlockEntity(new BlockEntityField(output, "inventory.slots[" + slot + "]"));
             b.writeBlockEntity(new BlockEntityField(output, "inventory.slots[" + slot + "]"));
         }
 
@@ -159,8 +179,14 @@ public final class BlockEntityTaskFactory {
         WorldPos self = s.pos();
         RWSet.Builder b = RWSet.builder()
             .readBlock(self)
+            // The action reads all three slots (input, fuel, AND output for the >=64
+            // capacity gate) plus both timers, and writes the same set — declare every
+            // read the action actually performs, not just input+fuel.
             .readBlockEntity(new BlockEntityField(self, "inventory.slots[0]"))
             .readBlockEntity(new BlockEntityField(self, "inventory.slots[1]"))
+            .readBlockEntity(new BlockEntityField(self, "inventory.slots[2]"))
+            .readBlockEntity(new BlockEntityField(self, "cook_progress"))
+            .readBlockEntity(new BlockEntityField(self, "fuel_time"))
             .writeBlockEntity(new BlockEntityField(self, "inventory.slots[0]"))
             .writeBlockEntity(new BlockEntityField(self, "inventory.slots[1]"))
             .writeBlockEntity(new BlockEntityField(self, "inventory.slots[2]"))

@@ -51,6 +51,49 @@ class BlockEntityTaskFactoryTest {
     }
 
     @Test
+    void hopperDeclaresEveryFieldTheActionTouches() {
+        // Regression guard: the hopper ACTION (BlockEntityActions.hopper) reads AND
+        // writes transfer_cooldown, WRITES the pull-source (above) slot, and READS the
+        // push-target (output) slot for its capacity check. The RW-set template used to
+        // omit all three — an incomplete RW-set on the serialized-inventory path (B8 C3),
+        // the highest corruption risk. Pin the corrected conservative envelope.
+        BlockEntitySnapshot snap = BlockEntitySnapshot.hopper(HOPPER_POS, 0, -1, 0);
+        RWSet rw = BlockEntityTaskFactory.hopperInert(snap).declaredRWSet();
+        WorldPos above = new WorldPos(0, 100, 51, 200);
+        WorldPos output = new WorldPos(0, 100, 49, 200);
+
+        // transfer_cooldown: read + write
+        assertTrue(rw.declaresBlockEntityRead(new BlockEntityField(HOPPER_POS, "transfer_cooldown")),
+            "cooldown is read as the transfer gate");
+        assertTrue(rw.declaresBlockEntityWrite(new BlockEntityField(HOPPER_POS, "transfer_cooldown")),
+            "cooldown is armed/decremented");
+
+        // above (pull source) slot 0: the pull decrements it, so it must be a declared WRITE
+        assertTrue(rw.declaresBlockEntityWrite(new BlockEntityField(above, "inventory.slots[0]")),
+            "the pull decrements the source slot — must be a declared write, not read-only");
+
+        // output (push target) slot 0: the out<64 capacity check reads it
+        assertTrue(rw.declaresBlockEntityRead(new BlockEntityField(output, "inventory.slots[0]")),
+            "the capacity check reads the output slot — must be a declared read, not write-only");
+    }
+
+    @Test
+    void furnaceDeclaresEveryFieldTheActionTouches() {
+        // The furnace ACTION reads slot 2 (output, for the >=64 capacity gate) and both
+        // timers (cook_progress, fuel_time) before writing them — those reads were
+        // undeclared. Pin that every read the action performs is now declared read.
+        BlockEntitySnapshot snap = BlockEntitySnapshot.furnace(FURNACE_POS);
+        RWSet rw = BlockEntityTaskFactory.furnaceInert(snap).declaredRWSet();
+
+        assertTrue(rw.declaresBlockEntityRead(new BlockEntityField(FURNACE_POS, "inventory.slots[2]")),
+            "the capacity check reads the output slot");
+        assertTrue(rw.declaresBlockEntityRead(new BlockEntityField(FURNACE_POS, "cook_progress")),
+            "progress is read before it is advanced");
+        assertTrue(rw.declaresBlockEntityRead(new BlockEntityField(FURNACE_POS, "fuel_time")),
+            "fuel time is read before it is burned down");
+    }
+
+    @Test
     void furnaceReadsInputFuelWritesOutputAndProgress() {
         BlockEntitySnapshot snap = BlockEntitySnapshot.furnace(FURNACE_POS);
         TaskNode node = BlockEntityTaskFactory.furnaceInert(snap);
