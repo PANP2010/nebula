@@ -1,122 +1,72 @@
-# Nebula Project - Complete TODO List
+# Nebula Project - TODO List
 
-**Based on**: NEBULA_BLOCKERS.md, DEVELOPMENT_PLAN.md, PROJECT_STATUS.md  
-**Current Status**: ~50% complete — DAG execution + zero-diff capture verified (2026-07-08); performance unverified  
-**Realistic Timeline**: ~10-18 days of focused work remaining
-
----
-
-## 🚨 CRITICAL CONTEXT (updated 2026-07-08)
-
-**Two core milestones are now verified on a real Folia server; performance is not.**
-
-- ✅ **Verified working**: end-to-end DAG execution (live circuit toggles → DAG ticks) and
-  deterministic zero-diff capture (two identical captures → byte-for-byte identical files)
-- ✅ **What works**: Architecture, unit tests (742 passing), build system, live redstone DAG, per-tick MSPT measurement (`/nebula perf`)
-- ✅ **Now verified**: DAG shadow overhead *under a large multi-region load* (B4 — 16 circuits /
-  238 components / 7097 ticks, p99 1.914ms < 3ms budget, auto-graded PASS 2026-07-08)
-- ✅ **Now verified**: 10k-tick zero-diff at multi-region scale (DG1 Criterion 1 — two independent
-  10,000-tick captures on 8 region-spaced circuits produced byte-for-byte identical `.nrp` files,
-  auto-graded PASS by `scripts/zerodiff-harness.sh` 2026-07-08). **Static-world method**: proves the
-  capture+hash pipeline is deterministic at scale, NOT DAG correctness under sustained live load.
-- ✅ **Now verified**: microstep-count bound AND deep live expansion (DG1 Criterion 2) — `MicroStepRecorder`
-  + `/nebula perf` auto-grade PASS ≤256; the 2026-07-08 perf-harness run saw max 1 (settled re-toggles), and a
-  dedicated cold-toggle probe (`/nebula diag on`, 2026-07-09) recorded **max 14 microsteps from a single-task
-  seed** (`seedTasks=1 microsteps=14 modified=15` on a 15-wire line). Deep expansion is now proven live.
-- ✅ **Now verified (2026-07-08, corrects an earlier misconception)**: microstep depth is governed by
-  **dirty-set shape, not circuit topology** (`MicroStepDepthTest`). A single leading-edge seed into a
-  freshly-unsettled straight wire expands over ~14 microsteps, and the same wire collapses to ≤1 when the
-  whole line is seeded at once (SCC contraction).
-- ✅ **VERIFIED LIVE (2026-07-09)**: the pipeline single-task-seeds AND that single seed cascades
-  deeply on real Folia. `FoliaRegionTickExecutor` dispatches each dirty task as `List.of(task)` (line 95),
-  confirmed by the new `/nebula diag` probe logging `seedTasks=1` on every `executeOwnedDag` invocation.
-  The first (cold) toggle of a 15-wire line logged `seedTasks=1 microsteps=14 modified=15` — a single-task
-  seed cascading the whole line in ONE `executeTick`. So neither swapping topology nor harness narrow-seeding
-  was ever the issue; deep live expansion just requires the seed to read freshly-changed NMS state.
-- ✅ **RESOLVED (2026-07-09)**: deep microstep expansion *on a live server*. Previously "not yet verified".
-  `/nebula diag on` recorded max 14 microsteps live (see above). The earlier "live max = 1" was confirmed to
-  be the SETTLED-STATE case: on a re-toggle every seed logged `cas=0→nms=0 (settled)` → 0 microsteps, because
-  the observe-only shadow ran after Folia had already propagated the signal. The observe-only-ordering
-  hypothesis is now verified with evidence, not inferred.
-- ❌ **Still not verified**: zero-diff under sustained *live* redstone (needs a tick-deterministic input
-  driver); entity DAG not wired into the live tick path; multi-region *coordination* correctness
-  (not just overhead + static zero-diff)
-- 🎯 **Next goal**: the DG1 Criterion 2 caveat is now closed with evidence. The single remaining DG1
-  caveat is Criterion 1's static-world method — build a tick-deterministic input driver so zero-diff can
-  be tested under LIVE redstone activity, not just a static captured world. That is the last unverified-at-live
-  gap in DG1. **Progress (2026-07-09)**: the SCHEDULING half now exists as pure, unit-tested logic —
-  `org.nebula.replay.DeterministicToggleSchedule` (+ `ToggleAction`) maps `tick -> toggle actions`
-  reproducibly from a seed, so two runs emit byte-identical toggle streams tick-for-tick. **Remaining**:
-  wire the game layer to apply those actions on the correct region thread at the scheduled tick (touches
-  the tick pipeline → needs the live-Folia decisive experiment), then run the live-load zero-diff comparison.
-  **Progress slice 2 (2026-07-09)**: the RESOLUTION half is now pure, unit-tested logic too —
-  `org.nebula.replay.LiveLoadToggleDriver` binds each opaque `sourceId` to a concrete `WorldPos`,
-  resolves the schedule's per-tick actions into `ResolvedToggle`s (position + powered) in stable
-  source order, and delegates the one Folia/NMS step to an injected `ToggleApplier` seam. It
-  fail-fasts if any schedule source is unbound (so an unbound source can NEVER be silently dropped —
-  guarding against the B3 key-mismatch wound).
-  **Progress slice 3 (2026-07-09)**: the Folia/NMS APPLY step now exists as a unit-tested adapter
-  class — `org.nebula.folia.FoliaToggleApplier implements ToggleApplier`. It dispatches each
-  `ResolvedToggle` to its position's owning region thread via `FoliaRegionBridge.runOnRegion`
-  (`RegionScheduler.execute`), flips the lever/switch's `Powerable` state, and writes it back with
-  `setBlockData(data, true)` so the real neighbour-update path fires (a suppress-updates write would
-  silently defeat the harness — the B3 wound class). It no-ops when the target is already in the
-  requested state or is not `Powerable`. 6 tests (Proxy-stubbed Folia interfaces) cover dispatch,
-  power on/off, no-op, non-powerable safety, and null validation. **NOT yet wired into the running
-  tick pipeline.** **Remaining**: construct the driver + `FoliaToggleApplier` in `NebulaPlugin`,
-  drive `driver.driveTick(tick)` from the capture tick loop, and run two seeded live-load captures
-  through `scripts/zerodiff-harness.sh --drive <seed>`. That wiring step touches the tick pipeline →
-  live-Folia decisive experiment required (place circuits, `/nebula scan`, drive seeded toggles,
-  diff two runs byte-for-byte).
-  **Progress slice 4 (2026-07-09)**: the last determinism hazard in the pure stack is now closed —
-  `org.nebula.replay.CanonicalToggleSources` turns an *unordered* set of toggle-source positions into
-  a **canonically ordered** `sourceIds` list + bindings and assembles a ready-to-drive
-  `DeterministicToggleSchedule`/`LiveLoadToggleDriver`. This matters because the schedule derives each
-  source's flip *phase from its list INDEX*, so if the game layer built `sourceIds` by iterating
-  `componentMap.keySet()` (a `ConcurrentHashMap`, unspecified order), two runs of the same world would
-  assign different phases → *legitimately different* toggle streams → false zero-diff divergence (the B3
-  invisible-gap class). `CanonicalToggleSources.of(...)` sorts by `WorldPos.compareTo` + de-dups, so the
-  stream depends only on the *set* of positions, never enumeration order; source ids are `dim:x,y,z`
-  (round-trip via `WorldPos.parse`). 12 tests cover canonical order, order-independence across
-  permutations, identical toggle-stream across input orders, de-dup, empty/null handling, and
-  driver assembly. Pure `nebula-replay` logic — does NOT touch the tick pipeline. **Remaining (the
-  wiring epic, unchanged)**: construct a `CanonicalToggleSources.of(scannedLeverPositions).newDriver(
-  seed, period, new FoliaToggleApplier(regionBridge, world))` in `NebulaPlugin`, drive
-  `driver.driveTick(tick)` from the capture tick loop, and run two seeded live-load captures through
-  `scripts/zerodiff-harness.sh --drive <seed>`. That step touches the tick pipeline → live-Folia
-  decisive experiment required.
-  **Progress slice 6 (2026-07-09) — WIRING DONE + VERIFIED AT THE DG1 TICK BAR (supersedes the "Remaining: wiring epic" text above).** The whole driver stack IS now wired into the running
-  capture tick loop (`FoliaCaptureHarness.TickDriver` seam, commits 81b9dfc→f1e52f0) and automated in
-  `scripts/zerodiff-harness.sh --drive` (commit 646d9cd). This cycle ran the decisive experiment at the
-  **DG1 tick count**: `./scripts/zerodiff-harness.sh 10000 8 --drive 42 --period 8` on real Folia 26.1.2
-  → **CONVERGENT PASS**: 9994/10000 frames byte-identical, a 6-frame contiguous cold-CAS opening
-  transient (last-diff frame 5), then locked identical through frame 10000. Both 10k runs finished
-  within the wall-clock cap (no CAP_TIMEOUT); the transient grew only 3→6 frames going from 2→8 sources
-  (result: `bench-results/zerodiff-20260709-032503.txt`). This is the driven live-load claim scaled to
-  the DG1 bar. **Still DISTINCT from static Criterion 1**: it is a Nebula-vs-Nebula seed-consistency
-  check (same engine, same seed), NOT a Folia-vs-Nebula divergence check, so it does NOT upgrade
-  Criterion 1 — that still stands only on the static-world 10k run. **Remaining live-load work**: a
-  Folia-vs-Nebula divergence check (does the DAG shadow's CAS trajectory match Folia's own authoritative
-  redstone under the same driven load?) — that is the last thing driven mode does NOT yet prove. Nebula is observe-only in both
-> AGENT and INTERCEPT modes — the DAG is a non-authoritative shadow on top of authoritative
-> Folia, so it can only *add* overhead; there is no serial work it removes and thus no
-> reduction to measure by construction. **DG1 Criterion 3 was formally redefined 2026-07-08
-> (Path 2): "p99 DAG tick < 3ms under a driven multi-region workload," auto-graded by
-> `scripts/perf-harness.sh`** — now VERIFIED AT SCALE: large run (16 circuits / 238
-> components / 604 loaded chunks / 7097 DAG ticks) p99 **1.914ms** → PASS. Budget tightened
-> 5ms→3ms after two runs (small p99 2.002ms, large p99 1.914ms) both landed ~2ms.
-> See docs/PROJECT_STATUS.md → "DG1 Criterion 3" (the source of truth). This whole file's
-> "≥30% reduction" language below is retained only for historical context and is superseded
-> by that note.
-
-> Phase 1 (make the DAG execute) and the Phase 2 zero-diff goal are DONE. The
-> remaining work below starts effectively at performance measurement.
+**Based on**: PROJECT_STATUS.md (source of truth), the whitepaper (docs/nebula-architecture.md) and its two patches (docs/nebula-patch-001/002.md)
+**Last verified**: 2026-07-09 — 817 unit tests pass (0 failures, run this session); DG1 redstone slice verified live on Folia 26.1.2
+**Branch**: feat/fix-folia-scheduler-v2
 
 ---
 
-## PHASE 1: Make DAG Execute on Real Server (P0 - Days 1-5)
+## 🚨 HONEST SCOPE (updated 2026-07-09)
 
-**Goal**: Get ONE successful "DAG tick: N tasks, M microsteps" log entry
+**Two ways to measure "how far along" — don't conflate them.**
+
+1. **Against the narrow current goal** (prove a deterministic redstone DAG runs on real Folia):
+   the redstone slice is largely DONE and live-verified.
+2. **Against the whitepaper's full vision** (7 subsystems, ~250 RW annotations, VAP plugin layer,
+   T0–T3 tiers): roughly **~15–20% built, ~5% live-verified**. Only 1 of 7 subsystems (redstone)
+   is proven on real Folia. This is a **working prototype**, not a near-complete product.
+
+Both are true. The old "~50% complete / 10–18 days remaining" header measured only #1 and is
+deleted as misleading — the whitepaper is a multi-year plan, not days of work.
+
+### ✅ Verified on real Folia (redstone slice)
+- **End-to-end DAG execution** — live lever→wire→lamp toggles produce exception-free DAG ticks.
+- **Deterministic zero-diff capture** — two identical captures → byte-for-byte identical `.nrp` files.
+- **Microstep bound + deep live expansion (DG1 Criterion 2)** — `/nebula perf` auto-grades ≤256;
+  `/nebula diag` recorded `seedTasks=1 microsteps=14 modified=15` on a cold 15-wire toggle. Depth is
+  governed by dirty-set shape, not topology (`MicroStepDepthTest`).
+- **DAG shadow-overhead budget (DG1 Criterion 3, redefined Path 2)** — p99 DAG tick 1.914ms < 3ms at
+  16 circuits / 238 components / 7097 ticks, auto-graded by `scripts/perf-harness.sh`.
+- **Driven live-load zero-diff at DG1 scale** — `zerodiff-harness.sh 10000 8 --drive 42` → 9994/10000
+  frames identical after a 6-frame cold-CAS transient. NOTE: this is Nebula-vs-Nebula seed-consistency.
+- **DG3 settled-state Folia-vs-Nebula gate** — `divergence-grade.sh --settled 4 --warmup 100` PASSes
+  deterministically (0 diverged / 64 positions, 3 consecutive fresh boots, verified 2026-07-09).
+
+### ⚠️ Built but NOT verified live (code exists, no decisive experiment)
+- Entity / physics / collision DAG (`nebula-entity`, 35 main files) — **not wired into the live tick path**.
+- Fluid + explosion task factories (`FluidTaskGenerator`, `ExplosionTaskFactory`) — unit-tested only.
+- RW-Set Integrity Guard (`nebula-guard-api`, 15 files; patch-001's P0 "Achilles' heel" protection) —
+  API built, bytecode tracer **never verified against real NMS access**.
+- VAP plugin layer (`nebula-core/vap`: ManagedStateProxy, MvccVersionStore, cert levels) — skeleton;
+  **no real plugin has ever been run through it**.
+- Random shadow-execution / budget (present in code) — unverified live.
+
+### ❌ Designed in the whitepaper, essentially UNBUILT
+- **Light subsystem** (whitepaper ch.10) — 0 implementation files.
+- **Entity AI / pathfinding** (ch.7: Sense/GoalSelect/Pathfind/Act) — 0 implementation files.
+- **@NebulaRW annotation coverage** — **7 of ~250 (~3%)**. The determinism theorem *depends* on this;
+  patch-001 calls it the project's Achilles' heel. This is the single widest designed-vs-done gap.
+- **Folia-vs-Nebula divergence under sustained LIVE load** — settled-state passes; the driven
+  square-wave residual-rate check is a known-limited signal (observe lag, not a bug). See memory
+  `divergence-grade-needs-settled-sampling`.
+- Phase 1.5 annotation-maintenance toolchain (patch-002); VAP certification pipeline (patch-002 §13.7);
+  T2/T3 fidelity tiers; DAG build-timeout degradation; spatial bucketing at scale — all design-only.
+
+### 📌 A note on DG1 Criterion 3 ("≥30% MSPT reduction")
+Nebula is **observe-only** in both AGENT and INTERCEPT modes (verified 2026-07-08, commit 4a934bb):
+the DAG is a non-authoritative shadow on top of authoritative Folia, so it can only *add* overhead —
+there is no serial work it replaces and thus no "reduction" to measure. Criterion 3 was formally
+redefined to a shadow-overhead budget (p99 DAG tick < 3ms). Every "≥30% reduction" line below is
+**historical only** and superseded by that note in docs/PROJECT_STATUS.md (the source of truth).
+
+---
+
+## PHASE 1: Make DAG Execute on Real Server — ✅ DONE (verified 2026-07-08/09)
+
+**Goal**: Get ONE successful "DAG tick: N tasks, M microsteps" log entry — **ACHIEVED.**
+B1/B2/B3 are all resolved (see the blocker table at the bottom). Live lever→wire→lamp toggles
+produce exception-free DAG ticks. The unchecked sub-items below are **retained as the verification
+record** of how it was proven, not as open work.
 
 ### 1.1 Verify B1 Fix - RedstoneTickHook Lifecycle (Day 1)
 - [ ] Configure RCON in folia-test-server/server.properties
@@ -175,9 +125,12 @@
 
 ---
 
-## PHASE 2: Verify Correctness (P0 - Days 6-10)
+## PHASE 2: Verify Correctness (zero-diff) — ✅ DONE for the redstone slice (2026-07-08/09)
 
-**Goal**: Prove the DAG produces correct results (zero-diff property)
+**Goal**: Prove the DAG produces correct results (zero-diff property) — **ACHIEVED for redstone.**
+DG1 Criteria 1/2/3 are all verified (see the DG1 checklist near the bottom). The remaining
+correctness frontier is Folia-vs-Nebula divergence under *sustained live* load (settled-state
+passes; driven square-wave is a known-limited signal). Sub-items retained as the verification record.
 
 ### 2.1 Create Standard Redstone Test World (Day 6)
 - [ ] Design 5 test circuits:
@@ -242,7 +195,7 @@
 
 ---
 
-## PHASE 3: Optimize Performance (P1 - Days 11-17)
+## PHASE 3: Minimize DAG Shadow Overhead (P2 — optional, not blocking)
 
 **Goal**: Minimize the DAG shadow's *added* overhead (there is no "reduction" to achieve —
 Nebula is observe-only; see the DG1 Criterion 3 note in docs/PROJECT_STATUS.md)
@@ -315,7 +268,7 @@ Nebula is observe-only; see the DG1 Criterion 3 note in docs/PROJECT_STATUS.md)
 
 ---
 
-## PHASE 4: Entity Subsystem Integration (P2 - Days 18-24)
+## PHASE 4: Entity Subsystem Integration (P2 — next major milestone after redstone)
 
 **Goal**: Wire EntityTickExecutor and pass DG2 acceptance
 
@@ -360,9 +313,9 @@ Nebula is observe-only; see the DG1 Criterion 3 note in docs/PROJECT_STATUS.md)
 
 ---
 
-## PHASE 5: Full System & Acceptance (P2 - Days 25+)
+## PHASE 5: Full System & Acceptance (P3 — long-horizon, whitepaper scope)
 
-**Long-term tasks, lower priority until Phase 1-4 complete**
+**Long-term tasks; most of this is design-only today (light, AI, VAP-with-real-plugins, load testing).**
 
 ### 5.1 DG3 Full System Zero-Diff
 - [ ] Combine redstone + entity + tile entities
@@ -452,15 +405,15 @@ Nebula is observe-only; see the DG1 Criterion 3 note in docs/PROJECT_STATUS.md)
 
 ## SUCCESS CRITERIA CHECKLIST
 
-### Phase 1 Complete (Minimum Viable Integration)
-- [ ] Server starts without errors
-- [ ] Plugin loads successfully
-- [ ] Agent retransform succeeds
-- [ ] Hook sentinel verification passes
-- [ ] componentMap populated with redstone
-- [ ] RedstoneTickHook lifecycle active (beginTick/endTick called)
-- [ ] **"DAG tick: N tasks, M microsteps" appears in logs** ⭐ CRITICAL
-- [ ] Lever → wire → lamp circuit works correctly
+### Phase 1 Complete (Minimum Viable Integration) — ✅ ALL MET (2026-07-08/09)
+- [x] Server starts without errors
+- [x] Plugin loads successfully
+- [x] Agent retransform succeeds
+- [x] Hook sentinel verification passes
+- [x] componentMap populated with redstone
+- [x] RedstoneTickHook lifecycle active (beginTick/endTick called)
+- [x] **"DAG tick: N tasks, M microsteps" appears in logs** ⭐ CRITICAL
+- [x] Lever → wire → lamp circuit works correctly
 
 ### DG1 Complete (Redstone Subsystem)
 - [x] 10k-tick zero-diff test passes — VERIFIED 2026-07-08 (static world; `scripts/zerodiff-harness.sh`)
@@ -485,47 +438,59 @@ Nebula is observe-only; see the DG1 Criterion 3 note in docs/PROJECT_STATUS.md)
 
 ---
 
-## CURRENT BLOCKERS (As of 2026-07-08)
+## BLOCKER STATUS (updated 2026-07-09)
 
-### P0 - Must fix before any testing
-- [x] B1: RedstoneTickHook lifecycle - **CODE COMMITTED, NEEDS VERIFICATION**
-- [x] B2: componentMap empty - **CODE COMMITTED, NEEDS VERIFICATION**
-- [ ] B3: Agent interception chain - **NEEDS VERIFICATION**
-- [ ] Phase 1.4: End-to-end DAG execution - **BLOCKED BY B1/B2/B3**
+### P0 — all RESOLVED and live-verified
+- [x] B1: RedstoneTickHook lifecycle — **RESOLVED** (GlobalRegionScheduler driver; DAG ticks fire live)
+- [x] B2: componentMap empty — **RESOLVED** (sync scan + `/nebula scan`; 64 components registered in gate)
+- [x] B3: Agent interception chain — **RESOLVED** (world-name key mismatch fixed, commit cb223fe;
+      `BlockRedstoneEvent` fallback also confirmed firing)
+- [x] Phase 1.4: End-to-end DAG execution — **ACHIEVED** (live circuit toggles → DAG ticks)
 
-### P1 - Blocks DG1 acceptance
-- [ ] B4: NMS sync overhead - **NEEDS PROFILING & OPTIMIZATION (Phase 3)**
-- [ ] B5: Redstone test world - **CAN CREATE VIA RCON (Phase 2)**
-- [ ] B6: Capture harness - **BLOCKED BY B1 (Phase 2)**
+### P1 — DG1 redstone criteria all met
+- [x] B4: DAG shadow overhead — **MEASURED & within budget** (p99 1.914ms < 3ms at scale). Note: this
+      is *added* overhead, not a reduction (observe-only). Further optimization is optional, not blocking.
+- [x] B5: Redstone test world — circuits placed via RCON / `scripts/*` harnesses
+- [x] B6: Capture harness E2E — **VERIFIED** (byte-for-byte identical `.nrp` files)
 
-### P2 - Technical debt, doesn't block core functionality
-- [ ] B7: Build environment portability
-- [ ] B8: @NebulaRW annotation coverage
-
----
-
-## ESTIMATED TIMELINE
-
-- **Phase 1** (Days 1-5): Make DAG execute once
-- **Phase 2** (Days 6-10): Verify correctness (zero-diff)
-- **Phase 3** (Days 11-17): Optimize performance
-- **Phase 4** (Days 18-24): Entity subsystem
-- **Phase 5** (Days 25+): Full system & DG3
-
-**Total**: ~16-24 working days (~3-5 weeks) to "actually playable"
-
-**Critical Path**: Phase 1 → Phase 2 → Phase 3 → Phase 4 → Phase 5
+### P2 — open technical debt
+- [ ] B7: Build environment portability — `gradle.properties` hardcodes JDK paths (Linux-only build)
+- [ ] B8: **@NebulaRW annotation coverage — 7 of ~250 (~3%).** Highest-leverage open item; the
+      determinism theorem depends on it (patch-001). An epic — slice it subsystem by subsystem.
 
 ---
 
-## NEXT IMMEDIATE ACTION
+## HONEST NEXT ACTIONS (2026-07-09)
 
-🎯 **START HERE**: Phase 1.1 - Configure RCON and start server
+The redstone DG1 slice is done and live-verified. There is **no short path to "playable"** — the
+whitepaper scope is years of work. Pick the next slice by honest value, not by a countdown.
 
-Everything else depends on getting that first "DAG tick" log entry.
+**Highest-leverage open work, in rough priority order:**
+
+1. **Push the DG3 settled-state gate harder** (cheap, high-signal). It passes at 4 dust-only
+   circuits; raise circuit count (8/16) and add repeaters + comparators so it exercises multi-power-
+   level convergence, not just 15→0 decay. If that holds, settled-state correctness is a solid
+   standing signal. (This is the `Next:` handoff from commit b38e27f.)
+2. **Folia-vs-Nebula divergence under sustained live load** — the last correctness gap driven mode
+   does not prove. Needs settled-state sampling, not the known-limited square-wave residual rate
+   (see memory `divergence-grade-needs-settled-sampling`).
+3. **@NebulaRW annotation coverage (B8, ~3% → higher)** — the widest designed-vs-done gap and the
+   theorem's precondition. Slice by subsystem; pair with the RW-guard to verify each annotation live.
+4. **Verify the RW-Set Integrity Guard against real NMS** (patch-001 P0) — the API exists but its
+   bytecode tracer has never run against real Folia access. Until it does, annotation completeness
+   is unchecked in practice.
+5. **Wire the entity DAG into the live tick path** — `nebula-entity` is built and unit-tested but
+   never runs live. First live entity DAG tick is the DG2 analogue of the redstone milestone.
+
+**Lower priority / larger:** fluid + explosion live integration; light & AI/pathfinding subsystems
+(unbuilt); VAP with a real plugin; B7 build portability.
+
+**Ground rules that keep this honest** (from ralph_prompt.txt): never upgrade a claim past what was
+verified *this session*; if a change touches the tick pipeline, a green unit test is not proof — run
+the live-Folia decisive experiment; one scoped, committed slice at a time.
 
 ---
 
-**Last Updated**: 2026-07-08  
-**Status**: Ready for Phase 1 testing  
-**Next Review**: After Phase 1 complete
+**Last Updated**: 2026-07-09 (honesty pass — scope reframed, done phases marked, blockers reconciled)
+**Verified this session**: 817 unit tests pass (0 failures); DG3 settled gate PASS ×3 fresh boots
+**Source of truth**: docs/PROJECT_STATUS.md
