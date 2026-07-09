@@ -575,7 +575,7 @@ requires the decisive Folia experiment, not just a green unit test.
       the wired path doesn't cry wolf (ENFORCE mode completes cleanly on a fully-declared trace). The
       prior `dagExecutorCanRunTasksThroughRwGuard` only asserted violation *count* + JSON substrings, so a
       wrong-target bug could slip through the live path. Guard components A/B/C now proven wired together.
-- [ ] ⚡ B2. Wire `RWGuardTaskRunner` into the live redstone executor behind `-Dnebula.rw.guard=true`
+- [x] ⚡ B2. Wire `RWGuardTaskRunner` into the live redstone executor behind `-Dnebula.rw.guard=true`
       (low sample rate), deploy, toggle a lever→wire→lamp line, and confirm the tracer records real NMS
       block accesses with **zero** violations against the (known-complete) redstone RW-sets. This is the
       first time the Achilles'-heel protection runs against real Folia — patch-001's core promise. If it
@@ -591,13 +591,23 @@ requires the decisive Folia experiment, not just a green unit test.
       REAL runner+action+context with the bridge tracer trace CLEAN against their REAL factory RW-sets, plus
       a negative control (drop the +X wire neighbour read → checker flags exactly it). "Redstone RW-sets are
       known-complete" is now checker-verified for block accesses, not just asserted.
-      **B2b REMAINING (⚡ live):** install `RedstoneRwGuardTracer.INSTANCE` on the `RedstoneTaskRunner`
-      built in `NebulaPlugin` (constructor already accepts a tracer), gate it behind `-Dnebula.rw.guard`
-      + low sample, run `RWSetConsistencyChecker` per task in `executeOwnedDag`'s Phase 2 (or after
-      `microStepScheduler.executeTick`), append to `rw-violations.jsonl`, then toggle a lever→wire→lamp
-      line on real Folia and confirm zero violations in the log. Only THAT is the true first live guard run.
-      NOTE: block-entity/entity/global/random accesses are NOT routed through `RedstoneTaskContext` yet, so
-      the live run verifies block-level reads/writes only (which is all the redstone actions perform today).
+      **B2b DONE (⚡ LIVE-VERIFIED 2026-07-09):** the FIRST TRUE live guard run — patch-001's
+      Achilles'-heel protection ran against real Folia. Seam chosen: a per-task boundary, not the whole
+      tick. `RedstoneTaskRunner` (which `MicroStepScheduler` requires by concrete type for `commitLayer`)
+      now fires a decoupled `RedstoneTaskGuardHook` around each dispatched task's execution;
+      `NebulaPlugin` installs `RedstoneRwGuardTracer.INSTANCE` + `RedstoneRwGuardHook` on that runner ONLY
+      when `-Dnebula.rw.guard=true` (sampling via `-Dnebula.rw.guard.sample`, default 1.0). The hook resets
+      `ThreadLocalAccessTrace` before each task and runs `RWSetConsistencyChecker` against THAT task's
+      declared RW-set after, appending violations to `plugins/Nebula/rw-violations.jsonl`; `executeOwnedDag`
+      logs a one-line `RW-GUARD: tracedTasks=N violations=M` summary. Live result on a lever→8-wire→lamp
+      toggle: `tracedTasks=940 violations=0 (clean)`, no `rw-violations.jsonl` written. Ruled out the
+      false-clean-from-empty-trace mode: concurrent `CASCADE-DIAG` showed the traced wire tasks really
+      wrote power (e.g. `x=3 cas=12→nms=13 modified=1`) through the traced `RedstoneTaskContext` write path,
+      so `violations=0` is a real verdict on tasks that genuinely accessed blocks. Compound (SCC) tasks are
+      checked union-vs-merged-set (sound for a zero-violations confirmation; per-member detection power is
+      unit-proven in `RedstoneRwGuardBridgeTest`). NOTE: block-entity/entity/global/random accesses are NOT
+      routed through `RedstoneTaskContext` yet, so this verifies block-level reads/writes only (all the
+      redstone actions perform today). Unit-guarded by `RedstoneRwGuardHookTest` (3 tests).
 - [ ] ⚡ B3. Deliberately break one redstone RWSet (drop a neighbour read), re-run B2b, confirm the guard
       catches it live and `RWGuardReportWriter` emits an actionable report (coords + stack + declared set).
       Revert the break in the same cycle. This proves the guard has real detection power, not just a

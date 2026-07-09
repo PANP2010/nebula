@@ -38,6 +38,7 @@ public final class RedstoneTaskRunner implements LayerCommitting {
     private final Map<String, RedstoneTaskAction> actionRegistry;
     private final ConcurrentHashMap<String, RedstoneStateSnapshot> layerSnapshots = new ConcurrentHashMap<>();
     private final RedstoneAccessTracer tracer;
+    private final RedstoneTaskGuardHook guardHook;
 
     /**
      * @param world          the shared mutable state
@@ -46,22 +47,51 @@ public final class RedstoneTaskRunner implements LayerCommitting {
      *                       without context (backward-compatible fallback).
      */
     public RedstoneTaskRunner(RedstoneWorldState world, Map<String, RedstoneTaskAction> actionRegistry) {
-        this(world, actionRegistry, null);
+        this(world, actionRegistry, null, null);
     }
 
     public RedstoneTaskRunner(RedstoneWorldState world, Map<String, RedstoneTaskAction> actionRegistry,
                               RedstoneAccessTracer tracer) {
+        this(world, actionRegistry, tracer, null);
+    }
+
+    /**
+     * @param tracer    optional per-access hook feeding the RW-guard's thread-local trace
+     * @param guardHook optional per-task hook (see {@link RedstoneTaskGuardHook}) that
+     *                  brackets each dispatched task's execution so a guard can reset the
+     *                  trace before it runs and check the snapshot after. When null the
+     *                  runner behaves exactly as before.
+     */
+    public RedstoneTaskRunner(RedstoneWorldState world, Map<String, RedstoneTaskAction> actionRegistry,
+                              RedstoneAccessTracer tracer, RedstoneTaskGuardHook guardHook) {
         this.world = world;
         this.actionRegistry = actionRegistry != null ? actionRegistry : Map.of();
         this.tracer = tracer;
+        this.guardHook = guardHook;
     }
 
     public RedstoneTaskRunner(RedstoneWorldState world) {
-        this(world, Map.of(), null);
+        this(world, Map.of(), null, null);
     }
 
     @Override
     public void run(TaskNode task) throws Exception {
+        // The guard hook brackets the WHOLE dispatched task — including a compound's
+        // members — so the accesses it observes match the declared RW-set it checks
+        // against (a compound's merged set covers the union of its members' accesses).
+        if (guardHook != null) {
+            guardHook.beforeTask(task);
+        }
+        try {
+            dispatch(task);
+        } finally {
+            if (guardHook != null) {
+                guardHook.afterTask(task);
+            }
+        }
+    }
+
+    private void dispatch(TaskNode task) throws Exception {
         // SCC contraction merges mutually-dependent redstone components (e.g. a
         // wire line, which forms RAW cycles on neighbouring blocks plus a shared
         // region-signal global) into a single COMPOUND_SCC task. Dispatch each

@@ -120,6 +120,12 @@ public final class NebulaPlugin extends JavaPlugin {
     // Composite DAG runner (redstone + entity)
     private CompositeTaskRunner compositeRunner;
 
+    // B8 B2b: live RW-guard bridge, installed on the redstone runner only when
+    // -Dnebula.rw.guard=true. Null when the guard is off (the default) — the
+    // hot path is then exactly as before. When present, executeOwnedDag logs a
+    // one-line RW-GUARD summary per invocation.
+    private RedstoneRwGuardHook rwGuardHook;
+
     // World scanner
     private WorldRedstoneScanner worldScanner;
 
@@ -223,7 +229,29 @@ public final class NebulaPlugin extends JavaPlugin {
         Map<String, RedstoneTaskAction> actionRegistry = RedstoneActions.defaults(
             neighbour -> componentMap.get(neighbour) == RedstoneComponentType.REDSTONE_WIRE);
         taskGenerator = new RedstoneTaskGenerator(componentMap, actionRegistry);
-        redstoneRunner = new RedstoneTaskRunner(redstoneState, actionRegistry);
+
+        // B8 B2b: opt-in live RW-guard on the redstone DAG. When -Dnebula.rw.guard=true,
+        // install the per-access tracer (RedstoneAccessTracer → ThreadLocalAccessTrace)
+        // AND the per-task hook that checks each task's real accesses against its declared
+        // RW-set. Off by default: the runner then gets no tracer/hook and runs unchanged.
+        boolean rwGuardEnabled = Boolean.getBoolean("nebula.rw.guard");
+        RWGuardConfig redstoneGuardConfig = new RWGuardConfig(
+            rwGuardEnabled,
+            rwGuardSamplingRate(),
+            RWGuardMode.WARN,
+            getDataFolder().toPath().resolve("rw-violations.jsonl"),
+            200, false
+        );
+        if (rwGuardEnabled) {
+            rwGuardHook = new RedstoneRwGuardHook(redstoneGuardConfig);
+            redstoneRunner = new RedstoneTaskRunner(redstoneState, actionRegistry,
+                RedstoneRwGuardTracer.INSTANCE, rwGuardHook);
+            LOG.info("RW-GUARD ENABLED (WARN mode, sampling=" + redstoneGuardConfig.samplingRate()
+                + ") — redstone block accesses will be checked against declared RW-sets; "
+                + "violations → " + redstoneGuardConfig.violationLog());
+        } else {
+            redstoneRunner = new RedstoneTaskRunner(redstoneState, actionRegistry);
+        }
         microStepScheduler = new MicroStepScheduler(taskGenerator, redstoneRunner);
 
         // Create entity physics DAG pipeline
@@ -517,6 +545,37 @@ public final class NebulaPlugin extends JavaPlugin {
                 + " microsteps=" + finalMicroSteps
                 + " modified=" + modCount
                 + " seeds=" + diagSeeds);
+        }
+
+        // B8 B2b: when the RW-guard is on, surface its running verdict as an INFO
+        // line the operator can read straight off server-run.log after a toggle —
+        // this is the first time the Achilles'-heel protection reports against real
+        // Folia accesses. Only logged when the hook is installed (guard enabled), so
+        // the default hot path stays silent.
+        if (rwGuardHook != null) {
+            LOG.info("RW-GUARD: tracedTasks=" + rwGuardHook.tracedTasks()
+                + " violations=" + rwGuardHook.violationCount()
+                + (rwGuardHook.violationCount() == 0 ? " (clean)" : " (SEE rw-violations.jsonl)"));
+        }
+    }
+
+    /**
+     * Sampling rate for the live redstone RW-guard, overridable via
+     * {@code -Dnebula.rw.guard.sample=<0..1>}. Defaults to 1.0 (check every task) so
+     * the first live guard run (B2b) has full coverage on a hand-driven toggle; drop
+     * it for sustained high-load runs where per-task tracing would skew MSPT. Values
+     * outside [0,1] fall back to 1.0.
+     */
+    private static double rwGuardSamplingRate() {
+        String raw = System.getProperty("nebula.rw.guard.sample");
+        if (raw == null || raw.isBlank()) {
+            return 1.0;
+        }
+        try {
+            double v = Double.parseDouble(raw.trim());
+            return (v >= 0.0 && v <= 1.0) ? v : 1.0;
+        } catch (NumberFormatException e) {
+            return 1.0;
         }
     }
 
