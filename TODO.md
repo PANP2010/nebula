@@ -765,6 +765,20 @@ live tick pipeline and therefore requires a live server run, not just a green un
       both matching the single-thread server. Then scale up (multiple independent circuits in different
       chunks) so the pool genuinely runs tasks concurrently, and re-confirm. Document worker count and that
       the result is invariant to it.
+      - [x] **D5 slice 1 DONE (5ee5ece, 2026-07-10, ⚡ LIVE-unregressed on Folia).** The prerequisite
+            *reachability* fix: `MicroStepScheduler.executeTick` now drives each topological layer through
+            `TaskRunner.runLayer()` instead of a private per-task `run()` loop, so a `ParallelTaskRunner`
+            (which fans a layer across an `Executor`) can finally plug into the production redstone path —
+            it was dead/unreachable before. Serial default runner = byte-identical behaviour; live Folia
+            toggle drove 4216 dirty cascades / 4215 `modified=1` ticks, full 15→1 CAS gradient, 0 exceptions.
+            Does NOT turn parallelism on. Unit test: `layerExecutionGoesThroughRunLayerSeam`.
+      - [ ] **D5 slice 2 (next):** wrap `redstoneRunner` in a `ParallelTaskRunner` over a real `nebula-core`
+            worker pool in `NebulaPlugin.onEnable`, gated behind `-Dnebula.dag.parallel` (default OFF).
+            **BLOCKER TO AUDIT FIRST:** `RedstoneTaskFactory.create` builds tasks with the 4-arg `TaskNode`
+            ctor → `parallelSafe=false`, and `ParallelTaskRunner.runLayer` degrades any layer with a
+            non-`parallelSafe` task to serial. So the pool would silently no-op until self-only-RWSet
+            redstone tasks are marked `parallelSafe`. Mark them, then re-run the D4 Paper diff with parallel
+            ON and confirm `matched==total` invariant to worker count.
 
 **Definition of done for B9:** a scripted Paper run places canonical circuits, toggles them, and
 `/nebula diff` reports zero mismatches against the single-thread authoritative state — with Nebula's DAG
