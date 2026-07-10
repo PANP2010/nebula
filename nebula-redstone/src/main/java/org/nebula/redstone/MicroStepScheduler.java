@@ -85,11 +85,17 @@ public final class MicroStepScheduler {
         int microSteps = 0;
         int totalLayers = 0;
 
-        // Track power levels before execution for change detection
-        RedstoneWorldState world = null;
-        if (runner instanceof RedstoneTaskRunner rtr) {
-            world = rtr.world();
-        }
+        // Track power levels before execution for change detection.
+        //
+        // The runner may be a wrapper (e.g. ParallelTaskRunner fanning the layer
+        // across a worker pool) delegating to the real RedstoneTaskRunner that
+        // owns the CAS store and the layer commit lifecycle. Resolve through the
+        // unwrap() seam so change-detection and commitLayer() still find the
+        // committer when parallelism is on — otherwise a wrapped runner would
+        // silently skip both (no cascade, no writes).
+        RedstoneTaskRunner committer =
+            runner.unwrap() instanceof RedstoneTaskRunner rtr ? rtr : null;
+        RedstoneWorldState world = committer != null ? committer.world() : null;
 
         // Current batch of tasks to execute
         List<TaskNode> currentBatch = new ArrayList<>(initialDirtyTasks);
@@ -151,12 +157,15 @@ public final class MicroStepScheduler {
 
                 // Commit layer with bounded CAS retry. On stale-read failure
                 // re-execute only the losers with a fresh snapshot — their new
-                // reads will pick up the winning writer's values.
-                if (runner instanceof RedstoneTaskRunner rtr) {
-                    List<String> failed = rtr.commitLayer();
+                // reads will pick up the winning writer's values. The committer
+                // is the (possibly unwrapped) RedstoneTaskRunner that buffered
+                // this layer's writes; retries go back through the top-level
+                // runner so a parallel wrapper still applies to the re-runs.
+                if (committer != null) {
+                    List<String> failed = committer.commitLayer();
                     int retries = 0;
                     while (!failed.isEmpty() && retries < MAX_CAS_RETRIES) {
-                        rtr.resetLayer();
+                        committer.resetLayer();
                         for (String taskId : failed) {
                             TaskNode task = graph.tasks().get(taskId);
                             if (task == null) continue;
@@ -167,13 +176,13 @@ public final class MicroStepScheduler {
                                     List.copyOf(allCompletedIds), List.of(e));
                             }
                         }
-                        failed = rtr.commitLayer();
+                        failed = committer.commitLayer();
                         retries++;
                     }
                     if (!failed.isEmpty()) {
                         commitFailures.addAll(failed);
                     }
-                    rtr.resetLayer();
+                    committer.resetLayer();
                 }
 
                 // Detect actual power changes

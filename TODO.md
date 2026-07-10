@@ -782,14 +782,34 @@ live tick pipeline and therefore requires a live server run, not just a green un
             a shared `Random`, which no redstone RWSet declares). Flag is provably inert for the serial live
             path (only `ParallelTaskRunner` reads it; no hasher/capture does). Tests:
             `everyComponentTypeProducesAParallelSafeTask`, `parallelSafeMarkingDoesNotAlterRwSetOrTaskIdentity`.
-      - [ ] **D5 slice 2 part 2 (next):** wrap `redstoneRunner` in a `ParallelTaskRunner` over a real
-            `nebula-core` worker pool in `NebulaPlugin.onEnable`, gated behind `-Dnebula.dag.parallel`
-            (default OFF). Then re-run the D4 Paper `/nebula diff` with parallel ON and confirm
-            `matched==total` invariant to worker count. **HONEST LIMIT found in part 1:**
-            wire/repeater/comparator/torch all write `REGION_*` globals → they WAW-serialize into separate
-            layers; multi-task PARALLEL layers form mainly among global-free components (lamp, gates,
-            note block, redstone_block). Genuine concurrency at scale needs multiple independent circuits in
-            different chunks (D5's stated scale-up), not one wire line.
+      - [x] **D5 slice 2 part 2 DONE (this cycle, ⚡ LIVE-VERIFIED parallel path on Folia).** The literal
+            "just wrap `redstoneRunner`" instruction had a FALSE PREMISE: `MicroStepScheduler` gated BOTH
+            change-detection (`world()`) AND the CAS commit lifecycle (`commitLayer()`/`resetLayer()`) on
+            `runner instanceof RedstoneTaskRunner`. Wrapping the runner in a `ParallelTaskRunner` (what the
+            pool needs) makes both `instanceof` checks FAIL → `world==null` (no microstep cascade) and
+            `commitLayer` never called (no CAS writes) — the parallel path would silently compute and write
+            NOTHING. Fix = a reachability seam: added `TaskRunner.unwrap()` (default returns `this`),
+            overridden by `ParallelTaskRunner` to expose its delegate; `MicroStepScheduler` now resolves the
+            committing `RedstoneTaskRunner` via `runner.unwrap()`. Serial path byte-unchanged (bare runner
+            unwraps to itself). THEN wired the pool: `NebulaPlugin.onEnable` wraps `redstoneRunner` in a
+            `ParallelTaskRunner` over a daemon `newFixedThreadPool(max(2,cores))` gated behind
+            `-Dnebula.dag.parallel` (default OFF, field null unless set, `shutdownNow` in `onDisable`); the
+            composite runner keeps the bare `redstoneRunner` for its `LayerCommitting` contract. Unit:
+            `MicroStepSchedulerTest.parallelWrappedRunnerStillCommitsAndCascadesLikeSerial` proves a
+            4-thread-pool-wrapped run reproduces the serial run's whole-line 15→(15-k) decay gradient AND
+            commits cleanly. ⚡ LIVE on Folia 26.1.2 with `-Dnebula.dag.parallel=true` (12 workers): a
+            lever→15-wire→lamp toggle drove 75 real multi-microstep cascades through the parallel-wrapped
+            runner (e.g. `seedTasks=1 microsteps=3 modified=4`, CAS `15→0` writes down the line), 0 CAS-commit
+            failures, 0 exceptions, 0 degrade warnings — `unwrap()` correctly located the committer under the
+            wrapper. **HONEST LIMITS (unchanged from part 1, still open):** (a) this proves the parallel path
+            RUNS and COMMITS correctly live, NOT yet that it beats serial or that a single wire line achieves
+            genuine concurrency — wire/repeater/comparator/torch WAW-serialize on `REGION_*` globals into
+            separate layers, so a straight line mostly runs degraded-serial; (b) the D4-style `/nebula diff`
+            "matched==total with parallel ON" confirmation on **Paper** (the single-thread oracle) is still
+            unrun — Folia is itself multi-threaded, so this Folia run is not the oracle comparison D5's
+            definition-of-done names. **D5 next slice:** run `/nebula diff` on Paper with `-Dnebula.dag.parallel`,
+            confirm `matched==total` invariant to worker count, then scale to multiple independent circuits in
+            different chunks so the pool genuinely runs tasks concurrently.
 
 **Definition of done for B9:** a scripted Paper run places canonical circuits, toggles them, and
 `/nebula diff` reports zero mismatches against the single-thread authoritative state — with Nebula's DAG

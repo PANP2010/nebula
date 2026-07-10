@@ -1,13 +1,18 @@
 package org.nebula.redstone;
 
 import org.junit.jupiter.api.Test;
+import org.nebula.core.scheduler.ParallelTaskRunner;
 import org.nebula.core.scheduler.TaskNode;
 import org.nebula.core.scheduler.TaskRunner;
 import org.nebula.core.state.WorldPos;
+import org.nebula.redstone.actions.RedstoneActions;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -167,5 +172,83 @@ class MicroStepSchedulerTest {
 
         assertTrue(result.hasCommitFailures(),
             "Permanently sabotaged CAS should exhaust retries and report failure");
+    }
+
+    @Test
+    void parallelWrappedRunnerStillCommitsAndCascadesLikeSerial() throws Exception {
+        // B9 D5 slice 2 part 2 blocker: the scheduler resolves the committing
+        // RedstoneTaskRunner (world() for change-detection + commitLayer() for
+        // CAS writes) via runner.unwrap(). Before that seam existed, both were
+        // gated on `runner instanceof RedstoneTaskRunner`, so wrapping the
+        // runner in a ParallelTaskRunner (the way the plugin will enable the
+        // worker pool) would leave world==null and skip commitLayer entirely —
+        // the parallel path would compute and write NOTHING. This test proves a
+        // parallel-wrapped run produces the SAME whole-line cascade AND CAS
+        // writes as the serial run.
+        int lineLength = 10;
+        WorldPos source = new WorldPos(DIM, 0, 64, 0);
+
+        // Build the identical single-source wire line for both runs.
+        java.util.function.Supplier<Map<WorldPos, RedstoneComponentType>> layout = () -> {
+            Map<WorldPos, RedstoneComponentType> c = new LinkedHashMap<>();
+            c.put(source, RedstoneComponentType.REDSTONE_BLOCK);
+            for (int x = 1; x <= lineLength; x++) {
+                c.put(new WorldPos(DIM, x, 64, 0), RedstoneComponentType.REDSTONE_WIRE);
+            }
+            return c;
+        };
+
+        // ── Serial baseline ──────────────────────────────────────────────
+        RedstoneWorldState serialWorld = seedLine(layout.get(), source, lineLength);
+        Map<String, RedstoneTaskAction> serialActions = RedstoneActions.defaults();
+        RedstoneTaskRunner serialRunner = new RedstoneTaskRunner(serialWorld, serialActions);
+        MicroStepScheduler serialScheduler = new MicroStepScheduler(
+            new RedstoneTaskGenerator(layout.get(), serialActions), serialRunner);
+        MicroStepScheduler.TickResult serialResult = serialScheduler.executeTick(
+            List.of(RedstoneTaskFactory.inert(RedstoneComponentType.REDSTONE_WIRE,
+                new WorldPos(DIM, 1, 64, 0))));
+
+        // ── Parallel-wrapped run ─────────────────────────────────────────
+        RedstoneWorldState parWorld = seedLine(layout.get(), source, lineLength);
+        Map<String, RedstoneTaskAction> parActions = RedstoneActions.defaults();
+        RedstoneTaskRunner parBase = new RedstoneTaskRunner(parWorld, parActions);
+        ExecutorService pool = Executors.newFixedThreadPool(4);
+        try {
+            ParallelTaskRunner parRunner = new ParallelTaskRunner(parBase, pool, 2, 4);
+            MicroStepScheduler parScheduler = new MicroStepScheduler(
+                new RedstoneTaskGenerator(layout.get(), parActions), parRunner);
+            MicroStepScheduler.TickResult parResult = parScheduler.executeTick(
+                List.of(RedstoneTaskFactory.inert(RedstoneComponentType.REDSTONE_WIRE,
+                    new WorldPos(DIM, 1, 64, 0))));
+
+            // The parallel path must actually do the work (not silently no-op).
+            assertTrue(parResult.microSteps() > 0,
+                "Parallel-wrapped run must still cascade via microstep expansion");
+            assertFalse(parResult.hasCommitFailures(),
+                "Parallel-wrapped run must commit cleanly (unwrap() found the committer)");
+
+            // Same decay gradient down the line in BOTH runs.
+            for (int k = 1; k <= lineLength; k++) {
+                WorldPos wire = new WorldPos(DIM, k, 64, 0);
+                assertEquals(15 - k, serialWorld.getPowerLevel(wire),
+                    "serial wire@" + k);
+                assertEquals(serialWorld.getPowerLevel(wire), parWorld.getPowerLevel(wire),
+                    "parallel wire@" + k + " must match serial (identical result serial vs parallel)");
+            }
+            assertEquals(serialResult.totalTasks(), parResult.totalTasks(),
+                "parallel run executes the same task count as serial");
+        } finally {
+            pool.shutdownNow();
+        }
+    }
+
+    private static RedstoneWorldState seedLine(Map<WorldPos, RedstoneComponentType> layout,
+                                               WorldPos source, int lineLength) {
+        RedstoneWorldState world = new RedstoneWorldState();
+        world.putPowerLevel(source, 15);
+        for (int x = 1; x <= lineLength; x++) {
+            world.putPowerLevel(new WorldPos(DIM, x, 64, 0), 0);
+        }
+        return world;
     }
 }

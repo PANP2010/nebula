@@ -55,6 +55,16 @@ public final class ParallelTaskRunner implements TaskRunner {
         delegate.run(task);
     }
 
+    /**
+     * Exposes the wrapped subsystem runner so a scheduler can reach its
+     * write-buffer/CAS-commit lifecycle and state store through the parallel
+     * decorator. Recurses in case delegates are themselves wrappers.
+     */
+    @Override
+    public TaskRunner unwrap() {
+        return delegate.unwrap();
+    }
+
     @Override
     public void runLayer(List<TaskNode> layer) throws Exception {
         // Degradation check: fall back to serial if any task lacks parallelSafe flag.

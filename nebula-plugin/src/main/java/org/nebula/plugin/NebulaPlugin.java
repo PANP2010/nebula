@@ -129,6 +129,13 @@ public final class NebulaPlugin extends JavaPlugin {
     private RedstoneTaskGenerator taskGenerator;
     private Map<WorldPos, RedstoneComponentType> componentMap;
 
+    // B9 D5 slice 2 part 2: optional real worker pool backing a ParallelTaskRunner
+    // that fans each redstone topological layer across threads. Gated behind
+    // -Dnebula.dag.parallel (default OFF); null unless the flag is set. Shut down
+    // in onDisable. When OFF this field stays null and the scheduler drives the
+    // bare serial RedstoneTaskRunner exactly as before.
+    private java.util.concurrent.ExecutorService dagWorkerPool;
+
     // Live-load driver input: manual toggle-source (lever/button) positions,
     // tracked separately from componentMap because the scanner collapses those
     // materials into REDSTONE_TORCH and so loses their identity. Populated at
@@ -394,7 +401,35 @@ public final class NebulaPlugin extends JavaPlugin {
         } else {
             redstoneRunner = new RedstoneTaskRunner(redstoneState, actionRegistry);
         }
-        microStepScheduler = new MicroStepScheduler(taskGenerator, redstoneRunner);
+        // B9 D5 slice 2 part 2: optionally fan each redstone topological layer
+        // across a real worker pool. The MicroStepScheduler resolves the
+        // committing RedstoneTaskRunner (CAS commit + change-detection) through
+        // TaskRunner.unwrap(), so wrapping it here does NOT bypass commits or the
+        // microstep cascade. Gated OFF by default; the composite runner (below)
+        // keeps using the bare redstoneRunner for its LayerCommitting contract.
+        //
+        // HONEST LIMIT (D5 part 1 finding): wire/repeater/comparator/torch all
+        // write REGION_* globals, so they WAW-serialize into separate layers —
+        // genuine multi-task parallel layers form mainly among global-free
+        // components and, at scale, across multiple independent circuits in
+        // different chunks. A single wire line will mostly run degraded-serial.
+        org.nebula.core.scheduler.TaskRunner schedulerRunner = redstoneRunner;
+        if (Boolean.getBoolean("nebula.dag.parallel")) {
+            int workers = Math.max(2, Runtime.getRuntime().availableProcessors());
+            final java.util.concurrent.atomic.AtomicInteger threadIdx =
+                new java.util.concurrent.atomic.AtomicInteger();
+            dagWorkerPool = java.util.concurrent.Executors.newFixedThreadPool(workers, r -> {
+                Thread t = new Thread(r, "nebula-dag-worker-" + threadIdx.getAndIncrement());
+                t.setDaemon(true);
+                return t;
+            });
+            schedulerRunner = new org.nebula.core.scheduler.ParallelTaskRunner(
+                redstoneRunner, dagWorkerPool, 2, workers);
+            LOG.info("DAG PARALLEL ENABLED (-Dnebula.dag.parallel) — redstone layers fan across "
+                + workers + " worker threads; commits/cascade resolved via TaskRunner.unwrap(). "
+                + "Layers with a non-parallelSafe task degrade to serial.");
+        }
+        microStepScheduler = new MicroStepScheduler(taskGenerator, schedulerRunner);
 
         // Create entity physics DAG pipeline. Wire a LIVE terrain oracle so
         // EntityMoveAction.restedOn() can fire: without it the runner defaults to
@@ -2427,6 +2462,10 @@ public final class NebulaPlugin extends JavaPlugin {
         }
         EntityTickHook.setActive(false);
         org.nebula.folia.bridge.BlockEntityTickHook.setActive(false);
+        if (dagWorkerPool != null) {
+            dagWorkerPool.shutdownNow();
+            dagWorkerPool = null;
+        }
         LOG.info("Nebula plugin disabled");
     }
 
