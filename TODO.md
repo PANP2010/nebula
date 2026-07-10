@@ -696,6 +696,15 @@ requires the decisive Folia experiment, not just a green unit test.
 - [ ] ⚡ C4. Same loop for **fluid** (`FluidTaskFactory`) and **explosion** (`ExplosionTaskFactory`) now
       that the live redstone/entity-MOVE/block-entity guard loop is proven; these fan out widely, so verify
       at small scale first.
+      - [x] **C4 fluid pure slice DONE (2026-07-10):** added a real `FluidContext` + versioned
+            `FluidState`/snapshot execution path, canonical flow/remove actions whose block reads/writes
+            pass only through that context, and `FluidRwGuardTracer` bridging those accesses into
+            `ThreadLocalAccessTrace`. `FluidRwGuardBridgeTest` corroborates a non-empty six-read/two-write
+            flow trace is clean against `FluidTaskFactory` and proves detection power by dropping the
+            downward write declaration (exactly one `UNDECLARED_WRITE` at `down`). This is pure/unit-only:
+            no NMS bridge, task guard hook, tick seeding, or live Folia fluid execution exists yet.
+            Next C4 slice: build the analogous pure explosion context/action/tracer negative control;
+            only after both pure paths are honest should either be wired live.
 - [ ] C5. Populate `AnnotationCoverageDashboard` from a real per-subsystem hotspot inventory (not
       hand-typed numbers) and surface it via a `/nebula coverage` command, so "coverage %" becomes a
       measured signal instead of a doc claim. Targets patch-002's decay goal (<5%/yr).
