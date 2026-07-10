@@ -1702,6 +1702,66 @@ public final class NebulaPlugin extends JavaPlugin {
     }
 
     /**
+     * B9 D3 — the single-thread differential probe. For every tracked position, reads
+     * (a) Nebula's CAS-computed shadow power via {@code redstoneState.getPowerLevel(pos)}
+     * and (b) the authoritative block power via {@code blockBridge.readNmsPower(...)} on
+     * the <em>calling</em> thread, then returns a pure {@link PaperDiffReport}. On a
+     * settled circuit the two must be identical — {@code report.allMatched()} is the
+     * verdict for the claim the project rests on (multi-thread Nebula == single-thread MC).
+     *
+     * <h3>Why this reads inline, unlike {@link #emitSettledSnapshot}</h3>
+     * The settled snapshot dispatches each read via {@code RegionScheduler.execute} onto
+     * the owning region because Folia block reads NPE off the region thread. This probe is
+     * for the <strong>single-thread Paper</strong> host, where the command thread <em>is</em>
+     * the main thread that owns every chunk, so the read is legal inline and no scheduler
+     * hop is needed. It is therefore self-guarded by the caller to {@code isFoliaServer() ==
+     * false} (see {@link NebulaCommand}); running it on Folia would NPE, which is the exact
+     * asymmetry that makes Paper — not Folia — the single-thread oracle B9 needs.
+     *
+     * <p>The read side uses {@code readNmsPower} (read-only), NOT {@code syncFromNms}, for
+     * the same reason the settled snapshot does: committing Folia's value into the CAS store
+     * would overwrite {@code nebula=N} with {@code paper=M} and make them equal by
+     * construction — the divergence tautology {@code readNmsPower}'s javadoc warns about.
+     *
+     * @return the differential report; {@link PaperDiffReport#total()} is 0 (and
+     *         {@code allMatched()} false) when no positions are tracked — run
+     *         {@code /nebula scan} first
+     */
+    public org.nebula.replay.PaperDiffReport emitPaperDiff() {
+        java.util.List<org.nebula.replay.PaperDiffReport.PositionDiff> diffs =
+            new java.util.ArrayList<>();
+        if (stateHasher == null || blockBridge == null) {
+            LOG.warning("PAPER-DIFF requested but bridges are not wired");
+            return new org.nebula.replay.PaperDiffReport(diffs);
+        }
+        java.util.List<WorldPos> tracked = stateHasher.trackedPositions().stream()
+            .sorted()
+            .toList();
+        if (tracked.isEmpty()) {
+            LOG.info("PAPER-DIFF: tracked=0 — no positions registered; run /nebula scan first");
+            return new org.nebula.replay.PaperDiffReport(diffs);
+        }
+        Server server = getServer();
+        for (World w : server.getWorlds()) {
+            int dim = org.nebula.core.state.DimensionIds.fromName(w.getName());
+            for (WorldPos pos : tracked) {
+                if (pos.dimensionId() != dim) {
+                    continue;
+                }
+                int nebula = redstoneState.getPowerLevel(pos);
+                int paper = blockBridge.readNmsPower(w, pos);
+                diffs.add(new org.nebula.replay.PaperDiffReport.PositionDiff(pos, nebula, paper));
+            }
+        }
+        org.nebula.replay.PaperDiffReport report = new org.nebula.replay.PaperDiffReport(diffs);
+        LOG.info("PAPER-DIFF: " + report.summaryLine());
+        for (String line : report.mismatchLines()) {
+            LOG.info("PAPER-DIFF mismatch: " + line);
+        }
+        return report;
+    }
+
+    /**
      * Emits one {@code BE-SETTLED} snapshot line per world, comparing Nebula's shadow
      * inventory count against Folia's authoritative inventory count for every tracked
      * <em>block entity</em> at quiescence. This is the block-entity twin of {@link

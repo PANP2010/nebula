@@ -45,6 +45,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
             case "perf" -> handlePerf(sender, args);
             case "diag" -> handleDiag(sender, args);
             case "settled" -> handleSettled(sender);
+            case "diff" -> handleDiff(sender);
             case "be-settled" -> handleBlockEntitySettled(sender, args);
             case "be-furnace-timer" -> handleFurnaceTimer(sender, args);
             case "be-furnace-phase" -> handleFurnacePhase(sender, args);
@@ -326,6 +327,50 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
     }
 
     /**
+     * B9 D3: the single-thread differential probe. For every tracked position, compares
+     * Nebula's CAS-computed shadow power against the host's authoritative block power and
+     * reports {@code matched X / total Y} plus one {@code pos: nebula=N paper=M} line per
+     * mismatch. On a settled circuit the two must be identical — this is the direct probe
+     * for "multi-thread Nebula == single-thread MC".
+     *
+     * <p>Self-guarded to a non-Folia host: the authoritative block read is legal on Paper's
+     * main thread (where the command runs and every chunk is owned) but NPEs off the owning
+     * region thread on Folia. That asymmetry is exactly why Paper — not Folia — is the
+     * single-thread oracle B9 compares against. On Folia the command refuses rather than
+     * NPE-ing, pointing the operator at {@code /nebula settled} (the region-safe analogue).
+     */
+    private void handleDiff(CommandSender sender) {
+        if (!sender.hasPermission("nebula.status")) {
+            sender.sendMessage("§cYou don't have permission to use this command.");
+            return;
+        }
+        if (org.nebula.folia.FoliaRuntimeDetector.isFoliaServer()) {
+            sender.sendMessage("§c/nebula diff is a single-thread-oracle probe and must run on "
+                + "a NON-Folia (Paper) server — the authoritative block read it does NPEs off "
+                + "the owning region thread on Folia. Use /nebula settled for the region-safe "
+                + "Folia-vs-Nebula gate instead.");
+            return;
+        }
+        org.nebula.replay.PaperDiffReport report = plugin.emitPaperDiff();
+        if (report.total() == 0) {
+            sender.sendMessage("§ePAPER-DIFF: no tracked positions — run /nebula scan first.");
+            return;
+        }
+        if (report.allMatched()) {
+            sender.sendMessage("§aPAPER-DIFF: " + report.summaryLine()
+                + " — shadow matches the single-thread authority exactly.");
+        } else {
+            sender.sendMessage("§cPAPER-DIFF: " + report.summaryLine()
+                + " — " + report.mismatches().size() + " mismatch(es):");
+            for (String line : report.mismatchLines()) {
+                sender.sendMessage("  §c" + line);
+            }
+        }
+        LOG.info("Paper differential requested by " + sender.getName()
+            + " (" + report.summaryLine() + ")");
+    }
+
+    /**
      * B8 C3 correctness: emit a settled-state {@code BE-SETTLED} snapshot for the
      * tracked block entities. Snapshots each ticking block entity on its owning region
      * thread, logging {@code nebula=X folia=Y} inventory counts per position, so
@@ -544,6 +589,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
         sender.sendMessage("  §e/nebula perf [reset] §7- Show DAG tick timing percentiles");
         sender.sendMessage("  §e/nebula diag <on|off> §7- Toggle per-tick cascade diagnostic (DG1 C2 probe)");
         sender.sendMessage("  §e/nebula settled §7- Emit a settled-state SETTLED-DIAG snapshot (DG3 divergence)");
+        sender.sendMessage("  §e/nebula diff §7- Diff shadow power vs single-thread authority (Paper-only, B9 D3)");
         sender.sendMessage("  §e/nebula be-settled §7- Emit a settled-state BE-SETTLED snapshot (block-entity divergence)");
         sender.sendMessage("  §e/nebula be-furnace-timer [count] §7- Emit BE-FURNACE-TIMER gap snapshot(s); [count] = once-per-tick burst to catch cook mid-climb");
         sender.sendMessage("  §e/nebula be-furnace-phase [count] §7- Arm the BE-FURNACE-PHASE probe for [count] ticks; classifies the +1/-1 offset (ordering vs rate)");
@@ -558,7 +604,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
                                       String alias,
                                       String[] args) {
         if (args.length == 1) {
-            return Arrays.asList("capture", "status", "scan", "perf", "diag", "settled", "be-settled", "be-furnace-timer", "be-furnace-phase", "be-dropper-slot", "be-dropper-phase", "help");
+            return Arrays.asList("capture", "status", "scan", "perf", "diag", "settled", "diff", "be-settled", "be-furnace-timer", "be-furnace-phase", "be-dropper-slot", "be-dropper-phase", "help");
         }
         if (args.length == 2 && args[0].equalsIgnoreCase("capture")) {
             return Arrays.asList("start", "stop");
