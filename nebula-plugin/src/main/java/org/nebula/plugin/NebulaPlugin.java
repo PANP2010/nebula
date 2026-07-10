@@ -14,6 +14,7 @@ import org.nebula.entity.actions.EntityCollisionResponseAction;
 import org.nebula.folia.FoliaRegionBridge;
 import org.nebula.folia.FoliaRegionTickExecutor;
 import org.nebula.folia.FoliaRuntimeDetector;
+import org.nebula.folia.InlineShadowTickExecutor;
 import org.nebula.folia.FoliaToggleApplier;
 import org.nebula.folia.NmsBlockEntityStateBridge;
 import org.nebula.folia.NmsBlockStateBridge;
@@ -479,7 +480,7 @@ public final class NebulaPlugin extends JavaPlugin {
         if (isFolia) {
             bootstrap = wireRegionAwareExecutor(server, guardConfig);
         } else {
-            bootstrap = wireShadowExecutor(guardConfig);
+            bootstrap = wireShadowExecutor(server, guardConfig);
         }
 
         // Create world scanner for redstone discovery
@@ -583,6 +584,31 @@ public final class NebulaPlugin extends JavaPlugin {
 
             wireEntityTickHook(server);
             wireBlockEntityTickHook(server);
+        } else {
+            // B9 D2: on a single-region host (Paper) the redstone lifecycle driver
+            // must ALSO run, or endTick never drains and the inline shadow executor
+            // is never reached. Paper implements getGlobalRegionScheduler() with
+            // main-thread execution, so the same alternating begin/end driver works
+            // here — and because every chunk is owned by the main thread, the
+            // InlineShadowTickExecutor runs the drained batch inline on this thread.
+            // Entity/block-entity hooks stay Folia-only (they depend on region-thread
+            // NMS reads); D2 is the redstone differential slice.
+            java.util.concurrent.atomic.AtomicBoolean tickPhase = new java.util.concurrent.atomic.AtomicBoolean(false);
+            getServer().getGlobalRegionScheduler().runAtFixedRate(this, task -> {
+                if (!RedstoneTickHook.isActive()) return;
+
+                boolean isBeginPhase = tickPhase.get();
+                if (isBeginPhase) {
+                    RedstoneTickHook.beginTick("nebula-global");
+                } else {
+                    String regionId = "nebula-global";
+                    for (World w : server.getWorlds()) {
+                        RedstoneTickHook.endTick(regionId, w.getName());
+                    }
+                }
+                tickPhase.set(!isBeginPhase);
+            }, 1, 1);
+            LOG.info("RedstoneTickHook lifecycle driver registered (non-Folia, main-thread begin/end)");
         }
         // Temporary diagnostic: register Bukkit event listener
         getServer().getPluginManager().registerEvents(new RedstoneEventListener(), this);
@@ -2182,19 +2208,44 @@ public final class NebulaPlugin extends JavaPlugin {
     /**
      * Non-Folia fallback: OBSERVE mode with shadow executor.
      */
-    private NebulaFoliaBootstrap wireShadowExecutor(RWGuardConfig guardConfig) {
-        RedstoneTickHook.TickExecutor shadowExecutor =
-            (regionId, worldName, dirtyTasks) -> {
-                LOG.fine(() -> "Shadow tick: region=" + regionId
-                    + " world=" + worldName + " tasks=" + dirtyTasks.size());
-            };
+    /**
+     * B9 D2: wires the non-Folia (single-thread host, e.g. Paper) shadow
+     * executor so it actually DRIVES the DAG instead of only logging.
+     *
+     * <p>Before D2 this installed a log-only {@link RedstoneTickHook.TickExecutor}
+     * that printed {@code dirtyTasks.size()} and returned, so a Paper server had
+     * no shadow CAS state to read back — the B9 single-thread differential had
+     * nothing to compare against. It now installs an {@link InlineShadowTickExecutor}
+     * whose {@link FoliaRegionTickExecutor.OwnedDagRunner} is the same
+     * {@link #executeOwnedDag} body the Folia region executor uses, minus the
+     * per-task {@code RegionScheduler.execute()} hop: on a single-region host the
+     * {@code endTick} lifecycle driver already runs on the main thread that owns
+     * every chunk, so the whole dirty batch runs inline (syncFromNms →
+     * MicroStepScheduler → syncToNms). The NMS write-backs stay behind the
+     * existing observe/writeback flags inside {@code executeOwnedDag}.
+     *
+     * <p>Also wires the SAME {@link RedstoneTickHook.TaskResolver} the Folia path
+     * uses so drained dirty positions resolve to inert redstone tasks — without a
+     * resolver {@code RedstoneTickHook.endTick} returns no tasks and the executor
+     * is never reached. The redstone begin/end lifecycle driver for this host is
+     * registered by the caller ({@code onEnable}'s non-Folia branch).
+     */
+    private NebulaFoliaBootstrap wireShadowExecutor(Server server, RWGuardConfig guardConfig) {
+        InlineShadowTickExecutor shadowExecutor = new InlineShadowTickExecutor(
+            server, (world, worldName, tasks) -> executeOwnedDag(world, tasks));
 
         NebulaFoliaBootstrap bootstrap = NebulaFoliaBootstrap.configure(guardConfig)
             .withObserveMode()
             .withTickExecutor(shadowExecutor)
+            .withTaskResolver((worldName, pos) -> {
+                RedstoneComponentType type = componentMap.get(pos);
+                if (type == null) return null;
+                return org.nebula.redstone.RedstoneTaskFactory.inert(type, pos);
+            })
             .activate();
 
-        LOG.info("Nebula wired with shadow executor (OBSERVE mode, non-Folia)");
+        LOG.info("Nebula wired with inline shadow DAG executor (OBSERVE mode, non-Folia)");
+        LOG.info("NMS bridges initialized: block, entity, blockEntity");
         return bootstrap;
     }
 

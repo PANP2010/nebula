@@ -711,6 +711,13 @@ live tick pipeline and therefore requires a live server run, not just a green un
       two probes disagree for a classloader that has the API class but not the server class (simulating
       Paper). Pure `nebula-plugin` / `nebula-folia-adapter`; no live server. This is the prerequisite for
       D2–D5 — without it Paper runs the Folia path and D2's shadow executor is never reached.
+- [x] D2. **DONE (this cycle).** `wireShadowExecutor` now installs `InlineShadowTickExecutor` (nebula-folia-adapter)
+      whose `OwnedDagRunner` is the same `executeOwnedDag` body the Folia path uses, runs the whole dirty
+      batch inline on the calling (main) thread with NO `RegionScheduler` hop, and wires the SAME task
+      resolver + a non-Folia begin/end lifecycle driver so `endTick` actually drains. Unit-tested
+      (`InlineShadowTickExecutorTest`, 4 cases: batch reaches runner once, unresolvable world drops,
+      empty/null no-op). Build green; Folia boot unregressed (else-branch correctly NOT taken). Live Paper
+      proof is D4. Original spec below:
 - [ ] D2. **Make the non-Folia shadow executor actually drive the DAG.** Replace `wireShadowExecutor`'s
       log-only `TickExecutor` with one that runs the real cycle on the (Paper) main thread:
       `executeOwnedDag(world, dirtyTasks)` — syncFromNms → `MicroStepScheduler` → syncToNms — the same body
