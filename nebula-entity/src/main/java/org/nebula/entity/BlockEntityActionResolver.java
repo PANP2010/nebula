@@ -21,35 +21,43 @@ import org.nebula.entity.actions.BlockEntityActions;
  * already accumulated, before it is flattened to a task ID.
  *
  * <h3>Coverage</h3>
- * {@link BlockEntityActions} currently models the two behaviours with faithful
- * decompiled constants:
+ * {@link BlockEntityActions} models these behaviours with faithful decompiled constants:
  * <ul>
  *   <li>{@link BlockEntityTaskType#HOPPER} → {@link BlockEntityActions#hopper} —
  *       pull-from-above / push-to-output with the 8-tick transfer cooldown.</li>
  *   <li>{@link BlockEntityTaskType#FURNACE} → {@link BlockEntityActions#furnace} —
  *       200-tick smelt with fuel burn.</li>
+ *   <li>{@link BlockEntityTaskType#DROPPER} → {@link BlockEntityActions#dropper} and
+ *       {@link BlockEntityTaskType#DISPENSER} → {@link BlockEntityActions#dispenser} —
+ *       the vanilla {@code getRandomSlot} reservoir draw + one-item self-slot eject,
+ *       consuming the per-task WORLD_RANDOM stream.</li>
  * </ul>
- * {@code BREWING_STAND} has no action math in {@link BlockEntityActions} yet, so it
- * resolves to {@code null} — an honest no-op the runner already treats as "declared
- * its RW-set, mutated nothing" — until that math is written.
  *
- * <p>{@code DROPPER}/{@code DISPENSER} <em>do</em> now have pure action math
+ * <p>{@code DROPPER}/{@code DISPENSER} resolve to their pure eject math
  * ({@link BlockEntityActions#dropper}/{@link BlockEntityActions#dispenser}, the vanilla
- * {@code getRandomSlot} reservoir draw + one-item eject), but this resolver still returns
- * {@code null} for them ON PURPOSE. Two things must land together before the flip is
- * honest, and neither is done:
- * <ol>
- *   <li>The action consumes RNG via {@code ctx.random()}, so the LIVE
- *       {@code BlockEntityTaskRunner} must be given a {@code LayeredRandomSource} (it is
- *       not today — see {@code NebulaPlugin}'s {@code withSnapshotResolver} wiring). A
- *       loaded dropper resolving to this action under the current live runner would throw
- *       on its region thread.</li>
- *   <li>The seeded slot choice has never been measured against live Folia's dispenser
- *       {@code RandomSource}; flipping the resolver before that measurement would assert
- *       a parity this project has not verified — the "measure before you mirror" trap.</li>
- * </ol>
- * Returning a fabricated or prematurely-wired action for them would be exactly the kind of
- * unverified claim this project exists to avoid.
+ * {@code getRandomSlot} reservoir draw + one-item eject). The prerequisite that gated this
+ * flip is now met: the LIVE {@code BlockEntityTaskRunner} is given a
+ * {@code LayeredRandomSource} (see {@code NebulaPlugin}'s {@code withSnapshotResolver}
+ * wiring, commit 08557e4), and the {@code DROPPER}/{@code DISPENSER} RW-sets declare a
+ * {@code RandomUsage(WORLD_RANDOM, slotCount)} (see {@code BlockEntityTaskFactory}), so the
+ * runner threads a deterministic per-block stream into {@code ctx.random()} — a loaded
+ * dropper resolving here no longer throws on its region thread.
+ *
+ * <p><b>What this flip does and does NOT claim.</b> It runs the eject math OBSERVE-ONLY: the
+ * decremented slot is buffered into the CAS store, but block-entity NMS write-back stays
+ * gated OFF ({@code NebulaPlugin.blockEntityWriteBackEnabled()} defaults false), so nothing
+ * is mirrored back to Folia and nothing is compared against it. The flip therefore asserts
+ * <em>no</em> Folia parity — it is the same honesty level as the hopper/furnace resolver
+ * flip (ce6abf2), which also runs un-graded observe-only CAS math, and mirrors how the
+ * entity path armed its region-threaded read before (and separately from) its write-back.
+ * The "measure before you mirror" trap governs <em>arming write-back</em> or a grader that
+ * claims {@code nebula == folia}; it does not govern running the shadow math. Verifying the
+ * seeded slot choice against live Folia's dispenser {@code RandomSource}, and only then
+ * arming write-back, remain the explicit next slices.
+ *
+ * <p>{@code BREWING_STAND} still has no action math in {@link BlockEntityActions}, so it
+ * resolves to {@code null} — an honest no-op the runner treats as "declared its RW-set,
+ * mutated nothing" — until that math is written.
  */
 public final class BlockEntityActionResolver {
 
@@ -60,7 +68,7 @@ public final class BlockEntityActionResolver {
      *                 facing/slot topology)
      * @return the live action that mutates {@link BlockEntityState} for this block
      *         entity, or {@code null} for a type whose behaviour is not yet modelled
-     *         (dropper/dispenser/brewing stand) or a null snapshot
+     *         (brewing stand) or a null snapshot
      */
     public static BlockEntityAction resolve(BlockEntitySnapshot snapshot) {
         if (snapshot == null) {
@@ -70,8 +78,10 @@ public final class BlockEntityActionResolver {
             case HOPPER -> BlockEntityActions.hopper(
                 snapshot.pos(), snapshot.abovePos(), snapshot.outputPos(), snapshot.slotCount());
             case FURNACE -> BlockEntityActions.furnace(snapshot.pos());
+            case DROPPER -> BlockEntityActions.dropper(snapshot.pos(), snapshot.slotCount());
+            case DISPENSER -> BlockEntityActions.dispenser(snapshot.pos(), snapshot.slotCount());
             // Not yet modelled in BlockEntityActions — no-op rather than a fabricated action.
-            case DROPPER, DISPENSER, BREWING_STAND -> null;
+            case BREWING_STAND -> null;
         };
     }
 }

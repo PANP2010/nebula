@@ -30,6 +30,18 @@ class BlockEntityActionResolverTest {
         buffer.commit(state);
     }
 
+    /**
+     * Same as {@link #tickOnce} but supplies a deterministic RNG stream, as the live
+     * runner does for an RNG-declaring dropper/dispenser task — so {@code ctx.random()}
+     * returns a stream instead of throwing.
+     */
+    private static void tickOnceWithRng(BlockEntityState state, BlockEntityAction action) throws Exception {
+        BlockEntitySnapshotState buffer = new BlockEntitySnapshotState();
+        action.execute(new BlockEntityContext(state, buffer, null,
+            new org.nebula.core.random.DeterministicRandom(0xB10CE117L)));
+        buffer.commit(state);
+    }
+
     private static BlockEntityField slot(WorldPos pos, int s) {
         return new BlockEntityField(pos, "inventory.slots[" + s + "]");
     }
@@ -97,17 +109,56 @@ class BlockEntityActionResolverTest {
     }
 
     @Test
+    void dropperResolvesToEjectMath() throws Exception {
+        // The resolver now flips DROPPER to the vanilla getRandomSlot reservoir draw +
+        // one-item self-slot eject (BlockEntityActions.dropper). The runner supplies the
+        // WORLD_RANDOM stream live (the RW-set declares RandomUsage); here we feed a
+        // deterministic stream directly to prove the resolved action ejects exactly one
+        // item from a non-empty slot.
+        BlockEntitySnapshot snapshot = BlockEntitySnapshot.dropper(POS, 0, -1, 0);
+        BlockEntityAction action = BlockEntityActionResolver.resolve(snapshot);
+        assertNotNull(action, "dropper must resolve to a live eject action");
+
+        BlockEntityState state = new BlockEntityState();
+        state.put(slot(POS, 3), 5); // five items in one slot, the rest empty
+
+        tickOnceWithRng(state, action);
+
+        // getRandomSlot over a single non-empty slot always picks it; one item ejected.
+        assertEquals(4, state.get(slot(POS, 3)), "one item ejected from the only loaded slot");
+    }
+
+    @Test
+    void dispenserResolvesToEjectMath() throws Exception {
+        BlockEntitySnapshot snapshot = BlockEntitySnapshot.dispenser(POS, 0, -1, 0);
+        BlockEntityAction action = BlockEntityActionResolver.resolve(snapshot);
+        assertNotNull(action, "dispenser must resolve to a live eject action");
+
+        BlockEntityState state = new BlockEntityState();
+        state.put(slot(POS, 0), 2);
+
+        tickOnceWithRng(state, action);
+
+        assertEquals(1, state.get(slot(POS, 0)), "one item ejected from the only loaded slot");
+    }
+
+    @Test
+    void emptyDispenserEjectsNothing() throws Exception {
+        // getRandomSlot returns -1 over an all-empty container: no-op, matching vanilla.
+        BlockEntitySnapshot snapshot = BlockEntitySnapshot.dropper(POS, 0, -1, 0);
+        BlockEntityAction action = BlockEntityActionResolver.resolve(snapshot);
+
+        BlockEntityState state = new BlockEntityState();
+        tickOnceWithRng(state, action); // must not throw and must mutate nothing
+
+        for (int s = 0; s < 9; s++) {
+            assertEquals(0, state.get(slot(POS, s)), "empty container: nothing ejected from slot " + s);
+        }
+    }
+
+    @Test
     void unmodelledTypesResolveNull() {
-        // BREWING_STAND has no action math yet — honest no-op. DROPPER/DISPENSER now DO
-        // have pure math (BlockEntityActions.dropper/dispenser) but the resolver still
-        // returns null for them on purpose: the live runner has no LayeredRandomSource to
-        // feed their ctx.random() draw, and the seeded slot choice is unmeasured against
-        // Folia — flipping the resolver before both land would throw live / assert
-        // unverified parity (see BlockEntityActionResolver's javadoc).
-        assertNull(BlockEntityActionResolver.resolve(
-            BlockEntitySnapshot.dropper(POS, 0, -1, 0)));
-        assertNull(BlockEntityActionResolver.resolve(
-            BlockEntitySnapshot.dispenser(POS, 0, -1, 0)));
+        // BREWING_STAND still has no action math — honest no-op until it is written.
         assertNull(BlockEntityActionResolver.resolve(
             BlockEntitySnapshot.brewingStand(POS)));
     }
