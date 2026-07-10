@@ -48,6 +48,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
             case "be-settled" -> handleBlockEntitySettled(sender, args);
             case "be-furnace-timer" -> handleFurnaceTimer(sender, args);
             case "be-furnace-phase" -> handleFurnacePhase(sender, args);
+            case "be-dropper-slot" -> handleDropperSlot(sender, args);
             case "help" -> sendHelp(sender);
             default -> sender.sendMessage("§cUnknown subcommand: " + sub);
         }
@@ -452,6 +453,50 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
             + " (" + scheduled + "-tick window armed)");
     }
 
+    /**
+     * {@code /nebula be-dropper-slot [count]} — emits a {@code BE-DROPPER-SLOT} gap snapshot
+     * comparing Nebula's shadow CAS summed self-inventory count against Folia's authoritative
+     * count for every tracked dropper/dispenser. This is the eject twin of
+     * {@code be-furnace-timer}: it grades a GAP magnitude, not a settled equality, because a
+     * pulsed dropper's self count steps down each eject rather than resting. Load a powered,
+     * item-filled dropper (hopper-fed so it keeps ejecting) THEN run this to measure the live
+     * eject gap. A gap of ~0 is the precondition any dropper eject write-back must meet before
+     * it is armed (the double-ejector trap).
+     *
+     * <p>With an optional {@code <count>} argument, fires a once-per-tick <em>burst</em> of
+     * that many snapshots ({@code /nebula be-dropper-slot 200}) instead of a single shot. A
+     * single shot rarely straddles an eject step — the self count is flat between pulses — so
+     * the burst is what brackets the {@code -1}/pulse cadence for the grader.
+     */
+    private void handleDropperSlot(CommandSender sender, String[] args) {
+        if (!sender.hasPermission("nebula.status")) {
+            sender.sendMessage("§cYou don't have permission to use this command.");
+            return;
+        }
+        if (args.length >= 2) {
+            int samples;
+            try {
+                samples = Integer.parseInt(args[1]);
+            } catch (NumberFormatException e) {
+                sender.sendMessage("§cUsage: /nebula be-dropper-slot [count] — count must be an integer");
+                return;
+            }
+            int scheduled = plugin.emitDropperSlotBurst(samples);
+            sender.sendMessage("§aBE-DROPPER-SLOT burst scheduled: " + scheduled
+                + " once-per-tick snapshot(s) to straddle the eject steps. Read the "
+                + "BE-DROPPER-SLOT lines in server-run.log, then grade with DropperSlotGapGraderCli.");
+            LOG.info("Dropper-slot burst requested by " + sender.getName()
+                + " (" + scheduled + " samples scheduled)");
+            return;
+        }
+        int dispatched = plugin.emitDropperSlotSnapshot();
+        sender.sendMessage("§aBE-DROPPER-SLOT snapshot dispatched for " + dispatched
+            + " tracked dropper/dispenser position(s). Read the BE-DROPPER-SLOT line(s) in "
+            + "server-run.log, then grade the gap with DropperSlotGapGraderCli.");
+        LOG.info("Dropper-slot snapshot requested by " + sender.getName()
+            + " (" + dispatched + " positions dispatched)");
+    }
+
     private void sendHelp(CommandSender sender) {
         sender.sendMessage("§6Nebula Commands:");
         sender.sendMessage("  §e/nebula capture start [ticks] [--drive <seed>] [--period <n>] §7- Start state capture (--drive = live-load driven)");
@@ -464,6 +509,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
         sender.sendMessage("  §e/nebula be-settled §7- Emit a settled-state BE-SETTLED snapshot (block-entity divergence)");
         sender.sendMessage("  §e/nebula be-furnace-timer [count] §7- Emit BE-FURNACE-TIMER gap snapshot(s); [count] = once-per-tick burst to catch cook mid-climb");
         sender.sendMessage("  §e/nebula be-furnace-phase [count] §7- Arm the BE-FURNACE-PHASE probe for [count] ticks; classifies the +1/-1 offset (ordering vs rate)");
+        sender.sendMessage("  §e/nebula be-dropper-slot [count] §7- Emit BE-DROPPER-SLOT eject-gap snapshot(s); [count] = once-per-tick burst to straddle the eject steps");
         sender.sendMessage("  §e/nebula help §7- Show this help");
     }
 
@@ -473,7 +519,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
                                       String alias,
                                       String[] args) {
         if (args.length == 1) {
-            return Arrays.asList("capture", "status", "scan", "perf", "diag", "settled", "be-settled", "be-furnace-timer", "be-furnace-phase", "help");
+            return Arrays.asList("capture", "status", "scan", "perf", "diag", "settled", "be-settled", "be-furnace-timer", "be-furnace-phase", "be-dropper-slot", "help");
         }
         if (args.length == 2 && args[0].equalsIgnoreCase("capture")) {
             return Arrays.asList("start", "stop");

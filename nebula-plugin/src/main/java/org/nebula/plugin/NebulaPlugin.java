@@ -37,6 +37,8 @@ import org.nebula.redstone.actions.RedstoneActions;
 import org.nebula.core.scheduler.CompositeTaskRunner;
 import org.nebula.replay.BlockEntitySettledFormatter;
 import org.nebula.replay.BlockEntitySettledGrader;
+import org.nebula.replay.DropperSlotFormatter;
+import org.nebula.replay.DropperSlotGapGrader;
 import org.nebula.replay.FurnaceTimerFormatter;
 import org.nebula.replay.FurnaceTimerGapGrader;
 import org.nebula.replay.ReplayRecorder;
@@ -1894,6 +1896,145 @@ public final class NebulaPlugin extends JavaPlugin {
                 task.cancel();
                 LOG.info("BE-FURNACE-TIMER burst complete: emitted " + clamped
                     + " snapshot(s); grade the run with FurnaceTimerGapGraderCli.");
+            }
+        }, 1, 1);
+        return clamped;
+    }
+
+    /**
+     * Emits one {@code BE-DROPPER-SLOT} line per world, comparing Nebula's shadow CAS summed
+     * self-inventory item count against Folia's authoritative count for every tracked
+     * <em>dropper</em> or <em>dispenser</em>. This is the eject twin of
+     * {@link #emitFurnaceTimerSnapshot} — it grades a per-position GAP magnitude (see
+     * {@link DropperSlotGapGrader}) rather than a settled equality, because a pulsed
+     * dropper's self count does not settle: vanilla's {@code getRandomSlot} draws one
+     * non-empty slot per pulse and removes one item, so the count steps down each eject. The
+     * honest correctness surface is therefore how far the observe-only shadow's summed self
+     * count strays from Folia's — the block-entity analogue of the furnace timer gap and of
+     * {@link org.nebula.entity.EntityDivergenceTracker}'s per-frame drift.
+     *
+     * <h3>Why measure the gap before arming write-back</h3>
+     * A gap of ~0 is the safe-mirror precondition a dropper eject write-back must meet before
+     * it is armed. The DOUBLE-EJECTOR trap — Folia and the DAG both removing a source item
+     * every pulse — shows up here as a large, growing gap this emit + grader will catch. So
+     * this measurement must exist and grade ~0 <em>before</em> a dropper eject write-back is
+     * armed, exactly as the furnace-timer gap gates the timer write-back and the entity
+     * Y-drift gated the vertical mirror. "Measure before you mirror."
+     *
+     * <h3>Region-thread safety and the divergence tautology</h3>
+     * Folia tile reads NPE off the owning region thread, so each dropper's sample is
+     * dispatched via {@code RegionScheduler.execute} on its owning region. {@code nebula=}
+     * reads the shadow CAS count via {@link #sumSlots} over the tracked slot count;
+     * {@code folia=} reads {@link NmsBlockEntityStateBridge#readNmsInventoryCount} — the
+     * READ-ONLY NMS sample, NOT {@code syncFromNms}, which would clobber the shadow value and
+     * make them equal by construction. The tracked set is filtered to
+     * {@link org.nebula.entity.BlockEntityTaskType#DROPPER} and
+     * {@link org.nebula.entity.BlockEntityTaskType#DISPENSER}; a dropper that has since been
+     * broken (bridge returns a count for air) still samples honestly against Folia.
+     *
+     * @return the number of tracked dropper/dispenser positions whose snapshot was dispatched
+     */
+    public int emitDropperSlotSnapshot() {
+        if (blockEntityBridge == null || blockEntityState == null) {
+            LOG.warning("BE-DROPPER-SLOT requested but block-entity bridge is not wired (non-Folia?)");
+            return 0;
+        }
+        // Dedup the ticking block entities by position, keeping only droppers/dispensers.
+        java.util.Map<WorldPos, org.nebula.entity.BlockEntitySnapshot> byPos =
+            new java.util.LinkedHashMap<>();
+        for (org.nebula.entity.BlockEntitySnapshot snap : blockEntitySnapshots.values()) {
+            if (snap.type() == org.nebula.entity.BlockEntityTaskType.DROPPER
+                || snap.type() == org.nebula.entity.BlockEntityTaskType.DISPENSER) {
+                byPos.putIfAbsent(snap.pos(), snap);
+            }
+        }
+        if (byPos.isEmpty()) {
+            LOG.info("BE-DROPPER-SLOT: tracked=0 — no ticking droppers/dispensers recorded; "
+                + "load a powered, item-filled dropper (hopper-fed) so it ejects first");
+            return 0;
+        }
+
+        Server server = getServer();
+        io.papermc.paper.threadedregions.scheduler.RegionScheduler regionScheduler =
+            server.getRegionScheduler();
+
+        int dispatched = 0;
+        for (World w : server.getWorlds()) {
+            int dim = org.nebula.core.state.DimensionIds.fromName(w.getName());
+            java.util.List<org.nebula.entity.BlockEntitySnapshot> here = byPos.values().stream()
+                .filter(s -> s.pos().dimensionId() == dim)
+                .toList();
+            if (here.isEmpty()) {
+                continue;
+            }
+            final World fw = w;
+            java.util.List<DropperSlotGapGrader.DropperSlotSample> samples =
+                new java.util.concurrent.CopyOnWriteArrayList<>();
+            java.util.concurrent.atomic.AtomicInteger remaining =
+                new java.util.concurrent.atomic.AtomicInteger(here.size());
+            for (org.nebula.entity.BlockEntitySnapshot snap : here) {
+                final WorldPos pos = snap.pos();
+                regionScheduler.execute(this, fw, pos.x() >> 4, pos.z() >> 4, () -> {
+                    int nebula = sumSlots(pos, snap.slotCount());
+                    int folia = blockEntityBridge.readNmsInventoryCount(fw, pos);
+                    samples.add(new DropperSlotGapGrader.DropperSlotSample(
+                        pos, snap.type().name(), nebula, folia));
+                    if (remaining.decrementAndGet() == 0) {
+                        int tick = server.getCurrentTick();
+                        java.util.List<DropperSlotGapGrader.DropperSlotSample> ordered =
+                            samples.stream()
+                                .sorted(java.util.Comparator.comparing(
+                                    DropperSlotGapGrader.DropperSlotSample::pos))
+                                .toList();
+                        LOG.info(DropperSlotFormatter.format(tick, ordered));
+                    }
+                });
+                dispatched++;
+            }
+        }
+        LOG.info("BE-DROPPER-SLOT dispatched for " + dispatched
+            + " tracked dropper/dispenser position(s); snapshot line(s) follow asynchronously "
+            + "once each owning region reports.");
+        return dispatched;
+    }
+
+    /**
+     * Fires {@link #emitDropperSlotSnapshot} once per game tick for {@code samples} ticks, a
+     * <em>dense burst sampler</em> for the dropper self-slot eject axis — the exact analogue
+     * of {@link #emitFurnaceTimerBurst}. A single manual shot (or a hand-paced RCON poll)
+     * rarely straddles an eject step: a pulsed dropper's self count is flat between pulses,
+     * so a sparse sample overwhelmingly catches a resting count on both nebula and folia. A
+     * once-per-tick burst is guaranteed to straddle the {@code -1}/pulse steps, giving
+     * {@link DropperSlotGapGrader} samples that actually bracket the eject cadence (and a
+     * nonzero gap if the shadow's {@code getRandomSlot} draw drifts from vanilla's).
+     *
+     * <p>Each tick's snapshot is dispatched exactly as the single-shot path does (one
+     * region-gated read per dropper, one {@code BE-DROPPER-SLOT} line per world), so every
+     * burst sample is graded by the same {@code DropperSlotGapGraderCli} with no format
+     * drift. The burst is a fixed-count {@code runAtFixedRate} that cancels itself after
+     * {@code samples} fires — bounded so it cannot leak a ticking task past the measurement
+     * window. Observe-only-safe: it only reads (never writes NMS), so a burst cannot perturb
+     * the live dropper it is measuring.
+     *
+     * @param samples the number of once-per-tick snapshots to emit; clamped to [1, 400]
+     * @return the clamped sample count actually scheduled
+     */
+    public int emitDropperSlotBurst(int samples) {
+        final int clamped = Math.max(1, Math.min(400, samples));
+        if (blockEntityBridge == null || blockEntityState == null) {
+            LOG.warning("BE-DROPPER-SLOT burst requested but block-entity bridge is not wired (non-Folia?)");
+            return clamped;
+        }
+        java.util.concurrent.atomic.AtomicInteger fired =
+            new java.util.concurrent.atomic.AtomicInteger(0);
+        LOG.info("BE-DROPPER-SLOT burst starting: " + clamped
+            + " once-per-tick snapshots to straddle the eject steps (-1/pulse).");
+        getServer().getGlobalRegionScheduler().runAtFixedRate(this, task -> {
+            emitDropperSlotSnapshot();
+            if (fired.incrementAndGet() >= clamped) {
+                task.cancel();
+                LOG.info("BE-DROPPER-SLOT burst complete: emitted " + clamped
+                    + " snapshot(s); grade the run with DropperSlotGapGraderCli.");
             }
         }, 1, 1);
         return clamped;
