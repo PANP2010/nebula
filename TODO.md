@@ -727,13 +727,20 @@ live tick pipeline and therefore requires a live server run, not just a green un
       `RedstoneTickHook.TickExecutor` invocation to confirm `executeOwnedDag` is reached with the dirty
       tasks. (Live proof is D3/D4.) After this, a Paper server has a live shadow DAG whose CAS store holds
       Nebula's computed power.
-- [ ] D3. **Add a read-back diff command `/nebula diff`.** For every position in `componentMap`, read (a)
-      Nebula's CAS-computed power via `redstoneState.getPowerLevel(pos)` and (b) Paper's authoritative
-      block power via a main-thread NMS/Bukkit read (legal on Paper — this is the capability Folia denies).
-      Report each mismatch as `pos: nebula=N paper=M` and a final `matched X / total Y`. This is the
-      differential probe: on a settled circuit the two must be identical. Keep the read strictly
-      main-thread and document that it will NPE on Folia (so the command self-guards to `isFoliaServer()==
-      false`). Unit-test the compare/format logic with injected values.
+- [x] D3. **DONE (fe20f35, this cycle).** `/nebula diff` added. Pure `PaperDiffReport` (nebula-replay):
+      `PositionDiff(pos, nebula, paper)` + `matched()`/`allMatched()` (empty report is NOT a pass) +
+      `summaryLine()` "matched X / total Y" + `mismatchLines()` "<WorldPos> nebula=N paper=M", unit-tested
+      7 ways (`PaperDiffReportTest`). `NebulaPlugin.emitPaperDiff()` reads `nebula=getPowerLevel(pos)` and
+      `paper=readNmsPower(pos)` INLINE on the main thread (no RegionScheduler hop — single-region host owns
+      every chunk; read-only `readNmsPower` avoids the divergence tautology). `handleDiff` self-guards to
+      `isFoliaServer()==false`. LIVE on Folia: the command REFUSED cleanly (no NPE) and the Folia path was
+      unregressed; the actual read-back is D4 (first live Paper run). Original spec: For every position in
+      `componentMap`, read (a) Nebula's CAS-computed power via `redstoneState.getPowerLevel(pos)` and (b)
+      Paper's authoritative block power via a main-thread NMS/Bukkit read (legal on Paper — this is the
+      capability Folia denies). Report each mismatch as `pos: nebula=N paper=M` and a final
+      `matched X / total Y`. This is the differential probe: on a settled circuit the two must be identical.
+      Keep the read strictly main-thread and document that it will NPE on Folia (so the command self-guards
+      to `isFoliaServer()==false`). Unit-test the compare/format logic with injected values.
 - [ ] ⚡ D4. **First live Paper differential run.** Stand up `paper-test-server/` (mirror
       `folia-test-server/`, but `server.jar` = the existing `paper-26.1.2-74.jar`; the agent javaagent is
       OPTIONAL on Paper since the Bukkit `RedstoneEventListener` fallback seeds dirty positions — note
