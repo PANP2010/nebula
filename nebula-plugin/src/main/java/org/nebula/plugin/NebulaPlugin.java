@@ -150,6 +150,18 @@ public final class NebulaPlugin extends JavaPlugin {
     // cascades. Off by default — the log is per-tick and would flood + skew MSPT.
     private volatile boolean cascadeDiag = false;
 
+    // B8 C3 furnace-timer PHASE probe: opt-in classifier for the BE-FURNACE-TIMER +1/-1
+    // offset (800815b). When enabled (via /nebula be-furnace-phase [count]),
+    // executeOwnedBlockEntityDag emits, for each ticking FURNACE, one BE-FURNACE-PHASE line
+    // carrying THREE timer sets captured on one region-thread pass: Folia's authoritative
+    // read (readNmsFurnaceTimers), the CAS timer just AFTER syncFromNms rebased it (pre-action)
+    // and the CAS timer just AFTER the DAG furnace action advanced it (post-action). The
+    // FurnacePhaseGrader classifies the offset: pre==folia ⇒ ORDERING-ARTIFACT (the +1 is the
+    // action's own step, shadow tracks Folia at rate 1:1), pre≠folia ⇒ RATE-DIVERGENCE (leave
+    // the timers to Folia). Off by default; the burst self-clears after its sample count so
+    // per-tick BE-FURNACE-PHASE lines never leak past the measurement window.
+    private volatile boolean furnacePhaseProbe = false;
+
     // Entity physics DAG
     private EntityTickExecutor entityTickExecutor;
     private EntityTaskRunner entityRunner;
@@ -899,12 +911,46 @@ public final class NebulaPlugin extends JavaPlugin {
                 }
             }
 
+            // Furnace-timer PHASE probe (opt-in, B8 C3). Classify the BE-FURNACE-TIMER +1/-1
+            // offset by capturing THREE timer sets on THIS region-thread pass: Folia's
+            // authoritative read, the CAS timer AFTER syncFromNms rebased it but BEFORE the
+            // action (pre), and the CAS timer AFTER the action (post, captured below). Folia's
+            // read must happen here (region thread owns self) and pre must be read AFTER the
+            // syncFromNms at the top of this loop but BEFORE executeTick — this is the only
+            // point in the pipeline with all three phases in scope. If pre==folia the sync
+            // rebased CAS exactly and the whole offset is the action's own step (ordering
+            // artifact); if pre≠folia CAS drifted before the action (rate divergence).
+            NmsBlockEntityStateBridge.FurnaceTimerSample phaseFolia = null;
+            int prePhaseFuel = 0, prePhaseCook = 0;
+            final boolean phaseProbeHere = furnacePhaseProbe && snap != null
+                && snap.type() == org.nebula.entity.BlockEntityTaskType.FURNACE;
+            if (phaseProbeHere) {
+                phaseFolia = blockEntityBridge.readNmsFurnaceTimers(world, self);
+                prePhaseFuel = blockEntityState.get(
+                    new org.nebula.core.state.BlockEntityField(self, "fuel_time"));
+                prePhaseCook = blockEntityState.get(
+                    new org.nebula.core.state.BlockEntityField(self, "cook_progress"));
+            }
+
             try {
                 layers = blockEntityTickExecutor.executeTick(java.util.List.of(task));
             } catch (Exception e) {
                 LOG.warning(() -> "block-entity DAG tick failed for " + task.taskId()
                     + " in " + worldName + ": " + e.getMessage());
                 continue;
+            }
+
+            if (phaseProbeHere && phaseFolia != null) {
+                int postPhaseFuel = blockEntityState.get(
+                    new org.nebula.core.state.BlockEntityField(self, "fuel_time"));
+                int postPhaseCook = blockEntityState.get(
+                    new org.nebula.core.state.BlockEntityField(self, "cook_progress"));
+                org.nebula.replay.FurnacePhaseGrader.FurnacePhaseSample sample =
+                    new org.nebula.replay.FurnacePhaseGrader.FurnacePhaseSample(
+                        self, phaseFolia.fuelTime(), phaseFolia.cookProgress(),
+                        prePhaseFuel, prePhaseCook, postPhaseFuel, postPhaseCook);
+                LOG.info(org.nebula.replay.FurnacePhaseFormatter.format(
+                    getServer().getCurrentTick(), java.util.List.of(sample)));
             }
 
             // Did a real item count actually move? Compare post-tick CAS to the pre-tick
@@ -1829,6 +1875,48 @@ public final class NebulaPlugin extends JavaPlugin {
     }
 
     /**
+     * Enables the furnace-timer PHASE probe for {@code windowTicks} game ticks, then clears
+     * it — the classifier for the {@code BE-FURNACE-TIMER} {@code +1}/{@code -1} offset
+     * (800815b). Unlike {@link #emitFurnaceTimerBurst}, which schedules an <em>independent</em>
+     * once-per-tick read, this probe rides the DAG's OWN block-entity tick: while the flag is
+     * on, {@code executeOwnedBlockEntityDag} captures, for each ticking furnace on that
+     * region-thread pass, Folia's authoritative timers, the CAS timers just after
+     * {@code syncFromNms} (pre-action) and just after the furnace action (post-action), and
+     * emits one {@code BE-FURNACE-PHASE} line. It must ride the DAG pass because only there are
+     * all three phases in scope in the correct order — a separate scheduled read could never
+     * observe the CAS value <em>between</em> the sync and the action.
+     *
+     * <p>The window is bounded (clamped to {@code [1, 400]}, ≈ two full cook cycles) and the
+     * flag self-clears via a one-shot {@code GlobalRegionScheduler} task, so per-tick
+     * {@code BE-FURNACE-PHASE} lines cannot leak past the measurement window. Observe-only-safe:
+     * every capture is a read; nothing is written to NMS. Requires a furnace that is actively
+     * being DAG-ticked (see the cook-tick re-seed loop in {@code executeOwnedBlockEntityDag}) —
+     * place a lit, hopper-fed furnace and wait for the "FIRST cook-tick furnace re-seed" line
+     * first, exactly as the timer burst requires.
+     *
+     * @param windowTicks how many game ticks to leave the probe armed; clamped to {@code [1, 400]}
+     * @return the clamped window actually scheduled
+     */
+    public int runFurnacePhaseProbe(int windowTicks) {
+        final int clamped = Math.max(1, Math.min(400, windowTicks));
+        if (blockEntityBridge == null || blockEntityState == null) {
+            LOG.warning("BE-FURNACE-PHASE probe requested but block-entity bridge is not wired (non-Folia?)");
+            return clamped;
+        }
+        furnacePhaseProbe = true;
+        LOG.info("BE-FURNACE-PHASE probe ARMED for " + clamped + " tick(s): each ticking furnace's "
+            + "DAG pass now emits folia/pre-action/post-action timers so FurnacePhaseGrader can "
+            + "classify the +1/-1 offset (ORDERING-ARTIFACT vs RATE-DIVERGENCE).");
+        // Disarm after the window via a one-shot delayed task (runDelayed fires once).
+        getServer().getGlobalRegionScheduler().runDelayed(this, task -> {
+            furnacePhaseProbe = false;
+            LOG.info("BE-FURNACE-PHASE probe DISARMED after " + clamped
+                + " tick(s); grade the run with FurnacePhaseGraderCli.");
+        }, clamped);
+        return clamped;
+    }
+
+    /**
      * Non-Folia fallback: OBSERVE mode with shadow executor.
      */
     private NebulaFoliaBootstrap wireShadowExecutor(RWGuardConfig guardConfig) {
@@ -1985,6 +2073,10 @@ public final class NebulaPlugin extends JavaPlugin {
     /** DG1 Criterion 2 caveat probe: enable/disable the per-invocation cascade diagnostic log. */
     public void setCascadeDiag(boolean on) { this.cascadeDiag = on; }
     public boolean cascadeDiag() { return cascadeDiag; }
+
+    /** B8 C3 furnace-timer phase probe: enable/disable the per-furnace BE-FURNACE-PHASE emit. */
+    public void setFurnacePhaseProbe(boolean on) { this.furnacePhaseProbe = on; }
+    public boolean furnacePhaseProbe() { return furnacePhaseProbe; }
 
     /**
      * Registers a redstone component position. Required for DAG execution

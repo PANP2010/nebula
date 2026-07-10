@@ -1,0 +1,160 @@
+package org.nebula.replay;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.io.UncheckedIOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
+
+/**
+ * Thin command-line front-end for {@link FurnacePhaseGrader} so a shell harness can classify
+ * a driven run's {@code BE-FURNACE-PHASE} snapshots with the SAME tested logic the unit tests
+ * exercise — rather than re-implementing the parse+classify in bash, which would fork a second
+ * grader that could silently drift from this one (the project's defining wound). Mirrors
+ * {@link FurnaceTimerGapGraderCli} and {@link BlockEntitySettledGraderCli}.
+ *
+ * <p>This class contains NO grading logic: it reads the log, delegates to
+ * {@link FurnacePhaseGrader#parse} / {@link FurnacePhaseGrader#grade}, prints the report, and
+ * maps the verdict to a process exit code. Exit codes mirror the other graders: {@code 0}=PASS
+ * (ORDERING-ARTIFACT), {@code 3}=FAIL (RATE-DIVERGENCE), {@code 4}=INCONCLUSIVE (no samples),
+ * {@code 2}=usage/IO error.
+ *
+ * <p>The single tunable is {@code toleranceTicks}, the largest PRE-action CAS-vs-Folia gap that
+ * still counts as "sync rebased exactly" (an ordering artifact). Its honest default is {@code 0}:
+ * an ordering artifact requires the sync to land CAS onto Folia exactly before the action runs,
+ * so any pre-action gap at all is a genuine rate divergence. The report always surfaces the
+ * observed pre-action max/mean gaps and the action's cook/fuel step range, so a loosened
+ * tolerance can never hide the true classification.
+ *
+ * <p>Usage:
+ * <pre>
+ *   java ... org.nebula.replay.FurnacePhaseGraderCli &lt;logFile|-&gt; [toleranceTicks]
+ * </pre>
+ * {@code logFile} is a server-run.log path, or {@code -} to read stdin.
+ */
+public final class FurnacePhaseGraderCli {
+
+    static final int DEFAULT_TOLERANCE_TICKS = 0;
+
+    static final int EXIT_PASS = 0;
+    static final int EXIT_USAGE = 2;
+    static final int EXIT_FAIL = 3;
+    static final int EXIT_INCONCLUSIVE = 4;
+
+    private FurnacePhaseGraderCli() {
+    }
+
+    public static void main(String[] args) {
+        int code = run(args, System.out, System.err);
+        System.exit(code);
+    }
+
+    /**
+     * Testable core: same behaviour as {@link #main} but returns the exit code and writes to
+     * the given streams instead of calling {@link System#exit}.
+     */
+    static int run(String[] args, PrintStream out, PrintStream err) {
+        if (args.length < 1 || args.length > 2) {
+            err.println("usage: FurnacePhaseGraderCli <logFile|-> [toleranceTicks]");
+            return EXIT_USAGE;
+        }
+        int toleranceTicks = DEFAULT_TOLERANCE_TICKS;
+        try {
+            if (args.length >= 2) {
+                toleranceTicks = Integer.parseInt(args[1].trim());
+            }
+        } catch (NumberFormatException e) {
+            err.println("ERROR: toleranceTicks must be an integer: " + e.getMessage());
+            return EXIT_USAGE;
+        }
+
+        List<String> lines;
+        try {
+            lines = readLines(args[0]);
+        } catch (IOException | UncheckedIOException e) {
+            err.println("ERROR: cannot read log '" + args[0] + "': " + e.getMessage());
+            return EXIT_USAGE;
+        }
+
+        FurnacePhaseGrader.FurnacePhaseReport report;
+        try {
+            report = FurnacePhaseGrader.grade(
+                FurnacePhaseGrader.parse(lines), toleranceTicks);
+        } catch (IllegalArgumentException e) {
+            err.println("ERROR: " + e.getMessage());
+            return EXIT_USAGE;
+        }
+
+        printReport(report, out);
+        return exitCodeFor(report.verdict());
+    }
+
+    /** Reads all lines from a file path, or from stdin when {@code source} is "-". */
+    private static List<String> readLines(String source) throws IOException {
+        if ("-".equals(source)) {
+            try (BufferedReader r = new BufferedReader(
+                    new InputStreamReader(System.in, StandardCharsets.UTF_8))) {
+                return r.lines().toList();
+            }
+        }
+        return Files.readAllLines(Path.of(source), StandardCharsets.UTF_8);
+    }
+
+    static int exitCodeFor(FoliaDivergenceGrader.Verdict verdict) {
+        return switch (verdict) {
+            case PASS -> EXIT_PASS;
+            case FAIL -> EXIT_FAIL;
+            case INCONCLUSIVE -> EXIT_INCONCLUSIVE;
+        };
+    }
+
+    /**
+     * Renders the report in the same key/value style the shell harnesses use, so a driven-run
+     * result file reads consistently across perf/zerodiff/divergence/timer.
+     */
+    static void printReport(FurnacePhaseGrader.FurnacePhaseReport r, PrintStream out) {
+        out.println("--- Furnace timer PHASE classification (B8 C3) ---");
+        out.println("Phase snapshots:      " + r.snapshots());
+        out.println("Furnaces sampled:     " + r.sampledPositions());
+        out.println("Rate-diverged:        " + r.rateDivergedPositions());
+        out.println("Max pre fuel gap:     " + r.maxPreFuelGap() + " ticks");
+        out.println("Max pre cook gap:     " + r.maxPreCookGap() + " ticks");
+        out.printf ("Mean pre fuel gap:    %.4f ticks%n", r.meanPreFuelGap());
+        out.printf ("Mean pre cook gap:    %.4f ticks%n", r.meanPreCookGap());
+        out.println("Cook action step:     [" + r.minCookStep() + ".." + r.maxCookStep() + "]");
+        out.println("Fuel action step:     [" + r.minFuelStep() + ".." + r.maxFuelStep() + "]");
+        out.println("Tolerance:            " + r.toleranceTicks() + " ticks");
+        out.println("Classification: " + r.classification());
+        out.println("Verdict: " + verdictLine(r));
+        out.println();
+        out.println("NOTE: this classifies the BE-FURNACE-TIMER +1/-1 offset. It compares the");
+        out.println("      CAS timer BEFORE the DAG furnace action (pre*, just after syncFromNms");
+        out.println("      rebased it to Folia) against Folia's authoritative timer. If the PRE");
+        out.println("      gap is 0, the sync landed CAS onto Folia exactly and the only offset");
+        out.println("      is the action's own single step (post-pre) — an ORDERING ARTIFACT, so");
+        out.println("      the shadow tracks Folia at rate 1:1 and a write-back sampled PRE-action");
+        out.println("      could be honest. A nonzero PRE gap is a genuine RATE DIVERGENCE: leave");
+        out.println("      the timers to Folia (the double-writer trap). The cook/fuel action-step");
+        out.println("      range lets you confirm the action stepped by the expected +1/-1.");
+    }
+
+    private static String verdictLine(FurnacePhaseGrader.FurnacePhaseReport r) {
+        return switch (r.verdict()) {
+            case PASS -> String.format(
+                "PASS (ORDERING-ARTIFACT) — worst pre-action gap %d <= %d ticks over %d "
+                    + "sampled furnace(s); the +1/-1 is the action's own step, not a rate gap",
+                r.maxPreGap(), r.toleranceTicks(), r.sampledPositions());
+            case FAIL -> String.format(
+                "FAIL (RATE-DIVERGENCE) — worst pre-action gap %d > %d ticks (%d/%d furnaces "
+                    + "drifted from Folia BEFORE the action); leave timers to Folia",
+                r.maxPreGap(), r.toleranceTicks(), r.rateDivergedPositions(), r.sampledPositions());
+            case INCONCLUSIVE -> "INCONCLUSIVE — no furnaces sampled "
+                + "(no BE-FURNACE-PHASE lines: no furnace was smelting when the probe fired, "
+                + "or the plugin emit is absent)";
+        };
+    }
+}

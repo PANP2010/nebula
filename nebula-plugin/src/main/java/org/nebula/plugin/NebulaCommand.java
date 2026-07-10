@@ -47,6 +47,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
             case "settled" -> handleSettled(sender);
             case "be-settled" -> handleBlockEntitySettled(sender, args);
             case "be-furnace-timer" -> handleFurnaceTimer(sender, args);
+            case "be-furnace-phase" -> handleFurnacePhase(sender, args);
             case "help" -> sendHelp(sender);
             default -> sender.sendMessage("§cUnknown subcommand: " + sub);
         }
@@ -414,6 +415,43 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
             + " (" + dispatched + " positions dispatched)");
     }
 
+    /**
+     * {@code /nebula be-furnace-phase [count]} — arms the furnace-timer PHASE probe for
+     * {@code count} game ticks (default 200 ≈ one cook cycle). While armed, each ticking
+     * furnace's DAG pass emits a {@code BE-FURNACE-PHASE} line carrying Folia's authoritative
+     * timers, the CAS timers just after {@code syncFromNms} (pre-action) and just after the
+     * furnace action (post-action). This is the diagnostic the write-back decision needs: it
+     * classifies the {@code BE-FURNACE-TIMER} {@code +1}/{@code -1} offset as an
+     * ORDERING-ARTIFACT (pre==folia — the shadow tracks Folia at rate 1:1, the {@code +1} is
+     * the action's own step) or a RATE-DIVERGENCE (pre≠folia — leave the timers to Folia).
+     * Unlike {@code be-furnace-timer}, this rides the DAG's own tick, so it must run a WINDOW
+     * of ticks over a furnace that is actively being DAG-ticked (place a lit hopper-fed furnace
+     * and wait for the "FIRST cook-tick furnace re-seed" line first). Grade with
+     * {@code FurnacePhaseGraderCli}.
+     */
+    private void handleFurnacePhase(CommandSender sender, String[] args) {
+        if (!sender.hasPermission("nebula.status")) {
+            sender.sendMessage("§cYou don't have permission to use this command.");
+            return;
+        }
+        int window = 200;
+        if (args.length >= 2) {
+            try {
+                window = Integer.parseInt(args[1]);
+            } catch (NumberFormatException e) {
+                sender.sendMessage("§cUsage: /nebula be-furnace-phase [count] — count must be an integer");
+                return;
+            }
+        }
+        int scheduled = plugin.runFurnacePhaseProbe(window);
+        sender.sendMessage("§aBE-FURNACE-PHASE probe armed for " + scheduled
+            + " tick(s). Each ticking furnace's DAG pass emits folia/pre-action/post-action "
+            + "timers. Read the BE-FURNACE-PHASE lines in server-run.log, then classify the "
+            + "+1/-1 offset with FurnacePhaseGraderCli.");
+        LOG.info("Furnace-timer phase probe requested by " + sender.getName()
+            + " (" + scheduled + "-tick window armed)");
+    }
+
     private void sendHelp(CommandSender sender) {
         sender.sendMessage("§6Nebula Commands:");
         sender.sendMessage("  §e/nebula capture start [ticks] [--drive <seed>] [--period <n>] §7- Start state capture (--drive = live-load driven)");
@@ -425,6 +463,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
         sender.sendMessage("  §e/nebula settled §7- Emit a settled-state SETTLED-DIAG snapshot (DG3 divergence)");
         sender.sendMessage("  §e/nebula be-settled §7- Emit a settled-state BE-SETTLED snapshot (block-entity divergence)");
         sender.sendMessage("  §e/nebula be-furnace-timer [count] §7- Emit BE-FURNACE-TIMER gap snapshot(s); [count] = once-per-tick burst to catch cook mid-climb");
+        sender.sendMessage("  §e/nebula be-furnace-phase [count] §7- Arm the BE-FURNACE-PHASE probe for [count] ticks; classifies the +1/-1 offset (ordering vs rate)");
         sender.sendMessage("  §e/nebula help §7- Show this help");
     }
 
@@ -434,7 +473,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
                                       String alias,
                                       String[] args) {
         if (args.length == 1) {
-            return Arrays.asList("capture", "status", "scan", "perf", "diag", "settled", "be-settled", "be-furnace-timer", "help");
+            return Arrays.asList("capture", "status", "scan", "perf", "diag", "settled", "be-settled", "be-furnace-timer", "be-furnace-phase", "help");
         }
         if (args.length == 2 && args[0].equalsIgnoreCase("capture")) {
             return Arrays.asList("start", "stop");
