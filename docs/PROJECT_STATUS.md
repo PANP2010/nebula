@@ -27,8 +27,10 @@ Toggling the lever ON produced 30 DAG ticks; toggling OFF produced 15 more. Zero
 **What is still NOT verified**: full DG2/DG3 acceptance and broad subsystem coverage. The entity live
 path currently seeds MOVE only; collision/AI/item/damage remain unverified. Block-entity hopper/furnace/
 dropper slices run live and have targeted guard/divergence measurements, but brewing and broader dispenser
-behavior are not live-verified and write-back is intentionally off. Fluid/explosion now have pure, traced
-execution paths checker-tested against their factory RW-sets, but remain unwired to NMS/live ticks; light,
+behavior are not live-verified and write-back is intentionally off. Fluid now has a tiny live,
+region-threaded `BlockFromToEvent` path whose real six-block footprint traces clean under the RW guard,
+but its action remains an observe-only footprint model rather than faithful vanilla fluid physics;
+explosion remains pure/unit-only. Light,
 real-plugin VAP certification, and 100-player load testing remain open. Redstone's p99 shadow overhead is
 verified within the 3ms budget at scale, but that does not make the whole server performance-validated.
 
@@ -441,10 +443,11 @@ testing) is still blocked by DG1/DG2 — those criteria remain untouched.
 The redstone integration and differential milestones described above are complete. The next work is not a
 repeat of the 2026-07-08 bring-up plan:
 
-1. **B8 C4 — live fluid RW verification.** Fluid and explosion now each have a pure execution context,
-   actual-access tracer, guard bridge, and omitted-access negative control. Wire the smaller fluid path
-   through an NMS bridge + task guard boundary at tiny scale first; only after a non-empty live trace is
-   clean should the wider explosion fan-out be attempted.
+1. **B8 C4 — finish fluid live verification before explosion.** The first tiny live fluid slice now
+   runs from a real `BlockFromToEvent` on the owning region thread and traces its self + five-neighbour
+   accesses clean. Next, perform the complementary live negative-control run, then replace the generic
+   footprint action with faithful depth/direction semantics before considering write-back or the wider
+   explosion fan-out.
 2. **B8 C5 — measured coverage inventory.** Feed `AnnotationCoverageDashboard` from a real method-level
    hotspot inventory and expose it without hand-typed percentages.
 3. **DG2 breadth.** Extend entity work beyond MOVE before claiming entity acceptance: collision, item,

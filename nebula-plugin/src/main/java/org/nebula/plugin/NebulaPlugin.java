@@ -19,6 +19,7 @@ import org.nebula.folia.FoliaToggleApplier;
 import org.nebula.folia.NmsBlockEntityStateBridge;
 import org.nebula.folia.NmsBlockStateBridge;
 import org.nebula.folia.NmsEntityStateBridge;
+import org.nebula.folia.NmsFluidStateBridge;
 import org.nebula.folia.RedstoneCasStateHasher;
 import org.nebula.folia.bridge.EntityTickHook;
 import org.nebula.folia.bridge.FoliaCaptureHarness;
@@ -121,6 +122,7 @@ public final class NebulaPlugin extends JavaPlugin {
     private NmsBlockStateBridge blockBridge;
     private NmsEntityStateBridge entityBridge;
     private NmsBlockEntityStateBridge blockEntityBridge;
+    private NmsFluidStateBridge fluidBridge;
     private RedstoneCasStateHasher stateHasher;
 
     // DAG execution
@@ -204,6 +206,18 @@ public final class NebulaPlugin extends JavaPlugin {
     // The block-entity analogue of entityTickExecutor/entityRunner.
     private org.nebula.entity.BlockEntityTaskRunner blockEntityRunner;
     private org.nebula.entity.BlockEntityTickExecutor blockEntityTickExecutor;
+
+    // B8 C4: tiny observe-only fluid path. A real BlockFromToEvent seeds one
+    // region-thread task; the bridge samples self + the declared flow footprint
+    // into CAS before the traced pure action runs. There is deliberately no NMS
+    // write-back: FluidActions is a footprint-checking model, not vanilla fluid physics.
+    private final org.nebula.entity.FluidState fluidState = new org.nebula.entity.FluidState();
+    private org.nebula.entity.FluidTaskRunner fluidRunner;
+    private FluidRwGuardHook fluidRwGuardHook;
+    private final java.util.concurrent.ConcurrentHashMap<String, org.nebula.entity.FluidSnapshot>
+        fluidSnapshots = new java.util.concurrent.ConcurrentHashMap<>();
+    private final java.util.concurrent.atomic.AtomicBoolean firstFluidDagTickLogged =
+        new java.util.concurrent.atomic.AtomicBoolean(false);
 
     // B8 C3 ⚡ live: latches false→true the first time a real ticking block entity
     // (a hopper transferring an item, seeded by InventoryMoveItemEvent) drives a
@@ -367,6 +381,7 @@ public final class NebulaPlugin extends JavaPlugin {
         blockBridge = new NmsBlockStateBridge(redstoneState);
         entityBridge = new NmsEntityStateBridge(entityState);
         blockEntityBridge = new NmsBlockEntityStateBridge(blockEntityState);
+        fluidBridge = new NmsFluidStateBridge(fluidState);
 
         // Create state hasher for zero-diff verification.  Reads from the
         // thread-safe RedstoneWorldState CAS store rather than live NMS blocks,
@@ -520,6 +535,33 @@ public final class NebulaPlugin extends JavaPlugin {
         }
         blockEntityTickExecutor = new org.nebula.entity.BlockEntityTickExecutor(blockEntityRunner);
 
+        if (rwGuardEnabled) {
+            RWGuardConfig fluidGuardConfig = new RWGuardConfig(
+                true,
+                rwGuardSamplingRate(),
+                RWGuardMode.WARN,
+                getDataFolder().toPath().resolve("rw-violations.jsonl"),
+                200, false
+            );
+            fluidRwGuardHook = new FluidRwGuardHook(fluidGuardConfig);
+            fluidRunner = new org.nebula.entity.FluidTaskRunner(
+                fluidState, id -> {
+                    org.nebula.entity.FluidSnapshot snapshot = fluidSnapshots.get(id);
+                    return snapshot == null ? null : org.nebula.entity.FluidActions.flow(snapshot);
+                },
+                FluidRwGuardTracer.INSTANCE, fluidRwGuardHook);
+            LOG.info("RW-GUARD ENABLED for fluid DAG (WARN mode, sampling="
+                + fluidGuardConfig.samplingRate() + ") — live BlockFromToEvent flow accesses "
+                + "will be checked against declared RW-sets; violations → "
+                + fluidGuardConfig.violationLog());
+        } else {
+            fluidRunner = new org.nebula.entity.FluidTaskRunner(
+                fluidState, id -> {
+                    org.nebula.entity.FluidSnapshot snapshot = fluidSnapshots.get(id);
+                    return snapshot == null ? null : org.nebula.entity.FluidActions.flow(snapshot);
+                }, null);
+        }
+
         // Create composite runner for unified redstone + entity DAG.
         // Route on the canonical task-type prefixes that the factories actually
         // stamp: RedstoneComponentType → "REDSTONE_*", EntityTaskType → "ENTITY_*".
@@ -643,6 +685,7 @@ public final class NebulaPlugin extends JavaPlugin {
 
             wireEntityTickHook(server);
             wireBlockEntityTickHook(server);
+            wireFluidTickHook(server);
         } else {
             // B9 D2: on a single-region host (Paper) the redstone lifecycle driver
             // must ALSO run, or endTick never drains and the inline shadow executor
@@ -778,6 +821,78 @@ public final class NebulaPlugin extends JavaPlugin {
                : entityVerticalWriteBackEnabled()
                    ? "ARMED vertical-only (-Dnebula.entity.writeback.vertical=true)"
                    : "OFF — observe-only") + ")");
+    }
+
+    /**
+     * B8 C4 first live slice: a real fluid-flow event runs one guard-bracketed fluid
+     * task on the owning region thread. The action remains observe-only and deliberately
+     * approximate; this slice verifies the declared block footprint against real live
+     * seeding and region-thread NMS reads, not fluid correctness or write-back.
+     */
+    private void wireFluidTickHook(Server server) {
+        server.getPluginManager().registerEvents(new org.bukkit.event.Listener() {
+            @org.bukkit.event.EventHandler(ignoreCancelled = true)
+            public void onFluidFlow(org.bukkit.event.block.BlockFromToEvent event) {
+                org.bukkit.block.Block source = event.getBlock();
+                if (source.getType() != org.bukkit.Material.WATER
+                        && source.getType() != org.bukkit.Material.LAVA) {
+                    return;
+                }
+
+                int dim = org.nebula.core.state.DimensionIds.fromName(source.getWorld().getName());
+                WorldPos self = new WorldPos(dim, source.getX(), source.getY(), source.getZ());
+                org.nebula.entity.FluidSnapshot snapshot = source.getType() == org.bukkit.Material.WATER
+                    ? org.nebula.entity.FluidSnapshot.water(self, fluidLevel(source), fluidLevel(source) == 0)
+                    : org.nebula.entity.FluidSnapshot.lava(self, fluidLevel(source), fluidLevel(source) == 0);
+                executeOwnedFluidDag(source.getWorld(), snapshot);
+            }
+        }, this);
+        LOG.info("Fluid BlockFromToEvent seed registered (owning-region inline read + one "
+            + "observe-only FLUID_* task; NMS write-back absent by design)");
+    }
+
+    private void executeOwnedFluidDag(World world, org.nebula.entity.FluidSnapshot snapshot) {
+        syncFluidFootprint(world, snapshot);
+        TaskNode task = org.nebula.entity.FluidTaskFactory.flowInert(snapshot);
+        fluidSnapshots.put(task.taskId(), snapshot);
+        try {
+            fluidRunner.run(task);
+            if (!fluidRunner.commit(task.taskId())) {
+                LOG.warning("Fluid CAS commit failed for " + task.taskId());
+                return;
+            }
+        } catch (Exception e) {
+            LOG.warning("Fluid DAG tick failed for " + task.taskId() + ": " + e.getMessage());
+            return;
+        }
+
+        boolean firstTick = firstFluidDagTickLogged.compareAndSet(false, true);
+        if (firstTick) {
+            LOG.info("⚡ FIRST region-threaded fluid DAG tick: " + task.taskId()
+                + " on thread '" + Thread.currentThread().getName() + "' — live self + five-neighbour "
+                + "fluid/empty state sampled into CAS, then the traced observe-only action ran. "
+                + "No NMS write-back or vanilla-fluid equivalence is claimed.");
+        }
+        if (fluidRwGuardHook != null && (firstTick || fluidRwGuardHook.violationCount() > 0)) {
+            LOG.info("RW-GUARD (fluid): tracedTasks=" + fluidRwGuardHook.tracedTasks()
+                + " violations=" + fluidRwGuardHook.violationCount()
+                + (fluidRwGuardHook.violationCount() == 0
+                    ? " (clean)" : " (SEE rw-violations.jsonl)"));
+        }
+    }
+
+    private void syncFluidFootprint(World world, org.nebula.entity.FluidSnapshot snapshot) {
+        fluidBridge.syncFromNms(world, snapshot.pos());
+        fluidBridge.syncFromNms(world, snapshot.down());
+        fluidBridge.syncFromNms(world, snapshot.north());
+        fluidBridge.syncFromNms(world, snapshot.south());
+        fluidBridge.syncFromNms(world, snapshot.east());
+        fluidBridge.syncFromNms(world, snapshot.west());
+    }
+
+    private static int fluidLevel(org.bukkit.block.Block block) {
+        return block.getBlockData() instanceof org.bukkit.block.data.Levelled levelled
+            ? levelled.getLevel() : 0;
     }
 
     /**

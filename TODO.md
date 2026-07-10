@@ -703,6 +703,19 @@ requires the decisive Folia experiment, not just a green unit test.
             flow trace is clean against `FluidTaskFactory` and proves detection power by dropping the
             downward write declaration (exactly one `UNDECLARED_WRITE` at `down`). This is pure/unit-only:
             no NMS bridge, task guard hook, tick seeding, or live Folia fluid execution exists yet.
+      - [x] **C4 fluid live slice DONE (2026-07-10, Folia 26.1.2):** a real
+            `BlockFromToEvent` now seeds one `FLUID_WATER_FLOW`/`FLUID_LAVA_FLOW` task inline on
+            the event's owning region thread. `NmsFluidStateBridge` samples self + down + four
+            horizontal neighbours into `FluidState`, then `FluidTaskRunner` executes the traced
+            pure action inside an exact per-task `FluidRwGuardHook` boundary. Live tiny-water
+            result with `-Dnebula.rw.guard=true`: FIRST task ran on `Folia Region Scheduler
+            Thread #0`; `tracedTasks=1 violations=0 (clean)`; no violation JSONL; zero
+            exceptions. This is intentionally OBSERVE-only: `FluidActions` is still a small
+            footprint-checking model, not vanilla fluid physics, and there is no NMS write-back,
+            microstep fan-out, remove-event path, or correctness/differential claim yet.
+            Next C4 slice: add a live negative-control run for fluid (temporarily omit one
+            declared access and prove the Folia guard reports it), then design faithful depth/
+            direction semantics before any write-back or explosion fan-out.
       - [x] **C4 explosion pure slice DONE (2026-07-10):** added a real `ExplosionContext` +
             per-task block/entity snapshots, canonical ray/destroy/damage actions, and
             `ExplosionRwGuardTracer` covering block, entity-field, and random accesses.
@@ -711,8 +724,8 @@ requires the decisive Folia experiment, not just a green unit test.
             then drops one block write and gets exactly one `UNDECLARED_WRITE` at that position.
             This is pure/unit-only: there is still no NMS bridge, task guard hook, seeding, event
             tracing, or live Folia explosion execution.
-            Next C4 slice: wire the smaller fluid path live at tiny scale behind the existing guard;
-            prove real non-empty fluid accesses clean before attempting explosion fan-out.
+            Next C4 explosion slice remains deferred until the live fluid negative control and
+            faithful fluid semantics are clearer; do not copy the wide fan-out prematurely.
 - [ ] C5. Populate `AnnotationCoverageDashboard` from a real per-subsystem hotspot inventory (not
       hand-typed numbers) and surface it via a `/nebula coverage` command, so "coverage %" becomes a
       measured signal instead of a doc claim. Targets patch-002's decay goal (<5%/yr).

@@ -30,8 +30,11 @@ final class FluidRwGuardBridgeTest {
     private static ActualAccessTrace runAndTrace(TaskNode task) throws Exception {
         FluidState state = new FluidState();
         state.put(SELF, FLUID);
+        FluidRwGuardHook hook = new FluidRwGuardHook(new org.nebula.guard.RWGuardConfig(
+            true, 1.0, org.nebula.guard.RWGuardMode.WARN,
+            java.nio.file.Path.of("build/test-fluid-rw-violations.jsonl"), 200, false));
         FluidTaskRunner runner = new FluidTaskRunner(state,
-            id -> FluidActions.flow(FLUID), FluidRwGuardTracer.INSTANCE);
+            id -> FluidActions.flow(FLUID), FluidRwGuardTracer.INSTANCE, hook);
         ThreadLocalAccessTrace.reset();
         runner.run(task);
         assertTrue(runner.commit(task.taskId()));
