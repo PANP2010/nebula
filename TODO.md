@@ -772,13 +772,24 @@ live tick pipeline and therefore requires a live server run, not just a green un
             it was dead/unreachable before. Serial default runner = byte-identical behaviour; live Folia
             toggle drove 4216 dirty cascades / 4215 `modified=1` ticks, full 15→1 CAS gradient, 0 exceptions.
             Does NOT turn parallelism on. Unit test: `layerExecutionGoesThroughRunLayerSeam`.
-      - [ ] **D5 slice 2 (next):** wrap `redstoneRunner` in a `ParallelTaskRunner` over a real `nebula-core`
-            worker pool in `NebulaPlugin.onEnable`, gated behind `-Dnebula.dag.parallel` (default OFF).
-            **BLOCKER TO AUDIT FIRST:** `RedstoneTaskFactory.create` builds tasks with the 4-arg `TaskNode`
-            ctor → `parallelSafe=false`, and `ParallelTaskRunner.runLayer` degrades any layer with a
-            non-`parallelSafe` task to serial. So the pool would silently no-op until self-only-RWSet
-            redstone tasks are marked `parallelSafe`. Mark them, then re-run the D4 Paper diff with parallel
-            ON and confirm `matched==total` invariant to worker count.
+      - [x] **D5 slice 2 part 1 DONE (eacdbe0, 2026-07-10, ⚡ LIVE-unregressed on Folia).** The audited
+            degradation blocker: `RedstoneTaskFactory.create` built tasks with the 4-arg `TaskNode` ctor
+            (`parallelSafe=false`), and `ParallelTaskRunner.runLayer` degrades any layer with a
+            non-`parallelSafe` task to serial — so a pool would silently no-op. The factory now marks tasks
+            `parallelSafe = rw.randomUsage().isEmpty()` (conservative + honest: all other same-layer conflicts
+            — blocks, BEs, entities, AND globals — are excluded by DAG construction, and writes are
+            snapshot-buffered + CAS-committed serially after `runLayer`; the only untracked shared resource is
+            a shared `Random`, which no redstone RWSet declares). Flag is provably inert for the serial live
+            path (only `ParallelTaskRunner` reads it; no hasher/capture does). Tests:
+            `everyComponentTypeProducesAParallelSafeTask`, `parallelSafeMarkingDoesNotAlterRwSetOrTaskIdentity`.
+      - [ ] **D5 slice 2 part 2 (next):** wrap `redstoneRunner` in a `ParallelTaskRunner` over a real
+            `nebula-core` worker pool in `NebulaPlugin.onEnable`, gated behind `-Dnebula.dag.parallel`
+            (default OFF). Then re-run the D4 Paper `/nebula diff` with parallel ON and confirm
+            `matched==total` invariant to worker count. **HONEST LIMIT found in part 1:**
+            wire/repeater/comparator/torch all write `REGION_*` globals → they WAW-serialize into separate
+            layers; multi-task PARALLEL layers form mainly among global-free components (lamp, gates,
+            note block, redstone_block). Genuine concurrency at scale needs multiple independent circuits in
+            different chunks (D5's stated scale-up), not one wire line.
 
 **Definition of done for B9:** a scripted Paper run places canonical circuits, toggles them, and
 `/nebula diff` reports zero mismatches against the single-thread authoritative state — with Nebula's DAG
