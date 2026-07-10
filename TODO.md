@@ -713,9 +713,18 @@ requires the decisive Folia experiment, not just a green unit test.
             exceptions. This is intentionally OBSERVE-only: `FluidActions` is still a small
             footprint-checking model, not vanilla fluid physics, and there is no NMS write-back,
             microstep fan-out, remove-event path, or correctness/differential claim yet.
-            Next C4 slice: add a live negative-control run for fluid (temporarily omit one
-            declared access and prove the Folia guard reports it), then design faithful depth/
-            direction semantics before any write-back or explosion fan-out.
+      - [x] **C4 fluid live negative control DONE (2026-07-10):** temporarily removed the west-neighbour
+            read from `FluidTaskFactory.flowRw()`, rebuilt/deployed with `-Dnebula.rw.guard=true`, and
+            triggered real water flow on Folia. The production guard emitted 352 actionable JSONL
+            violations before shutdown; every sampled task had exactly one `UNDECLARED_READ`, and the
+            report's missing coordinate was the task's actual west cell (for example task
+            `FLUID_WATER_FLOW@0:200,-49,200` flagged block `199,-49,200`) with the declared set, full
+            `FluidRwGuardHook.afterTask` stack, and exact suggested fix. Zero `SEVERE`/exception lines.
+            The temporary break was reverted byte-for-byte, then Java 21 entity/adapter/plugin tests and
+            the shaded build passed. Together with the prior clean run, this proves the live fluid guard
+            has detection power rather than merely producing a false-clean empty trace.
+            Next C4 slice: replace the generic footprint action with faithful depth/direction semantics
+            before any write-back or explosion fan-out.
       - [x] **C4 explosion pure slice DONE (2026-07-10):** added a real `ExplosionContext` +
             per-task block/entity snapshots, canonical ray/destroy/damage actions, and
             `ExplosionRwGuardTracer` covering block, entity-field, and random accesses.

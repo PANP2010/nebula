@@ -443,10 +443,11 @@ testing) is still blocked by DG1/DG2 — those criteria remain untouched.
 The redstone integration and differential milestones described above are complete. The next work is not a
 repeat of the 2026-07-08 bring-up plan:
 
-1. **B8 C4 — finish fluid live verification before explosion.** The first tiny live fluid slice now
-   runs from a real `BlockFromToEvent` on the owning region thread and traces its self + five-neighbour
-   accesses clean. Next, perform the complementary live negative-control run, then replace the generic
-   footprint action with faithful depth/direction semantics before considering write-back or the wider
+1. **B8 C4 — replace the fluid footprint model before explosion.** The first tiny live fluid slice runs
+   from a real `BlockFromToEvent` on the owning region thread and traces its self + five-neighbour
+   accesses clean. Its complementary live negative control also caught the deliberately omitted west
+   read at the exact coordinate and emitted actionable JSONL, proving the production guard has detection
+   power. The next work is faithful depth/direction semantics before considering write-back or wider
    explosion fan-out.
 2. **B8 C5 — measured coverage inventory.** Feed `AnnotationCoverageDashboard` from a real method-level
    hotspot inventory and expose it without hand-typed percentages.
