@@ -346,6 +346,27 @@ testing) is still blocked by DG1/DG2 — those criteria remain untouched.
 > for the parallel half. This is a direct correctness signal for the project's core claim, not
 > a formal DG criterion; it does not upgrade the tables above.
 
+> **⚡ MILESTONE (2026-07-10): the PARALLEL half PASSED live — B9 D5 CLOSED, B9 DONE.**
+> D4 proved shadow==authority with the DAG running *inline on the main thread* (serial). D5 is
+> the decisive parallel experiment: re-run the Paper differential with the DAG executing on a
+> real worker pool. Booted `paper-test-server/` with `-Dnebula.dag.parallel=true` (start.sh's
+> new `NEBULA_DAG_PARALLEL` env toggle); the plugin logged "DAG PARALLEL ENABLED … 12 worker
+> threads" and the correct non-Folia inline-shadow path. On the canonical `lever→15 wire→lamp`
+> line, `/nebula diff` reported **`matched 32 / total 32`** once settled ON, and again OFF; the
+> pre-toggle diff correctly reported `nebula=-1` (CAS unpopulated → NOT a pass). **Non-trivial:**
+> `/nebula diag` (CASCADE-DIAG) showed the *parallel-wrapped* runner computed the full decay
+> gradient (x=1→15 … x=15→1, source-seed 15), not zeros. Then **scaled to a second independent
+> circuit in a different chunk** (z=32); toggling both levers together gave the pool genuinely
+> concurrent cross-chunk work → **`matched 48 / total 48`** on both ON and OFF. Whole run: 0
+> exceptions, 0 CAS-commit failures, 0 degrade-to-serial events. This is the FIRST direct
+> evidence that Nebula's DAG on a real multi-worker pool produces the SAME redstone state a
+> single-thread MC server does — the claim the whole project rests on. **Honest limits:** a
+> single straight wire line mostly runs degraded-serial (wire tasks WAW-serialize on `REGION_*`
+> globals), so the genuine concurrency proof rests on the independent second circuit, not on
+> intra-line parallelism; worker-count invariance was shown 12-workers-vs-inline (both
+> matched==total), not swept across N∈{2,4,8}. A direct correctness signal for the core claim,
+> not a formal DG criterion; it does not upgrade the tables above.
+
 ---
 
 ## Root Cause Analysis

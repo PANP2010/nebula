@@ -757,8 +757,32 @@ live tick pipeline and therefore requires a live server run, not just a green un
       zeros. OFF transition also settled to matched 16/16. Server stopped cleanly via RCON. **HONESTY
       CAVEAT for D5:** D2's executor runs the DAG INLINE on the main thread, so this proves shadow==authority
       but does NOT yet exercise the *parallel* claim — that is exactly D5.
-- [ ] ⚡ D5. **Turn on real multi-threaded DAG execution and re-diff.** D2 runs the DAG inline on the main
-      thread — correct but serial, so it does not yet exercise the *parallel* claim. Configure the DAG
+- [x] ⚡ D5. **DONE — ⚡ LIVE-VERIFIED on real Paper 26.1.2 with the DAG worker pool ON (2026-07-10).**
+      THE DECISIVE PARALLEL==SINGLE-THREAD EXPERIMENT. Booted `paper-test-server/` with
+      `NEBULA_DAG_PARALLEL=true` (start.sh now honours that env → `-Dnebula.dag.parallel=true`); the plugin
+      logged "Folia server: false", "DAG PARALLEL ENABLED … 12 worker threads", and the non-Folia inline
+      shadow path. Placed the canonical `lever→15 wire→lamp` line at y=-60,z=0, `/nebula scan`. **Pre-toggle
+      `/nebula diff` = matched 16/32 with nebula=-1 (CAS unpopulated — correctly NOT a pass). After toggling
+      the lever ON and settling, `/nebula diff` = `matched 32 / total 32 — shadow matches the single-thread
+      authority exactly`.** NON-TRIVIAL: `/nebula diag` (CASCADE-DIAG) showed the parallel-wrapped runner
+      computed the full decay gradient (x=1→15, x=2→14, … x=15→1, source-seed 15), not zeros. OFF transition
+      also settled to matched. THEN scaled to a **second independent circuit** in a different chunk (z=32):
+      48 components / 3 toggle sources; toggling both levers together (cross-chunk concurrent work) →
+      `/nebula diff` = **matched 48 / total 48** on both the ON and OFF transitions. Whole run: 0 exceptions,
+      0 CAS-commit failures, 0 degrade-to-serial events (the only log hit for "degrade" is the boot banner's
+      own explanatory text). Server stopped cleanly via RCON. This is the FIRST direct evidence that Nebula's
+      DAG running on a real multi-worker pool produces the SAME redstone state a single-thread MC server
+      does — the claim the whole project rests on. **HONEST LIMITS:** (a) a single straight wire line mostly
+      runs degraded-serial (wire tasks WAW-serialize on `REGION_*` globals into separate layers), so the
+      genuine concurrency here comes from the two independent circuits, not within one line — a wider fan-out
+      (many small global-free components, or many circuits) would exercise the pool harder; (b) "invariant to
+      worker count" was verified at 12 workers vs. D4's inline-serial run (both matched==total), not swept
+      across N∈{2,4,8}; a worker-count sweep would tighten the "invariant to N" claim. (c) start.sh lives in
+      the untracked `paper-test-server/` runtime dir (like folia-test-server), so it is NOT committed; the
+      NEBULA_DAG_PARALLEL env toggle it now reads is recorded here as the repro recipe.
+
+      *Original spec:* Turn on real multi-threaded DAG execution and re-diff. D2 runs the DAG inline on the
+      main thread — correct but serial, so it does not yet exercise the *parallel* claim. Configure the DAG
       executor to run layers across a real worker pool (the `nebula-core` executor, not inline), re-run the
       D4 circuit + toggle + `/nebula diff`, and confirm **still `matched == total`**. THIS is the decisive
       experiment for the project's core claim: identical result whether the DAG ran serial or parallel,
@@ -811,10 +835,14 @@ live tick pipeline and therefore requires a live server run, not just a green un
             confirm `matched==total` invariant to worker count, then scale to multiple independent circuits in
             different chunks so the pool genuinely runs tasks concurrently.
 
-**Definition of done for B9:** a scripted Paper run places canonical circuits, toggles them, and
-`/nebula diff` reports zero mismatches against the single-thread authoritative state — with Nebula's DAG
-executing on a multi-worker pool. That is the first direct evidence for "multi-thread Nebula == single-
-thread MC," the claim the whole project rests on. Until then that claim is asserted, not verified.
+**Definition of done for B9 — ✅ MET (2026-07-10).** A Paper run placed canonical circuits, toggled them,
+and `/nebula diff` reported zero mismatches against the single-thread authoritative state **with Nebula's
+DAG executing on a 12-worker pool** (`-Dnebula.dag.parallel=true`) — matched 32/32 on one circuit and
+48/48 across two independent cross-chunk circuits, on both ON and OFF transitions. This is the first direct
+evidence for "multi-thread Nebula == single-thread MC," the claim the whole project rests on. See the D5
+record above for the full method and its honest limits (single-line concurrency is degraded-serial; the
+concurrency proof rests on the independent second circuit; worker-count invariance shown 12-vs-inline, not
+swept N∈{2,4,8}).
 
 **Caveats to stay honest about:** (a) Paper single-region means the *server* is single-threaded; the
 parallelism under test is Nebula's DAG pool, which is the right unit but not a full multi-region proof —
@@ -825,10 +853,12 @@ must sample the transient or drive the toggle deterministically (reuse `LiveLoad
 
 ---
 
-**Last Updated**: 2026-07-10 (B9 D4 CLOSED — first single-thread oracle comparison PASSED live on Paper)
-**Verified this session (2026-07-10)**: ⚡ B9 D4 LIVE on real Paper 26.1.2 — `/nebula diff` = matched
-16/16 on a settled canonical circuit (non-trivially: shadow CAS held the full 15→1 decay gradient). This
-is the FIRST direct evidence that Nebula's shadow DAG == the single-thread authority. Remaining B9 blocker
-is D5 (make the DAG run on a real worker pool, not inline, and re-confirm matched==total — the *parallel*
-half of the core claim).
+**Last Updated**: 2026-07-10 (B9 D5 CLOSED — ⚡ parallel DAG == single-thread MC, LIVE on Paper. **B9 DONE.**)
+**Verified this session (2026-07-10)**: ⚡ B9 D5 LIVE on real Paper 26.1.2 with the DAG worker pool ON
+(`-Dnebula.dag.parallel=true`, 12 workers) — `/nebula diff` = matched 32/32 on the canonical circuit and
+48/48 across two independent cross-chunk circuits, on both ON and OFF transitions; non-trivial (CASCADE-DIAG
+showed the parallel-wrapped runner computed the full 15→1 decay gradient), 0 exceptions / 0 CAS-commit
+failures. This closes B9: the FIRST direct evidence that Nebula's DAG on a real multi-worker pool produces
+the SAME redstone state a single-thread MC server does. Honest limits (single-line = degraded-serial,
+concurrency proven via the second circuit, worker-count not swept) recorded in the D5 entry above.
 **Source of truth**: docs/PROJECT_STATUS.md
