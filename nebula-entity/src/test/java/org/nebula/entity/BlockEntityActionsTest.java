@@ -8,6 +8,7 @@ import org.nebula.entity.actions.BlockEntityActions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -34,6 +35,14 @@ class BlockEntityActionsTest {
     private static void tickOnce(BlockEntityState state, BlockEntityAction action) throws Exception {
         BlockEntitySnapshotState buffer = new BlockEntitySnapshotState();
         action.execute(new BlockEntityContext(state, buffer));
+        buffer.commit(state);
+    }
+
+    /** As {@link #tickOnce} but supplies a deterministic RNG stream for RNG-consuming actions. */
+    private static void tickOnceWithRng(BlockEntityState state, BlockEntityAction action,
+                                        DeterministicRandom rng) throws Exception {
+        BlockEntitySnapshotState buffer = new BlockEntitySnapshotState();
+        action.execute(new BlockEntityContext(state, buffer, null, rng));
         buffer.commit(state);
     }
 
@@ -296,5 +305,107 @@ class BlockEntityActionsTest {
         java.util.Arrays.fill(full, 64);
         assertTrue(BlockEntityActions.hasDispensableItem(full));
         assertTrue(BlockEntityActions.selectDispenseSlot(full, new DeterministicRandom(7L)) != -1);
+    }
+
+    // ------------------------------------------ dropper / dispenser eject action
+
+    @Test
+    void dropperEjectsOneItemFromTheReservoirChosenSlot() throws Exception {
+        // A loaded dropper removes exactly one item from the slot getRandomSlot picks and
+        // leaves every other slot untouched. Pin the choice by replaying the vanilla
+        // reservoir loop with an independent Random on the same seed.
+        long seed = 424242L;
+        int[] slots = {0, 3, 0, 5, 0, 0, 2, 0, 1};
+        int expected = expectedChosenSlot(slots, seed);
+
+        BlockEntityState state = new BlockEntityState();
+        for (int s = 0; s < slots.length; s++) state.put(slot(POS, s), slots[s]);
+
+        tickOnceWithRng(state, BlockEntityActions.dropper(POS, slots.length),
+            new DeterministicRandom(seed));
+
+        for (int s = 0; s < slots.length; s++) {
+            int want = (s == expected) ? slots[s] - 1 : slots[s];
+            assertEquals(want, state.get(slot(POS, s)),
+                "only the chosen slot " + expected + " loses one item (slot " + s + ")");
+        }
+    }
+
+    @Test
+    void dispenserEjectsIdenticallyToDropperForTheSameSeed() throws Exception {
+        // The two share their CAS eject math (they diverge only in the un-modelled
+        // destination), so the same seed + same slots must decrement the same slot.
+        long seed = -99L;
+        int[] slots = {4, 0, 0, 7, 0, 1, 0, 0, 0};
+
+        BlockEntityState dropperState = new BlockEntityState();
+        BlockEntityState dispenserState = new BlockEntityState();
+        for (int s = 0; s < slots.length; s++) {
+            dropperState.put(slot(POS, s), slots[s]);
+            dispenserState.put(slot(POS, s), slots[s]);
+        }
+
+        tickOnceWithRng(dropperState, BlockEntityActions.dropper(POS, slots.length),
+            new DeterministicRandom(seed));
+        tickOnceWithRng(dispenserState, BlockEntityActions.dispenser(POS, slots.length),
+            new DeterministicRandom(seed));
+
+        for (int s = 0; s < slots.length; s++) {
+            assertEquals(dropperState.get(slot(POS, s)), dispenserState.get(slot(POS, s)),
+                "dropper and dispenser eject the same slot for the same seed (slot " + s + ")");
+        }
+    }
+
+    @Test
+    void dropperOnEmptyContainerIsANoOpAndDrawsNoRng() throws Exception {
+        // An empty dropper dispenses nothing: getRandomSlot returns -1 having drawn zero
+        // times, so no slot is written and the RNG stream is left untouched.
+        BlockEntityState state = new BlockEntityState();
+        DeterministicRandom rng = new DeterministicRandom(1L);
+
+        tickOnceWithRng(state, BlockEntityActions.dropper(POS, BlockEntityActions.DISPENSER_CONTAINER_SIZE), rng);
+
+        for (int s = 0; s < BlockEntityActions.DISPENSER_CONTAINER_SIZE; s++) {
+            assertEquals(0, state.get(slot(POS, s)), "empty dropper mutates no slot");
+        }
+        assertEquals(0, rng.callsMade(), "no non-empty slot means no RNG draw (stream position preserved)");
+    }
+
+    @Test
+    void dropperDrawsExactlyOncePerNonEmptySlot() throws Exception {
+        // The draw COUNT must equal the non-empty slot count, because every task sharing
+        // this WORLD_RANDOM instance depends on the stream position the dropper leaves —
+        // the reason dropperRw budgets slotCount, not 1.
+        int[] slots = {1, 0, 2, 0, 0, 3, 0, 4, 0}; // four non-empty
+        BlockEntityState state = new BlockEntityState();
+        for (int s = 0; s < slots.length; s++) state.put(slot(POS, s), slots[s]);
+        DeterministicRandom rng = new DeterministicRandom(5L);
+
+        tickOnceWithRng(state, BlockEntityActions.dropper(POS, slots.length), rng);
+
+        assertEquals(4, rng.callsMade(), "one draw per non-empty slot");
+    }
+
+    @Test
+    void dropperWithNoRngSourceThrows() {
+        // A loaded dropper resolved under a runner that supplied no random source must
+        // fail loudly, not silently diverge — the undeclared/unsupplied RandomUsage trap.
+        BlockEntityState state = new BlockEntityState();
+        state.put(slot(POS, 0), 1);
+        BlockEntityAction action = BlockEntityActions.dropper(POS, BlockEntityActions.DISPENSER_CONTAINER_SIZE);
+        assertThrows(IllegalStateException.class, () -> tickOnce(state, action));
+    }
+
+    /** Replays the decompiled getRandomSlot reservoir loop to pin the expected chosen slot. */
+    private static int expectedChosenSlot(int[] slots, long seed) {
+        java.util.Random ref = new java.util.Random(seed);
+        int chosen = -1;
+        int replaceOdds = 1;
+        for (int i = 0; i < slots.length; i++) {
+            if (slots[i] > 0 && ref.nextInt(replaceOdds++) == 0) {
+                chosen = i;
+            }
+        }
+        return chosen;
     }
 }

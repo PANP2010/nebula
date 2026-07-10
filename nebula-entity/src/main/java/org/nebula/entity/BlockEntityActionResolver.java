@@ -29,11 +29,27 @@ import org.nebula.entity.actions.BlockEntityActions;
  *   <li>{@link BlockEntityTaskType#FURNACE} → {@link BlockEntityActions#furnace} —
  *       200-tick smelt with fuel burn.</li>
  * </ul>
- * {@code DROPPER}, {@code DISPENSER} and {@code BREWING_STAND} have no action math
- * in {@link BlockEntityActions} yet, so they resolve to {@code null} — an honest
- * no-op the runner already treats as "declared its RW-set, mutated nothing" — until
- * that math is written. Returning a fabricated action for them would be exactly the
- * kind of unverified claim this project exists to avoid.
+ * {@code BREWING_STAND} has no action math in {@link BlockEntityActions} yet, so it
+ * resolves to {@code null} — an honest no-op the runner already treats as "declared
+ * its RW-set, mutated nothing" — until that math is written.
+ *
+ * <p>{@code DROPPER}/{@code DISPENSER} <em>do</em> now have pure action math
+ * ({@link BlockEntityActions#dropper}/{@link BlockEntityActions#dispenser}, the vanilla
+ * {@code getRandomSlot} reservoir draw + one-item eject), but this resolver still returns
+ * {@code null} for them ON PURPOSE. Two things must land together before the flip is
+ * honest, and neither is done:
+ * <ol>
+ *   <li>The action consumes RNG via {@code ctx.random()}, so the LIVE
+ *       {@code BlockEntityTaskRunner} must be given a {@code LayeredRandomSource} (it is
+ *       not today — see {@code NebulaPlugin}'s {@code withSnapshotResolver} wiring). A
+ *       loaded dropper resolving to this action under the current live runner would throw
+ *       on its region thread.</li>
+ *   <li>The seeded slot choice has never been measured against live Folia's dispenser
+ *       {@code RandomSource}; flipping the resolver before that measurement would assert
+ *       a parity this project has not verified — the "measure before you mirror" trap.</li>
+ * </ol>
+ * Returning a fabricated or prematurely-wired action for them would be exactly the kind of
+ * unverified claim this project exists to avoid.
  */
 public final class BlockEntityActionResolver {
 

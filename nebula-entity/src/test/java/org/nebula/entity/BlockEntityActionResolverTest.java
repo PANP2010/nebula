@@ -98,7 +98,12 @@ class BlockEntityActionResolverTest {
 
     @Test
     void unmodelledTypesResolveNull() {
-        // No action math exists for these in BlockEntityActions yet — honest no-op.
+        // BREWING_STAND has no action math yet — honest no-op. DROPPER/DISPENSER now DO
+        // have pure math (BlockEntityActions.dropper/dispenser) but the resolver still
+        // returns null for them on purpose: the live runner has no LayeredRandomSource to
+        // feed their ctx.random() draw, and the seeded slot choice is unmeasured against
+        // Folia — flipping the resolver before both land would throw live / assert
+        // unverified parity (see BlockEntityActionResolver's javadoc).
         assertNull(BlockEntityActionResolver.resolve(
             BlockEntitySnapshot.dropper(POS, 0, -1, 0)));
         assertNull(BlockEntityActionResolver.resolve(

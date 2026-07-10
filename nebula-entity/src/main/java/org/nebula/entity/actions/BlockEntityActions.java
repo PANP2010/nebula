@@ -222,4 +222,68 @@ public final class BlockEntityActions {
         }
         return false;
     }
+
+    /**
+     * Dropper trigger tick: pick one non-empty slot uniformly at random via
+     * {@link #selectDispenseSlot} (the exact vanilla {@code getRandomSlot} reservoir
+     * draw) and remove one item from it. On an empty container the draw finds nothing
+     * ({@code -1}) and the action is a no-op — matching vanilla, which dispenses nothing
+     * from an empty dropper.
+     *
+     * <p><b>Why this is EJECT-ONLY (no output-container write).</b> {@code dropperRw}
+     * declares the self inventory slots as read+write plus a {@code readBlock(output)}
+     * block-state read — deliberately <em>not</em> the output container's slots. Writing
+     * into the output container here would be an undeclared block-entity write, exactly
+     * the RW-set drift that lets two tasks race on a shared slot (see
+     * {@code BlockEntityTaskFactory}'s under-declaration note and the
+     * blockentity-rwset-action-drift lesson). So the honest, RW-set-consistent model is:
+     * decrement the chosen self slot and stop. Where the item then lands — the neighbour
+     * container the dropper faces, or a world item entity — is not modelled in CAS yet,
+     * and modelling it must WIDEN the RW-set first, never silently exceed it.
+     *
+     * @param self      the dropper position
+     * @param slotCount its inventory size (9 for a dropper)
+     */
+    public static BlockEntityAction dropper(WorldPos self, int slotCount) {
+        return ejectOneRandomItem(self, slotCount);
+    }
+
+    /**
+     * Dispenser trigger tick: identical CAS math to {@link #dropper} — draw a random
+     * non-empty slot with the same reservoir sample and remove one item — because both
+     * eject exactly one item per pulse via vanilla's {@code getRandomSlot}. They diverge
+     * only in the (un-modelled) destination: a dispenser runs the drawn item's dispense
+     * behaviour (shoot a projectile, place a block, spawn a mob) where a dropper transfers
+     * or ejects it, which is why {@code dispenserRw} declares {@code ENTITY_SPAWNED} rather
+     * than the dropper's {@code INVENTORY_CHANGED}. That behaviour is the "stubbed spawn"
+     * the live dispenser still lacks; until it is modelled (and the RW-set widened to
+     * declare the spawned entity), the only observable CAS effect is the shared self-slot
+     * decrement below.
+     *
+     * @param self      the dispenser position
+     * @param slotCount its inventory size (9 for a dispenser)
+     */
+    public static BlockEntityAction dispenser(WorldPos self, int slotCount) {
+        return ejectOneRandomItem(self, slotCount);
+    }
+
+    /**
+     * Shared eject math for {@link #dropper}/{@link #dispenser}: read the self slots, draw
+     * one non-empty slot via the vanilla reservoir sample (consuming one RNG call per
+     * non-empty slot — the budget {@code dropperRw}/{@code dispenserRw} declare), and
+     * decrement it by one. Touches only the self inventory slots the RW-set covers.
+     */
+    private static BlockEntityAction ejectOneRandomItem(WorldPos self, int slotCount) {
+        return ctx -> {
+            int[] counts = new int[slotCount];
+            for (int s = 0; s < slotCount; s++) {
+                counts[s] = ctx.readSlot(self, s);
+            }
+            int chosen = selectDispenseSlot(counts, ctx.random());
+            if (chosen < 0) {
+                return; // empty container: getRandomSlot found nothing, nothing ejected
+            }
+            ctx.writeSlot(self, chosen, counts[chosen] - 1);
+        };
+    }
 }
