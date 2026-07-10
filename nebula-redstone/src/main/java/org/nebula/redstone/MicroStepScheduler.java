@@ -121,19 +121,32 @@ public final class MicroStepScheduler {
                     }
                 }
 
-                // Execute layer
+                // Execute layer through the runLayer() seam so an intra-layer-
+                // parallel TaskRunner (e.g. ParallelTaskRunner) can fan the layer's
+                // tasks across a worker pool. Tasks within one topological layer
+                // have no read/write conflicts by construction (BucketDagBuilder),
+                // so concurrent execution is data-race free. The default serial
+                // runLayer (TaskRunner interface) calls run() once per task in order,
+                // making this identical to the previous per-task loop — the B9 D5
+                // enabler for parallel DAG execution without changing serial behaviour.
+                List<TaskNode> layerNodes = new ArrayList<>(layer.size());
                 for (String taskId : layer) {
                     if (allExecutedIds.contains(taskId)) continue;
                     TaskNode task = graph.tasks().get(taskId);
                     if (task == null) continue;
+                    layerNodes.add(task);
+                }
+                if (!layerNodes.isEmpty()) {
                     try {
-                        runner.run(task);
+                        runner.runLayer(layerNodes);
                     } catch (Exception e) {
                         throw new DagExecutionException(totalLayers,
                             List.copyOf(allCompletedIds), List.of(e));
                     }
-                    allCompletedIds.add(taskId);
-                    allExecutedIds.add(taskId);
+                    for (TaskNode task : layerNodes) {
+                        allCompletedIds.add(task.taskId());
+                        allExecutedIds.add(task.taskId());
+                    }
                 }
 
                 // Commit layer with bounded CAS retry. On stale-read failure

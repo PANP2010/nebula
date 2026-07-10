@@ -2,6 +2,7 @@ package org.nebula.redstone;
 
 import org.junit.jupiter.api.Test;
 import org.nebula.core.scheduler.TaskNode;
+import org.nebula.core.scheduler.TaskRunner;
 import org.nebula.core.state.WorldPos;
 
 import java.util.ArrayList;
@@ -100,6 +101,45 @@ class MicroStepSchedulerTest {
             "Task must have been executed at least twice (initial + retry)");
         assertEquals(100, world.getPowerLevel(POS_A),
             "Final value = 99 (injected by sabotage) + 1 from retry read");
+    }
+
+    @Test
+    void layerExecutionGoesThroughRunLayerSeam() throws Exception {
+        // B9 D5 enabler: the scheduler must drive each topological layer through
+        // TaskRunner.runLayer() (not a private per-task loop) so an intra-layer-
+        // parallel runner can plug in. This test asserts the seam is reached with
+        // the layer's tasks, and that the per-task run() count still matches.
+        List<List<TaskNode>> layersSeen = new ArrayList<>();
+        AtomicInteger runCalls = new AtomicInteger();
+        TaskRunner recordingRunner = new TaskRunner() {
+            @Override
+            public void run(TaskNode task) throws Exception {
+                runCalls.incrementAndGet();
+                task.action().execute();
+            }
+
+            @Override
+            public void runLayer(List<TaskNode> layer) throws Exception {
+                layersSeen.add(List.copyOf(layer));
+                TaskRunner.super.runLayer(layer);
+            }
+        };
+
+        TaskNode taskA = RedstoneTaskFactory.create(
+            RedstoneComponentType.REDSTONE_WIRE, POS_A, () -> { });
+
+        RedstoneTaskGenerator gen = new RedstoneTaskGenerator(Map.of());
+        MicroStepScheduler scheduler = new MicroStepScheduler(gen, recordingRunner);
+
+        MicroStepScheduler.TickResult result = scheduler.executeTick(List.of(taskA));
+
+        assertEquals(1, result.totalTasks());
+        assertEquals(1, layersSeen.size(), "single-task tick drives exactly one layer via runLayer");
+        assertEquals(List.of(taskA.taskId()),
+            layersSeen.get(0).stream().map(TaskNode::taskId).toList(),
+            "the layer passed to runLayer carries the tick's task");
+        assertEquals(1, runCalls.get(),
+            "default serial runLayer still calls run() once per task — behaviour unchanged");
     }
 
     @Test
