@@ -33,6 +33,20 @@ public final class FoliaRuntimeDetector {
     }
 
     /**
+     * Stricter check (no-arg): true only on an actual running Folia server (the
+     * server-internal {@code RegionizedServer} is present), not merely when the
+     * API is on the classpath. Uses the thread context class loader.
+     *
+     * <p>This is the correct discriminator for "am I on Folia vs vanilla Paper?"
+     * because modern Paper ships the Folia <em>API</em> ({@link #REGION_SCHEDULER_CLASS}),
+     * so {@link #isFoliaRuntime()} misfires {@code true} on Paper. Only a running
+     * Folia server carries the server-internal {@code RegionizedServer}.
+     */
+    public static boolean isFoliaServer() {
+        return isFoliaServer(Thread.currentThread().getContextClassLoader());
+    }
+
+    /**
      * Stricter check: true only on an actual running Folia server (the
      * server-internal {@code RegionizedServer} is present), not merely when the
      * API is on the classpath.

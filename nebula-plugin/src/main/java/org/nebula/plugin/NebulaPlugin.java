@@ -58,7 +58,9 @@ import java.util.logging.Logger;
  *
  * <p>On enable, it:
  * <ol>
- *   <li>Detects Folia runtime via {@link FoliaRuntimeDetector#isFoliaRuntime()}</li>
+ *   <li>Detects a Folia server via {@link FoliaRuntimeDetector#isFoliaServer()}
+ *       (the server-internal marker, not the API-level {@code isFoliaRuntime()}
+ *       which also matches vanilla Paper)</li>
  *   <li>Initializes CAS state stores (RedstoneWorldState, EntityPhysicsState, BlockEntityState)</li>
  *   <li>Creates NMS bridges (NmsBlockStateBridge, NmsEntityStateBridge, NmsBlockEntityStateBridge)</li>
  *   <li>Wires the region-aware tick executor (FoliaRegionTickExecutor)</li>
@@ -269,8 +271,15 @@ public final class NebulaPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        boolean isFolia = FoliaRuntimeDetector.isFoliaRuntime();
-        LOG.info("Nebula plugin enabling — Folia runtime: " + isFolia);
+        // B9 D1: discriminate Folia from vanilla Paper via the server-internal
+        // RegionizedServer marker (isFoliaServer), NOT the API-level RegionScheduler
+        // marker (isFoliaRuntime). Modern Paper ships the Folia API, so isFoliaRuntime()
+        // misfires true on Paper and would wrongly route Paper into the region-aware
+        // (Folia) executor. RegionizedServer exists only on a running Folia server, so
+        // this is the honest single-thread-oracle discriminator the Paper differential
+        // (B9) depends on.
+        boolean isFolia = FoliaRuntimeDetector.isFoliaServer();
+        LOG.info("Nebula plugin enabling — Folia server: " + isFolia);
 
         // Force retransform of Folia's redstone classes that may have been
         // loaded before the agent's transformer was fully initialized.

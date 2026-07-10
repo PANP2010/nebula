@@ -43,6 +43,19 @@ class FoliaRuntimeDetectorTest {
     }
 
     @Test
+    void isFoliaServerNoArgFalseWithApiOnlyClasspath() {
+        // The no-arg overload uses the thread context class loader, which in this
+        // test JVM has the Folia API but NOT the server-internal RegionizedServer.
+        // So it is false here, and would be true only on a running Folia server.
+        // This is the discriminator NebulaPlugin.onEnable uses (B9 D1): it must NOT
+        // misfire true merely because the Folia API is present (as isFoliaRuntime does).
+        assertFalse(FoliaRuntimeDetector.isFoliaServer());
+        // Sanity: the API-level check DOES fire true here — proving the two checks
+        // genuinely differ, i.e. isFoliaRuntime would misfire on Paper.
+        assertTrue(FoliaRuntimeDetector.isFoliaRuntime());
+    }
+
+    @Test
     void exposesExpectedClassNames() {
         assertEquals(
             "io.papermc.paper.threadedregions.scheduler.RegionScheduler",
