@@ -25,37 +25,56 @@ public final class EntityTaskContext {
     private final EntityStateSnapshot snapshot;
     private final DeterministicRandom random;
     private final TerrainView terrain;
+    private final EntityAccessTracer tracer;
 
     EntityTaskContext(EntityPhysicsState state, EntityStateSnapshot snapshot) {
-        this(state, snapshot, null, TerrainView.EMPTY);
+        this(state, snapshot, null, TerrainView.EMPTY, null);
     }
 
     EntityTaskContext(EntityPhysicsState state, EntityStateSnapshot snapshot, DeterministicRandom random) {
-        this(state, snapshot, random, TerrainView.EMPTY);
+        this(state, snapshot, random, TerrainView.EMPTY, null);
     }
 
     EntityTaskContext(EntityPhysicsState state, EntityStateSnapshot snapshot,
                       DeterministicRandom random, TerrainView terrain) {
+        this(state, snapshot, random, terrain, null);
+    }
+
+    EntityTaskContext(EntityPhysicsState state, EntityStateSnapshot snapshot,
+                      DeterministicRandom random, TerrainView terrain, EntityAccessTracer tracer) {
         this.state = state;
         this.snapshot = snapshot;
         this.random = random;
-        this.terrain = terrain == null ? TerrainView.EMPTY : terrain;
+        TerrainView delegate = terrain == null ? TerrainView.EMPTY : terrain;
+        this.terrain = tracer == null ? delegate : pos -> {
+            tracer.onBlockRead(pos);
+            return delegate.isSolid(pos);
+        };
+        this.tracer = tracer;
     }
 
     public Vec3 readVec(long entityId, String field) {
-        return snapshot.readVec(state, new EntityField(entityId, field));
+        EntityField target = new EntityField(entityId, field);
+        if (tracer != null) tracer.onFieldRead(target);
+        return snapshot.readVec(state, target);
     }
 
     public double readScalar(long entityId, String field) {
-        return snapshot.readScalar(state, new EntityField(entityId, field));
+        EntityField target = new EntityField(entityId, field);
+        if (tracer != null) tracer.onFieldRead(target);
+        return snapshot.readScalar(state, target);
     }
 
     public void writeVec(long entityId, String field, Vec3 value) {
-        snapshot.write(new EntityField(entityId, field), value);
+        EntityField target = new EntityField(entityId, field);
+        if (tracer != null) tracer.onFieldWrite(target);
+        snapshot.write(target, value);
     }
 
     public void writeScalar(long entityId, String field, double value) {
-        snapshot.write(new EntityField(entityId, field), value);
+        EntityField target = new EntityField(entityId, field);
+        if (tracer != null) tracer.onFieldWrite(target);
+        snapshot.write(target, value);
     }
 
     /** Read-only terrain oracle for collision checks (defaults to open void). */

@@ -369,7 +369,19 @@ testing) is still blocked by DG1/DG2 — those criteria remain untouched.
 
 ---
 
-## Root Cause Analysis
+> **⚡ B8 C2 MILESTONE (2026-07-10): live entity MOVE RW-guard traces clean.**
+> The entity path now has the same honest guard bridge as redstone/block-entities:
+> `EntityTaskContext` reports entity-field and terrain-block accesses through an optional
+> tracer; `EntityTaskRunner` brackets each dispatched task; the plugin feeds that trace into
+> `RWSetConsistencyChecker` behind `-Dnebula.rw.guard=true`. The FIRST live falling-cow run
+> caught 9 real `UNDECLARED_READ` violations — `EntityMoveAction.sweepDescent` read terrain
+> cells two blocks below the event-stamped position while `moveRw()` declared only self + six
+> neighbours. After expanding the MOVE declaration to a bounded five-cell descent column,
+> a fresh Folia 26.1.2 run from y=120 reported **`tracedTasks=163 violations=0 (clean)`**,
+> wrote no violation JSONL, and executed on `Folia Region Scheduler Thread #0` in OBSERVE mode.
+> This closes C2 for the live-wired MOVE action only; collision/AI/item/damage task types are
+> not live-wired and remain runtime-unverified.
+>
 
 ### Why Did This Happen?
 

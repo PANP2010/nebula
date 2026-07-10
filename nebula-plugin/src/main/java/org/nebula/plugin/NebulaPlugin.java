@@ -263,6 +263,11 @@ public final class NebulaPlugin extends JavaPlugin {
     // one-line RW-GUARD summary per invocation.
     private RedstoneRwGuardHook rwGuardHook;
 
+    // B8 C2: live RW-guard bridge, installed on the entity runner only when
+    // -Dnebula.rw.guard=true. Null when off; when present the region-thread entity
+    // path logs cumulative traced-task/violation counts.
+    private EntityRwGuardHook entityRwGuardHook;
+
     // B8 C3: live RW-guard bridge, installed on the block-entity runner only when
     // -Dnebula.rw.guard=true. Null when the guard is off (the default). When present,
     // executeOwnedBlockEntityDag logs a one-line RW-GUARD summary per invocation.
@@ -438,9 +443,28 @@ public final class NebulaPlugin extends JavaPlugin {
         // of exactly -0.0784/tick (one tick of ungrounded gravity+drag) for a mob
         // resting on the ground (B8 C1, diagnosed 2026-07-10). NmsTerrainView reads
         // block solidity on the owning region thread, matching the MOVE RW-set.
-        entityRunner = new EntityTaskRunner(entityState,
-            NebulaPlugin::resolveEntityAction)
-            .withTerrain(new org.nebula.folia.NmsTerrainView(getServer()));
+        if (rwGuardEnabled) {
+            RWGuardConfig entityGuardConfig = new RWGuardConfig(
+                true,
+                rwGuardSamplingRate(),
+                RWGuardMode.WARN,
+                getDataFolder().toPath().resolve("rw-violations.jsonl"),
+                200, false
+            );
+            entityRwGuardHook = new EntityRwGuardHook(entityGuardConfig);
+            entityRunner = new EntityTaskRunner(entityState,
+                NebulaPlugin::resolveEntityAction,
+                EntityRwGuardTracer.INSTANCE, entityRwGuardHook)
+                .withTerrain(new org.nebula.folia.NmsTerrainView(getServer()));
+            LOG.info("RW-GUARD ENABLED for entity DAG (WARN mode, sampling="
+                + entityGuardConfig.samplingRate() + ") — MOVE field + terrain accesses "
+                + "will be checked against declared RW-sets; violations → "
+                + entityGuardConfig.violationLog());
+        } else {
+            entityRunner = new EntityTaskRunner(entityState,
+                NebulaPlugin::resolveEntityAction)
+                .withTerrain(new org.nebula.folia.NmsTerrainView(getServer()));
+        }
         entityTickExecutor = new EntityTickExecutor(entityRunner);
 
         // Create block-entity physics DAG pipeline (B8 C3). The runner resolves each
@@ -1380,6 +1404,12 @@ public final class NebulaPlugin extends JavaPlugin {
                 entityBridge.syncVerticalPhysicsToNms(entity, world);
                 applied++;
             }
+        }
+
+        if (entityRwGuardHook != null) {
+            LOG.info("RW-GUARD (entity): tracedTasks=" + entityRwGuardHook.tracedTasks()
+                + " violations=" + entityRwGuardHook.violationCount()
+                + (entityRwGuardHook.violationCount() == 0 ? " (clean)" : " — see rw-violations.jsonl"));
         }
 
         if (firstEntityDagTickLogged.compareAndSet(false, true)) {

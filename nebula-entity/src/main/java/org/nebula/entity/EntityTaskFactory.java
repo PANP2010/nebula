@@ -16,8 +16,9 @@ import java.util.Objects;
  *
  * <h3>RW-set templates</h3>
  * <ul>
- *   <li><b>MOVE:</b> reads position+velocity, reads 6 adjacent blocks for terrain,
- *       writes position, fires ENTITY_MOVED</li>
+ *   <li><b>MOVE:</b> reads position+velocity, reads the current cell, horizontal/
+ *       upper neighbours, and a five-block descent column for swept terrain,
+ *       writes position+velocity, fires ENTITY_MOVED</li>
  *   <li><b>COLLISION:</b> reads both entities' positions only — pure read, fully parallel</li>
  *   <li><b>COLLISION_RESPONSE:</b> reads both velocities, writes both velocities</li>
  *   <li><b>AI_GOAL:</b> reads entity state, writes goal target (deferred, no events)</li>
@@ -118,7 +119,10 @@ public final class EntityTaskFactory {
 
     private static RWSet moveRw(EntitySnapshot e) {
         int dim = e.dimensionId();
-        // Read 6 surrounding blocks for terrain collision check
+        // EntityMoveAction may sweep multiple cells downward in one tick. The event
+        // snapshot is block-truncated, so conservatively declare the current cell,
+        // horizontal/upper neighbours, and the bounded descent column the live speed
+        // cap can reach before the next EntityMoveEvent re-stamps the task.
         WorldPos at = new WorldPos(dim, e.x(), e.y(), e.z());
         RWSet.Builder b = RWSet.builder()
             .readEntity(field(e.entityId(), "position"))
@@ -127,13 +131,14 @@ public final class EntityTaskFactory {
             .readBlock(new WorldPos(dim, e.x() + 1, e.y(), e.z()))
             .readBlock(new WorldPos(dim, e.x() - 1, e.y(), e.z()))
             .readBlock(new WorldPos(dim, e.x(), e.y() + 1, e.z()))
-            .readBlock(new WorldPos(dim, e.x(), e.y() - 1, e.z()))
             .readBlock(new WorldPos(dim, e.x(), e.y(), e.z() + 1))
-            .readBlock(new WorldPos(dim, e.x(), e.y(), e.z() - 1))
-            .writeEntity(field(e.entityId(), "position"))
-            // The live MOVE action applies gravity to velocity then integrates
-            // position, so velocity is both read and written (declared here to
-            // keep the RW-set consistent with what the action touches).
+            .readBlock(new WorldPos(dim, e.x(), e.y(), e.z() - 1));
+        for (int dy = 1; dy <= 5; dy++) {
+            b.readBlock(new WorldPos(dim, e.x(), e.y() - dy, e.z()));
+        }
+        b.writeEntity(field(e.entityId(), "position"))
+            // The live MOVE action moves first, then integrates gravity into the
+            // next tick's velocity, so velocity is both read and written.
             .writeEntity(field(e.entityId(), "velocity"))
             .writeEvent(EventType.ENTITY_MOVED);
         return b.build();

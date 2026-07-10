@@ -650,9 +650,24 @@ requires the decisive Folia experiment, not just a green unit test.
 - [ ] ⚡ C1. Wire the **entity** DAG (`EntityTaskFactory` MOVE/COLLISION) into the live tick path for
       entity-dirty regions — the DG2 analogue of the first redstone DAG tick. First live entity DAG tick
       is the milestone; zero-diff comes after.
-- [ ] ⚡ C2. Run the guard against live entity movement; reconcile every violation into `EntityTaskFactory`
+- [x] ⚡ C2. Run the guard against live entity movement; reconcile every violation into `EntityTaskFactory`
       RW-sets until a moving-mob workload traces clean. Use `AnnotationCoverageDashboard.report(...)` to
       record entity coverage as annotated/total once the hotspot method list is known.
+      **DONE (2026-07-10, LIVE-VERIFIED on Folia 26.1.2):** added the missing entity guard bridge
+      (`EntityAccessTracer` on `EntityTaskContext` for entity-field + terrain-block reads,
+      `EntityTaskGuardHook` at the exact runner boundary, plugin bridges to
+      `ThreadLocalAccessTrace` / `RWSetConsistencyChecker`, opt-in via the existing
+      `-Dnebula.rw.guard=true`). The first live run had REAL detection power: a fast-falling cow
+      produced 9 `UNDECLARED_READ` violations on terrain cells 2 blocks below the task snapshot,
+      proving `EntityMoveAction.sweepDescent` can read beyond the old self+6-neighbour declaration.
+      Reconciled `moveRw()` to declare the bounded five-cell descent column plus horizontal/upper
+      neighbours. Rebuilt/redeployed and re-ran a cow fall from y=120 in OBSERVE mode:
+      `tracedTasks=163 violations=0 (clean)`, zero entity violation warnings, no JSONL report,
+      and the first entity tick ran on `Folia Region Scheduler Thread #0`. Unit negative control
+      drops the velocity write and confirms the checker flags exactly that field. Honest scope:
+      this verifies the live-wired MOVE action only; COLLISION/AI/item/damage remain unlive and
+      therefore unverified. `AnnotationCoverageDashboard` remains C5 because no real NMS hotspot
+      method inventory exists yet.
 - [ ] ⚡ C3. Same loop for **block-entity** (`BlockEntityTaskFactory`: hopper/dispenser/dropper item moves)
       — SERIALIZED inventory transfers are the highest corruption risk if an RW-set is incomplete.
 - [ ] ⚡ C4. Same loop for **fluid** (`FluidTaskFactory`) and **explosion** (`ExplosionTaskFactory`) once

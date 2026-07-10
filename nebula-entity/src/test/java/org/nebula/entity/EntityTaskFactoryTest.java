@@ -73,11 +73,12 @@ class EntityTaskFactoryTest {
     void moveTask_readsTerrainBlocks() {
         TaskNode t = EntityTaskFactory.moveInert(ENTITY_A);
         RWSet rw = t.declaredRWSet();
-        // should read self + 6 adjacent blocks = 7 block reads
-        assertEquals(7, rw.readBlocks().size());
+        // current + four horizontal + upper + five-cell descent column = 11
+        assertEquals(11, rw.readBlocks().size());
         assertTrue(rw.readBlocks().contains(new WorldPos(0, 10, 64, 10)));
         assertTrue(rw.readBlocks().contains(new WorldPos(0, 11, 64, 10))); // +x
         assertTrue(rw.readBlocks().contains(new WorldPos(0, 10, 65, 10))); // +y
+        assertTrue(rw.readBlocks().contains(new WorldPos(0, 10, 59, 10))); // bounded sweep depth
     }
 
     @Test

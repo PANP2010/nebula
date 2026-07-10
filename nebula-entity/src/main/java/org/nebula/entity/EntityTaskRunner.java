@@ -49,6 +49,8 @@ public final class EntityTaskRunner implements LayerCommitting {
 
     private final EntityPhysicsState state;
     private final Function<String, EntityTaskAction> actionResolver;
+    private final EntityAccessTracer tracer;
+    private final EntityTaskGuardHook guardHook;
     private final LayeredRandomSource randomSource;
     private final RandomBudget randomBudget;
     private final ConcurrentHashMap<String, EntityStateSnapshot> layerSnapshots = new ConcurrentHashMap<>();
@@ -56,18 +58,31 @@ public final class EntityTaskRunner implements LayerCommitting {
     private volatile TerrainView terrain = TerrainView.EMPTY;
 
     public EntityTaskRunner(EntityPhysicsState state, Function<String, EntityTaskAction> actionResolver) {
-        this(state, actionResolver, null, null);
+        this(state, actionResolver, null, null, null, null);
     }
 
     public EntityTaskRunner(EntityPhysicsState state, Function<String, EntityTaskAction> actionResolver,
                             LayeredRandomSource randomSource) {
-        this(state, actionResolver, randomSource, null);
+        this(state, actionResolver, null, null, randomSource, null);
     }
 
     public EntityTaskRunner(EntityPhysicsState state, Function<String, EntityTaskAction> actionResolver,
                             LayeredRandomSource randomSource, RandomBudget randomBudget) {
+        this(state, actionResolver, null, null, randomSource, randomBudget);
+    }
+
+    public EntityTaskRunner(EntityPhysicsState state, Function<String, EntityTaskAction> actionResolver,
+                            EntityAccessTracer tracer, EntityTaskGuardHook guardHook) {
+        this(state, actionResolver, tracer, guardHook, null, null);
+    }
+
+    public EntityTaskRunner(EntityPhysicsState state, Function<String, EntityTaskAction> actionResolver,
+                            EntityAccessTracer tracer, EntityTaskGuardHook guardHook,
+                            LayeredRandomSource randomSource, RandomBudget randomBudget) {
         this.state = state;
         this.actionResolver = actionResolver != null ? actionResolver : id -> null;
+        this.tracer = tracer;
+        this.guardHook = guardHook;
         this.randomSource = randomSource;
         this.randomBudget = randomBudget;
     }
@@ -91,6 +106,19 @@ public final class EntityTaskRunner implements LayerCommitting {
 
     @Override
     public void run(TaskNode task) throws Exception {
+        if (guardHook != null) {
+            guardHook.beforeTask(task);
+        }
+        try {
+            dispatch(task);
+        } finally {
+            if (guardHook != null) {
+                guardHook.afterTask(task);
+            }
+        }
+    }
+
+    private void dispatch(TaskNode task) throws Exception {
         if (CompoundTask.isCompound(task)) {
             runCompound(task);
             return;
@@ -127,7 +155,7 @@ public final class EntityTaskRunner implements LayerCommitting {
             entityId = parseEntityId(taskId);
             rng = randomSource.forTask(currentTick, entityId, RandomInstance.ENTITY_RANDOM);
         }
-        action.execute(new EntityTaskContext(state, snapshot, rng, terrain));
+        action.execute(new EntityTaskContext(state, snapshot, rng, terrain, tracer));
 
         // Evaluate RNG consumption against the allocated budget (DG2 metric).
         if (rng != null && randomBudget != null && randomEstimate != null) {
