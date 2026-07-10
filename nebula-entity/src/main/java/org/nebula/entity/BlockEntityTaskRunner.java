@@ -1,9 +1,14 @@
 package org.nebula.entity;
 
+import org.nebula.core.random.DeterministicRandom;
+import org.nebula.core.random.LayeredRandomSource;
+import org.nebula.core.random.RandomBudget;
 import org.nebula.core.scheduler.CompoundTask;
 import org.nebula.core.scheduler.DeterministicOrdering;
 import org.nebula.core.scheduler.LayerCommitting;
 import org.nebula.core.scheduler.TaskNode;
+import org.nebula.core.state.RandomInstance;
+import org.nebula.core.state.RandomUsage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +26,23 @@ import java.util.logging.Logger;
  * the stale-read losers. SCC-contracted compounds (e.g. a chain of hoppers
  * feeding each other) dispatch each member through the resolver in deterministic
  * order, so live behaviour survives contraction.
+ *
+ * <p>If constructed with a {@link LayeredRandomSource}, each RNG-declaring task
+ * receives a {@link DeterministicRandom} seeded from
+ * {@code (tick, blockPosKey, instance)} — where {@code blockPosKey} is the
+ * task's block position packed via {@link #parseBlockPosKey} and {@code instance}
+ * is read from the task's own declared {@link RandomUsage} (WORLD_RANDOM for the
+ * dropper/dispenser slot draw). So the RNG stream depends only on the block's
+ * coordinate, never on execution order — the precondition for parallelising
+ * RNG-consuming block-entity ticks, mirroring {@code EntityTaskRunner}. The
+ * caller sets the current tick via {@link #beginTick(long)}. Tasks that declare
+ * no RNG (hopper/furnace) get no random source and running them untouched.
+ *
+ * <p>If additionally given a {@link RandomBudget}, the runner allocates a budget
+ * per RNG-declaring task from its declared estimate and evaluates actual
+ * {@code callsMade()} against it after execution (the DG2 over-budget metric),
+ * queryable via {@link #currentOverBudgetRate()} — again mirroring the entity
+ * runner.
  */
 public final class BlockEntityTaskRunner implements LayerCommitting {
 
@@ -31,6 +53,9 @@ public final class BlockEntityTaskRunner implements LayerCommitting {
     private final ConcurrentHashMap<String, BlockEntitySnapshotState> layerSnapshots = new ConcurrentHashMap<>();
     private final BlockEntityAccessTracer tracer;
     private final BlockEntityTaskGuardHook guardHook;
+    private final LayeredRandomSource randomSource;
+    private final RandomBudget randomBudget;
+    private volatile long currentTick;
 
     public BlockEntityTaskRunner(BlockEntityState state, Function<String, BlockEntityAction> actionResolver) {
         this(state, actionResolver, null, null);
@@ -48,10 +73,34 @@ public final class BlockEntityTaskRunner implements LayerCommitting {
      */
     public BlockEntityTaskRunner(BlockEntityState state, Function<String, BlockEntityAction> actionResolver,
                                  BlockEntityAccessTracer tracer, BlockEntityTaskGuardHook guardHook) {
+        this(state, actionResolver, tracer, guardHook, null, null);
+    }
+
+    /**
+     * Full constructor: adds a {@link LayeredRandomSource} (so RNG-declaring tasks
+     * get a deterministic per-block stream) and an optional {@link RandomBudget}
+     * (so their draw counts are tracked against the DG2 over-budget metric). Both
+     * may be null — a null random source leaves {@link BlockEntityContext#random()}
+     * throwing, exactly as before, which is correct for the hopper/furnace path
+     * that consumes no RNG.
+     */
+    public BlockEntityTaskRunner(BlockEntityState state, Function<String, BlockEntityAction> actionResolver,
+                                 BlockEntityAccessTracer tracer, BlockEntityTaskGuardHook guardHook,
+                                 LayeredRandomSource randomSource, RandomBudget randomBudget) {
         this.state = state;
         this.actionResolver = actionResolver != null ? actionResolver : id -> null;
         this.tracer = tracer;
         this.guardHook = guardHook;
+        this.randomSource = randomSource;
+        this.randomBudget = randomBudget;
+    }
+
+    /** Sets the tick coordinate for RNG seeds and resets per-tick budget stats. */
+    public void beginTick(long tick) {
+        this.currentTick = tick;
+        if (randomBudget != null) {
+            randomBudget.beginTick();
+        }
     }
 
     /**
@@ -125,22 +174,79 @@ public final class BlockEntityTaskRunner implements LayerCommitting {
             List<String> memberIds = new ArrayList<>(CompoundTask.memberIds(task));
             memberIds.sort(DeterministicOrdering::compareTaskIds);
             for (String memberId : memberIds) {
-                runMember(memberId);
+                // Per-member declared RandomUsage is not recoverable from the compound
+                // ID; a compound of RNG-declaring block entities is not a case that
+                // arises today (droppers/dispensers fire on disjoint redstone edges, so
+                // they do not SCC-contract into one another), so members run RNG-free.
+                runMember(memberId, RandomInstance.NONE, null);
             }
             return;
         }
-        runMember(task.taskId());
+        // A single task carries its own declared RW-set, so we can key the RNG off
+        // its declared RandomUsage instance and estimate — the WORLD_RANDOM stream
+        // the dropper/dispenser slot draw needs.
+        RandomUsage usage = task.declaredRWSet().randomUsage()
+            .filter(u -> u.instance() != RandomInstance.NONE)
+            .orElse(null);
+        RandomInstance instance = usage != null ? usage.instance() : RandomInstance.NONE;
+        Integer estimate = usage != null ? usage.maxCallsEstimate() : null;
+        runMember(task.taskId(), instance, estimate);
     }
 
-    private void runMember(String taskId) throws Exception {
+    private void runMember(String taskId, RandomInstance instance, Integer randomEstimate) throws Exception {
         BlockEntityAction action = actionResolver.apply(taskId);
         if (action == null) {
             return;
         }
         BlockEntitySnapshotState snapshot = new BlockEntitySnapshotState();
-        action.execute(new BlockEntityContext(state, snapshot, tracer));
+        DeterministicRandom rng = null;
+        long posKey = 0L;
+        if (randomSource != null && instance != RandomInstance.NONE) {
+            posKey = parseBlockPosKey(taskId);
+            rng = randomSource.forTask(currentTick, posKey, instance);
+        }
+        action.execute(new BlockEntityContext(state, snapshot, tracer, rng));
+
+        // Evaluate RNG consumption against the allocated budget (DG2 metric), keyed by
+        // the block position so two block entities don't share a budget bucket.
+        if (rng != null && randomBudget != null && randomEstimate != null) {
+            int allocated = randomBudget.allocate(posKey, randomEstimate);
+            randomBudget.evaluate(posKey, allocated, rng.callsMade());
+        }
+
         if (!snapshot.isEmpty()) {
             layerSnapshots.put(taskId, snapshot);
+        }
+    }
+
+    /**
+     * Packs the block position out of a block-entity task ID ({@code TYPE@dim:x,y,z})
+     * into a stable 64-bit RNG-seed key. Two block entities at different positions
+     * get uncorrelated streams; the same position on the same tick always derives the
+     * same seed regardless of execution order. Returns 0 if the ID cannot be parsed
+     * (RNG stays deterministic, just shares a stream — the entity runner's fallback).
+     *
+     * <p>Packs 21 bits each of x/y/z (Minecraft's {@code BlockPos.asLong} layout,
+     * enough for the ±30M world border) plus the low bits of the dimension, so the
+     * key is collision-free across the playable coordinate range.
+     */
+    static long parseBlockPosKey(String taskId) {
+        int at = taskId.indexOf('@');
+        if (at < 0) return 0L;
+        int colon = taskId.indexOf(':', at + 1);
+        if (colon < 0) return 0L;
+        String rest = taskId.substring(colon + 1);
+        String[] coords = rest.split(",");
+        if (coords.length < 3) return 0L;
+        try {
+            long dim = Long.parseLong(taskId.substring(at + 1, colon).trim());
+            long x = Long.parseLong(coords[0].trim());
+            long y = Long.parseLong(coords[1].trim());
+            long z = Long.parseLong(coords[2].trim());
+            long key = ((x & 0x1FFFFFL) << 43) | ((z & 0x1FFFFFL) << 22) | (y & 0x3FFFFFL);
+            return key ^ (dim << 1);
+        } catch (NumberFormatException e) {
+            return 0L;
         }
     }
 
@@ -167,5 +273,18 @@ public final class BlockEntityTaskRunner implements LayerCommitting {
 
     public BlockEntityState state() {
         return state;
+    }
+
+    /**
+     * Fraction of RNG-declaring block entities that exceeded their allocated budget
+     * in the current tick (DG2 metric; arch doc §11.2 target &lt;1%). Returns 0 if no
+     * budget tracker is configured.
+     */
+    public double currentOverBudgetRate() {
+        return randomBudget == null ? 0.0 : randomBudget.currentOverBudgetRate();
+    }
+
+    public RandomBudget randomBudget() {
+        return randomBudget;
     }
 }

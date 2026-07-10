@@ -29,13 +29,13 @@ import java.util.List;
  * that both push into one chest touch overlapping slot fields, so they conflict
  * and serialise; two hoppers over disjoint containers share a layer.
  *
- * <p><b>Why the block-entity executor has no {@code beginTick(long)}.</b>
- * {@link EntityTaskRunner#beginTick(long)} exists to seed the entity random
- * budget with the tick coordinate; {@link BlockEntityTaskRunner} carries no
- * per-tick RNG seed (the dropper/dispenser RNG usage is declared in the RW-set,
- * not consumed here in the inert path), so there is nothing to reset per tick.
- * This mirrors the runner's actual surface rather than inventing a hook the
- * subsystem does not have.
+ * <p><b>The tick coordinate.</b> {@link #executeTick(long, List)} forwards the
+ * game tick to {@link BlockEntityTaskRunner#beginTick(long)} so an RNG-declaring
+ * task (dropper/dispenser) is seeded from {@code (tick, blockPos, instance)} —
+ * the same coordinate {@link EntityTickExecutor} uses, so the two subsystems'
+ * layered-RNG determinism derives identically. The tick-less
+ * {@link #executeTick(List)} overload defaults to tick 0, correct for the
+ * RNG-free hopper/furnace path (and for callers that predate the RNG seam).
  */
 public final class BlockEntityTickExecutor {
 
@@ -47,8 +47,12 @@ public final class BlockEntityTickExecutor {
         this.runner = runner;
     }
 
-    /** Executes the given dirty block-entity tasks for one tick. Returns the layer count. */
-    public int executeTick(List<TaskNode> dirtyTasks) throws Exception {
+    /**
+     * Executes the given dirty block-entity tasks for one tick, seeding any
+     * RNG-declaring task from the given tick coordinate. Returns the layer count.
+     */
+    public int executeTick(long tick, List<TaskNode> dirtyTasks) throws Exception {
+        runner.beginTick(tick);
         if (dirtyTasks.isEmpty()) {
             return 0;
         }
@@ -65,6 +69,14 @@ public final class BlockEntityTickExecutor {
             commitLayerWithRetry(graph, layer);
         }
         return layers.size();
+    }
+
+    /**
+     * Executes the given dirty block-entity tasks with no tick coordinate (RNG-free
+     * scenarios / legacy callers). Returns the layer count.
+     */
+    public int executeTick(List<TaskNode> dirtyTasks) throws Exception {
+        return executeTick(0L, dirtyTasks);
     }
 
     private void commitLayerWithRetry(TaskGraph graph, List<String> layer) throws Exception {
