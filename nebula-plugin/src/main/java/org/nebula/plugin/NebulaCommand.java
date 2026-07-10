@@ -49,6 +49,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
             case "be-furnace-timer" -> handleFurnaceTimer(sender, args);
             case "be-furnace-phase" -> handleFurnacePhase(sender, args);
             case "be-dropper-slot" -> handleDropperSlot(sender, args);
+            case "be-dropper-phase" -> handleDropperPhase(sender, args);
             case "help" -> sendHelp(sender);
             default -> sender.sendMessage("§cUnknown subcommand: " + sub);
         }
@@ -497,6 +498,43 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
             + " (" + dispatched + " positions dispatched)");
     }
 
+    /**
+     * {@code /nebula be-dropper-phase [count]} — arms the dropper/dispenser eject PHASE probe
+     * for {@code count} game ticks (default 200). While armed, each ticking dropper/dispenser's
+     * DAG pass emits a {@code BE-DROPPER-PHASE} line carrying Folia's authoritative summed self
+     * count, the CAS self count just after {@code syncFromNms} (pre-action) and just after the
+     * eject action (post-action). This is the diagnostic the dropper eject write-back decision
+     * needs: it classifies the {@code BE-DROPPER-SLOT} {@code +1} offset (36ac531) as an
+     * ORDERING-ARTIFACT (pre==folia — the shadow tracks Folia at rate 1:1, the {@code +1} is the
+     * action's own eject step) or a RATE-DIVERGENCE (pre≠folia — the double-ejector signature,
+     * leave the dropper to Folia). The dropper twin of {@code be-furnace-phase}: unlike
+     * {@code be-dropper-slot}, this rides the DAG's own tick, so it must run a WINDOW of ticks
+     * over a dropper that is actively being DAG-ticked (place a powered, hopper-fed dropper so it
+     * keeps ejecting). Grade with {@code DropperPhaseGraderCli}.
+     */
+    private void handleDropperPhase(CommandSender sender, String[] args) {
+        if (!sender.hasPermission("nebula.status")) {
+            sender.sendMessage("§cYou don't have permission to use this command.");
+            return;
+        }
+        int window = 200;
+        if (args.length >= 2) {
+            try {
+                window = Integer.parseInt(args[1]);
+            } catch (NumberFormatException e) {
+                sender.sendMessage("§cUsage: /nebula be-dropper-phase [count] — count must be an integer");
+                return;
+            }
+        }
+        int scheduled = plugin.runDropperPhaseProbe(window);
+        sender.sendMessage("§aBE-DROPPER-PHASE probe armed for " + scheduled
+            + " tick(s). Each ticking dropper/dispenser's DAG pass emits folia/pre-action/"
+            + "post-action self counts. Read the BE-DROPPER-PHASE lines in server-run.log, then "
+            + "classify the +1 offset with DropperPhaseGraderCli.");
+        LOG.info("Dropper eject phase probe requested by " + sender.getName()
+            + " (" + scheduled + "-tick window armed)");
+    }
+
     private void sendHelp(CommandSender sender) {
         sender.sendMessage("§6Nebula Commands:");
         sender.sendMessage("  §e/nebula capture start [ticks] [--drive <seed>] [--period <n>] §7- Start state capture (--drive = live-load driven)");
@@ -510,6 +548,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
         sender.sendMessage("  §e/nebula be-furnace-timer [count] §7- Emit BE-FURNACE-TIMER gap snapshot(s); [count] = once-per-tick burst to catch cook mid-climb");
         sender.sendMessage("  §e/nebula be-furnace-phase [count] §7- Arm the BE-FURNACE-PHASE probe for [count] ticks; classifies the +1/-1 offset (ordering vs rate)");
         sender.sendMessage("  §e/nebula be-dropper-slot [count] §7- Emit BE-DROPPER-SLOT eject-gap snapshot(s); [count] = once-per-tick burst to straddle the eject steps");
+        sender.sendMessage("  §e/nebula be-dropper-phase [count] §7- Arm the BE-DROPPER-PHASE probe for [count] ticks; classifies the +1 offset (ordering vs rate)");
         sender.sendMessage("  §e/nebula help §7- Show this help");
     }
 
@@ -519,7 +558,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
                                       String alias,
                                       String[] args) {
         if (args.length == 1) {
-            return Arrays.asList("capture", "status", "scan", "perf", "diag", "settled", "be-settled", "be-furnace-timer", "be-furnace-phase", "be-dropper-slot", "help");
+            return Arrays.asList("capture", "status", "scan", "perf", "diag", "settled", "be-settled", "be-furnace-timer", "be-furnace-phase", "be-dropper-slot", "be-dropper-phase", "help");
         }
         if (args.length == 2 && args[0].equalsIgnoreCase("capture")) {
             return Arrays.asList("start", "stop");

@@ -164,6 +164,21 @@ public final class NebulaPlugin extends JavaPlugin {
     // per-tick BE-FURNACE-PHASE lines never leak past the measurement window.
     private volatile boolean furnacePhaseProbe = false;
 
+    // B8 C3 dropper/dispenser eject PHASE probe: opt-in classifier for the BE-DROPPER-SLOT +1
+    // offset (36ac531). When enabled (via /nebula be-dropper-phase [count]),
+    // executeOwnedBlockEntityDag emits, for each ticking DROPPER/DISPENSER, one BE-DROPPER-PHASE
+    // line carrying THREE self-inventory counts captured on one region-thread pass: Folia's
+    // authoritative read (readNmsInventoryCount), the CAS self count just AFTER syncFromNms
+    // rebased it (pre-action) and the CAS self count just AFTER the DAG eject action ran
+    // (post-action). The DropperPhaseGrader classifies the offset: pre==folia ⇒ ORDERING-ARTIFACT
+    // (the +1 is the action's own eject step, shadow tracks Folia at rate 1:1, a PRE-sampled
+    // write-back could be honest), pre≠folia ⇒ RATE-DIVERGENCE (the double-ejector signature,
+    // leave the dropper to Folia). Off by default; the probe self-clears after its window so
+    // per-tick BE-DROPPER-PHASE lines never leak past the measurement window. Mirrors
+    // furnacePhaseProbe byte-for-byte in shape, adapted from the furnace's two timer axes to the
+    // dropper's single self-count axis.
+    private volatile boolean dropperPhaseProbe = false;
+
     // Entity physics DAG
     private EntityTickExecutor entityTickExecutor;
     private EntityTaskRunner entityRunner;
@@ -952,6 +967,26 @@ public final class NebulaPlugin extends JavaPlugin {
                     new org.nebula.core.state.BlockEntityField(self, "cook_progress"));
             }
 
+            // Dropper/dispenser eject PHASE probe (opt-in, B8 C3). Classify the BE-DROPPER-SLOT
+            // +1 offset the same way the furnace-timer +1 is classified above: capture THREE
+            // self-inventory counts on THIS region-thread pass — Folia's authoritative read
+            // (readNmsInventoryCount, region-thread-legal since we own self), the CAS self count
+            // AFTER syncFromNms rebased it but BEFORE the eject action (pre), and the CAS self
+            // count AFTER the action (post, captured below). If preSelf==foliaSelf the sync
+            // rebased CAS exactly and the whole +1 is the action's own eject step (ordering
+            // artifact — a PRE-sampled write-back could be honest); if preSelf≠foliaSelf CAS
+            // strayed before the action (rate divergence, the double-ejector signature — leave
+            // the dropper to Folia). This is the only pipeline point with all three phases in
+            // scope in the correct order.
+            int phaseFoliaSelf = 0, prePhaseSelf = 0;
+            final boolean dropperPhaseHere = dropperPhaseProbe && snap != null
+                && (snap.type() == org.nebula.entity.BlockEntityTaskType.DROPPER
+                    || snap.type() == org.nebula.entity.BlockEntityTaskType.DISPENSER);
+            if (dropperPhaseHere) {
+                phaseFoliaSelf = blockEntityBridge.readNmsInventoryCount(world, self);
+                prePhaseSelf = sumSlots(self, snap.slotCount());
+            }
+
             try {
                 // Pass the real game tick (legal here: we are on the OWNING region
                 // thread, where getCurrentTick() does not NPE) so the runner seeds any
@@ -978,6 +1013,16 @@ public final class NebulaPlugin extends JavaPlugin {
                         prePhaseFuel, prePhaseCook, postPhaseFuel, postPhaseCook);
                 LOG.info(org.nebula.replay.FurnacePhaseFormatter.format(
                     getServer().getCurrentTick(), java.util.List.of(sample)));
+            }
+
+            if (dropperPhaseHere) {
+                int postPhaseSelf = sumSlots(self, snap.slotCount());
+                org.nebula.replay.DropperPhaseGrader.DropperPhaseSample dropperSample =
+                    new org.nebula.replay.DropperPhaseGrader.DropperPhaseSample(
+                        self, snap.type().name(),
+                        phaseFoliaSelf, prePhaseSelf, postPhaseSelf);
+                LOG.info(org.nebula.replay.DropperPhaseFormatter.format(
+                    getServer().getCurrentTick(), java.util.List.of(dropperSample)));
             }
 
             // Did a real item count actually move? Compare post-tick CAS to the pre-tick
@@ -2083,6 +2128,49 @@ public final class NebulaPlugin extends JavaPlugin {
     }
 
     /**
+     * Enables the dropper/dispenser eject PHASE probe for {@code windowTicks} game ticks, then
+     * clears it — the classifier for the {@code BE-DROPPER-SLOT} {@code +1} offset (36ac531),
+     * the exact analogue of {@link #runFurnacePhaseProbe} adapted from the furnace's two timer
+     * axes to the dropper's single self-count axis. Unlike {@link #emitDropperSlotBurst}, which
+     * schedules an <em>independent</em> once-per-tick read (post-action only, so it can measure
+     * the gap magnitude but not classify it), this probe rides the DAG's OWN block-entity tick:
+     * while the flag is on, {@code executeOwnedBlockEntityDag} captures, for each ticking
+     * dropper/dispenser on that region-thread pass, Folia's authoritative summed self count, the
+     * CAS self count just after {@code syncFromNms} (pre-action) and just after the eject action
+     * (post-action), and emits one {@code BE-DROPPER-PHASE} line. It must ride the DAG pass
+     * because only there are all three phases in scope in the correct order — a separate
+     * scheduled read could never observe the CAS value <em>between</em> the sync and the action.
+     *
+     * <p>The window is bounded (clamped to {@code [1, 400]}) and the flag self-clears via a
+     * one-shot {@code GlobalRegionScheduler} task, so per-tick {@code BE-DROPPER-PHASE} lines
+     * cannot leak past the measurement window. Observe-only-safe: every capture is a read;
+     * nothing is written to NMS. Requires a dropper/dispenser that is actively being DAG-ticked
+     * — place a powered, hopper-fed dropper (the a3845ed recipe) so it keeps ejecting, exactly
+     * as the dropper-slot burst requires.
+     *
+     * @param windowTicks how many game ticks to leave the probe armed; clamped to {@code [1, 400]}
+     * @return the clamped window actually scheduled
+     */
+    public int runDropperPhaseProbe(int windowTicks) {
+        final int clamped = Math.max(1, Math.min(400, windowTicks));
+        if (blockEntityBridge == null || blockEntityState == null) {
+            LOG.warning("BE-DROPPER-PHASE probe requested but block-entity bridge is not wired (non-Folia?)");
+            return clamped;
+        }
+        dropperPhaseProbe = true;
+        LOG.info("BE-DROPPER-PHASE probe ARMED for " + clamped + " tick(s): each ticking "
+            + "dropper/dispenser's DAG pass now emits folia/pre-action/post-action self counts so "
+            + "DropperPhaseGrader can classify the +1 offset (ORDERING-ARTIFACT vs RATE-DIVERGENCE).");
+        // Disarm after the window via a one-shot delayed task (runDelayed fires once).
+        getServer().getGlobalRegionScheduler().runDelayed(this, task -> {
+            dropperPhaseProbe = false;
+            LOG.info("BE-DROPPER-PHASE probe DISARMED after " + clamped
+                + " tick(s); grade the run with DropperPhaseGraderCli.");
+        }, clamped);
+        return clamped;
+    }
+
+    /**
      * Non-Folia fallback: OBSERVE mode with shadow executor.
      */
     private NebulaFoliaBootstrap wireShadowExecutor(RWGuardConfig guardConfig) {
@@ -2243,6 +2331,10 @@ public final class NebulaPlugin extends JavaPlugin {
     /** B8 C3 furnace-timer phase probe: enable/disable the per-furnace BE-FURNACE-PHASE emit. */
     public void setFurnacePhaseProbe(boolean on) { this.furnacePhaseProbe = on; }
     public boolean furnacePhaseProbe() { return furnacePhaseProbe; }
+
+    /** B8 C3 dropper eject phase probe: enable/disable the per-dropper BE-DROPPER-PHASE emit. */
+    public void setDropperPhaseProbe(boolean on) { this.dropperPhaseProbe = on; }
+    public boolean dropperPhaseProbe() { return dropperPhaseProbe; }
 
     /**
      * Registers a redstone component position. Required for DAG execution
