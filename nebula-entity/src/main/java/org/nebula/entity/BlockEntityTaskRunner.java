@@ -126,7 +126,7 @@ public final class BlockEntityTaskRunner implements LayerCommitting {
      */
     public static BlockEntityTaskRunner withSnapshotResolver(
             BlockEntityState state, Function<String, BlockEntitySnapshot> snapshotById) {
-        return withSnapshotResolver(state, snapshotById, null, null);
+        return withSnapshotResolver(state, snapshotById, null, null, null, null);
     }
 
     /**
@@ -145,11 +145,35 @@ public final class BlockEntityTaskRunner implements LayerCommitting {
     public static BlockEntityTaskRunner withSnapshotResolver(
             BlockEntityState state, Function<String, BlockEntitySnapshot> snapshotById,
             BlockEntityAccessTracer tracer, BlockEntityTaskGuardHook guardHook) {
+        return withSnapshotResolver(state, snapshotById, tracer, guardHook, null, null);
+    }
+
+    /**
+     * RNG-aware variant of the canonical snapshot resolver: builds the same
+     * {@code taskId → snapshot → action} composition but threads a
+     * {@link LayeredRandomSource} + optional {@link RandomBudget} into the runner, so
+     * an RNG-declaring block entity (dropper/dispenser) resolved on a region thread
+     * gets a deterministic per-block stream instead of {@link BlockEntityContext#random()}
+     * throwing. Keeping ALL snapshot-resolver factories on this one composition is
+     * deliberate — a diverging copy of the lookup is the silent-mismatch wound (B3)
+     * this subsystem keeps re-learning.
+     *
+     * <p>Both {@code randomSource} and {@code randomBudget} may be null (the hopper/furnace
+     * path consumes no RNG, so a null source correctly leaves {@code random()} throwing).
+     *
+     * @param randomSource seeds each RNG-declaring task from {@code (tick, blockPos, instance)};
+     *                     null → no stream (correct for the RNG-free hopper/furnace path)
+     * @param randomBudget optional DG2 over-budget tracker for RNG-declaring tasks; null → untracked
+     */
+    public static BlockEntityTaskRunner withSnapshotResolver(
+            BlockEntityState state, Function<String, BlockEntitySnapshot> snapshotById,
+            BlockEntityAccessTracer tracer, BlockEntityTaskGuardHook guardHook,
+            LayeredRandomSource randomSource, RandomBudget randomBudget) {
         Function<String, BlockEntitySnapshot> lookup =
             snapshotById != null ? snapshotById : id -> null;
         return new BlockEntityTaskRunner(state,
             taskId -> BlockEntityActionResolver.resolve(lookup.apply(taskId)),
-            tracer, guardHook);
+            tracer, guardHook, randomSource, randomBudget);
     }
 
     @Override

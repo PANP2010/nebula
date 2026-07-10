@@ -390,8 +390,25 @@ public final class NebulaPlugin extends JavaPlugin {
         // unlike the prior inert-on-the-global-thread stage, this stage's math is
         // observable. NMS write-back (syncToNms) stays gated OFF by default, exactly as
         // the entity path armed its region-threaded read before its write-back.
+        // Seed a LayeredRandomSource from the primary world seed so that once the
+        // dropper/dispenser resolver is flipped on (the NEXT slice), an RNG-declaring
+        // block entity resolved on its region thread gets a deterministic per-block
+        // stream keyed by (tick, blockPos, WORLD_RANDOM) instead of
+        // BlockEntityContext.random() throwing IllegalStateException. This is the
+        // prerequisite half of that flip and is behaviourally inert today: the resolver
+        // still returns null for DROPPER/DISPENSER, and the hopper/furnace path declares
+        // no RNG, so no task consumes the stream yet — mirroring how the entity path
+        // armed its region-threaded read before its write-back. A RandomBudget tracks
+        // the DG2 over-budget metric for those future RNG tasks.
+        long blockEntityWorldSeed = getServer().getWorlds().isEmpty()
+            ? 0L : getServer().getWorlds().get(0).getSeed();
+        org.nebula.core.random.LayeredRandomSource blockEntityRandomSource =
+            new org.nebula.core.random.LayeredRandomSource(blockEntityWorldSeed);
+        org.nebula.core.random.RandomBudget blockEntityRandomBudget =
+            new org.nebula.core.random.RandomBudget();
         blockEntityRunner = org.nebula.entity.BlockEntityTaskRunner.withSnapshotResolver(
-            blockEntityState, blockEntitySnapshots::get);
+            blockEntityState, blockEntitySnapshots::get,
+            null, null, blockEntityRandomSource, blockEntityRandomBudget);
         if (rwGuardEnabled) {
             // Same opt-in flag as the redstone guard: install the block-entity tracer
             // (BlockEntityAccessTracer → ThreadLocalAccessTrace) AND the per-task hook
@@ -408,7 +425,8 @@ public final class NebulaPlugin extends JavaPlugin {
             blockEntityRwGuardHook = new BlockEntityRwGuardHook(blockEntityGuardConfig);
             blockEntityRunner = org.nebula.entity.BlockEntityTaskRunner.withSnapshotResolver(
                 blockEntityState, blockEntitySnapshots::get,
-                BlockEntityRwGuardTracer.INSTANCE, blockEntityRwGuardHook);
+                BlockEntityRwGuardTracer.INSTANCE, blockEntityRwGuardHook,
+                blockEntityRandomSource, blockEntityRandomBudget);
             LOG.info("RW-GUARD ENABLED for block-entity DAG (WARN mode, sampling="
                 + blockEntityGuardConfig.samplingRate() + ") — hopper/furnace field accesses "
                 + "will be checked against declared RW-sets; violations → "
@@ -933,7 +951,14 @@ public final class NebulaPlugin extends JavaPlugin {
             }
 
             try {
-                layers = blockEntityTickExecutor.executeTick(java.util.List.of(task));
+                // Pass the real game tick (legal here: we are on the OWNING region
+                // thread, where getCurrentTick() does not NPE) so the runner seeds any
+                // RNG-declaring task from (tick, blockPos, WORLD_RANDOM) rather than the
+                // tick-0 overload. Inert today for the hopper/furnace path (no RNG
+                // declared), this is what stops BlockEntityContext.random() throwing once
+                // the dropper/dispenser resolver is flipped on — the coupled next slice.
+                layers = blockEntityTickExecutor.executeTick(
+                    getServer().getCurrentTick(), java.util.List.of(task));
             } catch (Exception e) {
                 LOG.warning(() -> "block-entity DAG tick failed for " + task.taskId()
                     + " in " + worldName + ": " + e.getMessage());
