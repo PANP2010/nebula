@@ -211,6 +211,49 @@ class DropperPhaseGraderTest {
     }
 
     @Test
+    void orderingArtifactDoesNotJustifyEjectWriteBack() {
+        // The honesty guard for B8 C3: an ORDERING-ARTIFACT PASS rules out a rate bug but does
+        // NOT make an eject write-back useful — the dropper inherits the furnace-timer's
+        // do-not-arm conclusion. This pins the arithmetic so a future cycle cannot re-read the
+        // PASS as "safe to arm" (the previous cycle's Next: pointer) without this test failing.
+        //
+        // Live-proven invariant (f5b5f9e): on a pulsing dropper foliaSelf==preSelf==N and
+        // postSelf==N-1 — Folia already ejected this tick, so the tile authoritatively holds N,
+        // and syncFromNms rebased CAS onto it (preSelf==N). Grade confirms pure ordering:
+        var snaps = DropperPhaseGrader.parse(String.join("\n",
+            phaseLine(100, sample(A, "DROPPER", 8, 8, 7)),
+            phaseLine(101, sample(A, "DROPPER", 7, 7, 6))));
+        var report = DropperPhaseGrader.grade(snaps, 0);
+        assertEquals(FoliaDivergenceGrader.Verdict.PASS, report.verdict(), "pure ordering");
+        assertEquals(0, report.maxObservedPreGap(), "pre rebased onto folia exactly");
+
+        // Now walk both write-back options against that invariant. Folia's authoritative tile
+        // count after its own eject is foliaSelf == N. There is nothing honest to write:
+        for (var snap : snaps) {
+            for (var p : snap.positions()) {
+                int foliaTileAfterItsOwnEject = p.foliaSelf();   // N — Folia already ejected
+
+                // PRE-sampled write-back would push preSelf onto the tile. preSelf == N, so the
+                // tile stays exactly what Folia already holds: a pure no-op mirror, contributes
+                // nothing. (preSelf == foliaSelf is the very ordering-artifact PASS condition.)
+                int afterPreWriteBack = p.preSelf();
+                assertEquals(foliaTileAfterItsOwnEject, afterPreWriteBack,
+                    "PRE-sampled write-back is a no-op mirror — it writes N onto a tile Folia "
+                        + "already holds at N");
+
+                // POST-sampled write-back would push postSelf == N-1 onto the tile, removing a
+                // SECOND item on top of Folia's own eject: the double-ejector divergence.
+                int afterPostWriteBack = p.postSelf();
+                assertEquals(foliaTileAfterItsOwnEject - 1, afterPostWriteBack,
+                    "POST-sampled write-back double-ejects — it writes N-1 onto a tile Folia "
+                        + "holds at N");
+                assertTrue(afterPostWriteBack < foliaTileAfterItsOwnEject,
+                    "POST write-back strictly under-counts vs Folia = divergence");
+            }
+        }
+    }
+
+    @Test
     void multipleDroppersRenderAndParseInOrder() {
         List<DropperPhaseGrader.DropperPhaseSample> specs = new ArrayList<>();
         for (int i = 0; i < 5; i++) {

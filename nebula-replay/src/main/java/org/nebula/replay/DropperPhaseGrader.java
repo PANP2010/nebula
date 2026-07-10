@@ -36,9 +36,23 @@ import java.util.regex.Pattern;
  * CAS onto Folia — and the only offset is {@code post - pre}, the action's own single eject
  * step ({@code -1} for a pulsing dropper, {@code 0} for a resting one). The shadow steps at
  * Folia's rate; the BE-DROPPER-SLOT {@code +1} was purely that the slot grader sampled
- * {@code post} against a same-tick Folia read. Under this verdict a guarded write-back sampled
- * PRE-action could be honest — exactly the classification {@code eea10db} reached for the
- * furnace-timer {@code +1}.
+ * {@code post} against a same-tick Folia read. This is exactly the classification
+ * {@code eea10db} reached for the furnace-timer {@code +1}.
+ *
+ * <p><b>An ORDERING-ARTIFACT verdict clears the RATE concern but does NOT make an eject
+ * write-back useful — the dropper inherits the furnace-timer's DO-NOT-ARM conclusion
+ * (verified 2026-07-10).</b> With {@code pre == folia == N} (Folia already ejected this tick and
+ * the sync rebased CAS onto it) and {@code post == N-1}, both write-back options are dead ends
+ * while Nebula is observe-only: a write sampled PRE-action pushes {@code N} onto a tile Folia
+ * already holds at {@code N} — a pure no-op mirror that contributes nothing — and a write
+ * sampled POST-action pushes {@code N-1} onto a tile Folia holds at {@code N}, removing a
+ * SECOND item: the double-ejector divergence. Folia is authoritative and already did the eject,
+ * so the shadow has nothing to add. This grader's value is therefore <em>negative</em>: it
+ * PROVES the {@code +1} is not a rate bug (rules out a pre-action double-ejector), NOT that a
+ * write-back is worth arming. The exact parallel — and the same do-not-arm outcome from the
+ * identical ordering verdict — is recorded for the furnace in {@code eea10db}/{@code 7f6bfab}
+ * (see the {@code furnace-timer-writeback-is-double-writer} memory). The pin for this
+ * arithmetic lives in {@code DropperPhaseGraderTest.orderingArtifactDoesNotJustifyEjectWriteBack}.
  *
  * <p><b>RATE divergence (the trap):</b> {@code pre != folia} — CAS strayed from Folia BEFORE
  * the action, a gap {@code syncFromNms} should have erased, so the model's eject cadence
@@ -170,8 +184,9 @@ public final class DropperPhaseGrader {
      *                       before the action. Must be {@code >= 0}.
      * @return a report whose verdict is INCONCLUSIVE when no positions were sampled, PASS when
      *         every dropper's pre-action gap is within tolerance (the offset is a pure ordering
-     *         artifact — a write-back sampled pre-action could be honest), else FAIL (a genuine
-     *         rate divergence — leave the dropper to Folia)
+     *         artifact — the {@code +1} is not a rate bug, though this still does NOT justify
+     *         arming an eject write-back; see the class javadoc), else FAIL (a genuine rate
+     *         divergence — leave the dropper to Folia)
      */
     public static DropperPhaseReport grade(List<DropperPhaseSnapshot> snapshots, int toleranceItems) {
         if (snapshots == null) {
