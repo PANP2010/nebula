@@ -5,6 +5,8 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Container;
+import org.bukkit.block.Dispenser;
+import org.bukkit.block.Dropper;
 import org.bukkit.block.Furnace;
 import org.bukkit.block.Hopper;
 import org.bukkit.block.TileState;
@@ -30,6 +32,10 @@ import java.util.logging.Logger;
  *   <li><b>Furnace</b>: burn time, cook time, cook time total
  *       ({@link Furnace#getBurnTime()}, {@link Furnace#getCookTime()},
  *       {@link Furnace#getCookTimeTotal()}) and inventory slot counts.</li>
+ *   <li><b>Dropper/Dispenser</b>: its own inventory slot counts only — the eject
+ *       action ({@code BlockEntityActions.dropper}/{@code dispenser}) reads
+ *       {@code readSlot(self, s)}, so without this self-read it draws from a
+ *       phantom-empty container and ejects nothing.</li>
  * </ul>
  *
  * <p>Inventory is modelled as integer slot counts (item amounts) in the CAS store,
@@ -81,8 +87,19 @@ public final class NmsBlockEntityStateBridge {
             syncHopperFromNms(pos, hopper);
         } else if (state instanceof Furnace furnace) {
             syncFurnaceFromNms(pos, furnace);
+        } else if (state instanceof Dropper || state instanceof Dispenser) {
+            // A ticking dropper/dispenser's OWN inventory must reach CAS or its eject
+            // action reads a phantom-empty container and draws nothing (the dropper
+            // self-sync gap). Unlike a plain chest — which never ticks and stays a
+            // no-op below — a dropper/dispenser is a ticking task whose self slots the
+            // eject math reads via readSlot(self, s). Read only the slots: a
+            // dropper/dispenser's cooldown is Folia-authoritative and not modelled as a
+            // CAS field the eject action consumes.
+            syncContainerSlotsFromNms(pos, (Container) state);
         }
-        // Unknown tile entity types are silently skipped
+        // Unknown tile entity types (and plain chests/barrels, which never tick) are
+        // silently skipped — a non-ticking container is read as a hopper NEIGHBOUR via
+        // syncInventoryFromNms, not as a ticking self here.
     }
 
     /**
@@ -112,12 +129,7 @@ public final class NmsBlockEntityStateBridge {
         BlockState state = block.getState();
 
         if (state instanceof Container container) {
-            Inventory inv = container.getInventory();
-            for (int slot = 0; slot < inv.getSize(); slot++) {
-                ItemStack item = inv.getItem(slot);
-                int amount = item == null || item.getType() == Material.AIR ? 0 : item.getAmount();
-                casCommitField(pos, slotPath(slot), amount);
-            }
+            syncContainerSlotsFromNms(pos, container);
         }
         // Non-container blocks (air, solid) are silently skipped.
     }
@@ -223,6 +235,23 @@ public final class NmsBlockEntityStateBridge {
         // syncFurnaceFromNms does — but return them instead of committing to CAS.
         return new FurnaceTimerSample(
             furnace.getBurnTime(), furnace.getCookTime(), furnace.getCookTimeTotal());
+    }
+
+    /**
+     * Reads a {@link Container}'s per-slot item counts into CAS under the canonical
+     * {@code inventory.slots[N]} path — the slots-only read shared by a ticking
+     * dropper/dispenser's own {@code syncFromNms} and a hopper neighbour's
+     * {@link #syncInventoryFromNms}. Deliberately touches NO cooldown/timer field:
+     * the caller decides whether the container is a ticking self (dropper/dispenser)
+     * or a passive neighbour, and neither needs its cooldown clobbered here.
+     */
+    private void syncContainerSlotsFromNms(WorldPos pos, Container container) {
+        Inventory inv = container.getInventory();
+        for (int slot = 0; slot < inv.getSize(); slot++) {
+            ItemStack item = inv.getItem(slot);
+            int amount = item == null || item.getType() == Material.AIR ? 0 : item.getAmount();
+            casCommitField(pos, slotPath(slot), amount);
+        }
     }
 
     private void syncHopperFromNms(WorldPos pos, Hopper hopper) {

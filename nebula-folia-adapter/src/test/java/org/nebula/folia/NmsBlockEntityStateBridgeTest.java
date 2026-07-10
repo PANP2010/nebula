@@ -5,6 +5,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Container;
+import org.bukkit.block.Dropper;
 import org.bukkit.block.Furnace;
 import org.bukkit.block.Hopper;
 import org.bukkit.inventory.FurnaceInventory;
@@ -98,6 +99,28 @@ class NmsBlockEntityStateBridgeTest {
                 if (m.getName().equals("getCookTimeTotal")) return cookTimeTotal;
                 if (m.getName().equals("getInventory")) return inv;
                 if (m.getName().equals("update")) return true;
+                return def(m);
+            });
+    }
+
+    /**
+     * Creates a Dropper stub with {@code size} empty slots. A Dropper is a
+     * {@link Container} AND a ticking tile entity — the distinction from a plain chest
+     * stub is that {@code syncFromNms} must NOT skip it (its own inventory must reach
+     * CAS for the eject action to draw from).
+     */
+    private static Dropper dropperStub(int size) {
+        Inventory inv = (Inventory) Proxy.newProxyInstance(
+            Inventory.class.getClassLoader(), new Class<?>[]{Inventory.class},
+            (p, m, a) -> {
+                if (m.getName().equals("getSize")) return size;
+                if (m.getName().equals("getItem")) return null; // empty slots
+                return def(m);
+            });
+        return (Dropper) Proxy.newProxyInstance(
+            Dropper.class.getClassLoader(), new Class<?>[]{Dropper.class},
+            (p, m, a) -> {
+                if (m.getName().equals("getInventory")) return inv;
                 return def(m);
             });
     }
@@ -325,6 +348,38 @@ class NmsBlockEntityStateBridgeTest {
             "slot 0 must land at the canonical path the hopper action reads");
         assertEquals(0, casStore.get(new BlockEntityField(p, "inventory.slots[26]")),
             "last slot must be read too");
+    }
+
+    /**
+     * The dropper self-sync gap: a ticking dropper's OWN inventory MUST reach CAS via
+     * {@code syncFromNms}, or its eject action ({@code BlockEntityActions.dropper}) reads
+     * {@code readSlot(self, s)} against a phantom-empty container and draws nothing (the
+     * live no-op that motivated this branch). This is the discriminating contrast with
+     * {@link #syncInventoryFromNms_iteratesContainerSlots_whereSyncFromNmsSkips}: a plain
+     * chest is a {@link Container} that {@code syncFromNms} SKIPS (it never ticks), whereas
+     * a dropper is a ticking self whose slots {@code syncFromNms} MUST iterate.
+     */
+    @Test
+    void syncFromNms_iteratesDropperOwnSlots_forTheEjectAction() {
+        WorldPos p = pos(60);
+        Dropper dropper = dropperStub(9);
+        Block block = blockWithState(dropper);
+        World world = worldFor(p, block);
+
+        bridge.syncFromNms(world, p);
+
+        // Every one of the dropper's 9 slots must land at the canonical path the eject
+        // action reads — one CAS entry per slot (empty → 0, registry limits non-empty).
+        assertEquals(9, casStore.size(), "syncFromNms must iterate a dropper's own slots");
+        assertEquals(0, casStore.get(new BlockEntityField(p, "inventory.slots[0]")),
+            "slot 0 must land at the canonical path BlockEntityActions.dropper reads");
+        assertEquals(0, casStore.get(new BlockEntityField(p, "inventory.slots[8]")),
+            "last dropper slot must be read too");
+        // A dropper's cooldown is Folia-authoritative and not a CAS field the eject
+        // action consumes — syncFromNms must not fabricate one.
+        assertTrue(casStore.fields().stream()
+                .noneMatch(f -> f.fieldPath().value().equals("transfer_cooldown")),
+            "dropper self-sync reads slots only, not a cooldown");
     }
 
     /**
