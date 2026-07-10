@@ -12,7 +12,7 @@ load testing remain incomplete or unbuilt.
 
 ## Executive Summary
 
-Nebula has a solid architectural foundation with 17,305 lines of production code, 742 passing unit tests, and complete build toolchain integration.
+Nebula has a solid architectural foundation, a broad unit-test suite, and working Gradle/shadow-jar integration.
 
 **MILESTONE 1 (2026-07-08): The core DAG execution path now runs on a real Folia 26.1.2 server.** A live lever→wire→lamp circuit was toggled via RCON and produced repeatable, exception-free DAG ticks:
 
@@ -75,7 +75,7 @@ built, force-loaded, scanned, and *toggled*, the chain fired immediately.
 - Shadow jar packaging (513KB deployable plugin)
 - Java agent build and packaging
 - Java 21 (compile) + Java 25 (runtime for NMS adapter)
-- All 742 unit tests pass
+- All targeted unit suites used by shipped slices have passed in their verification cycles; rerun the relevant modules for every change
 
 ### ✅ Core Components (Unit-Tested)
 - **CAS state stores**: RedstoneWorldState, EntityPhysicsState, BlockEntityState
@@ -194,18 +194,18 @@ Detailed history of each blocker follows below (retained for the record).
 |---------|--------------------|
 | Three-phase tick execution | Now verified running (2026-07-08) |
 | MicroStepScheduler with microstep expansion | Now exercised by real redstone (2026-07-08) |
-| EntityTickExecutor MOVE/COLLISION | Created; not yet wired into the live tick path |
-| CompositeTaskRunner unified DAG | Wired; redstone path verified, entity path not yet |
+| EntityTickExecutor MOVE/COLLISION | MOVE now runs live and is guard-verified; COLLISION remains unseeded/unverified |
+| CompositeTaskRunner unified DAG | Wired; redstone, entity MOVE, and selected block-entity paths run live; broader subsystem routing remains partial |
 | NMS bridges | Interfaces work; per-tick sync cost now measured (B4), load testing open |
-| Zero-diff capture framework | Still never run end-to-end (B6) |
-| In-game commands | `/status`, `/scan` work; `/capture` still untested |
+| Zero-diff capture framework | Verified end-to-end; static 10k seed-consistency passes, with live-load and oracle limits documented above |
+| In-game commands | `/status`, `/scan`, `/capture`, `/perf`, `/diag`, and the Paper-only `/diff` have live evidence; command coverage is not exhaustive |
 
 ---
 
 ## Test Coverage Analysis
 
 ### What's Tested
-- ✅ 742 unit tests, all passing
+- ✅ Broad unit coverage across CAS stores, DAG scheduling, task factories, guard bridges, hashing, and replay; exact counts are intentionally not frozen in this status document
 - ✅ CAS state store operations
 - ✅ DAG topological sort
 - ✅ MicroStepScheduler logic
@@ -435,116 +435,25 @@ testing) is still blocked by DG1/DG2 — those criteria remain untouched.
 
 ---
 
-## Path Forward
+## Current Path Forward
 
-### Phase 1: Make It Work Once (Priority: P0)
+The redstone integration and differential milestones described above are complete. The next work is not a
+repeat of the 2026-07-08 bring-up plan:
 
-**Goal**: Get DAG to execute successfully on real Folia server with real redstone.
+1. **B8 C4 — fluid/explosion RW verification.** Their task factories are unit-tested, but they have no
+   execution context, actual-access tracer, guard bridge, or live tick integration. Build the pure tracer/
+   runner negative-control slice first; only then attempt small-scale Folia wiring.
+2. **B8 C5 — measured coverage inventory.** Feed `AnnotationCoverageDashboard` from a real method-level
+   hotspot inventory and expose it without hand-typed percentages.
+3. **DG2 breadth.** Extend entity work beyond MOVE before claiming entity acceptance: collision, item,
+   damage, AI, 50k zero-diff, and the formal random-budget workload remain open.
+4. **Broader acceptance.** Block-entity brewing/dispenser breadth, fluid/explosion live correctness, VAP
+   with real plugins, and 100-player load testing remain unverified.
 
-**Tasks**:
-1. ✅ Fix B1: RedstoneTickHook lifecycle (code committed, needs verification)
-2. ✅ Fix B2: ComponentMap sync scan (code committed, needs verification)
-3. ⏳ Verify B1/B2 fixes on test server
-4. ⏳ Verify B3: Agent interception chain
-5. ⏳ Add diagnostic logging throughout execution path
-6. ⏳ **Success criterion**: See "DAG tick: N tasks, M microsteps in Xms" in logs
-
-**ETA**: 2-3 days (assuming test server access)
-
----
-
-### Phase 2: Make It Correct (Priority: P1)
-
-**Goal**: Verify zero-diff property on simple redstone circuits.
-
-**Tasks**:
-1. Create minimal redstone test world (16-block wire, lever, lamp)
-2. Run 1k-tick capture (smaller than 10k for faster iteration)
-3. Verify state hashes match between runs
-4. Expand to 10k-tick DG1 acceptance test
-5. Measure MSPT baseline vs. Nebula
-
-**ETA**: 3-5 days
-
----
-
-### Phase 3: Make It Fast (Priority: P1)
-
-**Goal**: Minimize the DAG shadow's *added* overhead (not a "reduction" — see the DG1 Criterion 3 honesty note above; there is nothing to reduce while Nebula is observe-only).
-
-**Tasks**:
-1. Profile `executeOwnedDag` execution time breakdown
-2. Deduplicate syncFromNms/syncToNms by WorldPos
-3. Implement batch NMS operations
-4. Only sync positions that actually changed
-5. Re-measure MSPT
-
-**ETA**: 3-5 days
-
----
-
-### Phase 4: Expand Scope (Priority: P2)
-
-**Goal**: Entity subsystem integration and DG2 acceptance.
-
-**Tasks**:
-1. Wire EntityTickExecutor into real tick path
-2. Test with live entities (animals, monsters)
-3. 50k-tick entity zero-diff test
-4. Random budget verification under load
-
-**ETA**: 5-7 days
-
----
-
-## Risk Assessment
-
-### High-Risk Items
-
-1. **GlobalRegionScheduler timing**: May be out of sync with region tick loops
-   - **Mitigation**: If fails, inject via ASM into `RegionizedWorldServer.tick()`
-
-2. **Java 25 NMS compatibility**: Runtime may differ from compile-time assumptions
-   - **Mitigation**: Extensive logging, fallback to shadow executor
-
-3. **NMS bridge overhead too high**: May not achieve 30% MSPT reduction
-   - **Mitigation**: Optimize batch operations, consider caching strategies
-
-4. **Agent injection fragile**: May break on Folia updates
-   - **Mitigation**: Add runtime verification (sentinel fields), graceful degradation
-
----
-
-## Honest Conclusion
-
-**Nebula is not a playable release.** It's a sophisticated prototype with solid architecture but incomplete integration.
-
-### What We Have
-- Strong architectural foundation
-- High-quality, well-tested components
-- Complete build and deployment toolchain
-- Professional documentation structure
-
-### What We Need
-- **One successful end-to-end execution** proving the concept works
-- Integration test harness
-- Performance measurements on real workloads
-- Documentation that matches reality
-
-### Time to "Actually Playable"
-- **Optimistic**: 2-3 weeks (if B1/B2 fixes work immediately)
-- **Realistic**: 4-6 weeks (accounting for unexpected issues)
-- **Pessimistic**: 8-12 weeks (if fundamental approach needs revision)
-
----
-
-## Next Immediate Actions
-
-1. **Deploy B1/B2 fixes to test server** (today)
-2. **Place redstone dust and verify DAG executes** (today)
-3. **If DAG executes**: Move to Phase 2 (correctness testing)
-4. **If DAG fails**: Deep dive into agent interception chain (B3)
-5. **Update all documentation** to reflect actual status (ongoing)
+There is no credible calendar estimate for a playable release from the present evidence. The narrow
+redstone prototype is live and its parallel Paper differential passes; the whitepaper's full-system scope
+remains a long-horizon program. `TODO.md` is the task-level backlog, while this file records verified
+milestones and honest limits.
 
 ---
 
