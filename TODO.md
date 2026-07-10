@@ -6,21 +6,24 @@
 
 ---
 
-## 🚨 HONEST SCOPE (updated 2026-07-09)
+## 🚨 HONEST SCOPE (updated 2026-07-10)
 
 **Two ways to measure "how far along" — don't conflate them.**
 
 1. **Against the narrow current goal** (prove a deterministic redstone DAG runs on real Folia):
    the redstone slice is largely DONE and live-verified.
 2. **Against the whitepaper's full vision** (7 subsystems, ~250 RW annotations, VAP plugin layer,
-   T0–T3 tiers): roughly **~15–20% built, ~5% live-verified**. Only 1 of 7 subsystems (redstone)
-   is proven on real Folia. This is a **working prototype**, not a near-complete product.
+   T0–T3 tiers): the project remains an early prototype. Redstone is the only subsystem with the
+   decisive Paper differential; entity MOVE and block-entity hopper/furnace/dropper slices now run
+   live on Folia, but the wider entity/collision, fluid, explosion, AI, light, and VAP scope remains
+   partial or unbuilt. This is a **working prototype**, not a near-complete product.
 
 Both are true. The old "~50% complete / 10–18 days remaining" header measured only #1 and is
 deleted as misleading — the whitepaper is a multi-year plan, not days of work.
 
-### ✅ Verified on real Folia (redstone slice)
-- **End-to-end DAG execution** — live lever→wire→lamp toggles produce exception-free DAG ticks.
+### ✅ Verified on real Folia
+- **Redstone end-to-end + single-thread oracle** — live lever→wire→lamp toggles drive the DAG;
+  on Paper, the 12-worker DAG matched the single-thread authority 48/48 across two circuits.
 - **Deterministic zero-diff capture** — two identical captures → byte-for-byte identical `.nrp` files.
 - **Microstep bound + deep live expansion (DG1 Criterion 2)** — `/nebula perf` auto-grades ≤256;
   `/nebula diag` recorded `seedTasks=1 microsteps=14 modified=15` on a cold 15-wire toggle. Depth is
@@ -31,28 +34,37 @@ deleted as misleading — the whitepaper is a multi-year plan, not days of work.
   frames identical after a 6-frame cold-CAS transient. NOTE: this is Nebula-vs-Nebula seed-consistency.
 - **DG3 settled-state Folia-vs-Nebula gate** — `divergence-grade.sh --settled 4 --warmup 100` PASSes
   deterministically (0 diverged / 64 positions, 3 consecutive fresh boots, verified 2026-07-09).
+- **Entity MOVE slice** — region-threaded live DAG and the RW-guard clean after it caught and fixed
+  the swept-descent terrain footprint (`tracedTasks=163`). Vertical-only write-back is built behind a
+  defaults-OFF flag but was **not** live-armed in its implementation cycle.
+- **Block-entity slices** — hopper/furnace/dropper actions run region-threaded; the block-entity
+  RW-guard traced live hopper/furnace field accesses clean (`tracedTasks=48`), BE-SETTLED passed
+  multi-region hopper and 3-slot furnace workloads, and the dropper eject phase was measured live.
 
-### ⚠️ Built but NOT verified live (code exists, no decisive experiment)
-- Entity / physics / collision DAG (`nebula-entity`, 35 main files) — **not wired into the live tick path**.
+### ⚠️ Built but only partially verified live
+- Entity COLLISION/AI/item/damage task types — code/RW-sets exist, but only MOVE is live-seeded and
+  guard-verified; DG2 50k zero-diff is not done.
+- Block-entity BREWING and broader DISPENSER behavior — not exercised by the live guard workload;
+  block-entity write-back remains intentionally off because the amount-only model is lossy and the
+  measured hopper/furnace/dropper offsets are ordering artifacts, not honest write-back gaps.
 - Fluid + explosion task factories (`FluidTaskGenerator`, `ExplosionTaskFactory`) — unit-tested only.
-- RW-Set Integrity Guard (`nebula-guard-api`, 15 files; patch-001's P0 "Achilles' heel" protection) —
-  API built, bytecode tracer **never verified against real NMS access**.
 - VAP plugin layer (`nebula-core/vap`: ManagedStateProxy, MvccVersionStore, cert levels) — skeleton;
   **no real plugin has ever been run through it**.
-- Random shadow-execution / budget (present in code) — unverified live.
+- Random budget acceptance — block-entity dropper RNG is consumed live, but the formal entity
+  over-budget-rate workload remains unverified.
 
 ### ❌ Designed in the whitepaper, essentially UNBUILT
 - **Light subsystem** (whitepaper ch.10) — 0 implementation files.
 - **Entity AI / pathfinding** (ch.7: Sense/GoalSelect/Pathfind/Act) — 0 implementation files.
 - **RW-set coverage** — the determinism theorem *depends* on this; patch-001 calls it the project's
-  Achilles' heel. Honest state (verified 2026-07-09, not the old "7 of ~250 / 3%" which conflated two
-  things): the `@NebulaRW` *annotation* is applied to **0 methods** — RW-sets live instead as hand-built
-  `RWSet` builders in each `*TaskFactory` (the live path) plus `ComponentTemplate` reference records.
-  **Redstone RW-sets are complete** (27/27 component types, live + templated). **Entity subsystems** carry
-  real `RWSet`s but per-*task-type*, not per-NMS-method, and are not live-wired. The whitepaper's DG3
-  deliverable is a "full-system RW library (~250 functions)"; only redstone is inventoried against it.
-  **Zero annotations are runtime-*verified*** — the RW-guard (patch-001's whole point) has never run
-  against live NMS. See the full task breakdown section below.
+  Achilles' heel. The `@NebulaRW` *annotation* is still applied to **0 methods** — runtime RW-sets live
+  instead as hand-built `RWSet` builders in each `*TaskFactory` plus redstone's `ComponentTemplate`
+  reference records. Redstone factory-vs-template agreement is tested and its live guard has both clean
+  and deliberately-broken detection runs. Entity MOVE and live hopper/furnace block-entity actions are
+  also guard-verified. The remaining gap is breadth: collision/AI/item/damage, brewing/dispenser breadth,
+  fluid, explosion, and a real method-level hotspot inventory feeding the coverage dashboard. The
+  whitepaper's DG3 deliverable remains a "full-system RW library (~250 functions)"; current evidence is
+  per-live-task-type, not that full method inventory. See the task breakdown below.
 - **Folia-vs-Nebula divergence under sustained LIVE load** — settled-state passes; the driven
   square-wave residual-rate check is a known-limited signal (observe lag, not a bug). See memory
   `divergence-grade-needs-settled-sampling`.
@@ -520,25 +532,26 @@ real access, the DAG loses a dependency edge, two tasks that should serialize ru
 corrupts non-deterministically — the exact "ghost bug" T0 mode promises to prevent. The whitepaper's DG3
 deliverable (`docs/nebula-architecture.md:1217`) is a **full-system RW library of ~250 functions**.
 
-**Honest starting state (verified 2026-07-09 — read before trusting older "3%" claims):**
+**Current audited state (2026-07-10 — read before trusting older "3%" claims):**
 - The `@NebulaRW` *annotation type* (`nebula-core/.../annotations/NebulaRW.java`) is applied to **0 methods**.
   Real RW-sets are hand-built `RWSet` objects in the `*TaskFactory` classes (the live path), mirrored by
-  `ComponentTemplate` reference records in `RedstoneAnnotations`.
-- There are **two parallel representations** (factory `RWSet` vs annotation `ComponentTemplate`) that can
-  silently drift — no test asserts they agree field-by-field.
-- **Nothing is runtime-verified.** The RW-guard (patch-001 components A/B/C) exists in `nebula-guard-api`
-  but has never traced a real NMS access.
+  `ComponentTemplate` reference records for redstone.
+- Redstone's two representations are pinned field-by-field by tests; other subsystems do not yet have a
+  real method-level hotspot inventory or equivalent template-maintenance surface.
+- The runtime guard is live-proven: redstone has clean + deliberately-broken detection runs; entity MOVE
+  traced clean after a live violation fixed its terrain footprint; live hopper/furnace block-entity field
+  accesses traced clean. Runtime verification is therefore real but partial, not system-wide.
 
 **Per-subsystem status (methods with a real RWSet today):**
 
 | Subsystem            | RW-sets present                    | Live-wired | Runtime-verified | Gap |
 |----------------------|------------------------------------|-----------|------------------|-----|
-| Redstone             | ✅ 27/27 component types + templates | ✅ yes    | ❌ no            | verify vs guard; factory-vs-template drift test |
-| Entity (`nebula-entity`) | ⚠️ per task-type (MOVE/COLLISION/…), 7 types | ❌ no | ❌ no | wire into live tick path, then verify |
-| Block-entity         | ⚠️ per task-type, 6 types           | ❌ no      | ❌ no            | same |
-| Fluid                | ⚠️ per task-type, 4 types           | ❌ no      | ❌ no            | same |
-| Explosion            | ⚠️ per task-type, 5 types           | ❌ no      | ❌ no            | same |
-| Entity AI/pathfinding | ⚠️ per task-type, 5 types (`AITaskFactory`) | ❌ no | ❌ no    | ch.7 subsystem largely design-only |
+| Redstone             | ✅ 27/27 component types + templates | ✅ yes | ✅ block accesses | method-level inventory still absent |
+| Entity (`nebula-entity`) | ⚠️ per task-type, 7 types | ⚠️ MOVE only | ✅ MOVE only | collision/AI/item/damage remain unlive |
+| Block-entity         | ⚠️ per task-type, 6 types | ⚠️ hopper/furnace/dropper slices | ✅ live hopper/furnace field accesses | brewing/dispenser breadth unverified |
+| Fluid                | ⚠️ per task-type, 4 types           | ❌ no      | ❌ no            | wire + guard at small scale |
+| Explosion            | ⚠️ per task-type, 5 types           | ❌ no      | ❌ no            | wire + guard at small scale |
+| Entity AI/pathfinding | ⚠️ per task-type, 5 types (`AITaskFactory`) | ❌ no | ❌ no | ch.7 subsystem largely design-only |
 | Light (ch.10)        | ❌ 0 files                          | ❌         | ❌               | unbuilt |
 
 ### Tasks — ordered so each is ONE verifiable Ralph cycle
@@ -647,9 +660,11 @@ requires the decisive Folia experiment, not just a green unit test.
       yields the same `AccessTarget.block`. Pure-unit fix in nebula-guard-api; no live Folia run needed.
 
 **C. Extend & verify coverage subsystem by subsystem (each ⚡ needs the guard from B live)**
-- [ ] ⚡ C1. Wire the **entity** DAG (`EntityTaskFactory` MOVE/COLLISION) into the live tick path for
-      entity-dirty regions — the DG2 analogue of the first redstone DAG tick. First live entity DAG tick
-      is the milestone; zero-diff comes after.
+- [x] ⚡ C1. Wire the **entity** DAG into the live tick path for entity-dirty regions — the DG2
+      analogue of the first redstone DAG tick. **DONE for MOVE (2026-07-10):** region-threaded MOVE
+      tasks run live in OBSERVE mode with syncFromNms and terrain reads; vertical-only write-back is
+      built behind a defaults-OFF flag but its armed path remains not live-verified. COLLISION/AI/item/
+      damage remain unseeded.
 - [x] ⚡ C2. Run the guard against live entity movement; reconcile every violation into `EntityTaskFactory`
       RW-sets until a moving-mob workload traces clean. Use `AnnotationCoverageDashboard.report(...)` to
       record entity coverage as annotated/total once the hotspot method list is known.
@@ -668,10 +683,19 @@ requires the decisive Folia experiment, not just a green unit test.
       this verifies the live-wired MOVE action only; COLLISION/AI/item/damage remain unlive and
       therefore unverified. `AnnotationCoverageDashboard` remains C5 because no real NMS hotspot
       method inventory exists yet.
-- [ ] ⚡ C3. Same loop for **block-entity** (`BlockEntityTaskFactory`: hopper/dispenser/dropper item moves)
-      — SERIALIZED inventory transfers are the highest corruption risk if an RW-set is incomplete.
-- [ ] ⚡ C4. Same loop for **fluid** (`FluidTaskFactory`) and **explosion** (`ExplosionTaskFactory`) once
-      C1–C3 hold; these fan out widely so verify at small scale first.
+- [x] ⚡ C3. Same loop for **block-entity** (`BlockEntityTaskFactory`: hopper/furnace/dropper).
+      **DONE for the live-wired actions (2026-07-10):** commit 9f7aeea installed the production
+      `BlockEntityRwGuardTracer` + per-task hook behind `-Dnebula.rw.guard=true`; a real hopper workload
+      reached `tracedTasks=48 violations=0`, corroborated by 33 non-empty CAS entries, while the unit
+      negative control flags exactly an omitted furnace output-slot write. Subsequent live C3 slices
+      exercised multi-region hopper quiescence, the 3-slot furnace inventory branch, autonomous furnace
+      timer sampling, and RNG-backed dropper ejects. Honest scope: the clean live guard evidence covers
+      hopper/furnace field accesses; brewing and broader dispenser behavior remain runtime-unverified,
+      and write-back stays intentionally off because the amount-only inventory model is lossy and the
+      measured offsets are ordering artifacts.
+- [ ] ⚡ C4. Same loop for **fluid** (`FluidTaskFactory`) and **explosion** (`ExplosionTaskFactory`) now
+      that the live redstone/entity-MOVE/block-entity guard loop is proven; these fan out widely, so verify
+      at small scale first.
 - [ ] C5. Populate `AnnotationCoverageDashboard` from a real per-subsystem hotspot inventory (not
       hand-typed numbers) and surface it via a `/nebula coverage` command, so "coverage %" becomes a
       measured signal instead of a doc claim. Targets patch-002's decay goal (<5%/yr).

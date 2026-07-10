@@ -1,8 +1,12 @@
 # Nebula Project Status Report
 
-**Date**: 2026-07-09 (updated — **driven live-load zero-diff now verified AT THE DG1 TICK BAR**: `scripts/zerodiff-harness.sh 10000 8 --drive 42 --period 8` on real Folia 26.1.2 graded a CONVERGENT PASS — 9994/10000 frames byte-identical, a 6-frame cold-CAS opening transient, then locked identical through frame 10000; both 10k runs finished with no CAP_TIMEOUT and the transient grew only 3→6 frames going 2→8 sources. This is the driven live-load claim scaled to the DG1 tick count; it stays a DISTINCT, weaker claim than static Criterion 1 (Nebula-vs-Nebula seed consistency, not Folia-vs-Nebula divergence) and does NOT upgrade Criterion 1. See the "What is NOT Tested" driven section for details. — Earlier this day the DG1 Criterion 2 caveat was **CLOSED WITH LIVE EVIDENCE**. A new opt-in `/nebula diag on` probe logs, per `executeOwnedDag` invocation, the seed-task count and each seed's CAS-power-before vs. NMS-power-after-sync. On a real Folia toggle it captured, on the FIRST (cold) invocation: `seedTasks=1 microsteps=14 modified=15` — a single-task seed cascading the whole 15-wire line in ONE `executeTick`. So deep microstep expansion (14 steps) IS exercised live, not merely in-process. `/nebula perf` recorded max microsteps = 14 for this run. The earlier "live max = 1" observations were confirmed to be the SETTLED-STATE case: on a re-toggle every seed logged `cas=0→nms=0 (settled)` → 0 microsteps, because Folia had already propagated the signal before the observe-only shadow ran. Both prior open questions are answered: (a) the pipeline single-task-seeds (`seedTasks=1` on every line, matching `FoliaRegionTickExecutor`'s `List.of(task)`), and (b) that single seed DOES cascade live when it reads freshly-changed NMS state — the observe-only-ordering hypothesis is confirmed.)
+**Date**: 2026-07-10 (status reconciled through B9 D5, B8 C2, and the shipped B8 C3 block-entity evidence; historical sections below are retained but explicitly labelled)
 **Branch**: feat/fix-folia-scheduler-v2  
-**Completion**: ~57% (DG1 now has all three criteria PASSing at multi-region scale: Criterion 1 (10k-tick zero-diff, byte-identical `.nrp` files), Criterion 2 (microsteps ≤256 — **live deep expansion now verified: max 14 microsteps from a single-task seed on real Folia 2026-07-09**), and Criterion 3 (shadow-overhead budget, p99 1.914ms < 3ms). One caveat still keeps DG1 from unconditional acceptance: the Criterion 1 run uses a static captured world (proves capture+hash determinism, not DAG-under-live-load correctness). The Criterion 2 "does the single-task seed cascade live?" caveat is now RESOLVED: `/nebula diag` captured `seedTasks=1 microsteps=14 modified=15` on the first live toggle of a 15-wire line, and confirmed the earlier max=1 was simply the settled-state case (`cas→nms` unchanged, Folia settled first). Deep expansion (~14 microsteps) is thus proven BOTH in-process (`MicroStepDepthTest`) AND live.)
+**Completion**: early multi-subsystem prototype. Redstone has the strongest evidence (DG1 gates plus the
+Paper single-thread differential with a real DAG worker pool). Entity MOVE and selected block-entity
+hopper/furnace/dropper paths now run live on Folia and have targeted correctness/guard evidence. This is
+not a percentage claim: collision/AI, fluid, explosion, light, VAP certification, full DG2/DG3, and broad
+load testing remain incomplete or unbuilt.
 
 ---
 
@@ -20,7 +24,12 @@ Toggling the lever ON produced 30 DAG ticks; toggling OFF produced 15 more. Zero
 
 **MILESTONE 2 (2026-07-08): Deterministic zero-diff capture now works end-to-end.** After fixing the capture path (see B6 below), two identical 40-tick captures on the live server produced **byte-for-byte identical `.nrp` files** — empirically demonstrating the deterministic-replay property the project was built to prove.
 
-**What is still NOT verified**: performance under load. Per-tick MSPT measurement now exists (`TickTimeRecorder` + `/nebula perf`, commit be85033) and is Folia-verified on a small circuit (steady-state avg 1.24ms / p50 0.95ms / p95 2.86ms / p99 3.47ms over 100 ticks). What remains is load testing on large multi-region circuits. Note that `/nebula perf` measures the DAG's *added* overhead on top of Folia — it is not, and under the current architecture cannot be, a reduction (see the DG1 Criterion 3 note below). The project is a working prototype with two proven properties and a working perf-measurement surface, not a performance-validated or "playable" release.
+**What is still NOT verified**: full DG2/DG3 acceptance and broad subsystem coverage. The entity live
+path currently seeds MOVE only; collision/AI/item/damage remain unverified. Block-entity hopper/furnace/
+dropper slices run live and have targeted guard/divergence measurements, but brewing and broader dispenser
+behavior are not live-verified and write-back is intentionally off. Fluid/explosion are unit-only; light,
+real-plugin VAP certification, and 100-player load testing remain open. Redstone's p99 shadow overhead is
+verified within the 3ms budget at scale, but that does not make the whole server performance-validated.
 
 This document provides an honest assessment of what works, what doesn't, and the path forward.
 
@@ -209,17 +218,31 @@ Detailed history of each blocker follows below (retained for the record).
 - ✅ **Deep microstep expansion verified LIVE (2026-07-09)** — `/nebula diag on` logs each `executeOwnedDag` invocation's seed count and per-seed `cas-before→nms-after` state. First (cold) toggle of a 15-wire line produced `seedTasks=1 microsteps=14 modified=15`: a single-task seed (matching `FoliaRegionTickExecutor`'s `List.of(task)`) cascaded the whole line in ONE `executeTick`. `/nebula perf` recorded max microsteps 14 for the run. The earlier "live max = 1" was confirmed to be the settled case: a re-toggle logged every seed as `cas=0→nms=0 (settled)` → 0 microsteps, because the observe-only shadow ran after Folia had already propagated. This closes the long-standing "does the single seed cascade live?" caveat with evidence
 - ✅ Microstep count is governed by dirty-set *shape*, not circuit topology — a single leading-edge seed into a freshly-unsettled straight wire expands over ~14 microsteps, while the same wire seeded whole collapses to ≤1 (`MicroStepDepthTest`, 2026-07-08); now corroborated live (2026-07-09) — the cold single-seed toggle expanded 14 microsteps on real Folia
 
+- ✅ **Entity MOVE live path + guard (2026-07-10)** — region-threaded MOVE tasks run in OBSERVE mode;
+  a falling-cow guard run caught the swept-descent terrain declaration gap, and the reconciled RW-set
+  then traced `163` tasks with `0` violations. Collision/AI/item/damage remain unlive.
+- ✅ **Block-entity live slices + guard (2026-07-10)** — hopper/furnace/dropper tasks run on owning
+  region threads. The production block-entity guard traced a real hopper workload clean
+  (`tracedTasks=48 violations=0`, with non-empty CAS evidence); BE-SETTLED passed multi-region hopper
+  fan-in and a 3-slot furnace inventory workload, and the dropper eject action/RNG path ran live.
+
 ### What's NOT Tested
 - ⚠️ Zero-diff under sustained *live* redstone activity — **driven evidence now AUTOMATED and verified AT THE DG1 TICK BAR, 2026-07-09, see below**. The 10k-tick DG1 Criterion 1 run still captures a **static** world (see the DG1 Criterion 1 note); a driven `--drive <seed>` mode exists in both the plugin AND `scripts/zerodiff-harness.sh`, and this cycle it produced a reproducible CONVERGENT PASS on real toggled levers at **10,000 ticks / 8 region-spaced sources** (9994/10000 frames byte-identical, a 6-frame cold-CAS opening transient). This is the driven live-load claim scaled to the DG1 tick count; it is still a DISTINCT, weaker claim than the static-world Criterion 1 (Nebula-vs-Nebula seed consistency, not Folia-vs-Nebula divergence) and does NOT upgrade Criterion 1.
 
   **DRIVEN LIVE-LOAD ZERO-DIFF — now automated end-to-end (2026-07-09).** The pure driver stack (`DeterministicToggleSchedule` → `LiveLoadToggleDriver` → `CanonicalToggleSources` → `FoliaToggleApplier`) is wired through the `FoliaCaptureHarness.TickDriver` seam via `/nebula capture start <ticks> --drive <seed> [--period <n>]`, and `scripts/zerodiff-harness.sh --drive <seed>` now drives the whole experiment: it heads each region-spaced circuit with a real LEVER, `/nebula scan`-registers them as toggle sources, runs a throwaway warm-up capture to prime the CAS store, resets+settles the levers, then runs two seeded driven captures and **grades them at the FRAME level** (not just a bare sha256). **Verified AT THE DG1 TICK BAR on real Folia 26.1.2 (2026-07-09): 10,000 ticks, 8 region-spaced lever circuits, seed 42, period 8.** The two driven captures were **frame-for-frame identical for 9994/10000 frames** (both files 430,010 bytes; sha256 `5431b3cb…` vs `c0ba0aec…`) — they diverged only in a **6-frame contiguous opening transient** (last differing frame 5, converged from frame 6), then locked onto the identical trajectory from frame 6 through frame 10000. The harness grades this an honest **CONVERGENT PASS** (exit 0): a transient confined to a small contiguous prefix (≤ CONVERGE_MAX=64) that then stays locked is deterministic-under-load; ANY divergence *after* convergence would be graded a real FAIL. This answers the two open scale questions from the prior (2-source/200-tick) run: (a) the transient did NOT blow up with source count — it grew only from 3 frames (2 sources) to 6 frames (8 sources), still a tiny contiguous prefix; and (b) both 10k driven runs completed within the wall-clock cap (no CAP_TIMEOUT), each recording 10000 frames. Result file: `bench-results/zerodiff-20260709-032503.txt`. This proves the DAG is deterministic under a seed-reproducible LIVE toggle stream at the DG1 tick count once the cold-start transient settles — a DISTINCT, weaker claim than the static-world Criterion 1 (it is a Nebula-vs-Nebula seed-consistency check, NOT a Folia-vs-Nebula divergence check), and it does NOT upgrade Criterion 1 (still static-world). The transient is inherent to a never-settling square wave starting from an empty CAS store, not a determinism bug. Prior smaller run for the record (2026-07-09, same cycle-day): 200 ticks / 2 sources → 197/200 identical, 3-frame transient.
 - ✅ **RESOLVED 2026-07-09** — Microstep expansion at scale on a *live* server. Previously listed as unverified. `/nebula diag` (per-invocation task-count + `cas→nms` cascade logging on live Folia) now shows: (a) the pipeline single-task-seeds (`seedTasks=1` on every invocation, matching `List.of(task)`), and (b) a single-task seed DOES cascade deeply live — the first cold toggle of a 15-wire line logged `seedTasks=1 microsteps=14 modified=15`. The earlier max-of-1 was the settled-state case (`cas=0→nms=0` on re-toggle: Folia propagated before the observe-only shadow ran, so no downstream change to detect). Deep expansion (~14 microsteps) is thus proven BOTH in-process (`MicroStepDepthTest`) AND live.
-- ⚠️ NMS bridge performance under real *load* / MSPT comparison (B4 — per-tick measured, load testing open)
-- ❌ Multi-region coordination *correctness* at scale (only overhead + static zero-diff verified so far)
-- ❌ Entity subsystem on a live server
-- ❌ Automated (non-manual) integration regression for the E2E path
+- ⚠️ Redstone multi-region coordination correctness has strong settled-state and Paper-oracle evidence,
+  but not an exhaustive circuit-family or worker-count sweep.
+- ❌ Entity DG2 breadth: MOVE is live, but collision/AI/item/damage, 50k zero-diff, and formal random
+  over-budget acceptance remain unverified.
+- ⚠️ Block-entity breadth: live guard evidence covers hopper/furnace field accesses and the dropper
+  action runs live; brewing and broader dispenser semantics remain unverified, and write-back is off.
+- ❌ Fluid/explosion live integration, light, real-plugin VAP certification, and 100-player load testing.
+- ❌ Automated (non-manual) integration regression for the full multi-subsystem E2E path.
 
-**Note**: Unit coverage is high and the core E2E path is verified on real Folia, as is deterministic zero-diff capture. Per-tick performance is measured but only on a small circuit; performance *under load* remains unverified — do not read the single small-circuit measurement as proof of scale.
+**Note**: Unit coverage is high and targeted redstone/entity/block-entity live paths have been exercised.
+Redstone shadow overhead is measured at multi-region scale (p99 1.914ms < 3ms), but whole-server and
+100-player load testing remain unverified; do not generalize the redstone budget result to the full scope.
 
 ---
 
@@ -290,10 +313,13 @@ Detailed history of each blocker follows below (retained for the record).
 
 | Criterion | Target | Current Status |
 |-----------|--------|----------------|
-| Zero-diff for 50k ticks | Pass | ❌ Entity executor never used |
-| Random budget violations | <1% | ✅ Unit tests pass |
+| Zero-diff for 50k ticks | Pass | ❌ Not run; MOVE-only live path is not DG2 breadth |
+| Random budget violations | <1% | ⚠️ Unit tests pass; formal live entity workload not run |
 
-**Verdict**: DG2 acceptance blocked by DG1.
+**Verdict**: DG2 remains open. The first live entity MOVE tick, divergence instrumentation, and MOVE
+RW-guard verification are complete. Vertical-only write-back is implemented behind a defaults-OFF flag
+but was not live-armed in its implementation cycle. The 50k multi-entity acceptance workload and other
+entity task types are not complete.
 
 ---
 
@@ -382,7 +408,19 @@ testing) is still blocked by DG1/DG2 — those criteria remain untouched.
 > This closes C2 for the live-wired MOVE action only; collision/AI/item/damage task types are
 > not live-wired and remain runtime-unverified.
 >
-
+> **⚡ B8 C3 MILESTONE (2026-07-10): live block-entity DAG and RW-guard evidence.**
+> Hopper/furnace/dropper task slices now run on owning Folia region threads with canonical CAS field
+> paths and real NMS sync. Commit `9f7aeea` installed `BlockEntityRwGuardTracer` and the exact per-task
+> guard boundary behind `-Dnebula.rw.guard=true`; a real hopper workload reached
+> **`tracedTasks=48 violations=0 (clean)`**, corroborated by 33 non-empty CAS entries, while the unit
+> negative control flags exactly an omitted furnace output-slot write. Later C3 slices exercised the
+> BE-SETTLED gate across multiple regions (including its injected-FAIL path), the 3-slot furnace
+> inventory branch, autonomous furnace timer sampling, and RNG-backed dropper ejects. Honest scope:
+> live clean guard evidence covers hopper/furnace field accesses, not every declared block-entity type;
+> brewing and broader dispenser behavior remain runtime-unverified. Write-back remains deliberately
+> off because the amount-only inventory model cannot create item types and the measured timer/eject
+> offsets are ordering artifacts, not missing authoritative writes.
+>
 ### Why Did This Happen?
 
 1. **Over-reliance on unit tests**: 659 passing tests created confidence without integration verification
