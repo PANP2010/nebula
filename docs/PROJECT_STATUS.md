@@ -28,9 +28,10 @@ Toggling the lever ON produced 30 DAG ticks; toggling OFF produced 15 more. Zero
 path currently seeds MOVE only; collision/AI/item/damage remain unverified. Block-entity hopper/furnace/
 dropper slices run live and have targeted guard/divergence measurements, but brewing and broader dispenser
 behavior are not live-verified and write-back is intentionally off. Fluid now has a tiny live,
-region-threaded `BlockFromToEvent` path whose real six-block footprint traces clean under the RW guard,
-but its action remains an observe-only footprint model rather than faithful vanilla fluid physics;
-explosion remains pure/unit-only. Light,
+region-threaded `BlockFromToEvent` path whose real six-block footprint traces clean under the RW guard.
+Its pure action models the immediate depth/direction rules that fit that snapshot (downward flow first,
+falling level 8, water/lava horizontal drop-off), but still omits slope search, collision shapes, source
+conversion, waterlogging, and fluid reactions; explosion remains pure/unit-only. Light,
 real-plugin VAP certification, and 100-player load testing remain open. Redstone's p99 shadow overhead is
 verified within the 3ms budget at scale, but that does not make the whole server performance-validated.
 
@@ -443,12 +444,13 @@ testing) is still blocked by DG1/DG2 — those criteria remain untouched.
 The redstone integration and differential milestones described above are complete. The next work is not a
 repeat of the 2026-07-08 bring-up plan:
 
-1. **B8 C4 — replace the fluid footprint model before explosion.** The first tiny live fluid slice runs
+1. **B8 C4 — continue fluid fidelity before explosion.** The first tiny live fluid slice runs
    from a real `BlockFromToEvent` on the owning region thread and traces its self + five-neighbour
    accesses clean. Its complementary live negative control also caught the deliberately omitted west
    read at the exact coordinate and emitted actionable JSONL, proving the production guard has detection
-   power. The next work is faithful depth/direction semantics before considering write-back or wider
-   explosion fan-out.
+   power. The pure action now has immediate depth/direction semantics, but faithful slope selection,
+   passability/collision, source conversion, waterlogging, and fluid reactions remain before any
+   write-back or wider explosion fan-out.
 2. **B8 C5 — measured coverage inventory.** Feed `AnnotationCoverageDashboard` from a real method-level
    hotspot inventory and expose it without hand-typed percentages.
 3. **DG2 breadth.** Extend entity work beyond MOVE before claiming entity acceptance: collision, item,

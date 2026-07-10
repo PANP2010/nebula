@@ -13,8 +13,8 @@ import java.util.Objects;
  *
  * <h3>RW-set templates</h3>
  * <ul>
- *   <li><b>WATER_FLOW:</b> reads self + 5 neighbours (down, N/S/E/W), writes self,
- *       may write flow-to positions, fires BLOCK_UPDATE on depth change</li>
+ *   <li><b>WATER_FLOW:</b> reads self + 5 neighbours (down, N/S/E/W), writes possible
+ *       flow-to positions, fires BLOCK_UPDATE on depth change</li>
  *   <li><b>LAVA_FLOW:</b> same structure, different depth limit</li>
  *   <li><b>FLUID_REMOVE:</b> reads self, writes self (clears fluid), fires BLOCK_UPDATE</li>
  * </ul>
@@ -61,7 +61,7 @@ public final class FluidTaskFactory {
     /**
      * Fluid flow RW-set (arch doc §8.2):
      * reads self + down + 4 horizontal neighbours,
-     * writes self + all positions fluid may flow to.
+     * writes all positions fluid may flow to.
      */
     private static RWSet flowRw(FluidSnapshot s) {
         WorldPos self = s.pos();
@@ -71,8 +71,7 @@ public final class FluidTaskFactory {
             .readBlock(s.north())
             .readBlock(s.south())
             .readBlock(s.east())
-            .readBlock(s.west())
-            .writeBlock(self);
+            .readBlock(s.west());
 
         // Fluid may flow to any of 5 adjacent positions
         b.writeBlock(s.down())

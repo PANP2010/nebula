@@ -52,7 +52,7 @@ final class FluidRwGuardBridgeTest {
         assertTrue(violations.isEmpty(), "fluid action's real block accesses must be declared: " + violations);
         assertEquals(java.util.Set.of(SELF, FLUID.down(), FLUID.north(), FLUID.south(),
             FLUID.east(), FLUID.west()), actual.readBlocks());
-        assertEquals(java.util.Set.of(SELF, FLUID.down()), actual.writtenBlocks());
+        assertEquals(java.util.Set.of(FLUID.down()), actual.writtenBlocks());
     }
 
     @Test
@@ -64,7 +64,6 @@ final class FluidRwGuardBridgeTest {
             .readBlock(FLUID.south())
             .readBlock(FLUID.east())
             .readBlock(FLUID.west())
-            .writeBlock(SELF)
             // downward write intentionally omitted
             .writeBlock(FLUID.north())
             .writeBlock(FLUID.south())

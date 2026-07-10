@@ -7,7 +7,7 @@ import org.nebula.core.state.WorldPos;
  *
  * @param pos       world position of the fluid source/flow block
  * @param type      fluid task type (water or lava)
- * @param depth     current fluid depth (0-7 for water, 0-3 for lava)
+ * @param depth     Bukkit legacy fluid level: source 0, horizontal flow 1-7, falling 8-15
  * @param isSource  whether this is a source block (infinite supply)
  */
 public record FluidSnapshot(

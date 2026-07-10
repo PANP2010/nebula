@@ -723,8 +723,16 @@ requires the decisive Folia experiment, not just a green unit test.
             The temporary break was reverted byte-for-byte, then Java 21 entity/adapter/plugin tests and
             the shaded build passed. Together with the prior clean run, this proves the live fluid guard
             has detection power rather than merely producing a false-clean empty trace.
-            Next C4 slice: replace the generic footprint action with faithful depth/direction semantics
-            before any write-back or explosion fan-out.
+      - [x] **C4 fluid depth/direction slice DONE (2026-07-10):** replaced the footprint probe's
+            self-copy/first-empty behavior with the immediate vanilla level rules that fit the existing
+            six-block snapshot: downward flow wins and writes falling level 8; blocked-down water advances
+            one horizontal legacy level; overworld lava advances two and Nether lava one; exhausted levels
+            stop; occupied neighbours are preserved. The action no longer rewrites unchanged self state,
+            and the factory RW-set/guard expectations were narrowed accordingly. Unit coverage pins all
+            branches. This is still observe-only and deliberately incomplete: no slope-distance choice,
+            collision/passability, source conversion, waterlogging, reactions, or write-back is claimed.
+            Next C4 slice: add the smallest honest passability/slope-selection state needed to choose among
+            horizontal directions; do not arm write-back or copy explosion fan-out yet.
       - [x] **C4 explosion pure slice DONE (2026-07-10):** added a real `ExplosionContext` +
             per-task block/entity snapshots, canonical ray/destroy/damage actions, and
             `ExplosionRwGuardTracer` covering block, entity-field, and random accesses.

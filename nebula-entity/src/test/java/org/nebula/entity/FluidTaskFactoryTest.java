@@ -45,8 +45,8 @@ class FluidTaskFactoryTest {
         assertTrue(rw.declaresBlockRead(new WorldPos(0, 51, 64, 50))); // east
         assertTrue(rw.declaresBlockRead(new WorldPos(0, 49, 64, 50))); // west
 
-        // Writes self + flow-to positions
-        assertTrue(rw.declaresBlockWrite(WATER_POS));
+        // Writes every possible flow-to position, but does not rewrite unchanged self state
+        assertFalse(rw.declaresBlockWrite(WATER_POS));
         assertTrue(rw.declaresBlockWrite(new WorldPos(0, 50, 63, 50))); // down
         assertTrue(rw.declaresBlockWrite(new WorldPos(0, 50, 64, 49))); // north
 
