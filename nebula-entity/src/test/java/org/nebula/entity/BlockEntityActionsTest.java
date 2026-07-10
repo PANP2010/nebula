@@ -1,11 +1,14 @@
 package org.nebula.entity;
 
 import org.junit.jupiter.api.Test;
+import org.nebula.core.random.DeterministicRandom;
 import org.nebula.core.state.BlockEntityField;
 import org.nebula.core.state.WorldPos;
 import org.nebula.entity.actions.BlockEntityActions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Pins the pure item math in {@link BlockEntityActions} branch-by-branch.
@@ -191,5 +194,107 @@ class BlockEntityActionsTest {
 
         assertEquals(0, state.get(field(POS, "transfer_cooldown")),
             "no move means the cooldown stays unarmed");
+    }
+
+    // -------------------------------------------------- dropper / dispenser
+
+    @Test
+    void selectDispenseSlotReturnsMinusOneWhenAllEmpty() {
+        // An empty container dispenses nothing and — critically — draws NO random calls,
+        // matching vanilla's reservoir loop which only rolls at non-empty slots.
+        DeterministicRandom rng = new DeterministicRandom(1234L);
+        int[] slots = new int[BlockEntityActions.DISPENSER_CONTAINER_SIZE];
+
+        assertEquals(-1, BlockEntityActions.selectDispenseSlot(slots, rng));
+        assertEquals(0, rng.callsMade(), "no non-empty slot means no RNG draw");
+    }
+
+    @Test
+    void selectDispenseSlotPicksTheSoleNonEmptySlot() {
+        // With exactly one loaded slot, the reservoir always keeps it — nextInt(1) is
+        // always 0 — and draws exactly once regardless of the seed.
+        for (long seed : new long[]{0L, 1L, 42L, -7L}) {
+            DeterministicRandom rng = new DeterministicRandom(seed);
+            int[] slots = new int[BlockEntityActions.DISPENSER_CONTAINER_SIZE];
+            slots[4] = 3;
+            assertEquals(4, BlockEntityActions.selectDispenseSlot(slots, rng),
+                "sole non-empty slot must be chosen for seed " + seed);
+            assertEquals(1, rng.callsMade(), "exactly one draw for one non-empty slot");
+        }
+    }
+
+    @Test
+    void selectDispenseSlotDrawsOncePerNonEmptySlot() {
+        // The draw COUNT — not just the choice — must equal the number of non-empty slots,
+        // because every task sharing this RNG instance depends on the stream position it
+        // leaves behind. Three loaded slots ⇒ exactly three nextInt calls.
+        DeterministicRandom rng = new DeterministicRandom(99L);
+        int[] slots = new int[BlockEntityActions.DISPENSER_CONTAINER_SIZE];
+        slots[0] = 1;
+        slots[3] = 2;
+        slots[8] = 5;
+
+        int chosen = BlockEntityActions.selectDispenseSlot(slots, rng);
+
+        assertEquals(3, rng.callsMade(), "one draw per non-empty slot");
+        assertTrue(chosen == 0 || chosen == 3 || chosen == 8,
+            "the chosen slot must be one of the non-empty ones, was " + chosen);
+    }
+
+    @Test
+    void selectDispenseSlotMatchesVanillaReservoirForAFixedSeed() {
+        // Lock the exact vanilla algorithm: re-run the decompiled getRandomSlot loop with
+        // an independent Random on the same seed and assert byte-identical choice + draw
+        // count. If selectDispenseSlot ever deviates from getRandomSlot, this fails.
+        long seed = 20260710L;
+        int[] slots = {2, 0, 4, 0, 0, 1, 7, 0, 3};
+
+        java.util.Random ref = new java.util.Random(seed);
+        int expected = -1;
+        int replaceOdds = 1;
+        int expectedDraws = 0;
+        for (int i = 0; i < slots.length; i++) {
+            if (slots[i] > 0) {
+                expectedDraws++;
+                if (ref.nextInt(replaceOdds++) == 0) {
+                    expected = i;
+                }
+            }
+        }
+
+        DeterministicRandom rng = new DeterministicRandom(seed);
+        assertEquals(expected, BlockEntityActions.selectDispenseSlot(slots, rng),
+            "must match vanilla getRandomSlot's choice");
+        assertEquals(expectedDraws, rng.callsMade(),
+            "must match vanilla getRandomSlot's draw count");
+    }
+
+    @Test
+    void hasDispensableItemAgreesWithSelectAcrossASlotMatrix() {
+        // Anti-drift: hasDispensableItem must be exactly (selectDispenseSlot != -1). Sweep
+        // empty, single-loaded (each position), and multi-loaded containers. Use a fresh
+        // RNG per cell so the selection draw count cannot leak between cells.
+        int size = BlockEntityActions.DISPENSER_CONTAINER_SIZE;
+
+        // All empty.
+        int[] empty = new int[size];
+        assertFalse(BlockEntityActions.hasDispensableItem(empty));
+        assertEquals(-1, BlockEntityActions.selectDispenseSlot(empty, new DeterministicRandom(0L)));
+
+        // Each single-loaded position.
+        for (int i = 0; i < size; i++) {
+            int[] slots = new int[size];
+            slots[i] = 1;
+            boolean has = BlockEntityActions.hasDispensableItem(slots);
+            boolean selected = BlockEntityActions.selectDispenseSlot(slots, new DeterministicRandom(i)) != -1;
+            assertTrue(has, "single loaded slot " + i + " must be dispensable");
+            assertEquals(has, selected, "gate must agree with select at slot " + i);
+        }
+
+        // Fully loaded.
+        int[] full = new int[size];
+        java.util.Arrays.fill(full, 64);
+        assertTrue(BlockEntityActions.hasDispensableItem(full));
+        assertTrue(BlockEntityActions.selectDispenseSlot(full, new DeterministicRandom(7L)) != -1);
     }
 }

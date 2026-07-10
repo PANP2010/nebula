@@ -1,5 +1,6 @@
 package org.nebula.entity.actions;
 
+import org.nebula.core.random.DeterministicRandom;
 import org.nebula.core.state.WorldPos;
 import org.nebula.entity.BlockEntityAction;
 import org.nebula.entity.BlockEntityContext;
@@ -25,6 +26,8 @@ public final class BlockEntityActions {
     public static final int COOK_TOTAL = 200;
     /** Fuel ticks granted per fuel item consumed (one standard burn). */
     public static final int FUEL_PER_ITEM = 200;
+    /** Slot count of a dropper/dispenser container (MC DispenserBlockEntity.CONTAINER_SIZE). */
+    public static final int DISPENSER_CONTAINER_SIZE = 9;
 
     private BlockEntityActions() {}
 
@@ -159,5 +162,64 @@ public final class BlockEntityActions {
         // with a fuel item available ignites (consuming it) — both mutate. With neither,
         // the action can only decay existing cook progress.
         return fuelTime > 0 || fuel > 0 || cookProgress > 0;
+    }
+
+    /**
+     * Faithful port of {@code DispenserBlockEntity.getRandomSlot} (MC 1.21.4): a
+     * reservoir sample over the {@code slotCount} inventory slots that picks one
+     * non-empty slot uniformly at random, or {@code -1} when every slot is empty.
+     *
+     * <p><b>Why an exact port, not a one-call {@code nextInt(slotCount)}.</b> Vanilla's
+     * selection walks every slot and, at the {@code n}-th non-empty one, replaces the
+     * running pick with probability {@code 1/n} — {@code random.nextInt(replaceOdds++) == 0}.
+     * That draws {@code nextInt} <em>once per non-empty slot</em>, not once total, so its
+     * RNG consumption (and therefore the seeded stream position for every task that
+     * shares this random instance) depends on how many slots hold items. A single
+     * {@code nextInt(slotCount)} would pick a different slot AND consume a different
+     * number of RNG calls, diverging from Folia on both the choice and every subsequent
+     * draw. The layered-RNG determinism theorem only holds if the shadow's draw count
+     * matches vanilla's exactly, which is why the dropper/dispenser RW-set must declare a
+     * budget of {@code slotCount} (worst case: all slots full), not {@code 1}.
+     *
+     * @param slotCounts item count in each of the {@code slotCount} slots (index = slot)
+     * @param rng        the per-task deterministic stream, drawn once per non-empty slot
+     * @return the chosen slot index, or {@code -1} if all slots are empty
+     */
+    public static int selectDispenseSlot(int[] slotCounts, DeterministicRandom rng) {
+        int chosen = -1;
+        int replaceOdds = 1;
+        for (int i = 0; i < slotCounts.length; i++) {
+            if (slotCounts[i] > 0 && rng.nextInt(replaceOdds++) == 0) {
+                chosen = i;
+            }
+        }
+        return chosen;
+    }
+
+    /**
+     * Pure activity gate for a dropper/dispenser: {@code true} iff a trigger tick would
+     * dispense something — i.e. at least one of the {@code slotCount} slots is non-empty,
+     * so {@link #selectDispenseSlot} would return a real slot rather than {@code -1}.
+     *
+     * <p><b>Why a gate at all.</b> Unlike a furnace, a dropper/dispenser does not tick
+     * autonomously — it fires only on a redstone rising edge. The live seeder (a later
+     * B8 C3 slice) reacts to that pulse, but it still needs a predicate answering "given
+     * this container's CAS slots, would a fire actually eject an item?" so a pulsed-but-
+     * empty dispenser is treated as quiescent (no divergence to grade) and a pulsed
+     * loaded one is re-seeded. This mirrors {@link #furnaceWillMutate}'s role for the
+     * autonomous furnace path, and is deliberately colocated with
+     * {@link #selectDispenseSlot} so the two cannot drift: {@code hasDispensableItem} is
+     * exactly the {@code selectDispenseSlot(...) != -1} condition, and
+     * {@code BlockEntityActionsTest} cross-checks that equivalence over a slot matrix.
+     *
+     * @param slotCounts item count in each of the {@code slotCount} slots
+     */
+    public static boolean hasDispensableItem(int[] slotCounts) {
+        for (int count : slotCounts) {
+            if (count > 0) {
+                return true;
+            }
+        }
+        return false;
     }
 }

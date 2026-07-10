@@ -229,7 +229,11 @@ public final class BlockEntityTaskFactory {
             b.writeBlockEntity(new BlockEntityField(self, "inventory.slots[" + slot + "]"));
         }
 
-        b.randomUsage(new RandomUsage(RandomInstance.WORLD_RANDOM, 1))
+        // getRandomSlot draws nextInt ONCE PER NON-EMPTY SLOT (reservoir sampling), so the
+        // worst-case (every slot loaded) is slotCount draws, not 1. Under-declaring the
+        // budget would let the shadow's RNG stream position drift from Folia's after the
+        // first fire — see BlockEntityActions.selectDispenseSlot.
+        b.randomUsage(new RandomUsage(RandomInstance.WORLD_RANDOM, s.slotCount()))
             .writeEvent(EventType.INVENTORY_CHANGED);
         return b.build();
     }
@@ -249,7 +253,9 @@ public final class BlockEntityTaskFactory {
             b.writeBlockEntity(new BlockEntityField(self, "inventory.slots[" + slot + "]"));
         }
 
-        b.randomUsage(new RandomUsage(RandomInstance.WORLD_RANDOM, 1))
+        // Same reservoir-sample draw count as the dropper: one nextInt per non-empty slot,
+        // worst case slotCount — see BlockEntityActions.selectDispenseSlot / dropperRw.
+        b.randomUsage(new RandomUsage(RandomInstance.WORLD_RANDOM, s.slotCount()))
             .writeEvent(EventType.ENTITY_SPAWNED);
         return b.build();
     }

@@ -132,7 +132,9 @@ class BlockEntityTaskFactoryTest {
 
         assertTrue(rw.randomUsage().isPresent());
         assertEquals(RandomInstance.WORLD_RANDOM, rw.randomUsage().get().instance());
-        assertEquals(1, rw.randomUsage().get().maxCallsEstimate());
+        // getRandomSlot draws once per non-empty slot (reservoir sampling), so the budget
+        // is the slot count (worst case: all loaded), not 1 — see BlockEntityActions.selectDispenseSlot.
+        assertEquals(snap.slotCount(), rw.randomUsage().get().maxCallsEstimate());
         assertTrue(rw.writtenEvents().contains(EventType.INVENTORY_CHANGED));
     }
 
