@@ -476,6 +476,14 @@ whitepaper scope is years of work. Pick the next slice by honest value, not by a
 
 **Highest-leverage open work, in rough priority order:**
 
+0. **Live Paper differential harness (B9)** — the ONE test we have never run: diff Nebula's parallel-DAG
+   output against a **single-thread** MC server, which is the actual oracle the project's core claim
+   names ("multi-thread == single-thread result"). Everything else is Nebula-vs-Nebula or
+   Nebula-vs-Folia (Folia is itself multi-threaded). Full cycle-sized breakdown in the **"LIVE PAPER
+   DIFFERENTIAL HARNESS"** section below; start with D1 (fix Paper detection) + D2 (make the non-Folia
+   shadow executor actually drive the DAG) — both pure-code, no live server, and prerequisites for the
+   ⚡ live-diff tasks. This is the highest-value new work because it targets the claim the whole project
+   rests on.
 1. **Push the DG3 settled-state gate harder** (cheap, high-signal). It passes at 4 dust-only
    circuits; raise circuit count (8/16) and add repeaters + comparators so it exercises multi-power-
    level convergence, not just 15→0 decay. If that holds, settled-state correctness is a solid
@@ -661,6 +669,95 @@ line; the honest interim goal is **every subsystem that runs live is guard-verif
 
 ---
 
-**Last Updated**: 2026-07-09 (honesty pass — scope reframed, done phases marked, blockers reconciled)
+## LIVE PAPER DIFFERENTIAL HARNESS — prove multi-thread Nebula == single-thread MC (B9)
+
+**Why this exists.** Nebula's whole reason to exist is the claim: *a multi-threaded (DAG-parallel)
+server produces the SAME result as a single-threaded vanilla MC server.* Every verification we have so
+far is either Nebula-vs-Nebula seed-consistency or Nebula-vs-Folia (Folia is already multi-threaded, so
+it is not the single-thread oracle the claim is about). We have never diffed Nebula's parallel DAG
+output against an authoritative **single-thread** MC tick. This section builds that differential harness.
+
+**Why Paper (not Folia) is the right host.** Paper is single-threaded, so it *is* the oracle the claim
+names. It also runs everything on the main thread, where block **reads are legal** — on Folia
+`execute if block` / `data get block` NPE off the region thread, which is why all prior live checks were
+write-plus-log-scrape. On Paper we can read BOTH the authoritative block state AND Nebula's CAS-computed
+shadow state on the same thread and diff them directly. The multi-threading under test is then Nebula's
+own DAG executor thread-pool computing the same circuit that Paper resolves serially — not the server's
+region threads.
+
+**TWO BLOCKING FACTS found 2026-07-09 (read before starting — "just run it on Paper" does NOT work):**
+1. **Runtime detection misfires on Paper.** `FoliaRuntimeDetector.isFoliaRuntime()` probes for the
+   `RegionScheduler` *API class*, which **Paper also ships** — so on Paper it returns `true`, takes the
+   Folia path, and attempts the agent NMS retransform. The stricter `isFoliaServer()` (probes the
+   server-internal `RegionizedServer`, absent on Paper) already exists in `FoliaRuntimeDetector` but is
+   **unused** in `NebulaPlugin.onEnable`. Until D1 lands, the plugin's own "non-Folia → OBSERVE shadow"
+   story is fiction on Paper.
+2. **The non-Folia shadow executor is a no-op.** `wireShadowExecutor` (the `else` branch at
+   `NebulaPlugin.java:456`) installs a `TickExecutor` that only logs `dirtyTasks.size()`. The real DAG
+   drive (`executeOwnedDag` → `MicroStepScheduler` → CAS stores) is wired ONLY in the `if (isFolia)`
+   branch (`wireRegionAwareExecutor`). So on Paper today there is nothing to read back.
+
+### Tasks — ordered so each is ONE verifiable Ralph cycle
+
+Do these top-to-bottom; each is scoped to a single commit. D1–D2 are the pure-code enablers (no live
+server, fast to verify) and MUST land before the ⚡ live-diff tasks. A ⚡ marks a task that touches the
+live tick pipeline and therefore requires a live server run, not just a green unit test.
+
+- [ ] D1. **Fix the runtime detection so Paper is correctly treated as non-Folia.** In
+      `NebulaPlugin.onEnable`, switch the `isFolia` decision from `FoliaRuntimeDetector.isFoliaRuntime()`
+      (API-class probe — true on Paper) to `FoliaRuntimeDetector.isFoliaServer(ctxLoader)` (server-internal
+      `RegionizedServer` probe — false on Paper). Keep the API-class check only where the code genuinely
+      needs the *API* present (it always is, since we compile against it). Add a unit test that proves the
+      two probes disagree for a classloader that has the API class but not the server class (simulating
+      Paper). Pure `nebula-plugin` / `nebula-folia-adapter`; no live server. This is the prerequisite for
+      D2–D5 — without it Paper runs the Folia path and D2's shadow executor is never reached.
+- [ ] D2. **Make the non-Folia shadow executor actually drive the DAG.** Replace `wireShadowExecutor`'s
+      log-only `TickExecutor` with one that runs the real cycle on the (Paper) main thread:
+      `executeOwnedDag(world, dirtyTasks)` — syncFromNms → `MicroStepScheduler` → syncToNms — the same body
+      the Folia region executor uses, minus the region dispatch (on Paper every chunk is owned by the main
+      thread, so no `RegionScheduler.execute` hop is needed; call `executeOwnedDag` inline). Guard the NMS
+      writes behind the existing observe/writeback flags. Unit-test the wiring with a fake
+      `RedstoneTickHook.TickExecutor` invocation to confirm `executeOwnedDag` is reached with the dirty
+      tasks. (Live proof is D3/D4.) After this, a Paper server has a live shadow DAG whose CAS store holds
+      Nebula's computed power.
+- [ ] D3. **Add a read-back diff command `/nebula diff`.** For every position in `componentMap`, read (a)
+      Nebula's CAS-computed power via `redstoneState.getPowerLevel(pos)` and (b) Paper's authoritative
+      block power via a main-thread NMS/Bukkit read (legal on Paper — this is the capability Folia denies).
+      Report each mismatch as `pos: nebula=N paper=M` and a final `matched X / total Y`. This is the
+      differential probe: on a settled circuit the two must be identical. Keep the read strictly
+      main-thread and document that it will NPE on Folia (so the command self-guards to `isFoliaServer()==
+      false`). Unit-test the compare/format logic with injected values.
+- [ ] ⚡ D4. **First live Paper differential run.** Stand up `paper-test-server/` (mirror
+      `folia-test-server/`, but `server.jar` = the existing `paper-26.1.2-74.jar`; the agent javaagent is
+      OPTIONAL on Paper since the Bukkit `RedstoneEventListener` fallback seeds dirty positions — note
+      whichever is used). Deploy the shaded jar, place the canonical lever→wire→lamp line, `/nebula scan`,
+      toggle, let it settle, run `/nebula diff`. **Success criterion: `matched == total`, zero mismatches**
+      — Nebula's shadow DAG computed the same power the single-thread server did. Record the exact commands
+      and the result honestly (this is the first single-thread oracle comparison; if it diverges, that is a
+      real correctness finding, not a test bug). Reuse `CanonicalToggleSources` circuits where possible.
+- [ ] ⚡ D5. **Turn on real multi-threaded DAG execution and re-diff.** D2 runs the DAG inline on the main
+      thread — correct but serial, so it does not yet exercise the *parallel* claim. Configure the DAG
+      executor to run layers across a real worker pool (the `nebula-core` executor, not inline), re-run the
+      D4 circuit + toggle + `/nebula diff`, and confirm **still `matched == total`**. THIS is the decisive
+      experiment for the project's core claim: identical result whether the DAG ran serial or parallel,
+      both matching the single-thread server. Then scale up (multiple independent circuits in different
+      chunks) so the pool genuinely runs tasks concurrently, and re-confirm. Document worker count and that
+      the result is invariant to it.
+
+**Definition of done for B9:** a scripted Paper run places canonical circuits, toggles them, and
+`/nebula diff` reports zero mismatches against the single-thread authoritative state — with Nebula's DAG
+executing on a multi-worker pool. That is the first direct evidence for "multi-thread Nebula == single-
+thread MC," the claim the whole project rests on. Until then that claim is asserted, not verified.
+
+**Caveats to stay honest about:** (a) Paper single-region means the *server* is single-threaded; the
+parallelism under test is Nebula's DAG pool, which is the right unit but not a full multi-region proof —
+the multi-region story still needs Folia. (b) Observe-mode timing: if Paper settles a signal before the
+shadow's syncFromNms reads it, the shadow sees the settled value and trivially matches; a meaningful diff
+must sample the transient or drive the toggle deterministically (reuse `LiveLoadToggleDriver` /
+`DeterministicToggleSchedule`). (c) Redstone only until the entity/BE subsystems are live-wired (see B8/C).
+
+---
+
+**Last Updated**: 2026-07-09 (added B9: live Paper differential harness — the single-thread oracle test)
 **Verified this session**: 817 unit tests pass (0 failures); DG3 settled gate PASS ×3 fresh boots
 **Source of truth**: docs/PROJECT_STATUS.md
