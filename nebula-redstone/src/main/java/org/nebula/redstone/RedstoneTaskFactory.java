@@ -64,7 +64,33 @@ public final class RedstoneTaskFactory {
             case DETECTOR_RAIL -> detectorRailRw(pos);
         };
         return new TaskNode(taskId(componentType, pos), componentType.taskType(), rw,
-            () -> action.run());
+            () -> action.run(), isParallelSafe(rw));
+    }
+
+    /**
+     * Decides whether a redstone task may run concurrently with the other tasks
+     * of its topological layer (see {@link org.nebula.core.scheduler.ParallelTaskRunner}).
+     *
+     * <p>The DAG builder ({@code BucketDagBuilder} + {@code RWConflictDetector})
+     * already guarantees that same-layer tasks have <em>no read/write conflict on
+     * any tracked state</em> — blocks, block-entities, entities, and global keys.
+     * So a task's marked footprint (its {@link RWSet}) never races another
+     * same-layer task on those. Writes are additionally buffered into per-task
+     * {@code RedstoneStateSnapshot}s and only CAS-committed serially <em>after</em>
+     * {@code runLayer} returns, so the shared {@code RedstoneWorldState} is never
+     * mutated during concurrent execution.
+     *
+     * <p>The ONE shared resource conflict detection does <b>not</b> model is a
+     * shared {@code Random} instance ({@link RWSet#randomUsage()}): two tasks that
+     * draw from the same RNG in the same layer would consume it in a
+     * nondeterministic order. No redstone RW-set declares random usage today, but
+     * gating on it keeps this honest: if a future component adds an RNG draw, it
+     * is automatically excluded from intra-layer parallelism until its RNG access
+     * is made deterministic. Everything else is conflict-free by construction and
+     * therefore safe to fan out.
+     */
+    private static boolean isParallelSafe(RWSet rw) {
+        return rw.randomUsage().isEmpty();
     }
 
     /**

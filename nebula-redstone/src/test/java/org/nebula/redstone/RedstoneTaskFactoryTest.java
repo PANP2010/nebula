@@ -331,4 +331,36 @@ class RedstoneTaskFactoryTest {
     private static java.util.Set<String> globalValues(java.util.Set<GlobalKey> keys) {
         return keys.stream().map(GlobalKey::value).collect(Collectors.toCollection(TreeSet::new));
     }
+
+    // ── parallelSafe marking (B9 D5 slice 2) ─────────────────────────────────
+    //   ParallelTaskRunner.runLayer degrades any layer containing a task whose
+    //   parallelSafe flag is false back to serial. RedstoneTaskFactory must mark
+    //   tasks safe so the redstone path can actually fan out; the criterion is
+    //   "declares no shared-RNG usage" (all other same-layer conflicts are
+    //   excluded by DAG construction + snapshot-buffered commits). No redstone
+    //   component draws RNG today, so EVERY produced task must be parallelSafe.
+
+    @Test
+    void everyComponentTypeProducesAParallelSafeTask() {
+        for (RedstoneComponentType type : RedstoneComponentType.values()) {
+            TaskNode node = RedstoneTaskFactory.inert(type, ORIGIN);
+            assertTrue(node.parallelSafe(),
+                type + " should be parallelSafe (no RNG usage → no untracked same-layer race)");
+            // Sanity: the criterion the marking rests on actually holds.
+            assertTrue(node.declaredRWSet().randomUsage().isEmpty(),
+                type + " unexpectedly declares RNG usage — the parallelSafe gate must exclude it");
+        }
+    }
+
+    @Test
+    void parallelSafeMarkingDoesNotAlterRwSetOrTaskIdentity() {
+        // Marking a task parallelSafe must be purely a scheduling hint: same
+        // taskId, taskType, and RW-set as before. This pins that the flag change
+        // is behaviour-neutral for the (serial) live path.
+        TaskNode wire = RedstoneTaskFactory.inert(RedstoneComponentType.REDSTONE_WIRE, ORIGIN);
+        assertEquals("REDSTONE_WIRE@0:0,64,0", wire.taskId());
+        assertEquals("REDSTONE_WIRE", wire.taskType());
+        assertTrue(wire.declaredRWSet().declaresBlockWrite(ORIGIN));
+        assertTrue(wire.parallelSafe());
+    }
 }
