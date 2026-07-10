@@ -476,14 +476,16 @@ whitepaper scope is years of work. Pick the next slice by honest value, not by a
 
 **Highest-leverage open work, in rough priority order:**
 
-0. **Live Paper differential harness (B9)** — the ONE test we have never run: diff Nebula's parallel-DAG
-   output against a **single-thread** MC server, which is the actual oracle the project's core claim
-   names ("multi-thread == single-thread result"). Everything else is Nebula-vs-Nebula or
-   Nebula-vs-Folia (Folia is itself multi-threaded). Full cycle-sized breakdown in the **"LIVE PAPER
-   DIFFERENTIAL HARNESS"** section below; start with D1 (fix Paper detection) + D2 (make the non-Folia
-   shadow executor actually drive the DAG) — both pure-code, no live server, and prerequisites for the
-   ⚡ live-diff tasks. This is the highest-value new work because it targets the claim the whole project
-   rests on.
+0. **Live Paper differential harness (B9)** — the ONE test we had never run: diff Nebula's DAG output
+   against a **single-thread** MC server, the actual oracle the project's core claim names ("multi-thread
+   == single-thread result"). D1–D4 are DONE: **D4 LIVE-VERIFIED 2026-07-10 — `/nebula diff` reported
+   matched 16/16 on real Paper 26.1.2**, the first single-thread oracle comparison (non-trivial: shadow
+   CAS held the full 15→1 decay gradient). **The one remaining B9 task is D5**: D2's executor runs the DAG
+   INLINE on the main thread, so D4 proves shadow==authority but NOT the *parallel* claim. D5 must run the
+   DAG layers across a real `nebula-core` worker pool (not inline), re-run the D4 circuit + toggle +
+   `/nebula diff`, confirm still matched==total, then scale to multiple independent circuits in different
+   chunks so the pool genuinely runs tasks concurrently. THAT is the decisive experiment for "multi-thread
+   Nebula == single-thread MC." See the **"LIVE PAPER DIFFERENTIAL HARNESS"** D5 task below.
 1. **Push the DG3 settled-state gate harder** (cheap, high-signal). It passes at 4 dust-only
    circuits; raise circuit count (8/16) and add repeaters + comparators so it exercises multi-power-
    level convergence, not just 15→0 decay. If that holds, settled-state correctness is a solid
@@ -741,14 +743,20 @@ live tick pipeline and therefore requires a live server run, not just a green un
       `matched X / total Y`. This is the differential probe: on a settled circuit the two must be identical.
       Keep the read strictly main-thread and document that it will NPE on Folia (so the command self-guards
       to `isFoliaServer()==false`). Unit-test the compare/format logic with injected values.
-- [ ] ⚡ D4. **First live Paper differential run.** Stand up `paper-test-server/` (mirror
-      `folia-test-server/`, but `server.jar` = the existing `paper-26.1.2-74.jar`; the agent javaagent is
-      OPTIONAL on Paper since the Bukkit `RedstoneEventListener` fallback seeds dirty positions — note
-      whichever is used). Deploy the shaded jar, place the canonical lever→wire→lamp line, `/nebula scan`,
-      toggle, let it settle, run `/nebula diff`. **Success criterion: `matched == total`, zero mismatches**
-      — Nebula's shadow DAG computed the same power the single-thread server did. Record the exact commands
-      and the result honestly (this is the first single-thread oracle comparison; if it diverges, that is a
-      real correctness finding, not a test bug). Reuse `CanonicalToggleSources` circuits where possible.
+- [x] ⚡ D4. **DONE — ⚡ LIVE-VERIFIED on real Paper 26.1.2 (2026-07-10).** THE FIRST SINGLE-THREAD
+      ORACLE COMPARISON: Nebula's shadow DAG computed the SAME redstone power the single-thread Paper
+      server did. Stood up `paper-test-server/` (mirrors `folia-test-server/`: `server.jar` =
+      `paper-26.1.2-74.jar`, **no javaagent** — the Bukkit `RedstoneEventListener` fallback seeds dirty
+      positions, confirmed in the log). Nebula took the correct non-Folia path ("Folia server: false",
+      "inline shadow DAG executor (OBSERVE mode, non-Folia)", main-thread begin/end lifecycle driver).
+      Placed the canonical `lever→15 wire→lamp` line at y=-60, `/nebula scan` → 16 components / 1 toggle
+      source / 16 tracked. **Result: pre-toggle `/nebula diff` = matched 0/16 (nebula=-1, CAS not yet
+      populated — correctly NOT a pass); after toggling the lever ON and settling, RedstoneWorldState
+      populated 0→16 and `/nebula diff` = `matched 16 / total 16`.** The match is NON-TRIVIAL: `/nebula
+      diag` showed the shadow CAS held the full decay gradient (x=1→15, x=2→14, … x=15→1, lamp), not
+      zeros. OFF transition also settled to matched 16/16. Server stopped cleanly via RCON. **HONESTY
+      CAVEAT for D5:** D2's executor runs the DAG INLINE on the main thread, so this proves shadow==authority
+      but does NOT yet exercise the *parallel* claim — that is exactly D5.
 - [ ] ⚡ D5. **Turn on real multi-threaded DAG execution and re-diff.** D2 runs the DAG inline on the main
       thread — correct but serial, so it does not yet exercise the *parallel* claim. Configure the DAG
       executor to run layers across a real worker pool (the `nebula-core` executor, not inline), re-run the
@@ -772,6 +780,10 @@ must sample the transient or drive the toggle deterministically (reuse `LiveLoad
 
 ---
 
-**Last Updated**: 2026-07-09 (added B9: live Paper differential harness — the single-thread oracle test)
-**Verified this session**: 817 unit tests pass (0 failures); DG3 settled gate PASS ×3 fresh boots
+**Last Updated**: 2026-07-10 (B9 D4 CLOSED — first single-thread oracle comparison PASSED live on Paper)
+**Verified this session (2026-07-10)**: ⚡ B9 D4 LIVE on real Paper 26.1.2 — `/nebula diff` = matched
+16/16 on a settled canonical circuit (non-trivially: shadow CAS held the full 15→1 decay gradient). This
+is the FIRST direct evidence that Nebula's shadow DAG == the single-thread authority. Remaining B9 blocker
+is D5 (make the DAG run on a real worker pool, not inline, and re-confirm matched==total — the *parallel*
+half of the core claim).
 **Source of truth**: docs/PROJECT_STATUS.md

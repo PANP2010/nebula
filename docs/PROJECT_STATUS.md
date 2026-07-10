@@ -325,6 +325,27 @@ testing) is still blocked by DG1/DG2 — those criteria remain untouched.
 > `nebula=-1 folia=positive` entries.** This is a correctness signal, not a formal DG3
 > criterion — it does not upgrade the table above.
 
+> **⚡ MILESTONE (2026-07-10): first single-thread oracle comparison PASSED live (B9 D4).**
+> Nebula's whole reason to exist is the claim *multi-threaded (DAG-parallel) result ==
+> single-threaded vanilla MC result*. Every prior live check was Nebula-vs-Nebula
+> seed-consistency or Nebula-vs-Folia (Folia is itself multi-threaded, so it is NOT the
+> single-thread oracle the claim names). This cycle ran the differential against the actual
+> oracle for the first time. Stood up `paper-test-server/` (Paper 26.1.2, **no javaagent** —
+> the Bukkit `RedstoneEventListener` fallback seeds dirty positions). Nebula took the correct
+> non-Folia path (`Folia server: false`; "inline shadow DAG executor (OBSERVE mode,
+> non-Folia)"; main-thread begin/end lifecycle driver). On the canonical `lever→15 wire→lamp`
+> line (16 tracked positions), `/nebula diff` — which reads BOTH Nebula's CAS shadow power AND
+> Paper's authoritative block power on the SAME main thread (the read Folia denies off-region)
+> — reported **`matched 16 / total 16`** once the circuit settled ON, and again once settled
+> OFF. The match is **non-trivial**: `/nebula diag` confirmed the shadow CAS held the full
+> redstone decay gradient (x=1→15, x=2→14, … x=15→1, lamp), not zeros; the pre-toggle diff
+> correctly reported `matched 0/16` (`nebula=-1`, CAS unpopulated → explicitly NOT a pass).
+> **Honest caveat:** D2's executor runs the DAG *inline on the main thread*, so this proves
+> shadow==single-thread-authority but does NOT yet exercise the *parallel* claim. Running the
+> DAG on a real worker pool and re-confirming `matched==total` is D5 — the decisive experiment
+> for the parallel half. This is a direct correctness signal for the project's core claim, not
+> a formal DG criterion; it does not upgrade the tables above.
+
 ---
 
 ## Root Cause Analysis
