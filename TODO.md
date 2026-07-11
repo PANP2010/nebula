@@ -705,6 +705,22 @@ requires the decisive Folia experiment, not just a green unit test.
       this verifies the live-wired MOVE action only; COLLISION/AI/item/damage remain unlive and
       therefore unverified. `AnnotationCoverageDashboard` remains C5 because no real NMS hotspot
       method inventory exists yet.
+
+#### Entity collision/AI/item/damage task types — honest audit (2026-07-11)
+
+| Task type | Action implemented | RW-set complete | Live-seeded | Gap |
+|-----------|-------------------|----------------|------------|-----|
+| MOVE | ✅ `EntityMoveAction` | ✅ `moveRw()` | ✅ `EntityMoveEvent` | clean (`tracedTasks=163`) |
+| COLLISION | ⚠️ pure-read no-op | ⚠️ position-only | ❌ no live collision seed | no Bukkit collision listener and no overlap action; downstream generator is not wired into the live tick |
+| COLLISION_RESPONSE | ✅ `EntityCollisionResponseAction` | ⚠️ velocity-only | ❌ not reachable live | only follows unseeded `COLLISION`; pair tasks also have no region dispatch position |
+| AI_GOAL | ⚠️ `EntityGoalSelectAction` exists, but plugin resolver returns `null` | ⚠️ partial | ❌ no listener | no event seed; action is not live-resolved |
+| ITEM_PICKUP | ⚠️ stub/inert only | ⚠️ partial | ❌ no listener | no `EntityPickupItemEvent` seed, no action |
+| DAMAGE | ⚠️ stub/inert only | ⚠️ partial | ❌ no listener | no `EntityDamageByEntityEvent` seed, no action |
+
+**Honest scope**: MOVE is the only entity task type that has run live on Folia with a clean guard verdict. COLLISION/AI/ITEM/DAMAGE are not seeded, not tested live, and not guard-verified. Claiming "entity subsystem complete" based on MOVE-only evidence is dishonest.
+
+**Smallest next**: wire a COLLISION seed from `EntityDamageByEntityEvent` or `EntityShootBowEvent` (triggers on collision response), implement `EntityCollisionAction`, and verify the guard catches the terrain/entity reads.
+
 - [x] ⚡ C3. Same loop for **block-entity** (`BlockEntityTaskFactory`: hopper/furnace/dropper).
       **DONE for the live-wired actions (2026-07-10):** commit 9f7aeea installed the production
       `BlockEntityRwGuardTracer` + per-task hook behind `-Dnebula.rw.guard=true`; a real hopper workload
