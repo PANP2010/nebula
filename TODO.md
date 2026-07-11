@@ -757,6 +757,63 @@ requires the decisive Folia experiment, not just a green unit test.
             honestly to the dispenser-side random-eject branch. The per-item-behaviour stub is the
             same honest-scope gap documented in `BlockEntityActions.dispenser`'s Javadoc and in
             C3's dropper entry. No live-Folia guard run was performed for this audit.
+      - [x] **Dispenser behaviour gap analysis (2026-07-11):** `BlockEntityActions.dispenser` models
+            ONE thing: the random slot selection via vanilla's `getRandomSlot` reservoir draw +
+            one-item self-slot decrement. This is honest and matches the dropper's CAS math.
+            What it does NOT model (vanilla `DispenserBlock.dispenseFrom` →
+            `getDispenseMethod` → `DISPENSER_REGISTRY` + `getDefaultDispenseMethod`):
+
+            | Behaviour | Vanilla dispatch | CAS modelled | RW-set coverage |
+            |-----------|------------------|--------------|----------------|
+            | Random slot selection | `DispenserBlockEntity.getRandomSlot` | ✅ yes | ✅ |
+            | Self-slot decrement | `setItem(slot, behavior.dispense(...))` write-back | ✅ yes | ✅ |
+            | Item entity spawn (default) | `DefaultDispenseItemBehavior.spawnItem` (everything not in `DISPENSER_REGISTRY`) | ❌ stub only | ❌ |
+            | Block placement (sand, gravel, concrete powder, etc.) | `BlockDispenseBehavior` + concrete via `ProjectileDispenseBehavior` | ❌ NO | ❌ |
+            | Projectile shoot (arrows, fireballs, fire charges, snowballs, etc.) | `ProjectileDispenseBehavior` | ❌ NO | ❌ |
+            | Bucket fill/empty (water, lava, milk, powder snow, axolotl) | `DispenseItemBehavior`s registered for each `BucketItem`/fluid | ❌ NO | ❌ |
+            | Armor equip (armor stands, horses with armor, etc.) | `EquipmentDispenseItemBehavior.INSTANCE` (default for any `DataComponents.EQUIPPABLE` item) | ❌ NO | ❌ |
+            | Mob spawn (spawn eggs with `ENTITY_DATA`) | `SpawnEggItemBehavior.INSTANCE` (default for `SpawnEggItem` + `ENTITY_DATA`) | ❌ NO | ❌ |
+            | Firework launch (registered via `registerProjectileBehavior`) | `ProjectileDispenseBehavior` against `FireworkRocketItem` | ❌ NO | ❌ |
+            | Boat / chest boat / raft placement | `BoatDispenseItemBehavior` (registered per boat item) | ❌ NO | ❌ |
+
+            **RW-set implications**: `dispenserRw()` declares `ENTITY_SPAWNED` as a written event
+            (from `BlockEntityTaskFactory.dispenserRw()`), but no concrete entity fields are
+            declared — the declaration is honest about the CAS event without claiming the concrete
+            entity. Modelling any concrete behaviour (projectile, block place, mob spawn) MUST
+            widen the RW-set to declare the specific entity type or block position, never silently
+            exceed the current declaration. Concretely:
+            - **Item entity spawn** → must declare the spawned `ItemEntity` UUID + position as a
+              block-entity/entity write (and a `readBlock` on the spawn face if obstructed), plus
+              retain `ENTITY_SPAWNED`.
+            - **Block placement** → must declare a `writeBlock(targetPos)` + the new block-state
+              read by NMS (or by the state-equivalence test), distinct from the self inventory
+              already declared.
+            - **Projectile shoot** → must declare an entity write for the projectile UUID + the
+              projectile's velocity field (or, in the CAS amount model, the launch event), plus
+              a `readBlock` on the line-of-sight cell.
+            - **Bucket fill/empty** → must declare a `readBlock` + `writeBlock` on the targeted
+              fluid cell, distinct from the dispenser self.
+            - **Armor equip / mob spawn / firework launch / boat placement** → each declares an
+              `ENTITY_SPAWNED` plus a specific concrete entity UUID + write field set; never
+              reuse the bare `ENTITY_SPAWNED` event as a substitute for the concrete declaration.
+
+            **Live guard coverage**: The dispenser shares `ejectOneRandomItem` with the dropper,
+            and the dropper live guard run (`tracedTasks=X violations=0`) already proves the
+            shared random-slot + self-decrement path traces clean. The dispenser-side
+            `ENTITY_SPAWNED` branch is unexercised because no concrete behaviour is modelled —
+            so that live evidence does NOT extend to the unbuilt spawn path.
+
+            **Honest next**: add the smallest concrete behaviour first (item entity spawn —
+            `ENTITY_SPAWNED` with a declared item entity UUID write) before adding
+            projectile/block/mob paths. Each requires a separate RW-set widening commit. None
+            of this is "wire-dropper-as-dispenser"; the dropper path and the dispenser spawn
+            path are different downstream behaviours and must diverge in the CAS action
+            before they can diverge in the RW-set.
+
+            **Cross-references**: see `BlockEntityActions.dispenser` Javadoc (lines 256–272)
+            and `BlockEntityTaskFactory.dispenserRw()` (lines 250–270) for the existing honest
+            "stub only" declaration that this analysis widens.
+
 - [ ] ⚡ C4. Same loop for **fluid** (`FluidTaskFactory`) and **explosion** (`ExplosionTaskFactory`) now
       that the live redstone/entity-MOVE/block-entity guard loop is proven; these fan out widely, so verify
       at small scale first.

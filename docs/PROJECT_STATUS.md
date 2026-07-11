@@ -445,9 +445,43 @@ testing) is still blocked by DG1/DG2 — those criteria remain untouched.
 > has 5 new `BlockEntityActionsTest` brewing-layout cases plus 2 new `BlockEntityRwGuardBridgeTest`
 > cases: a positive (declared RW-set vs real trace → 0 violations, with non-empty read+write trace
 > to defeat the empty-trace honesty trap) and a negative (omit `brew_time` write → exactly one
-> `UNDECLARED_WRITE`). Dispenser breadth audit: `BlockEntityActions.dispenser` shares `ejectOneRandomItem`
-> with `dropper`; the broader dispense behaviour (projectile, block place, mob spawn, bucket,
-> armor equip) is **not** modelled in CAS — same honest gap as dropper, surfaced in the Javadoc.
+> `UNDECLARED_WRITE`). **Dispenser breadth gap analysis** — `BlockEntityActions.dispenser` models
+> ONE thing: the random slot selection via vanilla's `getRandomSlot` reservoir draw + one-item
+> self-slot decrement. What it does NOT model (vanilla `DispenserBlock.dispenseFrom` →
+> `getDispenseMethod` → `DISPENSER_REGISTRY` + `getDefaultDispenseMethod`):
+>
+> | Behaviour | Vanilla dispatch | CAS modelled | RW-set coverage |
+> |-----------|------------------|--------------|-----------------|
+> | Random slot selection | `DispenserBlockEntity.getRandomSlot` | ✅ yes | ✅ |
+> | Self-slot decrement | `setItem(slot, behavior.dispense(...))` write-back | ✅ yes | ✅ |
+> | Item entity spawn (default) | `DefaultDispenseItemBehavior.spawnItem` (everything not in `DISPENSER_REGISTRY`) | ❌ stub only | ❌ |
+> | Block placement (sand, gravel, concrete powder, etc.) | `BlockDispenseBehavior` + concrete via `ProjectileDispenseBehavior` | ❌ NO | ❌ |
+> | Projectile shoot (arrows, fireballs, fire charges, snowballs, etc.) | `ProjectileDispenseBehavior` | ❌ NO | ❌ |
+> | Bucket fill/empty (water, lava, milk, powder snow, axolotl) | `DispenseItemBehavior`s registered for each `BucketItem`/fluid | ❌ NO | ❌ |
+> | Armor equip (armor stands, horses with armor, etc.) | `EquipmentDispenseItemBehavior.INSTANCE` (default for any `DataComponents.EQUIPPABLE` item) | ❌ NO | ❌ |
+> | Mob spawn (spawn eggs with `ENTITY_DATA`) | `SpawnEggItemBehavior.INSTANCE` (default for `SpawnEggItem` + `ENTITY_DATA`) | ❌ NO | ❌ |
+> | Firework launch (registered via `registerProjectileBehavior`) | `ProjectileDispenseBehavior` against `FireworkRocketItem` | ❌ NO | ❌ |
+> | Boat / chest boat / raft placement | `BoatDispenseItemBehavior` (registered per boat item) | ❌ NO | ❌ |
+>
+> **RW-set implications**: `dispenserRw()` declares `ENTITY_SPAWNED` as a written event
+> (`BlockEntityTaskFactory.dispenserRw()` line 268), but no concrete entity fields are declared
+> — the declaration is honest about the CAS event without claiming the concrete entity.
+> Modelling any concrete behaviour MUST widen the RW-set to declare the specific entity type
+> or block position, never silently exceed the current declaration. Item-entity spawn needs a
+> spawned-`ItemEntity` UUID + position write; block placement needs a `writeBlock(targetPos)`;
+> projectile shoot needs the projectile entity + velocity field; bucket needs the targeted fluid
+> cell; armor/mob/firework/boat each declare `ENTITY_SPAWNED` plus a concrete UUID + field set.
+>
+> **Live guard coverage**: the dispenser shares `ejectOneRandomItem` with the dropper, so the
+> dropper live guard evidence (`tracedTasks=X violations=0`) proves the shared random-slot +
+> self-decrement path traces clean. The dispenser-side `ENTITY_SPAWNED` branch is unexercised
+> because no concrete behaviour is modelled — so that live evidence does NOT extend to the
+> unbuilt spawn path.
+>
+> **Honest next**: add the smallest concrete behaviour first (item entity spawn — `ENTITY_SPAWNED`
+> with a declared item entity UUID write) before adding projectile/block/mob paths. Each
+> requires a separate RW-set widening commit.
+>
 > **Honest scope**: this slice is unit-only. No live Folia run with `-Dnebula.rw.guard=true` was
 > performed; the bottle-mixing step is still placeholder pending a real `PotionBrewing.hasMix`
 > port, and potion NBT key reads are intentionally outside the current RW-set envelope.
