@@ -129,4 +129,60 @@ class BridgeAnnotationScannerTest {
             + countPublicInstance(Unannotated.class),
             c.totalHotspotMethods());
     }
+
+    @Test
+    void subsystemCoverageRoundTripsThroughDashboardReport() {
+        // B8 C5 wiring: the dashboard's report() surface must accept the
+        // reflected (annotated, total) row straight from getSubsystemCoverage()
+        // — no hand-typed denominator may slip in. Round-trip the partially
+        // annotated fixture through the new flow and assert the dashboard's
+        // per-subsystem row matches the reflected counts exactly.
+        AnnotationCoverageDashboard d = new AnnotationCoverageDashboard();
+        List<BridgeAnnotationScanner.SubsystemCoverage> rows =
+            BridgeAnnotationScanner.getSubsystemCoverage(List.of(
+                ScanTarget.of("fixture-rt", PartiallyAnnotated.class)));
+        assertFalse(rows.isEmpty(), "scanner must report at least one subsystem");
+        BridgeAnnotationScanner.SubsystemCoverage row = rows.getFirst();
+
+        // The dashboard accepts the scanner's row by copying annotated/total
+        // through report() (the wiring NebulaPlugin.buildCoverageDashboard uses).
+        d.report(new SubsystemCoverage(
+            row.subsystem(), row.annotatedMethods(), row.totalBridgeMethods(), 0));
+
+        SubsystemCoverage reported = d.subsystems().getFirst();
+        assertEquals("fixture-rt", reported.subsystem());
+        assertEquals(row.annotatedMethods(), reported.annotatedMethods());
+        assertEquals(row.totalBridgeMethods(), reported.totalHotspotMethods());
+        assertEquals(row.coverageRatio(), reported.coverageRatio(), 1e-9);
+    }
+
+    @Test
+    void getSubsystemCoverageOverMultipleSubsystemsProducesOneRowEach() {
+        // B8 C5 wiring: when a real plugin-side scan enumerates multiple
+        // subsystems (e.g. redstone-bridge, block-entity-bridge, fluid-bridge,
+        // entity-bridge) the scanner must produce one row per distinct
+        // subsystem name, with the annotated/total counts per subsystem,
+        // not a single collapsed row.
+        List<ScanTarget> targets = List.of(
+            ScanTarget.of("a", FullyAnnotated.class),
+            ScanTarget.of("b", PartiallyAnnotated.class),
+            ScanTarget.of("c", Unannotated.class));
+        List<BridgeAnnotationScanner.SubsystemCoverage> rows =
+            BridgeAnnotationScanner.getSubsystemCoverage(targets);
+
+        assertEquals(3, rows.size(),
+            "scanner must produce one row per subsystem, got: " + rows);
+        var byName = new java.util.HashMap<String, BridgeAnnotationScanner.SubsystemCoverage>();
+        for (var r : rows) byName.put(r.subsystem(), r);
+        assertEquals(countPublicInstance(FullyAnnotated.class),
+            byName.get("a").annotatedMethods());
+        assertEquals(countPublicInstance(FullyAnnotated.class),
+            byName.get("a").totalBridgeMethods());
+        assertEquals(1, byName.get("b").annotatedMethods());
+        assertEquals(countPublicInstance(PartiallyAnnotated.class),
+            byName.get("b").totalBridgeMethods());
+        assertEquals(0, byName.get("c").annotatedMethods());
+        assertEquals(countPublicInstance(Unannotated.class),
+            byName.get("c").totalBridgeMethods());
+    }
 }
