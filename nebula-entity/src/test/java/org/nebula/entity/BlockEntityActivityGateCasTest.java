@@ -134,4 +134,56 @@ class BlockEntityActivityGateCasTest {
         assertTrue(BlockEntityActivityGate.furnaceActive(inputAndFuel, POS),
             "input plus fuel ignites — slots 0 and 1 must be distinct paths");
     }
+
+    // ── Brewing gate (B8 C3 brewing guard slice) ─────────────────────────────────
+
+    /**
+     * Brewing analog of {@link #furnaceState(int, int, int, int, int)}. Slots 0..2 are
+     * bottles, slot 3 the ingredient, slot 4 the blaze powder; {@code brew_time} and
+     * {@code fuel} are the two timer fields. Same canonical field-path contract: a
+     * mistyped path in {@code brewingActive} would read a permanent 0 and silently
+     * grade every brewing stand idle.
+     */
+    private static BlockEntityState brewingState(int slot0, int slot1, int slot2,
+                                                 int ingredient, int blaze,
+                                                 int brewTime, int fuel) {
+        BlockEntityState state = new BlockEntityState();
+        state.put(slot(0), slot0);
+        state.put(slot(1), slot1);
+        state.put(slot(2), slot2);
+        state.put(slot(3), ingredient);
+        state.put(slot(4), blaze);
+        state.put(field("brew_time"), brewTime);
+        state.put(field("fuel"), fuel);
+        return state;
+    }
+
+    @Test
+    void brewingActiveReadsFromCanonicalFields() {
+        // The branch coverage that matters for the live seed loop:
+        // - countdown branch (brew_time > 0) must fire whenever brew_time > 0.
+        // - arm-and-load branch (no brew_time, ingredient+bottle present, fuel or
+        //   blaze-powder available) must fire.
+        // - the truly idle layout (no brew_time, no ingredient, no fuel) must NOT fire.
+        // If brewingActive read an off-by-one field path, the first case would silently
+        // miss and the live seeder would never re-seed a mid-brew stand.
+        assertTrue(BlockEntityActivityGate.brewingActive(
+                brewingState(1, 0, 0, 1, 0, 50, 10), POS),
+            "brew_time > 0 is active regardless of layout");
+        assertFalse(BlockEntityActivityGate.brewingActive(
+                brewingState(0, 0, 0, 0, 0, 0, 0), POS),
+            "fully empty brewing stand is idle");
+        assertTrue(BlockEntityActivityGate.brewingActive(
+                brewingState(1, 0, 0, 1, 1, 0, 0), POS),
+            "ingredient+bottle+blaze-powder with no fuel-time is armable — active");
+        assertTrue(BlockEntityActivityGate.brewingActive(
+                brewingState(1, 0, 0, 1, 0, 0, 5), POS),
+            "ingredient+bottle with non-zero fuel is armable — active");
+        assertFalse(BlockEntityActivityGate.brewingActive(
+                brewingState(1, 0, 0, 0, 1, 0, 5), POS),
+            "no ingredient is never armable — idle");
+        assertFalse(BlockEntityActivityGate.brewingActive(
+                brewingState(0, 0, 0, 1, 1, 0, 5), POS),
+            "no bottle slot is never armable — idle");
+    }
 }

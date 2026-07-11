@@ -49,6 +49,32 @@ public final class BlockEntityActivityGate {
         return BlockEntityActions.furnaceWillMutate(input, fuel, output, cookProgress, fuelTime);
     }
 
+    /**
+     * Reads a brewing stand's seven action inputs from {@code state} at {@code pos}
+     * and returns {@code true} iff its next {@link BlockEntityActions#brewing} tick
+     * would buffer at least one CAS write — the brewing twin of
+     * {@link #furnaceActive}. The seven reads are the exact fields the brewing
+     * action consults (slots 0..4, {@code brew_time}, {@code fuel}); bundling them
+     * here keeps the per-tick seeder from drifting from the action's footprint.
+     *
+     * <p><b>Why this exists.</b> Like a smelting furnace, a brewing stand ticks
+     * autonomously (no {@code InventoryMoveItemEvent}, no redstone pulse), and the
+     * live seed path that reacts only to {@code InventoryMoveItemEvent} therefore
+     * never re-seeds a brewing stand after its first registration. Without this
+     * gate, a stand armed mid-brew would burn through its 400-tick countdown
+     * unticked, then go untraced even after refill. Mirrors {@link #furnaceActive}
+     * one-for-one, and {@code BlockEntityActivityGateTest} cross-checks it against
+     * actually running the action so this predicate cannot silently drift from the
+     * action's branch structure.
+     */
+    public static boolean brewingActive(BlockEntityState state, WorldPos pos) {
+        return BlockEntityActions.brewingWillMutate(
+            slot(state, pos, 0), slot(state, pos, 1), slot(state, pos, 2),
+            slot(state, pos, 3), slot(state, pos, 4),
+            field(state, pos, "brew_time"),
+            field(state, pos, "fuel"));
+    }
+
     private static int slot(BlockEntityState state, WorldPos pos, int slot) {
         return field(state, pos, "inventory.slots[" + slot + "]");
     }
