@@ -7,11 +7,9 @@ import org.nebula.entity.ExplosionAccessTracer;
 import org.nebula.guard.ThreadLocalAccessTrace;
 
 /** Bridges pure explosion accesses into the RW guard trace (B8 C4). */
-public final class ExplosionRwGuardTracer implements ExplosionAccessTracer {
+public final class ExplosionRwGuardTracer extends RwGuardTracer implements ExplosionAccessTracer {
 
     public static final ExplosionRwGuardTracer INSTANCE = new ExplosionRwGuardTracer();
-
-    private ExplosionRwGuardTracer() {}
 
     @Override
     public void onBlockRead(WorldPos pos) {

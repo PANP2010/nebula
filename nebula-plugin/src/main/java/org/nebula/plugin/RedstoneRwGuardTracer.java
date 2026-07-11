@@ -31,13 +31,10 @@ import org.nebula.redstone.RedstoneAccessTracer;
  * {@code RedstoneTaskContext}, so they are out of scope here — this covers exactly
  * the block-level reads/writes the redstone actions actually perform today.
  */
-public final class RedstoneRwGuardTracer implements RedstoneAccessTracer {
+public final class RedstoneRwGuardTracer extends RwGuardTracer implements RedstoneAccessTracer {
 
     /** Shared stateless instance — all state lives in {@link ThreadLocalAccessTrace}. */
     public static final RedstoneRwGuardTracer INSTANCE = new RedstoneRwGuardTracer();
-
-    private RedstoneRwGuardTracer() {
-    }
 
     @Override
     public void onBlockRead(WorldPos pos) {

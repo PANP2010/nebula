@@ -29,13 +29,10 @@ import org.nebula.guard.ThreadLocalAccessTrace;
  * matching the block-entity RW-set the checker compares against — so an undeclared slot
  * or timer access is caught even when the block position itself is declared.
  */
-public final class BlockEntityRwGuardTracer implements BlockEntityAccessTracer {
+public final class BlockEntityRwGuardTracer extends RwGuardTracer implements BlockEntityAccessTracer {
 
     /** Shared stateless instance — all state lives in {@link ThreadLocalAccessTrace}. */
     public static final BlockEntityRwGuardTracer INSTANCE = new BlockEntityRwGuardTracer();
-
-    private BlockEntityRwGuardTracer() {
-    }
 
     @Override
     public void onFieldRead(BlockEntityField field) {

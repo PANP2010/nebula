@@ -6,12 +6,9 @@ import org.nebula.entity.EntityAccessTracer;
 import org.nebula.guard.ThreadLocalAccessTrace;
 
 /** Bridges live entity-context accesses into the RW-guard trace (B8 C2). */
-public final class EntityRwGuardTracer implements EntityAccessTracer {
+public final class EntityRwGuardTracer extends RwGuardTracer implements EntityAccessTracer {
 
     public static final EntityRwGuardTracer INSTANCE = new EntityRwGuardTracer();
-
-    private EntityRwGuardTracer() {
-    }
 
     @Override
     public void onFieldRead(EntityField field) {
