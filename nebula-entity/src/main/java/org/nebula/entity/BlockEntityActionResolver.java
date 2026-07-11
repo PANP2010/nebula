@@ -55,9 +55,13 @@ import org.nebula.entity.actions.BlockEntityActions;
  * seeded slot choice against live Folia's dispenser {@code RandomSource}, and only then
  * arming write-back, remain the explicit next slices.
  *
- * <p>{@code BREWING_STAND} still has no action math in {@link BlockEntityActions}, so it
- * resolves to {@code null} — an honest no-op the runner treats as "declared its RW-set,
- * mutated nothing" — until that math is written.
+ * <p>{@code BREWING_STAND} resolves to {@link BlockEntityActions#brewing} (B8 C3
+ * brewing/dispenser slice): the autonomous math that ports
+ * {@code BrewingStandBlockEntity.serverTick} onto the integer-only inventory model. The
+ * bottle-mix step is intentionally a placeholder (the integer model cannot represent
+ * potion NBT) — see {@link BlockEntityActions#brewing} for the conservative coverage
+ * rationale and {@code BlockEntityActivityGateTest} for the gate cross-check that pins
+ * the action's branch structure to the {@code brewingWillMutate} predicate.
  */
 public final class BlockEntityActionResolver {
 
@@ -80,8 +84,7 @@ public final class BlockEntityActionResolver {
             case FURNACE -> BlockEntityActions.furnace(snapshot.pos());
             case DROPPER -> BlockEntityActions.dropper(snapshot.pos(), snapshot.slotCount());
             case DISPENSER -> BlockEntityActions.dispenser(snapshot.pos(), snapshot.slotCount());
-            // Not yet modelled in BlockEntityActions — no-op rather than a fabricated action.
-            case BREWING_STAND -> null;
+            case BREWING_STAND -> BlockEntityActions.brewing(snapshot.pos());
         };
     }
 }

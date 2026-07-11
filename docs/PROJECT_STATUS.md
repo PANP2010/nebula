@@ -27,8 +27,9 @@ Toggling the lever ON produced 30 DAG ticks; toggling OFF produced 15 more. Zero
 
 **What is still NOT verified**: full DG2/DG3 acceptance and broad subsystem coverage. The entity live
 path currently seeds MOVE only; collision/AI/item/damage remain unverified. Block-entity hopper/furnace/
-dropper slices run live and have targeted guard/divergence measurements, but brewing and broader dispenser
-behavior are not live-verified and write-back is intentionally off. Fluid now has a tiny live,
+dropper slices run live and have targeted guard/divergence measurements; brewing now has a unit-verified
+brewing action + activity gate + bridge positive/negative cases (2026-07-11), but the live-Folia
+brewing guard run and broader dispenser semantics remain unverified, and write-back is intentionally off. Fluid now has a tiny live,
 region-threaded `BlockFromToEvent` path whose real six-block footprint traces clean under the RW guard.
 Its pure action models the immediate depth/direction rules that fit that snapshot (downward flow first,
 falling level 8, water/lava horizontal drop-off), but still omits slope search, collision shapes, source
@@ -436,6 +437,20 @@ testing) is still blocked by DG1/DG2 — those criteria remain untouched.
 > brewing and broader dispenser behavior remain runtime-unverified. Write-back remains deliberately
 > off because the amount-only inventory model cannot create item types and the measured timer/eject
 > offsets are ordering artifacts, not missing authoritative writes.
+>
+> **⚡ B8 C3 brewing + dispenser-breadth slice (2026-07-11, unit-only).** Brewing now has a real
+> `BlockEntityActions.brewing` action (fuel load → countdown → arm-or-noop), a `brewingWillMutate`
+> activity gate, a `BREWING_STAND` resolver mapping, and a `brewingStandRw` declaration that now
+> reads every inventory slot plus `brew_time`/`fuel` (writes were already declared). The bridge
+> has 5 new `BlockEntityActionsTest` brewing-layout cases plus 2 new `BlockEntityRwGuardBridgeTest`
+> cases: a positive (declared RW-set vs real trace → 0 violations, with non-empty read+write trace
+> to defeat the empty-trace honesty trap) and a negative (omit `brew_time` write → exactly one
+> `UNDECLARED_WRITE`). Dispenser breadth audit: `BlockEntityActions.dispenser` shares `ejectOneRandomItem`
+> with `dropper`; the broader dispense behaviour (projectile, block place, mob spawn, bucket,
+> armor equip) is **not** modelled in CAS — same honest gap as dropper, surfaced in the Javadoc.
+> **Honest scope**: this slice is unit-only. No live Folia run with `-Dnebula.rw.guard=true` was
+> performed; the bottle-mixing step is still placeholder pending a real `PotionBrewing.hasMix`
+> port, and potion NBT key reads are intentionally outside the current RW-set envelope.
 >
 ### Why Did This Happen?
 

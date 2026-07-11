@@ -113,15 +113,26 @@ class BlockEntityTaskFactoryTest {
         TaskNode node = BlockEntityTaskFactory.brewingStandInert(snap);
         RWSet rw = node.declaredRWSet();
 
-        // Reads ingredient (slot 3) and fuel (slot 4)
-        assertTrue(rw.declaresBlockEntityRead(new BlockEntityField(BREWER_POS, "inventory.slots[3]")));
-        assertTrue(rw.declaresBlockEntityRead(new BlockEntityField(BREWER_POS, "inventory.slots[4]")));
+        // Reads every slot: 0-2 (bottles, needed for the conservative isBrewable
+        // predicate), 3 (ingredient), 4 (blaze powder fuel).
+        for (int i = 0; i <= 4; i++) {
+            assertTrue(rw.declaresBlockEntityRead(new BlockEntityField(BREWER_POS, "inventory.slots[" + i + "]")),
+                "must declare read on slot " + i);
+        }
 
-        // Writes all output bottles (0-2) + ingredient + fuel + brew_time
-        assertTrue(rw.declaresBlockEntityWrite(new BlockEntityField(BREWER_POS, "inventory.slots[0]")));
-        assertTrue(rw.declaresBlockEntityWrite(new BlockEntityField(BREWER_POS, "inventory.slots[1]")));
-        assertTrue(rw.declaresBlockEntityWrite(new BlockEntityField(BREWER_POS, "inventory.slots[2]")));
+        // Writes every slot (conservative envelope — the integer-only action may
+        // decrement any of them; the bottle mix step is intentionally placeholder
+        // until a real PotionBrewing port lands), plus brew_time + fuel.
+        for (int i = 0; i <= 4; i++) {
+            assertTrue(rw.declaresBlockEntityWrite(new BlockEntityField(BREWER_POS, "inventory.slots[" + i + "]")),
+                "must declare write on slot " + i);
+        }
         assertTrue(rw.declaresBlockEntityWrite(new BlockEntityField(BREWER_POS, "brew_time")));
+        assertTrue(rw.declaresBlockEntityWrite(new BlockEntityField(BREWER_POS, "fuel")));
+        // The action reads brew_time and fuel every tick to drive its state machine
+        // (see BlockEntityActions.brewing); the RW-set must declare them.
+        assertTrue(rw.declaresBlockEntityRead(new BlockEntityField(BREWER_POS, "brew_time")));
+        assertTrue(rw.declaresBlockEntityRead(new BlockEntityField(BREWER_POS, "fuel")));
     }
 
     @Test

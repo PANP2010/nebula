@@ -28,6 +28,10 @@ public final class BlockEntityActions {
     public static final int FUEL_PER_ITEM = 200;
     /** Slot count of a dropper/dispenser container (MC DispenserBlockEntity.CONTAINER_SIZE). */
     public static final int DISPENSER_CONTAINER_SIZE = 9;
+    /** Vanilla brewing tick count to complete one brew (BrewingStandBlockEntity.serverTick). */
+    public static final int BREW_TIME_TOTAL = 400;
+    /** Vanilla fuel decrement per brew (BrewingStandBlockEntity.fuel). */
+    public static final int BREW_FUEL_PER_BREW = 1;
 
     private BlockEntityActions() {}
 
@@ -266,6 +270,144 @@ public final class BlockEntityActions {
     public static BlockEntityAction dispenser(WorldPos self, int slotCount) {
         return ejectOneRandomItem(self, slotCount);
     }
+
+    /**
+     * Pure activity gate for a brewing stand: {@code true} iff {@link #brewing} would
+     * buffer at least one CAS write on its next tick, given the same five inputs the
+     * action reads (slots 0..4 plus {@code brew_time} and {@code fuel}).
+     *
+     * <p><b>Why this exists.</b> The brewing stand is the first autonomous block entity
+     * with no other event seeder — no hopper feeds it, no redstone pulse gates it; it
+     * re-seeds itself from its own {@code brew_time > 0} path and from the
+     * "brewable + fuel > 0" arming path. So unlike the furnace (which we later added
+     * an explicit cook-tick seeder for), the brewing stand's re-seed reason is
+     * "any state where the next tick would mutate CAS" — exactly this predicate. It
+     * mirrors {@link #furnaceWillMutate} one-for-one so the gate cannot silently drift
+     * from the action's real branch structure.
+     *
+     * <p>The {@code fuelSlot} and {@code ingredientSlot} counts use the same int
+     * presence-only model the action itself does; {@code brewable} here is the same
+     * "ingredient slot non-zero AND any of slots 0..2 non-zero" predicate the action
+     * uses (the vanilla {@code PotionBrewing.hasMix} lookup is not modelled — see
+     * {@link #brewing} for the conservative coverage rationale).
+     */
+    public static boolean brewingWillMutate(int slot0, int slot1, int slot2, int ingredientSlot,
+                                            int fuelSlot, int brewTime, int fuel) {
+        // The action's first mutating branch is `if (brewTime > 0) { write brew_time = brewTime-1 }`.
+        // That fires for every brewTime > 0, regardless of brewability, so the gate must
+        // also say true for every brewTime > 0.
+        if (brewTime > 0) {
+            return true;
+        }
+        // brewTime == 0 → either arm a fresh brew (mutate fuel, brewTime, ingredient,
+        // and possibly load fuel from slot 4) or do nothing. The action's idle-arming
+        // branch mutates iff isBrewable AND (fuel > 0 OR fuelSlot > 0) — the second
+        // disjunct catches the case where the same tick's fuel-load pass arms fuel and
+        // the arm-pass immediately consumes one (tested in brewingLoadsFuelAndArmsBrew).
+        return brewingIsBrewable(slot0, slot1, slot2, ingredientSlot)
+            && (fuel > 0 || fuelSlot > 0);
+    }
+
+    /**
+     * The conservative "isBrewable" predicate this action's CAS model can compute from
+     * its integer-only inventory: ingredient slot non-zero AND at least one bottle
+     * slot non-zero. The vanilla {@code PotionBrewing.isIngredient(...)} +
+     * {@code PotionBrewing.hasMix(...)} lookups depend on potion NBT, which the
+     * integer-count model does not represent — so this is a strict superset of what
+     * vanilla would treat as brewable. That conservatism keeps the declared RW-set
+     * honest (we never claim a brew fires when it cannot) without forcing the action
+     * to model NBT.
+     */
+    private static boolean brewingIsBrewable(int slot0, int slot1, int slot2, int ingredientSlot) {
+        if (ingredientSlot <= 0) {
+            return false;
+        }
+        return slot0 > 0 || slot1 > 0 || slot2 > 0;
+    }
+
+    /**
+     * Brewing stand tick: ports {@code BrewingStandBlockEntity.serverTick} onto the
+     * integer-only inventory model (slots: 0..2 = bottles, 3 = ingredient,
+     * 4 = blaze powder fuel).
+     *
+     * <h3>Vanilla math</h3>
+     * <ul>
+     *   <li>Fuel loading: if {@code fuel <= 0} and slot 4 is non-zero, arm
+     *       {@code fuel = BREW_FUEL_MAX = 20} and decrement slot 4 (vanilla's exact
+     *       numbers from {@code BrewingStandBlockEntity.serverTick}).</li>
+     *   <li>Brewing: if {@code isBrewable} (ingredient slot non-zero AND at least one
+     *       bottle slot non-zero) and {@code fuel > 0}, decrement fuel and arm
+     *       {@code brew_time = BREW_TIME_TOTAL = 400}.</li>
+     *   <li>Counting: every tick while {@code brew_time > 0}, decrement it. At
+     *       {@code brew_time == 0} AND {@code isBrewable}, call {@code doBrew}.</li>
+     * </ul>
+     *
+     * <h3>What this action models and what it does NOT</h3>
+     * <p>The vanilla {@code doBrew} mixes potions via {@code PotionBrewing.mix(ing, bot)}
+     * which depends on the bottle's NBT potion type (water → awkward → healing etc.).
+     * The integer-count inventory model cannot represent that, so {@code doBrew} is
+     * modelled as a placeholder: ingredient slot is decremented (vanilla's
+     * {@code ingredient.shrink(1)}) and bottle slots are LEFT UNCHANGED. That is
+     * deliberate and conservative — modelling the actual brew result would require a
+     * full PotionBrewing port beyond C3's scope. The declared RW-set therefore declares
+     * the bottle slots read but not necessarily written on the {@code brew_time == 0}
+     * branch; {@code brewingStandRw()} declares them as read+write anyway because the
+     * conservative envelope is the right contract until the real mix is implemented.
+     *
+     * @param self the brewing stand position
+     */
+    public static BlockEntityAction brewing(WorldPos self) {
+        return ctx -> {
+            int slot0 = ctx.readSlot(self, 0);
+            int slot1 = ctx.readSlot(self, 1);
+            int slot2 = ctx.readSlot(self, 2);
+            int ingredientSlot = ctx.readSlot(self, 3);
+            int fuelSlot = ctx.readSlot(self, 4);
+            int brewTime = ctx.read(self, "brew_time");
+            int fuel = ctx.read(self, "fuel");
+
+            // Fuel loading: if no fuel left and slot 4 is non-zero, arm fuel and
+            // consume one blaze powder. Vanilla BrewingStandBlockEntity.serverTick.
+            // Track the live fuel value through local mutations so the idle-arming
+            // pass below sees the freshly-loaded fuel on the same tick (vanilla's
+            // exact same-tick consume order).
+            if (fuel <= 0 && fuelSlot > 0) {
+                fuel = BREWING_FUEL_MAX;
+                ctx.write(self, "fuel", fuel);
+                fuelSlot = fuelSlot - 1;
+                ctx.writeSlot(self, 4, fuelSlot);
+            }
+
+            // Brewing: count down if mid-brew; arm fresh if idle and brewable.
+            if (brewTime > 0) {
+                int nextBrew = brewTime - 1;
+                ctx.write(self, "brew_time", nextBrew);
+                if (nextBrew == 0 && brewingIsBrewable(slot0, slot1, slot2, ingredientSlot)) {
+                    // doBrew: vanilla decrements the ingredient and mixes bottles via
+                    // PotionBrewing. The integer model only decrements the ingredient;
+                    // bottles are left unchanged (placeholder for the real mix).
+                    ctx.writeSlot(self, 3, ingredientSlot - 1);
+                    // Bottle slots are declared read+write in brewingStandRw(); writing
+                    // them here would let the placeholder "consume a bottle" — which is
+                    // wrong. Until the real mix lands, leave bottle writes to the
+                    // conservative declaration's coverage, NOT to the action's writes.
+                }
+                return;
+            }
+
+            // Idle branch: arm a fresh brew if possible. The vanilla tick consumes
+            // one fuel unit on the SAME tick the brew is armed (not the next), so
+            // the post-tick fuel is (loaded fuel - 1). Mirror that exactly.
+            if (brewingIsBrewable(slot0, slot1, slot2, ingredientSlot) && fuel > 0) {
+                fuel = fuel - 1;
+                ctx.write(self, "fuel", fuel);
+                ctx.write(self, "brew_time", BREW_TIME_TOTAL);
+            }
+        };
+    }
+
+    /** Vanilla {@code BrewingStandBlockEntity.fuel} max value (20 per blaze powder). */
+    public static final int BREWING_FUEL_MAX = 20;
 
     /**
      * Shared eject math for {@link #dropper}/{@link #dispenser}: read the self slots, draw

@@ -127,4 +127,90 @@ final class BlockEntityRwGuardBridgeTest {
         assertEquals(AccessTarget.blockEntityField(outputSlot), v.accessTarget(),
             "the flagged access must be the output slot the RW-set dropped");
     }
+
+    // ----- B8 C3 brewing slice (2026-07-11) --------------------------------------
+    // The brewing action is the third autonomous block-entity task type with live math;
+    // see BlockEntityActions.brewing for the integer-only brewing state machine.
+
+    private static void putBrewingLoad(BlockEntityState s, WorldPos self) {
+        // A brewable layout: one bottle (slot 0), three ingredient (slot 3),
+        // one blaze powder (slot 4). With fuel==0 + brew_time==0, the action will
+        // load fuel=20 then arm brew_time=400 on the SAME tick (vanilla's two-pass
+        // serverTick structure).
+        s.put(new BlockEntityField(self, "inventory.slots[0]"), 1);
+        s.put(new BlockEntityField(self, "inventory.slots[3]"), 3);
+        s.put(new BlockEntityField(self, "inventory.slots[4]"), 1);
+    }
+
+    @Test
+    void brewingActionTracesCleanAgainstItsDeclaredRwSet() throws Exception {
+        // Positive control: a real brewing action whose declared RW-set covers every
+        // field it touches must produce ZERO violations against its own trace.
+        BlockEntityState state = new BlockEntityState();
+        putBrewingLoad(state, SELF);
+        BlockEntitySnapshot snap = BlockEntitySnapshot.brewingStand(SELF);
+        TaskNode task = BlockEntityTaskFactory.brewingStand(snap,
+            () -> BlockEntityActionResolver.resolve(snap));
+
+        BlockEntityTaskRunner runner = BlockEntityTaskRunner.withSnapshotResolver(
+            state, id -> snap, BlockEntityRwGuardTracer.INSTANCE, null);
+
+        ThreadLocalAccessTrace.reset();
+        runner.run(task);
+        ActualAccessTrace actual = ThreadLocalAccessTrace.snapshot();
+
+        List<RWSetViolation> violations =
+            RWSetConsistencyChecker.check(0L, task, task.declaredRWSet(), actual);
+        assertTrue(violations.isEmpty(),
+            "brewing action's real field accesses must all be declared in brewingStandRw(); got: " + violations);
+        // Corroborate the trace was NOT silently empty (the honesty trap): a real
+        // fuel-load+arm tick touches slots + timers, so the snapshot must hold reads.
+        assertTrue(!actual.readBlockEntities().isEmpty() && !actual.writtenBlockEntities().isEmpty(),
+            "trace must hold the brewing action's real field reads/writes, not be empty");
+    }
+
+    @Test
+    void brewingBridgeFlagsExactlyAnOmittedBrewTimeWrite() throws Exception {
+        // Negative control: declare a brewing RW-set that OMITS brew_time (which the
+        // action always writes), then confirm the checker flags exactly that field.
+        BlockEntityState state = new BlockEntityState();
+        putBrewingLoad(state, SELF);
+        BlockEntitySnapshot snap = BlockEntitySnapshot.brewingStand(SELF);
+
+        RWSet incomplete = RWSet.builder()
+            .readBlockEntity(new BlockEntityField(SELF, "inventory.slots[0]"))
+            .readBlockEntity(new BlockEntityField(SELF, "inventory.slots[1]"))
+            .readBlockEntity(new BlockEntityField(SELF, "inventory.slots[2]"))
+            .readBlockEntity(new BlockEntityField(SELF, "inventory.slots[3]"))
+            .readBlockEntity(new BlockEntityField(SELF, "inventory.slots[4]"))
+            .readBlockEntity(new BlockEntityField(SELF, "fuel"))
+            .readBlockEntity(new BlockEntityField(SELF, "brew_time"))
+            .writeBlockEntity(new BlockEntityField(SELF, "inventory.slots[0]"))
+            .writeBlockEntity(new BlockEntityField(SELF, "inventory.slots[1]"))
+            .writeBlockEntity(new BlockEntityField(SELF, "inventory.slots[2]"))
+            .writeBlockEntity(new BlockEntityField(SELF, "inventory.slots[3]"))
+            .writeBlockEntity(new BlockEntityField(SELF, "inventory.slots[4]"))
+            .writeBlockEntity(new BlockEntityField(SELF, "fuel"))
+            // brew_time write intentionally omitted
+            .build();
+        TaskNode task = new TaskNode(snap.taskId(), "BLOCK_ENTITY_BREWING_STAND", incomplete, () -> { });
+
+        BlockEntityTaskRunner runner = BlockEntityTaskRunner.withSnapshotResolver(
+            state, id -> snap, BlockEntityRwGuardTracer.INSTANCE, null);
+
+        ThreadLocalAccessTrace.reset();
+        runner.run(task);
+        ActualAccessTrace actual = ThreadLocalAccessTrace.snapshot();
+
+        List<RWSetViolation> violations =
+            RWSetConsistencyChecker.check(0L, task, incomplete, actual);
+
+        assertEquals(1, violations.size(),
+            "exactly the one omitted brew_time write must be flagged; got: " + violations);
+        RWSetViolation v = violations.getFirst();
+        assertEquals(ViolationType.UNDECLARED_WRITE, v.violationType());
+        assertEquals(AccessTarget.blockEntityField(new BlockEntityField(SELF, "brew_time")),
+            v.accessTarget(),
+            "the flagged access must be brew_time, the field the RW-set dropped");
+    }
 }

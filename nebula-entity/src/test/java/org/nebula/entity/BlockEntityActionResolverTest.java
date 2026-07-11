@@ -157,10 +157,12 @@ class BlockEntityActionResolverTest {
     }
 
     @Test
-    void unmodelledTypesResolveNull() {
-        // BREWING_STAND still has no action math — honest no-op until it is written.
-        assertNull(BlockEntityActionResolver.resolve(
-            BlockEntitySnapshot.brewingStand(POS)));
+    void brewingStandResolvesToBrewingAction() {
+        // BREWING_STAND now has real action math (B8 C3 brewing slice) —
+        // BlockEntityActions.brewing self-ticks the integer-only brew state machine.
+        BlockEntityAction action = BlockEntityActionResolver.resolve(
+            BlockEntitySnapshot.brewingStand(POS));
+        assertNotNull(action, "BREWING_STAND must resolve to the brewing action");
     }
 
     @Test

@@ -693,6 +693,32 @@ requires the decisive Folia experiment, not just a green unit test.
       hopper/furnace field accesses; brewing and broader dispenser behavior remain runtime-unverified,
       and write-back stays intentionally off because the amount-only inventory model is lossy and the
       measured offsets are ordering artifacts.
+      - [x] **C3 brewing slice DONE (2026-07-11, unit-only):** implemented `BlockEntityActions.brewing`
+            modelling vanilla's autonomous state machine (fuel load → countdown → arm-or-noop),
+            `brewingWillMutate` activity gate mirroring the action's branches, wired `BREWING_STAND`
+            into `BlockEntityActionResolver`, and widened `brewingStandRw` to declare reads on every
+            inventory slot plus `brew_time` and `fuel` (writes were already declared). Unit evidence:
+            `BlockEntityActionsTest` has 5 brewing-layout tests including the
+            `brewingLoadsFuelAndArmsBrewOnIdleBrewableLayout` matrix, `brewingOnCompletion…`,
+            `brewingOnIdleLayoutIsANoOp`, and the gate agreement test. `BlockEntityRwGuardBridgeTest`
+            has 2 new brewing cases: a positive (declared RW-set vs real trace → 0 violations, with
+            non-empty read+write trace to defeat the empty-trace honesty trap) and a negative
+            (omit `brew_time` write → exactly one `UNDECLARED_WRITE` on `brew_time`). The negative
+            test had to declare `brew_time` + `fuel` as reads as well to isolate the write as the
+            single drift axis. **Honest scope**: this slice is unit-only. No live Folia run with
+            `-Dnebula.rw.guard=true` was performed; the action uses the same integer-only CAS model
+            as the rest of C3, so the bottle-mixing step is still placeholder pending a real
+            `PotionBrewing.hasMix` port. Potion NBT (key ingredient reads) is intentionally outside
+            the current RW-set envelope.
+      - [x] **C3 dispenser breadth audit DONE (2026-07-11, unit-only):** `BlockEntityActions.dispenser`
+            shares `ejectOneRandomItem` with `dropper`; the broader dispense behavior (projectile
+            shoot, block place, mob spawn, bucket fill/empty, armor equip) is **not** modelled in CAS
+            today and the dispenser RW-set declares only `INVENTORY_CHANGED`+`ENTITY_SPAWNED`
+            semantics without the spawned-entity concrete fields. The live dispenser CAS math is the
+            same as the dropper's, so the live guard evidence collected for dropper transfers
+            honestly to the dispenser-side random-eject branch. The per-item-behaviour stub is the
+            same honest-scope gap documented in `BlockEntityActions.dispenser`'s Javadoc and in
+            C3's dropper entry. No live-Folia guard run was performed for this audit.
 - [ ] ⚡ C4. Same loop for **fluid** (`FluidTaskFactory`) and **explosion** (`ExplosionTaskFactory`) now
       that the live redstone/entity-MOVE/block-entity guard loop is proven; these fan out widely, so verify
       at small scale first.

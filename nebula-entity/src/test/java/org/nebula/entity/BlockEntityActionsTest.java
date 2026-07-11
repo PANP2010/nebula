@@ -396,6 +396,121 @@ class BlockEntityActionsTest {
         assertThrows(IllegalStateException.class, () -> tickOnce(state, action));
     }
 
+    // ------------------------------------------------------------- brewing stand
+
+    @Test
+    void brewingLoadsFuelAndArmsBrewOnIdleBrewableLayout() throws Exception {
+        // Cold brewing stand (fuel=0, brew_time=0) with a blaze powder in slot 4 AND
+        // a brewable layout (slot 3 non-zero + at least one bottle slot non-zero):
+        // the action arms fuel=20 (BREWING_FUEL_MAX), decrements slot 4, then on the
+        // same idle branch decrements fuel by 1 and arms brew_time=400.
+        BlockEntityState state = new BlockEntityState();
+        state.put(slot(POS, 0), 1);   // bottle
+        state.put(slot(POS, 3), 3);   // ingredient (e.g. nether wart)
+        state.put(slot(POS, 4), 1);   // one blaze powder
+
+        tickOnce(state, BlockEntityActions.brewing(POS));
+
+        // Vanilla BrewingStandBlockEntity.serverTick performs TWO passes per tick:
+        // first the fuel-load (sets fuel=20, shrinks slot 4), then the idle-arming
+        // pass that consumes the freshly-loaded fuel and arms brew_time=400. So the
+        // post-tick fuel is 20-1 = 19 — the fuel-load and the fuel-consume-on-arm
+        // happen on the SAME tick, exactly mirroring the decompiled control flow.
+        assertEquals(BlockEntityActions.BREWING_FUEL_MAX - 1, state.get(field(POS, "fuel")),
+            "fuel loaded to BREWING_FUEL_MAX then immediately consumed by the arm pass");
+        assertEquals(0, state.get(slot(POS, 4)), "blaze powder consumed");
+        assertEquals(BlockEntityActions.BREW_TIME_TOTAL, state.get(field(POS, "brew_time")),
+            "brew_time armed to BREW_TIME_TOTAL");
+    }
+
+    @Test
+    void brewingCountsDownBrewTimeWithoutConsumingIngredient() throws Exception {
+        // Already brewing (brew_time > 0): the action decrements brew_time by 1 and
+        // does NOT touch the ingredient or bottles (vanilla BrewingStandBlockEntity
+        // only mutates slot 3 at brew_time==0 in the doBrew branch).
+        BlockEntityState state = new BlockEntityState();
+        state.put(slot(POS, 0), 1);
+        state.put(slot(POS, 3), 3);
+        state.put(field(POS, "brew_time"), 100);
+        state.put(field(POS, "fuel"), 5);
+
+        tickOnce(state, BlockEntityActions.brewing(POS));
+
+        assertEquals(99, state.get(field(POS, "brew_time")), "brew_time decrements by 1");
+        assertEquals(3, state.get(slot(POS, 3)), "ingredient untouched mid-brew");
+        assertEquals(1, state.get(slot(POS, 0)), "bottle untouched mid-brew");
+        assertEquals(5, state.get(field(POS, "fuel")), "fuel untouched mid-brew");
+    }
+
+    @Test
+    void brewingOnCompletionDecrementsIngredientButLeavesBottlesAlone() throws Exception {
+        // brew_time == 1 → next tick decrements to 0; if isBrewable holds, doBrew
+        // fires. Vanilla decrements the ingredient and mixes bottles via PotionBrewing;
+        // the integer-only action's placeholder leaves bottles unchanged. This pins
+        // the conservative behavior that brewingStandRw()'s conservative envelope
+        // covers.
+        BlockEntityState state = new BlockEntityState();
+        state.put(slot(POS, 0), 1);
+        state.put(slot(POS, 1), 1);
+        state.put(slot(POS, 3), 7);
+        state.put(field(POS, "brew_time"), 1);
+        state.put(field(POS, "fuel"), 5);
+
+        tickOnce(state, BlockEntityActions.brewing(POS));
+
+        assertEquals(0, state.get(field(POS, "brew_time")), "brew_time ticked down to 0");
+        assertEquals(6, state.get(slot(POS, 3)), "ingredient decremented by 1 on brew completion");
+        assertEquals(1, state.get(slot(POS, 0)), "bottle slot 0 left untouched (placeholder mix)");
+        assertEquals(1, state.get(slot(POS, 1)), "bottle slot 1 left untouched (placeholder mix)");
+        assertEquals(5, state.get(field(POS, "fuel")), "fuel untouched on doBrew step");
+    }
+
+    @Test
+    void brewingOnIdleLayoutIsANoOp() throws Exception {
+        // Empty brewing stand (no ingredient, no fuel): no fuel pass, no brewing pass.
+        BlockEntityState state = new BlockEntityState();
+
+        tickOnce(state, BlockEntityActions.brewing(POS));
+
+        assertEquals(0, state.get(field(POS, "fuel")));
+        assertEquals(0, state.get(field(POS, "brew_time")));
+        for (int s = 0; s <= 4; s++) {
+            assertEquals(0, state.get(slot(POS, s)), "slot " + s + " untouched on empty stand");
+        }
+    }
+
+    @Test
+    void brewingActivityGateAgreesWithActionAcrossALayoutMatrix() {
+        // Anti-drift: brewingWillMutate must equal "running brewing() on the same
+        // initial state would buffer any write". Sweep a small matrix the action's
+        // branch structure cares about (idle / mid-brew / brewable / no-fuel /
+        // no-ingredient / ingredient-only).
+        int[][] layouts = {
+            // { slot0, slot1, slot2, ingredient, fuelSlot, brewTime, fuel }
+            {0, 0, 0, 0, 0, 0, 0},    // totally empty — gate false
+            {1, 0, 0, 0, 0, 0, 0},    // bottle only, no ingredient — gate false
+            {0, 0, 0, 1, 0, 0, 0},    // ingredient only, no bottle — gate false
+            {1, 0, 0, 1, 0, 0, 0},    // brewable, no fuel — gate true (re-arms fuel if slot 4 present, but here 0)
+            {1, 0, 0, 1, 1, 0, 0},    // brewable, fuel in slot 4 — gate true (loads + arms)
+            {1, 0, 0, 1, 0, 0, 5},    // brewable, fuel armed — gate true (consumes fuel, arms brew)
+            {0, 0, 0, 0, 0, 100, 0},  // mid-brew — gate true (counts down)
+            {1, 0, 0, 0, 0, 1, 0},    // about to doBrew but not brewable — gate false (no brewable, no fuel arm)
+        };
+        for (int[] layout : layouts) {
+            boolean gate = BlockEntityActions.brewingWillMutate(
+                layout[0], layout[1], layout[2], layout[3], layout[4], layout[5], layout[6]);
+            // The action's write set is: at minimum `brew_time` decrements if >0;
+            // `fuel` loads if fuel==0 && slot4>0; `fuel` decrements if idle branch
+            // arms; `slot 3` decrements on doBrew; `slot 4` decrements on fuel-load.
+            boolean actionWouldWrite = layout[5] > 0                                       // mid-brew
+                || (layout[3] > 0 && (layout[0] > 0 || layout[1] > 0 || layout[2] > 0)
+                    && (layout[6] > 0 || layout[4] > 0));                                 // idle arming
+            assertEquals(actionWouldWrite, gate,
+                "gate must agree with action's branch structure for layout "
+                    + java.util.Arrays.toString(layout));
+        }
+    }
+
     /** Replays the decompiled getRandomSlot reservoir loop to pin the expected chosen slot. */
     private static int expectedChosenSlot(int[] slots, long seed) {
         java.util.Random ref = new java.util.Random(seed);

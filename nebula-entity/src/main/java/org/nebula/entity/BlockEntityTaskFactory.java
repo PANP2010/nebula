@@ -198,19 +198,28 @@ public final class BlockEntityTaskFactory {
     /**
      * Brewing stand tick: brews potions from ingredient + blaze powder.
      * Slots: 0-2=output bottles, 3=ingredient, 4=fuel (blaze powder).
+     * Reads slot 0-2 to detect a brewable layout (the vanilla
+     * {@code PotionBrewing.hasMix} lookup depends on potion NBT — see
+     * {@link BlockEntityActions#brewing} for the conservative-coverage rationale.
      */
     private static RWSet brewingStandRw(BlockEntitySnapshot s) {
         WorldPos self = s.pos();
         RWSet.Builder b = RWSet.builder()
             .readBlock(self)
+            .readBlockEntity(new BlockEntityField(self, "inventory.slots[0]"))
+            .readBlockEntity(new BlockEntityField(self, "inventory.slots[1]"))
+            .readBlockEntity(new BlockEntityField(self, "inventory.slots[2]"))
             .readBlockEntity(new BlockEntityField(self, "inventory.slots[3]"))
             .readBlockEntity(new BlockEntityField(self, "inventory.slots[4]"))
+            .readBlockEntity(new BlockEntityField(self, "brew_time"))
+            .readBlockEntity(new BlockEntityField(self, "fuel"))
             .writeBlockEntity(new BlockEntityField(self, "inventory.slots[0]"))
             .writeBlockEntity(new BlockEntityField(self, "inventory.slots[1]"))
             .writeBlockEntity(new BlockEntityField(self, "inventory.slots[2]"))
             .writeBlockEntity(new BlockEntityField(self, "inventory.slots[3]"))
             .writeBlockEntity(new BlockEntityField(self, "inventory.slots[4]"))
-            .writeBlockEntity(new BlockEntityField(self, "brew_time"));
+            .writeBlockEntity(new BlockEntityField(self, "brew_time"))
+            .writeBlockEntity(new BlockEntityField(self, "fuel"));
         return b.build();
     }
 
