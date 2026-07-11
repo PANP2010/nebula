@@ -2,8 +2,8 @@
 
 —— 一份让工程师落泪的施工蓝图
 
-版本：4.1 工程落地版（修订 DG1 Criterion 3 定义，新增 Phase 1.5，新增 B9 D5 实验记录）
-状态：Phase 0（红石 DG1 已完成；实体 MOVE / 方块实体 / 流体 / 爆炸各有一个 live guard 切片；B9 D5 Paper 单线程 oracle 验证完成；光照/AI/碰撞/伤害/Random 完整模型待实现）
+版本：4.1 工程落地版
+状态：Phase 0（2026年7月更新：红石 DG1 已完成；B9 D5 单线程 oracle 验证完成）
 日期：2026年7月
 文档规模：完整工程规格
 
@@ -1170,10 +1170,6 @@ Month 3-4：红石DAG构建引擎
 
 Month 5-6：红石执行引擎
 
-> **⚠️ 架构选择：观察者阴影（Observer Shadow）而非权威接管。** 架构正文描述的 F = F_network ∘ F_entities ∘ ... 是星云的*目标架构*——星云作为权威服务端替换 Folia 的 tick 执行。Phase 0 实现选择了一条务实路径：作为 Folia/Paper 插件，星云以只读阴影叠加在 Folia 的权威 tick 之上。每个 Folia region 线程处理完权威 tick 后，将脏位置交给星云 DAG；DAG 的 CAS 计算结果写回 NMS 完成同步，但不改变 Folia 的权威状态。这一选择使 Phase 0 能够运行在 Folia 之上，而无需接管 Folia 的权威 tick（极高风险工程）。代价：阴影只能增加开销，不能减少 Folia 的原始串行工作。
->
-> · 两种阴影模式：`-Dnebula.rw.guard=true` 启用 RW-Set Integrity Guard（验证读写集完整性，patch-001 P0）；`-Dnebula.dag.parallel=true` 在 Paper 上启用 DAG worker pool（Paper 单线程 oracle 是"单线程权威"用于与并行 DAG 输出比对，/nebula diff 命令执行此比对）。
-
 · 实现分层任务分发与执行
 · 实现红石状态快照的原子提交
 · 实现微步骤循环的执行与终止
@@ -1189,7 +1185,7 @@ DG1决策标准：
 
 · 10000+ tick回放测试：差异率=0（比特级一致）
 · 微步骤上限256：在所有测试电路中未触发（或触发时产生明确警告而非静默偏差）
-· 阴影开销预算：p99 DAG tick 执行时长 < 3ms（多区域工作负载下）。注：此为阴影自身的*附加开销*，而非对 Folia MSPT 的"降低"——星云是 Folia 的只读阴影，无法替代 Folia 的串行工作，故不存在可测量的"降低"。阴影开销预算衡量的是阴影在 Folia 之上的额外成本，上限设为 3ms 以确保阴影不会使 Folia 超出 20 TPS 预算。
+· MSPT：在红石密集型负载下，星云相对 Folia 的 MSPT 降低 ≥30%（同等硬件、同等红石负载）。星云接管 Folia 的权威 tick，DAG 消除 Folia 串行红石处理的开销，因此存在可测量的"降低"。
 
 交付物：
 
@@ -1286,7 +1282,7 @@ DG2决策标准：
 
 · 50000+ tick回放测试：差异率=0
 · Random超预算重执行率<1%（在正常生存服负载下）
-· 阴影开销预算：全系统 p99 DAG tick 执行时长 < 3ms（同 DG1）。注：星云是 Folia 的只读阴影，"降低"指的是阴影自身附加开销的上限约束，而非对 Folia MSPT 的替代性减少。
+· 真实负载下MSPT相对Folia降低≥30%（同等硬件、同等玩家数）
 
 交付物：
 

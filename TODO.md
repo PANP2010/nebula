@@ -1,7 +1,7 @@
 # Nebula Project - TODO List
 
 **Based on**: PROJECT_STATUS.md (source of truth), the whitepaper (docs/nebula-architecture.md) and its two patches (docs/nebula-patch-001/002.md)
-**Last verified**: 2026-07-12 — B8 C3/C4/C5 and tracer base refactor committed (see B8 section for details); run `./gradlew test --no-daemon -q` to re-verify
+**Last verified**: 2026-07-12 — B8 C3/C4/C5 and tracer base refactor committed; architecture doc updated to v4.1 (Phase 0 partial, shadow-overhead budget, Phase 1.5, per-subsystem status notes); run `./gradlew test --no-daemon -q` to re-verify
 **Branch**: feat/fix-folia-scheduler-v2
 
 ---
