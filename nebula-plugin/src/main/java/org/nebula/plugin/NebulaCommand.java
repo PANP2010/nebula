@@ -51,6 +51,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
             case "be-furnace-phase" -> handleFurnacePhase(sender, args);
             case "be-dropper-slot" -> handleDropperSlot(sender, args);
             case "be-dropper-phase" -> handleDropperPhase(sender, args);
+            case "coverage" -> handleCoverage(sender);
             case "help" -> sendHelp(sender);
             default -> sender.sendMessage("§cUnknown subcommand: " + sub);
         }
@@ -595,7 +596,46 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
         sender.sendMessage("  §e/nebula be-furnace-phase [count] §7- Arm the BE-FURNACE-PHASE probe for [count] ticks; classifies the +1/-1 offset (ordering vs rate)");
         sender.sendMessage("  §e/nebula be-dropper-slot [count] §7- Emit BE-DROPPER-SLOT eject-gap snapshot(s); [count] = once-per-tick burst to straddle the eject steps");
         sender.sendMessage("  §e/nebula be-dropper-phase [count] §7- Arm the BE-DROPPER-PHASE probe for [count] ticks; classifies the +1 offset (ordering vs rate)");
+        sender.sendMessage("  §e/nebula coverage §7- Per-subsystem @NebulaRW coverage ratio (DG3, real bridge inventory)");
         sender.sendMessage("  §e/nebula help §7- Show this help");
+    }
+
+    /**
+     * DG3 deliverable: B8 RW-coverage slice. Builds the
+     * {@link org.nebula.maintenance.AnnotationCoverageDashboard} from a real scan
+     * of the runtime bridge classes ({@link org.nebula.folia.NmsBlockStateBridge},
+     * {@link org.nebula.folia.NmsBlockEntityStateBridge}, etc.) and prints the
+     * per-subsystem annotated/total ratio. This is the operator-facing slice of
+     * the whitepaper §14.3.5 组件 C — driven from real inventory, not hand-typed
+     * counts, so each new {@code @NebulaRW} annotation on a bridge method bumps
+     * the ratio on the very next run. The honest-scope note: the "total hotspot
+     * methods" denominator is the public-method count on those bridge classes,
+     * not the full decompiled-MC universe (out of scope per the brief's
+     * reference-only rule); cross-check against the NMS patch-based count via
+     * {@code RedstoneAnnotationMaintenanceTest.coverageDashboardBuiltFromRealScan}.
+     */
+    private void handleCoverage(CommandSender sender) {
+        if (!sender.hasPermission("nebula.status")) {
+            sender.sendMessage("§cYou don't have permission to use this command.");
+            return;
+        }
+        org.nebula.maintenance.AnnotationCoverageDashboard dashboard =
+            plugin.buildCoverageDashboard();
+        var subsystems = dashboard.subsystems();
+        if (subsystems.isEmpty()) {
+            sender.sendMessage("§eNo bridge subsystems found on the runtime classpath. "
+                + "The folia-adapter module may not be loaded.");
+            return;
+        }
+        sender.sendMessage(String.format("§aRW-coverage: overall=%.1f%%, level2-debt=%d",
+            dashboard.overallCoverageRatio() * 100, dashboard.totalLevel2Debt()));
+        for (var c : subsystems) {
+            sender.sendMessage(String.format("  §7%-20s §f%.1f%% §7(%d/%d)",
+                c.subsystem(), c.coverageRatio() * 100,
+                c.annotatedMethods(), c.totalHotspotMethods()));
+        }
+        LOG.info("RW-coverage snapshot requested by " + sender.getName()
+            + " — overall=" + String.format("%.1f%%", dashboard.overallCoverageRatio() * 100));
     }
 
     @Override
@@ -604,7 +644,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
                                       String alias,
                                       String[] args) {
         if (args.length == 1) {
-            return Arrays.asList("capture", "status", "scan", "perf", "diag", "settled", "diff", "be-settled", "be-furnace-timer", "be-furnace-phase", "be-dropper-slot", "be-dropper-phase", "help");
+            return Arrays.asList("capture", "status", "scan", "perf", "diag", "settled", "diff", "be-settled", "be-furnace-timer", "be-furnace-phase", "be-dropper-slot", "be-dropper-phase", "coverage", "help");
         }
         if (args.length == 2 && args[0].equalsIgnoreCase("capture")) {
             return Arrays.asList("start", "stop");

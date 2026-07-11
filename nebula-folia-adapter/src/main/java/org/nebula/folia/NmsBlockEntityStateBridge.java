@@ -12,6 +12,9 @@ import org.bukkit.block.Hopper;
 import org.bukkit.block.TileState;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.nebula.annotations.MicroStepBehavior;
+import org.nebula.annotations.NebulaRW;
+import org.nebula.annotations.SccBehavior;
 import org.nebula.core.state.BlockEntityField;
 import org.nebula.core.state.WorldPos;
 import org.nebula.entity.BlockEntityState;
@@ -121,6 +124,25 @@ public final class NmsBlockEntityStateBridge {
      * <p>Must be called on the region thread that owns {@code pos}. A non-container block
      * (e.g. air above a bottom hopper) is a clean no-op.
      */
+    @NebulaRW(
+        readBlockEntities  = {"{pos}.inventory.slots[0]", "{pos}.inventory.slots[1]",
+                              "{pos}.inventory.slots[2]", "{pos}.inventory.slots[3]",
+                              "{pos}.inventory.slots[4]", "{pos}.inventory.slots[5]",
+                              "{pos}.inventory.slots[6]", "{pos}.inventory.slots[7]",
+                              "{pos}.inventory.slots[8]"},
+        writeBlockEntities = {"{pos}.inventory.slots[0]", "{pos}.inventory.slots[1]",
+                              "{pos}.inventory.slots[2]", "{pos}.inventory.slots[3]",
+                              "{pos}.inventory.slots[4]", "{pos}.inventory.slots[5]",
+                              "{pos}.inventory.slots[6]", "{pos}.inventory.slots[7]",
+                              "{pos}.inventory.slots[8]"},
+        triggeredEvents    = {"INVENTORY_CHANGED"},
+        microStep          = MicroStepBehavior.NONE,
+        scc                = SccBehavior.SERIALIZED,
+        maxRandomCalls     = 0,
+        randomInstance     = "NONE",
+        verifiedAt         = "1.21.4",
+        verifiedBy         = {"BlockEntityRwGuardBridgeTest"}
+    )
     public void syncInventoryFromNms(World world, WorldPos pos) {
         Objects.requireNonNull(world, "world");
         Objects.requireNonNull(pos, "pos");

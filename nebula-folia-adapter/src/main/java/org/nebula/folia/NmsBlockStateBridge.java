@@ -7,6 +7,9 @@ import org.bukkit.block.data.AnaloguePowerable;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Powerable;
 import org.bukkit.block.data.type.RedstoneWire;
+import org.nebula.annotations.MicroStepBehavior;
+import org.nebula.annotations.NebulaRW;
+import org.nebula.annotations.SccBehavior;
 import org.nebula.core.state.WorldPos;
 import org.nebula.redstone.RedstoneWorldState;
 
@@ -52,6 +55,20 @@ public final class NmsBlockStateBridge {
      *
      * <p>Must be called on the region thread that owns {@code pos}.
      */
+    @NebulaRW(
+        readBlocks         = {"{pos}"},
+        writeBlockEntities = {"{pos}.power"},
+        readBlockEntities  = {"{pos}.power"},
+        triggeredEvents    = {"BLOCK_UPDATE"},
+        microStep          = MicroStepBehavior.PROPAGATES,
+        scc                = SccBehavior.CONTRACTIBLE,
+        maxRandomCalls     = 0,
+        randomInstance     = "NONE",
+        mayLoadChunks      = false,
+        mayTriggerBlockUpdates = false,
+        verifiedAt         = "1.21.4",
+        verifiedBy         = {"BlockEntityRwGuardBridgeTest"}
+    )
     public long syncFromNms(World world, WorldPos pos) {
         Objects.requireNonNull(world, "world");
         Objects.requireNonNull(pos, "pos");
@@ -137,6 +154,18 @@ public final class NmsBlockStateBridge {
      *
      * <p>Must be called on the region thread that owns {@code pos}.
      */
+    @NebulaRW(
+        readBlocks         = {"{pos}"},
+        writeBlockEntities = {"{pos}.power"},
+        readBlockEntities  = {"{pos}.power"},
+        triggeredEvents    = {"BLOCK_UPDATE"},
+        microStep          = MicroStepBehavior.PROPAGATES,
+        scc                = SccBehavior.CONTRACTIBLE,
+        maxRandomCalls     = 0,
+        randomInstance     = "NONE",
+        verifiedAt         = "1.21.4",
+        verifiedBy         = {"BlockEntityRwGuardBridgeTest"}
+    )
     public boolean syncToNms(World world, WorldPos pos, int power) {
         Objects.requireNonNull(world, "world");
         Objects.requireNonNull(pos, "pos");

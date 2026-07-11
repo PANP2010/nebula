@@ -2757,6 +2757,40 @@ public final class NebulaPlugin extends JavaPlugin {
     public void setCascadeDiag(boolean on) { this.cascadeDiag = on; }
     public boolean cascadeDiag() { return cascadeDiag; }
 
+    /**
+     * B8 RW-coverage slice (DG3): build an {@link org.nebula.maintenance.AnnotationCoverageDashboard}
+     * from a real scan of the runtime bridge classes' {@link org.nebula.annotations.NebulaRW}
+     * annotations. The dashboard is built fresh on each call (it is a thin in-memory map);
+     * caching across calls would mask the "this slice landed" claim, so the slice always
+     * re-scans. See {@link org.nebula.maintenance.BridgeAnnotationScanner} for the inventory
+     * source — public instance methods on the bridge classes are the hotspot total,
+     * annotated methods are the annotated count. Per the patch-001 decay goal the operator
+     * can drive {@code /nebula coverage} after each per-subsystem slice lands and watch the
+     * ratio climb.
+     */
+    public org.nebula.maintenance.AnnotationCoverageDashboard buildCoverageDashboard() {
+        org.nebula.maintenance.AnnotationCoverageDashboard d =
+            new org.nebula.maintenance.AnnotationCoverageDashboard();
+        java.util.List<org.nebula.maintenance.BridgeAnnotationScanner.ScanTarget> targets =
+            new java.util.ArrayList<>();
+        try {
+            Class<?> nmsBlock = Class.forName("org.nebula.folia.NmsBlockStateBridge");
+            targets.add(org.nebula.maintenance.BridgeAnnotationScanner.ScanTarget.of(
+                "redstone-bridge", nmsBlock));
+        } catch (ClassNotFoundException e) {
+            // Module not on the classpath — skip; the dashboard will simply omit it.
+        }
+        try {
+            Class<?> nmsBe = Class.forName("org.nebula.folia.NmsBlockEntityStateBridge");
+            targets.add(org.nebula.maintenance.BridgeAnnotationScanner.ScanTarget.of(
+                "block-entity-bridge", nmsBe));
+        } catch (ClassNotFoundException e) {
+            // same skip path
+        }
+        org.nebula.maintenance.BridgeAnnotationScanner.scan(targets, d);
+        return d;
+    }
+
     /** B8 C3 furnace-timer phase probe: enable/disable the per-furnace BE-FURNACE-PHASE emit. */
     public void setFurnacePhaseProbe(boolean on) { this.furnacePhaseProbe = on; }
     public boolean furnacePhaseProbe() { return furnacePhaseProbe; }
