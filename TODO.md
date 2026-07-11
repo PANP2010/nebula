@@ -739,10 +739,25 @@ requires the decisive Folia experiment, not just a green unit test.
             `ExplosionRwGuardBridgeTest` corroborates a non-empty two-block destroy trace
             (reads+writes both blocks, two world-RNG calls) is clean against `ExplosionTaskFactory`,
             then drops one block write and gets exactly one `UNDECLARED_WRITE` at that position.
-            This is pure/unit-only: there is still no NMS bridge, task guard hook, seeding, event
-            tracing, or live Folia explosion execution.
-            Next C4 explosion slice remains deferred until the live fluid negative control and
-            faithful fluid semantics are clearer; do not copy the wide fan-out prematurely.
+            This was pure/unit-only: no NMS bridge, task guard hook, seeding, event tracing, or live
+            Folia explosion execution existed yet.
+      - [x] **C4 explosion live affected-block guard slice DONE (2026-07-11, Folia 26.1.2):**
+            Bukkit `EntityExplodeEvent`/`BlockExplodeEvent` now seed observe-only
+            `EXPLOSION_BLOCK_DESTROY` shadow tasks from the server-provided affected-block list.
+            `ExplosionTaskRunner` has the same exact per-task guard seam as fluid, and
+            `ExplosionRwGuardHook` checks traced block reads/writes/random calls against each task's
+            declared `ExplosionTaskFactory` RW-set. Live TNT smoke with `-Dnebula.rw.guard=true`
+            and full sampling ran on `Folia Region Scheduler Thread #0`: `FIRST region-threaded
+            explosion DAG tick: explosion@0:320,-60,320 tasks=2 affectedBlocks=92`, followed by
+            `RW-GUARD (explosion): tracedTasks=2 violations=0 (clean)`. Focused tests passed:
+            `ExplosionTaskRunnerGuardSeamTest`, `ExplosionTaskFactoryTest`, and
+            `ExplosionRwGuardBridgeTest`. Honest scope: this is still OBSERVE-only and uses Bukkit's
+            already-computed affected-block list; it does NOT prove ray fidelity, entity damage,
+            cross-region fan-out, NMS write-back, or vanilla explosion equivalence. A live negative
+            control for explosion remains a future tightening step; the pure negative control already
+            proves the bridge/checker flags an omitted block write.
+            Next C4 slice: either add the explosion live negative control, or continue the fluid
+            passability/slope-selection work; do not arm write-back for either subsystem yet.
 - [ ] C5. Populate `AnnotationCoverageDashboard` from a real per-subsystem hotspot inventory (not
       hand-typed numbers) and surface it via a `/nebula coverage` command, so "coverage %" becomes a
       measured signal instead of a doc claim. Targets patch-002's decay goal (<5%/yr).
@@ -939,12 +954,6 @@ must sample the transient or drive the toggle deterministically (reuse `LiveLoad
 
 ---
 
-**Last Updated**: 2026-07-10 (B9 D5 CLOSED — ⚡ parallel DAG == single-thread MC, LIVE on Paper. **B9 DONE.**)
-**Verified this session (2026-07-10)**: ⚡ B9 D5 LIVE on real Paper 26.1.2 with the DAG worker pool ON
-(`-Dnebula.dag.parallel=true`, 12 workers) — `/nebula diff` = matched 32/32 on the canonical circuit and
-48/48 across two independent cross-chunk circuits, on both ON and OFF transitions; non-trivial (CASCADE-DIAG
-showed the parallel-wrapped runner computed the full 15→1 decay gradient), 0 exceptions / 0 CAS-commit
-failures. This closes B9: the FIRST direct evidence that Nebula's DAG on a real multi-worker pool produces
-the SAME redstone state a single-thread MC server does. Honest limits (single-line = degraded-serial,
-concurrency proven via the second circuit, worker-count not swept) recorded in the D5 entry above.
+**Last Updated**: 2026-07-11 (B8 C4 explosion live affected-block guard slice CLOSED — tiny observe-only explosion shadow tasks now trace clean live on Folia. **B9 remains DONE.**)
+**Verified this session (2026-07-11)**: ⚡ B8 C4 explosion live smoke on real Folia 26.1.2 with `-Dnebula.rw.guard=true` and full sampling — Bukkit explosion event seeded observe-only `EXPLOSION_BLOCK_DESTROY` tasks from the authoritative affected-block list; log evidence: `FIRST region-threaded explosion DAG tick: explosion@0:320,-60,320 tasks=2 affectedBlocks=92` on `Folia Region Scheduler Thread #0`, followed by `RW-GUARD (explosion): tracedTasks=2 violations=0 (clean)`. Focused tests passed via cached Gradle 8.13 under Java 21: `ExplosionTaskRunnerGuardSeamTest`, `ExplosionTaskFactoryTest`, and `ExplosionRwGuardBridgeTest`. Honest limits: no ray fidelity, entity damage, cross-region fan-out, NMS write-back, vanilla explosion equivalence, or live explosion negative control yet.
 **Source of truth**: docs/PROJECT_STATUS.md

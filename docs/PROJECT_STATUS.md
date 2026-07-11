@@ -1,11 +1,12 @@
 # Nebula Project Status Report
 
-**Date**: 2026-07-10 (status reconciled through B9 D5, B8 C2, and the shipped B8 C3 block-entity evidence; historical sections below are retained but explicitly labelled)
+**Date**: 2026-07-11 (status reconciled through B9 D5, B8 C2/C3, fluid C4, and the first live explosion affected-block guard slice; historical sections below are retained but explicitly labelled)
 **Branch**: feat/fix-folia-scheduler-v2  
 **Completion**: early multi-subsystem prototype. Redstone has the strongest evidence (DG1 gates plus the
 Paper single-thread differential with a real DAG worker pool). Entity MOVE and selected block-entity
-hopper/furnace/dropper paths now run live on Folia and have targeted correctness/guard evidence. This is
-not a percentage claim: collision/AI, fluid, explosion, light, VAP certification, full DG2/DG3, and broad
+hopper/furnace/dropper paths now run live on Folia and have targeted correctness/guard evidence. Fluid and
+explosion both have tiny observe-only live guard slices. This is not a percentage claim: collision/AI,
+fluid fidelity, explosion ray/entity-damage fidelity, light, VAP certification, full DG2/DG3, and broad
 load testing remain incomplete or unbuilt.
 
 ---
@@ -31,7 +32,10 @@ behavior are not live-verified and write-back is intentionally off. Fluid now ha
 region-threaded `BlockFromToEvent` path whose real six-block footprint traces clean under the RW guard.
 Its pure action models the immediate depth/direction rules that fit that snapshot (downward flow first,
 falling level 8, water/lava horizontal drop-off), but still omits slope search, collision shapes, source
-conversion, waterlogging, and fluid reactions; explosion remains pure/unit-only. Light,
+conversion, waterlogging, and fluid reactions. Explosion now has a tiny live affected-block guard path:
+Bukkit explosion events seed observe-only `EXPLOSION_BLOCK_DESTROY` shadow tasks from the server-provided
+affected-block list, and a live TNT smoke traced `2` tasks with `0` guard violations. That does not prove
+ray fidelity, entity damage, cross-region fan-out, NMS write-back, or vanilla explosion equivalence. Light,
 real-plugin VAP certification, and 100-player load testing remain open. Redstone's p99 shadow overhead is
 verified within the 3ms budget at scale, but that does not make the whole server performance-validated.
 
@@ -229,6 +233,11 @@ Detailed history of each blocker follows below (retained for the record).
   region threads. The production block-entity guard traced a real hopper workload clean
   (`tracedTasks=48 violations=0`, with non-empty CAS evidence); BE-SETTLED passed multi-region hopper
   fan-in and a 3-slot furnace inventory workload, and the dropper eject action/RNG path ran live.
+- ✅ **Tiny fluid/explosion live guard slices (2026-07-10/11)** — fluid flow seeds one observe-only
+  `FLUID_*` task from `BlockFromToEvent` and traces its six-block footprint clean. Explosion events now
+  seed observe-only `EXPLOSION_BLOCK_DESTROY` tasks from Bukkit's affected-block list; a live TNT smoke
+  on Folia 26.1.2 logged `tasks=2 affectedBlocks=92` and `RW-GUARD (explosion): tracedTasks=2
+  violations=0 (clean)`. Both remain footprint/guard evidence, not vanilla-correctness evidence.
 
 ### What's NOT Tested
 - ⚠️ Zero-diff under sustained *live* redstone activity — **driven evidence now AUTOMATED and verified AT THE DG1 TICK BAR, 2026-07-09, see below**. The 10k-tick DG1 Criterion 1 run still captures a **static** world (see the DG1 Criterion 1 note); a driven `--drive <seed>` mode exists in both the plugin AND `scripts/zerodiff-harness.sh`, and this cycle it produced a reproducible CONVERGENT PASS on real toggled levers at **10,000 ticks / 8 region-spaced sources** (9994/10000 frames byte-identical, a 6-frame cold-CAS opening transient). This is the driven live-load claim scaled to the DG1 tick count; it is still a DISTINCT, weaker claim than the static-world Criterion 1 (Nebula-vs-Nebula seed consistency, not Folia-vs-Nebula divergence) and does NOT upgrade Criterion 1.
@@ -241,7 +250,10 @@ Detailed history of each blocker follows below (retained for the record).
   over-budget acceptance remain unverified.
 - ⚠️ Block-entity breadth: live guard evidence covers hopper/furnace field accesses and the dropper
   action runs live; brewing and broader dispenser semantics remain unverified, and write-back is off.
-- ❌ Fluid/explosion live integration, light, real-plugin VAP certification, and 100-player load testing.
+- ⚠️ Fluid/explosion breadth: both now have tiny observe-only live guard slices, but fluid still lacks
+  slope/passability/source/waterlogging/reaction fidelity, and explosion still lacks ray fidelity,
+  entity-damage live coverage, cross-region fan-out evidence, write-back, and a live negative control.
+- ❌ Light, real-plugin VAP certification, and 100-player load testing.
 - ❌ Automated (non-manual) integration regression for the full multi-subsystem E2E path.
 
 **Note**: Unit coverage is high and targeted redstone/entity/block-entity live paths have been exercised.
@@ -444,13 +456,15 @@ testing) is still blocked by DG1/DG2 — those criteria remain untouched.
 The redstone integration and differential milestones described above are complete. The next work is not a
 repeat of the 2026-07-08 bring-up plan:
 
-1. **B8 C4 — continue fluid fidelity before explosion.** The first tiny live fluid slice runs
+1. **B8 C4 — continue fluid fidelity and explosion breadth.** The first tiny live fluid slice runs
    from a real `BlockFromToEvent` on the owning region thread and traces its self + five-neighbour
    accesses clean. Its complementary live negative control also caught the deliberately omitted west
    read at the exact coordinate and emitted actionable JSONL, proving the production guard has detection
    power. The pure action now has immediate depth/direction semantics, but faithful slope selection,
    passability/collision, source conversion, waterlogging, and fluid reactions remain before any
-   write-back or wider explosion fan-out.
+   write-back. Explosion now has its first live affected-block guard slice from Bukkit explosion events,
+   clean on a live TNT smoke (`tracedTasks=2 violations=0`); next tightening is either a live explosion
+   negative control or broader ray/entity-damage/cross-region fan-out evidence, still without write-back.
 2. **B8 C5 — measured coverage inventory.** Feed `AnnotationCoverageDashboard` from a real method-level
    hotspot inventory and expose it without hand-typed percentages.
 3. **DG2 breadth.** Extend entity work beyond MOVE before claiming entity acceptance: collision, item,

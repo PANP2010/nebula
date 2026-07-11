@@ -15,27 +15,45 @@ public final class ExplosionTaskRunner {
     private final EntityPhysicsState entityState;
     private final Function<String, ExplosionAction> actionResolver;
     private final ExplosionAccessTracer tracer;
+    private final ExplosionTaskGuardHook guardHook;
     private final Map<String, PendingSnapshots> snapshots = new ConcurrentHashMap<>();
 
     public ExplosionTaskRunner(FluidState blockState, EntityPhysicsState entityState,
                                Function<String, ExplosionAction> actionResolver,
                                ExplosionAccessTracer tracer) {
+        this(blockState, entityState, actionResolver, tracer, null);
+    }
+
+    public ExplosionTaskRunner(FluidState blockState, EntityPhysicsState entityState,
+                               Function<String, ExplosionAction> actionResolver,
+                               ExplosionAccessTracer tracer,
+                               ExplosionTaskGuardHook guardHook) {
         this.blockState = blockState;
         this.entityState = entityState;
         this.actionResolver = actionResolver;
         this.tracer = tracer;
+        this.guardHook = guardHook;
     }
 
     public void run(TaskNode task) throws Exception {
-        ExplosionAction action = actionResolver.apply(task.taskId());
-        if (action == null) return;
-        FluidStateSnapshot blockSnapshot = new FluidStateSnapshot();
-        EntityStateSnapshot entitySnapshot = new EntityStateSnapshot();
-        RandomUsage usage = task.declaredRWSet().randomUsage().orElse(null);
-        DeterministicRandom random = usage == null ? null : new DeterministicRandom(task.taskId().hashCode());
-        action.execute(new ExplosionContext(blockState, blockSnapshot, entityState, entitySnapshot,
-            random, usage == null ? null : usage.instance(), tracer));
-        snapshots.put(task.taskId(), new PendingSnapshots(blockSnapshot, entitySnapshot));
+        if (guardHook != null) {
+            guardHook.beforeTask(task);
+        }
+        try {
+            ExplosionAction action = actionResolver.apply(task.taskId());
+            if (action == null) return;
+            FluidStateSnapshot blockSnapshot = new FluidStateSnapshot();
+            EntityStateSnapshot entitySnapshot = new EntityStateSnapshot();
+            RandomUsage usage = task.declaredRWSet().randomUsage().orElse(null);
+            DeterministicRandom random = usage == null ? null : new DeterministicRandom(task.taskId().hashCode());
+            action.execute(new ExplosionContext(blockState, blockSnapshot, entityState, entitySnapshot,
+                random, usage == null ? null : usage.instance(), tracer));
+            snapshots.put(task.taskId(), new PendingSnapshots(blockSnapshot, entitySnapshot));
+        } finally {
+            if (guardHook != null) {
+                guardHook.afterTask(task);
+            }
+        }
     }
 
     public boolean commit(String taskId) {

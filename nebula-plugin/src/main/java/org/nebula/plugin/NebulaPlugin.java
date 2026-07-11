@@ -219,6 +219,17 @@ public final class NebulaPlugin extends JavaPlugin {
     private final java.util.concurrent.atomic.AtomicBoolean firstFluidDagTickLogged =
         new java.util.concurrent.atomic.AtomicBoolean(false);
 
+    // B8 C4: tiny observe-only explosion path. Bukkit's live explosion events seed
+    // EXPLOSION_BLOCK_DESTROY tasks from the authoritative affected-block list; the
+    // action writes only to Nebula's shadow CAS store, never back to NMS.
+    private final org.nebula.entity.FluidState explosionBlockState = new org.nebula.entity.FluidState();
+    private org.nebula.entity.ExplosionTaskRunner explosionRunner;
+    private ExplosionRwGuardHook explosionRwGuardHook;
+    private final java.util.concurrent.ConcurrentHashMap<String, org.nebula.entity.ExplosionAction>
+        explosionActions = new java.util.concurrent.ConcurrentHashMap<>();
+    private final java.util.concurrent.atomic.AtomicBoolean firstExplosionDagTickLogged =
+        new java.util.concurrent.atomic.AtomicBoolean(false);
+
     // B8 C3 ⚡ live: latches false→true the first time a real ticking block entity
     // (a hopper transferring an item, seeded by InventoryMoveItemEvent) drives a
     // block-entity DAG tick, so the bring-up milestone lands as ONE explicit INFO
@@ -562,6 +573,27 @@ public final class NebulaPlugin extends JavaPlugin {
                 }, null);
         }
 
+        if (rwGuardEnabled) {
+            RWGuardConfig explosionGuardConfig = new RWGuardConfig(
+                true,
+                rwGuardSamplingRate(),
+                RWGuardMode.WARN,
+                getDataFolder().toPath().resolve("rw-violations.jsonl"),
+                200, false
+            );
+            explosionRwGuardHook = new ExplosionRwGuardHook(explosionGuardConfig);
+            explosionRunner = new org.nebula.entity.ExplosionTaskRunner(
+                explosionBlockState, entityState, explosionActions::get,
+                ExplosionRwGuardTracer.INSTANCE, explosionRwGuardHook);
+            LOG.info("RW-GUARD ENABLED for explosion DAG (WARN mode, sampling="
+                + explosionGuardConfig.samplingRate() + ") — live explosion affected-block "
+                + "accesses will be checked against declared RW-sets; violations → "
+                + explosionGuardConfig.violationLog());
+        } else {
+            explosionRunner = new org.nebula.entity.ExplosionTaskRunner(
+                explosionBlockState, entityState, explosionActions::get, null);
+        }
+
         // Create composite runner for unified redstone + entity DAG.
         // Route on the canonical task-type prefixes that the factories actually
         // stamp: RedstoneComponentType → "REDSTONE_*", EntityTaskType → "ENTITY_*".
@@ -686,6 +718,7 @@ public final class NebulaPlugin extends JavaPlugin {
             wireEntityTickHook(server);
             wireBlockEntityTickHook(server);
             wireFluidTickHook(server);
+            wireExplosionTickHook(server);
         } else {
             // B9 D2: on a single-region host (Paper) the redstone lifecycle driver
             // must ALSO run, or endTick never drains and the inline shadow executor
@@ -893,6 +926,98 @@ public final class NebulaPlugin extends JavaPlugin {
     private static int fluidLevel(org.bukkit.block.Block block) {
         return block.getBlockData() instanceof org.bukkit.block.data.Levelled levelled
             ? levelled.getLevel() : 0;
+    }
+
+    /**
+     * B8 C4 live explosion slice: a Bukkit explosion event seeds observe-only
+     * EXPLOSION_BLOCK_DESTROY tasks from the server-provided affected-block list.
+     * The task writes only to Nebula's shadow CAS store; it never mutates NMS and
+     * does not claim vanilla explosion equivalence, ray fidelity, or entity damage.
+     */
+    private void wireExplosionTickHook(Server server) {
+        server.getPluginManager().registerEvents(new org.bukkit.event.Listener() {
+            @org.bukkit.event.EventHandler(ignoreCancelled = true)
+            public void onEntityExplode(org.bukkit.event.entity.EntityExplodeEvent event) {
+                executeOwnedExplosionDag(snapshotEntityExplosion(event));
+            }
+
+            @org.bukkit.event.EventHandler(ignoreCancelled = true)
+            public void onBlockExplode(org.bukkit.event.block.BlockExplodeEvent event) {
+                executeOwnedExplosionDag(snapshotBlockExplosion(event));
+            }
+        }, this);
+        LOG.info("Explosion event seed registered (observe-only EXPLOSION_BLOCK_DESTROY shadow tasks; "
+            + "NMS write-back absent by design)");
+    }
+
+    private org.nebula.entity.ExplosionSnapshot snapshotEntityExplosion(
+            org.bukkit.event.entity.EntityExplodeEvent event) {
+        org.bukkit.Location location = event.getLocation();
+        World world = location.getWorld();
+        int dim = org.nebula.core.state.DimensionIds.fromName(world == null ? "world" : world.getName());
+        WorldPos center = new WorldPos(dim, location.getBlockX(), location.getBlockY(), location.getBlockZ());
+        return new org.nebula.entity.ExplosionSnapshot(center, 4.0f,
+            event.getEntity().getEntityId(), affectedBlockPositions(dim, event.blockList()), java.util.List.of());
+    }
+
+    private org.nebula.entity.ExplosionSnapshot snapshotBlockExplosion(
+            org.bukkit.event.block.BlockExplodeEvent event) {
+        org.bukkit.block.Block block = event.getBlock();
+        int dim = org.nebula.core.state.DimensionIds.fromName(block.getWorld().getName());
+        WorldPos center = new WorldPos(dim, block.getX(), block.getY(), block.getZ());
+        return new org.nebula.entity.ExplosionSnapshot(center, 4.0f,
+            -1L, affectedBlockPositions(dim, event.blockList()), java.util.List.of());
+    }
+
+    private java.util.Set<WorldPos> affectedBlockPositions(int dim, java.util.List<org.bukkit.block.Block> blocks) {
+        java.util.LinkedHashSet<WorldPos> positions = new java.util.LinkedHashSet<>();
+        for (org.bukkit.block.Block block : blocks) {
+            WorldPos pos = new WorldPos(dim, block.getX(), block.getY(), block.getZ());
+            positions.add(pos);
+            explosionBlockState.put(pos, "affected");
+        }
+        return positions;
+    }
+
+    private void executeOwnedExplosionDag(org.nebula.entity.ExplosionSnapshot snapshot) {
+        if (snapshot.affectedBlocks().isEmpty()) {
+            return;
+        }
+        int ran = 0;
+        for (TaskNode task : org.nebula.entity.ExplosionTaskFactory.createSubDag(snapshot)) {
+            if (!org.nebula.entity.ExplosionTaskType.BLOCK_DESTROY.taskType().equals(task.taskType())) {
+                continue;
+            }
+            java.util.List<WorldPos> blocks = task.declaredRWSet().writtenBlocks().stream().toList();
+            explosionActions.put(task.taskId(), org.nebula.entity.ExplosionActions.blockDestroy(blocks));
+            try {
+                explosionRunner.run(task);
+                if (!explosionRunner.commit(task.taskId())) {
+                    LOG.warning("Explosion CAS commit failed for " + task.taskId());
+                    continue;
+                }
+                ran++;
+            } catch (Exception e) {
+                LOG.warning("Explosion DAG tick failed for " + task.taskId() + ": " + e.getMessage());
+            } finally {
+                explosionActions.remove(task.taskId());
+            }
+        }
+
+        boolean firstTick = ran > 0 && firstExplosionDagTickLogged.compareAndSet(false, true);
+        if (firstTick) {
+            LOG.info("FIRST region-threaded explosion DAG tick: " + snapshot.explosionId()
+                + " tasks=" + ran + " affectedBlocks=" + snapshot.affectedBlocks().size()
+                + " on thread '" + Thread.currentThread().getName() + "' — live Bukkit affected-block "
+                + "state sampled into CAS, then traced observe-only block-destroy actions ran. "
+                + "No NMS write-back, ray fidelity, or entity-damage equivalence is claimed.");
+        }
+        if (explosionRwGuardHook != null && (firstTick || explosionRwGuardHook.violationCount() > 0)) {
+            LOG.info("RW-GUARD (explosion): tracedTasks=" + explosionRwGuardHook.tracedTasks()
+                + " violations=" + explosionRwGuardHook.violationCount()
+                + (explosionRwGuardHook.violationCount() == 0
+                    ? " (clean)" : " (SEE rw-violations.jsonl)"));
+        }
     }
 
     /**

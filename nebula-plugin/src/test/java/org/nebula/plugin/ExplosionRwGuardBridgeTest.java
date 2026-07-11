@@ -37,11 +37,15 @@ final class ExplosionRwGuardBridgeTest {
     private static ActualAccessTrace runAndTrace(TaskNode task, List<WorldPos> blocks) throws Exception {
         FluidState blockState = new FluidState();
         blocks.forEach(pos -> blockState.put(pos, "stone"));
+        ExplosionRwGuardHook hook = new ExplosionRwGuardHook(new org.nebula.guard.RWGuardConfig(
+            true, 1.0, org.nebula.guard.RWGuardMode.WARN,
+            java.nio.file.Path.of("build/test-explosion-rw-violations.jsonl"), 200, false));
         ExplosionTaskRunner runner = new ExplosionTaskRunner(blockState, new EntityPhysicsState(),
-            id -> ExplosionActions.blockDestroy(blocks), ExplosionRwGuardTracer.INSTANCE);
+            id -> ExplosionActions.blockDestroy(blocks), ExplosionRwGuardTracer.INSTANCE, hook);
         ThreadLocalAccessTrace.reset();
         runner.run(task);
         assertTrue(runner.commit(task.taskId()));
+        assertEquals(1, hook.tracedTasks());
         return ThreadLocalAccessTrace.snapshot();
     }
 
