@@ -40,12 +40,21 @@ deleted as misleading — the whitepaper is a multi-year plan, not days of work.
 - **Block-entity slices** — hopper/furnace/dropper actions run region-threaded; the block-entity
   RW-guard traced live hopper/furnace field accesses clean (`tracedTasks=48`), BE-SETTLED passed
   multi-region hopper and 3-slot furnace workloads, and the dropper eject phase was measured live.
+  Brewing has a unit-verified action + activity gate + bridge positive/negative (2026-07-11); live
+  Folia brewing guard run remains open. DG3 RW-coverage slice (2026-07-11) annotates 3 bridge
+  methods and wires `/nebula coverage` from real bridge inventory.
 
 ### ⚠️ Built but only partially verified live
 - Entity COLLISION/AI/item/damage task types — code/RW-sets exist, but only MOVE is live-seeded and
   guard-verified; DG2 50k zero-diff is not done.
-- Block-entity BREWING and broader DISPENSER behavior — not exercised by the live guard workload;
-  block-entity write-back remains intentionally off because the amount-only model is lossy and the
+- Block-entity BREWING and broader DISPENSER behavior — brewing now has a real `BlockEntityActions.brewing`
+  action + `brewingWillMutate` activity gate + `BREWING_STAND` resolver mapping + `brewingStandRw` RW-set,
+  plus 5 `BlockEntityActionsTest` cases + 2 `BlockEntityRwGuardBridgeTest` cases (positive with non-empty
+  trace, negative isolating a `brew_time` write drop) **but is unit-only**: no live Folia run with
+  `-Dnebula.rw.guard=true` was performed this cycle. The dispenser breadth audit confirms
+  `BlockEntityActions.dispenser` shares `ejectOneRandomItem` with `dropper`; broader dispense behaviour
+  (projectile/block-place/mob spawn/bucket/armor) is un-modelled in CAS — same honest gap as dropper.
+  Block-entity write-back remains intentionally off because the amount-only model is lossy and the
   measured hopper/furnace/dropper offsets are ordering artifacts, not honest write-back gaps.
 - Fluid + explosion task factories (`FluidTaskGenerator`, `ExplosionTaskFactory`) — unit-tested only.
 - VAP plugin layer (`nebula-core/vap`: ManagedStateProxy, MvccVersionStore, cert levels) — skeleton;
@@ -377,6 +386,19 @@ Nebula is observe-only; see the DG1 Criterion 3 note in docs/PROJECT_STATUS.md)
   - Identify all methods accessing shared state
   - Add annotations with read/write sets
   - Update coverage dashboard
+  - [x] **DG3 bridge slice DONE (2026-07-11, unit-only):** commit 3fa8071 added
+        `BridgeAnnotationScanner` that walks the runtime bridge classes for `@NebulaRW`-annotated
+        methods and feeds `AnnotationCoverageDashboard` from real inventory. Applied the runtime
+        annotation to `NmsBlockStateBridge.syncFromNms` + `syncToNms` (redstone round-trip) and
+        `NmsBlockEntityStateBridge.syncInventoryFromNms` (covers all 9 generic container slots).
+        `BridgeAnnotationDriftTest` pins that the bridge annotations agree with the
+        `BlockEntityActions` brewings/furnaces slot superset and with the factory's brewing-stand
+        RW-set. `/nebula coverage` command surface prints per-subsystem annotated/total ratio.
+        **Honest scope**: the "total hotspot methods" denominator is the public bridge surface, not
+        the full decompiled-MC universe (out of scope per brief). The NMS-patch-driven count
+        remains the cross-check, already covered by
+        `RedstoneAnnotationMaintenanceTest.coverageDashboardBuiltFromRealScan`. No live Folia
+        run was performed against the new bridge annotations.
 - [ ] Add more unit tests for edge cases
 - [ ] Code review all NMS bridges
 - [ ] Refactor any complex methods (> 100 lines)

@@ -452,6 +452,20 @@ testing) is still blocked by DG1/DG2 — those criteria remain untouched.
 > performed; the bottle-mixing step is still placeholder pending a real `PotionBrewing.hasMix`
 > port, and potion NBT key reads are intentionally outside the current RW-set envelope.
 >
+> **⚡ B8 DG3 RW-coverage slice (2026-07-11, unit-only).** Commit `3fa8071` added
+> `BridgeAnnotationScanner` that walks the runtime bridge classes for `@NebulaRW`-annotated
+> methods and feeds `AnnotationCoverageDashboard` from real inventory (no hand-typed counts).
+> Annotations applied to `NmsBlockStateBridge.syncFromNms` + `syncToNms` (redstone round-trip) and
+> `NmsBlockEntityStateBridge.syncInventoryFromNms` (covers all 9 generic container slots).
+> `BridgeAnnotationDriftTest` pins that the bridge annotations agree with the
+> `BlockEntityActions` brewings/furnaces slot superset and with the factory's brewing-stand RW-set.
+> `/nebula coverage` command surface prints per-subsystem annotated/total ratio. **Honest scope**:
+> the "total hotspot methods" denominator is the public bridge surface, not the full
+> decompiled-MC universe (out of scope per brief's reference-only rule). The NMS-patch-driven
+> count is the cross-check, already covered by
+> `RedstoneAnnotationMaintenanceTest.coverageDashboardBuiltFromRealScan`. No live Folia run was
+> performed against the new bridge annotations.
+>
 ### Why Did This Happen?
 
 1. **Over-reliance on unit tests**: 659 passing tests created confidence without integration verification
