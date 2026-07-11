@@ -1,7 +1,7 @@
 # Nebula Project - TODO List
 
 **Based on**: PROJECT_STATUS.md (source of truth), the whitepaper (docs/nebula-architecture.md) and its two patches (docs/nebula-patch-001/002.md)
-**Last verified**: 2026-07-12 — B8 C3/C4/C5 committed; architecture doc updated to v4.1 (Phase 1.5 added, per-subsystem status notes); architecture spec targets authoritative server (DAG replaces Folia's serial tick), not observe-only shadow; run `./gradlew test --no-daemon -q` to re-verify
+**Last verified**: 2026-07-12 — B8 C3/C4/C5 committed; architecture doc updated to v4.1; COMPLETE PROJECT TASK TREE added (1900 lines, all phases/subsystems/GATES/TD items); run `./gradlew test --no-daemon -q` to re-verify
 **Branch**: feat/fix-folia-scheduler-v2
 
 ---
@@ -1235,6 +1235,665 @@ N4.4 写权威接管研究文档
 
 ---
 
-**Source of truth**: docs/PROJECT_STATUS.md
-**Verified this session (2026-07-11)**: ⚡ B8 C4 explosion live smoke on real Folia 26.1.2 with `-Dnebula.rw.guard=true` and full sampling — Bukkit explosion event seeded observe-only `EXPLOSION_BLOCK_DESTROY` tasks from the authoritative affected-block list; log evidence: `FIRST region-threaded explosion DAG tick: explosion@0:320,-60,320 tasks=2 affectedBlocks=92` on `Folia Region Scheduler Thread #0`, followed by `RW-GUARD (explosion): tracedTasks=2 violations=0 (clean)`. Focused tests passed via cached Gradle 8.13 under Java 21: `ExplosionTaskRunnerGuardSeamTest`, `ExplosionTaskFactoryTest`, and `ExplosionRwGuardBridgeTest`. Honest limits: no ray fidelity, entity damage, cross-region fan-out, NMS write-back, vanilla explosion equivalence, or live explosion negative control yet.
+## COMPLETE PROJECT TASK TREE (v4.1)
+
+来源：docs/nebula-architecture.md (v4.0) + patch-001/002 + 当前代码库状态
+状态基准：2026-07-12。Phase 0 红石 DG1 ✅ 完成；其他所有任务均未开始或部分完成。
+标记：[✅ done] [🔧 in progress] [📋 planned] [❌ unbuilt] [⚠️ partial]
+
+---
+
+### 卷一 · 验证与决策门（横跨所有 Phase）
+
+#### DG0 — Phase -1 入口决策（2026-07 启动）
+- [ ] **DG0.1** 在 4 种服务器类型（生电、生存、小游戏、RPG）上采集 CPU Profile（async-profiler，1ms 采样，≥1小时/场景）
+- [ ] **DG0.2** 生成方法级火焰图，提取热点方法列表
+- [ ] **DG0.3** 计算累计 80% CPU 所需的方法数 N
+- [ ] **DG0.4** 标注可行性评估：选取 TOP-50 热点方法，估算标注难度和障碍率
+- [ ] **DG0.5** 决策：N≤250 + 障碍率<10% → Phase 0 继续；250<N≤500 + <30% → 调整计划；N>500 或 ≥30% → Plan B 或终止
+
+#### DG1 — Phase 0→1 决策（✅ 已通过）
+- [✅] **DG1.1** 10000+ tick 回放测试：差异率=0
+- [✅] **DG1.2** 微步骤上限 256：在所有测试电路中未触发
+- [✅] **DG1.3** MSPT 相对 Folia 降低 ≥30%（权威服务端目标；Phase 0 原型测附加开销 <3ms）
+
+#### DG2 — Phase 1→2 决策
+- [ ] **DG2.1** 50000+ tick 回放测试：差异率=0（实体子系统）
+- [ ] **DG2.2** Random 超预算重执行率 <1%（正常生存服负载）
+- [ ] **DG2.3** 真实负载下 MSPT 相对 Folia 降低 ≥30%
+
+#### DG3 — Phase 2→3 决策
+- [ ] **DG3.1** 完整游戏回放差异=0（T0 模式）
+- [ ] **DG3.2** Level-0 插件兼容性 ≥80%
+- [ ] **DG3.3** Level-1 `@ManagedState` 覆盖率 ≥50%（已适配插件中）
+- [ ] **DG3.4** 100 玩家模拟稳定在 20 TPS
+
+---
+
+### 卷二 · Phase 1：核心热路径集成（12个月）
+
+目标：实体物理/碰撞/方块实体/Random/生存服
+
+---
+
+#### P1.1 · Entity MOVE（✅ Phase 0 已完成）
+- [✅] **P1.1.1** `EntityTaskFactory.createMoveTask` 实现
+- [✅] **P1.1.2** `FoliaRegionTickExecutor` 调用 move seed
+- [✅] **P1.1.3** `EntityRwGuardTracer` + guard 验证（163 tasks, 0 violations）
+- [ ] **P1.1.4** DG2 50000 tick entity 零差异验证
+- [ ] **P1.1.5** write-back 扩大：从 vertical-only 扩展到全方向
+
+---
+
+#### P1.2 · Entity COLLISION（当前状态：stub）
+
+**任务分解：**
+
+P1.2.1 碰撞 seed 机制
+- [ ] **P1.2.1a** 在 `FoliaRegionTickExecutor` 中找到碰撞事件 seed 点（Folia region 线程内部事件，不是跨线程通信）
+- [ ] **P1.2.1b** 对 dirty entity pair 生成 `CollisionTask`（复用已有的 `EntityTaskFactory.createCollisionResponseTask`）
+- [ ] **P1.2.1c** 碰撞检测在哪个代码路径触发？（`EntityNavigation` / `EntityMove` 内部碰撞查询？）
+
+P1.2.2 碰撞 RW-set 定义
+- [ ] **P1.2.2a** 确认 `CollisionTask` 的读集：两个实体的碰撞盒 + 相关方块
+- [ ] **P1.2.2b** 确认 `CollisionTask` 的写集：空（纯读任务，无 NMS 回写）
+- [ ] **P1.2.2c** SCC 处理：`EntityCollisionResponseAction` 已在代码中，需要确认是否在 DAG builder 中正确处理
+
+P1.2.3 Live guard 验证
+- [ ] **P1.2.3a** 用实体-实体碰撞场景（多个实体挤在狭小空间）触发碰撞
+- [ ] **P1.2.3b** 收集 `RW-GUARD (entity)` 日志
+- [ ] **P1.2.3c** 预期：干净 run 0 violations
+
+P1.2.4 Cross-bucket 碰撞（实体跨桶移动）
+- [ ] **P1.2.4a** 当实体跨越桶边界时，需要在两个桶之间协调碰撞结果
+- [ ] **P1.2.4b** 实现跨桶碰撞的延迟同步机制（架构 §6.3）
+
+**验收标准：** `RW-GUARD (entity)` 在碰撞场景下 tracedTasks > 0 且 violations = 0
+
+---
+
+#### P1.3 · Entity AI（当前状态：stub）
+
+**任务分解：**
+
+P1.3.1 AI 任务分解（架构 §7.2）
+- [ ] **P1.3.1a** `SenseTask` — 感知环境（视野内实体、方块、POI）
+  - 读集：周围区块的实体列表、方块状态、POI 数据
+  - 写集：感知结果缓存
+- [ ] **P1.3.1b** `GoalSelectTask` — 选择目标（已存在 stub `EntityGoalSelectAction`，需要填充逻辑）
+  - 读集：AI goal 优先级、感知结果
+  - 写集：当前选中的 goal
+- [ ] **P1.3.1c** `PathfindTask` — 寻路
+  - 读集：地形数据、碰撞数据
+  - 写集：路径缓存
+- [ ] **P1.3.1d** `ActTask` — 执行动作
+  - 读集：当前状态、goal 参数
+  - 写集：实体移动/交互指令
+
+P1.3.2 AI 插件 resolver
+- [ ] **P1.3.2a** 当前 `AiPipelineActions.java` 中的 `goalSelect` 返回 null（stub）
+- [ ] **P1.3.2b** 实现 `AiTaskFactory` 从 Folia 的 NMS `Brain` / `NavigationAbstract` 中提取 AI 状态
+- [ ] **P1.3.2c** 实现 `@NebulaRW` 标注：`@NebulaRW(read = {"entity.position", "entity.target", "poi.availability"}, ...)`
+- [ ] **P1.3.2d** 添加 T1 弱依赖优化（1-tick 感知数据新鲜度延迟允许）
+
+P1.3.3 POI 访问异步化（架构 §7.4）
+- [ ] **P1.3.3a** POI（Points of Interest，村庄 NPC 的工作站点）访问是高频 AI 查询
+- [ ] **P1.3.3b** 实现 RCU snapshot 模式：`AtomicReference<Snapshot>` per type，Copy-on-Write
+- [ ] **P1.3.3c** 验证：AI 决策在 snapshot 上执行，不阻塞主 DAG 层
+
+P1.3.4 AI guard 验证
+- [ ] **P1.3.4a** 用 villager / zombie 等有 AI 的实体触发感知和目标选择
+- [ ] **P1.3.4b** 验证 `RW-GUARD (entity)` 在 AI 任务上的 violations = 0
+
+**验收标准：** Villager 交易/NPC 寻路场景下，`RW-GUARD (entity)` 报告 violations = 0
+
+---
+
+#### P1.4 · Entity ITEM_PICKUP（当前状态：stub）
+
+**任务分解：**
+
+P1.4.1 物品拾取任务建模
+- [ ] **P1.4.1a** 在 `EntityTaskFactory` 中实现 `createItemPickupTask`
+- [ ] **P1.4.1b** 读集：实体碰撞盒范围内的物品实体（`Item` entity）、实体背包剩余空间
+- [ ] **P1.4.1c** 写集：物品实体从世界移除、实体背包增加物品
+- [ ] **P1.4.1d** 物品拾取事件 `EntityPickupItemEvent` 作为 seed
+
+P1.4.2 ITEM_PICKUP guard
+- [ ] **P1.4.2a** 在 `EntityRwGuardTracer` 中添加 item pickup 相关字段追踪
+- [ ] **P1.4.2b** Live 测试：玩家或实体拾取物品，验证 violations = 0
+
+**验收标准：** 实体拾取物品时 violations = 0
+
+---
+
+#### P1.5 · Entity DAMAGE（当前状态：stub）
+
+**任务分解：**
+
+P1.5.1 伤害事件建模
+- [ ] **P1.5.1a** 在 `EntityTaskFactory` 中实现 `createDamageTask`
+- [ ] **P1.5.1b** 读集：攻击者属性（攻击力、附魔）、受害者属性（护甲、护甲韧性、附魔）、随机数
+- [ ] **P1.5.1c** 写集：受害者生命值、死亡状态、经验球生成
+- [ ] **P1.5.1d** `EntityDamageEvent` / `EntityDamageByEntityEvent` 作为 seed
+
+P1.5.2 DAMAGE guard + Random 集成
+- [ ] **P1.5.2a** `DamageSource` 的 `RandomInstance` 注入
+- [ ] **P1.5.2b** 验证 `RW-GUARD (entity)` 在伤害计算上的 violations = 0
+
+**验收标准：** 战斗场景下（玩家攻击僵尸）伤害计算 violations = 0
+
+---
+
+#### P1.6 · Block-Entity 全部完成度（当前状态：hopper/furnace/dropper live，brewing/dispenser unit-only）
+
+**任务分解：**
+
+P1.6.1 BREWING — live Folia guard 验证
+- [ ] **P1.6.1a** 已在 unit 层面验证：有 `BlockEntityActions.brewing` + `brewingWillMutate` gate + `BREWING_STAND` resolver + `brewingStandRw` RW-set + 5 unit tests + 2 bridge tests
+- [ ] **P1.6.1b** **缺失：** 在真实 Folia 上用 `-Dnebula.rw.guard=true` 运行酿造反应，验证 0 violations
+- [ ] **P1.6.1c** 实现：启动酿造反应，等待 tick 催化，确认 `RW-GUARD (block-entity)` 日志
+
+P1.6.2 DISPENSER — 全行为建模（当前：仅 `ejectOneRandomItem`）
+- [ ] **P1.6.2a** 审计现有 `BlockEntityActions.dispenser` 和 `BlockEntityActionsTest` 的 10 行差距表
+- [ ] **P1.6.2b** 实现缺失行为：
+  - `projectile` 分支：弓箭/药水/末影珍珠等投射物生成
+  - `block-place` 分支：放置方块（潜影盒、唱片机等）
+  - `mob-spawn` 分支：生成生物（蝎子、洞穴蜘蛛等）
+  - `bucket` 分支：装入/倒出液体（牛奶桶、岩浆桶等）
+  - `armor` 分支：穿戴/卸下装备
+- [ ] **P1.6.2c** 为每个缺失行为添加 RW-set 和 unit 测试
+- [ ] **P1.6.2d** Live guard 验证每个新行为
+
+P1.6.3 DISPENSER + DROPPER RNG
+- [ ] **P1.6.3a** 确认 `ejectOneRandomItem` 共享 dropper 和 dispenser 的 Random 使用
+- [ ] **P1.6.3b** 验证 `RW-GUARD (random)` 在 dispenser/dropper 随机喷射上 violations = 0
+
+P1.6.4 Block-Entity write-back 扩大
+- [ ] **P1.6.4a** 当前 write-back 关闭（amount-only 模型有损）
+- [ ] **P1.6.4b** 研究：是否可以用 slot-level 而非 amount-level 的 CAS 写回
+- [ ] **P1.6.4c** 如果可行，实现 hopper slot CAS、furnace slot CAS、dropper/dispenser slot CAS
+
+**验收标准：** brewing 实时 guard 0 violations；dispenser 所有行为分支有 guard 覆盖
+
+---
+
+#### P1.7 · Fluid 系统（当前状态：observe-only，no write-back）
+
+**任务分解：**
+
+P1.7.1 Fluid write-back（从阴影到权威）
+- [ ] **P1.7.1a** 当前 DAG 的 fluid 更改写不到 Folia 权威状态（Phase 0 限制）
+- [ ] **P1.7.1b** 实现 `FluidTaskRunner` 的 CAS 写回：将计算出的 fluid state 写回 NMS `FluidState`
+- [ ] **P1.7.1c** 处理 fluid 的源块/汇块转换（水 source ↔ flow）
+
+P1.7.2 Fluid reactions（与其他子系统的交互）
+- [ ] **P1.7.2a** 流体与熔岩的交互（产生圆石/黑曜石/滴水石砖）
+- [ ] **P1.7.2b** 流体与火把/台阶等可替代方块的交互
+- [ ] **P1.7.2c** 确认这些反应在 RW-set 覆盖范围内
+
+P1.7.3 Fluid microstep fan-out（流体传播的 DAG 建模）
+- [ ] **P1.7.3a** 当前 `FluidActions` 做的是"立即深度/方向传播"，不是 DAG 微步骤
+- [ ] **P1.7.3b** 重构 `FluidTaskFactory` 使流体传播作为 DAG 微步骤执行（每个传播步骤 = DAG node）
+- [ ] **P1.7.3c** 参考红石微步骤实现（`MicroStepScheduler`），为流体实现类似机制
+- [ ] **P1.7.3d** 设定 MAX_FLUID_MICRO_STEPS（参考红石 256 的设定逻辑）
+
+P1.7.4 Fluid + 红石 交互
+- [ ] **P1.7.4a** 流体触发红石（绊线、水流探测等）→ cross-subsystem DAG 依赖边
+- [ ] **P1.7.4b** 验证红石 DAG 正确读取 fluid-induced block state changes
+
+P1.7.5 Fluid DG2 zero-diff
+- [ ] **P1.7.5a** 在 50000 tick 回放中验证 fluid 状态零差异
+- [ ] **P1.7.5b** 使用 `/nebula capture` 对 fluid 密集场景（沙漠水渠、丛林河流）做比对
+
+**验收标准：** Fluid 写回权威状态；50000 tick fluid 零差异
+
+---
+
+#### P1.8 · Explosion 系统（当前状态：observe-only，no raycast，no entity damage）
+
+**任务分解：**
+
+P1.8.1 射线追踪（raycast）— Layer 0
+- [ ] **P1.8.1a** 当前爆炸直接使用 Bukkit 的 `getAffectedBlocks()` 列表，没有自己的射线追踪
+- [ ] **P1.8.1b** 实现 `ExplosionContext.raycast()`：从爆炸源向各方向发射射线，检测遮挡
+- [ ] **P1.8.1c** 射线追踪的 RW-set：读取沿途方块的阻挡属性（solid/block/glass/water 等）
+- [ ] **P1.8.1d** 为射线追踪添加 unit 测试（多种材质组合）
+
+P1.8.2 Entity damage — Layer 3
+- [ ] **P1.8.2a** 当前 `ExplosionTaskFactory` 没有实体伤害计算
+- [ ] **P1.8.2b** 实现 `ExplosionActions.applyEntityDamage()`：根据距离和威力计算每个实体的伤害
+- [ ] **P1.8.2c** 与 P1.5（Entity DAMAGE）共享伤害计算逻辑（不要重复实现）
+- [ ] **P1.8.2d** 射线追踪确定爆炸范围内实体（半径衰减计算）
+
+P1.8.3 Cross-region fan-out
+- [ ] **P1.8.3a** 大型爆炸（TNT 链、核弹）跨多个 Folia region
+- [ ] **P1.8.3b** 实现跨 region 的爆炸协调：DAG 跨 region 任务依赖边的处理
+- [ ] **P1.8.3c** 验证：跨 region 大爆炸的 CAS commit 不出现竞争
+
+P1.8.4 爆炸写回权威状态
+- [ ] **P1.8.4a** 将爆炸计算出的方块破坏和实体伤害写回 Folia 权威状态
+- [ ] **P1.8.4b** 处理连锁爆炸（TNT 链引爆）：需要 DAG 中的 cyclic dependency 处理
+
+P1.8.5 Vanilla 等价性验证
+- [ ] **P1.8.5a** 录制原版爆炸回放，运行 Nebula 对比
+- [ ] **P1.8.5b** 10000 tick 爆炸零差异（DG2 Criterion 1 的一部分）
+
+P1.8.6 **Explosion 负向 Live Guard 控制（N2 优先任务）**
+- [ ] **P1.8.6a** 在 `ExplosionRwGuardHook` 中添加测试模式（类似 `brewingActive` gate）
+- [ ] **P1.8.6b** 手动删除一个注释声明的读集（如 `affectedBlocks` 中的某个坐标），运行爆炸
+- [ ] **P1.8.6c** 确认 violations > 0（正数），证明 Guard 有实际检测能力
+- [ ] **P1.8.6d** 与红石负向（5147 violations）和流体负向（352 violations）对比记录
+
+**验收标准：** 爆炸 raycast + entity damage + write-back 全部实现；负向 guard 产生 N > 0 violations
+
+---
+
+#### P1.9 · Random 子系统（当前状态：部分实现，DG2 Criterion 2 未验证）
+
+**任务分解：**
+
+P1.9.1 World.random 序列化
+- [ ] **P1.9.1a** `World.random`（维度共享随机数生成器）的状态序列化
+- [ ] **P1.9.1b** 在 tick 之间保持 World.random 的 deterministic 序列
+- [ ] **P1.9.1c** Random 分配到各子系统（entity/RWSet/death loot/loot table 等）
+
+P1.9.2 Random budget 计算与监控
+- [ ] **P1.9.2a** 当前 `RandomUsage` / `RandomInstance` 类型存在，但 budget 计算部分实现
+- [ ] **P1.9.2b** 实现完整的 per-subsystem budget 追踪：`Entity.random` / `World.random` / `LootTable.random` / `DamageSource.random`
+- [ ] **P1.9.2c** 实现 budget safety multiplier = 1.5
+- [ ] **P1.9.2d** 实现 `/nebula random` 命令显示 budget 使用情况
+
+P1.9.3 Random DG2 Criterion 2 验证
+- [ ] **P1.9.3a** DG2 Criterion 2：Random 超预算重执行率 <1%
+- [ ] **P1.9.3b** 在正常生存服负载下测试：10000+ tick 中超预算 tick 比例 < 1%
+- [ ] **P1.9.3c** 如果超预算，实现 shadow execution + re-execution 协议（架构 §11.3）
+- [ ] **P1.9.3d** 验证：在有大量随机事件的场景（村民交易、猪人塔、村民繁殖）下，budget 不超限
+
+P1.9.4 T1 Random 放松（5% over-budget 触发）
+- [ ] **P1.9.4a** 实现 T0→T1 降级：10 个连续 tick 超 5% budget → 切换到 per-entity `ThreadLocalRandom`
+- [ ] **P1.9.4b** 验证降级后实体随机决策分布相同，但序列顺序可能不同
+- [ ] **P1.9.4c** 恢复机制：`/nebula fidelity reset`
+
+**验收标准：** DG2 Criterion 2 通过（超预算率 <1%）
+
+---
+
+#### P1.10 · DAG 构建引擎增强（跨子系统）
+
+**任务分解：**
+
+P1.10.1 DAG 构建超时降级（patch-002 §4.3.1）
+- [ ] **P1.10.1a** 实现 `BUILD_BUDGET = 2ms` per bucket
+- [ ] **P1.10.1b** fast-path：1.5ms per bucket 时 kill 网格索引，退化为粗糙串行块
+- [ ] **P1.10.1c** merge 阶段：0.5ms 时跳过传递冗余消除
+- [ ] **P1.10.1d** `/nebula dag-stats` 新增 `build_time_p50/p99/max`、`degraded_ticks_ratio`、`slowest_bucket`
+
+P1.10.2 全局任务处理（架构 §4.5）
+- [ ] **P1.10.2a** command block 命令执行作为 DAG 全局任务
+- [ ] **P1.10.2b** `/reload` 触发的全局状态重置
+- [ ] **P1.10.2c** 世界边界变化作为全局任务
+- [ ] **P1.10.2d** 全局任务的串行化（不影响并行区域）
+
+P1.10.3 空间哈希规模化（架构 §4.1）
+- [ ] **P1.10.3a** 在大规模服务器（100+ 玩家，多 region）上验证桶大小 32³ 的有效性
+- [ ] **P1.10.3b** 边界任务比例理论上 18%，实测验证
+- [ ] **P1.10.3c** 跨桶依赖边实测 <1%，验证空间哈希假设
+
+P1.10.4 Work stealing 优化
+- [ ] **P1.10.4a** 当前 `WorkStealingExecutor` 存在，需要在 Folia 多 region 场景下验证
+- [ ] **P1.10.4b** 验证 worker 从过载 bucket 偷取任务
+- [ ] **P1.10.4c** CPU affinity 调优（task-coord hash → core 绑定）
+
+**验收标准：** DAG 构建在 2ms budget 内完成 >99% 的 tick
+
+---
+
+#### P1.11 · NMS Bridge 完整性（Phase 0 已部分完成）
+
+**任务分解：**
+
+P1.11.1 所有子系统 NMS 写回路径
+- [ ] **P1.11.1a** `NmsBlockStateBridge` — 红石块状态写回
+- [ ] **P1.11.1b** `NmsFluidStateBridge` — 流体状态写回（见 P1.7.1）
+- [ ] **P1.11.1c** `NmsBlockEntityStateBridge` — 方块实体状态写回
+- [ ] **P1.11.1d** `NmsEntityStateBridge` — 实体状态写回（位置、物理状态）
+
+P1.11.2 NMS Bridge 单元测试
+- [ ] **P1.11.2a** 为每个 NMS bridge 编写 read/write roundtrip 测试
+- [ ] **P1.11.2b** 验证写入 Folia 状态后，下个 tick Folia 读取到正确值
+
+P1.11.3 Chunk load/unload 的 MVCC
+- [ ] **P1.11.3a** Chunk 卸载时使用 snapshot（架构 §10.2）
+- [ ] **P1.11.3b** 实现 `AtomicReference<Snapshot>` per chunk
+- [ ] **P1.11.3c** 验证：卸载 chunk 的 DAG 计算不受影响
+
+**验收标准：** 所有 NMS bridge 有完整的 unit test 覆盖
+
+---
+
+### 卷三 · Phase 1.5：标注维护子系统（与 Phase 1 并行）
+
+来源：patch-002 变更一；当前状态：设计阶段
+
+**任务分解：**
+
+P1.5.1 · MSD（Method Signature Delta detector）
+- [ ] **P1.5.1a** 实现 ASM-based bytecode diff：检测 MCP/NMS 方法签名变化
+- [ ] **P1.5.1b** 变更分级：Level 0（纯添加）、Level 1（参数变化）、Level 2（语义变化）
+- [ ] **P1.5.1c** 自动生成 `@NebulaRW` annotation 补丁候选
+- [ ] **P1.5.1d** 人类审查工作流：MSD 输出 → 人工审核 → 确认后应用
+
+P1.5.2 · CI annotation 回归测试
+- [ ] **P1.5.2a** 每次 Minecraft 版本更新后自动运行全套 RW-guard 测试套件
+- [ ] **P1.5.2b** CI pipeline：GitHub Actions workflow，`nebula-ci-annotation.yml`
+- [ ] **P1.5.2c** 回归报告生成：哪些方法的 guard 行为改变了
+
+P1.5.3 · 覆盖率仪表板（当前：4 subsystems，Phase 0 部分完成）
+- [ ] **P1.5.3a** 已有 `AnnotationCoverageDashboard` + `BridgeAnnotationScanner` + `/nebula coverage`
+- [ ] **P1.5.3b** 扩展到所有子系统：entity AI/collision/damage/item、fluid、explosion、light
+- [ ] **P1.5.3c** 目标：DG3 deliverable = "~250 functions" full-system RW library
+- [ ] **P1.5.3d** 实现覆盖趋势图：标注债务随时间变化
+
+P1.5.4 · 方法级热点清单（当前：基于 task factory 手动识别）
+- [ ] **P1.5.4a** 用 async-profiler 数据自动生成方法级热点清单
+- [ ] **P1.5.4b** 对齐到 `@NebulaRW` 标注：哪些热点方法已被标注，哪些还是空白
+- [ ] **P1.5.4c** 仪表板视图：每个子系统的"已标注 / 总热点" 比例
+
+**验收标准：** MSD 在版本更新后 24 小时内生成变更报告；覆盖率仪表板实时更新
+
+---
+
+### 卷四 · Phase 2：全系统集成（8个月）
+
+目标：所有子系统 + VAP L0/L1 + RC 发布
+
+---
+
+#### P2.1 · Light 子系统（当前状态：❌ 0 实现文件）
+
+来源：架构文档第十章；当前状态：设计阶段
+
+**任务分解：**
+
+P2.1.1 光照传播建模（架构 §10.1）
+- [ ] **P2.1.1a** 实现 `LightTaskFactory` 和 `LightTaskType`
+- [ ] **P2.1.1b** 光照传播作为 DAG：BFS 从光源向外传播，每个步骤 = DAG node
+- [ ] **P2.1.1c** 读集：方块透光率（block light）、天空光照（sky light）、方块状态
+- [ ] **P2.1.1d** 写集：区块内的光照数组（` nibbleArray`）
+
+P2.1.2 光照类型
+- [ ] **P2.1.2a** Block light（方块光源：火把、南瓜灯、红石灯等）
+- [ ] **P2.1.2b** Sky light（天空光照：上方开放程度）
+- [ ] **P2.1.2c** Combined light（取 max(block light, sky light)）
+
+P2.1.3 光照去重校验（架构 §10.2）
+- [ ] **P2.1.3a** 实现 MVCC snapshot on chunk unload：`AtomicReference<Snapshot>`
+- [ ] **P2.1.3b** 验证：chunk 卸载时正在进行的 DAG 光照计算不受干扰
+
+P2.1.4 光照 + 红石 交互
+- [ ] **P2.1.4a** 光照变化触发红石（阳光传感器）
+- [ ] **P2.1.4b** cross-subsystem DAG 依赖边：light task → redstone task
+- [ ] **P2.1.4c** 验证阳光传感器在日出/日落时正确触发
+
+P2.1.5 光照的 RW-guard 验证
+- [ ] **P2.1.5a** 实现 `LightRwGuardTracer`
+- [ ] **P2.1.5b** Live 测试：火把放置/移除 → 光照更新 → violations = 0
+- [ ] **P2.1.5c** 光照密集场景（大房子、地下城）下的 zero-diff 验证
+
+P2.1.6 光照 DG3 Criterion 1 验证
+- [ ] **P2.1.6a** 完整游戏回放中验证光照零差异
+- [ ] **P2.1.6b** 特别测试：昼夜循环下的光照变化
+
+**验收标准：** 挖开地下矿洞后光照正确更新；10000 tick 光照零差异
+
+---
+
+#### P2.2 · VAP Level 0（当前状态：skeleton，no real plugin 运行过）
+
+来源：架构 §13.2；当前状态：设计阶段
+
+**任务分解：**
+
+P2.2.1 JVM Agent + ASM bytecode rewrite
+- [ ] **P2.2.1a** 实现 `AccessTracingTransformer` 的完整版本（当前存在于 nebula-agent 但未完全集成）
+- [ ] **P2.2.1b** ASM 拦截：`GETFIELD`/`PUTFIELD`/`GETSTATIC`/`PUTSTATIC`/`INVOKEVIRTUAL`
+- [ ] **P2.2.1c** Java 21+ VirtualThread suspension（~1–5μs 开销）
+- [ ] **P2.2.1d** `PluginTask` queue：插件调用封装为 DAG 任务
+
+P2.2.2 插件 hook 集成
+- [ ] **P2.2.2a** 将 `NebulaPlugin` 的 `onEnable`/`onDisable` 与 VAP agent 生命周期对齐
+- [ ] **P2.2.2b** 测试：加载一个真实插件（EssentialsX），验证 VAP L0 运行
+- [ ] **P2.2.2c** 验证插件调用不阻塞主 DAG 层
+
+P2.2.3 Reflection/dynamic proxy 追踪（架构 §13.5）
+- [ ] **P2.2.3a** warmup-period instrumentation：Method.invoke() 和 EventExecutor 缓存
+- [ ] **P2.2.3b** FULL_RW fallback：JNI、运行时生成类、高度变化反射目标
+- [ ] **P2.2.3c** 实现反射调用开销估算（用于决定是否值得 ASM rewrite）
+
+P2.2.4 插件沙箱（架构 §13.6）
+- [ ] **P2.2.4a** 实现 `PluginSandbox`：单线程 region，每次调用 50–200μs
+- [ ] **P2.2.4b** 配置：`nebula.yml` 的 `plugin-sandbox.sandboxed-plugins` 列表
+- [ ] **P2.2.4c** 沙箱插件（ChatFormatter、DecorationPlus）和非沙箱插件（EssentialsX、WorldGuard、LuckPerms）的分离
+
+P2.2.5 VAP L0 兼容性测试
+- [ ] **P2.2.5a** 用 5 个主流插件测试 L0 兼容性
+- [ ] **P2.2.5b** 记录不兼容案例，分析原因
+- [ ] **P2.2.5c** 验证：`/nebula vap test <plugin>` 命令
+
+**验收标准：** EssentialsX 在 VAP L0 下运行无崩溃；API 调用延迟 < 200μs
+
+---
+
+#### P2.3 · VAP Level 1（当前状态：skeleton）
+
+来源：架构 §13.3；当前状态：设计阶段
+
+**任务分解：**
+
+P2.3.1 `@ManagedState` 注解实现
+- [ ] **P2.3.1a** 实现 `ManagedStateProxy`：运行时生成代理类
+- [ ] **P2.3.1b** 三种并发策略：`MVCC`、`ATOMIC`、`LOCK`
+- [ ] **P2.3.1c** `mergeFunction`：并发冲突合并逻辑
+
+P2.3.2 MVCC version store
+- [ ] **P2.3.2a** 实现 `MvccVersionStore`：每个 `@ManagedState` 字段的版本链
+- [ ] **P2.3.2b** 实现版本合并：基于 `mergeFunction` 的冲突解决
+- [ ] **P2.3.2c** 性能测试：MVCC 开销在可接受范围内
+
+P2.3.3 Level 1 插件适配
+- [ ] **P2.3.3a** 选择 3 个主流插件适配 `@ManagedState`
+- [ ] **P2.3.3b** 验证：使用 `@ManagedState` 后插件在 Nebula 下的性能提升
+- [ ] **P2.3.3c** DG3 Criterion 3：Level-1 `@ManagedState` 覆盖率 ≥50%
+
+**验收标准：** 3 个插件完成 Level 1 适配；覆盖率 ≥50%
+
+---
+
+#### P2.4 · T2/T3 保真度等级（当前状态：design-only）
+
+来源：patch-002 变更四；当前状态：设计阶段
+
+**任务分解：**
+
+P2.4.1 T2 Relaxed Determinism
+- [ ] **P2.4.1a** 实现 T0→T2 降级：MSPT > 50ms × 30s
+- [ ] **P2.4.1b** 实体物理碰撞响应在 SCC 溢出时允许乱序
+- [ ] **P2.4.1c** AI 感知使用上一 tick snapshot
+
+P2.4.2 T3 Maximum Parallelism
+- [ ] **P2.4.2a** 实现 T2→T3 降级：MSPT > 50ms × 60s
+- [ ] **P2.4.2b** 红石微步骤可能跨 tick 分割
+- [ ] **P2.4.2c** 降级路径：T0→T1→T2→T3→传统单线程（单向）
+
+P2.4.3 `/nebula fidelity` 命令
+- [ ] **P2.4.3a** `/nebula fidelity get` — 显示当前保真度等级
+- [ ] **P2.4.3b** `/nebula fidelity reset` — 恢复 T0
+- [ ] **P2.4.3c** `/nebula fidelity set T0|T1|T2|T3` — 手动设置等级
+
+**验收标准：** `/nebula fidelity` 在所有 4 个等级间正确切换
+
+---
+
+#### P2.5 · 权威服务端接管（Phase 0→1 过渡路径）
+
+来源：NEXT STEPS N4；当前状态：研究阶段
+
+**任务分解：**
+
+P2.5.1 路径 A：Nebula Fork（推荐）
+- [ ] **P2.5.1a** Nebula 完全 fork Folia 的 tick 循环
+- [ ] **P2.5.1b** Nebula 先于 Folia 执行 DAG，DAG 结果写入 NMS 状态
+- [ ] **P2.5.1c** Folia 读取 Nebula 写入的状态作为输入
+- [ ] **P2.5.1d** 关键 hook：`RegionizedWorldServer.tick()` 的替换点
+- [ ] **P2.5.1e** 风险评估：Folia 的哪些功能（网络同步、玩家输入、天气）必须保留
+
+P2.5.2 路径 B：Dual-Write with Timestep（保守）
+- [ ] **P2.5.2a** Folia 仍执行权威 tick，但在受限区域内让 Nebula 接管
+- [ ] **P2.5.2b** Nebula 在自己的 tick 偏移上执行 DAG（Folia tick 100，DAG tick 100.5）
+- [ ] **P2.5.2c** 通过版本号或 timestep 解决冲突
+
+P2.5.3 Folia tick 调度研究
+- [ ] **P2.5.3a** 阅读 `RegionizedWorldServer.tick()` 源码
+- [ ] **P2.5.3b** 找到所有调用 tick 的地方：regions、global、entity、block-entity
+- [ ] **P2.5.3c** 确认 Folia 的 tick 是可被替换还是只能被追加
+
+P2.5.4 产出研究文档
+- [ ] **P2.5.4a** 写 `docs/authority-transition.md`
+- [ ] **P2.5.4b** 内容：两条路径的 pros/cons、关键技术挑战、建议的实验顺序
+
+**验收标准：** `docs/authority-transition.md` 存在并包含两条路径的完整分析
+
+---
+
+### 卷五 · Phase 3：生产打磨与生态建设（持续）
+
+---
+
+#### P3.1 · VAP Level 2 原生 API（当前状态：design-only）
+
+来源：架构 §13.4；当前状态：远期
+
+**任务分解：**
+
+P3.1.1 `NebulaScheduler.submitTask(RWSet, RWSet, Function)` API
+- [ ] **P3.1.1a** 设计：插件开发者直接提交 DAG 任务
+- [ ] **P3.1.1b** 类型安全：编译期检查读写集声明
+- [ ] **P3.1.1c** 文档与示例
+
+P3.1.2 Nebula Ready 认证（patch-002 §13.7）
+- [ ] **P3.1.2a** 绿色徽章：Nebula Ready（基础兼容）
+- [ ] **P3.1.2b** 银色徽章：Nebula Optimized（L1 `@ManagedState`）
+- [ ] **P3.1.2c** 金色徽章：Nebula Native（L2 原生 API）
+- [ ] **P3.1.2d** GitHub Issue 模板、自动化 CI pipeline、官方兼容目录
+
+**验收标准：** 10+ 插件获得认证徽章
+
+---
+
+#### P3.2 · 100 玩家负载测试
+
+**任务分解：**
+
+P3.2.1 负载测试基础设施
+- [ ] **P3.2.1a** 实现 100 机器人客户端脚本
+- [ ] **P3.2.1b** 场景：混合负载（红石玩家 + 生存玩家 + 小游戏玩家）
+- [ ] **P3.2.1c** 验证：DG3 Criterion 4（100 玩家稳定在 20 TPS）
+
+P3.2.2 性能基线对比
+- [ ] **P3.2.2a** 在 Folia 上运行相同 100 玩家场景，记录 MSPT
+- [ ] **P3.2.2b** 在 Nebula 上运行，记录 MSPT
+- [ ] **P3.2.2c** 验证 MSPT 相对 Folia 降低 ≥30%（DG2 Criterion 3 + DG3 Criterion 4）
+
+**验收标准：** 100 玩家 60 分钟稳定 20 TPS
+
+---
+
+#### P3.3 · 测试世界套件（架构 §12.2）
+
+来源：11 个标准场景；当前状态：部分完成
+
+**任务分解：**
+
+P3.3.1 完整测试世界清单
+- [ ] **P3.3.1a** 红石-同步（锁存器、寄存器）
+- [ ] **P3.3.1b** 红石-组合逻辑（加法器、编码器）
+- [ ] **P3.3.1c** 红石-循环（时钟、多谐振荡器）
+- [ ] **P3.3.1d** 红石-0tick 脉冲
+- [ ] **P3.3.1e** 红石-BUD 电路
+- [ ] **P3.3.1f** 实体-密集碰撞（100+ 实体在狭小空间）
+- [ ] **P3.3.1g** 实体-AI/寻路（villager 村庄）
+- [ ] **P3.3.1h** 实体-战斗（玩家 vs 多个敌对实体）
+- [ ] **P3.3.1i** 流体-大范围水流
+- [ ] **P3.3.1j** 爆炸-TNT 链
+- [ ] **P3.3.1k** 综合工厂（所有子系统混合）
+
+P3.3.2 自动化测试 CI
+- [ ] **P3.3.2a** `scripts/test-worlds.sh`：自动运行所有 11 个场景
+- [ ] **P3.3.2b** 每个场景的 zero-diff 报告
+- [ ] **P3.3.2c** 回归检测：任何场景的差异率上升 → CI 失败
+
+**验收标准：** 11 个测试世界全部通过 zero-diff
+
+---
+
+#### P3.4 · 文档与社区
+
+**任务分解：**
+
+P3.4.1 开发者文档
+- [ ] **P3.4.1a** `@NebulaRW` annotation 使用指南
+- [ ] **P3.4.1b** VAP 插件开发教程
+- [ ] **P3.4.1c** 贡献指南（如何添加新子系统）
+
+P3.4.2 性能模型文档（patch-002 §E.3）
+- [ ] **P3.4.2a** 实际预期 vs 悲观预期（60% 效率）对比
+- [ ] **P3.4.2b** 历史参照：Linux BKL ~60%、PostgreSQL ~65%、Naughty Dog ~70%、Folia ~45%
+- [ ] **P3.4.2c** 现实 16 核预期：Folia 速度提升 1.5–2.5×，原版服务端 3.0–3.7×
+
+**验收标准：** 文档在 docs/ 目录下完整；README 包含快速开始指南
+
+---
+
+### 卷六 · 跨阶段技术债务与基础设施
+
+#### TD1 · B7 Build 环境可移植性
+- [ ] **TD1.1** 移除 `gradle.properties` 中的 Linux-only JDK 路径硬编码
+- [ ] **TD1.2** 添加跨平台检测：`JAVA_HOME` fallback 逻辑
+- [ ] **TD1.3** 验证：macOS 和 Windows 上的构建成功
+
+#### TD2 · @NebulaRW 标注广度（当前：0 methods）
+- [ ] **TD2.1** Phase 0→1：红石 50 个方法全部标注 ✅ 已开始
+- [ ] **TD2.2** Phase 1：实体 100 个方法标注（@NebulaRW applied to entity hotpots）
+- [ ] **TD2.3** Phase 2：所有子系统 ~250 个方法标注
+- [ ] **TD2.4** Phase 3：维护和更新标注
+
+#### TD3 · Folia-vs-Nebula 持续差异监控
+- [ ] **TD3.1** 当前 settled-state 通过；driven square-wave 是已知有限信号
+- [ ] **TD3.2** 实现：`divergence-grade-needs-settled-sampling`
+- [ ] **TD3.3** 实时差异监控仪表板
+
+#### TD4 · 命令行工具完善
+- [ ] **TD4.1** `/nebula dag-stats`（patch-002 §4.3.1）— build time / degraded ticks / slowest bucket
+- [ ] **TD4.2** `/nebula fidelity`（T0/T1/T2/T3 get/set/reset）
+- [ ] **TD4.3** `/nebula vap test <plugin>`（VAP L0/L1 兼容性测试）
+- [ ] **TD4.4** `/nebula plugins`（VAP 插件列表与状态）
+- [ ] **TD4.5** `/nebula random`（Random budget 使用情况）
+
+#### TD5 · Folia 已知问题跟踪（patch-002 §F.3）
+- [ ] **TD5.1** cross-region redstone：Nebula 是否解决了 Folia 的跨 region 红石缺陷？
+- [ ] **TD5.2** entity teleporting：Nebula 是否改善了 Folia 的实体传送问题？
+- [ ] **TD5.3** light dupes：Nebula 的 Light 子系统是否避免了 Folia 的光照复制 bug？
+- [ ] **TD5.4** chunk unload：Nebula 的 MVCC 是否解决了 Folia 的卸载 chunk 问题？
+- [ ] **TD5.5** static region count：Nebula 的空间哈希是否改善了 Folia 的静态 region 数量问题？
+- [ ] **TD5.6** plugin region declaration：Nebula 的 VAP L0 是否解决了 Folia 的插件 region 声明问题？
+
+#### TD6 · 附录 F：竞争对手分析（patch-002 §F）
+- [ ] **TD6.1** 产出 `docs/appendix-f-competitor-analysis.md`
+- [ ] **TD6.2** 对比：原版 / Folia / Luminol / 星云
+- [ ] **TD6.3** Folia 已知问题清单
+- [ ] **TD6.4** "星云不是 Folia 的替代品" 的清晰定位
+
+---
+
 **Source of truth**: docs/PROJECT_STATUS.md
