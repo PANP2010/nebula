@@ -13,8 +13,9 @@ import java.util.Objects;
  *
  * <h3>RW-set templates</h3>
  * <ul>
- *   <li><b>WATER_FLOW:</b> reads self + 5 neighbours (down, N/S/E/W), writes possible
- *       flow-to positions, fires BLOCK_UPDATE on depth change</li>
+ *   <li><b>WATER_FLOW:</b> reads self + 5 neighbours (down, N/S/E/W) — neighbour block types
+ *       encode the vanilla passability flag — writes every flow-to position, fires BLOCK_UPDATE
+ *       on depth change</li>
  *   <li><b>LAVA_FLOW:</b> same structure, different depth limit</li>
  *   <li><b>FLUID_REMOVE:</b> reads self, writes self (clears fluid), fires BLOCK_UPDATE</li>
  * </ul>
@@ -60,8 +61,9 @@ public final class FluidTaskFactory {
 
     /**
      * Fluid flow RW-set (arch doc §8.2):
-     * reads self + down + 4 horizontal neighbours,
-     * writes all positions fluid may flow to.
+     * reads self + down + 4 horizontal neighbours (which encode the block type each neighbour
+     * exposes and therefore the vanilla passability flag), and writes all positions fluid may
+     * flow to.
      */
     private static RWSet flowRw(FluidSnapshot s) {
         WorldPos self = s.pos();

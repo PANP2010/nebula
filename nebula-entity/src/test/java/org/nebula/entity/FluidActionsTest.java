@@ -25,14 +25,47 @@ class FluidActionsTest {
     }
 
     @Test
-    void waterSourceSpreadsLevelOneToEveryEmptyHorizontalNeighbour() throws Exception {
+    void waterSourceFlowsTowardPassableNeighbourWithLowestLevel() throws Exception {
         FluidSnapshot source = FluidSnapshot.water(SELF, 0, true);
-        FluidState state = runWithBlockedDown(source);
+        // South neighbour already holds a lower-level passable (same fluid) flow than the
+        // others, so vanilla slope selection routes the new water south.
+        FluidSnapshot southLow = FluidSnapshot.water(source.south(), 2, false);
+        FluidSnapshot eastHigh = FluidSnapshot.water(source.east(), 5, false);
+        FluidState state = initialState(source);
+        state.put(source.down(), new Object());
+        state.put(source.south(), southLow);
+        state.put(source.east(), eastHigh);
 
-        assertEquals(FluidSnapshot.water(source.north(), 1, false), state.get(source.north()));
+        run(source, state);
+
         assertEquals(FluidSnapshot.water(source.south(), 1, false), state.get(source.south()));
+        assertEquals(eastHigh, state.get(source.east()));
+        assertNull(state.get(source.north()));
+        assertNull(state.get(source.west()));
+    }
+
+    @Test
+    void solidNeighbourBlocksFlowEvenWhenOtherNeighboursArePassable() throws Exception {
+        FluidSnapshot source = FluidSnapshot.water(SELF, 0, true);
+        FluidSnapshot eastLow = FluidSnapshot.water(source.east(), 4, false);
+        FluidState state = initialState(source);
+        Object northSolid = new Object();
+        Object downSolid = new Object();
+        state.put(source.down(), downSolid);
+        state.put(source.north(), northSolid); // solid on the north face
+        state.put(source.east(), eastLow);
+
+        run(source, state);
+
+        // North is solid (not passable). East already holds same-fluid at level 4; slope selection
+        // picks the lowest non-zero same-fluid neighbour, so east is the candidate. Vanilla writes
+        // the new flow level (1) into east, overwriting the level-4 cell. South and west are
+        // empty; not selected because slope selection chose east as lowest same-fluid neighbour.
         assertEquals(FluidSnapshot.water(source.east(), 1, false), state.get(source.east()));
-        assertEquals(FluidSnapshot.water(source.west(), 1, false), state.get(source.west()));
+        assertEquals(northSolid, state.get(source.north()));
+        assertEquals(downSolid, state.get(source.down()));
+        assertNull(state.get(source.south()));
+        assertNull(state.get(source.west()));
     }
 
     @Test
@@ -40,6 +73,8 @@ class FluidActionsTest {
         FluidSnapshot flow = FluidSnapshot.water(SELF, 4, false);
         FluidState state = runWithBlockedDown(flow);
 
+        // Slope selection picks the first viable (lowest-level) neighbour; with no pre-existing
+        // fluids to disambiguate, this resolves to north (the fixed-order tiebreak).
         assertEquals(FluidSnapshot.water(flow.north(), 5, false), state.get(flow.north()));
     }
 
@@ -72,17 +107,22 @@ class FluidActionsTest {
     }
 
     @Test
-    void occupiedHorizontalNeighbourIsNotOverwritten() throws Exception {
-        FluidSnapshot source = FluidSnapshot.water(SELF, 0, true);
-        FluidSnapshot occupied = FluidSnapshot.water(source.north(), 4, false);
-        FluidState state = initialState(source);
-        state.put(source.down(), new Object());
-        state.put(source.north(), occupied);
+    void differentFluidNeighbourDoesNotCountAsLowestLevelFluid() throws Exception {
+        FluidSnapshot water = FluidSnapshot.water(SELF, 0, true);
+        FluidSnapshot lavaNeighbour = FluidSnapshot.lava(water.east(), 1, false);
+        FluidState state = initialState(water);
+        state.put(water.down(), new Object());
+        state.put(water.east(), lavaNeighbour);
 
-        run(source, state);
+        run(water, state);
 
-        assertEquals(occupied, state.get(source.north()));
-        assertEquals(FluidSnapshot.water(source.south(), 1, false), state.get(source.south()));
+        // East holds a different fluid (lava); slope selection treats it as non-passable for water,
+        // so east is not the chosen direction. North is the first passable air (null) cell in
+        // [N, S, E, W] order, so the algorithm flows north.
+        assertEquals(lavaNeighbour, state.get(water.east()));
+        assertEquals(FluidSnapshot.water(water.north(), 1, false), state.get(water.north()));
+        assertNull(state.get(water.south()));
+        assertNull(state.get(water.west()));
     }
 
     private static FluidState run(FluidSnapshot fluid) throws Exception {

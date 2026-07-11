@@ -103,4 +103,51 @@ class FluidTaskFactoryTest {
         assertEquals(FluidTaskType.FLUID_REMOVE, FluidTaskType.fromTaskType("FLUID_REMOVE"));
         assertNull(FluidTaskType.fromTaskType("UNKNOWN"));
     }
+
+    @Test
+    void flowReadsEveryNeighbourBlockTypeForPassability() {
+        FluidSnapshot snap = FluidSnapshot.water(WATER_POS, 5, false);
+        TaskNode node = FluidTaskFactory.flowInert(snap);
+        RWSet rw = node.declaredRWSet();
+
+        // Six-block footprint — including all four horizontal neighbours, whose block types the
+        // slope-selection pass must inspect to decide passability.
+        WorldPos north = new WorldPos(0, 50, 64, 49);
+        WorldPos south = new WorldPos(0, 50, 64, 51);
+        WorldPos east = new WorldPos(0, 51, 64, 50);
+        WorldPos west = new WorldPos(0, 49, 64, 50);
+        WorldPos down = new WorldPos(0, 50, 63, 50);
+
+        assertTrue(rw.declaresBlockRead(WATER_POS));
+        assertTrue(rw.declaresBlockRead(down));
+        assertTrue(rw.declaresBlockRead(north));
+        assertTrue(rw.declaresBlockRead(south));
+        assertTrue(rw.declaresBlockRead(east));
+        assertTrue(rw.declaresBlockRead(west));
+    }
+
+    @Test
+    void flowActionPicksLowestLevelPassableNeighbourAsSingleFlowDirection() throws Exception {
+        FluidSnapshot self = FluidSnapshot.water(WATER_POS, 0, true);
+        FluidState state = new FluidState();
+        state.put(WATER_POS, self);
+        state.put(self.down(), new Object());
+        state.put(self.north(), FluidSnapshot.water(self.north(), 4, false));
+        state.put(self.south(), FluidSnapshot.water(self.south(), 1, false));
+        state.put(self.east(), FluidSnapshot.water(self.east(), 3, false));
+        // West stays null (air, passable-but-zero-level).
+
+        TaskNode task = FluidTaskFactory.flowInert(self);
+        FluidTaskRunner runner = new FluidTaskRunner(state,
+            id -> FluidActions.flow(self), null);
+        runner.run(task);
+        assertTrue(runner.commit(task.taskId()));
+
+        // South wins slope selection (lowest non-zero level). The other three neighbours must
+        // be untouched — vanilla slope selection picks exactly one direction per tick.
+        assertEquals(FluidSnapshot.water(self.south(), 1, false), state.get(self.south()));
+        assertEquals(FluidSnapshot.water(self.north(), 4, false), state.get(self.north()));
+        assertEquals(FluidSnapshot.water(self.east(), 3, false), state.get(self.east()));
+        assertNull(state.get(self.west()));
+    }
 }
