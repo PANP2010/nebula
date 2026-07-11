@@ -129,6 +129,19 @@ public final class NmsBlockStateBridge {
      * <p>Must be called on the region thread that owns {@code pos} (Folia block
      * reads NPE off the owning region thread).
      */
+    @NebulaRW(
+        readBlocks            = {"{pos}"},
+        triggeredEvents       = {"BLOCK_UPDATE"},
+        microStep             = MicroStepBehavior.NONE,
+        scc                   = SccBehavior.AUTO,
+        maxRandomCalls        = 0,
+        randomInstance        = "NONE",
+        mayLoadChunks         = false,
+        mayTriggerBlockUpdates = false,
+        maySpawnEntities      = false,
+        verifiedAt            = "1.21.4",
+        verifiedBy            = {"SettledDivergenceGraderTest"}
+    )
     public int readNmsPower(World world, WorldPos pos) {
         Objects.requireNonNull(world, "world");
         Objects.requireNonNull(pos, "pos");
@@ -197,7 +210,29 @@ public final class NmsBlockStateBridge {
      *
      * <p>Must be called on region threads that own each position. The caller
      * should dispatch positions to their owning regions before calling this.
+     *
+     * <p>The annotated RW-set mirrors {@link #syncFromNms} per call — the
+     * annotation lists the same {@code {pos}} plus the {pos}.power field that
+     * the inner sync touches. Because the method fans out over an arbitrary
+     * positions set, the runtime guard treats this as a single conservative
+     * declaration: any block-entity tick task touching a position the bridge
+     * has swept will see the bridge's sync as having happened.
      */
+    @NebulaRW(
+        readBlocks         = {"{pos}"},
+        writeBlockEntities = {"{pos}.power"},
+        readBlockEntities  = {"{pos}.power"},
+        triggeredEvents    = {"BLOCK_UPDATE"},
+        microStep          = MicroStepBehavior.PROPAGATES,
+        scc                = SccBehavior.CONTRACTIBLE,
+        maxRandomCalls     = 0,
+        randomInstance     = "NONE",
+        mayLoadChunks      = false,
+        mayTriggerBlockUpdates = false,
+        maySpawnEntities   = false,
+        verifiedAt         = "1.21.4",
+        verifiedBy         = {"NmsBlockStateBridgeTest"}
+    )
     public void bulkSyncFromNms(World world, java.util.Set<WorldPos> positions) {
         Objects.requireNonNull(world, "world");
         Objects.requireNonNull(positions, "positions");
@@ -209,6 +244,17 @@ public final class NmsBlockStateBridge {
     /**
      * Returns the CAS store this bridge is bound to (for direct access).
      */
+    @NebulaRW(
+        microStep          = MicroStepBehavior.NONE,
+        scc                = SccBehavior.AUTO,
+        maxRandomCalls     = 0,
+        randomInstance     = "NONE",
+        mayLoadChunks      = false,
+        mayTriggerBlockUpdates = false,
+        maySpawnEntities   = false,
+        verifiedAt         = "1.21.4",
+        verifiedBy         = {"NmsBlockStateBridgeTest"}
+    )
     public RedstoneWorldState casStore() {
         return casStore;
     }

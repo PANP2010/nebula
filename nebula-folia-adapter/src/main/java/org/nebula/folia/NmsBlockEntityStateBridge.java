@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
+import org.bukkit.block.BrewingStand;
 import org.bukkit.block.Container;
 import org.bukkit.block.Dispenser;
 import org.bukkit.block.Dropper;
@@ -35,6 +36,12 @@ import java.util.logging.Logger;
  *   <li><b>Furnace</b>: burn time, cook time, cook time total
  *       ({@link Furnace#getBurnTime()}, {@link Furnace#getCookTime()},
  *       {@link Furnace#getCookTimeTotal()}) and inventory slot counts.</li>
+ *   <li><b>Brewing stand</b>: brewing time + fuel level
+ *       ({@link BrewingStand#getBrewingTime()},
+ *       {@link BrewingStand#getFuelLevel()}) and inventory slot counts. The
+ *       fuel load → countdown → arm-or-noop math reads both fields, so without
+ *       this sync the action runs against a phantom-zero CAS store and is a
+ *       silent no-op (the brewing equivalent of the dropper self-sync gap).</li>
  *   <li><b>Dropper/Dispenser</b>: its own inventory slot counts only — the eject
  *       action ({@code BlockEntityActions.dropper}/{@code dispenser}) reads
  *       {@code readSlot(self, s)}, so without this self-read it draws from a
@@ -56,7 +63,9 @@ import java.util.logging.Logger;
  *       {@code BlockEntityActions.hopper});</li>
  *   <li>furnace: Bukkit's {@code burnTime} (remaining fuel ticks) ↔ {@code "fuel_time"},
  *       {@code cookTime} (progress) ↔ {@code "cook_progress"}, {@code cookTimeTotal} ↔
- *       {@code "cook_total"} (matches {@code BlockEntityActions.furnace}).</li>
+ *       {@code "cook_total"} (matches {@code BlockEntityActions.furnace});</li>
+ *   <li>brewing stand: Bukkit's {@code brewingTime} ↔ {@code "brew_time"},
+ *       {@code fuelLevel} ↔ {@code "fuel"} (matches {@code BlockEntityActions.brewing}).</li>
  * </ul>
  * Diverging from these names silently severs the bridge from the DAG — the exact
  * key-mismatch failure mode (B3) the project was built to catch.
@@ -78,7 +87,34 @@ public final class NmsBlockEntityStateBridge {
      * to the CAS store. Dispatches to the appropriate handler based on block type.
      *
      * <p>Must be called on the region thread that owns {@code pos}.
+     *
+     * <p>The annotated RW-set is the conservative union of every block-entity
+     * variant this dispatcher handles: hopper (transfer_cooldown + 27-slot
+     * inventory), furnace (fuel_time + cook_progress + cook_total + 3-slot
+     * inventory), brewing stand (brew_time + fuel + 5-slot inventory), and
+     * dropper/dispenser (9-slot inventory). This mirrors the
+     * conservative-coverage pattern of {@link #syncInventoryFromNms} — the
+     * runtime guard treats any block-entity tick task touching one of these
+     * positions as depending on this bridge's sync.
      */
+    @NebulaRW(
+        readBlockEntities  = {"{pos}.transfer_cooldown",
+                              "{pos}.fuel_time", "{pos}.cook_progress", "{pos}.cook_total",
+                              "{pos}.brew_time", "{pos}.fuel"},
+        writeBlockEntities = {"{pos}.transfer_cooldown",
+                              "{pos}.fuel_time", "{pos}.cook_progress", "{pos}.cook_total",
+                              "{pos}.brew_time", "{pos}.fuel"},
+        triggeredEvents    = {"INVENTORY_CHANGED", "BLOCK_UPDATE"},
+        microStep          = MicroStepBehavior.NONE,
+        scc                = SccBehavior.SERIALIZED,
+        maxRandomCalls     = 0,
+        randomInstance     = "NONE",
+        mayLoadChunks      = false,
+        mayTriggerBlockUpdates = false,
+        maySpawnEntities   = false,
+        verifiedAt         = "1.21.4",
+        verifiedBy         = {"BlockEntityTaskFactoryTest", "BlockEntityRwGuardBridgeTest"}
+    )
     public void syncFromNms(World world, WorldPos pos) {
         Objects.requireNonNull(world, "world");
         Objects.requireNonNull(pos, "pos");
@@ -90,6 +126,8 @@ public final class NmsBlockEntityStateBridge {
             syncHopperFromNms(pos, hopper);
         } else if (state instanceof Furnace furnace) {
             syncFurnaceFromNms(pos, furnace);
+        } else if (state instanceof BrewingStand brewing) {
+            syncBrewingStandFromNms(pos, brewing);
         } else if (state instanceof Dropper || state instanceof Dispenser) {
             // A ticking dropper/dispenser's OWN inventory must reach CAS or its eject
             // action reads a phantom-empty container and draws nothing (the dropper
@@ -181,6 +219,23 @@ public final class NmsBlockEntityStateBridge {
      * <p>Must be called on the region thread that owns {@code pos} (Folia block reads
      * NPE off the owning region thread).
      */
+    @NebulaRW(
+        readBlockEntities  = {"{pos}.inventory.slots[0]", "{pos}.inventory.slots[1]",
+                              "{pos}.inventory.slots[2]", "{pos}.inventory.slots[3]",
+                              "{pos}.inventory.slots[4]", "{pos}.inventory.slots[5]",
+                              "{pos}.inventory.slots[6]", "{pos}.inventory.slots[7]",
+                              "{pos}.inventory.slots[8]"},
+        triggeredEvents    = {"INVENTORY_CHANGED"},
+        microStep          = MicroStepBehavior.NONE,
+        scc                = SccBehavior.SERIALIZED,
+        maxRandomCalls     = 0,
+        randomInstance     = "NONE",
+        mayLoadChunks      = false,
+        mayTriggerBlockUpdates = false,
+        maySpawnEntities   = false,
+        verifiedAt         = "1.21.4",
+        verifiedBy         = {"BlockEntitySettledGraderTest"}
+    )
     public int readNmsInventoryCount(World world, WorldPos pos) {
         Objects.requireNonNull(world, "world");
         Objects.requireNonNull(pos, "pos");
@@ -243,6 +298,19 @@ public final class NmsBlockEntityStateBridge {
      * <p>Must be called on the region thread that owns {@code pos} (Folia block reads NPE
      * off the owning region thread).
      */
+    @NebulaRW(
+        readBlockEntities  = {"{pos}.fuel_time", "{pos}.cook_progress", "{pos}.cook_total"},
+        triggeredEvents    = {"BLOCK_UPDATE"},
+        microStep          = MicroStepBehavior.NONE,
+        scc                = SccBehavior.SERIALIZED,
+        maxRandomCalls     = 0,
+        randomInstance     = "NONE",
+        mayLoadChunks      = false,
+        mayTriggerBlockUpdates = false,
+        maySpawnEntities   = false,
+        verifiedAt         = "1.21.4",
+        verifiedBy         = {"FurnaceTimerGapGraderTest"}
+    )
     public FurnaceTimerSample readNmsFurnaceTimers(World world, WorldPos pos) {
         Objects.requireNonNull(world, "world");
         Objects.requireNonNull(pos, "pos");
@@ -308,6 +376,25 @@ public final class NmsBlockEntityStateBridge {
         }
     }
 
+    private void syncBrewingStandFromNms(WorldPos pos, BrewingStand brewing) {
+        // Timers — map the Bukkit BrewingStand API onto the canonical model field
+        // names BlockEntityActions.brewing reads: getBrewingTime() is the countdown
+        // counting down to 0 (model "brew_time"); getFuelLevel() is the per-blaze
+        // remaining fuel (model "fuel"). Vanilla's BREW_FUEL_MAX (=20) is the
+        // action's constant, so we don't carry it as a CAS field.
+        casCommitField(pos, "brew_time", brewing.getBrewingTime());
+        casCommitField(pos, "fuel", brewing.getFuelLevel());
+
+        // Inventory slots: 0..2 = bottle slots, 3 = ingredient, 4 = blaze powder
+        // (a vanilla BrewingStand has 5 slots, confirmed via BrewerInventory).
+        Inventory inv = brewing.getInventory();
+        for (int slot = 0; slot < inv.getSize(); slot++) {
+            ItemStack item = inv.getItem(slot);
+            int amount = item == null || item.getType() == Material.AIR ? 0 : item.getAmount();
+            casCommitField(pos, slotPath(slot), amount);
+        }
+    }
+
     // ── Write path ──────────────────────────────────────────────────────────────
 
     /**
@@ -315,7 +402,32 @@ public final class NmsBlockEntityStateBridge {
      * Dispatches to the appropriate handler based on block type.
      *
      * <p>Must be called on the region thread that owns {@code pos}.
+     *
+     * <p>The annotated RW-set is the conservative union of every block-entity
+     * variant this dispatcher writes back: hopper (transfer_cooldown + 5-slot
+     * inventory), furnace (fuel_time + cook_progress + cook_total + 3-slot
+     * inventory), brewing stand (brew_time + fuel + 5-slot inventory). Brewing
+     * stand's inventory slots are part of the union so a future write-back arm
+     * can reach them without re-annotating this method.
      */
+    @NebulaRW(
+        readBlockEntities  = {"{pos}.transfer_cooldown",
+                              "{pos}.fuel_time", "{pos}.cook_progress", "{pos}.cook_total",
+                              "{pos}.brew_time", "{pos}.fuel"},
+        writeBlockEntities = {"{pos}.transfer_cooldown",
+                              "{pos}.fuel_time", "{pos}.cook_progress", "{pos}.cook_total",
+                              "{pos}.brew_time", "{pos}.fuel"},
+        triggeredEvents    = {"INVENTORY_CHANGED", "BLOCK_UPDATE"},
+        microStep          = MicroStepBehavior.NONE,
+        scc                = SccBehavior.SERIALIZED,
+        maxRandomCalls     = 0,
+        randomInstance     = "NONE",
+        mayLoadChunks      = false,
+        mayTriggerBlockUpdates = false,
+        maySpawnEntities   = false,
+        verifiedAt         = "1.21.4",
+        verifiedBy         = {"BlockEntityTaskFactoryTest", "BlockEntityRwGuardBridgeTest"}
+    )
     public void syncToNms(World world, WorldPos pos) {
         Objects.requireNonNull(world, "world");
         Objects.requireNonNull(pos, "pos");
@@ -327,6 +439,8 @@ public final class NmsBlockEntityStateBridge {
             syncHopperToNms(pos, hopper);
         } else if (state instanceof Furnace furnace) {
             syncFurnaceToNms(pos, furnace, world);
+        } else if (state instanceof BrewingStand brewing) {
+            syncBrewingStandToNms(pos, brewing);
         }
     }
 
@@ -360,6 +474,24 @@ public final class NmsBlockEntityStateBridge {
         }
 
         furnace.update();
+    }
+
+    private void syncBrewingStandToNms(WorldPos pos, BrewingStand brewing) {
+        // Timers — read back under the canonical model names the brewing action writes.
+        brewing.setBrewingTime(casStore.get(new BlockEntityField(pos, "brew_time")));
+        brewing.setFuelLevel(casStore.get(new BlockEntityField(pos, "fuel")));
+
+        // Inventory slots — same material-amount constraint as the hopper/furnace
+        // writeback: track amounts only, can't create new items without knowing
+        // their material type. Empty-slot creation stays a no-op (mirrors the
+        // hopper/furnace path; see setSlotAmount).
+        Inventory inv = brewing.getInventory();
+        for (int slot = 0; slot < inv.getSize(); slot++) {
+            int amount = casStore.get(new BlockEntityField(pos, slotPath(slot)));
+            setSlotAmount(inv, slot, amount);
+        }
+
+        brewing.update();
     }
 
     // ── Helpers ─────────────────────────────────────────────────────────────────
@@ -405,6 +537,17 @@ public final class NmsBlockEntityStateBridge {
     /**
      * Returns the CAS store this bridge is bound to.
      */
+    @NebulaRW(
+        microStep          = MicroStepBehavior.NONE,
+        scc                = SccBehavior.SERIALIZED,
+        maxRandomCalls     = 0,
+        randomInstance     = "NONE",
+        mayLoadChunks      = false,
+        mayTriggerBlockUpdates = false,
+        maySpawnEntities   = false,
+        verifiedAt         = "1.21.4",
+        verifiedBy         = {"NmsBlockEntityStateBridgeTest"}
+    )
     public BlockEntityState casStore() {
         return casStore;
     }

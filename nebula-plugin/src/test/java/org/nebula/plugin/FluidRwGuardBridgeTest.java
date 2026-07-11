@@ -79,4 +79,49 @@ final class FluidRwGuardBridgeTest {
         assertEquals(ViolationType.UNDECLARED_WRITE, violations.getFirst().violationType());
         assertEquals(AccessTarget.block(FLUID.down()), violations.getFirst().accessTarget());
     }
+
+    @Test
+    void solidNeighbourBlockTypeReadAppearsInTraceAndRwSet() throws Exception {
+        TaskNode task = FluidTaskFactory.flowInert(FLUID);
+        ActualAccessTrace actual = runWithSolidNeighbourAndTrace(task);
+
+        // A solid (non-fluid) neighbour must still appear in the read trace: the slope-selection
+        // action inspects the block type to decide passability, so omitting it from either the
+        // RW-set or the trace would be a real bug.
+        assertTrue(actual.readBlocks().contains(FLUID.north()),
+            "north neighbour (solid in this fixture) must be read: " + actual.readBlocks());
+        assertTrue(actual.readBlocks().contains(FLUID.east()),
+            "east neighbour (solid in this fixture) must be read: " + actual.readBlocks());
+        assertTrue(actual.readBlocks().contains(FLUID.south()),
+            "south neighbour (solid in this fixture) must be read: " + actual.readBlocks());
+        assertTrue(actual.readBlocks().contains(FLUID.west()),
+            "west neighbour (solid in this fixture) must be read: " + actual.readBlocks());
+
+        // Same task's declared RW-set must declare every position the action will read.
+        assertTrue(task.declaredRWSet().declaresBlockRead(FLUID.north()));
+        assertTrue(task.declaredRWSet().declaresBlockRead(FLUID.east()));
+        assertTrue(task.declaredRWSet().declaresBlockRead(FLUID.south()));
+        assertTrue(task.declaredRWSet().declaresBlockRead(FLUID.west()));
+    }
+
+    private static ActualAccessTrace runWithSolidNeighbourAndTrace(TaskNode task) throws Exception {
+        FluidState state = new FluidState();
+        state.put(SELF, FLUID);
+        // Block down so downward-flow branch is skipped, then mark all four horizontal
+        // neighbours as solid (arbitrary non-FluidSnapshot object) to exercise passability.
+        state.put(FLUID.down(), new Object());
+        state.put(FLUID.north(), new Object());
+        state.put(FLUID.south(), new Object());
+        state.put(FLUID.east(), new Object());
+        state.put(FLUID.west(), new Object());
+        FluidRwGuardHook hook = new FluidRwGuardHook(new org.nebula.guard.RWGuardConfig(
+            true, 1.0, org.nebula.guard.RWGuardMode.WARN,
+            java.nio.file.Path.of("build/test-fluid-rw-violations.jsonl"), 200, false));
+        FluidTaskRunner runner = new FluidTaskRunner(state,
+            id -> FluidActions.flow(FLUID), FluidRwGuardTracer.INSTANCE, hook);
+        ThreadLocalAccessTrace.reset();
+        runner.run(task);
+        assertTrue(runner.commit(task.taskId()));
+        return ThreadLocalAccessTrace.snapshot();
+    }
 }

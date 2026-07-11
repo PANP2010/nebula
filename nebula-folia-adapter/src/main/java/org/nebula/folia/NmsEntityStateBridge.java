@@ -4,6 +4,9 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.util.Vector;
+import org.nebula.annotations.MicroStepBehavior;
+import org.nebula.annotations.NebulaRW;
+import org.nebula.annotations.SccBehavior;
 import org.nebula.core.state.EntityField;
 import org.nebula.entity.EntityPhysicsState;
 import org.nebula.entity.Vec3;
@@ -73,11 +76,34 @@ public final class NmsEntityStateBridge {
     // ── Read path ───────────────────────────────────────────────────────────────
 
     /**
-     * Reads position and velocity from the real entity and commits to the CAS store.
-     * Returns the version stamp for stale-read detection.
+     * Reads position from the real entity and commits it to the CAS store under
+     * the canonical {@code "position"} field path. Returns the version stamp for
+     * stale-read detection.
      *
      * <p>Must be called on the region thread that owns the entity.
+     *
+     * <p>The annotated RW-set covers the entity's {@code position} field — the
+     * same path {@code EntityMoveAction} reads on the live tick DAG, so the
+     * runtime guard sees the bridge's RW-set as a superset of the action's. If a
+     * future cycle narrows the action (e.g. drops the position read for purely
+     * vertical tasks) the bridge still covers it, exactly the
+     * conservative-coverage pattern used by {@link
+     * NmsBlockEntityStateBridge#syncInventoryFromNms}.
      */
+    @NebulaRW(
+        readEntities       = {"{entityId}.position"},
+        writeEntities      = {"{entityId}.position"},
+        triggeredEvents    = {"ENTITY_MOVED"},
+        microStep          = MicroStepBehavior.NONE,
+        scc                = SccBehavior.SERIALIZED,
+        maxRandomCalls     = 0,
+        randomInstance     = "NONE",
+        mayLoadChunks      = false,
+        mayTriggerBlockUpdates = false,
+        maySpawnEntities   = false,
+        verifiedAt         = "1.21.4",
+        verifiedBy         = {"EntityDivergenceTrackerTest"}
+    )
     public long syncPositionFromNms(Entity entity) {
         Objects.requireNonNull(entity, "entity");
 
@@ -91,6 +117,20 @@ public final class NmsEntityStateBridge {
         return casStore.getVersion(field);
     }
 
+    @NebulaRW(
+        readEntities       = {"{entityId}.velocity"},
+        writeEntities      = {"{entityId}.velocity"},
+        triggeredEvents    = {"ENTITY_MOVED"},
+        microStep          = MicroStepBehavior.NONE,
+        scc                = SccBehavior.SERIALIZED,
+        maxRandomCalls     = 0,
+        randomInstance     = "NONE",
+        mayLoadChunks      = false,
+        mayTriggerBlockUpdates = false,
+        maySpawnEntities   = false,
+        verifiedAt         = "1.21.4",
+        verifiedBy         = {"EntityDivergenceTrackerTest"}
+    )
     public long syncVelocityFromNms(Entity entity) {
         Objects.requireNonNull(entity, "entity");
 
@@ -120,7 +160,29 @@ public final class NmsEntityStateBridge {
      *
      * <p>Must be called on the region thread that owns both the current
      * entity location and the target location.
+     *
+     * <p>Full X/Y/Z teleport — used in vertical-only mode, NOT for full
+     * horizontal write-back. The horizontal drift finding (B8 C1,
+     * 2026-07-10) established {@code syncVerticalPhysicsToNms} as the
+     * honest scope for the live mirror; this method remains annotated so
+     * the coverage dashboard counts it, but the {@code #mayTriggerBlockUpdates}
+     * flag reflects that a full teleport can perturb neighbour observers
+     * (a stochastic AI pathing cannot reproduce).
      */
+    @NebulaRW(
+        readEntities       = {"{entityId}.position"},
+        writeEntities      = {"{entityId}.position"},
+        triggeredEvents    = {"ENTITY_MOVED", "BLOCK_UPDATE"},
+        microStep          = MicroStepBehavior.NONE,
+        scc                = SccBehavior.SERIALIZED,
+        maxRandomCalls     = 0,
+        randomInstance     = "NONE",
+        mayLoadChunks      = false,
+        mayTriggerBlockUpdates = false,
+        maySpawnEntities   = false,
+        verifiedAt         = "1.21.4",
+        verifiedBy         = {"NmsEntityStateBridgeTest"}
+    )
     public boolean syncPositionToNms(Entity entity, World world) {
         Objects.requireNonNull(entity, "entity");
         Objects.requireNonNull(world, "world");
@@ -149,6 +211,20 @@ public final class NmsEntityStateBridge {
      *
      * <p>Must be called on the region thread that owns the entity.
      */
+    @NebulaRW(
+        readEntities       = {"{entityId}.velocity"},
+        writeEntities      = {"{entityId}.velocity"},
+        triggeredEvents    = {"ENTITY_MOVED"},
+        microStep          = MicroStepBehavior.NONE,
+        scc                = SccBehavior.SERIALIZED,
+        maxRandomCalls     = 0,
+        randomInstance     = "NONE",
+        mayLoadChunks      = false,
+        mayTriggerBlockUpdates = false,
+        maySpawnEntities   = false,
+        verifiedAt         = "1.21.4",
+        verifiedBy         = {"NmsEntityStateBridgeTest"}
+    )
     public void syncVelocityToNms(Entity entity) {
         Objects.requireNonNull(entity, "entity");
 
@@ -184,6 +260,20 @@ public final class NmsEntityStateBridge {
      *
      * <p>Must be called on the region thread that owns the entity.
      */
+    @NebulaRW(
+        readEntities       = {"{entityId}.position", "{entityId}.velocity"},
+        writeEntities      = {"{entityId}.position", "{entityId}.velocity"},
+        triggeredEvents    = {"ENTITY_MOVED", "BLOCK_UPDATE"},
+        microStep          = MicroStepBehavior.NONE,
+        scc                = SccBehavior.SERIALIZED,
+        maxRandomCalls     = 0,
+        randomInstance     = "NONE",
+        mayLoadChunks      = false,
+        mayTriggerBlockUpdates = false,
+        maySpawnEntities   = false,
+        verifiedAt         = "1.21.4",
+        verifiedBy         = {"VerticalWriteBackGateTest", "EntityDivergenceTrackerTest"}
+    )
     public boolean syncVerticalPhysicsToNms(Entity entity, World world) {
         Objects.requireNonNull(entity, "entity");
         Objects.requireNonNull(world, "world");
@@ -219,6 +309,17 @@ public final class NmsEntityStateBridge {
     /**
      * Returns the CAS store this bridge is bound to.
      */
+    @NebulaRW(
+        microStep          = MicroStepBehavior.NONE,
+        scc                = SccBehavior.SERIALIZED,
+        maxRandomCalls     = 0,
+        randomInstance     = "NONE",
+        mayLoadChunks      = false,
+        mayTriggerBlockUpdates = false,
+        maySpawnEntities   = false,
+        verifiedAt         = "1.21.4",
+        verifiedBy         = {"NmsEntityStateBridgeTest"}
+    )
     public EntityPhysicsState casStore() {
         return casStore;
     }
