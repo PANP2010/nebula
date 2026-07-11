@@ -2767,6 +2767,16 @@ public final class NebulaPlugin extends JavaPlugin {
      * annotated methods are the annotated count. Per the patch-001 decay goal the operator
      * can drive {@code /nebula coverage} after each per-subsystem slice lands and watch the
      * ratio climb.
+     *
+     * <p>Per-subsystem buckets (B8 C5): each subsystem maps to exactly one root bridge class
+     * — {@code redstone-bridge} → {@code NmsBlockStateBridge},
+     * {@code block-entity-bridge} → {@code NmsBlockEntityStateBridge},
+     * {@code fluid-bridge} → {@code NmsFluidStateBridge},
+     * {@code entity-bridge} → {@code NmsEntityStateBridge}. The "total" hotspot count comes
+     * from reflecting over the bridge class's public instance methods (see
+     * {@link org.nebula.maintenance.BridgeAnnotationScanner#getSubsystemCoverage}), not a
+     * hand-typed integer — adding a public method to a bridge class automatically widens
+     * the denominator, so a refactor cannot silently inflate the ratio.
      */
     public org.nebula.maintenance.AnnotationCoverageDashboard buildCoverageDashboard() {
         org.nebula.maintenance.AnnotationCoverageDashboard d =
@@ -2787,7 +2797,28 @@ public final class NebulaPlugin extends JavaPlugin {
         } catch (ClassNotFoundException e) {
             // same skip path
         }
-        org.nebula.maintenance.BridgeAnnotationScanner.scan(targets, d);
+        try {
+            Class<?> nmsFluid = Class.forName("org.nebula.folia.NmsFluidStateBridge");
+            targets.add(org.nebula.maintenance.BridgeAnnotationScanner.ScanTarget.of(
+                "fluid-bridge", nmsFluid));
+        } catch (ClassNotFoundException e) {
+            // same skip path
+        }
+        try {
+            Class<?> nmsEntity = Class.forName("org.nebula.folia.NmsEntityStateBridge");
+            targets.add(org.nebula.maintenance.BridgeAnnotationScanner.ScanTarget.of(
+                "entity-bridge", nmsEntity));
+        } catch (ClassNotFoundException e) {
+            // same skip path
+        }
+        // Wire each subsystem's reflected (annotated, total) row directly through
+        // dashboard.report() so the denominator is the scanner's reflection, not a
+        // hand-typed count.
+        for (org.nebula.maintenance.BridgeAnnotationScanner.SubsystemCoverage row :
+                org.nebula.maintenance.BridgeAnnotationScanner.getSubsystemCoverage(targets)) {
+            d.report(new org.nebula.maintenance.AnnotationCoverageDashboard.SubsystemCoverage(
+                row.subsystem(), row.annotatedMethods(), row.totalBridgeMethods(), 0));
+        }
         return d;
     }
 

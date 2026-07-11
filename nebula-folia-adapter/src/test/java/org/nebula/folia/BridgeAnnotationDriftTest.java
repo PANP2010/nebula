@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -114,17 +115,69 @@ class BridgeAnnotationDriftTest {
         List<ScanTarget> targets = new ArrayList<>();
         targets.add(ScanTarget.of("redstone-bridge", NmsBlockStateBridge.class));
         targets.add(ScanTarget.of("block-entity-bridge", NmsBlockEntityStateBridge.class));
+        targets.add(ScanTarget.of("fluid-bridge", NmsFluidStateBridge.class));
+        targets.add(ScanTarget.of("entity-bridge", NmsEntityStateBridge.class));
         BridgeAnnotationScanner.scan(targets, d);
 
         var subsystems = d.subsystems();
         assertFalse(subsystems.isEmpty(), "scan must report at least one subsystem");
-        // redstone-bridge has 2 annotated methods out of 4 public non-static
-        // non-synthetic declared methods on NmsBlockStateBridge; the ratio
-        // should be > 0 (annotation is present).
+        // B8 C5: every subsystem registered in NebulaPlugin.buildCoverageDashboard
+        // must show up in the reflected scan. A missing subsystem means a class
+        // was moved or renamed and the plugin's reflection-by-name fallback
+        // silently dropped it.
+        var subsystemNames = subsystems.stream().map(s -> s.subsystem()).toList();
+        assertTrue(subsystemNames.contains("redstone-bridge"),
+            "redstone-bridge subsystem missing — got: " + subsystemNames);
+        assertTrue(subsystemNames.contains("block-entity-bridge"),
+            "block-entity-bridge subsystem missing — got: " + subsystemNames);
+        assertTrue(subsystemNames.contains("fluid-bridge"),
+            "fluid-bridge subsystem missing — got: " + subsystemNames);
+        assertTrue(subsystemNames.contains("entity-bridge"),
+            "entity-bridge subsystem missing — got: " + subsystemNames);
+        // redstone-bridge has at least one annotated method on NmsBlockStateBridge;
+        // the ratio should be > 0 (annotation is present).
         boolean anyAboveZero = subsystems.stream()
             .anyMatch(s -> s.annotatedMethods() > 0);
         assertTrue(anyAboveZero,
             "at least one subsystem must report annotated > 0 (this slice added annotations); got: "
                 + subsystems);
+    }
+
+    @Test
+    void reportFromGetSubsystemCoverageMatchesDirectScan() {
+        // B8 C5 wiring: the new flow in NebulaPlugin.buildCoverageDashboard
+        // calls BridgeAnnotationScanner.getSubsystemCoverage(targets) and feeds
+        // each row through dashboard.report() directly (no intermediate
+        // hand-typed counts). This test pins that contract: a caller using the
+        // getSubsystemCoverage→report pipeline must see the SAME subsystem rows
+        // as the legacy BridgeAnnotationScanner.scan(targets, dashboard) flow.
+        AnnotationCoverageDashboard direct = new AnnotationCoverageDashboard();
+        AnnotationCoverageDashboard viaReport = new AnnotationCoverageDashboard();
+
+        List<ScanTarget> targets = List.of(
+            ScanTarget.of("redstone-bridge", NmsBlockStateBridge.class),
+            ScanTarget.of("block-entity-bridge", NmsBlockEntityStateBridge.class),
+            ScanTarget.of("fluid-bridge", NmsFluidStateBridge.class),
+            ScanTarget.of("entity-bridge", NmsEntityStateBridge.class));
+
+        BridgeAnnotationScanner.scan(targets, direct);
+        for (var row : BridgeAnnotationScanner.getSubsystemCoverage(targets)) {
+            viaReport.report(new AnnotationCoverageDashboard.SubsystemCoverage(
+                row.subsystem(), row.annotatedMethods(), row.totalBridgeMethods(), 0));
+        }
+
+        var directRows = direct.subsystems();
+        var reportRows = viaReport.subsystems();
+        assertEquals(directRows.size(), reportRows.size(),
+            "direct scan and report-flow must produce the same number of subsystems");
+        for (int i = 0; i < directRows.size(); i++) {
+            var a = directRows.get(i);
+            var b = reportRows.get(i);
+            assertEquals(a.subsystem(), b.subsystem());
+            assertEquals(a.annotatedMethods(), b.annotatedMethods(),
+                "annotated count mismatch for " + a.subsystem());
+            assertEquals(a.totalHotspotMethods(), b.totalHotspotMethods(),
+                "total count mismatch for " + a.subsystem());
+        }
     }
 }
