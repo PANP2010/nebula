@@ -1,7 +1,7 @@
 # Nebula Project - TODO List
 
 **Based on**: PROJECT_STATUS.md (source of truth), the whitepaper (docs/nebula-architecture.md) and its two patches (docs/nebula-patch-001/002.md)
-**Last verified**: 2026-07-09 — 817 unit tests pass (0 failures, run this session); DG1 redstone slice verified live on Folia 26.1.2
+**Last verified**: 2026-07-12 — B8 C3/C4/C5 and tracer base refactor committed (see B8 section for details); run `./gradlew test --no-daemon -q` to re-verify
 **Branch**: feat/fix-folia-scheduler-v2
 
 ---
@@ -734,20 +734,14 @@ requires the decisive Folia experiment, not just a green unit test.
       - [x] **C3 brewing slice DONE (2026-07-11, unit-only):** implemented `BlockEntityActions.brewing`
             modelling vanilla's autonomous state machine (fuel load → countdown → arm-or-noop),
             `brewingWillMutate` activity gate mirroring the action's branches, wired `BREWING_STAND`
-            into `BlockEntityActionResolver`, and widened `brewingStandRw` to declare reads on every
+            into `BlockEntityActionResolver`, widened `brewingStandRw` to declare reads on every
             inventory slot plus `brew_time` and `fuel` (writes were already declared). Unit evidence:
-            `BlockEntityActionsTest` has 5 brewing-layout tests including the
-            `brewingLoadsFuelAndArmsBrewOnIdleBrewableLayout` matrix, `brewingOnCompletion…`,
-            `brewingOnIdleLayoutIsANoOp`, and the gate agreement test. `BlockEntityRwGuardBridgeTest`
-            has 2 new brewing cases: a positive (declared RW-set vs real trace → 0 violations, with
-            non-empty read+write trace to defeat the empty-trace honesty trap) and a negative
-            (omit `brew_time` write → exactly one `UNDECLARED_WRITE` on `brew_time`). The negative
-            test had to declare `brew_time` + `fuel` as reads as well to isolate the write as the
-            single drift axis. **Honest scope**: this slice is unit-only. No live Folia run with
-            `-Dnebula.rw.guard=true` was performed; the action uses the same integer-only CAS model
-            as the rest of C3, so the bottle-mixing step is still placeholder pending a real
-            `PotionBrewing.hasMix` port. Potion NBT (key ingredient reads) is intentionally outside
-            the current RW-set envelope.
+            `BlockEntityActionsTest` has 5 brewing-layout tests. `BlockEntityRwGuardBridgeTest`
+            has 2 new brewing cases (positive + negative isolating `brew_time` write). Added
+            `BlockEntityActivityGate.brewingActive()` mirroring `furnaceActive()` for autonomous
+            brewing-stand re-seeding (brewing stands tick without InventoryMoveItemEvent, so the
+            live seeder would never re-seed a mid-brew stand without this gate).
+            `BlockEntityActivityGateCasTest` adds branch coverage for countdown vs arm vs idle.
       - [x] **C3 dispenser breadth audit DONE (2026-07-11, unit-only):** `BlockEntityActions.dispenser`
             shares `ejectOneRandomItem` with `dropper`; the broader dispense behavior (projectile
             shoot, block place, mob spawn, bucket fill/empty, armor equip) is **not** modelled in CAS
@@ -879,9 +873,27 @@ requires the decisive Folia experiment, not just a green unit test.
             proves the bridge/checker flags an omitted block write.
             Next C4 slice: either add the explosion live negative control, or continue the fluid
             passability/slope-selection work; do not arm write-back for either subsystem yet.
-- [ ] C5. Populate `AnnotationCoverageDashboard` from a real per-subsystem hotspot inventory (not
+      - [x] **C4 fluid slope/passability slice DONE (2026-07-12, unit-only):** replaced the multi-direction
+            horizontal spread with vanilla's slope-selection rule: among same-fluid neighbours pick the
+            single direction with the lowest non-zero level; if no same-fluid neighbour exists, fall back
+            to the first passable air cell in fixed [N,S,E,W] order. Adds `readFluidLevel()` helper;
+            narrows the test suite to assert single-target write. Still observe-only: no write-back,
+            no source conversion, no reactions.
+- [x] C5. Populate `AnnotationCoverageDashboard` from a real per-subsystem hotspot inventory (not
       hand-typed numbers) and surface it via a `/nebula coverage` command, so "coverage %" becomes a
       measured signal instead of a doc claim. Targets patch-002's decay goal (<5%/yr).
+      **DONE (2026-07-12):** `BridgeAnnotationScanner` now exposes `getSubsystemCoverage(List<ScanTarget>)`
+      returning a `SubsystemCoverage` record with reflected `totalBridgeMethods` denominator; legacy
+      `scan()` overload kept for callers. `NebulaPlugin.buildCoverageDashboard()` registers four
+      subsystems (redstone-bridge, block-entity-bridge, fluid-bridge, entity-bridge) and wires each row
+      through `dashboard.report()` using the reflected counts. `@NebulaRW` annotations applied to
+      `NmsBlockStateBridge` (readNmsPower, bulkSyncFromNms, casStore), `NmsBlockEntityStateBridge`
+      (syncFromNms — conservative union of all BE variants, plus brewing stand), `NmsEntityStateBridge`
+      (syncPositionFromNms, syncVelocityFromNms, syncPositionToNms, syncVelocityToNms,
+      syncVerticalPhysicsToNms, casStore), and `NmsFluidStateBridge` (syncFromNms — 6-block fluid
+      footprint). `BridgeAnnotationDriftTest` extends to assert all four subsystems appear in the report.
+      `FluidRwGuardBridgeTest` adds a test asserting solid neighbour block types appear in the trace
+      and declared RW-set for slope-selection passability.
 
 **Not in scope until the above lands:** AI/pathfinding (ch.7) and light (ch.10) RW-sets — those
 subsystems are essentially unbuilt; annotating them is premature before the guard-verified loop exists.
@@ -1075,6 +1087,6 @@ must sample the transient or drive the toggle deterministically (reuse `LiveLoad
 
 ---
 
-**Last Updated**: 2026-07-11 (B8 C4 explosion live affected-block guard slice CLOSED — tiny observe-only explosion shadow tasks now trace clean live on Folia. **B9 remains DONE.**)
+**Last Updated**: 2026-07-12 (B8 C3 brewing gate, C4 fluid slope/passability, C5 bridge annotation + coverage wiring committed. B9 remains DONE. B8 C4 explosion live smoke verified 2026-07-11. RwGuardTracer base refactor committed eae909f.)
 **Verified this session (2026-07-11)**: ⚡ B8 C4 explosion live smoke on real Folia 26.1.2 with `-Dnebula.rw.guard=true` and full sampling — Bukkit explosion event seeded observe-only `EXPLOSION_BLOCK_DESTROY` tasks from the authoritative affected-block list; log evidence: `FIRST region-threaded explosion DAG tick: explosion@0:320,-60,320 tasks=2 affectedBlocks=92` on `Folia Region Scheduler Thread #0`, followed by `RW-GUARD (explosion): tracedTasks=2 violations=0 (clean)`. Focused tests passed via cached Gradle 8.13 under Java 21: `ExplosionTaskRunnerGuardSeamTest`, `ExplosionTaskFactoryTest`, and `ExplosionRwGuardBridgeTest`. Honest limits: no ray fidelity, entity damage, cross-region fan-out, NMS write-back, vanilla explosion equivalence, or live explosion negative control yet.
 **Source of truth**: docs/PROJECT_STATUS.md

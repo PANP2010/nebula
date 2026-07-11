@@ -1,6 +1,6 @@
 # Nebula Project Status Report
 
-**Date**: 2026-07-11 (status reconciled through B9 D5, B8 C2/C3, fluid C4, and the first live explosion affected-block guard slice; historical sections below are retained but explicitly labelled)
+**Date**: 2026-07-12 (status reconciled through B9 D5, B8 C2/C3/C4/C5, fluid C4 slope selection, tracer base refactor; historical sections retained with labels)
 **Branch**: feat/fix-folia-scheduler-v2  
 **Completion**: early multi-subsystem prototype. Redstone has the strongest evidence (DG1 gates plus the
 Paper single-thread differential with a real DAG worker pool). Entity MOVE and selected block-entity
