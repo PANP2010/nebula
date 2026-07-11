@@ -1,7 +1,7 @@
 # Nebula Project - TODO List
 
 **Based on**: PROJECT_STATUS.md (source of truth), the whitepaper (docs/nebula-architecture.md) and its two patches (docs/nebula-patch-001/002.md)
-**Last verified**: 2026-07-12 — B8 C3/C4/C5 and tracer base refactor committed; architecture doc updated to v4.1 (Phase 0 partial, shadow-overhead budget, Phase 1.5, per-subsystem status notes); run `./gradlew test --no-daemon -q` to re-verify
+**Last verified**: 2026-07-12 — B8 C3/C4/C5 committed; architecture doc updated to v4.1 (Phase 1.5 added, per-subsystem status notes); architecture spec targets authoritative server (DAG replaces Folia's serial tick), not observe-only shadow; run `./gradlew test --no-daemon -q` to re-verify
 **Branch**: feat/fix-folia-scheduler-v2
 
 ---
@@ -81,11 +81,12 @@ deleted as misleading — the whitepaper is a multi-year plan, not days of work.
   T2/T3 fidelity tiers; DAG build-timeout degradation; spatial bucketing at scale — all design-only.
 
 ### 📌 A note on DG1 Criterion 3 ("≥30% MSPT reduction")
-Nebula is **observe-only** in both AGENT and INTERCEPT modes (verified 2026-07-08, commit 4a934bb):
-the DAG is a non-authoritative shadow on top of authoritative Folia, so it can only *add* overhead —
-there is no serial work it replaces and thus no "reduction" to measure. Criterion 3 was formally
-redefined to a shadow-overhead budget (p99 DAG tick < 3ms). Every "≥30% reduction" line below is
-**historical only** and superseded by that note in docs/PROJECT_STATUS.md (the source of truth).
+The architecture spec targets **authoritative server** (Nebula replaces Folia's serial tick, DAG eliminates
+serial redstone overhead). Criterion 3 is "MSPT relative to Folia ≤ 70%" under that assumption. The
+observe-only Phase 0 prototype cannot measure this — it can only measure added overhead. The redefinition
+to "shadow-overhead budget (p99 DAG tick < 3ms)" reflects the Phase 0 prototype's current capability,
+not the architecture's intent. Once Nebula can write-back to authoritative state, MSPT reduction becomes
+measurable.
 
 ---
 
@@ -1087,6 +1088,153 @@ must sample the transient or drive the toggle deterministically (reuse `LiveLoad
 
 ---
 
-**Last Updated**: 2026-07-12 (B8 C3 brewing gate, C4 fluid slope/passability, C5 bridge annotation + coverage wiring committed. B9 remains DONE. B8 C4 explosion live smoke verified 2026-07-11. RwGuardTracer base refactor committed eae909f.)
+## NEXT STEPS (2026-07-12, priority order)
+
+These are the four highest-value tasks after Phase 0. They build on each other but each is independently valuable.
+
+---
+
+### N1 · B9 D5 规模化：Worker-Count Invariance（最优先）
+
+**为什么最优先：** 这是项目核心 claim 的最后一块验证缺口。B9 D5 已在 Paper 上证明"parallel DAG == single-thread oracle"（48/48 matched），但只对比了 12 workers vs inline-serial。还没扫 N∈{2,4,8} 的 invariance，也没有在更大并发规模下（4+ 跨 chunk 独立电路）验证 pool 的实际并行收益。
+
+**现状：**
+- Paper 单电路：matched 32/32 ✅
+- Paper 双跨 chunk 电路：matched 48/48 ✅
+- Worker-count 扫描（N=2,4,8）：❌ 未做
+- 4+ 独立跨 chunk 电路并行压测：❌ 未做
+- Folia 多 region 上的 parallel DAG：❌ 未做
+
+**任务分解：**
+
+N1.1 Worker-count invariance sweep
+- 在 Paper 上固定电路，分别用 N=2,4,8,12 workers 运行 `/nebula diff`
+- 预期：每个 N 都 matched == total
+- 如果某个 N 失败，说明 DAG 层间 barrier 或 CAS commit 有 race
+
+N1.2 多电路并行压测
+- 在 4 个不同 chunk 各放一个独立红石电路（不共享组件/区域）
+- 同时 toggle 所有 4 个电路
+- 验证：每个电路的 matched == total，且 pool 实际并行处理（线程活跃度可从 perf 火焰图看到）
+- 如果红石任务大部分 WAW-serialize on globals（degraded-serial），改为混合场景：2 路红石 + 1 路实体 MOVE
+
+N1.3 Folia 多 region 并行验证
+- 在 Folia 上开启 `-Dnebula.dag.parallel=true`
+- 跨多个 region 线程同时产生红石 dirty 信号
+- 验证 DAG worker pool 正确处理 region 跨边界 dirty 信号的并发
+
+**验收标准：** `/nebula diff` 在 N=2,4,8,12 下均 matched==total；4 电路并发 toggle 每路 matched==total。
+
+---
+
+### N2 · Explosion 负向 Live Guard 控制
+
+**现状：**
+- Explosion live 正向验证 ✅：TNT smoke，`tracedTasks=2 violations=0 (clean)`
+- Explosion 负向验证 ❌：红石/流体/实体 MOVE 都有负向验证（删除一个邻居读 → N violations），爆炸没有
+- 没有负向验证意味着正向干净 run 可能是 false positive
+
+**任务分解：**
+
+N2.1 实现爆炸 RW-set 负向破坏
+- 在 `ExplosionRwGuardHook` 中添加一个测试模式：`brewingActive`-style gate
+- 或者：用现有的 guard hook，手动删除一个注释声明的读集（如删除 `affectedBlocks` 中的某个坐标），运行爆炸，确认 violations > 0
+- 参考红石负向 run（`delete +X neighbor read` → 5147 violations）和流体负向 run（删除 west neighbor read → 352 violations）
+
+N2.2 记录负向结果
+- 在 TODO.md 中记录爆炸负向验证的 violation 数
+- 确保 violation 数 > 0（证明 Guard 真的在检测，而不是沉默漏过）
+
+**验收标准：** 爆炸负向 run 产生 N > 0 violations（正数），与正向 clean run 对比，证明 Guard 有实际检测能力。
+
+---
+
+### N3 · Entity COLLISION Live Seed（Entity MOVE 之后最小的一步）
+
+**为什么重要：** Entity MOVE 是第一个 live-seeded + guard-verified 的实体任务类型。但碰撞（COLLISION）处理的是 entity-entity 交互，而不是 entity-terrain 交互，是扩展实体子系统的自然下一步。COLLISION 是纯读任务（§6.1 明确定义），不需要 NMS 回写，风险低。
+
+**现状：**
+- `EntityCollisionResponseAction` 代码存在 ✅
+- `EntityTaskFactory.createCollisionResponseTask` ✅
+- `EntityRwGuardTracer` ✅
+- 但 COLLISION 任务从未 live-seed：`FoliaRegionTickExecutor` 只调用了 `createMoveTask`，没有调用碰撞生成
+- COLLISION 的 RW-set（读两个实体的碰撞盒 + 相关方块）从未被 guard 验证
+
+**任务分解：**
+
+N3.1 找到碰撞事件 seed 点
+- 在 Folia 中，实体碰撞检测在哪个代码路径触发？
+- 红石用 `BlockNeighbourUpdateEvent`；实体 MOVE 用实体移动事件
+- 碰撞是 Folia region 线程内部的内部事件，不是跨线程通信
+- 检查 `FoliaRegionTickExecutor` 中是否有可用的碰撞 seed 入口（可能是 `EntityNavigation` 或 `EntityMove` 触发的内部碰撞查询）
+
+N3.2 实现 COLLISION 任务 seed
+- 在 `FoliaRegionTickExecutor` 中添加对 dirty entity pair 的 COLLISION 任务生成
+- 复用已有的 `EntityTaskFactory.createCollisionResponseTask`（这个已经存在）
+- COLLISION 任务读实体对位置，写空（纯读），guard hook 验证读集
+
+N3.3 Live guard 验证
+- 用 entity-entity 碰撞场景（如多个实体挤在狭小空间）触发碰撞
+- 收集 `RW-GUARD (entity)` 日志
+- 预期：干净 run 0 violations
+
+**验收标准：** 在真实碰撞场景下，`RW-GUARD (entity)` 报告 tracedTasks > 0 且 violations = 0。
+
+---
+
+### N4 · 研究权威接管路径（架构规格要求的方向）
+
+**为什么现在就要研究：** 这是 Phase 0 → Phase 1 的最大工程鸿沟。尽早识别关键技术挑战，避免走到一半才发现死路。
+
+**核心问题：** Nebula 如何在 Folia 的 tick 循环中插入 DAG 结果，而不让 Folia 的权威状态覆盖它？
+
+**当前 Phase 0 的问题：**
+- DAG 的 CAS write-back 发生在 Folia region 线程做完权威 tick 之后
+- 下个 tick，Folia 又用旧状态重新执行权威 tick，覆盖 DAG 的计算结果
+- 所以 DAG 永远只能做 observe-only 阴影
+
+**两条可能路径：**
+
+**路径 A：Nebula Fork（推荐，先研究）**
+- Nebula 完全 fork Folia 的 tick 循环
+- Nebula 先于 Folia 执行 DAG，DAG 结果写入 NMS 状态
+- Folia 读取 Nebula 写入的状态作为输入
+- 风险：需要深度 hook Folia 的 tick 调度（`RegionizedWorldServer.tick`）
+- 优势：如果成功，Nebula 真正成为权威服务端，Folia 只负责网络同步等副作用
+
+**路径 B：Dual-Write with Timestep（保守，先研究）**
+- Folia 仍执行权威 tick，但在一个受限区域内让 Nebula 接管
+- Nebula 在自己的 tick 偏移上执行 DAG（如 Folia tick 100，DAG tick 100.5）
+- 通过版本号或 timestep 解决冲突
+- 风险：需要 Folia 和 Nebula 共享状态，冲突解决复杂
+- 优势：不需要接管 Folia 的主循环
+
+**任务分解：**
+
+N4.1 调研 Folia 的 tick 调度
+- 阅读 `RegionizedWorldServer.tick()` 的源码
+- 找到所有调用 tick 的地方：regions、global、entity、block-entity
+- 确认 Folia 的 tick 是可被替换还是只能被追加
+
+N4.2 评估路径 A 的可行性
+- Nebula 接管 tick 的最小 hook 点在哪里？
+- Folia 的哪些功能（网络同步、玩家输入处理、天气）必须保留？
+- 是否可以把 Folia 变成一个"只负责网络同步"的被动层？
+
+N4.3 设计 DAG 结果的 NMS 写回策略
+- 当前 CAS write-back 的机制是什么？
+- 如果要写回权威状态，是否需要关闭 Folia 的同一代码路径（避免双重执行）？
+- 如果关闭 Folia 某区域的 tick，该区域内的其他插件怎么办？
+
+N4.4 写权威接管研究文档
+- 输出格式：`docs/authority-transition.md`（类似架构文档的子章节）
+- 内容：两条路径的 pros/cons、关键技术挑战、建议的实验顺序
+- 这是研究，不是实现；先搞清楚能不能做
+
+**验收标准：** 产出一份 `docs/authority-transition.md`，包含两条路径的技术分析和推荐实验顺序。
+
+---
+
+**Source of truth**: docs/PROJECT_STATUS.md
 **Verified this session (2026-07-11)**: ⚡ B8 C4 explosion live smoke on real Folia 26.1.2 with `-Dnebula.rw.guard=true` and full sampling — Bukkit explosion event seeded observe-only `EXPLOSION_BLOCK_DESTROY` tasks from the authoritative affected-block list; log evidence: `FIRST region-threaded explosion DAG tick: explosion@0:320,-60,320 tasks=2 affectedBlocks=92` on `Folia Region Scheduler Thread #0`, followed by `RW-GUARD (explosion): tracedTasks=2 violations=0 (clean)`. Focused tests passed via cached Gradle 8.13 under Java 21: `ExplosionTaskRunnerGuardSeamTest`, `ExplosionTaskFactoryTest`, and `ExplosionRwGuardBridgeTest`. Honest limits: no ray fidelity, entity damage, cross-region fan-out, NMS write-back, vanilla explosion equivalence, or live explosion negative control yet.
 **Source of truth**: docs/PROJECT_STATUS.md
