@@ -446,7 +446,13 @@ public final class NebulaPlugin extends JavaPlugin {
         // different chunks. A single wire line will mostly run degraded-serial.
         org.nebula.core.scheduler.TaskRunner schedulerRunner = redstoneRunner;
         if (Boolean.getBoolean("nebula.dag.parallel")) {
-            int workers = Math.max(2, Runtime.getRuntime().availableProcessors());
+            // N1.1: worker count is now configurable via -Dnebula.dag.workers=N (default =
+            // availableProcessors). This enables the worker-count invariance sweep on Paper
+            // (N1.1, N1.2): every N must produce matched==total for the same circuit.
+            int explicit = Integer.getInteger("nebula.dag.workers", -1);
+            int workers = explicit > 0
+                ? explicit
+                : Math.max(2, Runtime.getRuntime().availableProcessors());
             final java.util.concurrent.atomic.AtomicInteger threadIdx =
                 new java.util.concurrent.atomic.AtomicInteger();
             dagWorkerPool = java.util.concurrent.Executors.newFixedThreadPool(workers, r -> {
@@ -456,8 +462,12 @@ public final class NebulaPlugin extends JavaPlugin {
             });
             schedulerRunner = new org.nebula.core.scheduler.ParallelTaskRunner(
                 redstoneRunner, dagWorkerPool, 2, workers);
+            String workerNote = explicit > 0
+                ? ("explicit worker count " + workers)
+                : ("available processors " + Runtime.getRuntime().availableProcessors());
             LOG.info("DAG PARALLEL ENABLED (-Dnebula.dag.parallel) — redstone layers fan across "
-                + workers + " worker threads; commits/cascade resolved via TaskRunner.unwrap(). "
+                + workers + " worker threads (from: " + workerNote + "); "
+                + "commits/cascade resolved via TaskRunner.unwrap(). "
                 + "Layers with a non-parallelSafe task degrade to serial.");
         }
         microStepScheduler = new MicroStepScheduler(taskGenerator, schedulerRunner);

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Paper Server Start Script — B9 single-thread differential oracle (D4)
+# Paper Server Start Script — B9 single-thread differential oracle (D4/D5)
 # NO javaagent: on Paper the Bukkit RedstoneEventListener fallback seeds dirty
 # positions, and the inline shadow executor drives the DAG on the main thread.
 
@@ -28,7 +28,7 @@ JVM_FLAGS="-XX:+UseG1GC \
 -XX:G1RSetUpdatingPauseTimePercent=5 \
 -XX:SurvivorRatio=32 \
 -XX:+PerfDisableSharedMem \
--XX:MaxTenuringThreshold=1"
+-XX:+MaxTenuringThreshold=1"
 
 if [ ! -f "server.jar" ]; then
     echo "Error: server.jar not found (expected Paper 26.1.2)!"
@@ -37,13 +37,19 @@ fi
 
 echo "eula=true" > eula.txt
 
-# B9 D5: set NEBULA_DAG_PARALLEL=true to run the redstone DAG on the worker pool
-# (-Dnebula.dag.parallel). Unset/false keeps the D4 inline-serial baseline. The
-# single-thread-oracle diff (/nebula diff) must report matched==total either way.
+# B9 D5: set NEBULA_DAG_PARALLEL=true to run the redstone DAG on the worker pool.
+# Worker count is controlled by NEBULA_DAG_WORKERS (default: detected via
+# Runtime.availableProcessors()).  sweep.sh sets NEBULA_DAG_WORKERS explicitly
+# for the N1.1 invariance sweep (N=2,4,8,12).
 NEBULA_PROPS=""
 if [ "${NEBULA_DAG_PARALLEL:-false}" = "true" ]; then
     NEBULA_PROPS="-Dnebula.dag.parallel=true"
-    echo "NEBULA: DAG parallel worker pool ENABLED (-Dnebula.dag.parallel=true)"
+    if [ -n "${NEBULA_DAG_WORKERS:-}" ]; then
+        NEBULA_PROPS="$NEBULA_PROPS -Dnebula.dag.workers=$NEBULA_DAG_WORKERS"
+        echo "NEBULA: DAG parallel pool ENABLED — workers=$NEBULA_DAG_WORKERS (explicit)"
+    else
+        echo "NEBULA: DAG parallel pool ENABLED (workers=availableProcessors)"
+    fi
 fi
 
 echo "Starting Paper server with Nebula (single-thread oracle, no agent)..."
