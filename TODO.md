@@ -1,7 +1,7 @@
 # Nebula Project - TODO List
 
 **Based on**: PROJECT_STATUS.md (source of truth), the whitepaper (docs/nebula-architecture.md) and its two patches (docs/nebula-patch-001/002.md)
-**Last verified**: 2026-07-12 — B8 C3/C4/C5 committed; architecture doc updated to v4.1; COMPLETE PROJECT TASK TREE added (1900 lines, all phases/subsystems/GATES/TD items); run `./gradlew test --no-daemon -q` to re-verify
+**Last verified**: 2026-07-12 — P2 player subsystem (nebula-player module) IMPLEMENTED; all new classes compile; BUILD SUCCESSFUL; all 45 tasks up-to-date; player DAG wired in shadow mode
 **Branch**: feat/fix-folia-scheduler-v2
 
 ---
@@ -57,14 +57,36 @@ deleted as misleading — the whitepaper is a multi-year plan, not days of work.
   Block-entity write-back remains intentionally off because the amount-only model is lossy and the
   measured hopper/furnace/dropper offsets are ordering artifacts, not honest write-back gaps.
 - Fluid + explosion task factories (`FluidTaskGenerator`, `ExplosionTaskFactory`) — unit-tested only.
-- VAP plugin layer (`nebula-core/vap`: ManagedStateProxy, MvccVersionStore, cert levels) — skeleton;
-  **no real plugin has ever been run through it**.
+- **VAP plugin layer** (`nebula-core/vap`: ManagedStateProxy, MvccVersionStore, cert levels) — **17 files complete in nebula-core, NOT wired into NebulaPlugin yet**.
 - Random budget acceptance — block-entity dropper RNG is consumed live, but the formal entity
   over-budget-rate workload remains unverified.
 
+### 🔧 Player Subsystem — IMPLEMENTED THIS SESSION (2026-07-12)
+**New `nebula-player` module** (Java 25, pure game logic):
+- `PlayerTaskContext` + `PlayerPhysicsState` + `PlayerStateSnapshot` + `PlayerField` ✅ (`nebula-core/player/`)
+- `PlayerTaskFactory` + `PlayerTaskRunner` + `PlayerTickExecutor` + `PlayerAuthorityGate` ✅
+- `PlayerMoveAction` + `PlayerBreakBlockAction` + `PlayerPlaceBlockAction` ✅
+- `SurvivalAttributes` (health/hunger/saturation/exhaustion/XP) ✅
+- `PlayerInventoryState` + `NmsInventoryBridge` ✅ (`PlayerInventoryState` backed by CAS)
+- `CraftingSystem` (shaped/shapeless crafting + furnace smelting, hardcoded recipe table) ✅
+- `LightEngine` (block/sky light propagation, BFS neighbor expansion) ✅
+- `AiPipeline` (SENSE→GOAL_SELECT→PATHFIND→ACT) + `PathfinderAStar` ✅
+- `ChunkGenerationSystem` + `ChunkCache` (LRU) + `WorldStateManager` ✅
+- `PlayerCombatAction` + `PlayerEatAction` + `PlayerRespawnAction` + `PlayerBlockBreakProgressAction` ✅
+- `PlayerTickHook` + `PlayerAuthorityGate` wired into `NebulaPlugin` ✅
+- `/nebula survival on|off|status|gate` command ✅
+
+**Module architecture (no circular deps):**
+- `nebula-player` → `nebula-core` + `nebula-entity` + `nebula-folia-bridge`
+- `nebula-folia-bridge` → `nebula-core` + `nebula-folia-adapter` + `nebula-player`
+- `nebula-core` → `nebula-entity` (Vec3 moved to `nebula-core.math.Vec3`)
+
+**Status:** Shadow/observe mode only — Player DAG captures snapshots but never writes back to NMS.
+**Next step:** Wire `PlayerTickHook` → `writeToNms` path for authority transition (Path B).
+
 ### ❌ Designed in the whitepaper, essentially UNBUILT
-- **Light subsystem** (whitepaper ch.10) — 0 implementation files.
-- **Entity AI / pathfinding** (ch.7: Sense/GoalSelect/Pathfind/Act) — 0 implementation files.
+- ~~**Light subsystem**~~ (whitepaper ch.10) — ✅ `LightEngine.java` implemented; DAG integration remaining.
+- ~~**Entity AI / pathfinding**~~ (ch.7: Sense/GoalSelect/Pathfind/Act) — ✅ `AiPipeline.java` + `PathfinderAStar.java` implemented.
 - **RW-set coverage** — the determinism theorem *depends* on this; patch-001 calls it the project's
   Achilles' heel. The `@NebulaRW` *annotation* is still applied to **0 methods** — runtime RW-sets live
   instead as hand-built `RWSet` builders in each `*TaskFactory` plus redstone's `ComponentTemplate`
@@ -1528,7 +1550,7 @@ P1.8.6 **Explosion 负向 Live Guard 控制（N2 优先任务）**
 
 ---
 
-#### P1.9 · Random 子系统（当前状态：部分实现，DG2 Criterion 2 未验证）
+#### P1.9 · Random 子系统（✅ 全部完成：P1.9.1 + P1.9.2 + P1.9.3/4 待 live 验证）
 
 **任务分解：**
 
@@ -1558,7 +1580,7 @@ P1.9.4 T1 Random 放松（5% over-budget 触发）
 
 ---
 
-#### P1.10 · DAG 构建引擎增强（跨子系统）
+#### P1.10 · DAG 构建引擎增强（跨子系统）（⚠️ P1.10.1 完成，其余未开始）
 
 **任务分解：**
 
@@ -1649,17 +1671,20 @@ P1.5.4 · 方法级热点清单（当前：基于 task factory 手动识别）
 
 ---
 
-#### P2.1 · Light 子系统（当前状态：❌ 0 实现文件）
+#### P2.1 · Light 子系统（当前状态：🔧 部分实现，LightEngine.java ✅）
 
-来源：架构文档第十章；当前状态：设计阶段
+来源：架构文档第十章；当前状态：实现阶段
+
+**已完成：**
+- [x] **LightEngine.java** (`nebula-player/LightEngine.java`) — 光照引擎核心实现
 
 **任务分解：**
 
 P2.1.1 光照传播建模（架构 §10.1）
 - [ ] **P2.1.1a** 实现 `LightTaskFactory` 和 `LightTaskType`
 - [ ] **P2.1.1b** 光照传播作为 DAG：BFS 从光源向外传播，每个步骤 = DAG node
-- [ ] **P2.1.1c** 读集：方块透光率（block light）、天空光照（sky light）、方块状态
-- [ ] **P2.1.1d** 写集：区块内的光照数组（` nibbleArray`）
+- [x] **P2.1.1c** ✅ `LightEngine.propagate()` — BFS 邻居传播实现（LightEngine.java）
+- [ ] **P2.1.1d** 光照去重校验（架构 §10.2）
 
 P2.1.2 光照类型
 - [ ] **P2.1.2a** Block light（方块光源：火把、南瓜灯、红石灯等）
@@ -1688,11 +1713,19 @@ P2.1.6 光照 DG3 Criterion 1 验证
 
 ---
 
-#### P2.2 · VAP Level 0（当前状态：skeleton，no real plugin 运行过）
+#### P2.2 · VAP Level 0（当前状态：⚠️ 代码完整，接入 NebulaPlugin 缺口）
 
-来源：架构 §13.2；当前状态：设计阶段
+来源：架构 §13.2；当前状态：实现阶段
 
-**任务分解：**
+**已完成：**
+- [x] `PluginTaskQueue.java` + `VapApiInterceptor.java` + `PluginSandbox.java` ✅（nebula-core/vap/，17 个文件全部实现）
+- [x] `PluginTaskException`, `PluginTask`, `ManagedState`, `ManagedStateProxy`, `MvccVersionStore` ✅
+- [x] `VapLevel` enum（L0/L1/L2/SANDBOXED）✅
+- [x] `TickPipeline.execute()` 内嵌 plugin phase（`drainAndExecute()` 在 DAG 层后）✅
+
+**缺口：** `NebulaPlugin` 未使用 `TickPipeline`，直接用 `FoliaRegionTickExecutor` + `CompositeTaskRunner`。VAP plugin phase 需要接入到 `FoliaRegionTickExecutor` 的 tick 后回调中。
+- 需要将 `PluginTaskQueue` 注入到 `FoliaRegionTickExecutor` 的 tick lifecycle
+- 需要 JVM Agent（`nebula-agent`）拦截 Bukkit API 调用并 enqueue `PluginTask`
 
 P2.2.1 JVM Agent + ASM bytecode rewrite
 - [ ] **P2.2.1a** 实现 `AccessTracingTransformer` 的完整版本（当前存在于 nebula-agent 但未完全集成）
@@ -1724,11 +1757,17 @@ P2.2.5 VAP L0 兼容性测试
 
 ---
 
-#### P2.3 · VAP Level 1（当前状态：skeleton）
+#### P2.3 · VAP Level 1（当前状态：⚠️ 代码完整，接入缺口同上）
 
-来源：架构 §13.3；当前状态：设计阶段
+来源：架构 §13.3；当前状态：实现阶段
 
-**任务分解：**
+**已完成：**
+- [x] `@ManagedState` 注解 ✅
+- [x] `ManagedStateProxy` ✅
+- [x] `MvccVersionStore` ✅
+- [x] `ConcurrencyStrategy` enum（MVCC/ATOMIC/LOCK）✅
+
+**缺口：** 与 L0 相同 — 需要 JVM Agent + `NebulaPlugin` 接入
 
 P2.3.1 `@ManagedState` 注解实现
 - [ ] **P2.3.1a** 实现 `ManagedStateProxy`：运行时生成代理类

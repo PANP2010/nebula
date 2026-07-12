@@ -1,6 +1,7 @@
 package org.nebula.entity;
 
 import org.junit.jupiter.api.Test;
+import org.nebula.core.math.Vec3;
 import org.nebula.core.scheduler.TaskNode;
 import org.nebula.core.state.EntityField;
 import org.nebula.core.state.WorldPos;

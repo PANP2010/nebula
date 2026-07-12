@@ -1,10 +1,10 @@
 package org.nebula.entity.actions;
 
+import org.nebula.core.math.Vec3;
 import org.nebula.core.state.WorldPos;
 import org.nebula.entity.EntityTaskAction;
 import org.nebula.entity.EntityTaskContext;
 import org.nebula.entity.TerrainView;
-import org.nebula.entity.Vec3;
 
 /**
  * Entity movement physics (arch doc §6.2, ENTITY_MOVE).

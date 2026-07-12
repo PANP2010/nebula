@@ -58,6 +58,8 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
             case "fset" -> { // P2.4.3 alias for /nebula fidelity set
                 handleFidelity(sender, args);
             }
+            case "survival" -> handleSurvival(sender, args);
+            case "player" -> handlePlayer(sender, args);
             case "help" -> sendHelp(sender);
             default -> sender.sendMessage("§cUnknown subcommand: " + sub);
         }
@@ -741,6 +743,73 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
         }
     }
 
+    /**
+     * P2: /nebula survival — control survival core subsystem.
+     * Subcommands: on, off, status, gate
+     */
+    private void handleSurvival(CommandSender sender, String[] args) {
+        if (!sender.hasPermission("nebula.admin")) {
+            sender.sendMessage("§cYou need nebula.admin permission to control survival core.");
+            return;
+        }
+        if (args.length < 2) {
+            sender.sendMessage("§eUsage: /nebula survival <on|off|status|gate>");
+            return;
+        }
+        String action = args[1].toLowerCase();
+        switch (action) {
+            case "on" -> {
+                org.nebula.folia.bridge.PlayerTickHook.setActive(true);
+                sender.sendMessage("§aSurvival core activated (shadow mode).");
+                LOG.info("Survival core enabled by " + sender.getName());
+            }
+            case "off" -> {
+                org.nebula.folia.bridge.PlayerTickHook.setActive(false);
+                sender.sendMessage("§eSurvival core deactivated.");
+                LOG.info("Survival core disabled by " + sender.getName());
+            }
+            case "status" -> {
+                boolean active = org.nebula.folia.bridge.PlayerTickHook.isActive();
+                sender.sendMessage("§6Survival Core Status:");
+                sender.sendMessage("  §7Active: §f" + active);
+                sender.sendMessage("  §7PLAYER_MOVE gate: §f" + plugin.playerMoveGate().diagnostics());
+                sender.sendMessage("  §7PLAYER_BLOCK gate: §f" + plugin.playerBlockGate().diagnostics());
+                sender.sendMessage("  §7PlayerPhysicsState entries: §f" + plugin.playerState().size());
+            }
+            case "gate" -> {
+                if (args.length >= 3) {
+                    String gate = args[2].toLowerCase();
+                    if (gate.equals("move")) {
+                        plugin.playerMoveGate().reset();
+                        sender.sendMessage("§aPLAYER_MOVE gate reset to OBSERVING.");
+                    } else if (gate.equals("block")) {
+                        plugin.playerBlockGate().reset();
+                        sender.sendMessage("§aPLAYER_BLOCK gate reset to OBSERVING.");
+                    } else {
+                        sender.sendMessage("§cUnknown gate: " + gate + " — use move or block");
+                    }
+                } else {
+                    sender.sendMessage("§eUsage: /nebula survival gate <move|block>");
+                }
+            }
+            default -> sender.sendMessage("§cUnknown action: " + action);
+        }
+    }
+
+    /**
+     * P2: /nebula player — show player DAG diagnostics.
+     */
+    private void handlePlayer(CommandSender sender, String[] args) {
+        if (!sender.hasPermission("nebula.status")) {
+            sender.sendMessage("§cYou don't have permission.");
+            return;
+        }
+        sender.sendMessage("§6Player DAG Diagnostics:");
+        sender.sendMessage("  §7PLAYER_MOVE gate: §f" + plugin.playerMoveGate().diagnostics());
+        sender.sendMessage("  §7PLAYER_BLOCK gate: §f" + plugin.playerBlockGate().diagnostics());
+        sender.sendMessage("  §7PlayerPhysicsState entries: §f" + plugin.playerState().size());
+    }
+
     private void sendHelp(CommandSender sender) {
         sender.sendMessage("§6Nebula Commands:");
         sender.sendMessage("  §e/nebula capture start [ticks] [--drive <seed>] [--period <n>] §7- Start state capture (--drive = live-load driven)");
@@ -760,6 +829,8 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
         sender.sendMessage("  §e/nebula random §7- Show DG2 Random budget usage (over-budget rate, tracked entities)");
         sender.sendMessage("  §e/nebula fidelity §7- Show fidelity tier; /nebula fidelity reset|set [T0|T1|T2|T3] (admin)");
         sender.sendMessage("  §e/nebula coverage §7- Per-subsystem @NebulaRW coverage ratio (DG3, real bridge inventory)");
+        sender.sendMessage("  §e/nebula survival §7- Control survival core (on/off/status/gate)");
+        sender.sendMessage("  §e/nebula player §7- Show player DAG diagnostics");
         sender.sendMessage("  §e/nebula help §7- Show this help");
     }
 
@@ -807,7 +878,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
                                       String alias,
                                       String[] args) {
         if (args.length == 1) {
-            return Arrays.asList("capture", "status", "scan", "perf", "dag-stats", "diag", "settled", "diff", "be-settled", "be-furnace-timer", "be-furnace-phase", "be-dropper-slot", "be-dropper-phase", "random", "fidelity", "coverage", "help");
+            return Arrays.asList("capture", "status", "scan", "perf", "dag-stats", "diag", "settled", "diff", "be-settled", "be-furnace-timer", "be-furnace-phase", "be-dropper-slot", "be-dropper-phase", "random", "fidelity", "coverage", "survival", "player", "help");
         }
         if (args.length == 2 && args[0].equalsIgnoreCase("capture")) {
             return Arrays.asList("start", "stop");

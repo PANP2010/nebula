@@ -253,22 +253,19 @@ public final class BlockEntityActions {
     }
 
     /**
-     * Dispenser trigger tick: identical CAS math to {@link #dropper} — draw a random
-     * non-empty slot with the same reservoir sample and remove one item — because both
-     * eject exactly one item per pulse via vanilla's {@code getRandomSlot}. They diverge
-     * only in the (un-modelled) destination: a dispenser runs the drawn item's dispense
-     * behaviour (shoot a projectile, place a block, spawn a mob) where a dropper transfers
-     * or ejects it, which is why {@code dispenserRw} declares {@code ENTITY_SPAWNED} rather
-     * than the dropper's {@code INVENTORY_CHANGED}. That behaviour is the "stubbed spawn"
-     * the live dispenser still lacks; until it is modelled (and the RW-set widened to
-     * declare the spawned entity), the only observable CAS effect is the shared self-slot
-     * decrement below.
+     * Dispenser trigger tick: delegates to the full
+     * {@link BlockEntityDispenserAction} behaviour pipeline, which:
+     * <ul>
+     *   <li>selects a random non-empty slot (vanilla reservoir sample, consuming RNG)</li>
+     *   <li>dispatches based on item type to spawn/projectile/place/bucket/mob/boat/equip</li>
+     *   <li>writes the appropriate events (ENTITY_SPAWNED or BLOCK_UPDATE)</li>
+     * </ul>
      *
      * @param self      the dispenser position
      * @param slotCount its inventory size (9 for a dispenser)
      */
     public static BlockEntityAction dispenser(WorldPos self, int slotCount) {
-        return ejectOneRandomItem(self, slotCount);
+        return BlockEntityDispenserAction.dispenser(slotCount);
     }
 
     /**

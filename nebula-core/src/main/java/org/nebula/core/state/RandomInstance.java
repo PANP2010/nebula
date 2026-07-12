@@ -5,5 +5,6 @@ public enum RandomInstance {
     ENTITY_RANDOM,
     WORLD_RANDOM,
     BLOCK_RANDOM,
-    GLOBAL_RANDOM
+    GLOBAL_RANDOM,
+    PLAYER_RANDOM
 }

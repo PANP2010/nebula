@@ -161,6 +161,7 @@ public final class RedstoneTickHook {
      */
     public static void beginTick(String regionId) {
         if (!active) return;
+        LOG.info("[LIFECYCLE] beginTick called: regionId=" + regionId);
         // Clear only the stale endTick-in-progress guards for this region (bounded,
         // self-resetting set). The dirty-position accumulator is intentionally NOT
         // touched here — see the class/method javadoc: endTick drains-and-removes it,
@@ -209,6 +210,7 @@ public final class RedstoneTickHook {
             LOG.fine(() -> "endTick already in progress for " + k + " — skipping concurrent call");
             return List.of();
         }
+        LOG.info("[LIFECYCLE] endTick called: regionId=" + regionId + ", world=" + worldName);
         try {
             return doEndTick(k, regionId, worldName);
         } finally {

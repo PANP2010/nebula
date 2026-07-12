@@ -1,8 +1,8 @@
 package org.nebula.entity.actions;
 
+import org.nebula.core.math.Vec3;
 import org.nebula.entity.EntityTaskAction;
 import org.nebula.entity.EntityTaskContext;
-import org.nebula.entity.Vec3;
 
 /**
  * Elastic collision response between two entities (arch doc §6.2,

@@ -1,5 +1,7 @@
 package org.nebula.entity;
 
+import org.nebula.core.math.Vec3;
+
 /**
  * The arming predicate for <em>vertical-only</em> entity write-back (B8 C1,
  * option b of the write-back pointer).

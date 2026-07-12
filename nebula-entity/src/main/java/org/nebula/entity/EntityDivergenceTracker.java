@@ -1,5 +1,7 @@
 package org.nebula.entity;
 
+import org.nebula.core.math.Vec3;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;

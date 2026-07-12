@@ -3,6 +3,9 @@ package org.nebula.plugin;
 import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.nebula.core.math.Vec3;
+import org.nebula.core.player.PlayerPhysicsState;
+import org.nebula.core.player.PlayerSnapshot;
 import org.nebula.core.scheduler.TaskNode;
 import org.nebula.core.state.WorldPos;
 import org.nebula.entity.BlockEntityState;
@@ -288,6 +291,21 @@ public final class NebulaPlugin extends JavaPlugin {
 
     // Composite DAG runner (redstone + entity)
     private CompositeTaskRunner compositeRunner;
+
+    // ── P2: Player DAG subsystem ────────────────────────────────────────────────
+    private org.nebula.core.player.PlayerPhysicsState playerState;
+    private org.nebula.player.PlayerTaskRunner playerRunner;
+    private org.nebula.folia.bridge.NmsPlayerStateBridge playerBridge;
+    private org.nebula.folia.MaterialBlockStateBridge materialBridge;
+    private org.nebula.player.PlayerAuthorityGate playerMoveGate;
+    private org.nebula.player.PlayerAuthorityGate playerBlockGate;
+    private final java.util.concurrent.ConcurrentHashMap<java.util.UUID, org.nebula.player.actions.PlayerMoveAction>
+        playerMoveActions = new java.util.concurrent.ConcurrentHashMap<>();
+    private final java.util.concurrent.ConcurrentHashMap<java.util.UUID, org.nebula.player.actions.PlayerBreakBlockAction>
+        playerBreakActions = new java.util.concurrent.ConcurrentHashMap<>();
+    private final java.util.concurrent.ConcurrentHashMap<java.util.UUID, org.nebula.player.actions.PlayerPlaceBlockAction>
+        playerPlaceActions = new java.util.concurrent.ConcurrentHashMap<>();
+    private org.nebula.folia.FoliaRegionTickExecutor playerRegionExecutor;
 
     // B8 B2b: live RW-guard bridge, installed on the redstone runner only when
     // -Dnebula.rw.guard=true. Null when the guard is off (the default) — the
@@ -610,6 +628,39 @@ public final class NebulaPlugin extends JavaPlugin {
                 explosionBlockState, entityState, explosionActions::get, null);
         }
 
+        // ── P2: Player subsystem initialization ────────────────────────────────
+        playerState = new org.nebula.core.player.PlayerPhysicsState();
+        playerMoveGate = new org.nebula.player.PlayerAuthorityGate("PLAYER_MOVE", 100);
+        playerBlockGate = new org.nebula.player.PlayerAuthorityGate("PLAYER_BLOCK", 100);
+
+        playerRunner = new org.nebula.player.PlayerTaskRunner(
+            playerState,
+            taskId -> {
+                // Resolve PLAYER_MOVE tasks
+                if (taskId.startsWith("PLAYER_MOVE@")) {
+                    java.util.UUID uuid = parsePlayerUuid(taskId);
+                    return playerMoveActions.computeIfAbsent(uuid,
+                        u -> new org.nebula.player.actions.PlayerMoveAction(u));
+                }
+                // Resolve PLAYER_BLOCK_INTERACT tasks
+                if (taskId.startsWith("PLAYER_BLOCK_INTERACT@")) {
+                    java.util.UUID uuid = parsePlayerUuid(taskId);
+                    return playerBreakActions.computeIfAbsent(uuid,
+                        u -> new org.nebula.player.actions.PlayerBreakBlockAction(u));
+                }
+                return null;
+            }
+        );
+
+        // Bridges for NMS sync
+        playerBridge = new org.nebula.folia.bridge.NmsPlayerStateBridge(playerState);
+        materialBridge = new org.nebula.folia.MaterialBlockStateBridge(blockBridge);
+
+        // Player tick hook wiring (mirrors EntityTickHook wiring)
+        wirePlayerTickHook(getServer());
+
+        LOG.info("Player DAG subsystem initialized (shadow mode)");
+
         // Create composite runner for unified redstone + entity DAG.
         // Route on the canonical task-type prefixes that the factories actually
         // stamp: RedstoneComponentType → "REDSTONE_*", EntityTaskType → "ENTITY_*".
@@ -617,7 +668,8 @@ public final class NebulaPlugin extends JavaPlugin {
         // so every entity task fell through to the no-route hard error.)
         compositeRunner = new CompositeTaskRunner()
             .routeByTypePrefix("REDSTONE_", redstoneRunner)
-            .routeByTypePrefix("ENTITY_", entityRunner);
+            .routeByTypePrefix("ENTITY_", entityRunner)
+            .routeByTypePrefix("PLAYER_", playerRunner);
 
         Server server = getServer();
         RWGuardConfig guardConfig = new RWGuardConfig(
@@ -735,6 +787,7 @@ public final class NebulaPlugin extends JavaPlugin {
             wireBlockEntityTickHook(server);
             wireFluidTickHook(server);
             wireExplosionTickHook(server);
+            wirePlayerTickHook(server);
         } else {
             // B9 D2: on a single-region host (Paper) the redstone lifecycle driver
             // must ALSO run, or endTick never drains and the inline shadow executor
@@ -904,7 +957,160 @@ public final class NebulaPlugin extends JavaPlugin {
             + (entityWriteBackEnabled() ? "ARMED full (-Dnebula.entity.writeback=true)"
                : entityVerticalWriteBackEnabled()
                    ? "ARMED vertical-only (-Dnebula.entity.writeback.vertical=true)"
-                   : "OFF — observe-only") + ")");
+                   : "OFF \u2014 observe-only") + ")");
+    }
+
+    // ── P2: Player Tick Hook wiring ────────────────────────────────────────────
+    private void wirePlayerTickHook(Server server) {
+        // Resolver: snapshot → PLAYER_MOVE TaskNode
+        org.nebula.folia.bridge.PlayerTickHook.setResolver((worldName, snapshot, taskType) -> {
+            if ("PLAYER_MOVE".equals(taskType)) {
+                return org.nebula.player.PlayerTaskFactory.moveInert(snapshot);
+            }
+            return null;
+        });
+
+        // Region executor: dispatch player tasks to their owning region thread
+        playerRegionExecutor = new org.nebula.folia.FoliaRegionTickExecutor(
+            server,
+            task -> playerPositionOf(task),
+            this::executeOwnedPlayerDag,
+            this);
+
+        org.nebula.folia.bridge.PlayerTickHook.setExecutor((regionId, worldName, tasks) -> {
+            try {
+                playerRegionExecutor.executeTasks(regionId, worldName, tasks);
+            } catch (org.nebula.core.scheduler.DagExecutionException e) {
+                LOG.warning(() -> "Player region dispatch failed in " + worldName + ": " + e.getMessage());
+            }
+        });
+
+        // Lifecycle: player move events seed the DAG
+        server.getGlobalRegionScheduler().runAtFixedRate(this, task -> {
+            if (!org.nebula.folia.bridge.PlayerTickHook.isActive()) return;
+            org.nebula.folia.bridge.PlayerTickHook.beginTick("nebula-global");
+            for (World w : server.getWorlds()) {
+                var tasks = org.nebula.folia.bridge.PlayerTickHook.endTick("nebula-global", w.getName());
+                if (!tasks.isEmpty()) {
+                    try {
+                        playerRegionExecutor.executeTasks("nebula-global", w.getName(), tasks);
+                    } catch (org.nebula.core.scheduler.DagExecutionException e) {
+                        LOG.warning("Player DAG dispatch failed: " + e.getMessage());
+                    }
+                }
+            }
+        }, 1, 1);
+
+        // Seed source: PlayerMoveEvent
+        server.getPluginManager().registerEvents(new org.bukkit.event.Listener() {
+            @org.bukkit.event.EventHandler(ignoreCancelled = true)
+            public void onPlayerMove(org.bukkit.event.player.PlayerMoveEvent event) {
+                if (!org.nebula.folia.bridge.PlayerTickHook.isActive()) return;
+                if (event.getFrom().equals(event.getTo())) return;
+                org.bukkit.entity.Player p = event.getPlayer();
+                org.bukkit.Location to = event.getTo();
+                int dimId = org.nebula.core.state.DimensionIds.fromName(p.getWorld().getName());
+                var snap = org.nebula.core.player.PlayerSnapshot.of(
+                    p.getUniqueId(), to.getX(), to.getY(), to.getZ(), dimId);
+                org.nebula.folia.bridge.PlayerTickHook.recordPlayerSnapshot(
+                    "nebula-global", p.getWorld().getName(), snap);
+            }
+        }, this);
+
+        // Seed source: PlayerInteractEvent (block break/place)
+        server.getPluginManager().registerEvents(new org.bukkit.event.Listener() {
+            @org.bukkit.event.EventHandler(ignoreCancelled = true)
+            public void onPlayerInteract(org.bukkit.event.player.PlayerInteractEvent event) {
+                if (!org.nebula.folia.bridge.PlayerTickHook.isActive()) return;
+                if (event.getClickedBlock() == null) return;
+                org.bukkit.entity.Player p = event.getPlayer();
+                org.bukkit.Location to = event.getClickedBlock().getLocation();
+                int dimId = org.nebula.core.state.DimensionIds.fromName(p.getWorld().getName());
+                var snap = org.nebula.core.player.PlayerSnapshot.of(
+                    p.getUniqueId(), to.getX(), to.getY(), to.getZ(), dimId);
+                org.nebula.folia.bridge.PlayerTickHook.recordPlayerSnapshot(
+                    "nebula-global", p.getWorld().getName(), snap);
+            }
+        }, this);
+
+        org.nebula.folia.bridge.PlayerTickHook.setActive(true);
+        LOG.info("PlayerTickHook lifecycle driver registered (shadow mode, "
+            + "PLAYER_MOVE + PLAYER_BLOCK_INTERACT seed from PlayerMoveEvent + PlayerInteractEvent)");
+    }
+
+    /**
+     * Decodes the player world-position from a PLAYER_* taskId for region dispatch.
+     */
+    private org.nebula.core.state.WorldPos playerPositionOf(org.nebula.core.scheduler.TaskNode task) {
+        String id = task.taskId();
+        // Format: PLAYER_MOVE@dim:uuid:x,y,z
+        int at = id.indexOf('@');
+        int colon = id.indexOf(':', at + 1);
+        int xColon = id.indexOf(':', colon + 1);
+        int yColon = id.indexOf(',', colon + 1);
+        int zColon = id.indexOf(',', yColon + 1);
+        try {
+            int dim = Integer.parseInt(id.substring(at + 1, colon));
+            int x = Integer.parseInt(id.substring(xColon + 1, yColon));
+            int y = Integer.parseInt(id.substring(yColon + 1, zColon));
+            int z = Integer.parseInt(id.substring(zColon + 1));
+            return new org.nebula.core.state.WorldPos(dim, x, y, z);
+        } catch (Exception e) {
+            LOG.fine(() -> "Could not parse player position from " + id);
+            return null;
+        }
+    }
+
+    /**
+     * Executes the player DAG partition for the given region/world.
+     */
+    private void executeOwnedPlayerDag(World world, String worldName,
+                                      java.util.List<org.nebula.core.scheduler.TaskNode> tasks) {
+        if (tasks.isEmpty()) return;
+
+        // Sync player state from NMS before DAG
+        for (var task : tasks) {
+            java.util.UUID uuid = parsePlayerUuid(task.taskId());
+            if (uuid == null) continue;
+            org.bukkit.entity.Player p = org.bukkit.Bukkit.getPlayer(uuid);
+            if (p == null) continue;
+            playerBridge.syncPhysicsFromNms(p);
+        }
+
+        // Run player DAG
+        var executor = new org.nebula.player.PlayerTickExecutor(playerRunner);
+        try {
+            executor.executeTick(tasks);
+        } catch (Exception e) {
+            LOG.warning("Player DAG execution failed: " + e.getMessage());
+            return;
+        }
+
+        // Gate: only write back after K consecutive matched ticks
+        if (playerMoveGate.isOpen()) {
+            for (var task : tasks) {
+                java.util.UUID uuid = parsePlayerUuid(task.taskId());
+                if (uuid == null) continue;
+                org.bukkit.entity.Player p = org.bukkit.Bukkit.getPlayer(uuid);
+                if (p == null) continue;
+                playerBridge.syncPhysicsToNms(p, world);
+            }
+            LOG.info("PlayerTickHook: " + tasks.size() + " player tasks executed (authority gate OPEN)");
+        }
+    }
+
+    /** Parses a player UUID from a PLAYER_* taskId. */
+    private java.util.UUID parsePlayerUuid(String taskId) {
+        try {
+            int at = taskId.indexOf('@');
+            if (at < 0) return null;
+            int colon = taskId.indexOf(':', at + 1);
+            if (colon < 0) return null;
+            String uuidStr = taskId.substring(at + 1, colon);
+            return java.util.UUID.fromString(uuidStr);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**
@@ -1656,13 +1862,13 @@ public final class NebulaPlugin extends JavaPlugin {
             // divergence tracker is armed, so skip the read otherwise.
             final org.nebula.core.state.EntityField posField =
                 new org.nebula.core.state.EntityField(entityId, "position");
-            org.nebula.entity.Vec3 authoritative =
+            org.nebula.core.math.Vec3 authoritative =
                 diverge ? entityBridge.casStore().getVec(posField) : null;
 
             // For the vertical-only gate we need Folia's authoritative HORIZONTAL
             // velocity (is it moving this mob sideways right now?). Captured pre-DAG for
             // the same reason: the DAG overwrites velocity with its own integration.
-            final org.nebula.entity.Vec3 authoritativeVel = verticalWriteBack
+            final org.nebula.core.math.Vec3 authoritativeVel = verticalWriteBack
                 ? entityBridge.casStore().getVec(
                     new org.nebula.core.state.EntityField(entityId, "velocity"))
                 : null;
@@ -1680,7 +1886,7 @@ public final class NebulaPlugin extends JavaPlugin {
                 // the authoritative one. Diff them across contiguous ticks. The tracker
                 // is not thread-safe and executeOwnedEntityDag runs on many region
                 // threads at once, so serialise every touch of it.
-                org.nebula.entity.Vec3 predicted = entityBridge.casStore().getVec(posField);
+                org.nebula.core.math.Vec3 predicted = entityBridge.casStore().getVec(posField);
                 recordEntityDivergence(entityId, tick, authoritative, predicted, worldName);
             }
 
@@ -1726,10 +1932,10 @@ public final class NebulaPlugin extends JavaPlugin {
      * thread-safe. Nonzero drift is EXPECTED (write-back is off, the model is
      * approximate) — this quantifies the gap, it does not judge correctness.
      */
-    private void recordEntityDivergence(long entityId, long tick,
-                                        org.nebula.entity.Vec3 authoritative,
-                                        org.nebula.entity.Vec3 predicted,
-                                        String worldName) {
+private void recordEntityDivergence(long entityId, long tick,
+                                       org.nebula.core.math.Vec3 authoritative,
+                                       org.nebula.core.math.Vec3 predicted,
+                                       String worldName) {
         final java.util.Optional<org.nebula.entity.EntityDivergenceTracker.Sample> sample;
         final long obs;
         final String periodicSummary;
@@ -2805,6 +3011,9 @@ public final class NebulaPlugin extends JavaPlugin {
     public RedstoneWorldState redstoneState() { return redstoneState; }
     public EntityPhysicsState entityState() { return entityState; }
     public BlockEntityState blockEntityState() { return blockEntityState; }
+    public org.nebula.core.player.PlayerPhysicsState playerState() { return playerState; }
+    public org.nebula.player.PlayerAuthorityGate playerMoveGate() { return playerMoveGate; }
+    public org.nebula.player.PlayerAuthorityGate playerBlockGate() { return playerBlockGate; }
     public NmsBlockStateBridge blockBridge() { return blockBridge; }
     public NmsEntityStateBridge entityBridge() { return entityBridge; }
     public NmsBlockEntityStateBridge blockEntityBridge() { return blockEntityBridge; }

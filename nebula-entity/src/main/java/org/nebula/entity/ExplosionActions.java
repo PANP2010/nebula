@@ -1,5 +1,6 @@
 package org.nebula.entity;
 
+import org.nebula.core.math.Vec3;
 import org.nebula.core.state.WorldPos;
 
 import java.util.List;

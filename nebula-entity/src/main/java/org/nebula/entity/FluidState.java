@@ -5,13 +5,6 @@ import org.nebula.core.state.WorldPos;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * Small versioned block-value store for the pure fluid execution path.
- *
- * <p>The value is intentionally generic: this slice proves that fluid actions execute through
- * traced block reads/writes matching their declared RW-sets. A later NMS bridge can map the
- * value to the faithful fluid/block state without changing the access coordinates.
- */
 public final class FluidState {
 
     private final ConcurrentHashMap<WorldPos, VersionedEntry> entries = new ConcurrentHashMap<>();

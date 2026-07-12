@@ -1,6 +1,7 @@
 package org.nebula.integration;
 
 import org.junit.jupiter.api.Test;
+import org.nebula.core.math.Vec3;
 import org.nebula.core.scheduler.CompositeTaskRunner;
 import org.nebula.core.scheduler.DagBuilder;
 import org.nebula.core.scheduler.TaskGraph;
@@ -12,7 +13,6 @@ import org.nebula.entity.EntitySnapshot;
 import org.nebula.entity.EntityTaskAction;
 import org.nebula.entity.EntityTaskFactory;
 import org.nebula.entity.EntityTaskRunner;
-import org.nebula.entity.Vec3;
 import org.nebula.entity.actions.EntityMoveAction;
 import org.nebula.redstone.RedstoneComponentType;
 import org.nebula.redstone.RedstoneTaskAction;

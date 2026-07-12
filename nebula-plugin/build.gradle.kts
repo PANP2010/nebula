@@ -12,7 +12,7 @@ java {
 
 tasks.withType<JavaCompile>().configureEach {
     options.encoding = "UTF-8"
-    options.release.set(25)
+    options.release.set(21)
 }
 
 val foliaApi = rootProject.layout.projectDirectory.file(
@@ -27,6 +27,7 @@ dependencies {
     implementation(project(":nebula-redstone"))   // For RedstoneWorldState
     implementation(project(":nebula-entity"))     // For EntityPhysicsState, BlockEntityState
     implementation(project(":nebula-replay"))     // For ReplayRecorder, ReplayFrame
+    implementation(project(":nebula-player"))     // Player DAG executor (MOVE, BLOCK_INTERACT)
     compileOnly(files(foliaApi))
     compileOnly(fileTree(foliaRuntime) { include("*.jar") })
     testImplementation(files(foliaApi))
@@ -42,6 +43,7 @@ tasks.named<ShadowJar>("shadowJar") {
     relocate("org.nebula.guard", "shaded.nebula.guard")
     relocate("org.nebula.folia", "shaded.nebula.folia")
     relocate("org.nebula.annotations", "shaded.nebula.annotations")
+    relocate("org.nebula.player", "shaded.nebula.player")
 }
 
 tasks.named("build") {

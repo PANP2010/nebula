@@ -29,7 +29,7 @@ JVM_FLAGS="-XX:+UseG1GC \
 -XX:MaxTenuringThreshold=1"
 
 # Nebula agent
-AGENT_FLAGS="-javaagent:nebula-agent.jar -Dnebula.entity.divergence=true -Dnebula.entity.writeback.vertical=true"
+AGENT_FLAGS="-javaagent:nebula-agent.jar -Dnebula.entity.divergence=true -Dnebula.entity.writeback.vertical=true -Dnebula.rw.guard=true"
 
 # Check for server jar
 if [ ! -f "server.jar" ]; then

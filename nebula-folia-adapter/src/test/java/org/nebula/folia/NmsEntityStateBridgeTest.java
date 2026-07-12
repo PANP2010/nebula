@@ -6,9 +6,9 @@ import org.bukkit.entity.Entity;
 import org.bukkit.util.Vector;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.nebula.core.math.Vec3;
 import org.nebula.core.state.EntityField;
 import org.nebula.entity.EntityPhysicsState;
-import org.nebula.entity.Vec3;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;

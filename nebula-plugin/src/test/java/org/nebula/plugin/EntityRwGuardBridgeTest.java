@@ -1,6 +1,7 @@
 package org.nebula.plugin;
 
 import org.junit.jupiter.api.Test;
+import org.nebula.core.math.Vec3;
 import org.nebula.core.rw.RWSet;
 import org.nebula.core.scheduler.TaskNode;
 import org.nebula.core.state.EntityField;
@@ -11,7 +12,6 @@ import org.nebula.entity.EntitySnapshot;
 import org.nebula.entity.EntityTaskFactory;
 import org.nebula.entity.EntityTaskRunner;
 import org.nebula.entity.TerrainView;
-import org.nebula.entity.Vec3;
 import org.nebula.entity.actions.EntityMoveAction;
 import org.nebula.guard.AccessTarget;
 import org.nebula.guard.ActualAccessTrace;

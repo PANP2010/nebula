@@ -1,5 +1,6 @@
 package org.nebula.entity;
 
+import org.nebula.core.math.Vec3;
 import org.nebula.core.random.DeterministicRandom;
 import org.nebula.core.state.EntityField;
 import org.nebula.core.state.RandomInstance;

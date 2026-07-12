@@ -4,37 +4,40 @@ import org.nebula.annotations.MicroStepBehavior;
 import org.nebula.annotations.SccBehavior;
 
 /**
- * Enumerates AI sub-task types (arch doc §7.2).
+ * Entity AI task types (arch doc §7.2).
  *
- * <p>AI pipeline per entity per tick:
- * <ol>
- *   <li>SENSE — gather environment data into AI working memory (wide reads, narrow writes)</li>
- *   <li>GOAL_SELECT — choose an action based on sensed data (reads AI state, writes goal)</li>
- *   <li>PATHFIND — compute navigation path to target (reads blocks, writes path cache)</li>
- *   <li>ACT — execute chosen action (may write position, target health, etc.)</li>
- * </ol>
+ * <p>AI tasks form a strict sequential pipeline per tick:
+ * SENSE → GOAL_SELECT → PATHFIND → ACT
+ *
+ * <p>Each stage is DEFERRED: AI computations are expensive and deferred to a
+ * lower-priority thread pool. No microstep propagation because AI state changes
+ * do not affect redstone or block physics.
  */
 public enum AITaskType {
 
-    SENSE(
-        "AI_SENSE",
-        MicroStepBehavior.NONE,
-        SccBehavior.CONTRACTIBLE),
-
-    GOAL_SELECT(
-        "AI_GOAL_SELECT",
-        MicroStepBehavior.NONE,
-        SccBehavior.CONTRACTIBLE),
-
-    PATHFIND(
-        "AI_PATHFIND",
+    /** SENSE: reads entity state and nearby environment (player distance, terrain). */
+    AI_SENSE(
+        "ENTITY_AI_SENSE",
         MicroStepBehavior.DEFERRED,
-        SccBehavior.CONTRACTIBLE),
+        SccBehavior.AUTO),
 
-    ACT(
-        "AI_ACT",
-        MicroStepBehavior.PROPAGATES,
-        SccBehavior.SERIALIZED);
+    /** GOAL_SELECT: reads SENSE output, writes goal target. */
+    AI_GOAL_SELECT(
+        "ENTITY_AI_GOAL_SELECT",
+        MicroStepBehavior.DEFERRED,
+        SccBehavior.AUTO),
+
+    /** PATHFIND: reads goal target, writes path waypoints. */
+    AI_PATHFIND(
+        "ENTITY_AI_PATHFIND",
+        MicroStepBehavior.DEFERRED,
+        SccBehavior.AUTO),
+
+    /** ACT: reads path/goal, writes velocity/position. */
+    AI_ACT(
+        "ENTITY_AI_ACT",
+        MicroStepBehavior.DEFERRED,
+        SccBehavior.AUTO);
 
     private final String taskType;
     private final MicroStepBehavior microStep;
@@ -46,22 +49,7 @@ public enum AITaskType {
         this.scc = scc;
     }
 
-    public String taskType() {
-        return taskType;
-    }
-
-    public MicroStepBehavior microStepBehavior() {
-        return microStep;
-    }
-
-    public SccBehavior sccBehavior() {
-        return scc;
-    }
-
-    public static AITaskType fromTaskType(String taskType) {
-        for (AITaskType t : values()) {
-            if (t.taskType.equals(taskType)) return t;
-        }
-        return null;
-    }
+    public String taskType() { return taskType; }
+    public MicroStepBehavior microStepBehavior() { return microStep; }
+    public SccBehavior sccBehavior() { return scc; }
 }

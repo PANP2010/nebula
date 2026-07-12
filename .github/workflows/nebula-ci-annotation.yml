@@ -1,0 +1,261 @@
+# =============================================================================
+# Nebula Annotation Regression CI  (P1.5.2)
+# -----------------------------------------------------------------------------
+# Pipeline purpose
+#   After every change that touches @NebulaRW-annotated bridges (and especially
+#   after a Minecraft version bump), this workflow:
+#     1. Runs the full Gradle test suite (all RW-guard tests across all modules).
+#     2. Captures and uploads JUnit XML + console test output.
+#     3. Reflectively scans the runtime bridge classes, emits a per-subsystem
+#        @NebulaRW coverage snapshot as JSON, and writes an annotation-coverage
+#        history entry under .github/annotation-baseline/.
+#     4. Compares the current snapshot to the per-version baseline and fails the
+#        build if any previously-annotated method disappeared, the annotated
+#        count dropped, or coverage fell below the 5%/year decay budget.
+#     5. Posts a delta summary as a PR comment (best-effort) so reviewers can
+#        see exactly which methods need re-annotation.
+#
+# Triggers
+#   - push  to main and feat/**
+#   - pull_request targeting main
+#   - workflow_dispatch  (manual run after a new Minecraft version drops;
+#     caller supplies the new version so the baseline file is named correctly)
+#
+# Reference: docs/nebula-architecture.md §14.3 + docs/nebula-patch-002.md
+# =============================================================================
+
+name: Nebula Annotation Regression CI
+
+"on":
+  push:
+    branches:
+      - main
+      - 'feat/**'
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      minecraft_version:
+        description: 'Minecraft version this run covers (e.g. 1.21.4)'
+        required: true
+        default: '1.21.4'
+      update_baseline:
+        description: 'Refresh the baseline file from this run (only on main pushes)'
+        required: true
+        default: 'false'
+        type: boolean
+
+# Cancel in-progress runs for the same ref when a new commit lands.
+concurrency:
+  group: annotation-regression-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  # Needed so the PR-comment step and (optional) baseline-commit step can write.
+  pull-requests: write
+
+env:
+  # Project default. The dispatch input overrides this when set.
+  MC_VERSION: ${{ github.event.inputs.minecraft_version || '1.21.4' }}
+  REFRESH_BASELINE: ${{ github.event.inputs.update_baseline || 'false' }}
+  BASELINE_DIR: .github/annotation-baseline
+
+jobs:
+  annotation-regression:
+    name: Annotation regression (${{ env.MC_VERSION }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Pull full history so git diff against the baseline file works even
+          # on shallow clones.
+          fetch-depth: 0
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          # Cache the wrapper download + the Gradle user home between runs.
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+          gradle-home-cache-cleanup: true
+
+      - name: Show build identity
+        run: |
+          ./gradlew --version
+          echo "MC_VERSION=${MC_VERSION}"
+          echo "REFRESH_BASELINE=${REFRESH_BASELINE}"
+          echo "ref=${GITHUB_REF}"
+
+      # -------------------------------------------------------------------
+      # 1. Full test suite — every RW-guard test in every module.
+      # `--continue` so a single failing test doesn't hide later coverage data.
+      # -------------------------------------------------------------------
+      - name: Run full test suite
+        id: tests
+        run: |
+          set -o pipefail
+          ./gradlew test --continue --console=plain \
+            2>&1 | tee test-output.txt
+          echo "exit_code=${PIPESTATUS[0]}" >> "${GITHUB_OUTPUT}"
+
+      - name: Upload console test output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nebula-test-output
+          path: test-output.txt
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Upload JUnit XML reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nebula-junit-xml
+          path: '**/build/test-results/test/*.xml'
+          if-no-files-found: warn
+          retention-days: 14
+
+      # -------------------------------------------------------------------
+      # 2. Annotation coverage snapshot.
+      # Run the scanner headlessly: it prints JSON to stdout via a tiny Gradle
+      # task we wire in `nebula-core`. We capture both stdout and the JSON
+      # file the task writes, so the regression diff and the PR comment use
+      # the same source of truth.
+      # -------------------------------------------------------------------
+      - name: Generate annotation coverage snapshot
+        id: coverage
+        run: |
+          set -euo pipefail
+          bash scripts/print-coverage.sh "$MC_VERSION" \
+            > coverage-current.json 2> coverage-stderr.log
+          cat coverage-stderr.log >&2
+          # Sanity: must be a valid JSON document of the expected shape.
+          jq -e '.subsystems and .minecraft_version' coverage-current.json \
+            >/dev/null
+
+      - name: Upload coverage snapshot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: annotation-coverage-current
+          path: coverage-current.json
+          if-no-files-found: warn
+          retention-days: 60
+
+      # -------------------------------------------------------------------
+      # 3. Regression check against the per-version baseline.
+      # Three failure modes:
+      #   - previously-annotated method disappeared (signature/contract drift)
+      #   - annotated count dropped > decay budget (5%/year, patch-002 §C.5)
+      #   - a subsystem lost > 5% of its annotated methods
+      # -------------------------------------------------------------------
+      - name: Locate baseline file
+        id: baseline
+        run: |
+          baseline="${BASELINE_DIR}/${MC_VERSION}-coverage.json"
+          if [ -f "$baseline" ]; then
+            echo "exists=true" >> "${GITHUB_OUTPUT}"
+            echo "path=${baseline}"   >> "${GITHUB_OUTPUT}"
+          else
+            echo "exists=false" >> "${GITHUB_OUTPUT}"
+            echo "path="        >> "${GITHUB_OUTPUT}"
+            echo "::notice::No baseline for ${MC_VERSION}; first-run snapshot only."
+          fi
+
+      - name: Regression check vs baseline
+        id: regress
+        if: steps.baseline.outputs.exists == 'true'
+        run: |
+          set -euo pipefail
+          bash scripts/annotation-coverage-check.sh \
+            "${{ steps.baseline.outputs.path }}" \
+            coverage-current.json \
+            | tee coverage-delta.txt
+        env:
+          # Treat a coverage regression as a hard build failure only on push
+          # to main; PRs surface the delta as a warning so reviewers can sign
+          # off on intentional removals.
+          FAIL_ON_REGRESSION: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+
+      - name: Upload coverage delta
+        if: always() && steps.baseline.outputs.exists == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: annotation-coverage-delta
+          path: coverage-delta.txt
+          if-no-files-found: warn
+          retention-days: 60
+
+      # -------------------------------------------------------------------
+      # 4. PR comment. Best-effort — ignore failures so a botched comment
+      # doesn't take down the whole pipeline.
+      # -------------------------------------------------------------------
+      - name: Comment on PR
+        if: github.event_name == 'pull_request'
+        continue-on-error: true
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: nebula-annotation-regression
+          path: |
+            coverage-current.json
+            coverage-delta.txt
+
+      # -------------------------------------------------------------------
+      # 5. (manual dispatch only) — refresh the baseline from the snapshot
+      # when a new Minecraft version drops. Guarded by `update_baseline: true`
+      # so a re-run with default settings doesn't blow away a known-good
+      # baseline.
+      # -------------------------------------------------------------------
+      - name: Refresh baseline (manual)
+        if: |
+          github.event_name == 'workflow_dispatch' &&
+          env.REFRESH_BASELINE == 'true' &&
+          github.ref == 'refs/heads/main'
+        run: |
+          set -euo pipefail
+          cp coverage-current.json "${BASELINE_DIR}/${MC_VERSION}-coverage.json"
+          git config user.name  "nebula-ci-bot"
+          git config user.email "nebula-ci-bot@users.noreply.github.com"
+          git add "${BASELINE_DIR}/${MC_VERSION}-coverage.json"
+          git commit -m "ci(annotation-baseline): refresh ${MC_VERSION} snapshot"
+          git push
+
+      # -------------------------------------------------------------------
+      # 6. Surface the overall verdict in the GitHub UI.
+      # -------------------------------------------------------------------
+      - name: Annotate run summary
+        if: always()
+        run: |
+          {
+            echo "### Annotation Regression — ${MC_VERSION}"
+            echo
+            if [ -f coverage-current.json ]; then
+              jq -r '
+                "- annotated: \(.annotated_methods)/\(.total_bridge_methods) (\(.coverage_ratio*100|tostring|.[0:5])%)",
+                "- subsystems: \(.subsystems|length)"
+              ' coverage-current.json
+            fi
+            if [ -f coverage-delta.txt ]; then
+              echo
+              echo "<details><summary>Coverage delta</summary>"
+              echo
+              echo '```'
+              cat coverage-delta.txt
+              echo '```'
+              echo
+              echo "</details>"
+            fi
+            echo
+            echo "Tests step: \`${{ steps.tests.outputs.exit_code }}\`"
+          } >> "${GITHUB_STEP_SUMMARY}"

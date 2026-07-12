@@ -1,4 +1,4 @@
-package org.nebula.entity;
+package org.nebula.core.math;
 
 /** Immutable 3-vector of doubles used for entity physics (position, velocity). */
 public record Vec3(double x, double y, double z) {

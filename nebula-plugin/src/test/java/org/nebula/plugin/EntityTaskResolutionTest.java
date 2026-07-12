@@ -1,6 +1,7 @@
 package org.nebula.plugin;
 
 import org.junit.jupiter.api.Test;
+import org.nebula.core.math.Vec3;
 import org.nebula.core.scheduler.CompositeTaskRunner;
 import org.nebula.core.scheduler.TaskNode;
 import org.nebula.core.state.EntityField;
@@ -9,7 +10,6 @@ import org.nebula.entity.EntitySnapshot;
 import org.nebula.entity.EntityTaskAction;
 import org.nebula.entity.EntityTaskFactory;
 import org.nebula.entity.EntityTaskRunner;
-import org.nebula.entity.Vec3;
 import org.nebula.redstone.RedstoneComponentType;
 import org.nebula.redstone.RedstoneTaskFactory;
 import org.nebula.core.state.WorldPos;

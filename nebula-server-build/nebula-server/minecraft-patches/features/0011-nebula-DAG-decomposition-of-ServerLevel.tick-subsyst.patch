@@ -243,9 +243,8 @@ index a51a9e7a0fa5727690046d814eb0b26d5742cd74..a59b592fecadaee11b36b3f9dd3583df
 +
 +        try {
 +            org.nebula.core.scheduler.TickPipeline.TickResult result = pipeline.execute(tasks);
-+            if (com.mojang.logging.LogUtils.getLogger().isDebugEnabled()) {
-+                com.mojang.logging.LogUtils.getLogger().debug(
-+                    "Nebula DAG tick: {} tasks, {} layers",
++                com.mojang.logging.LogUtils.getLogger().info(
++                    "Nebula DAG tick: {} tasks, {} layers executed",
 +                    result.completedTaskIds().size(), result.layersExecuted()
 +                );
 +            }

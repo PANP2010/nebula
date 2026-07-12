@@ -9,6 +9,7 @@ import org.nebula.core.scheduler.LayerCommitting;
 import org.nebula.core.scheduler.TaskNode;
 import org.nebula.core.state.RandomInstance;
 import org.nebula.core.state.RandomUsage;
+import org.nebula.core.state.WorldPos;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,7 @@ public final class BlockEntityTaskRunner implements LayerCommitting {
 
     private final BlockEntityState state;
     private final Function<String, BlockEntityAction> actionResolver;
+    private final Function<String, BlockEntitySnapshot> snapshotById;
     private final ConcurrentHashMap<String, BlockEntitySnapshotState> layerSnapshots = new ConcurrentHashMap<>();
     private final BlockEntityAccessTracer tracer;
     private final BlockEntityTaskGuardHook guardHook;
@@ -58,7 +60,7 @@ public final class BlockEntityTaskRunner implements LayerCommitting {
     private volatile long currentTick;
 
     public BlockEntityTaskRunner(BlockEntityState state, Function<String, BlockEntityAction> actionResolver) {
-        this(state, actionResolver, null, null);
+        this(state, actionResolver, null, null, null, null, null, null);
     }
 
     /**
@@ -73,7 +75,7 @@ public final class BlockEntityTaskRunner implements LayerCommitting {
      */
     public BlockEntityTaskRunner(BlockEntityState state, Function<String, BlockEntityAction> actionResolver,
                                  BlockEntityAccessTracer tracer, BlockEntityTaskGuardHook guardHook) {
-        this(state, actionResolver, tracer, guardHook, null, null);
+        this(state, actionResolver, null, tracer, guardHook, null, null, null);
     }
 
     /**
@@ -87,8 +89,20 @@ public final class BlockEntityTaskRunner implements LayerCommitting {
     public BlockEntityTaskRunner(BlockEntityState state, Function<String, BlockEntityAction> actionResolver,
                                  BlockEntityAccessTracer tracer, BlockEntityTaskGuardHook guardHook,
                                  LayeredRandomSource randomSource, RandomBudget randomBudget) {
+        this(state, actionResolver, null, tracer, guardHook, randomSource, randomBudget, null);
+    }
+
+    /**
+     * Internal full constructor with snapshot lookup support for selfPos + facing resolution.
+     */
+    private BlockEntityTaskRunner(BlockEntityState state, Function<String, BlockEntityAction> actionResolver,
+                                  Function<String, BlockEntitySnapshot> snapshotById,
+                                  BlockEntityAccessTracer tracer, BlockEntityTaskGuardHook guardHook,
+                                  LayeredRandomSource randomSource, RandomBudget randomBudget,
+                                  Void unused) {
         this.state = state;
         this.actionResolver = actionResolver != null ? actionResolver : id -> null;
+        this.snapshotById = snapshotById;
         this.tracer = tracer;
         this.guardHook = guardHook;
         this.randomSource = randomSource;
@@ -173,7 +187,7 @@ public final class BlockEntityTaskRunner implements LayerCommitting {
             snapshotById != null ? snapshotById : id -> null;
         return new BlockEntityTaskRunner(state,
             taskId -> BlockEntityActionResolver.resolve(lookup.apply(taskId)),
-            tracer, guardHook, randomSource, randomBudget);
+            lookup, tracer, guardHook, randomSource, randomBudget, null);
     }
 
     @Override
@@ -222,14 +236,25 @@ public final class BlockEntityTaskRunner implements LayerCommitting {
         if (action == null) {
             return;
         }
-        BlockEntitySnapshotState snapshot = new BlockEntitySnapshotState();
+        BlockEntitySnapshotState beSnapshot = new BlockEntitySnapshotState();
         DeterministicRandom rng = null;
         long posKey = 0L;
         if (randomSource != null && instance != RandomInstance.NONE) {
             posKey = parseBlockPosKey(taskId);
             rng = randomSource.forTask(currentTick, posKey, instance);
         }
-        action.execute(new BlockEntityContext(state, snapshot, tracer, rng));
+        // Try to look up the block-entity snapshot for facing and selfPos.
+        WorldPos selfPos = selfPos(taskId);
+        int fx = 0, fy = 0, fz = 0;
+        if (snapshotById != null) {
+            BlockEntitySnapshot beSnap = snapshotById.apply(taskId);
+            if (beSnap != null) {
+                fx = beSnap.facingX();
+                fy = beSnap.facingY();
+                fz = beSnap.facingZ();
+            }
+        }
+        action.execute(new BlockEntityContext(state, beSnapshot, tracer, rng, selfPos, fx, fy, fz));
 
         // Evaluate RNG consumption against the allocated budget (DG2 metric), keyed by
         // the block position so two block entities don't share a budget bucket.
@@ -238,8 +263,27 @@ public final class BlockEntityTaskRunner implements LayerCommitting {
             randomBudget.evaluate(posKey, allocated, rng.callsMade());
         }
 
-        if (!snapshot.isEmpty()) {
-            layerSnapshots.put(taskId, snapshot);
+        if (!beSnapshot.isEmpty()) {
+            layerSnapshots.put(taskId, beSnapshot);
+        }
+    }
+
+    private WorldPos selfPos(String taskId) {
+        long key = parseBlockPosKey(taskId);
+        if (key == 0L) return null;
+        int colon = taskId.indexOf(':', taskId.indexOf('@') + 1);
+        if (colon < 0) return null;
+        String coords = taskId.substring(colon + 1);
+        String[] parts = coords.split(",");
+        if (parts.length < 3) return null;
+        try {
+            int dim = Integer.parseInt(taskId.substring(taskId.indexOf('@') + 1, colon).trim());
+            int x = Integer.parseInt(parts[0].trim());
+            int y = Integer.parseInt(parts[1].trim());
+            int z = Integer.parseInt(parts[2].trim());
+            return new WorldPos(dim, x, y, z);
+        } catch (NumberFormatException e) {
+            return null;
         }
     }
 

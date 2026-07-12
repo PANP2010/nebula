@@ -33,4 +33,6 @@ include(
     "nebula-bench",
     "nebula-integration",
     "nebula-folia-adapter",  // Java 25 + Folia 26.1.2 API (libs/folia-api-*.jar)
+    "nebula-maintenance",     // P1.5.1: Method Signature Delta detector (ASM bytecode diff)
+    "nebula-player",          // P2: Player DAG executor (MOVE, BLOCK_INTERACT, COMBAT)
 )

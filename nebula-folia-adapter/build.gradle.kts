@@ -29,6 +29,7 @@ dependencies {
     implementation(project(":nebula-redstone"))  // For RedstoneWorldState CAS store
     implementation(project(":nebula-entity"))    // For EntityPhysicsState + BlockEntityState + Vec3
     implementation(project(":nebula-replay"))     // For ToggleApplier seam + ResolvedToggle (live-load driver)
+    implementation(project(":nebula-player"))     // For NmsPlayerStateBridge + MaterialBlockStateBridge
     compileOnly(files(foliaApi))
     compileOnly(fileTree(foliaRuntime) { include("*.jar") })
     // Guava is referenced by Bukkit Material annotations but not bundled in folia-runtime
@@ -46,4 +47,27 @@ tasks.withType<Test>().configureEach {
     javaLauncher.set(javaToolchains.launcherFor {
         languageVersion.set(JavaLanguageVersion.of(25))
     })
+}
+
+// -----------------------------------------------------------------------------
+// P1.5.2: Annotation Regression CI — headless coverage snapshot.
+//
+// Runs org.nebula.folia.maintenance.AnnotationCoverageCli on the runtime
+// classpath so the CI workflow (and `scripts/print-coverage.sh`) can emit the
+// @NebulaRW coverage JSON without booting a server. The CLI mirrors
+// NebulaPlugin.buildCoverageDashboard() so the snapshot reflects what an
+// operator would see via /nebula coverage in-game.
+// -----------------------------------------------------------------------------
+val printCoverage = tasks.register<JavaExec>("printCoverage") {
+    group = "verification"
+    description = "Emit @NebulaRW annotation coverage as JSON (P1.5.2 CI input)."
+    mainClass.set("org.nebula.folia.maintenance.AnnotationCoverageCli")
+    classpath = sourceSets["main"].runtimeClasspath
+    // JVM args: small heap is fine; we only reflect over a handful of classes.
+    jvmArgs("-Xmx256m")
+    // Default Minecraft version is overridden by the CI via -PmcVersion=...
+    val mcVersion = (project.findProperty("mcVersion") as String?) ?: "1.21.4"
+    args(mcVersion)
+    standardOutput = System.out
+    errorOutput = System.err
 }

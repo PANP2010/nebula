@@ -51,7 +51,7 @@ else
     exit 1
 fi
 
-if grep -q "Folia runtime: true" $LOG_FILE; then
+if grep -q "Folia server: true" $LOG_FILE; then
     echo -e "${GREEN}✓ Folia runtime detected${NC}"
 else
     echo -e "${YELLOW}⚠ Folia runtime not detected (may be Paper/Spigot)${NC}"
@@ -71,7 +71,7 @@ else
 fi
 
 if grep -q "Initial sync scan complete" $LOG_FILE; then
-    COMPONENT_COUNT=$(grep "Initial sync scan complete" $LOG_FILE | tail -1 | grep -oP '\d+(?= redstone components)')
+    COMPONENT_COUNT=$(grep "Initial sync scan complete" $LOG_FILE | tail -1 | grep -oP '\d+(?= redstone components)' || echo "unknown")
     echo -e "${GREEN}✓ Initial sync scan completed: $COMPONENT_COUNT components${NC}"
 else
     echo -e "${YELLOW}⚠ Initial sync scan not found in logs${NC}"
@@ -96,13 +96,13 @@ echo -e "${BLUE}═════════════════════�
 echo
 
 # Check if lifecycle methods are being called
-if grep -q "beginTick called" $LOG_FILE 2>/dev/null; then
+if grep -q "\[LIFECYCLE\] beginTick called" $LOG_FILE 2>/dev/null; then
     echo -e "${GREEN}✓ beginTick() is being called${NC}"
 else
     echo -e "${YELLOW}⚠ No beginTick() logs found (add diagnostic logging if needed)${NC}"
 fi
 
-if grep -q "endTick called" $LOG_FILE 2>/dev/null; then
+if grep -q "\[LIFECYCLE\] endTick called" $LOG_FILE 2>/dev/null; then
     echo -e "${GREEN}✓ endTick() is being called${NC}"
 else
     echo -e "${YELLOW}⚠ No endTick() logs found (add diagnostic logging if needed)${NC}"
@@ -116,11 +116,11 @@ echo
 
 # Check for DAG execution logs
 if grep -q "DAG tick:" $LOG_FILE; then
-    DAG_COUNT=$(grep -c "DAG tick:" $LOG_FILE)
+    DAG_COUNT=$(grep -c "Nebula DAG tick:" $LOG_FILE)
     echo -e "${GREEN}✓ DAG execution detected! Found $DAG_COUNT tick(s)${NC}"
     echo
     echo -e "${YELLOW}Recent DAG ticks:${NC}"
-    grep "DAG tick:" $LOG_FILE | tail -5
+    grep "Nebula DAG tick:" $LOG_FILE | tail -5
     echo
     echo -e "${GREEN}════════════════════════════════════════════════════════════${NC}"
     echo -e "${GREEN}  SUCCESS! DAG is executing on real Folia server!${NC}"
@@ -144,8 +144,8 @@ PASS_COUNT=0
 TOTAL_CHECKS=7
 
 grep -q "Nebula plugin enabling" $LOG_FILE && ((PASS_COUNT++)) || true
-grep -q "Folia runtime: true" $LOG_FILE && ((PASS_COUNT++)) || true
-grep -q "Retransformed.*redstone classes" $LOG_FILE && ((PASS_COUNT++)) || true
+grep -q "Folia server: true" $LOG_FILE && ((PASS_COUNT++)) || true
+grep -q "Retransformed.*Folia redstone classes" $LOG_FILE && ((PASS_COUNT++)) || true
 grep -q "NeighborUpdateHooks sentinel verified" $LOG_FILE && ((PASS_COUNT++)) || true
 grep -q "Initial sync scan complete" $LOG_FILE && ((PASS_COUNT++)) || true
 grep -q "RedstoneTickHook lifecycle driver registered" $LOG_FILE && ((PASS_COUNT++)) || true

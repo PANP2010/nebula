@@ -6,9 +6,9 @@ import org.bukkit.entity.LivingEntity;
 import org.nebula.annotations.MicroStepBehavior;
 import org.nebula.annotations.NebulaRW;
 import org.nebula.annotations.SccBehavior;
+import org.nebula.core.math.Vec3;
 import org.nebula.core.state.EntityField;
 import org.nebula.entity.EntityPhysicsState;
-import org.nebula.entity.Vec3;
 
 import java.util.Collection;
 import java.util.Objects;
