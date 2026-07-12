@@ -54,6 +54,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
             case "be-dropper-phase" -> handleDropperPhase(sender, args);
             case "coverage" -> handleCoverage(sender);
             case "random" -> handleRandom(sender);
+            case "fidelity" -> handleFidelity(sender, args);
             case "help" -> sendHelp(sender);
             default -> sender.sendMessage("§cUnknown subcommand: " + sub);
         }
@@ -674,6 +675,54 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
         return budget.trackedEntityCount();
     }
 
+    /**
+     * P1.9.4c: reports the current fidelity tier and its downgrade pressure metrics.
+     * Usage: /nebula fidelity [reset [T0|T1|T2|T3]]
+     *
+     * T0→T1: 10 consecutive ticks with Random over-budget rate > 5%
+     * T1→T2: MSPT > 50ms for 30 consecutive seconds (600 ticks)
+     * T2→T3: MSPT > 50ms for 60 consecutive seconds (1200 ticks)
+     */
+    private void handleFidelity(CommandSender sender, String[] args) {
+        if (!sender.hasPermission("nebula.status")) {
+            sender.sendMessage("§cYou don't have permission to view Nebula fidelity status.");
+            return;
+        }
+        var ctrl = plugin.fidelityController();
+        var tier = ctrl.currentTier();
+        sender.sendMessage("§6Nebula Fidelity Tier (§16.2, P1.9.4):");
+        sender.sendMessage(String.format("  §7Current tier: §f%s", tier.name()));
+        sender.sendMessage("  §7T0→T1 trigger: §f10 consecutive ticks with Random over-budget > 5%%  "
+            + "§7(current streak: §f" + ctrl.consecutiveRandomOverBudgetCount() + "§7)");
+        sender.sendMessage("  §7T1→T2 trigger: §fMSPT >50ms for 30s (600 ticks)  "
+            + "§7(current streak: §f" + ctrl.consecutiveMsptExceededCount() + "§7)");
+        sender.sendMessage("  §7T2→T3 trigger: §fMSPT >50ms for 60s (1200 ticks)");
+        sender.sendMessage("  §7Upgrades: §fnever automatic §7— use §e/nebula fidelity reset [T0|T1|T2|T3]");
+        if (tier != org.nebula.core.random.FidelityTier.T0) {
+            sender.sendMessage("  §eNote: current tier is not T0 — redstone determinism may be relaxed.");
+        }
+
+        if (args.length >= 2 && args[1].equalsIgnoreCase("reset")) {
+            if (!sender.hasPermission("nebula.admin")) {
+                sender.sendMessage("§cYou need nebula.admin permission to reset fidelity tier.");
+                return;
+            }
+            var targetTier = org.nebula.core.random.FidelityTier.T0;
+            if (args.length >= 3) {
+                try {
+                    targetTier = org.nebula.core.random.FidelityTier.valueOf(args[2].toUpperCase());
+                } catch (IllegalArgumentException e) {
+                    sender.sendMessage("§cUnknown tier: " + args[2] + " — use T0, T1, T2, or T3.");
+                    return;
+                }
+            }
+            ctrl.reset(targetTier);
+            sender.sendMessage("§aFidelity tier reset to §f" + targetTier.name() + "§a. "
+                + "Counters cleared. Use §e/nebula fidelity§a to verify.");
+            LOG.info("Fidelity tier reset to " + targetTier.name() + " by " + sender.getName());
+        }
+    }
+
     private void sendHelp(CommandSender sender) {
         sender.sendMessage("§6Nebula Commands:");
         sender.sendMessage("  §e/nebula capture start [ticks] [--drive <seed>] [--period <n>] §7- Start state capture (--drive = live-load driven)");
@@ -691,6 +740,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
         sender.sendMessage("  §e/nebula be-dropper-slot [count] §7- Emit BE-DROPPER-SLOT eject-gap snapshot(s); [count] = once-per-tick burst to straddle the eject steps");
         sender.sendMessage("  §e/nebula be-dropper-phase [count] §7- Arm the BE-DROPPER-PHASE probe for [count] ticks; classifies the +1 offset (ordering vs rate)");
         sender.sendMessage("  §e/nebula random §7- Show DG2 Random budget usage (over-budget rate, tracked entities)");
+        sender.sendMessage("  §e/nebula fidelity §7- Show fidelity tier status; /nebula fidelity reset [T0|T1|T2|T3] to restore");
         sender.sendMessage("  §e/nebula coverage §7- Per-subsystem @NebulaRW coverage ratio (DG3, real bridge inventory)");
         sender.sendMessage("  §e/nebula help §7- Show this help");
     }
@@ -739,7 +789,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
                                       String alias,
                                       String[] args) {
         if (args.length == 1) {
-            return Arrays.asList("capture", "status", "scan", "perf", "dag-stats", "diag", "settled", "diff", "be-settled", "be-furnace-timer", "be-furnace-phase", "be-dropper-slot", "be-dropper-phase", "random", "coverage", "help");
+            return Arrays.asList("capture", "status", "scan", "perf", "dag-stats", "diag", "settled", "diff", "be-settled", "be-furnace-timer", "be-furnace-phase", "be-dropper-slot", "be-dropper-phase", "random", "fidelity", "coverage", "help");
         }
         if (args.length == 2 && args[0].equalsIgnoreCase("capture")) {
             return Arrays.asList("start", "stop");
@@ -765,6 +815,13 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
             if (prev.equalsIgnoreCase("--drive")) return List.of("1", "42", "12345");
             if (prev.equalsIgnoreCase("--period")) return Arrays.asList("4", "8", "16");
             return Arrays.asList("--drive", "--period");
+        }
+        if (args.length == 2 && args[0].equalsIgnoreCase("fidelity")) {
+            return Arrays.asList("reset");
+        }
+        if (args.length == 3 && args[0].equalsIgnoreCase("fidelity")
+                && args[1].equalsIgnoreCase("reset")) {
+            return Arrays.asList("T0", "T1", "T2", "T3");
         }
         return List.of();
     }

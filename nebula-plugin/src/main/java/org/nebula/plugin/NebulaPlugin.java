@@ -156,6 +156,10 @@ public final class NebulaPlugin extends JavaPlugin {
     private final org.nebula.core.metrics.MicroStepRecorder microStepRecorder =
         new org.nebula.core.metrics.MicroStepRecorder();
 
+    // P1.9.4: fidelity tier controller for T0→T1→T2→T3 downgrade policy
+    private final org.nebula.core.scheduler.FidelityDowngradeController fidelityController =
+        new org.nebula.core.scheduler.FidelityDowngradeController();
+
     // DG1 Criterion 2 caveat investigation: opt-in per-invocation cascade diagnostic.
     // When enabled (via /nebula diag on), executeOwnedDag logs one INFO line per
     // invocation showing the seed-task count and, for each seed, its CAS power
@@ -2801,6 +2805,8 @@ public final class NebulaPlugin extends JavaPlugin {
     public org.nebula.core.metrics.MicroStepRecorder microStepRecorder() { return microStepRecorder; }
     /** P1.9.2d: DG2 Random budget tracker for RNG-declaring block-entity tasks (may be null). */
     public org.nebula.core.random.RandomBudget blockEntityRandomBudget() { return blockEntityRandomBudget; }
+    /** P1.9.4: fidelity tier controller (T0→T1→T2→T3→fallback downgrade policy). */
+    public org.nebula.core.scheduler.FidelityDowngradeController fidelityController() { return fidelityController; }
 
     /** DG1 Criterion 2 caveat probe: enable/disable the per-invocation cascade diagnostic log. */
     public void setCascadeDiag(boolean on) { this.cascadeDiag = on; }
