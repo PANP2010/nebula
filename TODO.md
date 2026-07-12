@@ -1094,9 +1094,15 @@ These are the four highest-value tasks after Phase 0. They build on each other b
 
 ---
 
-### N1 · B9 D5 规模化：Worker-Count Invariance（最优先）
+### N1 · B9 D5 规模化：Worker-Count Invariance（基础设施已就绪）
 
 **为什么最优先：** 这是项目核心 claim 的最后一块验证缺口。B9 D5 已在 Paper 上证明"parallel DAG == single-thread oracle"（48/48 matched），但只对比了 12 workers vs inline-serial。还没扫 N∈{2,4,8} 的 invariance，也没有在更大并发规模下（4+ 跨 chunk 独立电路）验证 pool 的实际并行收益。
+
+**N1 基础设施（2026-07-12 实施）：**
+- [✅ N1.1a] `-Dnebula.dag.workers=N` flag：`NebulaPlugin.onEnable` 读取 `Integer.getInteger("nebula.dag.workers", -1)`；N>0 时使用 explicit 值，否则 fallback 到 `availableProcessors()`
+- [✅ N1.1b] `scripts/worker-sweep.sh`：自动化 sweep 脚本，遍历 N=0(inline),2,4,8,12，每个 N 启动 Paper + 放置 2 跨 chunk 电路 + scan + toggle + diff，解析 matched/total，输出汇总表
+- [✅ N1.1c] `paper-test-server/start.sh`：支持 `NEBULA_DAG_WORKERS` 环境变量，自动传递 `-Dnebula.dag.workers`
+- [ ] **N1 run**：在 Paper 上实际运行 `scripts/worker-sweep.sh`，验证 N=0/2/4/8/12 均 matched==total
 
 **现状：**
 - Paper 单电路：matched 32/32 ✅
@@ -1131,19 +1137,20 @@ N1.3 Folia 多 region 并行验证
 
 **现状：**
 - Explosion live 正向验证 ✅：TNT smoke，`tracedTasks=2 violations=0 (clean)`
-- Explosion 负向验证 ❌：红石/流体/实体 MOVE 都有负向验证（删除一个邻居读 → N violations），爆炸没有
-- 没有负向验证意味着正向干净 run 可能是 false positive
+- Explosion 负向验证 ✅（2026-07-12 实施）：`ExplosionRwGuardBridgeTest.negativeControl_flagsMissingBlockWritesAndRandomUsage` 断言 violations.size()≥3（2 个缺失 block writes + 1 个 undeclared random usage）
 
 **任务分解：**
 
 N2.1 实现爆炸 RW-set 负向破坏
-- 在 `ExplosionRwGuardHook` 中添加一个测试模式：`brewingActive`-style gate
-- 或者：用现有的 guard hook，手动删除一个注释声明的读集（如删除 `affectedBlocks` 中的某个坐标），运行爆炸，确认 violations > 0
-- 参考红石负向 run（`delete +X neighbor read` → 5147 violations）和流体负向 run（删除 west neighbor read → 352 violations）
+- [✅ N2.1a] `ExplosionRwGuardBridgeTest`：添加 `negativeControl_flagsMissingBlockWritesAndRandomUsage()` 测试
+  - 构造 incomplete RW-set（只声明 reads，不声明 writes 和 random）
+  - 运行同一 actual trace
+  - 断言 violations ≥ 3
+- [ ] **N2.1b**：在 Folia 上 live 运行爆炸，验证 violations > 0（unit test 已完成，live 验证待做）
 
 N2.2 记录负向结果
-- 在 TODO.md 中记录爆炸负向验证的 violation 数
-- 确保 violation 数 > 0（证明 Guard 真的在检测，而不是沉默漏过）
+- [✅ N2.2a] 测试输出：`N2 negative control: explosion incomplete RW-set produced N violations (write=N, random=N) — guard detection confirmed`
+- [ ] **N2.2b**：在 TODO.md 中记录 live 验证的 violation 数
 
 **验收标准：** 爆炸负向 run 产生 N > 0 violations（正数），与正向 clean run 对比，证明 Guard 有实际检测能力。
 
@@ -1157,16 +1164,23 @@ N2.2 记录负向结果
 - `EntityCollisionResponseAction` 代码存在 ✅
 - `EntityTaskFactory.createCollisionResponseTask` ✅
 - `EntityRwGuardTracer` ✅
-- 但 COLLISION 任务从未 live-seed：`FoliaRegionTickExecutor` 只调用了 `createMoveTask`，没有调用碰撞生成
-- COLLISION 的 RW-set（读两个实体的碰撞盒 + 相关方块）从未被 guard 验证
+- COLLISION 任务 live-seed ✅（2026-07-12 实施）：sweep-based 检测，O(n²) 边界框重叠扫描
 
 **任务分解：**
 
 N3.1 找到碰撞事件 seed 点
-- 在 Folia 中，实体碰撞检测在哪个代码路径触发？
-- 红石用 `BlockNeighbourUpdateEvent`；实体 MOVE 用实体移动事件
-- 碰撞是 Folia region 线程内部的内部事件，不是跨线程通信
-- 检查 `FoliaRegionTickExecutor` 中是否有可用的碰撞 seed 入口（可能是 `EntityNavigation` 或 `EntityMove` 触发的内部碰撞查询）
+- [✅ N3.1a] 结论：Folia 中碰撞检测是 region tick 的内部事件，没有显式事件 hook。解决方案：sweep-based 检测
+- [✅ N3.1b] `EntityTickHook.sweepCollisionsAndEmit(regionId, world)`：O(n²) 扫描所有 moved entity 边界框重叠，通过 `world.getEntities()` 获取实时边界框
+
+N3.2 实现 COLLISION 任务 seed
+- [✅ N3.2a] `EntityTickHook.setCollisionResolver(CollisionResolver)`：注册 pair→task resolver
+- [✅ N3.2b] `EntityTickHook.setCollisionResolver` → `EntityTaskFactory.collisionResponseInert` 生成 `COLLISION_RESPONSE` 任务
+- [✅ N3.2c] `drainAndStoreSnapshots()` + `lastDrainedSnapshots()`：ThreadLocal 存储 drain 出的 snapshots，供 sweep 使用
+- [✅ N3.2d] `NebulaPlugin.wireEntityTickHook()` 重构：MOVE drain → region dispatch，sweep → collision dispatch
+
+N3.3 Live guard 验证
+- [✅ N3.3a] `EntityTickHookTest`：5 个 unit 测试覆盖 sweep 逻辑（<2 实体→空、无 resolver→空、null world→空）
+- [ ] **N3.3b**：在 Folia 上 live 运行高密度实体场景（矿车挤在同一空间），验证 `RW-GUARD (entity)` 报告 violations = 0
 
 N3.2 实现 COLLISION 任务 seed
 - 在 `FoliaRegionTickExecutor` 中添加对 dirty entity pair 的 COLLISION 任务生成
@@ -1182,11 +1196,37 @@ N3.3 Live guard 验证
 
 ---
 
-### N4 · 研究权威接管路径（架构规格要求的方向）
+### N4 · 研究权威接管路径（产出文档 ✅）
 
 **为什么现在就要研究：** 这是 Phase 0 → Phase 1 的最大工程鸿沟。尽早识别关键技术挑战，避免走到一半才发现死路。
 
 **核心问题：** Nebula 如何在 Folia 的 tick 循环中插入 DAG 结果，而不让 Folia 的权威状态覆盖它？
+
+**现状：**
+- `docs/authority-transition.md` ✅（2026-07-12 产出）：三条路径详细分析 + 推荐实施顺序
+
+**文档核心结论：**
+
+**路径 A（Nebula Fork）：技术正确，但当前不可行**
+- DAG 在 Folia tick 前执行，Folia 读取 Nebula 的结果
+- 不可行原因：没有稳定的 Folia tick 前置 hook；深度 bytecode injection 随 Folia 版本更新失效
+- 下一步：向 Folia 提 feature request（`PreRegionTickEvent`）
+
+**路径 B（增量接管）：推荐近期路径 ✅**
+- 权威门（authority gate）：每 tick 比较 DAG 结果 vs Folia 结果，连续 K tick 匹配则开门
+- Folia tick → DAG → 比较 → 门开则写 NMS，否则写 CAS
+- 当前 CAS 写回（Folia 覆盖）→ 改为直接写 NMS（Folia 读取 Nebula 结果）
+- 优势：不需要 Folia API 改动；可增量实施；有自然回滚机制
+
+**路径 C（Folia 作为网络层）：Phase 3+ 愿景**
+- 硬分叉 Folia，Nebula 处理所有游戏逻辑，Folia 只处理网络同步
+- 维护成本极高，暂无可行性
+
+**推荐实施顺序：**
+1. 近 30 天：在红石子系统实现 Path B authority gate（最简单的子系统）
+2. 近 90 天：entity MOVE 垂直写回网关，测量跨子系统延迟耦合
+3. Phase 1：所有 Phase 1 子系统的 authority gate
+4. Phase 2+：评估 Path A 可行性
 
 **当前 Phase 0 的问题：**
 - DAG 的 CAS write-back 发生在 Folia region 线程做完权威 tick 之后
