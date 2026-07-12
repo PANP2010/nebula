@@ -1325,24 +1325,23 @@ N4.4 写权威接管研究文档
 
 ---
 
-#### P1.2 · Entity COLLISION（当前状态：stub）
+#### P1.2 · Entity COLLISION（⚠️ sweep seed 已实现，live guard 待验证）
 
 **任务分解：**
 
 P1.2.1 碰撞 seed 机制
-- [ ] **P1.2.1a** 在 `FoliaRegionTickExecutor` 中找到碰撞事件 seed 点（Folia region 线程内部事件，不是跨线程通信）
-- [ ] **P1.2.1b** 对 dirty entity pair 生成 `CollisionTask`（复用已有的 `EntityTaskFactory.createCollisionResponseTask`）
-- [ ] **P1.2.1c** 碰撞检测在哪个代码路径触发？（`EntityNavigation` / `EntityMove` 内部碰撞查询？）
+- [✅ P1.2.1a] 结论：Folia 中碰撞检测是 region tick 内部事件，没有显式事件 hook。解决方案：sweep-based 检测
+- [✅ P1.2.1b] `EntityTickHook.sweepCollisionsAndEmit(regionId, world)`：O(n²) 扫描所有 moved entity 边界框重叠，通过 `world.getEntities()` 获取实时边界框
+- [✅ P1.2.1c] `setCollisionResolver(CollisionResolver)` 注册 pair→task resolver；调用 `EntityTaskFactory.collisionResponseInert` 生成 `COLLISION_RESPONSE` 任务
 
 P1.2.2 碰撞 RW-set 定义
-- [ ] **P1.2.2a** 确认 `CollisionTask` 的读集：两个实体的碰撞盒 + 相关方块
-- [ ] **P1.2.2b** 确认 `CollisionTask` 的写集：空（纯读任务，无 NMS 回写）
-- [ ] **P1.2.2c** SCC 处理：`EntityCollisionResponseAction` 已在代码中，需要确认是否在 DAG builder 中正确处理
+- [✅ P1.2.2a] `EntityTaskFactory.collisionResponseRw`：读两个实体速度，写两个实体速度（velocity swap），纯确定性交换
+- [✅ P1.2.2b] 确认写集不为空（velocity exchange 是写操作），COLLISION_RESPONSE 是 SERIALIZED（SCC）类型
+- [✅ P1.2.2c] SCC 处理：`EntityCollisionResponseAction` 在 DAG builder 中正确处理（SCC 阈值 128 节点）
 
 P1.2.3 Live guard 验证
-- [ ] **P1.2.3a** 用实体-实体碰撞场景（多个实体挤在狭小空间）触发碰撞
-- [ ] **P1.2.3b** 收集 `RW-GUARD (entity)` 日志
-- [ ] **P1.2.3c** 预期：干净 run 0 violations
+- [✅ P1.2.3a] `EntityTickHookTest`：5 个 unit 测试覆盖 sweep 逻辑（<2 实体→空、无 resolver→空、null world→空）
+- [ ] **P1.2.3b** 在 Folia 上运行高密度实体场景（矿车挤在同一空间），验证 `RW-GUARD (entity)` 报告 tracedTasks > 0 且 violations = 0
 
 P1.2.4 Cross-bucket 碰撞（实体跨桶移动）
 - [ ] **P1.2.4a** 当实体跨越桶边界时，需要在两个桶之间协调碰撞结果
@@ -1352,7 +1351,7 @@ P1.2.4 Cross-bucket 碰撞（实体跨桶移动）
 
 ---
 
-#### P1.3 · Entity AI（当前状态：stub）
+#### P1.3 · Entity AI（❌ stub，无实现）
 
 **任务分解：**
 
@@ -1389,7 +1388,7 @@ P1.3.4 AI guard 验证
 
 ---
 
-#### P1.4 · Entity ITEM_PICKUP（当前状态：stub）
+#### P1.4 · Entity ITEM_PICKUP（❌ stub，无实现）
 
 **任务分解：**
 
@@ -1407,7 +1406,7 @@ P1.4.2 ITEM_PICKUP guard
 
 ---
 
-#### P1.5 · Entity DAMAGE（当前状态：stub）
+#### P1.5 · Entity DAMAGE（❌ stub，无实现）
 
 **任务分解：**
 
@@ -1425,14 +1424,14 @@ P1.5.2 DAMAGE guard + Random 集成
 
 ---
 
-#### P1.6 · Block-Entity 全部完成度（当前状态：hopper/furnace/dropper live，brewing/dispenser unit-only）
+#### P1.6 · Block-Entity（⚠️ 部分完成：hopper/furnace/dropper live，brewing/dispenser unit-only）
 
 **任务分解：**
 
 P1.6.1 BREWING — live Folia guard 验证
-- [ ] **P1.6.1a** 已在 unit 层面验证：有 `BlockEntityActions.brewing` + `brewingWillMutate` gate + `BREWING_STAND` resolver + `brewingStandRw` RW-set + 5 unit tests + 2 bridge tests
-- [ ] **P1.6.1b** **缺失：** 在真实 Folia 上用 `-Dnebula.rw.guard=true` 运行酿造反应，验证 0 violations
-- [ ] **P1.6.1c** 实现：启动酿造反应，等待 tick 催化，确认 `RW-GUARD (block-entity)` 日志
+- [✅ P1.6.1a] 已在 unit 层面验证：有 `BlockEntityActions.brewing` + `brewingWillMutate` gate + `BREWING_STAND` resolver + `brewingStandRw` RW-set + 5 unit tests + 2 bridge tests
+- [⚠️ P1.6.1b] **缺失：** 在真实 Folia 上用 `-Dnebula.rw.guard=true` 运行酿造反应，验证 0 violations
+- [⚠️ P1.6.1c] 实现：启动酿造反应，等待 tick 催化，确认 `RW-GUARD (block-entity)` 日志
 
 P1.6.2 DISPENSER — 全行为建模（当前：仅 `ejectOneRandomItem`）
 - [ ] **P1.6.2a** 审计现有 `BlockEntityActions.dispenser` 和 `BlockEntityActionsTest` 的 10 行差距表
@@ -1458,7 +1457,7 @@ P1.6.4 Block-Entity write-back 扩大
 
 ---
 
-#### P1.7 · Fluid 系统（当前状态：observe-only，no write-back）
+#### P1.7 · Fluid 系统（❌ 无实现，仅概念）
 
 **任务分解：**
 
@@ -1539,10 +1538,10 @@ P1.9.1 World.random 序列化
 - [ ] **P1.9.1c** Random 分配到各子系统（entity/RWSet/death loot/loot table 等）
 
 P1.9.2 Random budget 计算与监控
-- [ ] **P1.9.2a** 当前 `RandomUsage` / `RandomInstance` 类型存在，但 budget 计算部分实现
-- [ ] **P1.9.2b** 实现完整的 per-subsystem budget 追踪：`Entity.random` / `World.random` / `LootTable.random` / `DamageSource.random`
-- [ ] **P1.9.2c** 实现 budget safety multiplier = 1.5
-- [ ] **P1.9.2d** 实现 `/nebula random` 命令显示 budget 使用情况
+- [✅ P1.9.2a] `RandomUsage` / `RandomInstance` / `DeterministicRandom` / `LayeredRandomSource` / `RandomBudget` 完整实现
+- [✅ P1.9.2b] `EntityTaskRunner` + `BlockEntityTaskRunner` 均调用 `randomBudget.allocate/evaluate` 追踪消费
+- [✅ P1.9.2c] `RandomBudget` safety multiplier = 1.5 (DEFAULT_SAFETY_MULTIPLIER)
+- [✅ P1.9.2d] `/nebula random` 命令显示 budget 使用情况：`overBudgetRate`、`trackedEntityCount`、`consecutiveDowngrades`
 
 P1.9.3 Random DG2 Criterion 2 验证
 - [ ] **P1.9.3a** DG2 Criterion 2：Random 超预算重执行率 <1%

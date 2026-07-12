@@ -52,6 +52,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
             case "be-dropper-slot" -> handleDropperSlot(sender, args);
             case "be-dropper-phase" -> handleDropperPhase(sender, args);
             case "coverage" -> handleCoverage(sender);
+            case "random" -> handleRandom(sender);
             case "help" -> sendHelp(sender);
             default -> sender.sendMessage("§cUnknown subcommand: " + sub);
         }
@@ -581,6 +582,50 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
             + " (" + scheduled + "-tick window armed)");
     }
 
+    /**
+     * P1.9.2d: reports the DG2 Random budget usage for RNG-declaring block-entity
+     * tasks. Shows current-tick over-budget rate, historical peak calls per tracked
+     * entity, and the configured safety multiplier + downgrade threshold.
+     */
+    private void handleRandom(CommandSender sender) {
+        if (!sender.hasPermission("nebula.status")) {
+            sender.sendMessage("§cYou don't have permission to view Nebula Random stats.");
+            return;
+        }
+        var budget = plugin.blockEntityRandomBudget();
+        if (budget == null) {
+            sender.sendMessage("§eRandom budget tracking is not active (block-entity RNG "
+                + "is not yet wired — no DROPPER/DISPENSER tasks declare WORLD_RANDOM).");
+            return;
+        }
+        sender.sendMessage("§6Nebula Random Budget (DG2 Criterion 2):");
+        double rate = budget.currentOverBudgetRate();
+        sender.sendMessage(String.format("  §7Current-tick over-budget rate: §f%.2f%%",
+            rate * 100));
+        if (rate >= 0.01) {
+            sender.sendMessage("  §c⚠  Over DG2 threshold (1%%) — consider expanding task RNG estimates "
+                + "or adding a safety margin.");
+        } else {
+            sender.sendMessage("  §a✓  Within DG2 threshold (<1%%).");
+        }
+        sender.sendMessage(String.format("  §7Safety multiplier: §f%.2fx  §7Min budget: §f%d  "
+                + "§7Downgrade threshold: §f%.1f%%",
+            org.nebula.core.random.RandomBudget.DEFAULT_SAFETY_MULTIPLIER,
+            org.nebula.core.random.RandomBudget.DEFAULT_MIN_BUDGET,
+            org.nebula.core.random.RandomBudget.DEFAULT_DOWNGRADE_THRESHOLD * 100));
+        sender.sendMessage("  §7Consecutive downgrades: §f" + getConsecutiveDowngrades(budget));
+        sender.sendMessage("  §7Tracked entity/block positions: §f" + trackedEntityCount(budget));
+        sender.sendMessage("  §7(Tracked count = entities that have consumed RNG at least once.)");
+    }
+
+    private static int getConsecutiveDowngrades(org.nebula.core.random.RandomBudget budget) {
+        return budget.consecutiveDowngrades();
+    }
+
+    private static int trackedEntityCount(org.nebula.core.random.RandomBudget budget) {
+        return budget.trackedEntityCount();
+    }
+
     private void sendHelp(CommandSender sender) {
         sender.sendMessage("§6Nebula Commands:");
         sender.sendMessage("  §e/nebula capture start [ticks] [--drive <seed>] [--period <n>] §7- Start state capture (--drive = live-load driven)");
@@ -596,6 +641,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
         sender.sendMessage("  §e/nebula be-furnace-phase [count] §7- Arm the BE-FURNACE-PHASE probe for [count] ticks; classifies the +1/-1 offset (ordering vs rate)");
         sender.sendMessage("  §e/nebula be-dropper-slot [count] §7- Emit BE-DROPPER-SLOT eject-gap snapshot(s); [count] = once-per-tick burst to straddle the eject steps");
         sender.sendMessage("  §e/nebula be-dropper-phase [count] §7- Arm the BE-DROPPER-PHASE probe for [count] ticks; classifies the +1 offset (ordering vs rate)");
+        sender.sendMessage("  §e/nebula random §7- Show DG2 Random budget usage (over-budget rate, tracked entities)");
         sender.sendMessage("  §e/nebula coverage §7- Per-subsystem @NebulaRW coverage ratio (DG3, real bridge inventory)");
         sender.sendMessage("  §e/nebula help §7- Show this help");
     }
@@ -644,7 +690,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
                                       String alias,
                                       String[] args) {
         if (args.length == 1) {
-            return Arrays.asList("capture", "status", "scan", "perf", "diag", "settled", "diff", "be-settled", "be-furnace-timer", "be-furnace-phase", "be-dropper-slot", "be-dropper-phase", "coverage", "help");
+            return Arrays.asList("capture", "status", "scan", "perf", "diag", "settled", "diff", "be-settled", "be-furnace-timer", "be-furnace-phase", "be-dropper-slot", "be-dropper-phase", "random", "coverage", "help");
         }
         if (args.length == 2 && args[0].equalsIgnoreCase("capture")) {
             return Arrays.asList("start", "stop");

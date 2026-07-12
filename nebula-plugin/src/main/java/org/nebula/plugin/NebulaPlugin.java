@@ -125,6 +125,8 @@ public final class NebulaPlugin extends JavaPlugin {
     private NmsBlockEntityStateBridge blockEntityBridge;
     private NmsFluidStateBridge fluidBridge;
     private RedstoneCasStateHasher stateHasher;
+    // P1.9.2d: DG2 Random budget tracker for RNG-declaring block-entity tasks (dropper/dispenser WORLD_RANDOM)
+    private org.nebula.core.random.RandomBudget blockEntityRandomBudget;
 
     // DAG execution
     private MicroStepScheduler microStepScheduler;
@@ -527,8 +529,7 @@ public final class NebulaPlugin extends JavaPlugin {
             ? 0L : getServer().getWorlds().get(0).getSeed();
         org.nebula.core.random.LayeredRandomSource blockEntityRandomSource =
             new org.nebula.core.random.LayeredRandomSource(blockEntityWorldSeed);
-        org.nebula.core.random.RandomBudget blockEntityRandomBudget =
-            new org.nebula.core.random.RandomBudget();
+        this.blockEntityRandomBudget = new org.nebula.core.random.RandomBudget();
         blockEntityRunner = org.nebula.entity.BlockEntityTaskRunner.withSnapshotResolver(
             blockEntityState, blockEntitySnapshots::get,
             null, null, blockEntityRandomSource, blockEntityRandomBudget);
@@ -2798,6 +2799,8 @@ public final class NebulaPlugin extends JavaPlugin {
     public RedstoneTaskGenerator taskGenerator() { return taskGenerator; }
     public org.nebula.core.metrics.TickTimeRecorder tickTimeRecorder() { return tickTimeRecorder; }
     public org.nebula.core.metrics.MicroStepRecorder microStepRecorder() { return microStepRecorder; }
+    /** P1.9.2d: DG2 Random budget tracker for RNG-declaring block-entity tasks (may be null). */
+    public org.nebula.core.random.RandomBudget blockEntityRandomBudget() { return blockEntityRandomBudget; }
 
     /** DG1 Criterion 2 caveat probe: enable/disable the per-invocation cascade diagnostic log. */
     public void setCascadeDiag(boolean on) { this.cascadeDiag = on; }

@@ -133,4 +133,20 @@ public final class RandomBudget {
     public int historicalMax(long entityId) {
         return historicalMax.getOrDefault(entityId, 0);
     }
+
+    /**
+     * Number of distinct entity/block-position keys that have been allocated a budget
+     * at least once (the size of {@link #historicalMax}).
+     */
+    public int trackedEntityCount() {
+        return historicalMax.size();
+    }
+
+    /**
+     * Number of consecutive ticks that ended in a downgrade (DG2 §11.2 T0→T1
+     * downgrade pressure indicator). Resets to 0 on a clean tick via {@link #endTick}.
+     */
+    public int consecutiveDowngrades() {
+        return consecutiveDowngrades;
+    }
 }
