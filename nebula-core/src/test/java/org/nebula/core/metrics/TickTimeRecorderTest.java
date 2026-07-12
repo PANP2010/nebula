@@ -115,4 +115,32 @@ class TickTimeRecorderTest {
         for (Thread th : pool) th.join();
         assertEquals((long) threads * perThread, r.snapshot().count());
     }
+
+    @Test
+    void lastSampleIsZeroBeforeAnyRecord() {
+        TickTimeRecorder r = new TickTimeRecorder();
+        assertEquals(0L, r.lastNs());
+        assertEquals(0L, r.lastMs());
+    }
+
+    @Test
+    void lastSampleUpdatesOnEachRecord() {
+        TickTimeRecorder r = new TickTimeRecorder();
+        r.record(7 * MS);
+        assertEquals(7 * MS, r.lastNs());
+        assertEquals(7L, r.lastMs());
+        r.record(53 * MS);
+        assertEquals(53 * MS, r.lastNs());
+        assertEquals(53L, r.lastMs(),
+            "lastMs() is what the fidelity hook reads each tick — must reflect the freshest sample");
+    }
+
+    @Test
+    void resetClearsLastSample() {
+        TickTimeRecorder r = new TickTimeRecorder();
+        r.record(20 * MS);
+        r.reset();
+        assertEquals(0L, r.lastNs());
+        assertEquals(0L, r.lastMs());
+    }
 }

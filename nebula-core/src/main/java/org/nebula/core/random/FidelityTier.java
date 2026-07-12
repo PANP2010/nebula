@@ -1,5 +1,7 @@
 package org.nebula.core.random;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 /**
  * Execution fidelity tier (arch doc §11.1–11.4, §15.1; NEBULA-PATCH-2026-001 §变更四).
  *
@@ -22,6 +24,12 @@ package org.nebula.core.random;
  *   <li>{@link #FALLBACK}: single-threaded vanilla execution — entered only on an
  *       unrecoverable DAG build error.</li>
  * </ul>
+ *
+ * <p>The active tier is published via {@link #setActiveTier(FidelityTier)} from
+ * {@link org.nebula.core.scheduler.FidelityDowngradeController#reportTick}. Every
+ * per-subsystem decision (large SCC batches, stale AI snapshots) reads from this
+ * global, so behaviour flips the moment the controller downgrades — without any
+ * extra wiring on the caller side.
  */
 public enum FidelityTier {
     T0,
@@ -29,6 +37,23 @@ public enum FidelityTier {
     T2,
     T3,
     FALLBACK;
+
+    /**
+     * Currently-published tier. Starts at T0; updated by
+     * {@link org.nebula.core.scheduler.FidelityDowngradeController} after each
+     * tick. Read with {@link #currentTier()}.
+     */
+    private static final AtomicReference<FidelityTier> ACTIVE = new AtomicReference<>(T0);
+
+    /** Publishes the current tier (called by the downgrade controller). */
+    public static void setActiveTier(FidelityTier tier) {
+        ACTIVE.set(tier);
+    }
+
+    /** Returns the currently-published tier (defaults to T0 if never set). */
+    public static FidelityTier currentTier() {
+        return ACTIVE.get();
+    }
 
     /** Returns true if this tier requires random-budget enforcement. */
     public boolean requiresBudget() {
@@ -43,5 +68,23 @@ public enum FidelityTier {
     /** Returns true if the DAG scheduler is active (not single-thread fallback). */
     public boolean dagEnabled() {
         return this != FALLBACK;
+    }
+
+    /**
+     * T2+ relaxes the SCC contraction threshold: when an SCC overflows the
+     * default batch (128) we accept the larger compound instead of serialising
+     * with warning, trading collision-response determinism for throughput.
+     */
+    public boolean allowsLargeScc() {
+        return this == T2 || this == T3;
+    }
+
+    /**
+     * T2+ allows AI perception to read the previous tick's snapshot instead of
+     * the live one — a one-tick freshness lag for entity AI, accepted under
+     * relaxed determinism.
+     */
+    public boolean useStaleAiSnapshot() {
+        return this == T2 || this == T3;
     }
 }

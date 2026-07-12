@@ -84,6 +84,9 @@ public final class FidelityDowngradeController {
             }
         }
 
+        // Publish the live tier so per-subsystem relaxations (SCC batching, AI
+        // snapshot lag) can read it via FidelityTier.currentTier().
+        FidelityTier.setActiveTier(currentTier);
         return currentTier;
     }
 
@@ -93,6 +96,7 @@ public final class FidelityDowngradeController {
     public void forceFallback() {
         forcedFallback = true;
         currentTier = FidelityTier.FALLBACK;
+        FidelityTier.setActiveTier(currentTier);
     }
 
     /**
@@ -103,6 +107,7 @@ public final class FidelityDowngradeController {
         forcedFallback = false;
         consecutiveRandomOverBudget = 0;
         consecutiveMsptExceeded = 0;
+        FidelityTier.setActiveTier(currentTier);
     }
 
     public FidelityTier currentTier() {

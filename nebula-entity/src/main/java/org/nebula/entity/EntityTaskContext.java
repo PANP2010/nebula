@@ -1,6 +1,7 @@
 package org.nebula.entity;
 
 import org.nebula.core.random.DeterministicRandom;
+import org.nebula.core.random.FidelityTier;
 import org.nebula.core.state.EntityField;
 
 /**
@@ -18,9 +19,17 @@ import org.nebula.core.state.EntityField;
  * execution order. The context is non-RNG by default; {@link #random()} throws
  * if no source was provided, catching actions that consume RNG without
  * declaring {@code RandomUsage}.
+ *
+ * <p>Under {@link FidelityTier#T2} relaxed determinism, AI-perception reads
+ * ({@link #readScalarStale(long, String)} / {@link #readVecStale(long, String)})
+ * consult the previous-tick snapshot captured by {@link EntityTaskRunner} — a
+ * one-tick freshness lag accepted for throughput on high-player-count servers.
+ * Live reads ({@link #readScalar(long, String)} / {@link #readVec(long, String)})
+ * are unchanged.
  */
 public final class EntityTaskContext {
 
+    private final EntityTaskRunner runner;
     private final EntityPhysicsState state;
     private final EntityStateSnapshot snapshot;
     private final DeterministicRandom random;
@@ -28,20 +37,31 @@ public final class EntityTaskContext {
     private final EntityAccessTracer tracer;
 
     EntityTaskContext(EntityPhysicsState state, EntityStateSnapshot snapshot) {
-        this(state, snapshot, null, TerrainView.EMPTY, null);
+        this(null, state, snapshot, null, TerrainView.EMPTY, null);
     }
 
     EntityTaskContext(EntityPhysicsState state, EntityStateSnapshot snapshot, DeterministicRandom random) {
-        this(state, snapshot, random, TerrainView.EMPTY, null);
+        this(null, state, snapshot, random, TerrainView.EMPTY, null);
     }
 
     EntityTaskContext(EntityPhysicsState state, EntityStateSnapshot snapshot,
                       DeterministicRandom random, TerrainView terrain) {
-        this(state, snapshot, random, terrain, null);
+        this(null, state, snapshot, random, terrain, null);
     }
 
     EntityTaskContext(EntityPhysicsState state, EntityStateSnapshot snapshot,
                       DeterministicRandom random, TerrainView terrain, EntityAccessTracer tracer) {
+        this(null, state, snapshot, random, terrain, tracer);
+    }
+
+    /**
+     * Full constructor used by {@link EntityTaskRunner} when it can pass itself
+     * in for stale-AI-snapshot lookups (see {@link #readScalarStale}).
+     * {@code runner} may be {@code null} for callers that don't need that path.
+     */
+    EntityTaskContext(EntityTaskRunner runner, EntityPhysicsState state, EntityStateSnapshot snapshot,
+                      DeterministicRandom random, TerrainView terrain, EntityAccessTracer tracer) {
+        this.runner = runner;
         this.state = state;
         this.snapshot = snapshot;
         this.random = random;
@@ -75,6 +95,40 @@ public final class EntityTaskContext {
         EntityField target = new EntityField(entityId, field);
         if (tracer != null) tracer.onFieldWrite(target);
         snapshot.write(target, value);
+    }
+
+    /**
+     * Read-only scalar intended for AI perception. Under
+     * {@link FidelityTier#useStaleAiSnapshot()} returns the previous-tick
+     * value if the runner captured it (T2+); otherwise falls back to the live
+     * read. Only fields the runner's per-tick capture keeps are eligible —
+     * currently {@code ai_state.*} and {@code position_snapshot}.
+     */
+    public double readScalarStale(long entityId, String field) {
+        EntityField target = new EntityField(entityId, field);
+        if (runner != null && runner.useStaleAiSnapshot()) {
+            Object prev = runner.readPreviousTickSnapshot(target);
+            if (prev instanceof Double d) {
+                if (tracer != null) tracer.onFieldRead(target);
+                return d;
+            }
+        }
+        return readScalar(entityId, field);
+    }
+
+    /**
+     * Vector twin of {@link #readScalarStale(long, String)}.
+     */
+    public Vec3 readVecStale(long entityId, String field) {
+        EntityField target = new EntityField(entityId, field);
+        if (runner != null && runner.useStaleAiSnapshot()) {
+            Object prev = runner.readPreviousTickSnapshot(target);
+            if (prev instanceof Vec3 v) {
+                if (tracer != null) tracer.onFieldRead(target);
+                return v;
+            }
+        }
+        return readVec(entityId, field);
     }
 
     /** Read-only terrain oracle for collision checks (defaults to open void). */

@@ -1913,6 +1913,16 @@ public final class NebulaPlugin extends JavaPlugin {
         long elapsedMs = elapsedNs / 1_000_000;
         int finalTasks = totalTasks;
         int finalMicroSteps = microSteps;
+        // Feed tick health into the fidelity downgrade controller so it can
+        // trigger T0→T1 (random over-budget), T1→T2 and T2→T3 (MSPT thresholds)
+        // automatically.  The controller's current tier is consulted by the DAG
+        // scheduler and by ParallelTaskRunner when deciding how much parallelism
+        // to permit.
+        double randomRate = blockEntityRandomBudget != null
+            ? blockEntityRandomBudget.currentOverBudgetRate()
+            : 0.0;
+        org.nebula.core.random.FidelityTier activeTier =
+            fidelityController.reportTick(randomRate, elapsedMs);
         // Per-tick logging is FINE: at 20 TPS an INFO line here floods the log and
         // its own I/O skews the very MSPT we're measuring. Use /nebula perf for
         // aggregated percentiles instead.
@@ -2808,6 +2818,26 @@ public final class NebulaPlugin extends JavaPlugin {
     /** P1.9.4: fidelity tier controller (T0→T1→T2→T3→fallback downgrade policy). */
     public org.nebula.core.scheduler.FidelityDowngradeController fidelityController() { return fidelityController; }
 
+    /**
+     * P2.4.1b: re-target the SCC contractor's threshold to the active tier.
+     * Called from {@code executeOwnedDag} after each tick so a T2 downgrade
+     * bumps entity-collision SCCs into a single batch on the very next build,
+     * and a reset back to T0 restores the strict 128-node threshold. Idempotent
+     * when the threshold is already at the target — cheap no-op.
+     */
+    private void applySccThresholdForActiveTier() {
+        org.nebula.core.random.FidelityTier tier = org.nebula.core.random.FidelityTier.currentTier();
+        int target = tier.allowsLargeScc()
+            ? org.nebula.core.scheduler.SccContractor.LARGE_THRESHOLD
+            : org.nebula.core.scheduler.SccContractor.DEFAULT_THRESHOLD;
+        if (org.nebula.core.scheduler.SccContractor.defaultThreshold() != target) {
+            org.nebula.core.scheduler.SccContractor.setDefaultThreshold(target);
+            LOG.info(() -> "Fidelity SCC threshold re-targeted: tier=" + tier.name()
+                + " threshold=" + target
+                + " (allowsLargeScc=" + tier.allowsLargeScc() + ")");
+        }
+    }
+
     /** DG1 Criterion 2 caveat probe: enable/disable the per-invocation cascade diagnostic log. */
     public void setCascadeDiag(boolean on) { this.cascadeDiag = on; }
     public boolean cascadeDiag() { return cascadeDiag; }
@@ -2827,8 +2857,11 @@ public final class NebulaPlugin extends JavaPlugin {
      * — {@code redstone-bridge} → {@code NmsBlockStateBridge},
      * {@code block-entity-bridge} → {@code NmsBlockEntityStateBridge},
      * {@code fluid-bridge} → {@code NmsFluidStateBridge},
-     * {@code entity-bridge} → {@code NmsEntityStateBridge}. The "total" hotspot count comes
-     * from reflecting over the bridge class's public instance methods (see
+     * {@code entity-bridge} → {@code NmsEntityStateBridge}. P1.5.3b extends this to
+     * {@code explosion-bridge} → {@code NmsExplosionStateBridge},
+     * {@code ai-bridge} → {@code NmsAiStateBridge}, and
+     * {@code collision-bridge} → {@code NmsCollisionStateBridge}. The "total" hotspot count
+     * comes from reflecting over the bridge class's public instance methods (see
      * {@link org.nebula.maintenance.BridgeAnnotationScanner#getSubsystemCoverage}), not a
      * hand-typed integer — adding a public method to a bridge class automatically widens
      * the denominator, so a refactor cannot silently inflate the ratio.
@@ -2863,6 +2896,32 @@ public final class NebulaPlugin extends JavaPlugin {
             Class<?> nmsEntity = Class.forName("org.nebula.folia.NmsEntityStateBridge");
             targets.add(org.nebula.maintenance.BridgeAnnotationScanner.ScanTarget.of(
                 "entity-bridge", nmsEntity));
+        } catch (ClassNotFoundException e) {
+            // same skip path
+        }
+        // P1.5.3b: extend the dashboard to the explosion/AI/collision subsystems. Each
+        // is a freshly-annotated bridge class landing as the runtime-classpath
+        // inventory for the dashboard (NMS itself is not on the classpath, so these
+        // are the practical "what fraction of the bridge surface is annotated" rows
+        // — same source-of-truth the four original subsystems use).
+        try {
+            Class<?> nmsExplosion = Class.forName("org.nebula.folia.NmsExplosionStateBridge");
+            targets.add(org.nebula.maintenance.BridgeAnnotationScanner.ScanTarget.of(
+                "explosion-bridge", nmsExplosion));
+        } catch (ClassNotFoundException e) {
+            // same skip path
+        }
+        try {
+            Class<?> nmsAi = Class.forName("org.nebula.folia.NmsAiStateBridge");
+            targets.add(org.nebula.maintenance.BridgeAnnotationScanner.ScanTarget.of(
+                "ai-bridge", nmsAi));
+        } catch (ClassNotFoundException e) {
+            // same skip path
+        }
+        try {
+            Class<?> nmsCollision = Class.forName("org.nebula.folia.NmsCollisionStateBridge");
+            targets.add(org.nebula.maintenance.BridgeAnnotationScanner.ScanTarget.of(
+                "collision-bridge", nmsCollision));
         } catch (ClassNotFoundException e) {
             // same skip path
         }

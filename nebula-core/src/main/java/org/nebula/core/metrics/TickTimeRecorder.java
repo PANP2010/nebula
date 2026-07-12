@@ -32,6 +32,11 @@ public final class TickTimeRecorder {
     private long lifetimeMinNs = Long.MAX_VALUE;
     private long lifetimeMaxNs;
 
+    // Last-recorded sample (in nanoseconds). Updated atomically with the ring
+    // under lock; read by the fidelity downgrade hook without taking the lock
+    // (a stale read here only delays a downgrade by one tick).
+    private volatile long lastSampleNs;
+
     public TickTimeRecorder() {
         this(DEFAULT_CAPACITY);
     }
@@ -70,6 +75,20 @@ public final class TickTimeRecorder {
         } finally {
             lock.unlock();
         }
+        lastSampleNs = durationNs;
+    }
+
+    /**
+     * Last recorded tick time in nanoseconds (0 if nothing has been recorded
+     * yet). Lock-free read so the per-tick fidelity hook can sample it cheaply.
+     */
+    public long lastNs() {
+        return lastSampleNs;
+    }
+
+    /** Convenience: last tick time in milliseconds (0 if none recorded). */
+    public long lastMs() {
+        return lastSampleNs / 1_000_000L;
     }
 
     /**
@@ -112,6 +131,7 @@ public final class TickTimeRecorder {
         } finally {
             lock.unlock();
         }
+        lastSampleNs = 0L;
     }
 
     /**

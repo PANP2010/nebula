@@ -31,8 +31,12 @@ public final class AiPipelineActions {
     /** SENSE: read position+health, write sensed-entity/POI density scalars. */
     public static EntityTaskAction sense(long entityId) {
         return ctx -> {
-            double posX = ctx.readScalar(entityId, "position_snapshot");
-            double health = ctx.readScalar(entityId, "health");
+            // Under T2+ relaxed determinism the AI perceives the previous
+            // tick's snapshot (see EntityTaskContext.readScalarStale and
+            // FidelityTier.useStaleAiSnapshot); under T0/T1 we read live as
+            // before.
+            double posX = ctx.readScalarStale(entityId, "position_snapshot");
+            double health = ctx.readScalarStale(entityId, "health");
             // Deterministic "perception" density derived from own state.
             double sensedEntities = Math.floorMod((long) (posX * 31 + health), 8);
             double sensedPois = Math.floorMod((long) (posX * 17 + health * 3), 4);

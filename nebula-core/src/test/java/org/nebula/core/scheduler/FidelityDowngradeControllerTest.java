@@ -137,4 +137,58 @@ class FidelityDowngradeControllerTest {
             assertFalse(t.strictRandom(), t + " must not require strict random");
         }
     }
+
+    @Test
+    void t2AndT3AllowLargeScc() {
+        assertFalse(FidelityTier.T0.allowsLargeScc());
+        assertFalse(FidelityTier.T1.allowsLargeScc());
+        assertTrue(FidelityTier.T2.allowsLargeScc());
+        assertTrue(FidelityTier.T3.allowsLargeScc());
+        assertFalse(FidelityTier.FALLBACK.allowsLargeScc());
+    }
+
+    @Test
+    void t2AndT3UseStaleAiSnapshot() {
+        assertFalse(FidelityTier.T0.useStaleAiSnapshot());
+        assertFalse(FidelityTier.T1.useStaleAiSnapshot());
+        assertTrue(FidelityTier.T2.useStaleAiSnapshot());
+        assertTrue(FidelityTier.T3.useStaleAiSnapshot());
+        assertFalse(FidelityTier.FALLBACK.useStaleAiSnapshot());
+    }
+
+    @Test
+    void reportTickPublishesActiveTier() {
+        // After every reportTick, FidelityTier.currentTier() must reflect the
+        // controller's view so per-subsystem relaxations can read it.
+        try {
+            FidelityTier.setActiveTier(FidelityTier.T0);
+            FidelityDowngradeController ctrl = new FidelityDowngradeController(FidelityTier.T1);
+            for (int i = 0; i < 599; i++) {
+                ctrl.reportTick(0.0, 55);
+            }
+            // 600th high-MSPT tick should downgrade to T2 AND publish it.
+            ctrl.reportTick(0.0, 55);
+            assertEquals(FidelityTier.T2, ctrl.currentTier());
+            assertEquals(FidelityTier.T2, FidelityTier.currentTier(),
+                "controller.reportTick must publish to FidelityTier.currentTier");
+        } finally {
+            FidelityTier.setActiveTier(FidelityTier.T0);
+        }
+    }
+
+    @Test
+    void resetAndForceFallbackPublishActiveTier() {
+        try {
+            FidelityDowngradeController ctrl = new FidelityDowngradeController(FidelityTier.T0);
+            ctrl.reset(FidelityTier.T2);
+            assertEquals(FidelityTier.T2, FidelityTier.currentTier(),
+                "reset() must publish the new tier");
+
+            ctrl.forceFallback();
+            assertEquals(FidelityTier.FALLBACK, FidelityTier.currentTier(),
+                "forceFallback() must publish FALLBACK");
+        } finally {
+            FidelityTier.setActiveTier(FidelityTier.T0);
+        }
+    }
 }

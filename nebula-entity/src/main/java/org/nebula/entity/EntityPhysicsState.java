@@ -93,6 +93,16 @@ public final class EntityPhysicsState {
         return Set.copyOf(entries.keySet());
     }
 
+    /**
+     * Returns the raw versioned entry for {@code field} without copying —
+     * used by the per-tick stale-snapshot capture in
+     * {@link EntityTaskRunner#commitLayer()}. Returns {@code null} when the
+     * field is unset (callers skip it).
+     */
+    public VersionedEntry peek(EntityField field) {
+        return entries.get(field);
+    }
+
     public void clear() {
         entries.clear();
         globalVersion.set(0);

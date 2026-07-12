@@ -1,6 +1,7 @@
 package org.nebula.entity;
 
 import org.nebula.core.random.DeterministicRandom;
+import org.nebula.core.random.FidelityTier;
 import org.nebula.core.random.LayeredRandomSource;
 import org.nebula.core.random.RandomBudget;
 import org.nebula.core.scheduler.CompoundTask;
@@ -8,11 +9,14 @@ import org.nebula.core.scheduler.DeterministicOrdering;
 import org.nebula.core.scheduler.TaskNode;
 import org.nebula.core.scheduler.LayerCommitting;
 import org.nebula.core.scheduler.TaskRunner;
+import org.nebula.core.state.EntityField;
 import org.nebula.core.state.RandomInstance;
 import org.nebula.core.state.RandomUsage;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.logging.Logger;
@@ -56,6 +60,14 @@ public final class EntityTaskRunner implements LayerCommitting {
     private final ConcurrentHashMap<String, EntityStateSnapshot> layerSnapshots = new ConcurrentHashMap<>();
     private volatile long currentTick;
     private volatile TerrainView terrain = TerrainView.EMPTY;
+
+    /**
+     * Previous-tick snapshot of AI-perception fields, populated at the end of
+     * every {@link #commitLayer()}. Under {@link FidelityTier#T2} relaxed
+     * determinism the AI SENSE stage reads from this map instead of the live
+     * CAS store — a one-tick freshness lag accepted for throughput.
+     */
+    private final Map<EntityField, Object> previousTickSnapshot = new ConcurrentHashMap<>();
 
     public EntityTaskRunner(EntityPhysicsState state, Function<String, EntityTaskAction> actionResolver) {
         this(state, actionResolver, null, null, null, null);
@@ -211,7 +223,46 @@ public final class EntityTaskRunner implements LayerCommitting {
                     + " at fields: " + result.failedFields().keySet());
             }
         }
+        captureAiSnapshotForStaleRead();
         return failed;
+    }
+
+    /**
+     * Captures a per-tick stale snapshot of AI-perception fields from the live
+     * CAS store. Called at the end of {@link #commitLayer()} so the next tick's
+     * SENSE action can read it under {@link FidelityTier#T2}. Only fields
+     * prefixed {@code ai_state.} or named {@code position_snapshot} are kept —
+     * position/health are NOT included because they're written every tick and
+     * stale-position reads would visibly desync AI movement.
+     */
+    private void captureAiSnapshotForStaleRead() {
+        Map<EntityField, Object> next = new LinkedHashMap<>();
+        for (EntityField field : state.fields()) {
+            String name = field.fieldPath().value();
+            if (name.startsWith("ai_state.") || "position_snapshot".equals(name)) {
+                EntityPhysicsState.VersionedEntry entry =
+                    state.peek(field);
+                if (entry != null) {
+                    next.put(field, entry.value());
+                }
+            }
+        }
+        previousTickSnapshot.clear();
+        previousTickSnapshot.putAll(next);
+    }
+
+    /**
+     * Returns the stale (previous-tick) snapshot for an AI-perception field, or
+     * {@code null} if the field was not captured (caller should fall back to a
+     * live read).
+     */
+    public Object readPreviousTickSnapshot(EntityField field) {
+        return previousTickSnapshot.get(field);
+    }
+
+    /** Returns true when the active tier permits stale (previous-tick) AI reads. */
+    public boolean useStaleAiSnapshot() {
+        return FidelityTier.currentTier().useStaleAiSnapshot();
     }
 
     public void resetLayer() {

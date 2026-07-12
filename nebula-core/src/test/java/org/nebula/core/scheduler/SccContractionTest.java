@@ -162,4 +162,36 @@ class SccContractionTest {
         // Should be 2 layers: compound then C (or C independent of compound)
         assertDoesNotThrow(() -> graph.topologicalLayers());
     }
+
+    @Test
+    void setDefaultThresholdAffectsNoArgConstructor() {
+        // P2.4.1b: the fidelity hook overrides the no-arg-constructor threshold
+        // when the active tier permits large SCCs. The explicit-int constructor
+        // is unaffected so unit tests stay isolated.
+        int original = SccContractor.defaultThreshold();
+        try {
+            SccContractor.setDefaultThreshold(SccContractor.LARGE_THRESHOLD);
+            assertEquals(SccContractor.LARGE_THRESHOLD, SccContractor.defaultThreshold());
+
+            SccContractor c = new SccContractor();
+            assertEquals(SccContractor.LARGE_THRESHOLD, c.threshold());
+
+            // Explicit-int constructor still wins.
+            SccContractor explicit = new SccContractor(7);
+            assertEquals(7, explicit.threshold());
+
+            // setThreshold also mutates in place.
+            explicit.setThreshold(SccContractor.UNLIMITED_THRESHOLD);
+            assertEquals(SccContractor.UNLIMITED_THRESHOLD, explicit.threshold());
+        } finally {
+            SccContractor.setDefaultThreshold(original);
+        }
+    }
+
+    @Test
+    void setThresholdRejectsNonPositive() {
+        assertThrows(IllegalArgumentException.class, () -> new SccContractor(0));
+        SccContractor c = new SccContractor();
+        assertThrows(IllegalArgumentException.class, () -> c.setThreshold(0));
+    }
 }

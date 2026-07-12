@@ -693,7 +693,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
         }
         var ctrl = plugin.fidelityController();
         var tier = ctrl.currentTier();
-        sender.sendMessage("§6Nebula Fidelity Tier (§16.2, P1.9.4):");
+        sender.sendMessage("§6Nebula Fidelity Tier (§16.2, P1.9.4, P2.4.1):");
         sender.sendMessage(String.format("  §7Current tier: §f%s", tier.name()));
         sender.sendMessage("  §7T0→T1 trigger: §f10 consecutive ticks with Random over-budget > 5%%  "
             + "§7(current streak: §f" + ctrl.consecutiveRandomOverBudgetCount() + "§7)");
@@ -703,6 +703,21 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
         sender.sendMessage("  §7Upgrades: §fnever automatic §7— use §e/nebula fidelity reset [T0|T1|T2|T3]");
         if (tier != org.nebula.core.random.FidelityTier.T0) {
             sender.sendMessage("  §eNote: current tier is not T0 — redstone determinism may be relaxed.");
+        }
+
+        // P2.4.1: surface the T2-active relaxations so the operator can see exactly
+        // what changed when the controller downgraded past T1.
+        sender.sendMessage("§6Active tier behaviour flags:");
+        boolean largeScc = tier.allowsLargeScc();
+        boolean staleAi = tier.useStaleAiSnapshot();
+        sender.sendMessage("  §7SCC contraction threshold: §f" + org.nebula.core.scheduler.SccContractor.defaultThreshold()
+            + " §7(nodes — largeScc mode is " + (largeScc ? "§aON" : "§7off") + "§7)");
+        sender.sendMessage("  §7AI stale-snapshot (T2+ lag): §f" + (staleAi ? "§aON" : "§7off")
+            + " §7(perception reads previous tick when this tier is active)");
+        if (tier == org.nebula.core.random.FidelityTier.T2
+                || tier == org.nebula.core.random.FidelityTier.T3) {
+            sender.sendMessage("  §e⚠ Relaxed determinism: collision-response order may differ "
+                + "and AI perceives the previous tick.");
         }
 
         if (args.length >= 2 && (args[1].equalsIgnoreCase("reset") || args[1].equalsIgnoreCase("set"))) {

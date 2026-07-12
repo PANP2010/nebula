@@ -19,7 +19,11 @@ import java.util.logging.Logger;
  *   <li>SCCs with {@code size ≤ threshold} are contracted into a single
  *       {@link CompoundTask} whose action runs members in deterministic order.</li>
  *   <li>SCCs exceeding the threshold are serialised (sorted by task ID) and
- *       reported as warnings — this is a safety escape hatch, not a normal path.</li>
+ *       reported as warnings — this is a safety escape hatch, not a normal path.
+ *       Under {@link org.nebula.core.random.FidelityTier#allowsLargeScc() relaxed}
+ *       fidelity tiers (T2/T3), the threshold is bumped to
+ *       {@link #LARGE_THRESHOLD} so collision-response SCCs can still be
+ *       contracted in one batch instead of going through the safety hatch.</li>
  * </ul>
  */
 public final class SccContractor {
@@ -29,10 +33,42 @@ public final class SccContractor {
     /** Default node-count threshold below which an SCC is contracted (arch doc: 128). */
     public static final int DEFAULT_THRESHOLD = 128;
 
-    private final int threshold;
+    /**
+     * Threshold used under T2+ (large-SCC mode). Picked at 1024 to absorb
+     * pathological entity collision SCCs (one per chunk-pair in worst case)
+     * without serialising. Falls back to {@link Long#MAX_VALUE}-equivalent
+     * under {@link #UNLIMITED_THRESHOLD}.
+     */
+    public static final int LARGE_THRESHOLD = 1024;
+
+    /** Sentinel for "never serialise, always contract" mode. */
+    public static final int UNLIMITED_THRESHOLD = Integer.MAX_VALUE;
+
+    /**
+     * Threshold used by the no-arg constructor. Set via
+     * {@link #setDefaultThreshold(int)} from the fidelity hook — the
+     * per-call {@link SccContractor(int)} constructor still wins for explicit
+     * callers, so unit tests are unaffected.
+     */
+    private static volatile int defaultThreshold = DEFAULT_THRESHOLD;
+
+    /** Overrides the threshold applied by the no-arg constructor. */
+    public static void setDefaultThreshold(int threshold) {
+        if (threshold < 1) {
+            throw new IllegalArgumentException("threshold must be >= 1");
+        }
+        defaultThreshold = threshold;
+    }
+
+    /** Current no-arg-constructor threshold. */
+    public static int defaultThreshold() {
+        return defaultThreshold;
+    }
+
+    private int threshold;
 
     public SccContractor() {
-        this(DEFAULT_THRESHOLD);
+        this(defaultThreshold);
     }
 
     public SccContractor(int threshold) {
@@ -40,6 +76,24 @@ public final class SccContractor {
             throw new IllegalArgumentException("threshold must be >= 1");
         }
         this.threshold = threshold;
+    }
+
+    /**
+     * Replaces the contraction threshold. Used by T2+ relaxed modes — see
+     * {@link org.nebula.core.scheduler.FidelityDowngradeController}. Caller is
+     * responsible for re-running DAG builds; existing contracted graphs are
+     * unaffected.
+     */
+    public void setThreshold(int threshold) {
+        if (threshold < 1) {
+            throw new IllegalArgumentException("threshold must be >= 1");
+        }
+        this.threshold = threshold;
+    }
+
+    /** Current threshold — exposed for telemetry / /nebula dag-stats. */
+    public int threshold() {
+        return threshold;
     }
 
     /**
