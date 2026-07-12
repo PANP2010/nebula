@@ -1,0 +1,297 @@
+# =============================================================================
+# Nebula Regression CI  (P1.5.2)
+# -----------------------------------------------------------------------------
+# Pipeline purpose
+#   Runs the full Gradle test suite on every push to main and on every PR, so
+#   that any regression in the runtime bridge, the maintenance subsystem, or
+#   the build itself is caught before merge. Produces:
+#     - JUnit XML reports (artifact: test-reports)
+#     - JaCoCo coverage reports (artifact: coverage-reports)
+#     - HTML test reports on failure (artifact: test-reports-html-<jdk>)
+#     - Console test output always (artifact: test-output-<jdk>)
+#
+# Triggers
+#   - push to main
+#   - pull_request against any branch
+#   - workflow_dispatch for manual runs (with optional slow-tests + skip-folia
+#     inputs)
+#
+# Build system
+#   This is a Gradle (Kotlin DSL) project. The root build.gradle.kts pins
+#   `release = 21` and `languageVersion = 21` for every subproject, so JDK 17
+#   is *not* supported and has been excluded from the matrix. `nebula-plugin`
+#   and `nebula-folia-adapter` override the toolchain to 25, so the JDK-25
+#   matrix entry installs both JDKs and runs the full Folia adapter suite.
+#
+# Path-filter optimisation
+#   If a PR only touches `nebula-maintenance/`, this workflow skips every
+#   other module's tests and only runs `:nebula-maintenance:test`, which is
+#   the fast inner loop for P1.5.x work.
+# =============================================================================
+
+name: Nebula Regression CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - '**'
+  workflow_dispatch:
+    inputs:
+      slow_tests:
+        description: 'Run slow tests (DG1-scale replays — tagged "slow")'
+        required: false
+        default: 'false'
+        type: boolean
+      skip_folia_adapter:
+        description: 'Skip :nebula-folia-adapter:test (faster, JDK-25 install still kept)'
+        required: false
+        default: 'false'
+        type: boolean
+
+concurrency:
+  group: regression-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  GRADLE_OPTS: "-Xmx2g -Dfile.encoding=UTF-8"
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # 1. Decide what to run.
+  #    `maintenance_only == true`  → only :nebula-maintenance:test
+  #    `maintenance_only == false` → full ./gradlew test
+  # ---------------------------------------------------------------------------
+  changes:
+    name: Detect changed paths
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      maintenance_only: ${{ steps.filter.outputs.maintenance_only }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Filter paths
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          # `other` matches any change outside nebula-maintenance/. If none of
+          # these paths changed, the diff is maintenance-only.
+          filters: |
+            maintenance_only:
+              - 'nebula-maintenance/**'
+            other:
+              - 'nebula-core/**'
+              - 'nebula-guard-api/**'
+              - 'nebula-agent/**'
+              - 'nebula-redstone/**'
+              - 'nebula-entity/**'
+              - 'nebula-replay/**'
+              - 'nebula-folia-bridge/**'
+              - 'nebula-plugin/**'
+              - 'nebula-bench/**'
+              - 'nebula-integration/**'
+              - 'nebula-folia-adapter/**'
+              - 'libs/**'
+              - 'build.gradle.kts'
+              - 'build.gradle'
+              - 'settings.gradle.kts'
+              - 'settings.gradle'
+              - 'gradle.properties'
+              - 'gradle/**'
+              - 'gradlew'
+              - 'gradlew.bat'
+              - '.github/workflows/nebula-regression.yml'
+
+  # ---------------------------------------------------------------------------
+  # 2. Run the regression matrix.
+  # ---------------------------------------------------------------------------
+  regression:
+    name: Regression (JDK ${{ matrix.java }})
+    needs: changes
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        # The project's default toolchain is 21. JDK 25 is added because
+        # nebula-plugin and nebula-folia-adapter require it. JDK 17 was
+        # considered but rejected because build.gradle.kts pins `release = 21`.
+        java: ['21', '25']
+    env:
+      SLOW_TESTS: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.slow_tests == 'true' }}
+      SKIP_FOLIA_ADAPTER: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.skip_folia_adapter == 'true' }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Install both JDKs on every matrix entry. nebula-plugin and
+      # nebula-folia-adapter need 25, regardless of which JDK the matrix entry
+      # is primarily exercising. Gradle's toolchain resolver picks the right
+      # one per project; the matrix `java` value controls only the Gradle
+      # daemon's JVM.
+      - name: Set up JDK 21 (Gradle daemon + default toolchain)
+        if: matrix.java == '21'
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Set up JDK 25 (Gradle daemon + Folia toolchain)
+        if: matrix.java == '25'
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+
+      - name: Install complementary JDK for toolchain resolution
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java == '21' && '25' || '21' }}
+
+      - name: Cache Gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+            ~/.gradle/notifications
+            ~/.gradle/jdks
+          # The Gradle user home may live outside ~/.gradle in some runners;
+          # include the relocated build dir so clean builds are still fast on
+          # rerun.
+          key: ${{ runner.os }}-gradle-jdk${{ matrix.java }}-${{ hashFiles('**/*.gradle.kts', '**/*.gradle', 'gradle/wrapper/gradle-wrapper.properties', 'gradle.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-jdk${{ matrix.java }}-
+            ${{ runner.os }}-gradle-
+
+      - name: CI environment check
+        run: bash .github/scripts/ci-env-check.sh ${{ matrix.java }}
+
+      - name: Show build identity
+        run: |
+          ./gradlew --version
+          echo "matrix_java=${{ matrix.java }}"
+          echo "maintenance_only=${{ needs.changes.outputs.maintenance_only }}"
+          echo "SLOW_TESTS=${{ env.SLOW_TESTS }}"
+          echo "SKIP_FOLIA_ADAPTER=${{ env.SKIP_FOLIA_ADAPTER }}"
+
+      # -----------------------------------------------------------------
+      # Maintenance-only fast path: skip every other module.
+      # -----------------------------------------------------------------
+      - name: Maintenance-only test
+        if: needs.changes.outputs.maintenance_only == 'true'
+        id: tests
+        run: |
+          set -o pipefail
+          ./gradlew :nebula-maintenance:test --continue --console=plain \
+            2>&1 | tee test-output.txt
+          echo "exit_code=${PIPESTATUS[0]}" >> "${GITHUB_OUTPUT}"
+
+      # -----------------------------------------------------------------
+      # Full path: every module.
+      #   - JDK-25 entry can opt out of folia-adapter tests via dispatch.
+      #   - Slow tests are tagged "slow" and excluded by default in
+      #     build.gradle.kts; the dispatch input re-enables them via -Pslow.
+      # -----------------------------------------------------------------
+      - name: Full test suite
+        if: needs.changes.outputs.maintenance_only != 'true'
+        id: tests
+        run: |
+          set -o pipefail
+          GRADLE_ARGS=(test --continue --console=plain)
+          if [ "${SKIP_FOLIA_ADAPTER}" = "true" ]; then
+            GRADLE_ARGS+=("-x" ":nebula-folia-adapter:test")
+          fi
+          if [ "${SLOW_TESTS}" = "true" ]; then
+            GRADLE_ARGS+=("-Pslow")
+          fi
+          ./gradlew "${GRADLE_ARGS[@]}" 2>&1 | tee test-output.txt
+          echo "exit_code=${PIPESTATUS[0]}" >> "${GITHUB_OUTPUT}"
+
+      - name: Upload console test output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-output-jdk${{ matrix.java }}
+          path: test-output.txt
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Upload JUnit XML reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          # Root build.gradle.kts relocates build/ to
+          # ~/.gradle/nebula-server-build/nebula-server/<module>/build/, so
+          # the **/ glob catches both in-tree and relocated outputs.
+          path: |
+            **/build/test-results/test/*.xml
+            **/.gradle/nebula-server-build/**/build/test-results/test/*.xml
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Generate JaCoCo coverage report
+        if: always() && needs.changes.outputs.maintenance_only != 'true'
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          if [ "${SKIP_FOLIA_ADAPTER}" = "true" ]; then
+            ./gradlew jacocoTestReport -x :nebula-folia-adapter:jacocoTestReport --console=plain \
+              2>&1 | tee jacoco-output.txt
+          else
+            ./gradlew jacocoTestReport --console=plain \
+              2>&1 | tee jacoco-output.txt
+          fi
+
+      - name: Upload JaCoCo coverage reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-reports
+          path: |
+            **/build/reports/jacoco/test/html/**
+            **/build/reports/jacoco/test/jacocoTestReport.xml
+            **/.gradle/nebula-server-build/**/build/reports/jacoco/test/html/**
+            **/.gradle/nebula-server-build/**/build/reports/jacoco/test/jacocoTestReport.xml
+            jacoco-output.txt
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Upload HTML test reports on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports-html-jdk${{ matrix.java }}
+          path: |
+            **/build/reports/tests/**
+            **/.gradle/nebula-server-build/**/build/reports/tests/**
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Run summary
+        if: always()
+        run: |
+          {
+            echo "### Nebula Regression — JDK ${{ matrix.java }}"
+            echo
+            echo "- Maintenance-only change: \`${{ needs.changes.outputs.maintenance_only }}\`"
+            echo "- Slow tests: \`${{ env.SLOW_TESTS }}\`"
+            echo "- Folia adapter skipped: \`${{ env.SKIP_FOLIA_ADAPTER }}\`"
+            echo "- Tests step exit code: \`${{ steps.tests.outputs.exit_code }}\`"
+            echo "- Trigger: \`${{ github.event_name }}\`"
+            echo "- Ref: \`${{ github.ref }}\`"
+          } >> "${GITHUB_STEP_SUMMARY}"
