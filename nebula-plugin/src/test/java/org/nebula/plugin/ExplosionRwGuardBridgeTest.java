@@ -21,12 +21,15 @@ import org.nebula.guard.ViolationType;
 
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /** Proves the first pure explosion action path records real accesses for B8 C4. */
 final class ExplosionRwGuardBridgeTest {
+
+    private static final Logger LOG = Logger.getLogger(ExplosionRwGuardBridgeTest.class.getName());
 
     private static final WorldPos CENTER = new WorldPos(0, 10, 64, 10);
     private static final WorldPos WEST = new WorldPos(0, 9, 64, 10);
@@ -63,6 +66,64 @@ final class ExplosionRwGuardBridgeTest {
         assertEquals(Set.of(WEST, EAST), actual.readBlocks());
         assertEquals(Set.of(WEST, EAST), actual.writtenBlocks());
         assertEquals(2, actual.randomCalls().get(RandomInstance.WORLD_RANDOM));
+    }
+
+    /**
+     * N2 negative control: proves the guard DETECTS missing writes.
+     *
+     * The factory builds a correct RW-set (all reads + writes).  We deliberately
+     * construct an INCOMPLETE RW-set (reads only, no writes) and run the checker
+     * against the same actual trace.  The guard MUST report violations > 0 —
+     * this is the definitive proof that the positive clean run is not a false
+     * positive and that the checker actually fires on broken declarations.
+     *
+     * Benchmark: redstone broken run reported 5147 violations (drop +X neighbor read),
+     * fluid broken run reported 352 violations (delete west neighbor read).  The
+     * explosion broken run should surface at least the two missing block writes
+     * (WEST + EAST) plus the missing random usage declaration.
+     */
+    @Test
+    void negativeControl_flagsMissingBlockWritesAndRandomUsage() throws Exception {
+        TaskNode task = ExplosionTaskFactory.createSubDag(EXPLOSION).stream()
+            .filter(candidate -> candidate.taskType().equals("EXPLOSION_BLOCK_DESTROY"))
+            .findFirst().orElseThrow();
+        ActualAccessTrace actual = runAndTrace(task, List.of(WEST, EAST));
+
+        // Intentionally incomplete: declares reads and nothing else — no writes, no random.
+        RWSet incomplete = RWSet.builder()
+            .readBlock(WEST)
+            .readBlock(EAST)
+            // writeBlock(WEST)  ← intentionally omitted
+            // writeBlock(EAST)  ← intentionally omitted
+            // randomUsage(...)  ← intentionally omitted
+            .build();
+
+        List<RWSetViolation> violations =
+            RWSetConsistencyChecker.check(0L, task, incomplete, actual);
+
+        // We expect at least 3 violations:
+        //   1. WEST undeclared write  (from actual.writtenBlocks())
+        //   2. EAST undeclared write  (from actual.writtenBlocks())
+        //   3. undeclared random usage (WORLD_RANDOM, count 2)
+        assertTrue(violations.size() >= 3,
+            "incomplete RW-set must produce violations > 0, got: " + violations);
+
+        long writeViolations = violations.stream()
+            .filter(v -> v.violationType() == ViolationType.UNDECLARED_WRITE
+                && v.accessTarget().type() == org.nebula.guard.AccessTargetType.BLOCK)
+            .count();
+        assertEquals(2, writeViolations,
+            "must flag both WEST and EAST undeclared writes: " + violations);
+
+        long randomViolations = violations.stream()
+            .filter(v -> v.violationType() == ViolationType.UNDECLARED_RANDOM_USAGE)
+            .count();
+        assertTrue(randomViolations >= 1,
+            "must flag undeclared random usage: " + violations);
+
+        LOG.info("N2 negative control: explosion incomplete RW-set produced "
+            + violations.size() + " violations (write=" + writeViolations
+            + ", random=" + randomViolations + ") — guard detection confirmed.");
     }
 
     @Test
