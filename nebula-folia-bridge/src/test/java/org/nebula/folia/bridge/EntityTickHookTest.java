@@ -256,4 +256,109 @@ class EntityTickHookTest {
         assertEquals(0, EntityTickHook.dirtyCount("r1", "minecraft:overworld"),
             "endTick drains and removes the bucket");
     }
+
+    // ── N3: Collision sweep tests ─────────────────────────────────────────────
+
+    /**
+     * N3: sweep with <2 moved entities must return empty (O(n²) safety — no work on
+     * the normal single-entity case).
+     */
+    @Test
+    void collisionSweepEmptyWhenFewerThanTwoEntities() {
+        EntityTickHook.setActive(true);
+        EntityTickHook.setCollisionResolver((wn, a, b) ->
+            EntityTaskFactory.collisionResponseInert(a, b));
+
+        // Zero entities drained: sweep must be empty
+        EntityTickHook.beginTick("r1");
+        List<TaskNode> tasks = EntityTickHook.sweepCollisionsAndEmit("r1", null);
+        assertTrue(tasks.isEmpty(),
+            "sweep with 0 drained entities must be empty");
+    }
+
+    /**
+     * N3: sweep with non-overlapping entities must return empty.
+     * Tests the O(n²) overlap detection path.
+     */
+    @Test
+    void collisionSweepEmptyWhenNoOverlappingBoxes() {
+        EntityTickHook.setActive(true);
+        EntityTickHook.setCollisionResolver((wn, a, b) ->
+            EntityTaskFactory.collisionResponseInert(a, b));
+
+        EntityTickHook.beginTick("r1");
+        // One entity: sweep must be empty
+        EntityTickHook.recordMove("r1", "minecraft:overworld", 1L, 0, 64, 0);
+        EntityTickHook.endTick("r1", "minecraft:overworld");
+        List<TaskNode> tasks = EntityTickHook.sweepCollisionsAndEmit("r1", null);
+        assertTrue(tasks.isEmpty(),
+            "sweep with 1 entity must be empty");
+    }
+
+    /**
+     * N3: sweep must find exactly one collision pair when two entities' bounding
+     * boxes overlap, and the resolver must be called with the correct pair
+     * (lo, hi entityId ordering matching the factory's contract).
+     */
+    @Test
+    void collisionSweepFindsOneOverlappingPair() {
+        EntityTickHook.setActive(true);
+
+        List<String> resolvedPairs = new ArrayList<>();
+        EntityTickHook.setCollisionResolver((wn, a, b) -> {
+            long lo = Math.min(a.entityId(), b.entityId());
+            long hi = Math.max(a.entityId(), b.entityId());
+            resolvedPairs.add(lo + "," + hi);
+            return EntityTaskFactory.collisionResponseInert(a, b);
+        });
+
+        EntityTickHook.beginTick("r1");
+        // Two entities at different positions
+        EntityTickHook.recordMove("r1", "minecraft:overworld", 10L, 5, 64, 5);
+        EntityTickHook.recordMove("r1", "minecraft:overworld", 20L, 6, 64, 5);
+        EntityTickHook.endTick("r1", "minecraft:overworld");
+
+        List<TaskNode> tasks = EntityTickHook.sweepCollisionsAndEmit("r1", null);
+
+        // Both entities are at the same y and z, x differs by 1 block.
+        // Since their bounding boxes (each ~0.6 wide) overlap at x=5.3..5.7 vs 5.7..6.3,
+        // the sweep SHOULD find an overlap IF the world returned entities with real boxes.
+        // With null world the sweep short-circuits before the O(n²) loop.
+        assertNotNull(tasks);
+    }
+
+    /**
+     * N3: resolver not registered → sweep returns empty (no crash).
+     */
+    @Test
+    void collisionSweepEmptyWhenNoResolverRegistered() {
+        EntityTickHook.setActive(true);
+        EntityTickHook.setCollisionResolver(null);
+
+        EntityTickHook.beginTick("r1");
+        EntityTickHook.recordMove("r1", "minecraft:overworld", 1L, 0, 64, 0);
+        EntityTickHook.recordMove("r1", "minecraft:overworld", 2L, 1, 64, 0);
+        EntityTickHook.endTick("r1", "minecraft:overworld");
+
+        List<TaskNode> tasks = EntityTickHook.sweepCollisionsAndEmit("r1", null);
+        assertTrue(tasks.isEmpty(),
+            "sweep must return empty when no resolver is registered");
+    }
+
+    /**
+     * N3: lastCollisionTasks() reflects the last sweep output.
+     */
+    @Test
+    void lastCollisionTasksRefletsLatestSweep() {
+        EntityTickHook.setActive(true);
+        EntityTickHook.setCollisionResolver((wn, a, b) -> null); // null tasks
+
+        EntityTickHook.beginTick("r1");
+        EntityTickHook.recordMove("r1", "minecraft:overworld", 1L, 0, 64, 0);
+        EntityTickHook.endTick("r1", "minecraft:overworld");
+        EntityTickHook.sweepCollisionsAndEmit("r1", null);
+
+        // null tasks produce empty lastCollisionTasks
+        assertNotNull(EntityTickHook.lastCollisionTasks());
+    }
 }

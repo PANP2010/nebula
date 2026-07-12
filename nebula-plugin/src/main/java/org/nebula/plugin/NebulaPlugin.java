@@ -50,6 +50,7 @@ import org.nebula.replay.SettledSnapshotFormatter;
 import com.destroystokyo.paper.event.server.ServerTickEndEvent;
 import com.destroystokyo.paper.event.server.ServerTickStartEvent;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
@@ -796,6 +797,14 @@ public final class NebulaPlugin extends JavaPlugin {
         // an inert node carries the correct id/coords and the executor runs real physics.
         EntityTickHook.setResolver((worldName, snapshot) -> EntityTaskFactory.moveInert(snapshot));
 
+        // N3: Collision resolver — produces a COLLISION_RESPONSE TaskNode from a detected
+        // overlapping pair.  Uses collisionInert (no-op action) so the collision task
+        // participates in the DAG's layer topology but defers to executeOwnedEntityDag's
+        // action resolution.  The response itself (velocity exchange) is executed by
+        // the entity runner through resolveEntityAction.
+        EntityTickHook.setCollisionResolver((worldName, a, b) ->
+            org.nebula.entity.EntityTaskFactory.collisionResponseInert(a, b));
+
         // Executor: dispatch each moved-entity task to its OWNING region thread via
         // the subsystem-agnostic FoliaRegionTickExecutor (ENTITY_POSITION_OF decodes
         // the ENTITY_MOVE destination block; pair-types decode to null and are
@@ -838,7 +847,34 @@ public final class NebulaPlugin extends JavaPlugin {
             if (!EntityTickHook.isActive()) return;
             EntityTickHook.beginTick("nebula-global");
             for (World w : server.getWorlds()) {
-                EntityTickHook.endTick("nebula-global", w.getName());
+                // Drain moved entities and dispatch MOVE tasks
+                var movedTasks = EntityTickHook.endTick("nebula-global", w.getName());
+                if (!movedTasks.isEmpty()) {
+                    try {
+                        entityRegionExecutor.executeTasks("nebula-global", w.getName(), movedTasks);
+                    } catch (org.nebula.core.scheduler.DagExecutionException e) {
+                        LOG.warning(() -> "Entity region dispatch (MOVE) failed in " + w.getName()
+                            + ": " + e.getMessage());
+                    }
+                }
+                // N3: sweep for entity-entity bounding-box overlaps among moved entities,
+                // emit COLLISION_RESPONSE tasks, and run them through the DAG.  Collision
+                // detection has no event hook on Folia, so we approximate by sweeping the
+                // moved-entity snapshot that endTick() drained.  The sweep reads
+                // lastDrainedSnapshots() (stored by doEndTick's internal drain) to avoid
+                // re-implementing the dedup logic.  sweepCollisionsAndEmit returns an empty
+                // list when there are <2 moved entities or no resolver is registered —
+                // no overhead in the normal case.
+                List<org.nebula.core.scheduler.TaskNode> collisionTasks =
+                    EntityTickHook.sweepCollisionsAndEmit("nebula-global", w);
+                if (!collisionTasks.isEmpty()) {
+                    try {
+                        entityRegionExecutor.executeTasks("nebula-global", w.getName(), collisionTasks);
+                    } catch (org.nebula.core.scheduler.DagExecutionException e) {
+                        LOG.warning(() -> "Entity region dispatch (COLLISION) failed in " + w.getName()
+                            + ": " + e.getMessage());
+                    }
+                }
             }
         }, 1, 1);
 

@@ -1,5 +1,6 @@
 package org.nebula.folia.bridge;
 
+import org.bukkit.util.BoundingBox;
 import org.nebula.core.scheduler.DagExecutionException;
 import org.nebula.core.scheduler.TaskNode;
 import org.nebula.core.state.DimensionIds;
@@ -238,9 +239,193 @@ public final class EntityTickHook {
         return List.copyOf(dirtyTasks);
     }
 
+    /**
+     * Drains the raw entity snapshot queue for a given region/world WITHOUT resolving
+     * or dispatching.  Returns the deduped list of snapshots.  Used by the collision
+     * sweep to get the same moved-entity set that endTick() would process.
+     */
+    public static List<EntitySnapshot> drainSnapshots(String regionId, String worldName) {
+        String k = key(regionId, worldName);
+        Queue<EntitySnapshot> dirty = dirtyEntities.remove(k);
+        if (dirty == null || dirty.isEmpty()) return List.of();
+
+        // Same dedup logic as doEndTick: keep latest snapshot per entity id
+        Map<Long, EntitySnapshot> latest = new LinkedHashMap<>();
+        for (EntitySnapshot snap : dirty) {
+            latest.put(snap.entityId(), snap);
+        }
+        return List.copyOf(latest.values());
+    }
+
     /** Returns current moved-entity count for the given region and world (for monitoring). */
     public static int dirtyCount(String regionId, String worldName) {
         Queue<EntitySnapshot> dirty = dirtyEntities.get(key(regionId, worldName));
         return dirty == null ? 0 : dirty.size();
+    }
+
+    // ── N3: Entity COLLISION sweep ────────────────────────────────────────────
+
+    /**
+     * Callback to resolve a collision pair snapshot into a COLLISION_RESPONSE TaskNode.
+     * The factory expects two entity snapshots with valid entityIds.
+     */
+    @FunctionalInterface
+    public interface CollisionResolver {
+        TaskNode resolve(String worldName, EntitySnapshot a, EntitySnapshot b);
+    }
+
+    private static volatile CollisionResolver collisionResolver = null;
+
+    public static void setCollisionResolver(CollisionResolver res) {
+        collisionResolver = res;
+    }
+
+    /**
+     * Performs a brute-force O(n²) sweep of all moved entities to find overlapping
+     * bounding boxes, then calls the collision resolver for each pair to produce
+     * a COLLISION_RESPONSE TaskNode.  Called at the end of each global tick after
+     * the moved-entity drain so we sweep the same snapshot the MOVE tasks read.
+     *
+     * <p>This is the N3 live seed for Entity COLLISION: the collision detection
+     * is a Folia-internal event with no explicit event hook, so we approximate it
+     * by sweeping moved entities' bounding boxes using live entity lookups.  A pair
+     * is emitted only when the bounding boxes overlap (confirmed via
+     * {@code boxA.overlaps(boxB)}).  The sweep runs on the global tick thread
+     * because it needs to see all moved entities across all regions — the live entity
+     * lookups hit each entity on its owning region thread, which is legal because
+     * global tick executes on the thread that owns all regions.
+     *
+     * <p>The collision pair is emitted as a COLLISION_RESPONSE task (not COLLISION
+     * read-only), because the collision RESPONSE (velocity exchange) is the
+     * stateful effect the DAG must track.  The pure-read COLLISION task is a
+     * theoretical predecessor that this sweep skips — we go straight to the
+     * write-bearing effect, which is all the DAG needs for correctness.
+     *
+     * @param regionId  the global region identifier (always "nebula-global")
+     * @param world     the Bukkit world to look up live entity bounding boxes
+     * @param movedEntities  all EntitySnapshots drained this tick
+     * @return list of collision tasks generated (may be empty)
+     */
+    public static List<TaskNode> sweepCollisionsAndEmit(
+            String regionId, org.bukkit.World world) {
+        if (world == null) return List.of();
+        List<EntitySnapshot> movedEntities = lastDrainedSnapshots();
+        if (collisionResolver == null || movedEntities == null || movedEntities.size() < 2) {
+            return List.of();
+        }
+        String worldName = world.getName();
+        List<TaskNode> collisionTasks = new ArrayList<>();
+        for (int i = 0; i < movedEntities.size(); i++) {
+            EntitySnapshot ai = movedEntities.get(i);
+            BoundingBox boxA = null;
+            for (org.bukkit.entity.Entity e : world.getEntities()) {
+                if (e.getEntityId() == ai.entityId()) {
+                    boxA = e.getBoundingBox();
+                    break;
+                }
+            }
+            if (boxA == null) continue;
+            for (int j = i + 1; j < movedEntities.size(); j++) {
+                EntitySnapshot bj = movedEntities.get(j);
+                if (ai.entityId() == bj.entityId()) continue;
+                BoundingBox boxB = null;
+                for (org.bukkit.entity.Entity e : world.getEntities()) {
+                    if (e.getEntityId() == bj.entityId()) {
+                        boxB = e.getBoundingBox();
+                        break;
+                    }
+                }
+                if (boxB == null) continue;
+                if (!boxA.overlaps(boxB)) continue;
+                TaskNode task = collisionResolver.resolve(worldName, ai, bj);
+                if (task != null) {
+                    collisionTasks.add(task);
+                }
+            }
+        }
+        synchronized (lastCollisionTasks) {
+            lastCollisionTasks.clear();
+            lastCollisionTasks.addAll(collisionTasks);
+        }
+        if (collisionTasks.size() > 0) {
+            LOG.info("⚡ Collision sweep: " + movedEntities.size()
+                + " moved entities → " + collisionTasks.size()
+                + " collision tasks in " + worldName);
+        }
+        return List.copyOf(collisionTasks);
+    }
+
+    /**
+     * Returns the list of collision tasks last generated by sweepCollisionsAndEmit
+     * (for diagnostics and testing).
+     */
+    public static List<TaskNode> lastCollisionTasks() {
+        synchronized (lastCollisionTasks) {
+            return List.copyOf(lastCollisionTasks);
+        }
+    }
+
+    private static final List<TaskNode> lastCollisionTasks = new ArrayList<>();
+
+    // N3: stores the deduped entity snapshots drained by endTick(), so the collision
+    // sweep can access the same set that endTick() would process. Cleared after each
+    // global tick cycle.  ThreadLocal so concurrent endTick calls (different worlds)
+    // don't clobber each other.
+    private static final ThreadLocal<List<EntitySnapshot>> lastDrainedSnapshots =
+        ThreadLocal.withInitial(() -> new ArrayList<>());
+
+    /**
+     * Internal helper: drains and dedupes the queue, stores the snapshots in
+     * lastDrainedSnapshots for collision sweep access, then returns the TaskNodes.
+     */
+    private static List<TaskNode> drainAndStoreSnapshots(String k, String worldName) {
+        Queue<EntitySnapshot> dirty = dirtyEntities.remove(k);
+        if (dirty == null || dirty.isEmpty()) {
+            lastDrainedSnapshots.get().clear();
+            return List.of();
+        }
+        Map<Long, EntitySnapshot> latest = new LinkedHashMap<>();
+        for (EntitySnapshot snap : dirty) {
+            latest.put(snap.entityId(), snap);
+        }
+        lastDrainedSnapshots.get().clear();
+        lastDrainedSnapshots.get().addAll(latest.values());
+
+        TaskResolver res = resolver;
+        if (res == null) return List.of();
+
+        List<TaskNode> dirtyTasks = new ArrayList<>();
+        for (EntitySnapshot snap : latest.values()) {
+            TaskNode task = res.resolve(worldName, snap);
+            if (task != null) {
+                dirtyTasks.add(task);
+            }
+        }
+
+        if (dirtyTasks.isEmpty()) return List.of();
+
+        TickExecutor ex = executor;
+        if (ex != null) {
+            try {
+                ex.executeTasks(k.split("::")[0], worldName, dirtyTasks);
+            } catch (DagExecutionException e) {
+                LOG.warning("Entity DAG execution failed in region " + k.split("::")[0]
+                    + ": " + e.getMessage());
+            }
+        }
+
+        if (dirtyTasks.size() > 100) {
+            LOG.fine(() -> "Region " + k.split("::")[0] + ": " + dirtyTasks.size()
+                + " dirty entity tasks in " + worldName);
+        }
+        return List.copyOf(dirtyTasks);
+    }
+
+    /**
+     * Returns the entity snapshots last drained by endTick() for the current thread/world.
+     * The collision sweep reads this to access the same snapshot set.
+     */
+    public static List<EntitySnapshot> lastDrainedSnapshots() {
+        return List.copyOf(lastDrainedSnapshots.get());
     }
 }
