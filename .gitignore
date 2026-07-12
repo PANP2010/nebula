@@ -27,3 +27,6 @@ ralph-logs/
 ralph.sh
 ralph_prompt.txt
 ralph-runner.log
+# Local test server directories:
+paper-test-server/
+folia-test-server/
