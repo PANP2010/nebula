@@ -1,6 +1,8 @@
 package org.nebula.redstone;
 
 import org.nebula.core.bucket.BucketDagBuilder;
+import org.nebula.core.scheduler.BudgetedDagBuilder;
+import org.nebula.core.scheduler.DagBuildBudget;
 import org.nebula.core.scheduler.DagExecutionException;
 import org.nebula.core.scheduler.MicroStepLimitException;
 import org.nebula.core.scheduler.TaskGraph;
@@ -53,7 +55,17 @@ public final class MicroStepScheduler {
 
     private final RedstoneTaskGenerator generator;
     private final TaskRunner runner;
-    private final BucketDagBuilder bucketBuilder;
+    private final BudgetedDagBuilder budgetedBuilder;
+    /** Exposes the build-time budget tracker so {@code /nebula dag-stats} can report it. */
+    public final DagBuildBudget dagBuildBudget;
+
+    /**
+     * Exposes the fast-build phase breakdown tracker so {@code /nebula dag-stats} can
+     * report per-phase build costs (sort / partition / conflict / SCC / assemble).
+     */
+    public org.nebula.core.scheduler.FastBuildStats fastBuildStats() {
+        return org.nebula.core.scheduler.FastBuildStats.INSTANCE;
+    }
 
     public MicroStepScheduler(RedstoneTaskGenerator generator, TaskRunner runner) {
         this(generator, runner, new BucketDagBuilder(REDSTONE_BUCKET_SIZE));
@@ -63,7 +75,17 @@ public final class MicroStepScheduler {
                               BucketDagBuilder bucketBuilder) {
         this.generator = generator;
         this.runner = runner;
-        this.bucketBuilder = bucketBuilder;
+        this.budgetedBuilder = new BudgetedDagBuilder(bucketBuilder, new DagBuildBudget());
+        this.dagBuildBudget = this.budgetedBuilder.budget();
+    }
+
+    /** Constructor accepting a pre-built {@link BudgetedDagBuilder} (for test / plugin injection). */
+    public MicroStepScheduler(RedstoneTaskGenerator generator, TaskRunner runner,
+                              BudgetedDagBuilder budgetedBuilder) {
+        this.generator = generator;
+        this.runner = runner;
+        this.budgetedBuilder = budgetedBuilder;
+        this.dagBuildBudget = budgetedBuilder.budget();
     }
 
     /**
@@ -108,8 +130,8 @@ public final class MicroStepScheduler {
                         "MAX_MICRO_STEPS=" + MAX_MICRO_STEPS + " exceeded")));
             }
 
-            // Build DAG for this batch using spatial pre-bucketing
-            TaskGraph graph = bucketBuilder.build(currentBatch);
+            // Build DAG for this batch using spatial pre-bucketing with budget tracking
+            TaskGraph graph = budgetedBuilder.build(currentBatch);
             List<List<String>> layers = graph.topologicalLayers();
 
             // Track positions written in this batch for change detection

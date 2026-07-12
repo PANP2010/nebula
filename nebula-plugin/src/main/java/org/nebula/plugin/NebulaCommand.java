@@ -43,6 +43,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
             case "status" -> handleStatus(sender);
             case "scan" -> handleScan(sender);
             case "perf" -> handlePerf(sender, args);
+            case "dag-stats" -> handleDagStats(sender);
             case "diag" -> handleDiag(sender, args);
             case "settled" -> handleSettled(sender);
             case "diff" -> handleDiff(sender);
@@ -263,6 +264,53 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
             sender.sendMessage(String.format(
                 "  §aPASS: max microsteps %d ≤ %d (DG1 Criterion 2 holds so far).",
                 m.max(), MAX_MICRO_STEPS));
+        }
+    }
+
+    /**
+     * P1.10.1d: reports the DAG build-time budget statistics. Shows p50/p99/max build
+     * times, degraded-tick ratio, and the configured budget thresholds.
+     */
+    private void handleDagStats(CommandSender sender) {
+        if (!sender.hasPermission("nebula.status")) {
+            sender.sendMessage("§cYou don't have permission to view Nebula DAG stats.");
+            return;
+        }
+        var budget = plugin.microStepScheduler().dagBuildBudget;
+        if (budget == null) {
+            sender.sendMessage("§eDAG build budget tracker not available (scheduler may be uninitialised).");
+            return;
+        }
+        sender.sendMessage("§6Nebula DAG Build Budget (P1.10.1, arch doc §4.3.1):");
+        if (budget.totalTicks() == 0) {
+            sender.sendMessage("  §7No DAG builds recorded yet. Place redstone and run /nebula scan.");
+            return;
+        }
+        sender.sendMessage(String.format(
+            "  §7Ticks recorded: §f%d §7(window %d)",
+            budget.totalTicks(),
+            org.nebula.core.scheduler.DagBuildBudget.WINDOW));
+        sender.sendMessage(String.format(
+            "  §7Build time — p50 §f%.3f ms  §7p99 §f%.3f ms  §7max §f%.3f ms",
+            budget.p50Ms(), budget.p99Ms(), budget.maxMs()));
+        double ratio = budget.degradedTicksRatio();
+        sender.sendMessage(String.format(
+            "  §7Degraded tick ratio: §f%.3f%% §7(consecutive degraded: §f%d§7)",
+            ratio * 100, budget.consecutiveDegraded()));
+        if (ratio >= 0.01) {
+            sender.sendMessage("  §c⚠  Degraded >1%% of ticks — DAG build budget under pressure.");
+        } else if (ratio == 0) {
+            sender.sendMessage("  §a✓  No degraded ticks — all DAG builds within " +
+                (org.nebula.core.scheduler.DagBuildBudget.BUILD_BUDGET_NS / 1_000_000.0) + "ms budget.");
+        }
+        sender.sendMessage(String.format(
+            "  §7Budget thresholds — total §f%.1f ms §7| bucket coarsen §f%.1f ms §7| merge skip §f%.1f ms",
+            org.nebula.core.scheduler.DagBuildBudget.BUILD_BUDGET_NS / 1_000_000.0,
+            org.nebula.core.scheduler.DagBuildBudget.BUCKET_DEGRADE_NS / 1_000_000.0,
+            org.nebula.core.scheduler.DagBuildBudget.GLOBAL_MERGE_DEGRADE_NS / 1_000_000.0));
+        if (budget.warningActive()) {
+            sender.sendMessage("  §c⚠  WARNING: " + org.nebula.core.scheduler.DagBuildBudget.DEGRADE_WARNING_STREAK
+                + "+ consecutive degraded ticks — check for dense structures (redstone computers / entity farms).");
         }
     }
 
@@ -633,6 +681,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
         sender.sendMessage("  §e/nebula scan §7- Rescan loaded chunks for redstone components");
         sender.sendMessage("  §e/nebula status §7- Show plugin status");
         sender.sendMessage("  §e/nebula perf [reset] §7- Show DAG tick timing percentiles");
+        sender.sendMessage("  §e/nebula dag-stats §7- Show DAG build-time budget stats (p50/p99/max, degraded ratio)");
         sender.sendMessage("  §e/nebula diag <on|off> §7- Toggle per-tick cascade diagnostic (DG1 C2 probe)");
         sender.sendMessage("  §e/nebula settled §7- Emit a settled-state SETTLED-DIAG snapshot (DG3 divergence)");
         sender.sendMessage("  §e/nebula diff §7- Diff shadow power vs single-thread authority (Paper-only, B9 D3)");
@@ -690,7 +739,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
                                       String alias,
                                       String[] args) {
         if (args.length == 1) {
-            return Arrays.asList("capture", "status", "scan", "perf", "diag", "settled", "diff", "be-settled", "be-furnace-timer", "be-furnace-phase", "be-dropper-slot", "be-dropper-phase", "random", "coverage", "help");
+            return Arrays.asList("capture", "status", "scan", "perf", "dag-stats", "diag", "settled", "diff", "be-settled", "be-furnace-timer", "be-furnace-phase", "be-dropper-slot", "be-dropper-phase", "random", "coverage", "help");
         }
         if (args.length == 2 && args[0].equalsIgnoreCase("capture")) {
             return Arrays.asList("start", "stop");

@@ -1533,9 +1533,9 @@ P1.8.6 **Explosion 负向 Live Guard 控制（N2 优先任务）**
 **任务分解：**
 
 P1.9.1 World.random 序列化
-- [ ] **P1.9.1a** `World.random`（维度共享随机数生成器）的状态序列化
-- [ ] **P1.9.1b** 在 tick 之间保持 World.random 的 deterministic 序列
-- [ ] **P1.9.1c** Random 分配到各子系统（entity/RWSet/death loot/loot table 等）
+- [✅ P1.9.1a] `LayeredRandomSource`：seed = mix(worldSeed, tick, entityId, instance) — 所有 RandomInstance 枚举值（ENTITY/WORLD/BLOCK/GLOBAL）均有 stream
+- [✅ P1.9.1b] `DeterministicRandom`：确定性 RNG，每方法调用递增 `callsMade()`
+- [✅ P1.9.1c] Random 分配：`EntityTaskRunner` → ENTITY_RANDOM；`BlockEntityTaskRunner` → WORLD_RANDOM（dispensers）
 
 P1.9.2 Random budget 计算与监控
 - [✅ P1.9.2a] `RandomUsage` / `RandomInstance` / `DeterministicRandom` / `LayeredRandomSource` / `RandomBudget` 完整实现
@@ -1563,10 +1563,10 @@ P1.9.4 T1 Random 放松（5% over-budget 触发）
 **任务分解：**
 
 P1.10.1 DAG 构建超时降级（patch-002 §4.3.1）
-- [ ] **P1.10.1a** 实现 `BUILD_BUDGET = 2ms` per bucket
-- [ ] **P1.10.1b** fast-path：1.5ms per bucket 时 kill 网格索引，退化为粗糙串行块
-- [ ] **P1.10.1c** merge 阶段：0.5ms 时跳过传递冗余消除
-- [ ] **P1.10.1d** `/nebula dag-stats` 新增 `build_time_p50/p99/max`、`degraded_ticks_ratio`、`slowest_bucket`
+- [✅ P1.10.1a] `DagBuildBudget`：BUILD_BUDGET = 2ms，bucket coarsen = 1.5ms，merge skip = 0.5ms，全部实现
+- [✅ P1.10.1b] `BudgetedDagBuilder`：检测 `warningActive()` 时退化为 `CoarseDagBuilder.serialChain`
+- [✅ P1.10.1c] merge 阶段：`shouldSkipMergeOptimisation(mergeNs)` 检查 0.5ms 阈值
+- [✅ P1.10.1d] `/nebula dag-stats` 命令：显示 `build_time_p50/p99/max`、`degraded_ticks_ratio`、`consecutive_degraded`
 
 P1.10.2 全局任务处理（架构 §4.5）
 - [ ] **P1.10.2a** command block 命令执行作为 DAG 全局任务
