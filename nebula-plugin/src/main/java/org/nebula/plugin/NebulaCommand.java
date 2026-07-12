@@ -55,6 +55,9 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
             case "coverage" -> handleCoverage(sender);
             case "random" -> handleRandom(sender);
             case "fidelity" -> handleFidelity(sender, args);
+            case "fset" -> { // P2.4.3 alias for /nebula fidelity set
+                handleFidelity(sender, args);
+            }
             case "help" -> sendHelp(sender);
             default -> sender.sendMessage("§cUnknown subcommand: " + sub);
         }
@@ -702,7 +705,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
             sender.sendMessage("  §eNote: current tier is not T0 — redstone determinism may be relaxed.");
         }
 
-        if (args.length >= 2 && args[1].equalsIgnoreCase("reset")) {
+        if (args.length >= 2 && (args[1].equalsIgnoreCase("reset") || args[1].equalsIgnoreCase("set"))) {
             if (!sender.hasPermission("nebula.admin")) {
                 sender.sendMessage("§cYou need nebula.admin permission to reset fidelity tier.");
                 return;
@@ -740,7 +743,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
         sender.sendMessage("  §e/nebula be-dropper-slot [count] §7- Emit BE-DROPPER-SLOT eject-gap snapshot(s); [count] = once-per-tick burst to straddle the eject steps");
         sender.sendMessage("  §e/nebula be-dropper-phase [count] §7- Arm the BE-DROPPER-PHASE probe for [count] ticks; classifies the +1 offset (ordering vs rate)");
         sender.sendMessage("  §e/nebula random §7- Show DG2 Random budget usage (over-budget rate, tracked entities)");
-        sender.sendMessage("  §e/nebula fidelity §7- Show fidelity tier status; /nebula fidelity reset [T0|T1|T2|T3] to restore");
+        sender.sendMessage("  §e/nebula fidelity §7- Show fidelity tier; /nebula fidelity reset|set [T0|T1|T2|T3] (admin)");
         sender.sendMessage("  §e/nebula coverage §7- Per-subsystem @NebulaRW coverage ratio (DG3, real bridge inventory)");
         sender.sendMessage("  §e/nebula help §7- Show this help");
     }
@@ -817,10 +820,14 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
             return Arrays.asList("--drive", "--period");
         }
         if (args.length == 2 && args[0].equalsIgnoreCase("fidelity")) {
-            return Arrays.asList("reset");
+            return Arrays.asList("reset", "set");
         }
         if (args.length == 3 && args[0].equalsIgnoreCase("fidelity")
                 && args[1].equalsIgnoreCase("reset")) {
+            return Arrays.asList("T0", "T1", "T2", "T3");
+        }
+        if (args.length == 3 && args[0].equalsIgnoreCase("fidelity")
+                && args[1].equalsIgnoreCase("set")) {
             return Arrays.asList("T0", "T1", "T2", "T3");
         }
         return List.of();
