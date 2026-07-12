@@ -144,6 +144,34 @@ class BridgeAnnotationDriftTest {
     }
 
     @Test
+    void p153bExplosionAiCollisionBridgesAreScannable() {
+        // P1.5.3b: the explosion, AI, and collision bridges (the new
+        // AnnotationCoverageDashboard extensions) must each be picked up
+        // by BridgeAnnotationScanner — the same wiring that makes the
+        // four original subsystems show up in the /nebula coverage
+        // command's per-subsystem list. Each new bridge carries
+        // @NebulaRW on its main sync path, so the annotated count
+        // should be >= 1, the total is the public instance method
+        // count, and the ratio > 0.
+        AnnotationCoverageDashboard d = new AnnotationCoverageDashboard();
+        List<ScanTarget> targets = List.of(
+            ScanTarget.of("explosion-bridge", NmsExplosionStateBridge.class),
+            ScanTarget.of("ai-bridge", NmsAiStateBridge.class),
+            ScanTarget.of("collision-bridge", NmsCollisionStateBridge.class));
+        BridgeAnnotationScanner.scan(targets, d);
+
+        var subsystems = d.subsystems();
+        assertEquals(3, subsystems.size(),
+            "scanner must report three subsystems, got: " + subsystems);
+        for (var c : subsystems) {
+            assertTrue(c.annotatedMethods() >= 1,
+                c.subsystem() + " must have >= 1 annotated method; got " + c);
+            assertTrue(c.totalHotspotMethods() >= c.annotatedMethods(),
+                c.subsystem() + " total must be >= annotated");
+        }
+    }
+
+    @Test
     void reportFromGetSubsystemCoverageMatchesDirectScan() {
         // B8 C5 wiring: the new flow in NebulaPlugin.buildCoverageDashboard
         // calls BridgeAnnotationScanner.getSubsystemCoverage(targets) and feeds
