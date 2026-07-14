@@ -1,0 +1,156 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (12 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java b/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.uploadStatus", "this.extractUploadSpeed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractUploadSpeed(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java b/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.progress", "this.status"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createProgressNarrationMessage(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java b/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.width", "this.progres", "this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractUploadSpeed0(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java b/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.showDots", "this.onCance"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ keyPressed(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java b/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.realmId"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onBack(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java b/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.cancelButton", "this.uploadStarted", "this.backButton"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java b/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.tickCount", "this.createProgressNarrationMessag", "this.uploadStatus", "this.narrationRateLimiter"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java b/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.realmId", "this.selectedLevel", "this.slotId", "this.currentUpload"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ upload(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java b/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.layout"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ repositionElements(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java b/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.cancelButton", "this.uploadStatus", "this.statu", "this.uploadFinished"},
++writeEntities = {"this.status"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java b/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.width", "this.uploadStatus", "this.progres", "this.progress", "this.font"},
++writeEntities = {"this.progress"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractProgressBar(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java b/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsUploadScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.cancelle", "this.currentUpload"},
++writeEntities = {"this.cancelled"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onCancel(/* params */);
+

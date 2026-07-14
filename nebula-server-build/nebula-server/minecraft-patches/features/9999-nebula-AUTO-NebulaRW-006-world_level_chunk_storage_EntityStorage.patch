@@ -1,0 +1,80 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.chunk.storage.EntityStorage.java b/net.minecraft.world.level.chunk.storage.EntityStorage.java
+--- a/net.minecraft.world.level.chunk.storage.EntityStorage.java
++++ b/net.minecraft.world.level.chunk.storage.EntityStorage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.emptyChunks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadEntities(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.storage.EntityStorage.java b/net.minecraft.world.level.chunk.storage.EntityStorage.java
+--- a/net.minecraft.world.level.chunk.storage.EntityStorage.java
++++ b/net.minecraft.world.level.chunk.storage.EntityStorage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.reportSaveFailureIfPresen", "this.simpleRegionStorage", "this.emptyChunks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ storeEntities(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.storage.EntityStorage.java b/net.minecraft.world.level.chunk.storage.EntityStorage.java
+--- a/net.minecraft.world.level.chunk.storage.EntityStorage.java
++++ b/net.minecraft.world.level.chunk.storage.EntityStorage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.simpleRegionStorage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reportLoadFailureIfPresent(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.storage.EntityStorage.java b/net.minecraft.world.level.chunk.storage.EntityStorage.java
+--- a/net.minecraft.world.level.chunk.storage.EntityStorage.java
++++ b/net.minecraft.world.level.chunk.storage.EntityStorage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.simpleRegionStorage", "this.entityDeserializerQueue"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ flush(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.storage.EntityStorage.java b/net.minecraft.world.level.chunk.storage.EntityStorage.java
+--- a/net.minecraft.world.level.chunk.storage.EntityStorage.java
++++ b/net.minecraft.world.level.chunk.storage.EntityStorage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.simpleRegionStorage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reportSaveFailureIfPresent(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.storage.EntityStorage.java b/net.minecraft.world.level.chunk.storage.EntityStorage.java
+--- a/net.minecraft.world.level.chunk.storage.EntityStorage.java
++++ b/net.minecraft.world.level.chunk.storage.EntityStorage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.simpleRegionStorage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ close(/* params */);
+

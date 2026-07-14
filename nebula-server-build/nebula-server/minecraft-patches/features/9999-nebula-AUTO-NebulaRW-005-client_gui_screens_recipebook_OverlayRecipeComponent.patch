@@ -1,0 +1,69 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.recipebook.OverlayRecipeComponent.java b/net.minecraft.client.gui.screens.recipebook.OverlayRecipeComponent.java
+--- a/net.minecraft.client.gui.screens.recipebook.OverlayRecipeComponent.java
++++ b/net.minecraft.client.gui.screens.recipebook.OverlayRecipeComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.collectio", "this.x"},
++writeEntities = {"this.x", "this.y", "this.collection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.recipebook.OverlayRecipeComponent.java b/net.minecraft.client.gui.screens.recipebook.OverlayRecipeComponent.java
+--- a/net.minecraft.client.gui.screens.recipebook.OverlayRecipeComponent.java
++++ b/net.minecraft.client.gui.screens.recipebook.OverlayRecipeComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.recipeButtons", "this.x", "this.y", "this.isVisible"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.recipebook.OverlayRecipeComponent.java b/net.minecraft.client.gui.screens.recipebook.OverlayRecipeComponent.java
+--- a/net.minecraft.client.gui.screens.recipebook.OverlayRecipeComponent.java
++++ b/net.minecraft.client.gui.screens.recipebook.OverlayRecipeComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.defaultButtonNarrationTex"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateWidgetNarration(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.recipebook.OverlayRecipeComponent.java b/net.minecraft.client.gui.screens.recipebook.OverlayRecipeComponent.java
+--- a/net.minecraft.client.gui.screens.recipebook.OverlayRecipeComponent.java
++++ b/net.minecraft.client.gui.screens.recipebook.OverlayRecipeComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ingredients"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ selectIngredient(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.recipebook.OverlayRecipeComponent.java b/net.minecraft.client.gui.screens.recipebook.OverlayRecipeComponent.java
+--- a/net.minecraft.client.gui.screens.recipebook.OverlayRecipeComponent.java
++++ b/net.minecraft.client.gui.screens.recipebook.OverlayRecipeComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractWidgetRenderState(/* params */);
+

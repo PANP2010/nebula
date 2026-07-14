@@ -1,0 +1,68 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.resources.ResourceKey.java b/net.minecraft.resources.ResourceKey.java
+--- a/net.minecraft.resources.ResourceKey.java
++++ b/net.minecraft.resources.ResourceKey.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isFo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ cast(/* params */);
+
+diff --git a/net.minecraft.resources.ResourceKey.java b/net.minecraft.resources.ResourceKey.java
+--- a/net.minecraft.resources.ResourceKey.java
++++ b/net.minecraft.resources.ResourceKey.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.identifier", "this.registryName"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.resources.ResourceKey.java b/net.minecraft.resources.ResourceKey.java
+--- a/net.minecraft.resources.ResourceKey.java
++++ b/net.minecraft.resources.ResourceKey.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.identifie"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ identifier(/* params */);
+
+diff --git a/net.minecraft.resources.ResourceKey.java b/net.minecraft.resources.ResourceKey.java
+--- a/net.minecraft.resources.ResourceKey.java
++++ b/net.minecraft.resources.ResourceKey.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registryName"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registryKey(/* params */);
+
+diff --git a/net.minecraft.resources.ResourceKey.java b/net.minecraft.resources.ResourceKey.java
+--- a/net.minecraft.resources.ResourceKey.java
++++ b/net.minecraft.resources.ResourceKey.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registryNam"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registry(/* params */);
+

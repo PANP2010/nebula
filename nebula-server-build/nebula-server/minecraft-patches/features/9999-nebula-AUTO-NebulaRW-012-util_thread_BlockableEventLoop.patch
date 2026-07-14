@@ -1,0 +1,152 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (12 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.util.thread.BlockableEventLoop.java b/net.minecraft.util.thread.BlockableEventLoop.java
+--- a/net.minecraft.util.thread.BlockableEventLoop.java
++++ b/net.minecraft.util.thread.BlockableEventLoop.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.waitForTask", "this.blockingCount", "this.pollTas"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ managedBlock(/* params */);
+
+diff --git a/net.minecraft.util.thread.BlockableEventLoop.java b/net.minecraft.util.thread.BlockableEventLoop.java
+--- a/net.minecraft.util.thread.BlockableEventLoop.java
++++ b/net.minecraft.util.thread.BlockableEventLoop.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isSameThrea"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scheduleExecutables(/* params */);
+
+diff --git a/net.minecraft.util.thread.BlockableEventLoop.java b/net.minecraft.util.thread.BlockableEventLoop.java
+--- a/net.minecraft.util.thread.BlockableEventLoop.java
++++ b/net.minecraft.util.thread.BlockableEventLoop.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.submitAsyn", "this.isSameThrea"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ executeBlocking(/* params */);
+
+diff --git a/net.minecraft.util.thread.BlockableEventLoop.java b/net.minecraft.util.thread.BlockableEventLoop.java
+--- a/net.minecraft.util.thread.BlockableEventLoop.java
++++ b/net.minecraft.util.thread.BlockableEventLoop.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockingCount"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldRunAllTasks(/* params */);
+
+diff --git a/net.minecraft.util.thread.BlockableEventLoop.java b/net.minecraft.util.thread.BlockableEventLoop.java
+--- a/net.minecraft.util.thread.BlockableEventLoop.java
++++ b/net.minecraft.util.thread.BlockableEventLoop.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pendingRunnables", "this.throwDelayedExceptio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pollTask(/* params */);
+
+diff --git a/net.minecraft.util.thread.BlockableEventLoop.java b/net.minecraft.util.thread.BlockableEventLoop.java
+--- a/net.minecraft.util.thread.BlockableEventLoop.java
++++ b/net.minecraft.util.thread.BlockableEventLoop.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pollTas"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ runAllTasks(/* params */);
+
+diff --git a/net.minecraft.util.thread.BlockableEventLoop.java b/net.minecraft.util.thread.BlockableEventLoop.java
+--- a/net.minecraft.util.thread.BlockableEventLoop.java
++++ b/net.minecraft.util.thread.BlockableEventLoop.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.name"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ profiledMetrics(/* params */);
+
+diff --git a/net.minecraft.util.thread.BlockableEventLoop.java b/net.minecraft.util.thread.BlockableEventLoop.java
+--- a/net.minecraft.util.thread.BlockableEventLoop.java
++++ b/net.minecraft.util.thread.BlockableEventLoop.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pendingRunnables", "this.getRunningThrea", "this.runningThread"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ schedule(/* params */);
+
+diff --git a/net.minecraft.util.thread.BlockableEventLoop.java b/net.minecraft.util.thread.BlockableEventLoop.java
+--- a/net.minecraft.util.thread.BlockableEventLoop.java
++++ b/net.minecraft.util.thread.BlockableEventLoop.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.wrapRunnabl", "this.scheduleExecutable", "this.schedul"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ execute(/* params */);
+
+diff --git a/net.minecraft.util.thread.BlockableEventLoop.java b/net.minecraft.util.thread.BlockableEventLoop.java
+--- a/net.minecraft.util.thread.BlockableEventLoop.java
++++ b/net.minecraft.util.thread.BlockableEventLoop.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pendingRunnables"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropAllTasks(/* params */);
+
+diff --git a/net.minecraft.util.thread.BlockableEventLoop.java b/net.minecraft.util.thread.BlockableEventLoop.java
+--- a/net.minecraft.util.thread.BlockableEventLoop.java
++++ b/net.minecraft.util.thread.BlockableEventLoop.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.propagatesCrashes"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ throwDelayedException(/* params */);
+
+diff --git a/net.minecraft.util.thread.BlockableEventLoop.java b/net.minecraft.util.thread.BlockableEventLoop.java
+--- a/net.minecraft.util.thread.BlockableEventLoop.java
++++ b/net.minecraft.util.thread.BlockableEventLoop.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.scheduleExecutable", "this.submitAsyn"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ submit(/* params */);
+

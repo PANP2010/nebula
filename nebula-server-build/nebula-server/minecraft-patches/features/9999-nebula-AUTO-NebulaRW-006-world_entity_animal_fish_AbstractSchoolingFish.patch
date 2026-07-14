@@ -1,0 +1,85 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.animal.fish.AbstractSchoolingFish.java b/net.minecraft.world.entity.animal.fish.AbstractSchoolingFish.java
+--- a/net.minecraft.world.entity.animal.fish.AbstractSchoolingFish.java
++++ b/net.minecraft.world.entity.animal.fish.AbstractSchoolingFish.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.schoolSize"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.fish.AbstractSchoolingFish.java b/net.minecraft.world.entity.animal.fish.AbstractSchoolingFish.java
+--- a/net.minecraft.world.entity.animal.fish.AbstractSchoolingFish.java
++++ b/net.minecraft.world.entity.animal.fish.AbstractSchoolingFish.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leade"},
++writeEntities = {"this.leader"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startFollowing(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.fish.AbstractSchoolingFish.java b/net.minecraft.world.entity.animal.fish.AbstractSchoolingFish.java
+--- a/net.minecraft.world.entity.animal.fish.AbstractSchoolingFish.java
++++ b/net.minecraft.world.entity.animal.fish.AbstractSchoolingFish.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leader", "this.leade"},
++writeEntities = {"this.leader"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stopFollowing(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.fish.AbstractSchoolingFish.java b/net.minecraft.world.entity.animal.fish.AbstractSchoolingFish.java
+--- a/net.minecraft.world.entity.animal.fish.AbstractSchoolingFish.java
++++ b/net.minecraft.world.entity.animal.fish.AbstractSchoolingFish.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.goalSelector"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerGoals(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.fish.AbstractSchoolingFish.java b/net.minecraft.world.entity.animal.fish.AbstractSchoolingFish.java
+--- a/net.minecraft.world.entity.animal.fish.AbstractSchoolingFish.java
++++ b/net.minecraft.world.entity.animal.fish.AbstractSchoolingFish.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leader", "this.distanceToSq"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ inRangeOfLeader(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.fish.AbstractSchoolingFish.java b/net.minecraft.world.entity.animal.fish.AbstractSchoolingFish.java
+--- a/net.minecraft.world.entity.animal.fish.AbstractSchoolingFish.java
++++ b/net.minecraft.world.entity.animal.fish.AbstractSchoolingFish.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isFollowe", "this.leader", "this.navigation", "this.getNavigatio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pathToLeader(/* params */);
+

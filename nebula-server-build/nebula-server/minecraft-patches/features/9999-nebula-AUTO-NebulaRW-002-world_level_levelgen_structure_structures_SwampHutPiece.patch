@@ -1,0 +1,34 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (2 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.SwampHutPiece.java b/net.minecraft.world.level.levelgen.structure.structures.SwampHutPiece.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.SwampHutPiece.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.SwampHutPiece.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.spawnedCat", "this.spawnedCa", "this.worldPos", "this.getWorldPo"},
++writeEntities = {"this.spawnedCat"},
++triggeredEvents = {"ENTITY_SPAWNED"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spawnCat(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.SwampHutPiece.java b/net.minecraft.world.level.levelgen.structure.structures.SwampHutPiece.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.SwampHutPiece.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.SwampHutPiece.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateAverageGroundHeigh", "this.generateBo", "this.fillColumnDow", "this.placeBloc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ postProcess(/* params */);
+

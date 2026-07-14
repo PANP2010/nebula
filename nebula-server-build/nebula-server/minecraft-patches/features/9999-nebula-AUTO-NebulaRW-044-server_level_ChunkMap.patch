@@ -1,0 +1,543 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (44 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.visibleChunkMap", "this.chunksToEagerlySave", "this.activeChunkWrites"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveChunksEagerly(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.toDrop", "this.updatingChunkMap", "this.modifie", "this.pendingUnloads", "this.scheduleUnloa"},
++writeEntities = {"this.modified"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ processUnloads(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.randomStat"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ randomState(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.visibleChunkMap"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forEachReadyToSendChunk(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chunkGeneratorStat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generatorState(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.worldgenTaskDispatcher", "this.lightTaskDispatcher"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onLevelChange(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pendingGenerationTasks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ runGenerationTasks(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getPlayerViewDistanc", "this.applyChunkTrackingVie", "this.playerViewDistance"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateChunkTracking(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.rea"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readChunk(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.worldgenTaskDispatcher", "this.poiManager", "this.lightTaskDispatcher"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ close(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.markPositionReplaceabl", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createEmptyChunk(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.visibleChunkMap", "this.mainThreadExecutor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveAllChunks(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sendToTrackingPlayer", "this.entity"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendToTrackingPlayersAndSelf(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pendingGenerationTasks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scheduleGenerationTask(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.worldgenTaskDispatcher", "this.runGenerationTas"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ runGenerationTask(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.scheduleUnloa"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scheduleUnload(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ skipPlayer(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.scheduleChunkLoa"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyStep(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.seenBy"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendToTrackingPlayersFiltered(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scaledRange(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyChunkTrackingView(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chunkTypeCache"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ markPositionReplaceable(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updatingChunkMap"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ acquireGeneration(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entityMap"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forEachEntityTrackedBy(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playerMap", "this.playerIsCloseEnoughForSpawnin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ anyPlayerCloseEnoughForSpawningInternal(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getVisibleChunkIfPresen", "this.lightEngine", "this.visibleChunkIfPresent"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ waitForLightBeforeSending(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.generato", "this.upgradeChunkTa"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ upgradeChunkTag(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.seenBy"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendToTrackingPlayers(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.onChunkReadyToSen", "this.level", "this.chunkRangeFuture", "this.getChunkRangeFutur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ prepareTickingChunk(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entityMap", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ move(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.worldGenContext"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generator(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.serverEntity", "this.seenBy"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ broadcastRemoved(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updatePlaye"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updatePlayers(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.poiManager"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ save(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chunkRangeFuture", "this.getChunkRangeFutur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ prepareEntityTickingChunk(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entity"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ equals(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chunkRangeFuture", "this.getChunkRangeFutur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ prepareAccessibleChunk(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playerMap"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onChunkReadyToSend(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playerMap", "this.updateChunkTrackin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chunkTypeCache"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ markPosition(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modified"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ promoteChunkMap(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updatePlayer(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.readChun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scheduleChunkLoad(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkMap.java b/net.minecraft.server.level.ChunkMap.java
+--- a/net.minecraft.server.level.ChunkMap.java
++++ b/net.minecraft.server.level.ChunkMap.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.visibleChunkMap"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ size(/* params */);
+

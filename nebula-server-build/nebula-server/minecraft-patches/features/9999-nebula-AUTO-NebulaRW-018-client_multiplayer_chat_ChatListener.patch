@@ -1,0 +1,226 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (18 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.multiplayer.chat.ChatListener.java b/net.minecraft.client.multiplayer.chat.ChatListener.java
+--- a/net.minecraft.client.multiplayer.chat.ChatListener.java
++++ b/net.minecraft.client.multiplayer.chat.ChatListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.delayedMessageQueue", "this.willDelayMessage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleMessage(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.chat.ChatListener.java b/net.minecraft.client.multiplayer.chat.ChatListener.java
+--- a/net.minecraft.client.multiplayer.chat.ChatListener.java
++++ b/net.minecraft.client.multiplayer.chat.ChatListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ logSystemMessage(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.chat.ChatListener.java b/net.minecraft.client.multiplayer.chat.ChatListener.java
+--- a/net.minecraft.client.multiplayer.chat.ChatListener.java
++++ b/net.minecraft.client.multiplayer.chat.ChatListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.logSystemMessag", "this.guessChatUUI"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleSystemMessage(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.chat.ChatListener.java b/net.minecraft.client.multiplayer.chat.ChatListener.java
+--- a/net.minecraft.client.multiplayer.chat.ChatListener.java
++++ b/net.minecraft.client.multiplayer.chat.ChatListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ logPlayerMessage(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.chat.ChatListener.java b/net.minecraft.client.multiplayer.chat.ChatListener.java
+--- a/net.minecraft.client.multiplayer.chat.ChatListener.java
++++ b/net.minecraft.client.multiplayer.chat.ChatListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ narrateChatMessage(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.chat.ChatListener.java b/net.minecraft.client.multiplayer.chat.ChatListener.java
+--- a/net.minecraft.client.multiplayer.chat.ChatListener.java
++++ b/net.minecraft.client.multiplayer.chat.ChatListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ guessChatUUID(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.chat.ChatListener.java b/net.minecraft.client.multiplayer.chat.ChatListener.java
+--- a/net.minecraft.client.multiplayer.chat.ChatListener.java
++++ b/net.minecraft.client.multiplayer.chat.ChatListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.handleMessag"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleChatMessageError(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.chat.ChatListener.java b/net.minecraft.client.multiplayer.chat.ChatListener.java
+--- a/net.minecraft.client.multiplayer.chat.ChatListener.java
++++ b/net.minecraft.client.multiplayer.chat.ChatListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.delayedMessageQueue", "this.previousMessageTim"},
++writeEntities = {"this.previousMessageTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ flushQueue(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.chat.ChatListener.java b/net.minecraft.client.multiplayer.chat.ChatListener.java
+--- a/net.minecraft.client.multiplayer.chat.ChatListener.java
++++ b/net.minecraft.client.multiplayer.chat.ChatListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.evaluateTrustLeve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ showMessageToPlayer(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.chat.ChatListener.java b/net.minecraft.client.multiplayer.chat.ChatListener.java
+--- a/net.minecraft.client.multiplayer.chat.ChatListener.java
++++ b/net.minecraft.client.multiplayer.chat.ChatListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.narrateChatMessag", "this.handleMessag", "this.logSystemMessag", "this.previousMessageTim"},
++writeEntities = {"this.previousMessageTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleDisguisedChatMessage(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.chat.ChatListener.java b/net.minecraft.client.multiplayer.chat.ChatListener.java
+--- a/net.minecraft.client.multiplayer.chat.ChatListener.java
++++ b/net.minecraft.client.multiplayer.chat.ChatListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.delayedMessageQueue"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ queueSize(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.chat.ChatListener.java b/net.minecraft.client.multiplayer.chat.ChatListener.java
+--- a/net.minecraft.client.multiplayer.chat.ChatListener.java
++++ b/net.minecraft.client.multiplayer.chat.ChatListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.delayedMessageQueue"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ acceptNextDelayedMessage(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.chat.ChatListener.java b/net.minecraft.client.multiplayer.chat.ChatListener.java
+--- a/net.minecraft.client.multiplayer.chat.ChatListener.java
++++ b/net.minecraft.client.multiplayer.chat.ChatListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.previousMessageTime", "this.messageDelay"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.chat.ChatListener.java b/net.minecraft.client.multiplayer.chat.ChatListener.java
+--- a/net.minecraft.client.multiplayer.chat.ChatListener.java
++++ b/net.minecraft.client.multiplayer.chat.ChatListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.handler"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ accept(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.chat.ChatListener.java b/net.minecraft.client.multiplayer.chat.ChatListener.java
+--- a/net.minecraft.client.multiplayer.chat.ChatListener.java
++++ b/net.minecraft.client.multiplayer.chat.ChatListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.showMessageToPlaye", "this.handleMessag"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handlePlayerChatMessage(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.chat.ChatListener.java b/net.minecraft.client.multiplayer.chat.ChatListener.java
+--- a/net.minecraft.client.multiplayer.chat.ChatListener.java
++++ b/net.minecraft.client.multiplayer.chat.ChatListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleOverlay(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.chat.ChatListener.java b/net.minecraft.client.multiplayer.chat.ChatListener.java
+--- a/net.minecraft.client.multiplayer.chat.ChatListener.java
++++ b/net.minecraft.client.multiplayer.chat.ChatListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.messageDela", "this.previousMessageTime", "this.messageDelay"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ willDelayMessages(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.chat.ChatListener.java b/net.minecraft.client.multiplayer.chat.ChatListener.java
+--- a/net.minecraft.client.multiplayer.chat.ChatListener.java
++++ b/net.minecraft.client.multiplayer.chat.ChatListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isSenderLocalPlaye"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ evaluateTrustLevel(/* params */);
+

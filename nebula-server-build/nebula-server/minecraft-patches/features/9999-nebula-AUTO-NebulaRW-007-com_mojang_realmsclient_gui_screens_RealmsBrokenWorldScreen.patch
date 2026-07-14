@@ -1,0 +1,94 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsBrokenWorldScreen.java b/com.mojang.realmsclient.gui.screens.RealmsBrokenWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsBrokenWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsBrokenWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.clearWidget", "this.slotsThatHasBeenDownloaded", "this.addButton", "this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ downloadWorld(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsBrokenWorldScreen.java b/com.mojang.realmsclient.gui.screens.RealmsBrokenWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsBrokenWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsBrokenWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.lastScreen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onClose(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsBrokenWorldScreen.java b/com.mojang.realmsclient.gui.screens.RealmsBrokenWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsBrokenWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsBrokenWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.width", "this.title", "this.message", "this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsBrokenWorldScreen.java b/com.mojang.realmsclient.gui.screens.RealmsBrokenWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsBrokenWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsBrokenWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lastScreen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createErrorScreen(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsBrokenWorldScreen.java b/com.mojang.realmsclient.gui.screens.RealmsBrokenWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsBrokenWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsBrokenWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ doSwitchOrReset(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsBrokenWorldScreen.java b/com.mojang.realmsclient.gui.screens.RealmsBrokenWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsBrokenWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsBrokenWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.leftX", "this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsBrokenWorldScreen.java b/com.mojang.realmsclient.gui.screens.RealmsBrokenWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsBrokenWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsBrokenWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.addButton", "this.serverDat"},
++writeEntities = {"this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fetchServerData(/* params */);
+

@@ -1,0 +1,181 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (14 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.network.ServerCommonPacketListenerImpl.java b/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
+--- a/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
++++ b/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.keepAlivePending", "this.latency"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleKeepAlive(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerCommonPacketListenerImpl.java b/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
+--- a/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
++++ b/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.transferred", "this.playerProfil", "this.latency"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createCookie(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerCommonPacketListenerImpl.java b/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
+--- a/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
++++ b/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.suspendFlushingOnServerThrea"},
++writeEntities = {"this.suspendFlushingOnServerThread"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ suspendFlushing(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerCommonPacketListenerImpl.java b/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
+--- a/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
++++ b/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.closedListenerTim", "this.closed", "this.close"},
++writeEntities = {"this.closedListenerTime", "this.closed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ close(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerCommonPacketListenerImpl.java b/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
+--- a/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
++++ b/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server", "this.isSingleplayerOwne"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onDisconnect(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerCommonPacketListenerImpl.java b/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
+--- a/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
++++ b/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.clos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ send(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerCommonPacketListenerImpl.java b/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
+--- a/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
++++ b/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connection", "this.suspendFlushingOnServerThrea"},
++writeEntities = {"this.suspendFlushingOnServerThread"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resumeFlushing(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerCommonPacketListenerImpl.java b/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
+--- a/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
++++ b/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server", "this.connectio", "this.connection"},
++writeEntities = {"this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ disconnect(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerCommonPacketListenerImpl.java b/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
+--- a/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
++++ b/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.disconnec"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleCookieResponse(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerCommonPacketListenerImpl.java b/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
+--- a/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
++++ b/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.closedListenerTime", "this.closed", "this.disconnec"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkIfClosed(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerCommonPacketListenerImpl.java b/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
+--- a/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
++++ b/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server", "this.playerProfil", "this.disconnec"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleResourcePackResponse(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerCommonPacketListenerImpl.java b/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
+--- a/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
++++ b/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleCustomClickAction(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerCommonPacketListenerImpl.java b/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
+--- a/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
++++ b/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onPacketError(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerCommonPacketListenerImpl.java b/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
+--- a/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
++++ b/net.minecraft.server.network.ServerCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.keepAliveTime", "this.keepAlivePending", "this.isSingleplayerOwne", "this.disconnec"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ keepConnectionAlive(/* params */);
+

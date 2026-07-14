@@ -1,0 +1,123 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (9 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.entity.SignBlockEntity.java b/net.minecraft.world.level.block.entity.SignBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.SignBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.SignBlockEntity.java
+@@ // 65% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.changed"},
++readBlocks = {"{position}"},
++triggeredEvents = {"BLOCK_UPDATE"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ markUpdated(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.SignBlockEntity.java b/net.minecraft.world.level.block.entity.SignBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.SignBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.SignBlockEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.messages", "this.allowedPlayerEditor"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateSignText(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.SignBlockEntity.java b/net.minecraft.world.level.block.entity.SignBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.SignBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.SignBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isWaxed", "this.frontText", "this.backText"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveAdditional(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.SignBlockEntity.java b/net.minecraft.world.level.block.entity.SignBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.SignBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.SignBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.frontTex", "this.isWaxe", "this.backTex"},
++writeEntities = {"this.isWaxed", "this.frontText", "this.backText"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadAdditional(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.SignBlockEntity.java b/net.minecraft.world.level.block.entity.SignBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.SignBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.SignBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBlockPo", "this.blockPos", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playerIsTooFarAwayToEdit(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.SignBlockEntity.java b/net.minecraft.world.level.block.entity.SignBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.SignBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.SignBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.loadLin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadLines(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.SignBlockEntity.java b/net.minecraft.world.level.block.entity.SignBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.SignBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.SignBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setTex", "this.getTex", "this.text"},
++writeEntities = {"this.text"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateText(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.SignBlockEntity.java b/net.minecraft.world.level.block.entity.SignBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.SignBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.SignBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.worldPosition", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadLine(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.SignBlockEntity.java b/net.minecraft.world.level.block.entity.SignBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.SignBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.SignBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getTex", "this.text"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ executeClickCommandsIfPresent(/* params */);
+

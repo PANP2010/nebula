@@ -1,0 +1,170 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (13 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.monster.breeze.Breeze.java b/net.minecraft.world.entity.monster.breeze.Breeze.java
+--- a/net.minecraft.world.entity.monster.breeze.Breeze.java
++++ b/net.minecraft.world.entity.monster.breeze.Breeze.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ causeFallDamage(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.breeze.Breeze.java b/net.minecraft.world.entity.monster.breeze.Breeze.java
+--- a/net.minecraft.world.entity.monster.breeze.Breeze.java
++++ b/net.minecraft.world.entity.monster.breeze.Breeze.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.breeze.Breeze.java b/net.minecraft.world.entity.monster.breeze.Breeze.java
+--- a/net.minecraft.world.entity.monster.breeze.Breeze.java
++++ b/net.minecraft.world.entity.monster.breeze.Breeze.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random", "this.leve", "this.soundSource", "this.getSoundSourc"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playWhirlSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.breeze.Breeze.java b/net.minecraft.world.entity.monster.breeze.Breeze.java
+--- a/net.minecraft.world.entity.monster.breeze.Breeze.java
++++ b/net.minecraft.world.entity.monster.breeze.Breeze.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockPositio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withinInnerCircleRange(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.breeze.Breeze.java b/net.minecraft.world.entity.monster.breeze.Breeze.java
+--- a/net.minecraft.world.entity.monster.breeze.Breeze.java
++++ b/net.minecraft.world.entity.monster.breeze.Breeze.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBrai", "this.brain"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerDebugValues(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.breeze.Breeze.java b/net.minecraft.world.entity.monster.breeze.Breeze.java
+--- a/net.minecraft.world.entity.monster.breeze.Breeze.java
++++ b/net.minecraft.world.entity.monster.breeze.Breeze.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.idle", "this.shoot", "this.inhale", "this.longJump"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetAnimations(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.breeze.Breeze.java b/net.minecraft.world.entity.monster.breeze.Breeze.java
+--- a/net.minecraft.world.entity.monster.breeze.Breeze.java
++++ b/net.minecraft.world.entity.monster.breeze.Breeze.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.jumpTrailStartedTic"},
++writeEntities = {"this.jumpTrailStartedTick"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetJumpTrail(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.breeze.Breeze.java b/net.minecraft.world.entity.monster.breeze.Breeze.java
+--- a/net.minecraft.world.entity.monster.breeze.Breeze.java
++++ b/net.minecraft.world.entity.monster.breeze.Breeze.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBrai", "this.brain"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ customServerAiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.breeze.Breeze.java b/net.minecraft.world.entity.monster.breeze.Breeze.java
+--- a/net.minecraft.world.entity.monster.breeze.Breeze.java
++++ b/net.minecraft.world.entity.monster.breeze.Breeze.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ emitJumpTrailParticles(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.breeze.Breeze.java b/net.minecraft.world.entity.monster.breeze.Breeze.java
+--- a/net.minecraft.world.entity.monster.breeze.Breeze.java
++++ b/net.minecraft.world.entity.monster.breeze.Breeze.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playAmbientSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.breeze.Breeze.java b/net.minecraft.world.entity.monster.breeze.Breeze.java
+--- a/net.minecraft.world.entity.monster.breeze.Breeze.java
++++ b/net.minecraft.world.entity.monster.breeze.Breeze.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSyncedDataUpdated(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.breeze.Breeze.java b/net.minecraft.world.entity.monster.breeze.Breeze.java
+--- a/net.minecraft.world.entity.monster.breeze.Breeze.java
++++ b/net.minecraft.world.entity.monster.breeze.Breeze.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.i"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ deflection(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.breeze.Breeze.java b/net.minecraft.world.entity.monster.breeze.Breeze.java
+--- a/net.minecraft.world.entity.monster.breeze.Breeze.java
++++ b/net.minecraft.world.entity.monster.breeze.Breeze.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ emitGroundParticles(/* params */);
+

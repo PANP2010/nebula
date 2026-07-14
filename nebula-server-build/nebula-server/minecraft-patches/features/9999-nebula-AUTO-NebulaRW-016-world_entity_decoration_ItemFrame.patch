@@ -1,0 +1,203 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (16 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.decoration.ItemFrame.java b/net.minecraft.world.entity.decoration.ItemFrame.java
+--- a/net.minecraft.world.entity.decoration.ItemFrame.java
++++ b/net.minecraft.world.entity.decoration.ItemFrame.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun", "this.placeSound", "this.getPlaceSoun"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playPlacementSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ItemFrame.java b/net.minecraft.world.entity.decoration.ItemFrame.java
+--- a/net.minecraft.world.entity.decoration.ItemFrame.java
++++ b/net.minecraft.world.entity.decoration.ItemFrame.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fixed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ move(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ItemFrame.java b/net.minecraft.world.entity.decoration.ItemFrame.java
+--- a/net.minecraft.world.entity.decoration.ItemFrame.java
++++ b/net.minecraft.world.entity.decoration.ItemFrame.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.item", "this.removeFramedMa", "this.getIte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ kill(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ItemFrame.java b/net.minecraft.world.entity.decoration.ItemFrame.java
+--- a/net.minecraft.world.entity.decoration.ItemFrame.java
++++ b/net.minecraft.world.entity.decoration.ItemFrame.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setDirectio"},
++writeEntities = {"this.direction"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ recreateFromPacket(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ItemFrame.java b/net.minecraft.world.entity.decoration.ItemFrame.java
+--- a/net.minecraft.world.entity.decoration.ItemFrame.java
++++ b/net.minecraft.world.entity.decoration.ItemFrame.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.item", "this.fixed", "this.getIte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ interact(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ItemFrame.java b/net.minecraft.world.entity.decoration.ItemFrame.java
+--- a/net.minecraft.world.entity.decoration.ItemFrame.java
++++ b/net.minecraft.world.entity.decoration.ItemFrame.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fixed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ push(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ItemFrame.java b/net.minecraft.world.entity.decoration.ItemFrame.java
+--- a/net.minecraft.world.entity.decoration.ItemFrame.java
++++ b/net.minecraft.world.entity.decoration.ItemFrame.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.syncPacketPositionCode", "this.get", "this.x", "this.y", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ recalculateBoundingBox(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ItemFrame.java b/net.minecraft.world.entity.decoration.ItemFrame.java
+--- a/net.minecraft.world.entity.decoration.ItemFrame.java
++++ b/net.minecraft.world.entity.decoration.ItemFrame.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.item", "this.getIte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldDamageDropItem(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ItemFrame.java b/net.minecraft.world.entity.decoration.ItemFrame.java
+--- a/net.minecraft.world.entity.decoration.ItemFrame.java
++++ b/net.minecraft.world.entity.decoration.ItemFrame.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.item", "this.removeFramedMa", "this.fixed", "this.setIte", "this.getIte"},
++writeEntities = {"this.item"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropItem(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ItemFrame.java b/net.minecraft.world.entity.decoration.ItemFrame.java
+--- a/net.minecraft.world.entity.decoration.ItemFrame.java
++++ b/net.minecraft.world.entity.decoration.ItemFrame.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.recalculateBoundingBo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onItemChanged(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ItemFrame.java b/net.minecraft.world.entity.decoration.ItemFrame.java
+--- a/net.minecraft.world.entity.decoration.ItemFrame.java
++++ b/net.minecraft.world.entity.decoration.ItemFrame.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.item", "this.onItemChange", "this.getIte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSyncedDataUpdated(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ItemFrame.java b/net.minecraft.world.entity.decoration.ItemFrame.java
+--- a/net.minecraft.world.entity.decoration.ItemFrame.java
++++ b/net.minecraft.world.entity.decoration.ItemFrame.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isInvulnerableToBas", "this.fixed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtClient(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ItemFrame.java b/net.minecraft.world.entity.decoration.ItemFrame.java
+--- a/net.minecraft.world.entity.decoration.ItemFrame.java
++++ b/net.minecraft.world.entity.decoration.ItemFrame.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.item", "this.removeFramedMa", "this.getIte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ItemFrame.java b/net.minecraft.world.entity.decoration.ItemFrame.java
+--- a/net.minecraft.world.entity.decoration.ItemFrame.java
++++ b/net.minecraft.world.entity.decoration.ItemFrame.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isInvulnerableToBas", "this.fixed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtServer(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ItemFrame.java b/net.minecraft.world.entity.decoration.ItemFrame.java
+--- a/net.minecraft.world.entity.decoration.ItemFrame.java
++++ b/net.minecraft.world.entity.decoration.ItemFrame.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fixed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ survives(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ItemFrame.java b/net.minecraft.world.entity.decoration.ItemFrame.java
+--- a/net.minecraft.world.entity.decoration.ItemFrame.java
++++ b/net.minecraft.world.entity.decoration.ItemFrame.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createBoundingBo", "this.hasFramedMa"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateBoundingBox(/* params */);
+

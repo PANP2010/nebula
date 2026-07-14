@@ -1,0 +1,96 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.inventory.EnchantmentScreen.java b/net.minecraft.client.gui.screens.inventory.EnchantmentScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.EnchantmentScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.EnchantmentScreen.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.last", "this.flipT"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickBook(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.EnchantmentScreen.java b/net.minecraft.client.gui.screens.inventory.EnchantmentScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.EnchantmentScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.EnchantmentScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractBook(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.EnchantmentScreen.java b/net.minecraft.client.gui.screens.inventory.EnchantmentScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.EnchantmentScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.EnchantmentScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mouseClicked(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.EnchantmentScreen.java b/net.minecraft.client.gui.screens.inventory.EnchantmentScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.EnchantmentScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.EnchantmentScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.bookMode"},
++writeEntities = {"this.bookModel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.EnchantmentScreen.java b/net.minecraft.client.gui.screens.inventory.EnchantmentScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.EnchantmentScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.EnchantmentScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.isHoverin", "this.menu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.EnchantmentScreen.java b/net.minecraft.client.gui.screens.inventory.EnchantmentScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.EnchantmentScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.EnchantmentScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.tickBoo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ containerTick(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.EnchantmentScreen.java b/net.minecraft.client.gui.screens.inventory.EnchantmentScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.EnchantmentScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.EnchantmentScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractBackground(/* params */);
+

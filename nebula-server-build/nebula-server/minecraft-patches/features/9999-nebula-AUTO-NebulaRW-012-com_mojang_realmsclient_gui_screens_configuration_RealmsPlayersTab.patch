@@ -1,0 +1,155 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (12 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateOps(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.new", "this.addEntr"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ populateList(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.invitedList", "this.serverDat"},
++writeEntities = {"this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateData(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playerInfo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractContent(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.serverData", "this.updateDat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ uninvite(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playerInfo", "this.makeOpButton", "this.removeOpButton"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateOpButtons(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.invitedWidget"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ height(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.configurationScreen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateListHeight(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.populateLis", "this.clearEntrie"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateList(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.makeOpButto", "this.makeOpButton", "this.removeOpButto"},
++writeEntities = {"this.makeOpButton"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ activeOpButton(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.calculateListHeigh", "this.configurationScreen", "this.invitedList"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ doLayout(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsPlayersTab.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setFocuse", "this.makeOpButton", "this.updateOpButton", "this.serverData", "this.updateOp"},
++writeEntities = {"this.focused"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ deop(/* params */);
+

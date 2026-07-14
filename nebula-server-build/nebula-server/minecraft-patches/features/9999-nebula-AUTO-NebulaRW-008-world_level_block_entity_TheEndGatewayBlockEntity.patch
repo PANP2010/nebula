@@ -1,0 +1,109 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (8 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity.java b/net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBlockPo", "this.blockState", "this.blockPos", "this.level", "this.getBlockStat"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldRenderFace(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity.java b/net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{chunk}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findOrCreateValidTeleportPos(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity.java b/net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.exactTeleport", "this.exitPortal", "this.age"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveAdditional(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity.java b/net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ag", "this.exactTelepor", "this.exitPorta"},
++writeEntities = {"this.exactTeleport", "this.exitPortal", "this.age"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadAdditional(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity.java b/net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.teleportCooldow"},
++writeEntities = {"this.teleportCooldown"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ triggerEvent(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity.java b/net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ triggerCooldown(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity.java b/net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findTallestBlock(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity.java b/net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{neighbors}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findExitPosition(/* params */);
+

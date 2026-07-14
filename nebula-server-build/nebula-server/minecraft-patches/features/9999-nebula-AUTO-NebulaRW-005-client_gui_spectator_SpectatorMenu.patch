@@ -1,0 +1,70 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.spectator.SpectatorMenu.java b/net.minecraft.client.gui.spectator.SpectatorMenu.java
+--- a/net.minecraft.client.gui.spectator.SpectatorMenu.java
++++ b/net.minecraft.client.gui.spectator.SpectatorMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.listener"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ exit(/* params */);
+
+diff --git a/net.minecraft.client.gui.spectator.SpectatorMenu.java b/net.minecraft.client.gui.spectator.SpectatorMenu.java
+--- a/net.minecraft.client.gui.spectator.SpectatorMenu.java
++++ b/net.minecraft.client.gui.spectator.SpectatorMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pag", "this.categor", "this.selectedSlo"},
++writeEntities = {"this.selectedSlot", "this.page", "this.category"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ selectCategory(/* params */);
+
+diff --git a/net.minecraft.client.gui.spectator.SpectatorMenu.java b/net.minecraft.client.gui.spectator.SpectatorMenu.java
+--- a/net.minecraft.client.gui.spectator.SpectatorMenu.java
++++ b/net.minecraft.client.gui.spectator.SpectatorMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.directio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ selectItem(/* params */);
+
+diff --git a/net.minecraft.client.gui.spectator.SpectatorMenu.java b/net.minecraft.client.gui.spectator.SpectatorMenu.java
+--- a/net.minecraft.client.gui.spectator.SpectatorMenu.java
++++ b/net.minecraft.client.gui.spectator.SpectatorMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.direction"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractIcon(/* params */);
+
+diff --git a/net.minecraft.client.gui.spectator.SpectatorMenu.java b/net.minecraft.client.gui.spectator.SpectatorMenu.java
+--- a/net.minecraft.client.gui.spectator.SpectatorMenu.java
++++ b/net.minecraft.client.gui.spectator.SpectatorMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.item", "this.getIte", "this.selectedSlo"},
++writeEntities = {"this.selectedSlot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ selectSlot(/* params */);
+

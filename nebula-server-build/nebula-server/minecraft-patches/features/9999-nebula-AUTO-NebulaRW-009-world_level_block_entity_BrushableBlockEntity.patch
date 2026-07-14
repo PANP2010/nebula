@@ -1,0 +1,127 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (9 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.entity.BrushableBlockEntity.java b/net.minecraft.world.level.block.entity.BrushableBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BrushableBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BrushableBlockEntity.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.worldPosition", "this.item", "this.ite", "this.unpackLootTabl", "this.hitDirection"},
++writeEntities = {"this.item"},
++triggeredEvents = {"ENTITY_SPAWNED"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropContent(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BrushableBlockEntity.java b/net.minecraft.world.level.block.entity.BrushableBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BrushableBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BrushableBlockEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.dropConten", "this.getBlockPo", "this.blockState", "this.blockPos", "this.getBlockStat"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ brushingCompleted(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BrushableBlockEntity.java b/net.minecraft.world.level.block.entity.BrushableBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BrushableBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BrushableBlockEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.brushCount"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkReset(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BrushableBlockEntity.java b/net.minecraft.world.level.block.entity.BrushableBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BrushableBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BrushableBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lootTable", "this.lootTabl", "this.lootTableSee"},
++writeEntities = {"this.lootTable", "this.lootTableSeed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tryLoadLootTable(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BrushableBlockEntity.java b/net.minecraft.world.level.block.entity.BrushableBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BrushableBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BrushableBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lootTabl"},
++writeEntities = {"this.lootTable"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ trySaveLootTable(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BrushableBlockEntity.java b/net.minecraft.world.level.block.entity.BrushableBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BrushableBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BrushableBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.item", "this.trySaveLootTabl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveAdditional(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BrushableBlockEntity.java b/net.minecraft.world.level.block.entity.BrushableBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BrushableBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BrushableBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tryLoadLootTabl", "this.ite"},
++writeEntities = {"this.item"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadAdditional(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BrushableBlockEntity.java b/net.minecraft.world.level.block.entity.BrushableBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BrushableBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BrushableBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hitDirectio"},
++writeEntities = {"this.hitDirection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ brush(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BrushableBlockEntity.java b/net.minecraft.world.level.block.entity.BrushableBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BrushableBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BrushableBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lootTable"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ unpackLootTable(/* params */);
+

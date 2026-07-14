@@ -1,0 +1,93 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.inventory.TestInstanceBlockEditScreen.java b/net.minecraft.client.gui.screens.inventory.TestInstanceBlockEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.TestInstanceBlockEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.TestInstanceBlockEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.onClos", "this.sendToServe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onDone(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.TestInstanceBlockEditScreen.java b/net.minecraft.client.gui.screens.inventory.TestInstanceBlockEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.TestInstanceBlockEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.TestInstanceBlockEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sendToServe", "this.infoWidget"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateTestInfo(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.TestInstanceBlockEditScreen.java b/net.minecraft.client.gui.screens.inventory.TestInstanceBlockEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.TestInstanceBlockEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.TestInstanceBlockEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.exportButton", "this.rotationButton", "this.idEdit", "this.saveButton"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateSaveState(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.TestInstanceBlockEditScreen.java b/net.minecraft.client.gui.screens.inventory.TestInstanceBlockEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.TestInstanceBlockEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.TestInstanceBlockEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.width", "this.rotationButton", "this.title", "this.includeEntitiesButton", "this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.TestInstanceBlockEditScreen.java b/net.minecraft.client.gui.screens.inventory.TestInstanceBlockEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.TestInstanceBlockEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.TestInstanceBlockEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendToServer(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.TestInstanceBlockEditScreen.java b/net.minecraft.client.gui.screens.inventory.TestInstanceBlockEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.TestInstanceBlockEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.TestInstanceBlockEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockEntity", "this.width", "this.idEdi", "this.idEdit", "this.font"},
++writeEntities = {"this.idEdit"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.TestInstanceBlockEditScreen.java b/net.minecraft.client.gui.screens.inventory.TestInstanceBlockEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.TestInstanceBlockEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.TestInstanceBlockEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.width"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ widgetX(/* params */);
+

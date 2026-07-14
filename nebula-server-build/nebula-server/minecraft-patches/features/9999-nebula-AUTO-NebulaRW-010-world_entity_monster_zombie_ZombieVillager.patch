@@ -1,0 +1,136 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (10 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.monster.zombie.ZombieVillager.java b/net.minecraft.world.entity.monster.zombie.ZombieVillager.java
+--- a/net.minecraft.world.entity.monster.zombie.ZombieVillager.java
++++ b/net.minecraft.world.entity.monster.zombie.ZombieVillager.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random", "this.hasEffec", "this.leve", "this.startConvertin"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mobInteract(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.zombie.ZombieVillager.java b/net.minecraft.world.entity.monster.zombie.ZombieVillager.java
+--- a/net.minecraft.world.entity.monster.zombie.ZombieVillager.java
++++ b/net.minecraft.world.entity.monster.zombie.ZombieVillager.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random", "this.blockPositio", "this.leve"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ initializeVillagerData(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.zombie.ZombieVillager.java b/net.minecraft.world.entity.monster.zombie.ZombieVillager.java
+--- a/net.minecraft.world.entity.monster.zombie.ZombieVillager.java
++++ b/net.minecraft.world.entity.monster.zombie.ZombieVillager.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleEntityEvent(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.zombie.ZombieVillager.java b/net.minecraft.world.entity.monster.zombie.ZombieVillager.java
+--- a/net.minecraft.world.entity.monster.zombie.ZombieVillager.java
++++ b/net.minecraft.world.entity.monster.zombie.ZombieVillager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.conversionStarter", "this.villagerConversionTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startConverting(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.zombie.ZombieVillager.java b/net.minecraft.world.entity.monster.zombie.ZombieVillager.java
+--- a/net.minecraft.world.entity.monster.zombie.ZombieVillager.java
++++ b/net.minecraft.world.entity.monster.zombie.ZombieVillager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.applyImplicitComponentIfPresen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyImplicitComponents(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.zombie.ZombieVillager.java b/net.minecraft.world.entity.monster.zombie.ZombieVillager.java
+--- a/net.minecraft.world.entity.monster.zombie.ZombieVillager.java
++++ b/net.minecraft.world.entity.monster.zombie.ZombieVillager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.zombie.ZombieVillager.java b/net.minecraft.world.entity.monster.zombie.ZombieVillager.java
+--- a/net.minecraft.world.entity.monster.zombie.ZombieVillager.java
++++ b/net.minecraft.world.entity.monster.zombie.ZombieVillager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entityData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.zombie.ZombieVillager.java b/net.minecraft.world.entity.monster.zombie.ZombieVillager.java
+--- a/net.minecraft.world.entity.monster.zombie.ZombieVillager.java
++++ b/net.minecraft.world.entity.monster.zombie.ZombieVillager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getItemBySlo", "this.itemBySlot", "this.convertT", "this.dropPreservedEquipmen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ finishConversion(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.zombie.ZombieVillager.java b/net.minecraft.world.entity.monster.zombie.ZombieVillager.java
+--- a/net.minecraft.world.entity.monster.zombie.ZombieVillager.java
++++ b/net.minecraft.world.entity.monster.zombie.ZombieVillager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.initializeVillagerDat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ defineSynchedData(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.zombie.ZombieVillager.java b/net.minecraft.world.entity.monster.zombie.ZombieVillager.java
+--- a/net.minecraft.world.entity.monster.zombie.ZombieVillager.java
++++ b/net.minecraft.world.entity.monster.zombie.ZombieVillager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setVillagerDat", "this.getVillagerDat", "this.villagerData"},
++writeEntities = {"this.villagerData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyImplicitComponent(/* params */);
+

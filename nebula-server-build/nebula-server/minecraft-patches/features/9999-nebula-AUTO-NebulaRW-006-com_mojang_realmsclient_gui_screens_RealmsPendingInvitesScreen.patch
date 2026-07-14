@@ -1,0 +1,81 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsPendingInvitesScreen.java b/com.mojang.realmsclient.gui.screens.RealmsPendingInvitesScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsPendingInvitesScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsPendingInvitesScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.pendingInvitationSelectionList"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsPendingInvitesScreen.java b/com.mojang.realmsclient.gui.screens.RealmsPendingInvitesScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsPendingInvitesScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsPendingInvitesScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractContent(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsPendingInvitesScreen.java b/com.mojang.realmsclient.gui.screens.RealmsPendingInvitesScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsPendingInvitesScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsPendingInvitesScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pendingInvite"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleInvitation(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsPendingInvitesScreen.java b/com.mojang.realmsclient.gui.screens.RealmsPendingInvitesScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsPendingInvitesScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsPendingInvitesScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.layout", "this.width", "this.pendingInvitationSelectionList"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ repositionElements(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsPendingInvitesScreen.java b/com.mojang.realmsclient.gui.screens.RealmsPendingInvitesScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsPendingInvitesScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsPendingInvitesScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.lastScreen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onClose(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsPendingInvitesScreen.java b/com.mojang.realmsclient.gui.screens.RealmsPendingInvitesScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsPendingInvitesScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsPendingInvitesScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pendingInvites", "this.width", "this.pendingInvitationSelectionList", "this.font", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+

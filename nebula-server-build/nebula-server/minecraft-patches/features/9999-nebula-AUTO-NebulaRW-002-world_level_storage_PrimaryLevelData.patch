@@ -1,0 +1,32 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (2 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.storage.PrimaryLevelData.java b/net.minecraft.world.level.storage.PrimaryLevelData.java
+--- a/net.minecraft.world.level.storage.PrimaryLevelData.java
++++ b/net.minecraft.world.level.storage.PrimaryLevelData.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.singlePlayerUUI"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createTag(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.PrimaryLevelData.java b/net.minecraft.world.level.storage.PrimaryLevelData.java
+--- a/net.minecraft.world.level.storage.PrimaryLevelData.java
++++ b/net.minecraft.world.level.storage.PrimaryLevelData.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.worldGenSettingsLifecycl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ worldGenSettingsLifecycle(/* params */);
+

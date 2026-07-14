@@ -1,0 +1,44 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (3 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.players.ProfileResolver.java b/net.minecraft.server.players.ProfileResolver.java
+--- a/net.minecraft.server.players.ProfileResolver.java
++++ b/net.minecraft.server.players.ProfileResolver.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.profileCacheById"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fetchById(/* params */);
+
+diff --git a/net.minecraft.server.players.ProfileResolver.java b/net.minecraft.server.players.ProfileResolver.java
+--- a/net.minecraft.server.players.ProfileResolver.java
++++ b/net.minecraft.server.players.ProfileResolver.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.profileCacheByName"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fetchByName(/* params */);
+
+diff --git a/net.minecraft.server.players.ProfileResolver.java b/net.minecraft.server.players.ProfileResolver.java
+--- a/net.minecraft.server.players.ProfileResolver.java
++++ b/net.minecraft.server.players.ProfileResolver.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.profileCacheById"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ load(/* params */);
+

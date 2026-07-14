@@ -1,0 +1,137 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (10 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java b/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java
+--- a/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java
++++ b/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun", "this.stepSound", "this.getStepSoun"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playStepSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java b/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java
+--- a/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java
++++ b/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setItemSlo"},
++writeEntities = {"this.itemSlot"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ populateDefaultEquipmentSlots(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java b/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java
+--- a/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java
++++ b/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.targetSelector", "this.goalSelector"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerGoals(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java b/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java
+--- a/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java
++++ b/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reassessWeaponGoal(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java b/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java
+--- a/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java
++++ b/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.controlledVehicle", "this.yBodyRo", "this.getControlledVehicl"},
++writeEntities = {"this.yBodyRot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ rideTick(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java b/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java
+--- a/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java
++++ b/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ performRangedAttack(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java b/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java
+--- a/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java
++++ b/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setAggressiv"},
++writeEntities = {"this.aggressive"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ start(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java b/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java
+--- a/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java
++++ b/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.reassessWeaponGoa"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java b/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java
+--- a/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java
++++ b/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setAggressiv"},
++writeEntities = {"this.aggressive"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java b/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java
+--- a/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java
++++ b/net.minecraft.world.entity.monster.skeleton.AbstractSkeleton.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.reassessWeaponGoa", "this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onEquipItem(/* params */);
+

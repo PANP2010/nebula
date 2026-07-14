@@ -1,0 +1,129 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (10 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.core.HolderSet.java b/net.minecraft.core.HolderSet.java
+--- a/net.minecraft.core.HolderSet.java
++++ b/net.minecraft.core.HolderSet.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.contents"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ equals(/* params */);
+
+diff --git a/net.minecraft.core.HolderSet.java b/net.minecraft.core.HolderSet.java
+--- a/net.minecraft.core.HolderSet.java
++++ b/net.minecraft.core.HolderSet.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.content"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ size(/* params */);
+
+diff --git a/net.minecraft.core.HolderSet.java b/net.minecraft.core.HolderSet.java
+--- a/net.minecraft.core.HolderSet.java
++++ b/net.minecraft.core.HolderSet.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.key"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ contains(/* params */);
+
+diff --git a/net.minecraft.core.HolderSet.java b/net.minecraft.core.HolderSet.java
+--- a/net.minecraft.core.HolderSet.java
++++ b/net.minecraft.core.HolderSet.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.key"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ unwrapKey(/* params */);
+
+diff --git a/net.minecraft.core.HolderSet.java b/net.minecraft.core.HolderSet.java
+--- a/net.minecraft.core.HolderSet.java
++++ b/net.minecraft.core.HolderSet.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.contents", "this.key"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.core.HolderSet.java b/net.minecraft.core.HolderSet.java
+--- a/net.minecraft.core.HolderSet.java
++++ b/net.minecraft.core.HolderSet.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.content"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ iterator(/* params */);
+
+diff --git a/net.minecraft.core.HolderSet.java b/net.minecraft.core.HolderSet.java
+--- a/net.minecraft.core.HolderSet.java
++++ b/net.minecraft.core.HolderSet.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.content"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spliterator(/* params */);
+
+diff --git a/net.minecraft.core.HolderSet.java b/net.minecraft.core.HolderSet.java
+--- a/net.minecraft.core.HolderSet.java
++++ b/net.minecraft.core.HolderSet.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.owner", "this.content", "this.key"},
++writeEntities = {"this.contents"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ contents(/* params */);
+
+diff --git a/net.minecraft.core.HolderSet.java b/net.minecraft.core.HolderSet.java
+--- a/net.minecraft.core.HolderSet.java
++++ b/net.minecraft.core.HolderSet.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.content"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stream(/* params */);
+
+diff --git a/net.minecraft.core.HolderSet.java b/net.minecraft.core.HolderSet.java
+--- a/net.minecraft.core.HolderSet.java
++++ b/net.minecraft.core.HolderSet.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.key"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ unwrap(/* params */);
+

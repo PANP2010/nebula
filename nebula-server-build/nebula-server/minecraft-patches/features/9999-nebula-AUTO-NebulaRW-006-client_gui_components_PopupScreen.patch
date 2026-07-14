@@ -1,0 +1,80 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.components.PopupScreen.java b/net.minecraft.client.gui.components.PopupScreen.java
+--- a/net.minecraft.client.gui.components.PopupScreen.java
++++ b/net.minecraft.client.gui.components.PopupScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.backgroundScreen", "this.extractTransparentBackgroun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractBackground(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.PopupScreen.java b/net.minecraft.client.gui.components.PopupScreen.java
+--- a/net.minecraft.client.gui.components.PopupScreen.java
++++ b/net.minecraft.client.gui.components.PopupScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.buttons", "this.contentWidth"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ buildButtonRow(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.PopupScreen.java b/net.minecraft.client.gui.components.PopupScreen.java
+--- a/net.minecraft.client.gui.components.PopupScreen.java
++++ b/net.minecraft.client.gui.components.PopupScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.buttons"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ build(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.PopupScreen.java b/net.minecraft.client.gui.components.PopupScreen.java
+--- a/net.minecraft.client.gui.components.PopupScreen.java
++++ b/net.minecraft.client.gui.components.PopupScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.onClose"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onClose(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.PopupScreen.java b/net.minecraft.client.gui.components.PopupScreen.java
+--- a/net.minecraft.client.gui.components.PopupScreen.java
++++ b/net.minecraft.client.gui.components.PopupScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.backgroundScreen", "this.width", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ repositionElements(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.PopupScreen.java b/net.minecraft.client.gui.components.PopupScreen.java
+--- a/net.minecraft.client.gui.components.PopupScreen.java
++++ b/net.minecraft.client.gui.components.PopupScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.backgroundScreen", "this.width", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+

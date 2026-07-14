@@ -1,0 +1,191 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (15 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java b/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
+--- a/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
++++ b/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.page", "this.socialInteractionsPlayerList"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onAddPlayer(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java b/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
+--- a/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
++++ b/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.margin", "this.windowHeigh"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractBackground(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java b/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
+--- a/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
++++ b/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.page"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ showPage(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java b/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
+--- a/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
++++ b/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.width"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ marginX(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java b/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
+--- a/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
++++ b/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.lastScreen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onClose(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java b/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
+--- a/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
++++ b/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ repositionElements(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java b/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
+--- a/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
++++ b/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playerCount"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateServerLabel(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java b/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
+--- a/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
++++ b/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.hiddenButton", "this.allButton", "this.socialInteractionsPlayerList", "this.blockedButton", "this.searchBox"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java b/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
+--- a/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
++++ b/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.margin", "this.serverLabel", "this.updateServerLabe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java b/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
+--- a/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
++++ b/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ windowHeight(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java b/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
+--- a/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
++++ b/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.showPag", "this.lastSearc", "this.page", "this.lastSearch", "this.socialInteractionsPlayerList"},
++writeEntities = {"this.lastSearch"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkSearchStringUpdate(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java b/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
+--- a/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
++++ b/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.windowHeigh"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ listEnd(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java b/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
+--- a/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
++++ b/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.onClos", "this.searchBox"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ keyPressed(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java b/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
+--- a/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
++++ b/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.socialInteractionsPlayerList"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onRemovePlayer(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java b/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
+--- a/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
++++ b/net.minecraft.client.gui.screens.social.SocialInteractionsScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.socialInteractionsPlayerList", "this.searchBox"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createNarrationMessage(/* params */);
+

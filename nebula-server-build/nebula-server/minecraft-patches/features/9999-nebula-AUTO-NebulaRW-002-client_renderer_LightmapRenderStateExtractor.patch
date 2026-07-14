@@ -1,0 +1,35 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (2 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.renderer.LightmapRenderStateExtractor.java b/net.minecraft.client.renderer.LightmapRenderStateExtractor.java
+--- a/net.minecraft.client.renderer.LightmapRenderStateExtractor.java
++++ b/net.minecraft.client.renderer.LightmapRenderStateExtractor.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockLightFlicker", "this.randomSource", "this.needsUpdat", "this.blockLightFlicke"},
++writeEntities = {"this.blockLightFlicker", "this.needsUpdate"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.client.renderer.LightmapRenderStateExtractor.java b/net.minecraft.client.renderer.LightmapRenderStateExtractor.java
+--- a/net.minecraft.client.renderer.LightmapRenderStateExtractor.java
++++ b/net.minecraft.client.renderer.LightmapRenderStateExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.blockLightFlicker", "this.renderer", "this.needsUpdate", "this.needsUpdat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extract(/* params */);
+

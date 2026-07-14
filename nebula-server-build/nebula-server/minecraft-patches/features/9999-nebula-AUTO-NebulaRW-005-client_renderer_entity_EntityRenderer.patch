@@ -1,0 +1,69 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.renderer.entity.EntityRenderer.java b/net.minecraft.client.renderer.entity.EntityRenderer.java
+--- a/net.minecraft.client.renderer.entity.EntityRenderer.java
++++ b/net.minecraft.client.renderer.entity.EntityRenderer.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.extractShadowPiec", "this.shadowRadius", "this.getShadowStrengt", "this.shadowStrength", "this.getShadowRadiu"},
++readBlocks = {"{chunk}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractShadow(/* params */);
+
+diff --git a/net.minecraft.client.renderer.entity.EntityRenderer.java b/net.minecraft.client.renderer.entity.EntityRenderer.java
+--- a/net.minecraft.client.renderer.entity.EntityRenderer.java
++++ b/net.minecraft.client.renderer.entity.EntityRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.extractShado"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ finalizeRenderState(/* params */);
+
+diff --git a/net.minecraft.client.renderer.entity.EntityRenderer.java b/net.minecraft.client.renderer.entity.EntityRenderer.java
+--- a/net.minecraft.client.renderer.entity.EntityRenderer.java
++++ b/net.minecraft.client.renderer.entity.EntityRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.extractRenderStat", "this.finalizeRenderStat", "this.createRenderStat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createRenderState(/* params */);
+
+diff --git a/net.minecraft.client.renderer.entity.EntityRenderer.java b/net.minecraft.client.renderer.entity.EntityRenderer.java
+--- a/net.minecraft.client.renderer.entity.EntityRenderer.java
++++ b/net.minecraft.client.renderer.entity.EntityRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entityRenderDispatcher"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldShowName(/* params */);
+
+diff --git a/net.minecraft.client.renderer.entity.EntityRenderer.java b/net.minecraft.client.renderer.entity.EntityRenderer.java
+--- a/net.minecraft.client.renderer.entity.EntityRenderer.java
++++ b/net.minecraft.client.renderer.entity.EntityRenderer.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{neighbors}", "{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractShadowPiece(/* params */);
+

@@ -1,0 +1,45 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (3 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.color.block.BlockTintCache.java b/net.minecraft.client.color.block.BlockTintCache.java
+--- a/net.minecraft.client.color.block.BlockTintCache.java
++++ b/net.minecraft.client.color.block.BlockTintCache.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.cache", "this.lock"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ invalidateAll(/* params */);
+
+diff --git a/net.minecraft.client.color.block.BlockTintCache.java b/net.minecraft.client.color.block.BlockTintCache.java
+--- a/net.minecraft.client.color.block.BlockTintCache.java
++++ b/net.minecraft.client.color.block.BlockTintCache.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.invalidate"},
++writeEntities = {"this.invalidated"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ invalidate(/* params */);
+
+diff --git a/net.minecraft.client.color.block.BlockTintCache.java b/net.minecraft.client.color.block.BlockTintCache.java
+--- a/net.minecraft.client.color.block.BlockTintCache.java
++++ b/net.minecraft.client.color.block.BlockTintCache.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.cache", "this.lock"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ invalidateForChunk(/* params */);
+

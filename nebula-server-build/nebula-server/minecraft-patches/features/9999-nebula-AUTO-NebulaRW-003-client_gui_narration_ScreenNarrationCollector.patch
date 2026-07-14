@@ -1,0 +1,44 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (3 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.narration.ScreenNarrationCollector.java b/net.minecraft.client.gui.narration.ScreenNarrationCollector.java
+--- a/net.minecraft.client.gui.narration.ScreenNarrationCollector.java
++++ b/net.minecraft.client.gui.narration.ScreenNarrationCollector.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.firstEntry"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ accept(/* params */);
+
+diff --git a/net.minecraft.client.gui.narration.ScreenNarrationCollector.java b/net.minecraft.client.gui.narration.ScreenNarrationCollector.java
+--- a/net.minecraft.client.gui.narration.ScreenNarrationCollector.java
++++ b/net.minecraft.client.gui.narration.ScreenNarrationCollector.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.generation"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ update(/* params */);
+
+diff --git a/net.minecraft.client.gui.narration.ScreenNarrationCollector.java b/net.minecraft.client.gui.narration.ScreenNarrationCollector.java
+--- a/net.minecraft.client.gui.narration.ScreenNarrationCollector.java
++++ b/net.minecraft.client.gui.narration.ScreenNarrationCollector.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.new", "this.depth"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ nest(/* params */);
+

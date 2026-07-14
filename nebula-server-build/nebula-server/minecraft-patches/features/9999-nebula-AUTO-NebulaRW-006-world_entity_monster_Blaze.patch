@@ -1,0 +1,89 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.monster.Blaze.java b/net.minecraft.world.entity.monster.Blaze.java
+--- a/net.minecraft.world.entity.monster.Blaze.java
++++ b/net.minecraft.world.entity.monster.Blaze.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random", "this.allowedHeightOffse", "this.nextHeightOffsetChangeTic", "this.nextHeightOffsetChangeTick"},
++writeEntities = {"this.allowedHeightOffset", "this.nextHeightOffsetChangeTick"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ customServerAiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Blaze.java b/net.minecraft.world.entity.monster.Blaze.java
+--- a/net.minecraft.world.entity.monster.Blaze.java
++++ b/net.minecraft.world.entity.monster.Blaze.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.targetSelector", "this.goalSelector"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerGoals(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Blaze.java b/net.minecraft.world.entity.monster.Blaze.java
+--- a/net.minecraft.world.entity.monster.Blaze.java
++++ b/net.minecraft.world.entity.monster.Blaze.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.attackTime", "this.blaze", "this.lastSee"},
++writeEntities = {"this.lastSeen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Blaze.java b/net.minecraft.world.entity.monster.Blaze.java
+--- a/net.minecraft.world.entity.monster.Blaze.java
++++ b/net.minecraft.world.entity.monster.Blaze.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.deltaMovement", "this.onGroun", "this.getDeltaMovemen", "this.setDeltaMovemen"},
++writeEntities = {"this.deltaMovement"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ aiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Blaze.java b/net.minecraft.world.entity.monster.Blaze.java
+--- a/net.minecraft.world.entity.monster.Blaze.java
++++ b/net.minecraft.world.entity.monster.Blaze.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blaze", "this.lastSee"},
++writeEntities = {"this.lastSeen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Blaze.java b/net.minecraft.world.entity.monster.Blaze.java
+--- a/net.minecraft.world.entity.monster.Blaze.java
++++ b/net.minecraft.world.entity.monster.Blaze.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.attackSte"},
++writeEntities = {"this.attackStep"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ start(/* params */);
+

@@ -1,0 +1,250 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (19 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.animal.sniffer.Sniffer.java b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+--- a/net.minecraft.world.entity.animal.sniffer.Sniffer.java
++++ b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random", "this.playSoun", "this.finalizeSpawnChildFromBreedin", "this.positio"},
++triggeredEvents = {"ENTITY_SPAWNED", "SOUND_PLAY"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spawnChildFromBreeding(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.sniffer.Sniffer.java b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+--- a/net.minecraft.world.entity.animal.sniffer.Sniffer.java
++++ b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leve"},
++triggeredEvents = {"SOUND_PLAY"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playEatingSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.sniffer.Sniffer.java b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+--- a/net.minecraft.world.entity.animal.sniffer.Sniffer.java
++++ b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playStepSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.sniffer.Sniffer.java b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+--- a/net.minecraft.world.entity.animal.sniffer.Sniffer.java
++++ b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun", "this.setStat"},
++writeEntities = {"this.state"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ transitionTo(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.sniffer.Sniffer.java b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+--- a/net.minecraft.world.entity.animal.sniffer.Sniffer.java
++++ b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++triggeredEvents = {"ENTITY_SPAWNED"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropSeed(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.sniffer.Sniffer.java b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+--- a/net.minecraft.world.entity.animal.sniffer.Sniffer.java
++++ b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun", "this.isBab"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onScentingStart(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.sniffer.Sniffer.java b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+--- a/net.minecraft.world.entity.animal.sniffer.Sniffer.java
++++ b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tickCount", "this.getHeadBloc", "this.headBlock", "this.leve"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ emitDiggingParticles(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.sniffer.Sniffer.java b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+--- a/net.minecraft.world.entity.animal.sniffer.Sniffer.java
++++ b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isOnFir", "this.setPathfindingMalu", "this.isInWate"},
++writeEntities = {"this.pathfindingMalus"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onPathfindingStart(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.sniffer.Sniffer.java b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+--- a/net.minecraft.world.entity.animal.sniffer.Sniffer.java
++++ b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.emitDiggingParticle", "this.diggingAnimationState", "this.state", "this.playSearchingSoun", "this.getStat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.sniffer.Sniffer.java b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+--- a/net.minecraft.world.entity.animal.sniffer.Sniffer.java
++++ b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.moveControl", "this.deltaMovement", "this.getDeltaMovemen", "this.moveRelativ"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ jumpFromGround(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.sniffer.Sniffer.java b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+--- a/net.minecraft.world.entity.animal.sniffer.Sniffer.java
++++ b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getOnPo", "this.onPos", "this.storeExploredPositio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onDiggingComplete(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.sniffer.Sniffer.java b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+--- a/net.minecraft.world.entity.animal.sniffer.Sniffer.java
++++ b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBrai", "this.exploredPositions", "this.leve", "this.brain", "this.getExploredPosition"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ storeExploredPosition(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.sniffer.Sniffer.java b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+--- a/net.minecraft.world.entity.animal.sniffer.Sniffer.java
++++ b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.feelingHappyAnimationState", "this.scentingAnimationState", "this.diggingAnimationState", "this.risingAnimationState", "this.sniffingAnimationState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetAnimations(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.sniffer.Sniffer.java b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+--- a/net.minecraft.world.entity.animal.sniffer.Sniffer.java
++++ b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tickCount", "this.leve", "this.entityData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onDiggingStart(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.sniffer.Sniffer.java b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+--- a/net.minecraft.world.entity.animal.sniffer.Sniffer.java
++++ b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSyncedDataUpdated(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.sniffer.Sniffer.java b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+--- a/net.minecraft.world.entity.animal.sniffer.Sniffer.java
++++ b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playSearchingSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.sniffer.Sniffer.java b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+--- a/net.minecraft.world.entity.animal.sniffer.Sniffer.java
++++ b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setPathfindingMalu"},
++writeEntities = {"this.pathfindingMalus"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onPathfindingDone(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.sniffer.Sniffer.java b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+--- a/net.minecraft.world.entity.animal.sniffer.Sniffer.java
++++ b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBrai", "this.brain"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ customServerAiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.sniffer.Sniffer.java b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+--- a/net.minecraft.world.entity.animal.sniffer.Sniffer.java
++++ b/net.minecraft.world.entity.animal.sniffer.Sniffer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isFoo", "this.playEatingSoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mobInteract(/* params */);
+

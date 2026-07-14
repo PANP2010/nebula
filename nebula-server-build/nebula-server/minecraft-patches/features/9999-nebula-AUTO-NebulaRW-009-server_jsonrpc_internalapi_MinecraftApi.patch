@@ -1,0 +1,116 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (9 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java b/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java
+--- a/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java
++++ b/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraftPlayerListServic"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playerListService(/* params */);
+
+diff --git a/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java b/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java
+--- a/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java
++++ b/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraftServerSettingsServic"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ serverSettingsService(/* params */);
+
+diff --git a/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java b/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java
+--- a/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java
++++ b/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.gameRuleServic"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ gameRuleService(/* params */);
+
+diff --git a/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java b/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java
+--- a/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java
++++ b/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.notificationManage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ notificationManager(/* params */);
+
+diff --git a/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java b/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java
+--- a/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java
++++ b/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.banListServic"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ banListService(/* params */);
+
+diff --git a/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java b/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java
+--- a/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java
++++ b/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.executorService"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ submit(/* params */);
+
+diff --git a/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java b/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java
+--- a/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java
++++ b/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraftOperatorListServic"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ operatorListService(/* params */);
+
+diff --git a/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java b/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java
+--- a/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java
++++ b/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.allowListServic"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ allowListService(/* params */);
+
+diff --git a/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java b/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java
+--- a/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java
++++ b/net.minecraft.server.jsonrpc.internalapi.MinecraftApi.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraftServerStateServic"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ serverStateService(/* params */);
+

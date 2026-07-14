@@ -1,0 +1,60 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.animal.frog.ShootTongue.java b/net.minecraft.world.entity.animal.frog.ShootTongue.java
+--- a/net.minecraft.world.entity.animal.frog.ShootTongue.java
++++ b/net.minecraft.world.entity.animal.frog.ShootTongue.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.stat", "this.eatAnimationTime", "this.tongueSound", "this.state"},
++writeEntities = {"this.eatAnimationTimer", "this.state"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.frog.ShootTongue.java b/net.minecraft.world.entity.animal.frog.ShootTongue.java
+--- a/net.minecraft.world.entity.animal.frog.ShootTongue.java
++++ b/net.minecraft.world.entity.animal.frog.ShootTongue.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.eatSound"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ eatEntity(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.frog.ShootTongue.java b/net.minecraft.world.entity.animal.frog.ShootTongue.java
+--- a/net.minecraft.world.entity.animal.frog.ShootTongue.java
++++ b/net.minecraft.world.entity.animal.frog.ShootTongue.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.stat", "this.calculatePathCounte"},
++writeEntities = {"this.calculatePathCounter", "this.state"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ start(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.frog.ShootTongue.java b/net.minecraft.world.entity.animal.frog.ShootTongue.java
+--- a/net.minecraft.world.entity.animal.frog.ShootTongue.java
++++ b/net.minecraft.world.entity.animal.frog.ShootTongue.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.canPathfindToTarge", "this.addUnreachableTargetToMemor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkExtraStartConditions(/* params */);
+

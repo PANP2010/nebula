@@ -1,0 +1,251 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (19 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.projectile.Projectile.java b/net.minecraft.world.entity.projectile.Projectile.java
+--- a/net.minecraft.world.entity.projectile.Projectile.java
++++ b/net.minecraft.world.entity.projectile.Projectile.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leve"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onHitBlock(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.Projectile.java b/net.minecraft.world.entity.projectile.Projectile.java
+--- a/net.minecraft.world.entity.projectile.Projectile.java
++++ b/net.minecraft.world.entity.projectile.Projectile.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random", "this.onDeflectio", "this.leve", "this.setOwne"},
++writeEntities = {"this.owner"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ deflect(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.Projectile.java b/net.minecraft.world.entity.projectile.Projectile.java
+--- a/net.minecraft.world.entity.projectile.Projectile.java
++++ b/net.minecraft.world.entity.projectile.Projectile.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.deltaMovement", "this.resetFallDistanc", "this.getDeltaMovemen", "this.setDeltaMovemen"},
++writeEntities = {"this.deltaMovement"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onInsideBubbleColumn(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.Projectile.java b/net.minecraft.world.entity.projectile.Projectile.java
+--- a/net.minecraft.world.entity.projectile.Projectile.java
++++ b/net.minecraft.world.entity.projectile.Projectile.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.owner", "this.getOwne", "this.hasBeenSho", "this.gameEven", "this.hasBeenShot"},
++writeEntities = {"this.hasBeenShot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.Projectile.java b/net.minecraft.world.entity.projectile.Projectile.java
+--- a/net.minecraft.world.entity.projectile.Projectile.java
++++ b/net.minecraft.world.entity.projectile.Projectile.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.owne"},
++writeEntities = {"this.owner"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ restoreFrom(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.Projectile.java b/net.minecraft.world.entity.projectile.Projectile.java
+--- a/net.minecraft.world.entity.projectile.Projectile.java
++++ b/net.minecraft.world.entity.projectile.Projectile.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.deltaMovement", "this.getDeltaMovemen", "this.leve", "this.setDeltaMovemen"},
++writeEntities = {"this.deltaMovement"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onAboveBubbleColumn(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.Projectile.java b/net.minecraft.world.entity.projectile.Projectile.java
+--- a/net.minecraft.world.entity.projectile.Projectile.java
++++ b/net.minecraft.world.entity.projectile.Projectile.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.yRot", "this.xRot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateRotation(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.Projectile.java b/net.minecraft.world.entity.projectile.Projectile.java
+--- a/net.minecraft.world.entity.projectile.Projectile.java
++++ b/net.minecraft.world.entity.projectile.Projectile.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.owner", "this.getOwne"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mayInteract(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.Projectile.java b/net.minecraft.world.entity.projectile.Projectile.java
+--- a/net.minecraft.world.entity.projectile.Projectile.java
++++ b/net.minecraft.world.entity.projectile.Projectile.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.owner", "this.deflec", "this.lastDeflectedBy", "this.lastDeflectedB"},
++writeEntities = {"this.lastDeflectedBy"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hitTargetOrDeflectSelf(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.Projectile.java b/net.minecraft.world.entity.projectile.Projectile.java
+--- a/net.minecraft.world.entity.projectile.Projectile.java
++++ b/net.minecraft.world.entity.projectile.Projectile.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.owner", "this.getOwne"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onHit(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.Projectile.java b/net.minecraft.world.entity.projectile.Projectile.java
+--- a/net.minecraft.world.entity.projectile.Projectile.java
++++ b/net.minecraft.world.entity.projectile.Projectile.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shoot(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.Projectile.java b/net.minecraft.world.entity.projectile.Projectile.java
+--- a/net.minecraft.world.entity.projectile.Projectile.java
++++ b/net.minecraft.world.entity.projectile.Projectile.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hasBeenSho", "this.leftOwne", "this.setOwne"},
++writeEntities = {"this.owner", "this.leftOwner", "this.hasBeenShot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.Projectile.java b/net.minecraft.world.entity.projectile.Projectile.java
+--- a/net.minecraft.world.entity.projectile.Projectile.java
++++ b/net.minecraft.world.entity.projectile.Projectile.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isInvulnerableToBas", "this.markHur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtServer(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.Projectile.java b/net.minecraft.world.entity.projectile.Projectile.java
+--- a/net.minecraft.world.entity.projectile.Projectile.java
++++ b/net.minecraft.world.entity.projectile.Projectile.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.deltaMovement", "this.getDeltaMovemen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateHorizontalHurtKnockbackDirection(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.Projectile.java b/net.minecraft.world.entity.projectile.Projectile.java
+--- a/net.minecraft.world.entity.projectile.Projectile.java
++++ b/net.minecraft.world.entity.projectile.Projectile.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shoo", "this.deltaMovement", "this.getDeltaMovemen", "this.setDeltaMovemen"},
++writeEntities = {"this.deltaMovement"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shootFromRotation(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.Projectile.java b/net.minecraft.world.entity.projectile.Projectile.java
+--- a/net.minecraft.world.entity.projectile.Projectile.java
++++ b/net.minecraft.world.entity.projectile.Projectile.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isOutsideOwnerCollisionRang", "this.leftOwnerChecke", "this.leftOwner", "this.leftOwne", "this.leftOwnerChecked"},
++writeEntities = {"this.leftOwner", "this.leftOwnerChecked"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkLeftOwner(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.Projectile.java b/net.minecraft.world.entity.projectile.Projectile.java
+--- a/net.minecraft.world.entity.projectile.Projectile.java
++++ b/net.minecraft.world.entity.projectile.Projectile.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leve", "this.setOwne"},
++writeEntities = {"this.owner"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ recreateFromPacket(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.Projectile.java b/net.minecraft.world.entity.projectile.Projectile.java
+--- a/net.minecraft.world.entity.projectile.Projectile.java
++++ b/net.minecraft.world.entity.projectile.Projectile.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.i"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mayBreak(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.Projectile.java b/net.minecraft.world.entity.projectile.Projectile.java
+--- a/net.minecraft.world.entity.projectile.Projectile.java
++++ b/net.minecraft.world.entity.projectile.Projectile.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.owner"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ ownedBy(/* params */);
+

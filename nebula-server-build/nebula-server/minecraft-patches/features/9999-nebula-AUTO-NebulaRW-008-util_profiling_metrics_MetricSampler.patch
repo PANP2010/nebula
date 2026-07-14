@@ -1,0 +1,106 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (8 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.util.profiling.metrics.MetricSampler.java b/net.minecraft.util.profiling.metrics.MetricSampler.java
+--- a/net.minecraft.util.profiling.metrics.MetricSampler.java
++++ b/net.minecraft.util.profiling.metrics.MetricSampler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ticks", "this.values", "this.isRunnin", "this.verifyRunnin"},
++writeEntities = {"this.isRunning"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onFinished(/* params */);
+
+diff --git a/net.minecraft.util.profiling.metrics.MetricSampler.java b/net.minecraft.util.profiling.metrics.MetricSampler.java
+--- a/net.minecraft.util.profiling.metrics.MetricSampler.java
++++ b/net.minecraft.util.profiling.metrics.MetricSampler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.previousValue", "this.percentageIncreaseThreshol"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ test(/* params */);
+
+diff --git a/net.minecraft.util.profiling.metrics.MetricSampler.java b/net.minecraft.util.profiling.metrics.MetricSampler.java
+--- a/net.minecraft.util.profiling.metrics.MetricSampler.java
++++ b/net.minecraft.util.profiling.metrics.MetricSampler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.currentValue"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onEndTick(/* params */);
+
+diff --git a/net.minecraft.util.profiling.metrics.MetricSampler.java b/net.minecraft.util.profiling.metrics.MetricSampler.java
+--- a/net.minecraft.util.profiling.metrics.MetricSampler.java
++++ b/net.minecraft.util.profiling.metrics.MetricSampler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.recording"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ valueAtTick(/* params */);
+
+diff --git a/net.minecraft.util.profiling.metrics.MetricSampler.java b/net.minecraft.util.profiling.metrics.MetricSampler.java
+--- a/net.minecraft.util.profiling.metrics.MetricSampler.java
++++ b/net.minecraft.util.profiling.metrics.MetricSampler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.beforeTick", "this.thresholdTest", "this.name", "this.category", "this.sampler"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ build(/* params */);
+
+diff --git a/net.minecraft.util.profiling.metrics.MetricSampler.java b/net.minecraft.util.profiling.metrics.MetricSampler.java
+--- a/net.minecraft.util.profiling.metrics.MetricSampler.java
++++ b/net.minecraft.util.profiling.metrics.MetricSampler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isRunning", "this.name"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ verifyRunning(/* params */);
+
+diff --git a/net.minecraft.util.profiling.metrics.MetricSampler.java b/net.minecraft.util.profiling.metrics.MetricSampler.java
+--- a/net.minecraft.util.profiling.metrics.MetricSampler.java
++++ b/net.minecraft.util.profiling.metrics.MetricSampler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isRunning"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onStartTick(/* params */);
+
+diff --git a/net.minecraft.util.profiling.metrics.MetricSampler.java b/net.minecraft.util.profiling.metrics.MetricSampler.java
+--- a/net.minecraft.util.profiling.metrics.MetricSampler.java
++++ b/net.minecraft.util.profiling.metrics.MetricSampler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.thresholdTest", "this.currentValue"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ triggersThreshold(/* params */);
+

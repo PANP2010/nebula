@@ -1,0 +1,68 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.layouts.LinearLayout.java b/net.minecraft.client.gui.layouts.LinearLayout.java
+--- a/net.minecraft.client.gui.layouts.LinearLayout.java
++++ b/net.minecraft.client.gui.layouts.LinearLayout.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.wrapped"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ defaultCellSetting(/* params */);
+
+diff --git a/net.minecraft.client.gui.layouts.LinearLayout.java b/net.minecraft.client.gui.layouts.LinearLayout.java
+--- a/net.minecraft.client.gui.layouts.LinearLayout.java
++++ b/net.minecraft.client.gui.layouts.LinearLayout.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.wrapped"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ newCellSettings(/* params */);
+
+diff --git a/net.minecraft.client.gui.layouts.LinearLayout.java b/net.minecraft.client.gui.layouts.LinearLayout.java
+--- a/net.minecraft.client.gui.layouts.LinearLayout.java
++++ b/net.minecraft.client.gui.layouts.LinearLayout.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.orientation", "this.wrapped"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spacing(/* params */);
+
+diff --git a/net.minecraft.client.gui.layouts.LinearLayout.java b/net.minecraft.client.gui.layouts.LinearLayout.java
+--- a/net.minecraft.client.gui.layouts.LinearLayout.java
++++ b/net.minecraft.client.gui.layouts.LinearLayout.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.wrapped"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ arrangeElements(/* params */);
+
+diff --git a/net.minecraft.client.gui.layouts.LinearLayout.java b/net.minecraft.client.gui.layouts.LinearLayout.java
+--- a/net.minecraft.client.gui.layouts.LinearLayout.java
++++ b/net.minecraft.client.gui.layouts.LinearLayout.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.wrapped"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ visitChildren(/* params */);
+

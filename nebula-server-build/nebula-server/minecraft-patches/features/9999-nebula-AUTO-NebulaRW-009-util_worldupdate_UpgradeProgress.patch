@@ -1,0 +1,116 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (9 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.util.worldupdate.UpgradeProgress.java b/net.minecraft.util.worldupdate.UpgradeProgress.java
+--- a/net.minecraft.util.worldupdate.UpgradeProgress.java
++++ b/net.minecraft.util.worldupdate.UpgradeProgress.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.totalOperations"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ totalOperations(/* params */);
+
+diff --git a/net.minecraft.util.worldupdate.UpgradeProgress.java b/net.minecraft.util.worldupdate.UpgradeProgress.java
+--- a/net.minecraft.util.worldupdate.UpgradeProgress.java
++++ b/net.minecraft.util.worldupdate.UpgradeProgress.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.incrementFinishedOperationsB"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ incrementFinishedOperations(/* params */);
+
+diff --git a/net.minecraft.util.worldupdate.UpgradeProgress.java b/net.minecraft.util.worldupdate.UpgradeProgress.java
+--- a/net.minecraft.util.worldupdate.UpgradeProgress.java
++++ b/net.minecraft.util.worldupdate.UpgradeProgress.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.runningFileFixerStats"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ incrementRunningFileFixer(/* params */);
+
+diff --git a/net.minecraft.util.worldupdate.UpgradeProgress.java b/net.minecraft.util.worldupdate.UpgradeProgress.java
+--- a/net.minecraft.util.worldupdate.UpgradeProgress.java
++++ b/net.minecraft.util.worldupdate.UpgradeProgress.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.totalOperations", "this.finishedOperations"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reset(/* params */);
+
+diff --git a/net.minecraft.util.worldupdate.UpgradeProgress.java b/net.minecraft.util.worldupdate.UpgradeProgress.java
+--- a/net.minecraft.util.worldupdate.UpgradeProgress.java
++++ b/net.minecraft.util.worldupdate.UpgradeProgress.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.skipped"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ incrementSkipped(/* params */);
+
+diff --git a/net.minecraft.util.worldupdate.UpgradeProgress.java b/net.minecraft.util.worldupdate.UpgradeProgress.java
+--- a/net.minecraft.util.worldupdate.UpgradeProgress.java
++++ b/net.minecraft.util.worldupdate.UpgradeProgress.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.converted"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ incrementConverted(/* params */);
+
+diff --git a/net.minecraft.util.worldupdate.UpgradeProgress.java b/net.minecraft.util.worldupdate.UpgradeProgress.java
+--- a/net.minecraft.util.worldupdate.UpgradeProgress.java
++++ b/net.minecraft.util.worldupdate.UpgradeProgress.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.typeFileFixStats", "this.totalFileFixStats", "this.logProgres"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ incrementFinishedOperationsBy(/* params */);
+
+diff --git a/net.minecraft.util.worldupdate.UpgradeProgress.java b/net.minecraft.util.worldupdate.UpgradeProgress.java
+--- a/net.minecraft.util.worldupdate.UpgradeProgress.java
++++ b/net.minecraft.util.worldupdate.UpgradeProgress.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.totalFileFixStats", "this.lastLoggedProgressTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ logProgress(/* params */);
+
+diff --git a/net.minecraft.util.worldupdate.UpgradeProgress.java b/net.minecraft.util.worldupdate.UpgradeProgress.java
+--- a/net.minecraft.util.worldupdate.UpgradeProgress.java
++++ b/net.minecraft.util.worldupdate.UpgradeProgress.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.finishedOperations"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ finishedOperations(/* params */);
+

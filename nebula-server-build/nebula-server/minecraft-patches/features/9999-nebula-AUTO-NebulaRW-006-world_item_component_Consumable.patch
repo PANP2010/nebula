@@ -1,0 +1,85 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.item.component.Consumable.java b/net.minecraft.world.item.component.Consumable.java
+--- a/net.minecraft.world.item.component.Consumable.java
++++ b/net.minecraft.world.item.component.Consumable.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.animatio", "this.hasConsumeParticles"},
++writeEntities = {"this.animation"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ emitParticlesAndSounds(/* params */);
+
+diff --git a/net.minecraft.world.item.component.Consumable.java b/net.minecraft.world.item.component.Consumable.java
+--- a/net.minecraft.world.item.component.Consumable.java
++++ b/net.minecraft.world.item.component.Consumable.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.emitParticlesAndSound"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onConsume(/* params */);
+
+diff --git a/net.minecraft.world.item.component.Consumable.java b/net.minecraft.world.item.component.Consumable.java
+--- a/net.minecraft.world.item.component.Consumable.java
++++ b/net.minecraft.world.item.component.Consumable.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.onConsumeEffects", "this.consumeSeconds", "this.sound", "this.hasConsumeParticles", "this.animation"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ build(/* params */);
+
+diff --git a/net.minecraft.world.item.component.Consumable.java b/net.minecraft.world.item.component.Consumable.java
+--- a/net.minecraft.world.item.component.Consumable.java
++++ b/net.minecraft.world.item.component.Consumable.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.consumeSeconds"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ consumeTicks(/* params */);
+
+diff --git a/net.minecraft.world.item.component.Consumable.java b/net.minecraft.world.item.component.Consumable.java
+--- a/net.minecraft.world.item.component.Consumable.java
++++ b/net.minecraft.world.item.component.Consumable.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.canConsum"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startConsuming(/* params */);
+
+diff --git a/net.minecraft.world.item.component.Consumable.java b/net.minecraft.world.item.component.Consumable.java
+--- a/net.minecraft.world.item.component.Consumable.java
++++ b/net.minecraft.world.item.component.Consumable.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.consumeTick"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldEmitParticlesAndSounds(/* params */);
+

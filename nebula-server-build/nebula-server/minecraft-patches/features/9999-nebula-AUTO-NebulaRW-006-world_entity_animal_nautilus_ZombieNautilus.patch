@@ -1,0 +1,81 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.animal.nautilus.ZombieNautilus.java b/net.minecraft.world.entity.animal.nautilus.ZombieNautilus.java
+--- a/net.minecraft.world.entity.animal.nautilus.ZombieNautilus.java
++++ b/net.minecraft.world.entity.animal.nautilus.ZombieNautilus.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setVarian"},
++writeEntities = {"this.variant"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyImplicitComponent(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.nautilus.ZombieNautilus.java b/net.minecraft.world.entity.animal.nautilus.ZombieNautilus.java
+--- a/net.minecraft.world.entity.animal.nautilus.ZombieNautilus.java
++++ b/net.minecraft.world.entity.animal.nautilus.ZombieNautilus.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.makeSoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playEatingSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.nautilus.ZombieNautilus.java b/net.minecraft.world.entity.animal.nautilus.ZombieNautilus.java
+--- a/net.minecraft.world.entity.animal.nautilus.ZombieNautilus.java
++++ b/net.minecraft.world.entity.animal.nautilus.ZombieNautilus.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registryAcces"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ defineSynchedData(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.nautilus.ZombieNautilus.java b/net.minecraft.world.entity.animal.nautilus.ZombieNautilus.java
+--- a/net.minecraft.world.entity.animal.nautilus.ZombieNautilus.java
++++ b/net.minecraft.world.entity.animal.nautilus.ZombieNautilus.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockPositio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ finalizeSpawn(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.nautilus.ZombieNautilus.java b/net.minecraft.world.entity.animal.nautilus.ZombieNautilus.java
+--- a/net.minecraft.world.entity.animal.nautilus.ZombieNautilus.java
++++ b/net.minecraft.world.entity.animal.nautilus.ZombieNautilus.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBrai", "this.brain"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ customServerAiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.nautilus.ZombieNautilus.java b/net.minecraft.world.entity.animal.nautilus.ZombieNautilus.java
+--- a/net.minecraft.world.entity.animal.nautilus.ZombieNautilus.java
++++ b/net.minecraft.world.entity.animal.nautilus.ZombieNautilus.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.applyImplicitComponentIfPresen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyImplicitComponents(/* params */);
+

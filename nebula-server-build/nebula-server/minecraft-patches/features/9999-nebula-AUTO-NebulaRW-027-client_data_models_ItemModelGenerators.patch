@@ -1,0 +1,332 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (27 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.data.models.ItemModelGenerators.java b/net.minecraft.client.data.models.ItemModelGenerators.java
+--- a/net.minecraft.client.data.models.ItemModelGenerators.java
++++ b/net.minecraft.client.data.models.ItemModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateLayeredItem(/* params */);
+
+diff --git a/net.minecraft.client.data.models.ItemModelGenerators.java b/net.minecraft.client.data.models.ItemModelGenerators.java
+--- a/net.minecraft.client.data.models.ItemModelGenerators.java
++++ b/net.minecraft.client.data.models.ItemModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createFlatItemMode", "this.itemModelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateFlatItem(/* params */);
+
+diff --git a/net.minecraft.client.data.models.ItemModelGenerators.java b/net.minecraft.client.data.models.ItemModelGenerators.java
+--- a/net.minecraft.client.data.models.ItemModelGenerators.java
++++ b/net.minecraft.client.data.models.ItemModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createFlatItemMode", "this.itemModelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateBow(/* params */);
+
+diff --git a/net.minecraft.client.data.models.ItemModelGenerators.java b/net.minecraft.client.data.models.ItemModelGenerators.java
+--- a/net.minecraft.client.data.models.ItemModelGenerators.java
++++ b/net.minecraft.client.data.models.ItemModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.generateLayeredIte", "this.addPotionTin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateTippedArrow(/* params */);
+
+diff --git a/net.minecraft.client.data.models.ItemModelGenerators.java b/net.minecraft.client.data.models.ItemModelGenerators.java
+--- a/net.minecraft.client.data.models.ItemModelGenerators.java
++++ b/net.minecraft.client.data.models.ItemModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.itemModelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateBooleanDispatch(/* params */);
+
+diff --git a/net.minecraft.client.data.models.ItemModelGenerators.java b/net.minecraft.client.data.models.ItemModelGenerators.java
+--- a/net.minecraft.client.data.models.ItemModelGenerators.java
++++ b/net.minecraft.client.data.models.ItemModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createCompassModel", "this.itemModelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateRecoveryCompassItem(/* params */);
+
+diff --git a/net.minecraft.client.data.models.ItemModelGenerators.java b/net.minecraft.client.data.models.ItemModelGenerators.java
+--- a/net.minecraft.client.data.models.ItemModelGenerators.java
++++ b/net.minecraft.client.data.models.ItemModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createFlatItemMode", "this.itemModelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateSpyglass(/* params */);
+
+diff --git a/net.minecraft.client.data.models.ItemModelGenerators.java b/net.minecraft.client.data.models.ItemModelGenerators.java
+--- a/net.minecraft.client.data.models.ItemModelGenerators.java
++++ b/net.minecraft.client.data.models.ItemModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createFlatItemModel(/* params */);
+
+diff --git a/net.minecraft.client.data.models.ItemModelGenerators.java b/net.minecraft.client.data.models.ItemModelGenerators.java
+--- a/net.minecraft.client.data.models.ItemModelGenerators.java
++++ b/net.minecraft.client.data.models.ItemModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.itemModelOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateTwoLayerDyedItem(/* params */);
+
+diff --git a/net.minecraft.client.data.models.ItemModelGenerators.java b/net.minecraft.client.data.models.ItemModelGenerators.java
+--- a/net.minecraft.client.data.models.ItemModelGenerators.java
++++ b/net.minecraft.client.data.models.ItemModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createFlatItemMode", "this.generateBundleCoverMode", "this.itemModelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateBundleModels(/* params */);
+
+diff --git a/net.minecraft.client.data.models.ItemModelGenerators.java b/net.minecraft.client.data.models.ItemModelGenerators.java
+--- a/net.minecraft.client.data.models.ItemModelGenerators.java
++++ b/net.minecraft.client.data.models.ItemModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.generateBooleanDispatc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateGoatHorn(/* params */);
+
+diff --git a/net.minecraft.client.data.models.ItemModelGenerators.java b/net.minecraft.client.data.models.ItemModelGenerators.java
+--- a/net.minecraft.client.data.models.ItemModelGenerators.java
++++ b/net.minecraft.client.data.models.ItemModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.generateLayeredIte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateTrimmableItem(/* params */);
+
+diff --git a/net.minecraft.client.data.models.ItemModelGenerators.java b/net.minecraft.client.data.models.ItemModelGenerators.java
+--- a/net.minecraft.client.data.models.ItemModelGenerators.java
++++ b/net.minecraft.client.data.models.ItemModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createFlatItemMode", "this.itemModelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateTrident(/* params */);
+
+diff --git a/net.minecraft.client.data.models.ItemModelGenerators.java b/net.minecraft.client.data.models.ItemModelGenerators.java
+--- a/net.minecraft.client.data.models.ItemModelGenerators.java
++++ b/net.minecraft.client.data.models.ItemModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createFlatItemMode", "this.generateBooleanDispatc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateElytra(/* params */);
+
+diff --git a/net.minecraft.client.data.models.ItemModelGenerators.java b/net.minecraft.client.data.models.ItemModelGenerators.java
+--- a/net.minecraft.client.data.models.ItemModelGenerators.java
++++ b/net.minecraft.client.data.models.ItemModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createFlatItemMode", "this.itemModelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateCrossbow(/* params */);
+
+diff --git a/net.minecraft.client.data.models.ItemModelGenerators.java b/net.minecraft.client.data.models.ItemModelGenerators.java
+--- a/net.minecraft.client.data.models.ItemModelGenerators.java
++++ b/net.minecraft.client.data.models.ItemModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateClockItem(/* params */);
+
+diff --git a/net.minecraft.client.data.models.ItemModelGenerators.java b/net.minecraft.client.data.models.ItemModelGenerators.java
+--- a/net.minecraft.client.data.models.ItemModelGenerators.java
++++ b/net.minecraft.client.data.models.ItemModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createFlatItemMode", "this.itemModelOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateSpear(/* params */);
+
+diff --git a/net.minecraft.client.data.models.ItemModelGenerators.java b/net.minecraft.client.data.models.ItemModelGenerators.java
+--- a/net.minecraft.client.data.models.ItemModelGenerators.java
++++ b/net.minecraft.client.data.models.ItemModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateBundleCoverModel(/* params */);
+
+diff --git a/net.minecraft.client.data.models.ItemModelGenerators.java b/net.minecraft.client.data.models.ItemModelGenerators.java
+--- a/net.minecraft.client.data.models.ItemModelGenerators.java
++++ b/net.minecraft.client.data.models.ItemModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createFlatItemMode", "this.itemModelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateDyedItem(/* params */);
+
+diff --git a/net.minecraft.client.data.models.ItemModelGenerators.java b/net.minecraft.client.data.models.ItemModelGenerators.java
+--- a/net.minecraft.client.data.models.ItemModelGenerators.java
++++ b/net.minecraft.client.data.models.ItemModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.generateLayeredIte", "this.addPotionTin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generatePotion(/* params */);
+
+diff --git a/net.minecraft.client.data.models.ItemModelGenerators.java b/net.minecraft.client.data.models.ItemModelGenerators.java
+--- a/net.minecraft.client.data.models.ItemModelGenerators.java
++++ b/net.minecraft.client.data.models.ItemModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.itemModelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateShield(/* params */);
+
+diff --git a/net.minecraft.client.data.models.ItemModelGenerators.java b/net.minecraft.client.data.models.ItemModelGenerators.java
+--- a/net.minecraft.client.data.models.ItemModelGenerators.java
++++ b/net.minecraft.client.data.models.ItemModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.generateLayeredIte", "this.itemModelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateItemWithTintedOverlay(/* params */);
+
+diff --git a/net.minecraft.client.data.models.ItemModelGenerators.java b/net.minecraft.client.data.models.ItemModelGenerators.java
+--- a/net.minecraft.client.data.models.ItemModelGenerators.java
++++ b/net.minecraft.client.data.models.ItemModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createFlatItemMode", "this.generateBooleanDispatc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateFishingRod(/* params */);
+
+diff --git a/net.minecraft.client.data.models.ItemModelGenerators.java b/net.minecraft.client.data.models.ItemModelGenerators.java
+--- a/net.minecraft.client.data.models.ItemModelGenerators.java
++++ b/net.minecraft.client.data.models.ItemModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.itemModelOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateItemWithTintedBaseLayer(/* params */);
+
+diff --git a/net.minecraft.client.data.models.ItemModelGenerators.java b/net.minecraft.client.data.models.ItemModelGenerators.java
+--- a/net.minecraft.client.data.models.ItemModelGenerators.java
++++ b/net.minecraft.client.data.models.ItemModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createCompassModel", "this.itemModelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateStandardCompassItem(/* params */);
+
+diff --git a/net.minecraft.client.data.models.ItemModelGenerators.java b/net.minecraft.client.data.models.ItemModelGenerators.java
+--- a/net.minecraft.client.data.models.ItemModelGenerators.java
++++ b/net.minecraft.client.data.models.ItemModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.itemModelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ declareCustomModelItem(/* params */);
+
+diff --git a/net.minecraft.client.data.models.ItemModelGenerators.java b/net.minecraft.client.data.models.ItemModelGenerators.java
+--- a/net.minecraft.client.data.models.ItemModelGenerators.java
++++ b/net.minecraft.client.data.models.ItemModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.itemModelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateBrush(/* params */);
+

@@ -1,0 +1,94 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.LiquidBlock.java b/net.minecraft.world.level.block.LiquidBlock.java
+--- a/net.minecraft.world.level.block.LiquidBlock.java
++++ b/net.minecraft.world.level.block.LiquidBlock.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fiz", "this.fluid"},
++readBlocks = {"{neighbors}", "{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldSpreadLiquid(/* params */);
+
+diff --git a/net.minecraft.world.level.block.LiquidBlock.java b/net.minecraft.world.level.block.LiquidBlock.java
+--- a/net.minecraft.world.level.block.LiquidBlock.java
++++ b/net.minecraft.world.level.block.LiquidBlock.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fluid"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pickupBlock(/* params */);
+
+diff --git a/net.minecraft.world.level.block.LiquidBlock.java b/net.minecraft.world.level.block.LiquidBlock.java
+--- a/net.minecraft.world.level.block.LiquidBlock.java
++++ b/net.minecraft.world.level.block.LiquidBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fluid"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ skipRendering(/* params */);
+
+diff --git a/net.minecraft.world.level.block.LiquidBlock.java b/net.minecraft.world.level.block.LiquidBlock.java
+--- a/net.minecraft.world.level.block.LiquidBlock.java
++++ b/net.minecraft.world.level.block.LiquidBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fluid"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateShape(/* params */);
+
+diff --git a/net.minecraft.world.level.block.LiquidBlock.java b/net.minecraft.world.level.block.LiquidBlock.java
+--- a/net.minecraft.world.level.block.LiquidBlock.java
++++ b/net.minecraft.world.level.block.LiquidBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shouldSpreadLiqui", "this.fluid"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ neighborChanged(/* params */);
+
+diff --git a/net.minecraft.world.level.block.LiquidBlock.java b/net.minecraft.world.level.block.LiquidBlock.java
+--- a/net.minecraft.world.level.block.LiquidBlock.java
++++ b/net.minecraft.world.level.block.LiquidBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shouldSpreadLiqui", "this.fluid"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onPlace(/* params */);
+
+diff --git a/net.minecraft.world.level.block.LiquidBlock.java b/net.minecraft.world.level.block.LiquidBlock.java
+--- a/net.minecraft.world.level.block.LiquidBlock.java
++++ b/net.minecraft.world.level.block.LiquidBlock.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{neighbors}", "{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+

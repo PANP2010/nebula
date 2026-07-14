@@ -1,0 +1,127 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (9 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.EyeblossomBlock.java b/net.minecraft.world.level.block.EyeblossomBlock.java
+--- a/net.minecraft.world.level.block.EyeblossomBlock.java
++++ b/net.minecraft.world.level.block.EyeblossomBlock.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tryChangingStat", "this.type"},
++triggeredEvents = {"SOUND_PLAY"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.level.block.EyeblossomBlock.java b/net.minecraft.world.level.block.EyeblossomBlock.java
+--- a/net.minecraft.world.level.block.EyeblossomBlock.java
++++ b/net.minecraft.world.level.block.EyeblossomBlock.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.type"},
++readBlocks = {"{neighbors}", "{position}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ animateTick(/* params */);
+
+diff --git a/net.minecraft.world.level.block.EyeblossomBlock.java b/net.minecraft.world.level.block.EyeblossomBlock.java
+--- a/net.minecraft.world.level.block.EyeblossomBlock.java
++++ b/net.minecraft.world.level.block.EyeblossomBlock.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tryChangingStat", "this.type"},
++triggeredEvents = {"SOUND_PLAY"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ randomTick(/* params */);
+
+diff --git a/net.minecraft.world.level.block.EyeblossomBlock.java b/net.minecraft.world.level.block.EyeblossomBlock.java
+--- a/net.minecraft.world.level.block.EyeblossomBlock.java
++++ b/net.minecraft.world.level.block.EyeblossomBlock.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.particleColor"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spawnTransformParticle(/* params */);
+
+diff --git a/net.minecraft.world.level.block.EyeblossomBlock.java b/net.minecraft.world.level.block.EyeblossomBlock.java
+--- a/net.minecraft.world.level.block.EyeblossomBlock.java
++++ b/net.minecraft.world.level.block.EyeblossomBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.type"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tryChangingState(/* params */);
+
+diff --git a/net.minecraft.world.level.block.EyeblossomBlock.java b/net.minecraft.world.level.block.EyeblossomBlock.java
+--- a/net.minecraft.world.level.block.EyeblossomBlock.java
++++ b/net.minecraft.world.level.block.EyeblossomBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.longSwitchSoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ longSwitchSound(/* params */);
+
+diff --git a/net.minecraft.world.level.block.EyeblossomBlock.java b/net.minecraft.world.level.block.EyeblossomBlock.java
+--- a/net.minecraft.world.level.block.EyeblossomBlock.java
++++ b/net.minecraft.world.level.block.EyeblossomBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.bloc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ state(/* params */);
+
+diff --git a/net.minecraft.world.level.block.EyeblossomBlock.java b/net.minecraft.world.level.block.EyeblossomBlock.java
+--- a/net.minecraft.world.level.block.EyeblossomBlock.java
++++ b/net.minecraft.world.level.block.EyeblossomBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.open"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ block(/* params */);
+
+diff --git a/net.minecraft.world.level.block.EyeblossomBlock.java b/net.minecraft.world.level.block.EyeblossomBlock.java
+--- a/net.minecraft.world.level.block.EyeblossomBlock.java
++++ b/net.minecraft.world.level.block.EyeblossomBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.beeInteractionEffect", "this.getBeeInteractionEffec"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ entityInside(/* params */);
+

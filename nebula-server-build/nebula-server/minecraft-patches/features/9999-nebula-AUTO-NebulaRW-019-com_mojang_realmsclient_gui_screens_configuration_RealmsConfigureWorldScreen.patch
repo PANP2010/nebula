@@ -1,0 +1,240 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (19 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveSlotSettings(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onTabDeselected(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tabNavigationBar"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ keyPressed(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.stateChange", "this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveSettings(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tabManager", "this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onClose(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.onRealmsDataFetche", "this.serverDat"},
++writeEntities = {"this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fetchServerData(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.layout", "this.width", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ closeTheWorld(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playButton", "this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateButtonStates(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fetchServerDat", "this.serverId", "this.serverDat"},
++writeEntities = {"this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.layout", "this.tabManager", "this.width", "this.tabNavigationBar", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ repositionElements(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onTabSelected(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.stateChange", "this.tabNavigationBar", "this.serverData"},
++writeEntities = {"this.stateChanged"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stateChanged(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.regions", "this.regionServiceQuality", "this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onRealmsDataFetched(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ openTheWorld(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.layout", "this.extractMenuBackgroun", "this.width", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractMenuBackground(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ invitePlayer(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lastScreen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createErrorScreen(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsConfigureWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.region", "this.onRealmsDataFetche"},
++writeEntities = {"this.regions"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fetchRegionData(/* params */);
+

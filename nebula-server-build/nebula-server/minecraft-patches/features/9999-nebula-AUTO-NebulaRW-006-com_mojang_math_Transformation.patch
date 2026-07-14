@@ -1,0 +1,81 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/com.mojang.math.Transformation.java b/com.mojang.math.Transformation.java
+--- a/com.mojang.math.Transformation.java
++++ b/com.mojang.math.Transformation.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leftRotatio", "this.ensureDecompose"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ leftRotation(/* params */);
+
+diff --git a/com.mojang.math.Transformation.java b/com.mojang.math.Transformation.java
+--- a/com.mojang.math.Transformation.java
++++ b/com.mojang.math.Transformation.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.translatio", "this.rightRotatio", "this.leftRotatio", "this.scal"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ slerp(/* params */);
+
+diff --git a/com.mojang.math.Transformation.java b/com.mojang.math.Transformation.java
+--- a/com.mojang.math.Transformation.java
++++ b/com.mojang.math.Transformation.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.rightRotatio", "this.ensureDecompose"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ rightRotation(/* params */);
+
+diff --git a/com.mojang.math.Transformation.java b/com.mojang.math.Transformation.java
+--- a/com.mojang.math.Transformation.java
++++ b/com.mojang.math.Transformation.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.translatio", "this.ensureDecompose"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ translation(/* params */);
+
+diff --git a/com.mojang.math.Transformation.java b/com.mojang.math.Transformation.java
+--- a/com.mojang.math.Transformation.java
++++ b/com.mojang.math.Transformation.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.leftRotation", "this.decomposed", "this.translation", "this.scale", "this.rightRotation"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ ensureDecomposed(/* params */);
+
+diff --git a/com.mojang.math.Transformation.java b/com.mojang.math.Transformation.java
+--- a/com.mojang.math.Transformation.java
++++ b/com.mojang.math.Transformation.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ensureDecompose", "this.scal"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scale(/* params */);
+

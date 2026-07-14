@@ -1,0 +1,105 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (8 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.network.chat.PlayerChatMessage.java b/net.minecraft.network.chat.PlayerChatMessage.java
+--- a/net.minecraft.network.chat.PlayerChatMessage.java
++++ b/net.minecraft.network.chat.PlayerChatMessage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.signedBody"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ timeStamp(/* params */);
+
+diff --git a/net.minecraft.network.chat.PlayerChatMessage.java b/net.minecraft.network.chat.PlayerChatMessage.java
+--- a/net.minecraft.network.chat.PlayerChatMessage.java
++++ b/net.minecraft.network.chat.PlayerChatMessage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.filterMas", "this.filte"},
++writeEntities = {"this.filterMask"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ filter(/* params */);
+
+diff --git a/net.minecraft.network.chat.PlayerChatMessage.java b/net.minecraft.network.chat.PlayerChatMessage.java
+--- a/net.minecraft.network.chat.PlayerChatMessage.java
++++ b/net.minecraft.network.chat.PlayerChatMessage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.signedBody"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ salt(/* params */);
+
+diff --git a/net.minecraft.network.chat.PlayerChatMessage.java b/net.minecraft.network.chat.PlayerChatMessage.java
+--- a/net.minecraft.network.chat.PlayerChatMessage.java
++++ b/net.minecraft.network.chat.PlayerChatMessage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.unsignedContent", "this.signedConten"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ decoratedContent(/* params */);
+
+diff --git a/net.minecraft.network.chat.PlayerChatMessage.java b/net.minecraft.network.chat.PlayerChatMessage.java
+--- a/net.minecraft.network.chat.PlayerChatMessage.java
++++ b/net.minecraft.network.chat.PlayerChatMessage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.link"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sender(/* params */);
+
+diff --git a/net.minecraft.network.chat.PlayerChatMessage.java b/net.minecraft.network.chat.PlayerChatMessage.java
+--- a/net.minecraft.network.chat.PlayerChatMessage.java
++++ b/net.minecraft.network.chat.PlayerChatMessage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.signature", "this.link", "this.signedBody"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ verify(/* params */);
+
+diff --git a/net.minecraft.network.chat.PlayerChatMessage.java b/net.minecraft.network.chat.PlayerChatMessage.java
+--- a/net.minecraft.network.chat.PlayerChatMessage.java
++++ b/net.minecraft.network.chat.PlayerChatMessage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.signature", "this.link", "this.signedConten", "this.signedBody", "this.filterMask"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withUnsignedContent(/* params */);
+
+diff --git a/net.minecraft.network.chat.PlayerChatMessage.java b/net.minecraft.network.chat.PlayerChatMessage.java
+--- a/net.minecraft.network.chat.PlayerChatMessage.java
++++ b/net.minecraft.network.chat.PlayerChatMessage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.signedBody"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ signedContent(/* params */);
+

@@ -1,0 +1,94 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.decoration.BlockAttachedEntity.java b/net.minecraft.world.entity.decoration.BlockAttachedEntity.java
+--- a/net.minecraft.world.entity.decoration.BlockAttachedEntity.java
++++ b/net.minecraft.world.entity.decoration.BlockAttachedEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isInvulnerableToBas"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtServer(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.BlockAttachedEntity.java b/net.minecraft.world.entity.decoration.BlockAttachedEntity.java
+--- a/net.minecraft.world.entity.decoration.BlockAttachedEntity.java
++++ b/net.minecraft.world.entity.decoration.BlockAttachedEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pos", "this.hurtOrSimulat", "this.damageSource", "this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ skipAttackInteraction(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.BlockAttachedEntity.java b/net.minecraft.world.entity.decoration.BlockAttachedEntity.java
+--- a/net.minecraft.world.entity.decoration.BlockAttachedEntity.java
++++ b/net.minecraft.world.entity.decoration.BlockAttachedEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isInvulnerableToBas"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtClient(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.BlockAttachedEntity.java b/net.minecraft.world.entity.decoration.BlockAttachedEntity.java
+--- a/net.minecraft.world.entity.decoration.BlockAttachedEntity.java
++++ b/net.minecraft.world.entity.decoration.BlockAttachedEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isRemove", "this.leve", "this.dropIte", "this.kil"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ move(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.BlockAttachedEntity.java b/net.minecraft.world.entity.decoration.BlockAttachedEntity.java
+--- a/net.minecraft.world.entity.decoration.BlockAttachedEntity.java
++++ b/net.minecraft.world.entity.decoration.BlockAttachedEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockPositio", "this.po"},
++writeEntities = {"this.pos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.BlockAttachedEntity.java b/net.minecraft.world.entity.decoration.BlockAttachedEntity.java
+--- a/net.minecraft.world.entity.decoration.BlockAttachedEntity.java
++++ b/net.minecraft.world.entity.decoration.BlockAttachedEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isRemove", "this.leve", "this.dropIte", "this.kil"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ push(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.BlockAttachedEntity.java b/net.minecraft.world.entity.decoration.BlockAttachedEntity.java
+--- a/net.minecraft.world.entity.decoration.BlockAttachedEntity.java
++++ b/net.minecraft.world.entity.decoration.BlockAttachedEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.checkInterval"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+

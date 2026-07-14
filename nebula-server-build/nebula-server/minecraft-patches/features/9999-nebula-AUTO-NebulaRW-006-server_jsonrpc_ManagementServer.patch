@@ -1,0 +1,81 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.jsonrpc.ManagementServer.java b/net.minecraft.server.jsonrpc.ManagementServer.java
+--- a/net.minecraft.server.jsonrpc.ManagementServer.java
++++ b/net.minecraft.server.jsonrpc.ManagementServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.forEachConnectio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.server.jsonrpc.ManagementServer.java b/net.minecraft.server.jsonrpc.ManagementServer.java
+--- a/net.minecraft.server.jsonrpc.ManagementServer.java
++++ b/net.minecraft.server.jsonrpc.ManagementServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.star"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startWithTls(/* params */);
+
+diff --git a/net.minecraft.server.jsonrpc.ManagementServer.java b/net.minecraft.server.jsonrpc.ManagementServer.java
+--- a/net.minecraft.server.jsonrpc.ManagementServer.java
++++ b/net.minecraft.server.jsonrpc.ManagementServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connections"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onConnected(/* params */);
+
+diff --git a/net.minecraft.server.jsonrpc.ManagementServer.java b/net.minecraft.server.jsonrpc.ManagementServer.java
+--- a/net.minecraft.server.jsonrpc.ManagementServer.java
++++ b/net.minecraft.server.jsonrpc.ManagementServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connections"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onDisconnected(/* params */);
+
+diff --git a/net.minecraft.server.jsonrpc.ManagementServer.java b/net.minecraft.server.jsonrpc.ManagementServer.java
+--- a/net.minecraft.server.jsonrpc.ManagementServer.java
++++ b/net.minecraft.server.jsonrpc.ManagementServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.star"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startWithoutTls(/* params */);
+
+diff --git a/net.minecraft.server.jsonrpc.ManagementServer.java b/net.minecraft.server.jsonrpc.ManagementServer.java
+--- a/net.minecraft.server.jsonrpc.ManagementServer.java
++++ b/net.minecraft.server.jsonrpc.ManagementServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.serverChanne", "this.serverChannel"},
++writeEntities = {"this.serverChannel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+

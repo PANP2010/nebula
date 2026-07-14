@@ -1,0 +1,72 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.ai.behavior.Behavior.java b/net.minecraft.world.entity.ai.behavior.Behavior.java
+--- a/net.minecraft.world.entity.ai.behavior.Behavior.java
++++ b/net.minecraft.world.entity.ai.behavior.Behavior.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.endTimestamp", "this.status"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tryStart(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.Behavior.java b/net.minecraft.world.entity.ai.behavior.Behavior.java
+--- a/net.minecraft.world.entity.ai.behavior.Behavior.java
++++ b/net.minecraft.world.entity.ai.behavior.Behavior.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.canStillUs", "this.timedOu", "this.tic"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickOrStop(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.Behavior.java b/net.minecraft.world.entity.ai.behavior.Behavior.java
+--- a/net.minecraft.world.entity.ai.behavior.Behavior.java
++++ b/net.minecraft.world.entity.ai.behavior.Behavior.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.statu", "this.sto"},
++writeEntities = {"this.status"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ doStop(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.Behavior.java b/net.minecraft.world.entity.ai.behavior.Behavior.java
+--- a/net.minecraft.world.entity.ai.behavior.Behavior.java
++++ b/net.minecraft.world.entity.ai.behavior.Behavior.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.class", "this.getClas"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ debugString(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.Behavior.java b/net.minecraft.world.entity.ai.behavior.Behavior.java
+--- a/net.minecraft.world.entity.ai.behavior.Behavior.java
++++ b/net.minecraft.world.entity.ai.behavior.Behavior.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.endTimestam"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ timedOut(/* params */);
+

@@ -1,0 +1,134 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (10 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java b/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java
+--- a/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java
++++ b/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.index"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractContent(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java b/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java
+--- a/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java
++++ b/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.selected"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ deleteLayer(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java b/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java
+--- a/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java
++++ b/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hasValidSelectio", "this.deleteLayerButton"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateButtonValidity(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java b/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java
+--- a/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java
++++ b/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.deleteLayerButton", "this.list"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java b/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java
+--- a/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java
++++ b/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.generator", "this.addEntr", "this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ populateList(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java b/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java
+--- a/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java
++++ b/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.layout", "this.width", "this.list"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ repositionElements(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java b/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java
+--- a/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java
++++ b/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blitSlotB"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ blitSlot(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java b/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java
+--- a/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java
++++ b/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.selected"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetRows(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java b/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java
+--- a/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java
++++ b/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setSelecte"},
++writeEntities = {"this.selected"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mouseClicked(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java b/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java
+--- a/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java
++++ b/net.minecraft.client.gui.screens.CreateFlatWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.parent"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onClose(/* params */);
+

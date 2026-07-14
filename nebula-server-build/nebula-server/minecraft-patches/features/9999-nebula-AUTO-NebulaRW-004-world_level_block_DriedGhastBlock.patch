@@ -1,0 +1,63 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.DriedGhastBlock.java b/net.minecraft.world.level.block.DriedGhastBlock.java
+--- a/net.minecraft.world.level.block.DriedGhastBlock.java
++++ b/net.minecraft.world.level.block.DriedGhastBlock.java
+@@ // 65% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isReadyToSpaw", "this.hydrationLevel", "this.getHydrationLeve"},
++readBlocks = {"{position}"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickWaterlogged(/* params */);
+
+diff --git a/net.minecraft.world.level.block.DriedGhastBlock.java b/net.minecraft.world.level.block.DriedGhastBlock.java
+--- a/net.minecraft.world.level.block.DriedGhastBlock.java
++++ b/net.minecraft.world.level.block.DriedGhastBlock.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ placeLiquid(/* params */);
+
+diff --git a/net.minecraft.world.level.block.DriedGhastBlock.java b/net.minecraft.world.level.block.DriedGhastBlock.java
+--- a/net.minecraft.world.level.block.DriedGhastBlock.java
++++ b/net.minecraft.world.level.block.DriedGhastBlock.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tickWaterlogge"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.level.block.DriedGhastBlock.java b/net.minecraft.world.level.block.DriedGhastBlock.java
+--- a/net.minecraft.world.level.block.DriedGhastBlock.java
++++ b/net.minecraft.world.level.block.DriedGhastBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{neighbors}", "{position}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ animateTick(/* params */);
+

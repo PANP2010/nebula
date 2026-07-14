@@ -1,0 +1,394 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (31 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.item.enchantment.Enchantment.java b/net.minecraft.world.item.enchantment.Enchantment.java
+--- a/net.minecraft.world.item.enchantment.Enchantment.java
++++ b/net.minecraft.world.item.enchantment.Enchantment.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.effects", "this.getEffect"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ modifyItemFilteredCount(/* params */);
+
+diff --git a/net.minecraft.world.item.enchantment.Enchantment.java b/net.minecraft.world.item.enchantment.Enchantment.java
+--- a/net.minecraft.world.item.enchantment.Enchantment.java
++++ b/net.minecraft.world.item.enchantment.Enchantment.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.effects", "this.getEffect"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ modifyEntityFilteredValue(/* params */);
+
+diff --git a/net.minecraft.world.item.enchantment.Enchantment.java b/net.minecraft.world.item.enchantment.Enchantment.java
+--- a/net.minecraft.world.item.enchantment.Enchantment.java
++++ b/net.minecraft.world.item.enchantment.Enchantment.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.effects"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ modifyUnfilteredValue(/* params */);
+
+diff --git a/net.minecraft.world.item.enchantment.Enchantment.java b/net.minecraft.world.item.enchantment.Enchantment.java
+--- a/net.minecraft.world.item.enchantment.Enchantment.java
++++ b/net.minecraft.world.item.enchantment.Enchantment.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.effects", "this.getEffect"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ modifyDamageProtection(/* params */);
+
+diff --git a/net.minecraft.world.item.enchantment.Enchantment.java b/net.minecraft.world.item.enchantment.Enchantment.java
+--- a/net.minecraft.world.item.enchantment.Enchantment.java
++++ b/net.minecraft.world.item.enchantment.Enchantment.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modifyUnfilteredValu"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ modifyTridentSpinAttackStrength(/* params */);
+
+diff --git a/net.minecraft.world.item.enchantment.Enchantment.java b/net.minecraft.world.item.enchantment.Enchantment.java
+--- a/net.minecraft.world.item.enchantment.Enchantment.java
++++ b/net.minecraft.world.item.enchantment.Enchantment.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modifyUnfilteredValu"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ modifyCrossbowChargeTime(/* params */);
+
+diff --git a/net.minecraft.world.item.enchantment.Enchantment.java b/net.minecraft.world.item.enchantment.Enchantment.java
+--- a/net.minecraft.world.item.enchantment.Enchantment.java
++++ b/net.minecraft.world.item.enchantment.Enchantment.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.effects", "this.getEffect"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ modifyDamageFilteredValue(/* params */);
+
+diff --git a/net.minecraft.world.item.enchantment.Enchantment.java b/net.minecraft.world.item.enchantment.Enchantment.java
+--- a/net.minecraft.world.item.enchantment.Enchantment.java
++++ b/net.minecraft.world.item.enchantment.Enchantment.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modifyEntityFilteredValu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ modifyFishingLuckBonus(/* params */);
+
+diff --git a/net.minecraft.world.item.enchantment.Enchantment.java b/net.minecraft.world.item.enchantment.Enchantment.java
+--- a/net.minecraft.world.item.enchantment.Enchantment.java
++++ b/net.minecraft.world.item.enchantment.Enchantment.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.effects", "this.getEffect"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onProjectileSpawned(/* params */);
+
+diff --git a/net.minecraft.world.item.enchantment.Enchantment.java b/net.minecraft.world.item.enchantment.Enchantment.java
+--- a/net.minecraft.world.item.enchantment.Enchantment.java
++++ b/net.minecraft.world.item.enchantment.Enchantment.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.effects", "this.getEffect"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ doPostPiercingAttack(/* params */);
+
+diff --git a/net.minecraft.world.item.enchantment.Enchantment.java b/net.minecraft.world.item.enchantment.Enchantment.java
+--- a/net.minecraft.world.item.enchantment.Enchantment.java
++++ b/net.minecraft.world.item.enchantment.Enchantment.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modifyEntityFilteredValu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ modifyFishingTimeReduction(/* params */);
+
+diff --git a/net.minecraft.world.item.enchantment.Enchantment.java b/net.minecraft.world.item.enchantment.Enchantment.java
+--- a/net.minecraft.world.item.enchantment.Enchantment.java
++++ b/net.minecraft.world.item.enchantment.Enchantment.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.matchingSlo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ runLocationChangedEffects(/* params */);
+
+diff --git a/net.minecraft.world.item.enchantment.Enchantment.java b/net.minecraft.world.item.enchantment.Enchantment.java
+--- a/net.minecraft.world.item.enchantment.Enchantment.java
++++ b/net.minecraft.world.item.enchantment.Enchantment.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.perLevelAboveFirst", "this.base"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculate(/* params */);
+
+diff --git a/net.minecraft.world.item.enchantment.Enchantment.java b/net.minecraft.world.item.enchantment.Enchantment.java
+--- a/net.minecraft.world.item.enchantment.Enchantment.java
++++ b/net.minecraft.world.item.enchantment.Enchantment.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modifyEntityFilteredValu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ modifyProjectileCount(/* params */);
+
+diff --git a/net.minecraft.world.item.enchantment.Enchantment.java b/net.minecraft.world.item.enchantment.Enchantment.java
+--- a/net.minecraft.world.item.enchantment.Enchantment.java
++++ b/net.minecraft.world.item.enchantment.Enchantment.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modifyDamageFilteredValu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ modifyFallBasedDamage(/* params */);
+
+diff --git a/net.minecraft.world.item.enchantment.Enchantment.java b/net.minecraft.world.item.enchantment.Enchantment.java
+--- a/net.minecraft.world.item.enchantment.Enchantment.java
++++ b/net.minecraft.world.item.enchantment.Enchantment.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.effects", "this.getEffect"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onHitBlock(/* params */);
+
+diff --git a/net.minecraft.world.item.enchantment.Enchantment.java b/net.minecraft.world.item.enchantment.Enchantment.java
+--- a/net.minecraft.world.item.enchantment.Enchantment.java
++++ b/net.minecraft.world.item.enchantment.Enchantment.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.definition"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ matchingSlot(/* params */);
+
+diff --git a/net.minecraft.world.item.enchantment.Enchantment.java b/net.minecraft.world.item.enchantment.Enchantment.java
+--- a/net.minecraft.world.item.enchantment.Enchantment.java
++++ b/net.minecraft.world.item.enchantment.Enchantment.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.effectMapBuilder", "this.exclusiveSet", "this.definition"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ build(/* params */);
+
+diff --git a/net.minecraft.world.item.enchantment.Enchantment.java b/net.minecraft.world.item.enchantment.Enchantment.java
+--- a/net.minecraft.world.item.enchantment.Enchantment.java
++++ b/net.minecraft.world.item.enchantment.Enchantment.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modifyEntityFilteredValu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ modifyProjectileSpread(/* params */);
+
+diff --git a/net.minecraft.world.item.enchantment.Enchantment.java b/net.minecraft.world.item.enchantment.Enchantment.java
+--- a/net.minecraft.world.item.enchantment.Enchantment.java
++++ b/net.minecraft.world.item.enchantment.Enchantment.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modifyItemFilteredCoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ modifyPiercingCount(/* params */);
+
+diff --git a/net.minecraft.world.item.enchantment.Enchantment.java b/net.minecraft.world.item.enchantment.Enchantment.java
+--- a/net.minecraft.world.item.enchantment.Enchantment.java
++++ b/net.minecraft.world.item.enchantment.Enchantment.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.effects", "this.getEffect"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.item.enchantment.Enchantment.java b/net.minecraft.world.item.enchantment.Enchantment.java
+--- a/net.minecraft.world.item.enchantment.Enchantment.java
++++ b/net.minecraft.world.item.enchantment.Enchantment.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modifyEntityFilteredValu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ modifyTridentReturnToOwnerAcceleration(/* params */);
+
+diff --git a/net.minecraft.world.item.enchantment.Enchantment.java b/net.minecraft.world.item.enchantment.Enchantment.java
+--- a/net.minecraft.world.item.enchantment.Enchantment.java
++++ b/net.minecraft.world.item.enchantment.Enchantment.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modifyItemFilteredCoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ modifyDurabilityChange(/* params */);
+
+diff --git a/net.minecraft.world.item.enchantment.Enchantment.java b/net.minecraft.world.item.enchantment.Enchantment.java
+--- a/net.minecraft.world.item.enchantment.Enchantment.java
++++ b/net.minecraft.world.item.enchantment.Enchantment.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modifyDamageFilteredValu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ modifyKnockback(/* params */);
+
+diff --git a/net.minecraft.world.item.enchantment.Enchantment.java b/net.minecraft.world.item.enchantment.Enchantment.java
+--- a/net.minecraft.world.item.enchantment.Enchantment.java
++++ b/net.minecraft.world.item.enchantment.Enchantment.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modifyItemFilteredCoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ modifyBlockExperience(/* params */);
+
+diff --git a/net.minecraft.world.item.enchantment.Enchantment.java b/net.minecraft.world.item.enchantment.Enchantment.java
+--- a/net.minecraft.world.item.enchantment.Enchantment.java
++++ b/net.minecraft.world.item.enchantment.Enchantment.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modifyItemFilteredCoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ modifyDurabilityToRepairFromXp(/* params */);
+
+diff --git a/net.minecraft.world.item.enchantment.Enchantment.java b/net.minecraft.world.item.enchantment.Enchantment.java
+--- a/net.minecraft.world.item.enchantment.Enchantment.java
++++ b/net.minecraft.world.item.enchantment.Enchantment.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modifyDamageFilteredValu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ modifyArmorEffectivness(/* params */);
+
+diff --git a/net.minecraft.world.item.enchantment.Enchantment.java b/net.minecraft.world.item.enchantment.Enchantment.java
+--- a/net.minecraft.world.item.enchantment.Enchantment.java
++++ b/net.minecraft.world.item.enchantment.Enchantment.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modifyDamageFilteredValu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ modifyDamage(/* params */);
+
+diff --git a/net.minecraft.world.item.enchantment.Enchantment.java b/net.minecraft.world.item.enchantment.Enchantment.java
+--- a/net.minecraft.world.item.enchantment.Enchantment.java
++++ b/net.minecraft.world.item.enchantment.Enchantment.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modifyEntityFilteredValu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ modifyMobExperience(/* params */);
+
+diff --git a/net.minecraft.world.item.enchantment.Enchantment.java b/net.minecraft.world.item.enchantment.Enchantment.java
+--- a/net.minecraft.world.item.enchantment.Enchantment.java
++++ b/net.minecraft.world.item.enchantment.Enchantment.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modifyItemFilteredCoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ modifyAmmoCount(/* params */);
+
+diff --git a/net.minecraft.world.item.enchantment.Enchantment.java b/net.minecraft.world.item.enchantment.Enchantment.java
+--- a/net.minecraft.world.item.enchantment.Enchantment.java
++++ b/net.minecraft.world.item.enchantment.Enchantment.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.description"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+

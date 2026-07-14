@@ -1,0 +1,190 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (14 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.renderer.SubmitNodeCollection.java b/net.minecraft.client.renderer.SubmitNodeCollection.java
+--- a/net.minecraft.client.renderer.SubmitNodeCollection.java
++++ b/net.minecraft.client.renderer.SubmitNodeCollection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modelSubmits", "this.wasUse"},
++writeEntities = {"this.wasUsed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ submitModel(/* params */);
+
+diff --git a/net.minecraft.client.renderer.SubmitNodeCollection.java b/net.minecraft.client.renderer.SubmitNodeCollection.java
+--- a/net.minecraft.client.renderer.SubmitNodeCollection.java
++++ b/net.minecraft.client.renderer.SubmitNodeCollection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.movingBlockSubmits", "this.wasUse"},
++writeEntities = {"this.wasUsed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ submitMovingBlock(/* params */);
+
+diff --git a/net.minecraft.client.renderer.SubmitNodeCollection.java b/net.minecraft.client.renderer.SubmitNodeCollection.java
+--- a/net.minecraft.client.renderer.SubmitNodeCollection.java
++++ b/net.minecraft.client.renderer.SubmitNodeCollection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.wasUse", "this.breakingBlockModelSubmits"},
++writeEntities = {"this.wasUsed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ submitBreakingBlockModel(/* params */);
+
+diff --git a/net.minecraft.client.renderer.SubmitNodeCollection.java b/net.minecraft.client.renderer.SubmitNodeCollection.java
+--- a/net.minecraft.client.renderer.SubmitNodeCollection.java
++++ b/net.minecraft.client.renderer.SubmitNodeCollection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.wasUse", "this.textSubmits"},
++writeEntities = {"this.wasUsed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ submitText(/* params */);
+
+diff --git a/net.minecraft.client.renderer.SubmitNodeCollection.java b/net.minecraft.client.renderer.SubmitNodeCollection.java
+--- a/net.minecraft.client.renderer.SubmitNodeCollection.java
++++ b/net.minecraft.client.renderer.SubmitNodeCollection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modelSubmits", "this.wasUse", "this.modelPartSubmits", "this.customGeometrySubmits"},
++writeEntities = {"this.wasUsed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ endFrame(/* params */);
+
+diff --git a/net.minecraft.client.renderer.SubmitNodeCollection.java b/net.minecraft.client.renderer.SubmitNodeCollection.java
+--- a/net.minecraft.client.renderer.SubmitNodeCollection.java
++++ b/net.minecraft.client.renderer.SubmitNodeCollection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.itemSubmits", "this.wasUse"},
++writeEntities = {"this.wasUsed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ submitItem(/* params */);
+
+diff --git a/net.minecraft.client.renderer.SubmitNodeCollection.java b/net.minecraft.client.renderer.SubmitNodeCollection.java
+--- a/net.minecraft.client.renderer.SubmitNodeCollection.java
++++ b/net.minecraft.client.renderer.SubmitNodeCollection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.wasUse", "this.customGeometrySubmits"},
++writeEntities = {"this.wasUsed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ submitCustomGeometry(/* params */);
+
+diff --git a/net.minecraft.client.renderer.SubmitNodeCollection.java b/net.minecraft.client.renderer.SubmitNodeCollection.java
+--- a/net.minecraft.client.renderer.SubmitNodeCollection.java
++++ b/net.minecraft.client.renderer.SubmitNodeCollection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.wasUse", "this.nameTagSubmits"},
++writeEntities = {"this.wasUsed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ submitNameTag(/* params */);
+
+diff --git a/net.minecraft.client.renderer.SubmitNodeCollection.java b/net.minecraft.client.renderer.SubmitNodeCollection.java
+--- a/net.minecraft.client.renderer.SubmitNodeCollection.java
++++ b/net.minecraft.client.renderer.SubmitNodeCollection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.wasUse", "this.particleGroupRenderers"},
++writeEntities = {"this.wasUsed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ submitParticleGroup(/* params */);
+
+diff --git a/net.minecraft.client.renderer.SubmitNodeCollection.java b/net.minecraft.client.renderer.SubmitNodeCollection.java
+--- a/net.minecraft.client.renderer.SubmitNodeCollection.java
++++ b/net.minecraft.client.renderer.SubmitNodeCollection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leashSubmits", "this.wasUse"},
++writeEntities = {"this.wasUsed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ submitLeash(/* params */);
+
+diff --git a/net.minecraft.client.renderer.SubmitNodeCollection.java b/net.minecraft.client.renderer.SubmitNodeCollection.java
+--- a/net.minecraft.client.renderer.SubmitNodeCollection.java
++++ b/net.minecraft.client.renderer.SubmitNodeCollection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shadowSubmits", "this.wasUse"},
++writeEntities = {"this.wasUsed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ submitShadow(/* params */);
+
+diff --git a/net.minecraft.client.renderer.SubmitNodeCollection.java b/net.minecraft.client.renderer.SubmitNodeCollection.java
+--- a/net.minecraft.client.renderer.SubmitNodeCollection.java
++++ b/net.minecraft.client.renderer.SubmitNodeCollection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.wasUse", "this.blockModelSubmits"},
++writeEntities = {"this.wasUsed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ submitBlockModel(/* params */);
+
+diff --git a/net.minecraft.client.renderer.SubmitNodeCollection.java b/net.minecraft.client.renderer.SubmitNodeCollection.java
+--- a/net.minecraft.client.renderer.SubmitNodeCollection.java
++++ b/net.minecraft.client.renderer.SubmitNodeCollection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.wasUse", "this.modelPartSubmits"},
++writeEntities = {"this.wasUsed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ submitModelPart(/* params */);
+
+diff --git a/net.minecraft.client.renderer.SubmitNodeCollection.java b/net.minecraft.client.renderer.SubmitNodeCollection.java
+--- a/net.minecraft.client.renderer.SubmitNodeCollection.java
++++ b/net.minecraft.client.renderer.SubmitNodeCollection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.wasUse", "this.flameSubmits"},
++writeEntities = {"this.wasUsed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ submitFlame(/* params */);
+

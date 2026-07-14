@@ -1,0 +1,68 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.levelgen.synth.PerlinNoise.java b/net.minecraft.world.level.levelgen.synth.PerlinNoise.java
+--- a/net.minecraft.world.level.levelgen.synth.PerlinNoise.java
++++ b/net.minecraft.world.level.levelgen.synth.PerlinNoise.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.firstOctav"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ firstOctave(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.synth.PerlinNoise.java b/net.minecraft.world.level.levelgen.synth.PerlinNoise.java
+--- a/net.minecraft.world.level.levelgen.synth.PerlinNoise.java
++++ b/net.minecraft.world.level.levelgen.synth.PerlinNoise.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.amplitudes", "this.lowestFreqValueFacto", "this.noiseLevels"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ edgeValue(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.synth.PerlinNoise.java b/net.minecraft.world.level.levelgen.synth.PerlinNoise.java
+--- a/net.minecraft.world.level.levelgen.synth.PerlinNoise.java
++++ b/net.minecraft.world.level.levelgen.synth.PerlinNoise.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.amplitude"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ amplitudes(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.synth.PerlinNoise.java b/net.minecraft.world.level.levelgen.synth.PerlinNoise.java
+--- a/net.minecraft.world.level.levelgen.synth.PerlinNoise.java
++++ b/net.minecraft.world.level.levelgen.synth.PerlinNoise.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.edgeValu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ maxBrokenValue(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.synth.PerlinNoise.java b/net.minecraft.world.level.levelgen.synth.PerlinNoise.java
+--- a/net.minecraft.world.level.levelgen.synth.PerlinNoise.java
++++ b/net.minecraft.world.level.levelgen.synth.PerlinNoise.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.amplitudes", "this.noiseLevels", "this.firstOctave"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ parityConfigString(/* params */);
+

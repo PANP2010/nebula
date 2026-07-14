@@ -1,0 +1,200 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (16 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.core.MappedRegistry.java b/net.minecraft.core.MappedRegistry.java
+--- a/net.minecraft.core.MappedRegistry.java
++++ b/net.minecraft.core.MappedRegistry.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.byValue"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ wrapAsHolder(/* params */);
+
+diff --git a/net.minecraft.core.MappedRegistry.java b/net.minecraft.core.MappedRegistry.java
+--- a/net.minecraft.core.MappedRegistry.java
++++ b/net.minecraft.core.MappedRegistry.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.validateWrit"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createRegistrationLookup(/* params */);
+
+diff --git a/net.minecraft.core.MappedRegistry.java b/net.minecraft.core.MappedRegistry.java
+--- a/net.minecraft.core.MappedRegistry.java
++++ b/net.minecraft.core.MappedRegistry.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.byKey", "this.validateAndUnwrapTagElemen", "this.allTags"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ refreshTagsInHolders(/* params */);
+
+diff --git a/net.minecraft.core.MappedRegistry.java b/net.minecraft.core.MappedRegistry.java
+--- a/net.minecraft.core.MappedRegistry.java
++++ b/net.minecraft.core.MappedRegistry.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.byKey"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registryKeySet(/* params */);
+
+diff --git a/net.minecraft.core.MappedRegistry.java b/net.minecraft.core.MappedRegistry.java
+--- a/net.minecraft.core.MappedRegistry.java
++++ b/net.minecraft.core.MappedRegistry.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.byKey"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ entrySet(/* params */);
+
+diff --git a/net.minecraft.core.MappedRegistry.java b/net.minecraft.core.MappedRegistry.java
+--- a/net.minecraft.core.MappedRegistry.java
++++ b/net.minecraft.core.MappedRegistry.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registrationInfos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registrationInfo(/* params */);
+
+diff --git a/net.minecraft.core.MappedRegistry.java b/net.minecraft.core.MappedRegistry.java
+--- a/net.minecraft.core.MappedRegistry.java
++++ b/net.minecraft.core.MappedRegistry.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.frozen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ freeze(/* params */);
+
+diff --git a/net.minecraft.core.MappedRegistry.java b/net.minecraft.core.MappedRegistry.java
+--- a/net.minecraft.core.MappedRegistry.java
++++ b/net.minecraft.core.MappedRegistry.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.orCreateTagForRegistration", "this.getOrCreateTagForRegistratio", "this.validateWrit"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ bindTags(/* params */);
+
+diff --git a/net.minecraft.core.MappedRegistry.java b/net.minecraft.core.MappedRegistry.java
+--- a/net.minecraft.core.MappedRegistry.java
++++ b/net.minecraft.core.MappedRegistry.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.byKey"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ containsKey(/* params */);
+
+diff --git a/net.minecraft.core.MappedRegistry.java b/net.minecraft.core.MappedRegistry.java
+--- a/net.minecraft.core.MappedRegistry.java
++++ b/net.minecraft.core.MappedRegistry.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.validateWrit", "this.frozenTags"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ bindAllTagsToEmpty(/* params */);
+
+diff --git a/net.minecraft.core.MappedRegistry.java b/net.minecraft.core.MappedRegistry.java
+--- a/net.minecraft.core.MappedRegistry.java
++++ b/net.minecraft.core.MappedRegistry.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.componentLookup"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ componentLookup(/* params */);
+
+diff --git a/net.minecraft.core.MappedRegistry.java b/net.minecraft.core.MappedRegistry.java
+--- a/net.minecraft.core.MappedRegistry.java
++++ b/net.minecraft.core.MappedRegistry.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registryLifecycle", "this.key"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.core.MappedRegistry.java b/net.minecraft.core.MappedRegistry.java
+--- a/net.minecraft.core.MappedRegistry.java
++++ b/net.minecraft.core.MappedRegistry.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.byLocation"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ keySet(/* params */);
+
+diff --git a/net.minecraft.core.MappedRegistry.java b/net.minecraft.core.MappedRegistry.java
+--- a/net.minecraft.core.MappedRegistry.java
++++ b/net.minecraft.core.MappedRegistry.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registryLifecycl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registryLifecycle(/* params */);
+
+diff --git a/net.minecraft.core.MappedRegistry.java b/net.minecraft.core.MappedRegistry.java
+--- a/net.minecraft.core.MappedRegistry.java
++++ b/net.minecraft.core.MappedRegistry.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.frozen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ validateWrite(/* params */);
+
+diff --git a/net.minecraft.core.MappedRegistry.java b/net.minecraft.core.MappedRegistry.java
+--- a/net.minecraft.core.MappedRegistry.java
++++ b/net.minecraft.core.MappedRegistry.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.byId"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ iterator(/* params */);
+

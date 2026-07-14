@@ -1,0 +1,23 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (1 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.item.enchantment.effects.PlaySoundEffect.java b/net.minecraft.world.item.enchantment.effects.PlaySoundEffect.java
+--- a/net.minecraft.world.item.enchantment.effects.PlaySoundEffect.java
++++ b/net.minecraft.world.item.enchantment.effects.PlaySoundEffect.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.soundEvents", "this.volume", "this.pitch"},
++triggeredEvents = {"SOUND_PLAY"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ apply(/* params */);
+

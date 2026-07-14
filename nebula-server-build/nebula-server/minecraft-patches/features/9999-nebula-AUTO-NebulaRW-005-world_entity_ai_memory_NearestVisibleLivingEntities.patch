@@ -1,0 +1,68 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities.java b/net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities.java
+--- a/net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities.java
++++ b/net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lineOfSightTest", "this.nearbyEntities"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findAll(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities.java b/net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities.java
+--- a/net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities.java
++++ b/net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.nearbyEntitie"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ nearbyEntities(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities.java b/net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities.java
+--- a/net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities.java
++++ b/net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lineOfSightTest", "this.nearbyEntities"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ contains(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities.java b/net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities.java
+--- a/net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities.java
++++ b/net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lineOfSightTest", "this.nearbyEntities"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findClosest(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities.java b/net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities.java
+--- a/net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities.java
++++ b/net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lineOfSightTest", "this.nearbyEntities"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ find(/* params */);
+

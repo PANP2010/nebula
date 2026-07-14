@@ -1,0 +1,32 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (2 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.searchtree.FullTextSearchTree.java b/net.minecraft.client.searchtree.FullTextSearchTree.java
+--- a/net.minecraft.client.searchtree.FullTextSearchTree.java
++++ b/net.minecraft.client.searchtree.FullTextSearchTree.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.additionOrder", "this.identifierSearchTree", "this.plainTextSearchTree"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ searchIdentifier(/* params */);
+
+diff --git a/net.minecraft.client.searchtree.FullTextSearchTree.java b/net.minecraft.client.searchtree.FullTextSearchTree.java
+--- a/net.minecraft.client.searchtree.FullTextSearchTree.java
++++ b/net.minecraft.client.searchtree.FullTextSearchTree.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.plainTextSearchTree"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ searchPlainText(/* params */);
+

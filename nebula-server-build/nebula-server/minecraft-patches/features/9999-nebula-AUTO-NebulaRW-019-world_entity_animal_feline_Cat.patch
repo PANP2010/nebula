@@ -1,0 +1,261 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (19 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.animal.feline.Cat.java b/net.minecraft.world.entity.animal.feline.Cat.java
+--- a/net.minecraft.world.entity.animal.feline.Cat.java
++++ b/net.minecraft.world.entity.animal.feline.Cat.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++triggeredEvents = {"SOUND_PLAY"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleLieDown(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.feline.Cat.java b/net.minecraft.world.entity.animal.feline.Cat.java
+--- a/net.minecraft.world.entity.animal.feline.Cat.java
++++ b/net.minecraft.world.entity.animal.feline.Cat.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.cat"},
++triggeredEvents = {"ENTITY_SPAWNED"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ giveMorningGift(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.feline.Cat.java b/net.minecraft.world.entity.animal.feline.Cat.java
+--- a/net.minecraft.world.entity.animal.feline.Cat.java
++++ b/net.minecraft.world.entity.animal.feline.Cat.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun", "this.getSoundSe", "this.soundSet"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playEatingSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.feline.Cat.java b/net.minecraft.world.entity.animal.feline.Cat.java
+--- a/net.minecraft.world.entity.animal.feline.Cat.java
++++ b/net.minecraft.world.entity.animal.feline.Cat.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mob", "this.adjustedTickDela", "this.selectedPlaye", "this.playe"},
++writeEntities = {"this.selectedPlayer"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.feline.Cat.java b/net.minecraft.world.entity.animal.feline.Cat.java
+--- a/net.minecraft.world.entity.animal.feline.Cat.java
++++ b/net.minecraft.world.entity.animal.feline.Cat.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.temptGoal", "this.targetSelector", "this.goalSelector", "this.temptGoa"},
++writeEntities = {"this.temptGoal"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerGoals(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.feline.Cat.java b/net.minecraft.world.entity.animal.feline.Cat.java
+--- a/net.minecraft.world.entity.animal.feline.Cat.java
++++ b/net.minecraft.world.entity.animal.feline.Cat.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ownerPlayer", "this.giveMorningGif", "this.cat"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.feline.Cat.java b/net.minecraft.world.entity.animal.feline.Cat.java
+--- a/net.minecraft.world.entity.animal.feline.Cat.java
++++ b/net.minecraft.world.entity.animal.feline.Cat.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random", "this.tam", "this.setOrderedToSi", "this.leve"},
++writeEntities = {"this.orderedToSit"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tryToTame(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.feline.Cat.java b/net.minecraft.world.entity.animal.feline.Cat.java
+--- a/net.minecraft.world.entity.animal.feline.Cat.java
++++ b/net.minecraft.world.entity.animal.feline.Cat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getMoveContro", "this.setPos", "this.setSprintin", "this.moveControl"},
++writeEntities = {"this.sprinting", "this.pose"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ customServerAiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.feline.Cat.java b/net.minecraft.world.entity.animal.feline.Cat.java
+--- a/net.minecraft.world.entity.animal.feline.Cat.java
++++ b/net.minecraft.world.entity.animal.feline.Cat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.applyImplicitComponentIfPresen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyImplicitComponents(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.feline.Cat.java b/net.minecraft.world.entity.animal.feline.Cat.java
+--- a/net.minecraft.world.entity.animal.feline.Cat.java
++++ b/net.minecraft.world.entity.animal.feline.Cat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getSoundSe", "this.makeSoun", "this.soundSet"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hiss(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.feline.Cat.java b/net.minecraft.world.entity.animal.feline.Cat.java
+--- a/net.minecraft.world.entity.animal.feline.Cat.java
++++ b/net.minecraft.world.entity.animal.feline.Cat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.goalPos", "this.cat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ start(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.feline.Cat.java b/net.minecraft.world.entity.animal.feline.Cat.java
+--- a/net.minecraft.world.entity.animal.feline.Cat.java
++++ b/net.minecraft.world.entity.animal.feline.Cat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.collarColor", "this.persistenceRequired"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mobInteract(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.feline.Cat.java b/net.minecraft.world.entity.animal.feline.Cat.java
+--- a/net.minecraft.world.entity.animal.feline.Cat.java
++++ b/net.minecraft.world.entity.animal.feline.Cat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.relaxStateOneAmount", "this.relaxStateOneAmoun", "this.isRelaxStateOn"},
++writeEntities = {"this.relaxStateOneAmount", "this.relaxStateOneAmountO"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateRelaxStateOneAmount(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.feline.Cat.java b/net.minecraft.world.entity.animal.feline.Cat.java
+--- a/net.minecraft.world.entity.animal.feline.Cat.java
++++ b/net.minecraft.world.entity.animal.feline.Cat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.goalPos", "this.cat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spaceIsOccupied(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.feline.Cat.java b/net.minecraft.world.entity.animal.feline.Cat.java
+--- a/net.minecraft.world.entity.animal.feline.Cat.java
++++ b/net.minecraft.world.entity.animal.feline.Cat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.avoidPlayersGoa"},
++writeEntities = {"this.avoidPlayersGoal"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reassessTameGoals(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.feline.Cat.java b/net.minecraft.world.entity.animal.feline.Cat.java
+--- a/net.minecraft.world.entity.animal.feline.Cat.java
++++ b/net.minecraft.world.entity.animal.feline.Cat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.lieDownAmount", "this.lieDownAmountTail", "this.lieDownAmountO", "this.lieDownAmountOTail"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateLieDownAmount(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.feline.Cat.java b/net.minecraft.world.entity.animal.feline.Cat.java
+--- a/net.minecraft.world.entity.animal.feline.Cat.java
++++ b/net.minecraft.world.entity.animal.feline.Cat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setVarian"},
++writeEntities = {"this.variant"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyImplicitComponent(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.feline.Cat.java b/net.minecraft.world.entity.animal.feline.Cat.java
+--- a/net.minecraft.world.entity.animal.feline.Cat.java
++++ b/net.minecraft.world.entity.animal.feline.Cat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registryAcces"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ defineSynchedData(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.feline.Cat.java b/net.minecraft.world.entity.animal.feline.Cat.java
+--- a/net.minecraft.world.entity.animal.feline.Cat.java
++++ b/net.minecraft.world.entity.animal.feline.Cat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registryAcces", "this.setCollarColo"},
++writeEntities = {"this.collarColor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+

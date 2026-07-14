@@ -1,0 +1,72 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.DesertPyramidPiece.java b/net.minecraft.world.level.levelgen.structure.structures.DesertPyramidPiece.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.DesertPyramidPiece.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.DesertPyramidPiece.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateHeightPositionToLowestGroundHeigh", "this.depth", "this.width", "this.generateBo"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ postProcess(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.DesertPyramidPiece.java b/net.minecraft.world.level.levelgen.structure.structures.DesertPyramidPiece.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.DesertPyramidPiece.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.DesertPyramidPiece.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.placeBloc"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ placeCollapsedRoofPiece(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.DesertPyramidPiece.java b/net.minecraft.world.level.levelgen.structure.structures.DesertPyramidPiece.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.DesertPyramidPiece.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.DesertPyramidPiece.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.worldPos", "this.getWorldPo", "this.potentialSuspiciousSandWorldPositions"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ placeSand(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.DesertPyramidPiece.java b/net.minecraft.world.level.levelgen.structure.structures.DesertPyramidPiece.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.DesertPyramidPiece.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.DesertPyramidPiece.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.placeSan"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ placeSandBox(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.DesertPyramidPiece.java b/net.minecraft.world.level.levelgen.structure.structures.DesertPyramidPiece.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.DesertPyramidPiece.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.DesertPyramidPiece.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.placeCollapsedRoofPiec"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ placeCollapsedRoof(/* params */);
+

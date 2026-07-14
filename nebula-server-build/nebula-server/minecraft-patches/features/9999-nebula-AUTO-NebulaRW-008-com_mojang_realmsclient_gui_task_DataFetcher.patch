@@ -1,0 +1,107 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (8 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/com.mojang.realmsclient.gui.task.DataFetcher.java b/com.mojang.realmsclient.gui.task.DataFetcher.java
+--- a/com.mojang.realmsclient.gui.task.DataFetcher.java
++++ b/com.mojang.realmsclient.gui.task.DataFetcher.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.subscriptions"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forceUpdate(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.task.DataFetcher.java b/com.mojang.realmsclient.gui.task.DataFetcher.java
+--- a/com.mojang.realmsclient.gui.task.DataFetcher.java
++++ b/com.mojang.realmsclient.gui.task.DataFetcher.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pendingTask"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateIfNeeded(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.task.DataFetcher.java b/com.mojang.realmsclient.gui.task.DataFetcher.java
+--- a/com.mojang.realmsclient.gui.task.DataFetcher.java
++++ b/com.mojang.realmsclient.gui.task.DataFetcher.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.task", "this.runCallbackIfNeede"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ update(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.task.DataFetcher.java b/com.mojang.realmsclient.gui.task.DataFetcher.java
+--- a/com.mojang.realmsclient.gui.task.DataFetcher.java
++++ b/com.mojang.realmsclient.gui.task.DataFetcher.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.new", "this.subscriptions"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ subscribe(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.task.DataFetcher.java b/com.mojang.realmsclient.gui.task.DataFetcher.java
+--- a/com.mojang.realmsclient.gui.task.DataFetcher.java
++++ b/com.mojang.realmsclient.gui.task.DataFetcher.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pendingTas", "this.lastResul", "this.nextUpdat"},
++writeEntities = {"this.lastResult", "this.pendingTask", "this.nextUpdate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reset(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.task.DataFetcher.java b/com.mojang.realmsclient.gui.task.DataFetcher.java
+--- a/com.mojang.realmsclient.gui.task.DataFetcher.java
++++ b/com.mojang.realmsclient.gui.task.DataFetcher.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.lastCheckTime", "this.task", "this.lastCheckTim"},
++writeEntities = {"this.lastCheckTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ runCallbackIfNeeded(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.task.DataFetcher.java b/com.mojang.realmsclient.gui.task.DataFetcher.java
+--- a/com.mojang.realmsclient.gui.task.DataFetcher.java
++++ b/com.mojang.realmsclient.gui.task.DataFetcher.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.subscriptions", "this.timeSource", "this.resolution"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.task.DataFetcher.java b/com.mojang.realmsclient.gui.task.DataFetcher.java
+--- a/com.mojang.realmsclient.gui.task.DataFetcher.java
++++ b/com.mojang.realmsclient.gui.task.DataFetcher.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.task", "this.lastCheckTim"},
++writeEntities = {"this.lastCheckTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ runCallback(/* params */);
+

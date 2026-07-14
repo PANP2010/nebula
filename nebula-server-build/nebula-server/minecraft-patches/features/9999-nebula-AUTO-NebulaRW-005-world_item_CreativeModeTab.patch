@@ -1,0 +1,70 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.item.CreativeModeTab.java b/net.minecraft.world.item.CreativeModeTab.java
+--- a/net.minecraft.world.item.CreativeModeTab.java
++++ b/net.minecraft.world.item.CreativeModeTab.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.enabledFeatures", "this.hasPermissions", "this.holders"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ needsUpdate(/* params */);
+
+diff --git a/net.minecraft.world.item.CreativeModeTab.java b/net.minecraft.world.item.CreativeModeTab.java
+--- a/net.minecraft.world.item.CreativeModeTab.java
++++ b/net.minecraft.world.item.CreativeModeTab.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hasAnyItem", "this.type"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldDisplay(/* params */);
+
+diff --git a/net.minecraft.world.item.CreativeModeTab.java b/net.minecraft.world.item.CreativeModeTab.java
+--- a/net.minecraft.world.item.CreativeModeTab.java
++++ b/net.minecraft.world.item.CreativeModeTab.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.displayItemsSearchTab"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ contains(/* params */);
+
+diff --git a/net.minecraft.world.item.CreativeModeTab.java b/net.minecraft.world.item.CreativeModeTab.java
+--- a/net.minecraft.world.item.CreativeModeTab.java
++++ b/net.minecraft.world.item.CreativeModeTab.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.typ", "this.displayItemsGenerator"},
++writeEntities = {"this.type"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ build(/* params */);
+
+diff --git a/net.minecraft.world.item.CreativeModeTab.java b/net.minecraft.world.item.CreativeModeTab.java
+--- a/net.minecraft.world.item.CreativeModeTab.java
++++ b/net.minecraft.world.item.CreativeModeTab.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.displayItemsSearchTa", "this.displayItemsGenerator", "this.displayItem"},
++writeEntities = {"this.displayItemsSearchTab", "this.displayItems"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ buildContents(/* params */);
+

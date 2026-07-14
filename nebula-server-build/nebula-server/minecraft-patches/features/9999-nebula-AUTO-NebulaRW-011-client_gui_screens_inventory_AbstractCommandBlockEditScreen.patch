@@ -1,0 +1,141 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (11 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.commandEdit", "this.ini", "this.commandSuggestions"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resize(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getCommandBloc", "this.populateAndSendPacke", "this.commandBlock"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onDone(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.commandSuggestions"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mouseScrolled(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.onClos", "this.getCommandBloc", "this.commandBlock"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.previousEdit", "this.getCommandBloc", "this.commandBlock"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updatePreviousOutput(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.commandEdi", "this.getCommandBloc", "this.width", "this.font", "this.commandBlock"},
++writeEntities = {"this.commandEdit"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.commandSuggestions"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onEdited(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.commandSuggestions"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createNarrationMessage(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.commandSuggestions"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mouseClicked(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.commandSuggestions"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ keyPressed(/* params */);
+

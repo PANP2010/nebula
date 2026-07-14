@@ -1,0 +1,94 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.options.InWorldGameRulesScreen.java b/net.minecraft.client.gui.screens.options.InWorldGameRulesScreen.java
+--- a/net.minecraft.client.gui.screens.options.InWorldGameRulesScreen.java
++++ b/net.minecraft.client.gui.screens.options.InWorldGameRulesScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.lastScreen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onGamemasterPermissionChanged(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.options.InWorldGameRulesScreen.java b/net.minecraft.client.gui.screens.options.InWorldGameRulesScreen.java
+--- a/net.minecraft.client.gui.screens.options.InWorldGameRulesScreen.java
++++ b/net.minecraft.client.gui.screens.options.InWorldGameRulesScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.initialValues", "this.collectChangedGameRul", "this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onDone(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.options.InWorldGameRulesScreen.java b/net.minecraft.client.gui.screens.options.InWorldGameRulesScreen.java
+--- a/net.minecraft.client.gui.screens.options.InWorldGameRulesScreen.java
++++ b/net.minecraft.client.gui.screens.options.InWorldGameRulesScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.gameRules", "this.hasGameRuleChange"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ collectChangedGameRule(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.options.InWorldGameRulesScreen.java b/net.minecraft.client.gui.screens.options.InWorldGameRulesScreen.java
+--- a/net.minecraft.client.gui.screens.options.InWorldGameRulesScreen.java
++++ b/net.minecraft.client.gui.screens.options.InWorldGameRulesScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.initializeGameRuleValu", "this.receivedServerValue", "this.serverProvidedRules", "this.receivedServerValues"},
++writeEntities = {"this.receivedServerValues"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onGameRuleValuesUpdated(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.options.InWorldGameRulesScreen.java b/net.minecraft.client.gui.screens.options.InWorldGameRulesScreen.java
+--- a/net.minecraft.client.gui.screens.options.InWorldGameRulesScreen.java
++++ b/net.minecraft.client.gui.screens.options.InWorldGameRulesScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.closeAndDiscardChange", "this.hasPendingChange"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onClose(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.options.InWorldGameRulesScreen.java b/net.minecraft.client.gui.screens.options.InWorldGameRulesScreen.java
+--- a/net.minecraft.client.gui.screens.options.InWorldGameRulesScreen.java
++++ b/net.minecraft.client.gui.screens.options.InWorldGameRulesScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.initialValues", "this.gameRules"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ initializeGameRuleValue(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.options.InWorldGameRulesScreen.java b/net.minecraft.client.gui.screens.options.InWorldGameRulesScreen.java
+--- a/net.minecraft.client.gui.screens.options.InWorldGameRulesScreen.java
++++ b/net.minecraft.client.gui.screens.options.InWorldGameRulesScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.layout", "this.loadingDotsWidge", "this.connection", "this.loadingDotsWidget", "this.font"},
++writeEntities = {"this.loadingDotsWidget"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ initContent(/* params */);
+

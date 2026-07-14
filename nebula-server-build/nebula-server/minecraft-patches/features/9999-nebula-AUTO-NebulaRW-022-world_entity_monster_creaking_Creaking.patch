@@ -1,0 +1,281 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (22 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.monster.creaking.Creaking.java b/net.minecraft.world.entity.monster.creaking.Creaking.java
+--- a/net.minecraft.world.entity.monster.creaking.Creaking.java
++++ b/net.minecraft.world.entity.monster.creaking.Creaking.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playStepSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.creaking.Creaking.java b/net.minecraft.world.entity.monster.creaking.Creaking.java
+--- a/net.minecraft.world.entity.monster.creaking.Creaking.java
++++ b/net.minecraft.world.entity.monster.creaking.Creaking.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.eyesGlowing", "this.nextFlickerTime"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkEyeBlink(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.creaking.Creaking.java b/net.minecraft.world.entity.monster.creaking.Creaking.java
+--- a/net.minecraft.world.entity.monster.creaking.Creaking.java
++++ b/net.minecraft.world.entity.monster.creaking.Creaking.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickDeath(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.creaking.Creaking.java b/net.minecraft.world.entity.monster.creaking.Creaking.java
+--- a/net.minecraft.world.entity.monster.creaking.Creaking.java
++++ b/net.minecraft.world.entity.monster.creaking.Creaking.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.resolveMobResponsibleForDamag", "this.resolvePlayerResponsibleForDamag"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ blameSourceForDamage(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.creaking.Creaking.java b/net.minecraft.world.entity.monster.creaking.Creaking.java
+--- a/net.minecraft.world.entity.monster.creaking.Creaking.java
++++ b/net.minecraft.world.entity.monster.creaking.Creaking.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playHurtSoun", "this.invulnerabilityAnimationRemainingTick", "this.damageSource"},
++writeEntities = {"this.invulnerabilityAnimationRemainingTicks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleEntityEvent(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.creaking.Creaking.java b/net.minecraft.world.entity.monster.creaking.Creaking.java
+--- a/net.minecraft.world.entity.monster.creaking.Creaking.java
++++ b/net.minecraft.world.entity.monster.creaking.Creaking.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.di", "this.blameSourceForDamag", "this.makeSoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ creakingDeathEffects(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.creaking.Creaking.java b/net.minecraft.world.entity.monster.creaking.Creaking.java
+--- a/net.minecraft.world.entity.monster.creaking.Creaking.java
++++ b/net.minecraft.world.entity.monster.creaking.Creaking.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.homePos", "this.getHomePo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtServer(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.creaking.Creaking.java b/net.minecraft.world.entity.monster.creaking.Creaking.java
+--- a/net.minecraft.world.entity.monster.creaking.Creaking.java
++++ b/net.minecraft.world.entity.monster.creaking.Creaking.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.canMov"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.creaking.Creaking.java b/net.minecraft.world.entity.monster.creaking.Creaking.java
+--- a/net.minecraft.world.entity.monster.creaking.Creaking.java
++++ b/net.minecraft.world.entity.monster.creaking.Creaking.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBrai", "this.gameEven", "this.makeSoun", "this.brain", "this.setIsActiv"},
++writeEntities = {"this.isActive"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ activate(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.creaking.Creaking.java b/net.minecraft.world.entity.monster.creaking.Creaking.java
+--- a/net.minecraft.world.entity.monster.creaking.Creaking.java
++++ b/net.minecraft.world.entity.monster.creaking.Creaking.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.new", "this.nodeEvaluato", "this.nodeEvaluator"},
++writeEntities = {"this.nodeEvaluator"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createPathFinder(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.creaking.Creaking.java b/net.minecraft.world.entity.monster.creaking.Creaking.java
+--- a/net.minecraft.world.entity.monster.creaking.Creaking.java
++++ b/net.minecraft.world.entity.monster.creaking.Creaking.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.boundingBox", "this.getBoundingBo", "this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tearDown(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.creaking.Creaking.java b/net.minecraft.world.entity.monster.creaking.Creaking.java
+--- a/net.minecraft.world.entity.monster.creaking.Creaking.java
++++ b/net.minecraft.world.entity.monster.creaking.Creaking.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBrai", "this.gameEven", "this.makeSoun", "this.brain", "this.setIsActiv"},
++writeEntities = {"this.isActive"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ deactivate(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.creaking.Creaking.java b/net.minecraft.world.entity.monster.creaking.Creaking.java
+--- a/net.minecraft.world.entity.monster.creaking.Creaking.java
++++ b/net.minecraft.world.entity.monster.creaking.Creaking.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isHeartBoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fireImmune(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.creaking.Creaking.java b/net.minecraft.world.entity.monster.creaking.Creaking.java
+--- a/net.minecraft.world.entity.monster.creaking.Creaking.java
++++ b/net.minecraft.world.entity.monster.creaking.Creaking.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.makeSoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playAttackSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.creaking.Creaking.java b/net.minecraft.world.entity.monster.creaking.Creaking.java
+--- a/net.minecraft.world.entity.monster.creaking.Creaking.java
++++ b/net.minecraft.world.entity.monster.creaking.Creaking.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.canMov"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ knockback(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.creaking.Creaking.java b/net.minecraft.world.entity.monster.creaking.Creaking.java
+--- a/net.minecraft.world.entity.monster.creaking.Creaking.java
++++ b/net.minecraft.world.entity.monster.creaking.Creaking.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.invulnerabilityAnimationRemainingTicks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ aiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.creaking.Creaking.java b/net.minecraft.world.entity.monster.creaking.Creaking.java
+--- a/net.minecraft.world.entity.monster.creaking.Creaking.java
++++ b/net.minecraft.world.entity.monster.creaking.Creaking.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.deactivat", "this.isActiv", "this.brain"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkCanMove(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.creaking.Creaking.java b/net.minecraft.world.entity.monster.creaking.Creaking.java
+--- a/net.minecraft.world.entity.monster.creaking.Creaking.java
++++ b/net.minecraft.world.entity.monster.creaking.Creaking.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.canMov"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ push(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.creaking.Creaking.java b/net.minecraft.world.entity.monster.creaking.Creaking.java
+--- a/net.minecraft.world.entity.monster.creaking.Creaking.java
++++ b/net.minecraft.world.entity.monster.creaking.Creaking.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.canMov"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ clientTick(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.creaking.Creaking.java b/net.minecraft.world.entity.monster.creaking.Creaking.java
+--- a/net.minecraft.world.entity.monster.creaking.Creaking.java
++++ b/net.minecraft.world.entity.monster.creaking.Creaking.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBrai", "this.leve", "this.brain"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ customServerAiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.creaking.Creaking.java b/net.minecraft.world.entity.monster.creaking.Creaking.java
+--- a/net.minecraft.world.entity.monster.creaking.Creaking.java
++++ b/net.minecraft.world.entity.monster.creaking.Creaking.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.walkAnimation"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateWalkAnimation(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.creaking.Creaking.java b/net.minecraft.world.entity.monster.creaking.Creaking.java
+--- a/net.minecraft.world.entity.monster.creaking.Creaking.java
++++ b/net.minecraft.world.entity.monster.creaking.Creaking.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playerStuckCounte", "this.brain"},
++writeEntities = {"this.playerStuckCounter"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playerIsStuckInYou(/* params */);
+

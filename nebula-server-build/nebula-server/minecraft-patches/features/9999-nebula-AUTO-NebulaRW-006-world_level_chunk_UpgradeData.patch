@@ -1,0 +1,81 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.chunk.UpgradeData.java b/net.minecraft.world.level.chunk.UpgradeData.java
+--- a/net.minecraft.world.level.chunk.UpgradeData.java
++++ b/net.minecraft.world.level.chunk.UpgradeData.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.queue"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ processChunk(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.UpgradeData.java b/net.minecraft.world.level.chunk.UpgradeData.java
+--- a/net.minecraft.world.level.chunk.UpgradeData.java
++++ b/net.minecraft.world.level.chunk.UpgradeData.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.index"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ upgradeInside(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.UpgradeData.java b/net.minecraft.world.level.chunk.UpgradeData.java
+--- a/net.minecraft.world.level.chunk.UpgradeData.java
++++ b/net.minecraft.world.level.chunk.UpgradeData.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.index"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ write(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.UpgradeData.java b/net.minecraft.world.level.chunk.UpgradeData.java
+--- a/net.minecraft.world.level.chunk.UpgradeData.java
++++ b/net.minecraft.world.level.chunk.UpgradeData.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.upgradeInsid"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ upgrade(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.UpgradeData.java b/net.minecraft.world.level.chunk.UpgradeData.java
+--- a/net.minecraft.world.level.chunk.UpgradeData.java
++++ b/net.minecraft.world.level.chunk.UpgradeData.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ upgradeSides(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.UpgradeData.java b/net.minecraft.world.level.chunk.UpgradeData.java
+--- a/net.minecraft.world.level.chunk.UpgradeData.java
++++ b/net.minecraft.world.level.chunk.UpgradeData.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateState(/* params */);
+

@@ -1,0 +1,141 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (11 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java b/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java
+--- a/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java
++++ b/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractContent(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java b/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java
+--- a/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java
++++ b/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getRigh", "this.right", "this.scrollbarWidt"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scrollBarX(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java b/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java
+--- a/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java
++++ b/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handlePackSelection(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java b/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java
+--- a/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java
++++ b/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.focused", "this.selected"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateList(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java b/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java
+--- a/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java
++++ b/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ showHoverOverlay(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java b/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java
+--- a/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java
++++ b/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.packId", "this.childre", "this.getPackI"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldTakeFocusAfterInteraction(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java b/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java
+--- a/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java
++++ b/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ keyboardMoveUp(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java b/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java
+--- a/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java
++++ b/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mouseClicked(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java b/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java
+--- a/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java
++++ b/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ keyboardMoveDown(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java b/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java
+--- a/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java
++++ b/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.handlePackSelectio", "this.pack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ keyboardSelection(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java b/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java
+--- a/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java
++++ b/net.minecraft.client.gui.screens.packs.TransferableSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.keyboardSelectio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ keyPressed(/* params */);
+

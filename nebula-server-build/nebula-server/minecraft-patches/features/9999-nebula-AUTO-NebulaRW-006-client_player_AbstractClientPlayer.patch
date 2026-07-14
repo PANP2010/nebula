@@ -1,0 +1,80 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.player.AbstractClientPlayer.java b/net.minecraft.client.player.AbstractClientPlayer.java
+--- a/net.minecraft.client.player.AbstractClientPlayer.java
++++ b/net.minecraft.client.player.AbstractClientPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.showExtraEar"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ showExtraEars(/* params */);
+
+diff --git a/net.minecraft.client.player.AbstractClientPlayer.java b/net.minecraft.client.player.AbstractClientPlayer.java
+--- a/net.minecraft.client.player.AbstractClientPlayer.java
++++ b/net.minecraft.client.player.AbstractClientPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateBo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ aiStep(/* params */);
+
+diff --git a/net.minecraft.client.player.AbstractClientPlayer.java b/net.minecraft.client.player.AbstractClientPlayer.java
+--- a/net.minecraft.client.player.AbstractClientPlayer.java
++++ b/net.minecraft.client.player.AbstractClientPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.deltaMovement", "this.onGroun", "this.isDeadOrDyin", "this.isSwimmin", "this.getDeltaMovemen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateBob(/* params */);
+
+diff --git a/net.minecraft.client.player.AbstractClientPlayer.java b/net.minecraft.client.player.AbstractClientPlayer.java
+--- a/net.minecraft.client.player.AbstractClientPlayer.java
++++ b/net.minecraft.client.player.AbstractClientPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.avatarStat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ rideTick(/* params */);
+
+diff --git a/net.minecraft.client.player.AbstractClientPlayer.java b/net.minecraft.client.player.AbstractClientPlayer.java
+--- a/net.minecraft.client.player.AbstractClientPlayer.java
++++ b/net.minecraft.client.player.AbstractClientPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.clientAvatarStat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ avatarState(/* params */);
+
+diff --git a/net.minecraft.client.player.AbstractClientPlayer.java b/net.minecraft.client.player.AbstractClientPlayer.java
+--- a/net.minecraft.client.player.AbstractClientPlayer.java
++++ b/net.minecraft.client.player.AbstractClientPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.deltaMovement", "this.getDeltaMovemen", "this.positio", "this.clientAvatarState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+

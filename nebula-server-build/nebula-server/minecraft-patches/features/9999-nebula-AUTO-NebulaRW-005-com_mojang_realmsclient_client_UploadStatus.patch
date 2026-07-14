@@ -1,0 +1,71 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/com.mojang.realmsclient.client.UploadStatus.java b/com.mojang.realmsclient.client.UploadStatus.java
+--- a/com.mojang.realmsclient.client.UploadStatus.java
++++ b/com.mojang.realmsclient.client.UploadStatus.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.bytesWritten"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ uploadStarted(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.UploadStatus.java b/com.mojang.realmsclient.client.UploadStatus.java
+--- a/com.mojang.realmsclient.client.UploadStatus.java
++++ b/com.mojang.realmsclient.client.UploadStatus.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.bytesWritten", "this.totalByte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ uploadCompleted(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.UploadStatus.java b/com.mojang.realmsclient.client.UploadStatus.java
+--- a/com.mojang.realmsclient.client.UploadStatus.java
++++ b/com.mojang.realmsclient.client.UploadStatus.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.previousBytesWritte", "this.bytesWritte", "this.previousTimeSnapsho", "this.bytesPerSecon"},
++writeEntities = {"this.bytesWritten", "this.previousTimeSnapshot", "this.previousBytesWritten", "this.bytesPerSecond"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ restart(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.UploadStatus.java b/com.mojang.realmsclient.client.UploadStatus.java
+--- a/com.mojang.realmsclient.client.UploadStatus.java
++++ b/com.mojang.realmsclient.client.UploadStatus.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.bytesWritte"},
++writeEntities = {"this.bytesWritten"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onWrite(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.UploadStatus.java b/com.mojang.realmsclient.client.UploadStatus.java
+--- a/com.mojang.realmsclient.client.UploadStatus.java
++++ b/com.mojang.realmsclient.client.UploadStatus.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.previousBytesWritte", "this.previousBytesWritten", "this.bytesWritte", "this.previousTimeSnapsho", "this.bytesPerSecon"},
++writeEntities = {"this.previousTimeSnapshot", "this.previousBytesWritten", "this.bytesPerSecond"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ refreshBytesPerSecond(/* params */);
+

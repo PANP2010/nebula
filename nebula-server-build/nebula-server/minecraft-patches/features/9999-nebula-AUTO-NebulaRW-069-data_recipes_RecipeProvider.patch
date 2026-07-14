@@ -1,0 +1,836 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (69 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.shape", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ copySmithingTemplate(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.nineBlockStorageRecipe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ nineBlockStorageRecipesRecipesWithCustomUnpacking(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.shapeles", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ chestBoat(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.ha", "this.ta"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dyedShulkerBoxRecipe(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateCraftingRecipe(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.shape", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ bedFromPlanksAndWool(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.shapeles", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ planksFromLogs(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shape"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ polishedBuilder(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.threeByThreePacke"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ threeByThreePacker(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shape"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ chiseledBuilder(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.ha", "this.ta"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dyedBundleRecipe(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.chiseledBuilde", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ chiseled(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.shape", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ carpet(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stonecutterResultFromBase(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.shape", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hangingSign(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.slabBuilde", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ slab(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.shape", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ twoByTwoPacker(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.shape", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stainedGlassPaneFromGlassPaneAndDye(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.shape", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ coloredTerracottaFromTerracottaAndDye(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.shapeles", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ suspiciousStew(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.shape", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ harness(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.oreCookin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ oreSmelting(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shape"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ doorBuilder(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ oreCooking(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.shape", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stainedGlassFromGlassAndDye(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.generateCraftingRecip", "this.baseBlockForCrafting", "this.getBaseBlockForCraftin", "this.smeltingResultFromBas"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateRecipes(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.generateRecipe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateForEnabledBlockFamilies(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shape"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ bricksBuilder(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.saveAdvancemen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ includeRootAdvancement(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.shape", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ waxedChiseled(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.shape", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ banner(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.shape", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stainedGlassPaneFromStainedGlass(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shapeles"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ buttonBuilder(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ smeltingResultFromBase(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.pressurePlateBuilde", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pressurePlate(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shape"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ signBuilder(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.shape", "this.shapeles", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ nineBlockStorageRecipes(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.items"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shapeless(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.shapeles", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ oneToOneConversionRecipe(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shape"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pressurePlateBuilder(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shape"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ cutBuilder(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.nineBlockStorageRecipe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ nineBlockStorageRecipesWithCustomPacking(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.colorWithDy"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ colorItemWithDye(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shape"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fenceGateBuilder(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.oreCookin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ oreBlasting(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shape"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ trapdoorBuilder(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.ha", "this.registries", "this.ta"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ trimSmithing(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.wallBuilde", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ wall(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.shapeles", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ waxRecipes(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.shape", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shelf(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.shape", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dryGhast(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.ha", "this.polishedBuilde"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ polished(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.shape", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ copperBulb(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shape"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ wallBuilder(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shape"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ slabBuilder(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shape"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stairBuilder(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shape"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tilesBuilder(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.simpleCookingRecip"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ cookRecipes(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.shapeles", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ planksFromLog(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ simpleCookingRecipe(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.shape", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ woodFromLogs(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shape"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fenceBuilder(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.shapeles", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ concretePowder(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.ha", "this.ta"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ netheriteSmithing(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.items"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shaped(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.ha", "this.ta"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dyedItem(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.shape", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mosaicBuilder(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.shape", "this.ha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ grate(/* params */);
+
+diff --git a/net.minecraft.data.recipes.RecipeProvider.java b/net.minecraft.data.recipes.RecipeProvider.java
+--- a/net.minecraft.data.recipes.RecipeProvider.java
++++ b/net.minecraft.data.recipes.RecipeProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.shape"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ woodenBoat(/* params */);
+

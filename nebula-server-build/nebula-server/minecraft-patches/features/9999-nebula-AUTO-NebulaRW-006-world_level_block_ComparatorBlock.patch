@@ -1,0 +1,82 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.ComparatorBlock.java b/net.minecraft.world.level.block.ComparatorBlock.java
+--- a/net.minecraft.world.level.block.ComparatorBlock.java
++++ b/net.minecraft.world.level.block.ComparatorBlock.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.canSurviveO"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateShape(/* params */);
+
+diff --git a/net.minecraft.world.level.block.ComparatorBlock.java b/net.minecraft.world.level.block.ComparatorBlock.java
+--- a/net.minecraft.world.level.block.ComparatorBlock.java
++++ b/net.minecraft.world.level.block.ComparatorBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.refreshOutputStat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.level.block.ComparatorBlock.java b/net.minecraft.world.level.block.ComparatorBlock.java
+--- a/net.minecraft.world.level.block.ComparatorBlock.java
++++ b/net.minecraft.world.level.block.ComparatorBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shouldTurnO", "this.shouldPrioritiz", "this.calculateOutputSigna"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkTickOnNeighbor(/* params */);
+
+diff --git a/net.minecraft.world.level.block.ComparatorBlock.java b/net.minecraft.world.level.block.ComparatorBlock.java
+--- a/net.minecraft.world.level.block.ComparatorBlock.java
++++ b/net.minecraft.world.level.block.ComparatorBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.inputSignal", "this.getInputSigna"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldTurnOn(/* params */);
+
+diff --git a/net.minecraft.world.level.block.ComparatorBlock.java b/net.minecraft.world.level.block.ComparatorBlock.java
+--- a/net.minecraft.world.level.block.ComparatorBlock.java
++++ b/net.minecraft.world.level.block.ComparatorBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.inputSignal", "this.getInputSigna"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateOutputSignal(/* params */);
+
+diff --git a/net.minecraft.world.level.block.ComparatorBlock.java b/net.minecraft.world.level.block.ComparatorBlock.java
+--- a/net.minecraft.world.level.block.ComparatorBlock.java
++++ b/net.minecraft.world.level.block.ComparatorBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.calculateOutputSigna"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ refreshOutputState(/* params */);
+

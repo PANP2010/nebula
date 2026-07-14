@@ -1,0 +1,139 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (10 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.animal.polarbear.PolarBear.java b/net.minecraft.world.entity.animal.polarbear.PolarBear.java
+--- a/net.minecraft.world.entity.animal.polarbear.PolarBear.java
++++ b/net.minecraft.world.entity.animal.polarbear.PolarBear.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playStepSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.polarbear.PolarBear.java b/net.minecraft.world.entity.animal.polarbear.PolarBear.java
+--- a/net.minecraft.world.entity.animal.polarbear.PolarBear.java
++++ b/net.minecraft.world.entity.animal.polarbear.PolarBear.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random", "this.setTimeToRemainAngr"},
++writeEntities = {"this.timeToRemainAngry"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startPersistentAngerTimer(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.polarbear.PolarBear.java b/net.minecraft.world.entity.animal.polarbear.PolarBear.java
+--- a/net.minecraft.world.entity.animal.polarbear.PolarBear.java
++++ b/net.minecraft.world.entity.animal.polarbear.PolarBear.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.targetSelector", "this.goalSelector", "this.isBab"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerGoals(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.polarbear.PolarBear.java b/net.minecraft.world.entity.animal.polarbear.PolarBear.java
+--- a/net.minecraft.world.entity.animal.polarbear.PolarBear.java
++++ b/net.minecraft.world.entity.animal.polarbear.PolarBear.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{neighbors}", "{position}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkPolarBearSpawnRules(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.polarbear.PolarBear.java b/net.minecraft.world.entity.animal.polarbear.PolarBear.java
+--- a/net.minecraft.world.entity.animal.polarbear.PolarBear.java
++++ b/net.minecraft.world.entity.animal.polarbear.PolarBear.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isBab", "this.alertOther", "this.sto"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ start(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.polarbear.PolarBear.java b/net.minecraft.world.entity.animal.polarbear.PolarBear.java
+--- a/net.minecraft.world.entity.animal.polarbear.PolarBear.java
++++ b/net.minecraft.world.entity.animal.polarbear.PolarBear.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mob", "this.resetAttackCooldow", "this.canPerformAttac", "this.setStandin"},
++writeEntities = {"this.standing"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkAndPerformAttack(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.polarbear.PolarBear.java b/net.minecraft.world.entity.animal.polarbear.PolarBear.java
+--- a/net.minecraft.world.entity.animal.polarbear.PolarBear.java
++++ b/net.minecraft.world.entity.animal.polarbear.PolarBear.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.warningSoundTick", "this.makeSoun", "this.warningSoundTicks"},
++writeEntities = {"this.warningSoundTicks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playWarningSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.polarbear.PolarBear.java b/net.minecraft.world.entity.animal.polarbear.PolarBear.java
+--- a/net.minecraft.world.entity.animal.polarbear.PolarBear.java
++++ b/net.minecraft.world.entity.animal.polarbear.PolarBear.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.clientSideStandAnimation", "this.clientSideStandAnimationO", "this.refreshDimension", "this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.polarbear.PolarBear.java b/net.minecraft.world.entity.animal.polarbear.PolarBear.java
+--- a/net.minecraft.world.entity.animal.polarbear.PolarBear.java
++++ b/net.minecraft.world.entity.animal.polarbear.PolarBear.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leve", "this.readPersistentAngerSaveDat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.polarbear.PolarBear.java b/net.minecraft.world.entity.animal.polarbear.PolarBear.java
+--- a/net.minecraft.world.entity.animal.polarbear.PolarBear.java
++++ b/net.minecraft.world.entity.animal.polarbear.PolarBear.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setStandin"},
++writeEntities = {"this.standing"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+

@@ -1,0 +1,21 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (1 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.boss.enderdragon.EnderDragonPart.java b/net.minecraft.world.entity.boss.enderdragon.EnderDragonPart.java
+--- a/net.minecraft.world.entity.boss.enderdragon.EnderDragonPart.java
++++ b/net.minecraft.world.entity.boss.enderdragon.EnderDragonPart.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isInvulnerableToBas", "this.parentMob"},
++triggeredEvents = {"ENTITY_DAMAGED"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtServer(/* params */);
+

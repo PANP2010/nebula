@@ -1,0 +1,84 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.renderer.block.BlockModelRenderState.java b/net.minecraft.client.renderer.block.BlockModelRenderState.java
+--- a/net.minecraft.client.renderer.block.BlockModelRenderState.java
++++ b/net.minecraft.client.renderer.block.BlockModelRenderState.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.randomSourc"},
++writeEntities = {"this.randomSource"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scratchRandomSource(/* params */);
+
+diff --git a/net.minecraft.client.renderer.block.BlockModelRenderState.java b/net.minecraft.client.renderer.block.BlockModelRenderState.java
+--- a/net.minecraft.client.renderer.block.BlockModelRenderState.java
++++ b/net.minecraft.client.renderer.block.BlockModelRenderState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tintLayer"},
++writeEntities = {"this.tintLayers"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tintLayers(/* params */);
+
+diff --git a/net.minecraft.client.renderer.block.BlockModelRenderState.java b/net.minecraft.client.renderer.block.BlockModelRenderState.java
+--- a/net.minecraft.client.renderer.block.BlockModelRenderState.java
++++ b/net.minecraft.client.renderer.block.BlockModelRenderState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.specialRenderer", "this.submitMode", "this.renderType", "this.specialRendererTransformation"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ submit(/* params */);
+
+diff --git a/net.minecraft.client.renderer.block.BlockModelRenderState.java b/net.minecraft.client.renderer.block.BlockModelRenderState.java
+--- a/net.minecraft.client.renderer.block.BlockModelRenderState.java
++++ b/net.minecraft.client.renderer.block.BlockModelRenderState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tintLayers", "this.modelParts", "this.transformation"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ submitModel(/* params */);
+
+diff --git a/net.minecraft.client.renderer.block.BlockModelRenderState.java b/net.minecraft.client.renderer.block.BlockModelRenderState.java
+--- a/net.minecraft.client.renderer.block.BlockModelRenderState.java
++++ b/net.minecraft.client.renderer.block.BlockModelRenderState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.submitMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ submitOnlyOutline(/* params */);
+
+diff --git a/net.minecraft.client.renderer.block.BlockModelRenderState.java b/net.minecraft.client.renderer.block.BlockModelRenderState.java
+--- a/net.minecraft.client.renderer.block.BlockModelRenderState.java
++++ b/net.minecraft.client.renderer.block.BlockModelRenderState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.submitMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ submitWithZOffset(/* params */);
+

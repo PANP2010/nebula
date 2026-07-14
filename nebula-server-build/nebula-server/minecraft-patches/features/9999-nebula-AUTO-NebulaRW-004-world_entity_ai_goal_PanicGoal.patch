@@ -1,0 +1,60 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.ai.goal.PanicGoal.java b/net.minecraft.world.entity.ai.goal.PanicGoal.java
+--- a/net.minecraft.world.entity.ai.goal.PanicGoal.java
++++ b/net.minecraft.world.entity.ai.goal.PanicGoal.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mob"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findRandomPosition(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.goal.PanicGoal.java b/net.minecraft.world.entity.ai.goal.PanicGoal.java
+--- a/net.minecraft.world.entity.ai.goal.PanicGoal.java
++++ b/net.minecraft.world.entity.ai.goal.PanicGoal.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.isRunning"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ start(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.goal.PanicGoal.java b/net.minecraft.world.entity.ai.goal.PanicGoal.java
+--- a/net.minecraft.world.entity.ai.goal.PanicGoal.java
++++ b/net.minecraft.world.entity.ai.goal.PanicGoal.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mob", "this.panicCausingDamageTypes"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldPanic(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.goal.PanicGoal.java b/net.minecraft.world.entity.ai.goal.PanicGoal.java
+--- a/net.minecraft.world.entity.ai.goal.PanicGoal.java
++++ b/net.minecraft.world.entity.ai.goal.PanicGoal.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isRunnin"},
++writeEntities = {"this.isRunning"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+

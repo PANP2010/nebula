@@ -1,0 +1,105 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (8 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.commands.arguments.item.ItemParser.java b/net.minecraft.commands.arguments.item.ItemParser.java
+--- a/net.minecraft.commands.arguments.item.ItemParser.java
++++ b/net.minecraft.commands.arguments.item.ItemParser.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.items"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ suggestItem(/* params */);
+
+diff --git a/net.minecraft.commands.arguments.item.ItemParser.java b/net.minecraft.commands.arguments.item.ItemParser.java
+--- a/net.minecraft.commands.arguments.item.ItemParser.java
++++ b/net.minecraft.commands.arguments.item.ItemParser.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.suggestion"},
++writeEntities = {"this.suggestions"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ visitSuggestions(/* params */);
+
+diff --git a/net.minecraft.commands.arguments.item.ItemParser.java b/net.minecraft.commands.arguments.item.ItemParser.java
+--- a/net.minecraft.commands.arguments.item.ItemParser.java
++++ b/net.minecraft.commands.arguments.item.ItemParser.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.suggestions"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resolveSuggestions(/* params */);
+
+diff --git a/net.minecraft.commands.arguments.item.ItemParser.java b/net.minecraft.commands.arguments.item.ItemParser.java
+--- a/net.minecraft.commands.arguments.item.ItemParser.java
++++ b/net.minecraft.commands.arguments.item.ItemParser.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.reader", "this.visitor", "this.items"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readItem(/* params */);
+
+diff --git a/net.minecraft.commands.arguments.item.ItemParser.java b/net.minecraft.commands.arguments.item.ItemParser.java
+--- a/net.minecraft.commands.arguments.item.ItemParser.java
++++ b/net.minecraft.commands.arguments.item.ItemParser.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.reader", "this.visitor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readComponent(/* params */);
+
+diff --git a/net.minecraft.commands.arguments.item.ItemParser.java b/net.minecraft.commands.arguments.item.ItemParser.java
+--- a/net.minecraft.commands.arguments.item.ItemParser.java
++++ b/net.minecraft.commands.arguments.item.ItemParser.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.readIte", "this.reader", "this.visitor", "this.readComponent"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ parse(/* params */);
+
+diff --git a/net.minecraft.commands.arguments.item.ItemParser.java b/net.minecraft.commands.arguments.item.ItemParser.java
+--- a/net.minecraft.commands.arguments.item.ItemParser.java
++++ b/net.minecraft.commands.arguments.item.ItemParser.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.suggestComponen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ suggestComponentAssignmentOrRemoval(/* params */);
+
+diff --git a/net.minecraft.commands.arguments.item.ItemParser.java b/net.minecraft.commands.arguments.item.ItemParser.java
+--- a/net.minecraft.commands.arguments.item.ItemParser.java
++++ b/net.minecraft.commands.arguments.item.ItemParser.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.reader", "this.visitor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readComponents(/* params */);
+

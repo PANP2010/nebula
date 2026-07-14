@@ -1,0 +1,434 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (34 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.animal.bee.Bee.java b/net.minecraft.world.entity.animal.bee.Bee.java
+--- a/net.minecraft.world.entity.animal.bee.Bee.java
++++ b/net.minecraft.world.entity.animal.bee.Bee.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isFoo", "this.addEffec", "this.usePlayerIte", "this.leve"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mobInteract(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.bee.Bee.java b/net.minecraft.world.entity.animal.bee.Bee.java
+--- a/net.minecraft.world.entity.animal.bee.Bee.java
++++ b/net.minecraft.world.entity.animal.bee.Bee.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random", "this.savedFlowerPo", "this.remainingCooldownBeforeLocatingNewFlowe"},
++writeEntities = {"this.savedFlowerPos", "this.remainingCooldownBeforeLocatingNewFlower"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropFlower(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.bee.Bee.java b/net.minecraft.world.entity.animal.bee.Bee.java
+--- a/net.minecraft.world.entity.animal.bee.Bee.java
++++ b/net.minecraft.world.entity.animal.bee.Bee.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random", "this.setTimeToRemainAngr"},
++writeEntities = {"this.timeToRemainAngry"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startPersistentAngerTimer(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.bee.Bee.java b/net.minecraft.world.entity.animal.bee.Bee.java
+--- a/net.minecraft.world.entity.animal.bee.Bee.java
++++ b/net.minecraft.world.entity.animal.bee.Bee.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isInvulnerableT"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtServer(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.bee.Bee.java b/net.minecraft.world.entity.animal.bee.Bee.java
+--- a/net.minecraft.world.entity.animal.bee.Bee.java
++++ b/net.minecraft.world.entity.animal.bee.Bee.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ wantsToEnterHive(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.bee.Bee.java b/net.minecraft.world.entity.animal.bee.Bee.java
+--- a/net.minecraft.world.entity.animal.bee.Bee.java
++++ b/net.minecraft.world.entity.animal.bee.Bee.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockPositio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ closerThan(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.bee.Bee.java b/net.minecraft.world.entity.animal.bee.Bee.java
+--- a/net.minecraft.world.entity.animal.bee.Bee.java
++++ b/net.minecraft.world.entity.animal.bee.Bee.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isHiveVali", "this.dropHiv", "this.hivePos", "this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ start(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.bee.Bee.java b/net.minecraft.world.entity.animal.bee.Bee.java
+--- a/net.minecraft.world.entity.animal.bee.Bee.java
++++ b/net.minecraft.world.entity.animal.bee.Bee.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.numCropsGrownSincePollination"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ incrementNumCropsGrownSincePollination(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.bee.Bee.java b/net.minecraft.world.entity.animal.bee.Bee.java
+--- a/net.minecraft.world.entity.animal.bee.Bee.java
++++ b/net.minecraft.world.entity.animal.bee.Bee.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setHasNecta", "this.resetNumCropsGrownSincePollinatio"},
++writeEntities = {"this.hasNectar"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropOffNectar(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.bee.Bee.java b/net.minecraft.world.entity.animal.bee.Bee.java
+--- a/net.minecraft.world.entity.animal.bee.Bee.java
++++ b/net.minecraft.world.entity.animal.bee.Bee.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerDebugValues(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.bee.Bee.java b/net.minecraft.world.entity.animal.bee.Bee.java
+--- a/net.minecraft.world.entity.animal.bee.Bee.java
++++ b/net.minecraft.world.entity.animal.bee.Bee.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.rollAmoun", "this.isRollin", "this.rollAmount"},
++writeEntities = {"this.rollAmount", "this.rollAmountO"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateRollAmount(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.bee.Bee.java b/net.minecraft.world.entity.animal.bee.Bee.java
+--- a/net.minecraft.world.entity.animal.bee.Bee.java
++++ b/net.minecraft.world.entity.animal.bee.Bee.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pollinatin"},
++writeEntities = {"this.pollinating"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stopPollinating(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.bee.Bee.java b/net.minecraft.world.entity.animal.bee.Bee.java
+--- a/net.minecraft.world.entity.animal.bee.Bee.java
++++ b/net.minecraft.world.entity.animal.bee.Bee.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.stayOutOfHiveCountdown", "this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ aiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.bee.Bee.java b/net.minecraft.world.entity.animal.bee.Bee.java
+--- a/net.minecraft.world.entity.animal.bee.Bee.java
++++ b/net.minecraft.world.entity.animal.bee.Bee.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.navigation", "this.closerTha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pathfindDirectlyTowards(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.bee.Bee.java b/net.minecraft.world.entity.animal.bee.Bee.java
+--- a/net.minecraft.world.entity.animal.bee.Bee.java
++++ b/net.minecraft.world.entity.animal.bee.Bee.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.dropFlowe", "this.pollinatin", "this.pollinatingTicks", "this.remainingCooldownBeforeLocatingNewFlowe", "this.hasSavedFlowerPo"},
++writeEntities = {"this.remainingCooldownBeforeLocatingNewFlower", "this.pollinating"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.bee.Bee.java b/net.minecraft.world.entity.animal.bee.Bee.java
+--- a/net.minecraft.world.entity.animal.bee.Bee.java
++++ b/net.minecraft.world.entity.animal.bee.Bee.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ beeCanTarget(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.bee.Bee.java b/net.minecraft.world.entity.animal.bee.Bee.java
+--- a/net.minecraft.world.entity.animal.bee.Bee.java
++++ b/net.minecraft.world.entity.animal.bee.Bee.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blacklistTarge", "this.hivePos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropAndBlacklistHive(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.bee.Bee.java b/net.minecraft.world.entity.animal.bee.Bee.java
+--- a/net.minecraft.world.entity.animal.bee.Bee.java
++++ b/net.minecraft.world.entity.animal.bee.Bee.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ doesHiveHaveSpace(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.bee.Bee.java b/net.minecraft.world.entity.animal.bee.Bee.java
+--- a/net.minecraft.world.entity.animal.bee.Bee.java
++++ b/net.minecraft.world.entity.animal.bee.Bee.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.beePollinateGoal"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetXRotOnTick(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.bee.Bee.java b/net.minecraft.world.entity.animal.bee.Bee.java
+--- a/net.minecraft.world.entity.animal.bee.Bee.java
++++ b/net.minecraft.world.entity.animal.bee.Bee.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.bee.Bee.java b/net.minecraft.world.entity.animal.bee.Bee.java
+--- a/net.minecraft.world.entity.animal.bee.Bee.java
++++ b/net.minecraft.world.entity.animal.bee.Bee.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.numCropsGrownSincePollinatio"},
++writeEntities = {"this.numCropsGrownSincePollination"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetNumCropsGrownSincePollination(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.bee.Bee.java b/net.minecraft.world.entity.animal.bee.Bee.java
+--- a/net.minecraft.world.entity.animal.bee.Bee.java
++++ b/net.minecraft.world.entity.animal.bee.Bee.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ticksWithoutNectarSinceExitingHiv"},
++writeEntities = {"this.ticksWithoutNectarSinceExitingHive"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetTicksWithoutNectarSinceExitingHive(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.bee.Bee.java b/net.minecraft.world.entity.animal.bee.Bee.java
+--- a/net.minecraft.world.entity.animal.bee.Bee.java
++++ b/net.minecraft.world.entity.animal.bee.Bee.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mob"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ alertOther(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.bee.Bee.java b/net.minecraft.world.entity.animal.bee.Bee.java
+--- a/net.minecraft.world.entity.animal.bee.Bee.java
++++ b/net.minecraft.world.entity.animal.bee.Bee.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blacklistedTargets"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ blacklistTarget(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.bee.Bee.java b/net.minecraft.world.entity.animal.bee.Bee.java
+--- a/net.minecraft.world.entity.animal.bee.Bee.java
++++ b/net.minecraft.world.entity.animal.bee.Bee.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockPositio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pathfindRandomlyTowards(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.bee.Bee.java b/net.minecraft.world.entity.animal.bee.Bee.java
+--- a/net.minecraft.world.entity.animal.bee.Bee.java
++++ b/net.minecraft.world.entity.animal.bee.Bee.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockPositio", "this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findNearbyHivesWithSpace(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.bee.Bee.java b/net.minecraft.world.entity.animal.bee.Bee.java
+--- a/net.minecraft.world.entity.animal.bee.Bee.java
++++ b/net.minecraft.world.entity.animal.bee.Bee.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hivePo", "this.remainingCooldownBeforeLocatingNewHiv"},
++writeEntities = {"this.hivePos", "this.remainingCooldownBeforeLocatingNewHive"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropHive(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.bee.Bee.java b/net.minecraft.world.entity.animal.bee.Bee.java
+--- a/net.minecraft.world.entity.animal.bee.Bee.java
++++ b/net.minecraft.world.entity.animal.bee.Bee.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setHasNecta", "this.hasPollinatedLongEnoug"},
++writeEntities = {"this.hasNectar"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.bee.Bee.java b/net.minecraft.world.entity.animal.bee.Bee.java
+--- a/net.minecraft.world.entity.animal.bee.Bee.java
++++ b/net.minecraft.world.entity.animal.bee.Bee.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ticksWithoutNectarSinceExitingHive"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ wantsToGoToKnownFlower(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.bee.Bee.java b/net.minecraft.world.entity.animal.bee.Bee.java
+--- a/net.minecraft.world.entity.animal.bee.Bee.java
++++ b/net.minecraft.world.entity.animal.bee.Bee.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.deltaMovement", "this.getDeltaMovemen", "this.setDeltaMovemen"},
++writeEntities = {"this.deltaMovement"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ jumpInLiquid(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.bee.Bee.java b/net.minecraft.world.entity.animal.bee.Bee.java
+--- a/net.minecraft.world.entity.animal.bee.Bee.java
++++ b/net.minecraft.world.entity.animal.bee.Bee.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.beePollinateGoal", "this.goToKnownFlowerGoal", "this.goToHiveGoal"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerGoals(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.bee.Bee.java b/net.minecraft.world.entity.animal.bee.Bee.java
+--- a/net.minecraft.world.entity.animal.bee.Bee.java
++++ b/net.minecraft.world.entity.animal.bee.Bee.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isInWate", "this.underWaterTicks", "this.hasStun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ customServerAiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.bee.Bee.java b/net.minecraft.world.entity.animal.bee.Bee.java
+--- a/net.minecraft.world.entity.animal.bee.Bee.java
++++ b/net.minecraft.world.entity.animal.bee.Bee.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.attributeValue", "this.damageSource", "this.leve", "this.getAttributeValu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ doHurtTarget(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.bee.Bee.java b/net.minecraft.world.entity.animal.bee.Bee.java
+--- a/net.minecraft.world.entity.animal.bee.Bee.java
++++ b/net.minecraft.world.entity.animal.bee.Bee.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockPositio", "this.unreachableFlowerCache", "this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findNearbyFlower(/* params */);
+

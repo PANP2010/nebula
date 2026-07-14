@@ -1,0 +1,32 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (2 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.util.datafix.fixes.UnflattenTextComponentFix.java b/net.minecraft.util.datafix.fixes.UnflattenTextComponentFix.java
+--- a/net.minecraft.util.datafix.fixes.UnflattenTextComponentFix.java
++++ b/net.minecraft.util.datafix.fixes.UnflattenTextComponentFix.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.outputSchema", "this.inputSchema", "this.getOutputSchem", "this.getInputSchem", "this.createFixe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ makeRule(/* params */);
+
+diff --git a/net.minecraft.util.datafix.fixes.UnflattenTextComponentFix.java b/net.minecraft.util.datafix.fixes.UnflattenTextComponentFix.java
+--- a/net.minecraft.util.datafix.fixes.UnflattenTextComponentFix.java
++++ b/net.minecraft.util.datafix.fixes.UnflattenTextComponentFix.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fixTypeEverywher"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createFixer(/* params */);
+

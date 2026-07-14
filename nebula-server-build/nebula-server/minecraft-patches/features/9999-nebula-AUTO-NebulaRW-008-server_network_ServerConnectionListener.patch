@@ -1,0 +1,107 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (8 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.network.ServerConnectionListener.java b/net.minecraft.server.network.ServerConnectionListener.java
+--- a/net.minecraft.server.network.ServerConnectionListener.java
++++ b/net.minecraft.server.network.ServerConnectionListener.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.delay", "this.jitter", "this.queuedMessages"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ delayDownstream(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerConnectionListener.java b/net.minecraft.server.network.ServerConnectionListener.java
+--- a/net.minecraft.server.network.ServerConnectionListener.java
++++ b/net.minecraft.server.network.ServerConnectionListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server", "this.channels"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startTcpServerListener(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerConnectionListener.java b/net.minecraft.server.network.ServerConnectionListener.java
+--- a/net.minecraft.server.network.ServerConnectionListener.java
++++ b/net.minecraft.server.network.ServerConnectionListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server", "this.connections"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ initChannel(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerConnectionListener.java b/net.minecraft.server.network.ServerConnectionListener.java
+--- a/net.minecraft.server.network.ServerConnectionListener.java
++++ b/net.minecraft.server.network.ServerConnectionListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.channels"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startMemoryChannel(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerConnectionListener.java b/net.minecraft.server.network.ServerConnectionListener.java
+--- a/net.minecraft.server.network.ServerConnectionListener.java
++++ b/net.minecraft.server.network.ServerConnectionListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.runnin", "this.channels"},
++writeEntities = {"this.running"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerConnectionListener.java b/net.minecraft.server.network.ServerConnectionListener.java
+--- a/net.minecraft.server.network.ServerConnectionListener.java
++++ b/net.minecraft.server.network.ServerConnectionListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.queuedMessages"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onTimeout(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerConnectionListener.java b/net.minecraft.server.network.ServerConnectionListener.java
+--- a/net.minecraft.server.network.ServerConnectionListener.java
++++ b/net.minecraft.server.network.ServerConnectionListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connections"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerConnectionListener.java b/net.minecraft.server.network.ServerConnectionListener.java
+--- a/net.minecraft.server.network.ServerConnectionListener.java
++++ b/net.minecraft.server.network.ServerConnectionListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.delayDownstrea"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ channelRead(/* params */);
+

@@ -1,0 +1,73 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.ComposterBlock.java b/net.minecraft.world.level.block.ComposterBlock.java
+--- a/net.minecraft.world.level.block.ComposterBlock.java
++++ b/net.minecraft.world.level.block.ComposterBlock.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.level.block.ComposterBlock.java b/net.minecraft.world.level.block.ComposterBlock.java
+--- a/net.minecraft.world.level.block.ComposterBlock.java
++++ b/net.minecraft.world.level.block.ComposterBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleFill(/* params */);
+
+diff --git a/net.minecraft.world.level.block.ComposterBlock.java b/net.minecraft.world.level.block.ComposterBlock.java
+--- a/net.minecraft.world.level.block.ComposterBlock.java
++++ b/net.minecraft.world.level.block.ComposterBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++triggeredEvents = {"ENTITY_SPAWNED"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractProduce(/* params */);
+
+diff --git a/net.minecraft.world.level.block.ComposterBlock.java b/net.minecraft.world.level.block.ComposterBlock.java
+--- a/net.minecraft.world.level.block.ComposterBlock.java
++++ b/net.minecraft.world.level.block.ComposterBlock.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ empty(/* params */);
+
+diff --git a/net.minecraft.world.level.block.ComposterBlock.java b/net.minecraft.world.level.block.ComposterBlock.java
+--- a/net.minecraft.world.level.block.ComposterBlock.java
++++ b/net.minecraft.world.level.block.ComposterBlock.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onPlace(/* params */);
+

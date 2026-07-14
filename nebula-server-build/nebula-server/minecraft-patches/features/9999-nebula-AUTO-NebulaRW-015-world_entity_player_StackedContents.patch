@@ -1,0 +1,188 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (15 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.player.StackedContents.java b/net.minecraft.world.entity.player.StackedContents.java
+--- a/net.minecraft.world.entity.player.StackedContents.java
++++ b/net.minecraft.world.entity.player.StackedContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.data", "this.getVisitiedItemInde", "this.visitiedItemIndex"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ visitItem(/* params */);
+
+diff --git a/net.minecraft.world.entity.player.StackedContents.java b/net.minecraft.world.entity.player.StackedContents.java
+--- a/net.minecraft.world.entity.player.StackedContents.java
++++ b/net.minecraft.world.entity.player.StackedContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ingredientCoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ satisfiedCount(/* params */);
+
+diff --git a/net.minecraft.world.entity.player.StackedContents.java b/net.minecraft.world.entity.player.StackedContents.java
+--- a/net.minecraft.world.entity.player.StackedContents.java
++++ b/net.minecraft.world.entity.player.StackedContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getResidualInde", "this.residualIndex", "this.data"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assign(/* params */);
+
+diff --git a/net.minecraft.world.entity.player.StackedContents.java b/net.minecraft.world.entity.player.StackedContents.java
+--- a/net.minecraft.world.entity.player.StackedContents.java
++++ b/net.minecraft.world.entity.player.StackedContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ingredientCount", "this.itemCoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ connectionCount(/* params */);
+
+diff --git a/net.minecraft.world.entity.player.StackedContents.java b/net.minecraft.world.entity.player.StackedContents.java
+--- a/net.minecraft.world.entity.player.StackedContents.java
++++ b/net.minecraft.world.entity.player.StackedContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ingredientCount", "this.itemCoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ residualCount(/* params */);
+
+diff --git a/net.minecraft.world.entity.player.StackedContents.java b/net.minecraft.world.entity.player.StackedContents.java
+--- a/net.minecraft.world.entity.player.StackedContents.java
++++ b/net.minecraft.world.entity.player.StackedContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.satisfiedOffse", "this.satisfiedCoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ connectionOffset(/* params */);
+
+diff --git a/net.minecraft.world.entity.player.StackedContents.java b/net.minecraft.world.entity.player.StackedContents.java
+--- a/net.minecraft.world.entity.player.StackedContents.java
++++ b/net.minecraft.world.entity.player.StackedContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connectionOffse", "this.connectionCoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ residualOffset(/* params */);
+
+diff --git a/net.minecraft.world.entity.player.StackedContents.java b/net.minecraft.world.entity.player.StackedContents.java
+--- a/net.minecraft.world.entity.player.StackedContents.java
++++ b/net.minecraft.world.entity.player.StackedContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.data", "this.visitedIngredientIndex", "this.getVisitedIngredientInde"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ visitIngredient(/* params */);
+
+diff --git a/net.minecraft.world.entity.player.StackedContents.java b/net.minecraft.world.entity.player.StackedContents.java
+--- a/net.minecraft.world.entity.player.StackedContents.java
++++ b/net.minecraft.world.entity.player.StackedContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getResidualInde", "this.residualIndex", "this.data"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ unassign(/* params */);
+
+diff --git a/net.minecraft.world.entity.player.StackedContents.java b/net.minecraft.world.entity.player.StackedContents.java
+--- a/net.minecraft.world.entity.player.StackedContents.java
++++ b/net.minecraft.world.entity.player.StackedContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.visitedItemCoun", "this.visitedItemOffse"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ satisfiedOffset(/* params */);
+
+diff --git a/net.minecraft.world.entity.player.StackedContents.java b/net.minecraft.world.entity.player.StackedContents.java
+--- a/net.minecraft.world.entity.player.StackedContents.java
++++ b/net.minecraft.world.entity.player.StackedContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getResultUpperBoun", "this.ingredients", "this.tryPic", "this.resultUpperBound"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tryPickAll(/* params */);
+
+diff --git a/net.minecraft.world.entity.player.StackedContents.java b/net.minecraft.world.entity.player.StackedContents.java
+--- a/net.minecraft.world.entity.player.StackedContents.java
++++ b/net.minecraft.world.entity.player.StackedContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.itemCoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ visitedItemCount(/* params */);
+
+diff --git a/net.minecraft.world.entity.player.StackedContents.java b/net.minecraft.world.entity.player.StackedContents.java
+--- a/net.minecraft.world.entity.player.StackedContents.java
++++ b/net.minecraft.world.entity.player.StackedContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.visitedIngredientCoun", "this.visitedIngredientOffse"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ visitedItemOffset(/* params */);
+
+diff --git a/net.minecraft.world.entity.player.StackedContents.java b/net.minecraft.world.entity.player.StackedContents.java
+--- a/net.minecraft.world.entity.player.StackedContents.java
++++ b/net.minecraft.world.entity.player.StackedContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ingredientCoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ visitedIngredientCount(/* params */);
+
+diff --git a/net.minecraft.world.entity.player.StackedContents.java b/net.minecraft.world.entity.player.StackedContents.java
+--- a/net.minecraft.world.entity.player.StackedContents.java
++++ b/net.minecraft.world.entity.player.StackedContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.amounts"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ take(/* params */);
+

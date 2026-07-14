@@ -1,0 +1,550 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (45 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.notificationCount", "this.extractNotificationCounte", "this.active"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractContents(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.new", "this.availableSnapshotServers", "this.addEntr"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ refreshServerEntries(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ versionTextX(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.notificationCoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ notificationCount(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createNoRealmsContent(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createUnitializedReal", "this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mouseClicked(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.lastScreen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onClose(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getOwnedNonExpiredRealmId", "this.ownedNonExpiredRealmIds"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pingRegions(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.realmSelectionList"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRealmStatus(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.trialsAvailable"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ openTrialAvailablePopup(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.handledSeenNotifications"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ markNotificationsAsSeen(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onRenew(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.font", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.realmSelectionList"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetScreen(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.leaveServe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ leaveClicked(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.layout", "this.width", "this.realmSelectionList"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ repositionElements(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.secondLine", "this.text", "this.firstLine", "this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractSecondLine(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createHeade", "this.createFoote", "this.realmSelectionList", "this.font", "this.createNoRealmsConten"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createLayout(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractClampedString(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createUnitializedRealm(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.thirdLine", "this.text", "this.firstLine", "this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractThirdLine(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lineHeigh"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ thirdLineY(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.renewButton", "this.leaveButton", "this.configureButton", "this.playButton"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createFooter(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.gridLayout", "this.textWidget", "this.textFrame"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ refreshLayout(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.addRealmButton", "this.activeLayoutState", "this.selectedServer", "this.playButton", "this.getSelectedServe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateButtonStates(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pendingInvitesButton", "this.newsButton"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createHeader(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.realmSelectionList", "this.updateLayou", "this.updateButtonState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ refreshListAndLayout(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.versionText", "this.extractClampedStrin", "this.text", "this.firstLine", "this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractFirstLine(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ debugRefreshDataFetchers(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.width", "this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractEnvironment(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.gameModeText", "this.secondLine", "this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractGameMode(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ refreshEntries(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.dataSubscription"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ configureClicked(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ gameModeTextX(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.extractRealmStatu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractStatusLights(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createUnitializedReal", "this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ keyPressed(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lastEntryWidt", "this.refreshLayou", "this.lastEntryWidth", "this.width", "this.getWidt"},
++writeEntities = {"this.lastEntryWidth"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateEntryWidth(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.layout", "this.removeWidge", "this.activeLayoutState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateLayout(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractContent(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.onlinePlayersPerRealm", "this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractOnlinePlayers(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lineHeigh"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ secondLineY(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.pendingInvitesButton", "this.serverList", "this.newsButton", "this.realmSelectionList"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playRealm(/* params */);
+
+diff --git a/com.mojang.realmsclient.RealmsMainScreen.java b/com.mojang.realmsclient.RealmsMainScreen.java
+--- a/com.mojang.realmsclient.RealmsMainScreen.java
++++ b/com.mojang.realmsclient.RealmsMainScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractNotificationCounter(/* params */);
+

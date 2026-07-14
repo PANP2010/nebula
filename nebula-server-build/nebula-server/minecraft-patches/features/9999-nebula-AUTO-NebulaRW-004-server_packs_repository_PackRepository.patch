@@ -1,0 +1,57 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.packs.repository.PackRepository.java b/net.minecraft.server.packs.repository.PackRepository.java
+--- a/net.minecraft.server.packs.repository.PackRepository.java
++++ b/net.minecraft.server.packs.repository.PackRepository.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sources"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ discoverAvailable(/* params */);
+
+diff --git a/net.minecraft.server.packs.repository.PackRepository.java b/net.minecraft.server.packs.repository.PackRepository.java
+--- a/net.minecraft.server.packs.repository.PackRepository.java
++++ b/net.minecraft.server.packs.repository.PackRepository.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.selected"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ openAllSelected(/* params */);
+
+diff --git a/net.minecraft.server.packs.repository.PackRepository.java b/net.minecraft.server.packs.repository.PackRepository.java
+--- a/net.minecraft.server.packs.repository.PackRepository.java
++++ b/net.minecraft.server.packs.repository.PackRepository.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.discoverAvailabl", "this.availabl", "this.selected", "this.selecte", "this.rebuildSelecte"},
++writeEntities = {"this.available", "this.selected"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reload(/* params */);
+
+diff --git a/net.minecraft.server.packs.repository.PackRepository.java b/net.minecraft.server.packs.repository.PackRepository.java
+--- a/net.minecraft.server.packs.repository.PackRepository.java
++++ b/net.minecraft.server.packs.repository.PackRepository.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.availablePacks", "this.available", "this.getAvailablePack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ rebuildSelected(/* params */);
+

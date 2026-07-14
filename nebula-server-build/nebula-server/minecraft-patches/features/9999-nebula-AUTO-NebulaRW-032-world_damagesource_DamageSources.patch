@@ -1,0 +1,392 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (32 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.damagesource.DamageSources.java b/net.minecraft.world.damagesource.DamageSources.java
+--- a/net.minecraft.world.damagesource.DamageSources.java
++++ b/net.minecraft.world.damagesource.DamageSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sourc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fallingStalactite(/* params */);
+
+diff --git a/net.minecraft.world.damagesource.DamageSources.java b/net.minecraft.world.damagesource.DamageSources.java
+--- a/net.minecraft.world.damagesource.DamageSources.java
++++ b/net.minecraft.world.damagesource.DamageSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sourc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mace(/* params */);
+
+diff --git a/net.minecraft.world.damagesource.DamageSources.java b/net.minecraft.world.damagesource.DamageSources.java
+--- a/net.minecraft.world.damagesource.DamageSources.java
++++ b/net.minecraft.world.damagesource.DamageSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.flyIntoWal"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ flyIntoWall(/* params */);
+
+diff --git a/net.minecraft.world.damagesource.DamageSources.java b/net.minecraft.world.damagesource.DamageSources.java
+--- a/net.minecraft.world.damagesource.DamageSources.java
++++ b/net.minecraft.world.damagesource.DamageSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sourc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sting(/* params */);
+
+diff --git a/net.minecraft.world.damagesource.DamageSources.java b/net.minecraft.world.damagesource.DamageSources.java
+--- a/net.minecraft.world.damagesource.DamageSources.java
++++ b/net.minecraft.world.damagesource.DamageSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fellOutOfWorl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fellOutOfWorld(/* params */);
+
+diff --git a/net.minecraft.world.damagesource.DamageSources.java b/net.minecraft.world.damagesource.DamageSources.java
+--- a/net.minecraft.world.damagesource.DamageSources.java
++++ b/net.minecraft.world.damagesource.DamageSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.outsideBorde"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ outOfBorder(/* params */);
+
+diff --git a/net.minecraft.world.damagesource.DamageSources.java b/net.minecraft.world.damagesource.DamageSources.java
+--- a/net.minecraft.world.damagesource.DamageSources.java
++++ b/net.minecraft.world.damagesource.DamageSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sourc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mobProjectile(/* params */);
+
+diff --git a/net.minecraft.world.damagesource.DamageSources.java b/net.minecraft.world.damagesource.DamageSources.java
+--- a/net.minecraft.world.damagesource.DamageSources.java
++++ b/net.minecraft.world.damagesource.DamageSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sourc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ witherSkull(/* params */);
+
+diff --git a/net.minecraft.world.damagesource.DamageSources.java b/net.minecraft.world.damagesource.DamageSources.java
+--- a/net.minecraft.world.damagesource.DamageSources.java
++++ b/net.minecraft.world.damagesource.DamageSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sourc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ indirectMagic(/* params */);
+
+diff --git a/net.minecraft.world.damagesource.DamageSources.java b/net.minecraft.world.damagesource.DamageSources.java
+--- a/net.minecraft.world.damagesource.DamageSources.java
++++ b/net.minecraft.world.damagesource.DamageSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sourc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ explosion(/* params */);
+
+diff --git a/net.minecraft.world.damagesource.DamageSources.java b/net.minecraft.world.damagesource.DamageSources.java
+--- a/net.minecraft.world.damagesource.DamageSources.java
++++ b/net.minecraft.world.damagesource.DamageSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sourc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mobAttack(/* params */);
+
+diff --git a/net.minecraft.world.damagesource.DamageSources.java b/net.minecraft.world.damagesource.DamageSources.java
+--- a/net.minecraft.world.damagesource.DamageSources.java
++++ b/net.minecraft.world.damagesource.DamageSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sourc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ thrown(/* params */);
+
+diff --git a/net.minecraft.world.damagesource.DamageSources.java b/net.minecraft.world.damagesource.DamageSources.java
+--- a/net.minecraft.world.damagesource.DamageSources.java
++++ b/net.minecraft.world.damagesource.DamageSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sourc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spit(/* params */);
+
+diff --git a/net.minecraft.world.damagesource.DamageSources.java b/net.minecraft.world.damagesource.DamageSources.java
+--- a/net.minecraft.world.damagesource.DamageSources.java
++++ b/net.minecraft.world.damagesource.DamageSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.dragonBreat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dragonBreath(/* params */);
+
+diff --git a/net.minecraft.world.damagesource.DamageSources.java b/net.minecraft.world.damagesource.DamageSources.java
+--- a/net.minecraft.world.damagesource.DamageSources.java
++++ b/net.minecraft.world.damagesource.DamageSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.genericKil"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ genericKill(/* params */);
+
+diff --git a/net.minecraft.world.damagesource.DamageSources.java b/net.minecraft.world.damagesource.DamageSources.java
+--- a/net.minecraft.world.damagesource.DamageSources.java
++++ b/net.minecraft.world.damagesource.DamageSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sourc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ anvil(/* params */);
+
+diff --git a/net.minecraft.world.damagesource.DamageSources.java b/net.minecraft.world.damagesource.DamageSources.java
+--- a/net.minecraft.world.damagesource.DamageSources.java
++++ b/net.minecraft.world.damagesource.DamageSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.stalagmit"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stalagmite(/* params */);
+
+diff --git a/net.minecraft.world.damagesource.DamageSources.java b/net.minecraft.world.damagesource.DamageSources.java
+--- a/net.minecraft.world.damagesource.DamageSources.java
++++ b/net.minecraft.world.damagesource.DamageSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sourc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fallingBlock(/* params */);
+
+diff --git a/net.minecraft.world.damagesource.DamageSources.java b/net.minecraft.world.damagesource.DamageSources.java
+--- a/net.minecraft.world.damagesource.DamageSources.java
++++ b/net.minecraft.world.damagesource.DamageSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.enderPear"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ enderPearl(/* params */);
+
+diff --git a/net.minecraft.world.damagesource.DamageSources.java b/net.minecraft.world.damagesource.DamageSources.java
+--- a/net.minecraft.world.damagesource.DamageSources.java
++++ b/net.minecraft.world.damagesource.DamageSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sourc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ noAggroMobAttack(/* params */);
+
+diff --git a/net.minecraft.world.damagesource.DamageSources.java b/net.minecraft.world.damagesource.DamageSources.java
+--- a/net.minecraft.world.damagesource.DamageSources.java
++++ b/net.minecraft.world.damagesource.DamageSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sourc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ windCharge(/* params */);
+
+diff --git a/net.minecraft.world.damagesource.DamageSources.java b/net.minecraft.world.damagesource.DamageSources.java
+--- a/net.minecraft.world.damagesource.DamageSources.java
++++ b/net.minecraft.world.damagesource.DamageSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.damageTypes"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ badRespawnPointExplosion(/* params */);
+
+diff --git a/net.minecraft.world.damagesource.DamageSources.java b/net.minecraft.world.damagesource.DamageSources.java
+--- a/net.minecraft.world.damagesource.DamageSources.java
++++ b/net.minecraft.world.damagesource.DamageSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sourc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fireball(/* params */);
+
+diff --git a/net.minecraft.world.damagesource.DamageSources.java b/net.minecraft.world.damagesource.DamageSources.java
+--- a/net.minecraft.world.damagesource.DamageSources.java
++++ b/net.minecraft.world.damagesource.DamageSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sourc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fireworks(/* params */);
+
+diff --git a/net.minecraft.world.damagesource.DamageSources.java b/net.minecraft.world.damagesource.DamageSources.java
+--- a/net.minecraft.world.damagesource.DamageSources.java
++++ b/net.minecraft.world.damagesource.DamageSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lightningBol"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ lightningBolt(/* params */);
+
+diff --git a/net.minecraft.world.damagesource.DamageSources.java b/net.minecraft.world.damagesource.DamageSources.java
+--- a/net.minecraft.world.damagesource.DamageSources.java
++++ b/net.minecraft.world.damagesource.DamageSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sourc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playerAttack(/* params */);
+
+diff --git a/net.minecraft.world.damagesource.DamageSources.java b/net.minecraft.world.damagesource.DamageSources.java
+--- a/net.minecraft.world.damagesource.DamageSources.java
++++ b/net.minecraft.world.damagesource.DamageSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sourc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ trident(/* params */);
+
+diff --git a/net.minecraft.world.damagesource.DamageSources.java b/net.minecraft.world.damagesource.DamageSources.java
+--- a/net.minecraft.world.damagesource.DamageSources.java
++++ b/net.minecraft.world.damagesource.DamageSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sourc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sonicBoom(/* params */);
+
+diff --git a/net.minecraft.world.damagesource.DamageSources.java b/net.minecraft.world.damagesource.DamageSources.java
+--- a/net.minecraft.world.damagesource.DamageSources.java
++++ b/net.minecraft.world.damagesource.DamageSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sweetBerryBus"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sweetBerryBush(/* params */);
+
+diff --git a/net.minecraft.world.damagesource.DamageSources.java b/net.minecraft.world.damagesource.DamageSources.java
+--- a/net.minecraft.world.damagesource.DamageSources.java
++++ b/net.minecraft.world.damagesource.DamageSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sourc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ thorns(/* params */);
+
+diff --git a/net.minecraft.world.damagesource.DamageSources.java b/net.minecraft.world.damagesource.DamageSources.java
+--- a/net.minecraft.world.damagesource.DamageSources.java
++++ b/net.minecraft.world.damagesource.DamageSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sourc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ arrow(/* params */);
+
+diff --git a/net.minecraft.world.damagesource.DamageSources.java b/net.minecraft.world.damagesource.DamageSources.java
+--- a/net.minecraft.world.damagesource.DamageSources.java
++++ b/net.minecraft.world.damagesource.DamageSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.damageTypes"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ source(/* params */);
+

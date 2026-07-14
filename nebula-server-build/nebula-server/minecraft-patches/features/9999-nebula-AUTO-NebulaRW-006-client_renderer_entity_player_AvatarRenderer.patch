@@ -1,0 +1,80 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.renderer.entity.player.AvatarRenderer.java b/net.minecraft.client.renderer.entity.player.AvatarRenderer.java
+--- a/net.minecraft.client.renderer.entity.player.AvatarRenderer.java
++++ b/net.minecraft.client.renderer.entity.player.AvatarRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entityRenderDispatcher"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldShowName(/* params */);
+
+diff --git a/net.minecraft.client.renderer.entity.player.AvatarRenderer.java b/net.minecraft.client.renderer.entity.player.AvatarRenderer.java
+--- a/net.minecraft.client.renderer.entity.player.AvatarRenderer.java
++++ b/net.minecraft.client.renderer.entity.player.AvatarRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.renderHan", "this.model"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderRightHand(/* params */);
+
+diff --git a/net.minecraft.client.renderer.entity.player.AvatarRenderer.java b/net.minecraft.client.renderer.entity.player.AvatarRenderer.java
+--- a/net.minecraft.client.renderer.entity.player.AvatarRenderer.java
++++ b/net.minecraft.client.renderer.entity.player.AvatarRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.model", "this.getMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderHand(/* params */);
+
+diff --git a/net.minecraft.client.renderer.entity.player.AvatarRenderer.java b/net.minecraft.client.renderer.entity.player.AvatarRenderer.java
+--- a/net.minecraft.client.renderer.entity.player.AvatarRenderer.java
++++ b/net.minecraft.client.renderer.entity.player.AvatarRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.renderHan", "this.model"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderLeftHand(/* params */);
+
+diff --git a/net.minecraft.client.renderer.entity.player.AvatarRenderer.java b/net.minecraft.client.renderer.entity.player.AvatarRenderer.java
+--- a/net.minecraft.client.renderer.entity.player.AvatarRenderer.java
++++ b/net.minecraft.client.renderer.entity.player.AvatarRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.submitNameDispla"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ submitNameDisplay(/* params */);
+
+diff --git a/net.minecraft.client.renderer.entity.player.AvatarRenderer.java b/net.minecraft.client.renderer.entity.player.AvatarRenderer.java
+--- a/net.minecraft.client.renderer.entity.player.AvatarRenderer.java
++++ b/net.minecraft.client.renderer.entity.player.AvatarRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.itemModelResolver", "this.extractFlightDat", "this.extractCapeStat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+

@@ -1,0 +1,57 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.util.profiling.metrics.profiling.ActiveMetricsRecorder.java b/net.minecraft.util.profiling.metrics.profiling.ActiveMetricsRecorder.java
+--- a/net.minecraft.util.profiling.metrics.profiling.ActiveMetricsRecorder.java
++++ b/net.minecraft.util.profiling.metrics.profiling.ActiveMetricsRecorder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.metricsSamplerProvider", "this.thisTickSampler", "this.verifyStarte", "this.thisTickSamplers", "this.singleTickProfiler"},
++writeEntities = {"this.thisTickSamplers"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startTick(/* params */);
+
+diff --git a/net.minecraft.util.profiling.metrics.profiling.ActiveMetricsRecorder.java b/net.minecraft.util.profiling.metrics.profiling.ActiveMetricsRecorder.java
+--- a/net.minecraft.util.profiling.metrics.profiling.ActiveMetricsRecorder.java
++++ b/net.minecraft.util.profiling.metrics.profiling.ActiveMetricsRecorder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scheduleSaveResults(/* params */);
+
+diff --git a/net.minecraft.util.profiling.metrics.profiling.ActiveMetricsRecorder.java b/net.minecraft.util.profiling.metrics.profiling.ActiveMetricsRecorder.java
+--- a/net.minecraft.util.profiling.metrics.profiling.ActiveMetricsRecorder.java
++++ b/net.minecraft.util.profiling.metrics.profiling.ActiveMetricsRecorder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.currentTick", "this.verifyStarte", "this.thisTickSamplers", "this.deviationsBySampler", "this.singleTickProfiler"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ endTick(/* params */);
+
+diff --git a/net.minecraft.util.profiling.metrics.profiling.ActiveMetricsRecorder.java b/net.minecraft.util.profiling.metrics.profiling.ActiveMetricsRecorder.java
+--- a/net.minecraft.util.profiling.metrics.profiling.ActiveMetricsRecorder.java
++++ b/net.minecraft.util.profiling.metrics.profiling.ActiveMetricsRecorder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isRecordin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ verifyStarted(/* params */);
+

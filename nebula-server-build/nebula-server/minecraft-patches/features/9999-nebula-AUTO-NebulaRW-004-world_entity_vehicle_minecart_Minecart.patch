@@ -1,0 +1,58 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.Minecart.java b/net.minecraft.world.entity.vehicle.minecart.Minecart.java
+--- a/net.minecraft.world.entity.vehicle.minecart.Minecart.java
++++ b/net.minecraft.world.entity.vehicle.minecart.Minecart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playerRotationOffset", "this.leve", "this.rotationOffset", "this.playerRotationOffse"},
++writeEntities = {"this.playerRotationOffset"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ positionRider(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.Minecart.java b/net.minecraft.world.entity.vehicle.minecart.Minecart.java
+--- a/net.minecraft.world.entity.vehicle.minecart.Minecart.java
++++ b/net.minecraft.world.entity.vehicle.minecart.Minecart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ejectPassenger", "this.isVehicl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ activateMinecart(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.Minecart.java b/net.minecraft.world.entity.vehicle.minecart.Minecart.java
+--- a/net.minecraft.world.entity.vehicle.minecart.Minecart.java
++++ b/net.minecraft.world.entity.vehicle.minecart.Minecart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.yRot", "this.getYRo", "this.leve", "this.positio", "this.rotationOffset"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.Minecart.java b/net.minecraft.world.entity.vehicle.minecart.Minecart.java
+--- a/net.minecraft.world.entity.vehicle.minecart.Minecart.java
++++ b/net.minecraft.world.entity.vehicle.minecart.Minecart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.rotationOffse", "this.leve", "this.isVehicl", "this.playerRotationOffse"},
++writeEntities = {"this.playerRotationOffset"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ interact(/* params */);
+

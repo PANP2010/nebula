@@ -1,0 +1,130 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (10 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.renderer.texture.TextureAtlas.java b/net.minecraft.client.renderer.texture.TextureAtlas.java
+--- a/net.minecraft.client.renderer.texture.TextureAtlas.java
++++ b/net.minecraft.client.renderer.texture.TextureAtlas.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ uploadInitialContents(/* params */);
+
+diff --git a/net.minecraft.client.renderer.texture.TextureAtlas.java b/net.minecraft.client.renderer.texture.TextureAtlas.java
+--- a/net.minecraft.client.renderer.texture.TextureAtlas.java
++++ b/net.minecraft.client.renderer.texture.TextureAtlas.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.texturesByName", "this.missingSprite", "this.sampler"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ upload(/* params */);
+
+diff --git a/net.minecraft.client.renderer.texture.TextureAtlas.java b/net.minecraft.client.renderer.texture.TextureAtlas.java
+--- a/net.minecraft.client.renderer.texture.TextureAtlas.java
++++ b/net.minecraft.client.renderer.texture.TextureAtlas.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.maxSupportedTextureSiz"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ maxSupportedTextureSize(/* params */);
+
+diff --git a/net.minecraft.client.renderer.texture.TextureAtlas.java b/net.minecraft.client.renderer.texture.TextureAtlas.java
+--- a/net.minecraft.client.renderer.texture.TextureAtlas.java
++++ b/net.minecraft.client.renderer.texture.TextureAtlas.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getTextur", "this.texture", "this.texturesByName", "this.maxMipLevel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dumpContents(/* params */);
+
+diff --git a/net.minecraft.client.renderer.texture.TextureAtlas.java b/net.minecraft.client.renderer.texture.TextureAtlas.java
+--- a/net.minecraft.client.renderer.texture.TextureAtlas.java
++++ b/net.minecraft.client.renderer.texture.TextureAtlas.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mipViews"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ close(/* params */);
+
+diff --git a/net.minecraft.client.renderer.texture.TextureAtlas.java b/net.minecraft.client.renderer.texture.TextureAtlas.java
+--- a/net.minecraft.client.renderer.texture.TextureAtlas.java
++++ b/net.minecraft.client.renderer.texture.TextureAtlas.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mipViews", "this.maxMipLeve", "this.location", "this.animatedTexturesStates"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ uploadAnimationFrames(/* params */);
+
+diff --git a/net.minecraft.client.renderer.texture.TextureAtlas.java b/net.minecraft.client.renderer.texture.TextureAtlas.java
+--- a/net.minecraft.client.renderer.texture.TextureAtlas.java
++++ b/net.minecraft.client.renderer.texture.TextureAtlas.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.texture", "this.animatedTexturesStates"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ cycleAnimationFrames(/* params */);
+
+diff --git a/net.minecraft.client.renderer.texture.TextureAtlas.java b/net.minecraft.client.renderer.texture.TextureAtlas.java
+--- a/net.minecraft.client.renderer.texture.TextureAtlas.java
++++ b/net.minecraft.client.renderer.texture.TextureAtlas.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createTexture(/* params */);
+
+diff --git a/net.minecraft.client.renderer.texture.TextureAtlas.java b/net.minecraft.client.renderer.texture.TextureAtlas.java
+--- a/net.minecraft.client.renderer.texture.TextureAtlas.java
++++ b/net.minecraft.client.renderer.texture.TextureAtlas.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.missingSprite"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ missingSprite(/* params */);
+
+diff --git a/net.minecraft.client.renderer.texture.TextureAtlas.java b/net.minecraft.client.renderer.texture.TextureAtlas.java
+--- a/net.minecraft.client.renderer.texture.TextureAtlas.java
++++ b/net.minecraft.client.renderer.texture.TextureAtlas.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.cycleAnimationFrame"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+

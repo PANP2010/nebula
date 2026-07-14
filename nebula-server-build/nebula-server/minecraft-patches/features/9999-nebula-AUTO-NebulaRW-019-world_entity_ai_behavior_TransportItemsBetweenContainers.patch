@@ -1,0 +1,246 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (19 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+--- a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
++++ b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.clearMemoriesAfterMatchingTargetFoun"},
++triggeredEvents = {"BLOCK_UPDATE"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putDownItem(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+--- a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
++++ b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.clearMemoriesAfterMatchingTargetFoun"},
++triggeredEvents = {"BLOCK_UPDATE"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pickUpItems(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+--- a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
++++ b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.onStartTravelling", "this.setTransportingStat", "this.ticksSinceReachingTarge", "this.interactionStat"},
++writeEntities = {"this.interactionState", "this.transportingState", "this.ticksSinceReachingTarget"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onStartTravelling(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+--- a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
++++ b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getCenterPo", "this.isWithinTargetDistanc", "this.isAnotherMobInteractingWithTarge", "this.startQueuin", "this.centerPos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onTravelToTarget(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+--- a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
++++ b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.onStartTravellin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+--- a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
++++ b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.stopInPlac", "this.setTransportingStat"},
++writeEntities = {"this.transportingState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startQueuing(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+--- a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
++++ b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setInteractionStat"},
++writeEntities = {"this.interactionState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onReachedInteraction(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+--- a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
++++ b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setTransportingStat", "this.walkTowardsTarge"},
++writeEntities = {"this.transportingState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resumeTravelling(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+--- a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
++++ b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.enterCooldownAfterNoMatchingTargetFoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ markVisitedBlockPosAsUnreachable(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+--- a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
++++ b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getCenterPo", "this.onStartTravellin", "this.isWithinTargetDistanc", "this.centerPos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onReachedTarget(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+--- a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
++++ b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.speedModifier", "this.target"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ walkTowardsTarget(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+--- a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
++++ b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.visitedBlockPos", "this.target"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateInvalidTarget(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+--- a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
++++ b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.doReachedTargetInteractio", "this.onReachedInteractio", "this.setTransportingStat"},
++writeEntities = {"this.transportingState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startOnReachedTargetInteraction(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+--- a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
++++ b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.stopInPlac", "this.onTargetInteractionActions", "this.interactionState", "this.ticksSinceReachingTarget"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onTargetInteraction(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+--- a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
++++ b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.targe", "this.ticksSinceReachingTarge"},
++writeEntities = {"this.ticksSinceReachingTarget", "this.target"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stopTargetingCurrentTarget(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+--- a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
++++ b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.targe", "this.updateInvalidTarge", "this.sto"},
++writeEntities = {"this.target"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+--- a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
++++ b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.stopTargetingCurrentTarge"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ enterCooldownAfterNoMatchingTargetFound(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+--- a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
++++ b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isAnotherMobInteractingWithTarge", "this.resumeTravellin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onQueuingForTarget(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+--- a/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
++++ b/net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.canSeeAnyTargetSid"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ targetIsReachableFromPosition(/* params */);
+

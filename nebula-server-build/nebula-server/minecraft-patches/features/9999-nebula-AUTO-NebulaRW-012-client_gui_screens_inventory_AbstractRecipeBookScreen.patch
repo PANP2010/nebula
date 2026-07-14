@@ -1,0 +1,155 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (12 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.recipeBookComponent"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillGhostRecipe(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.recipeBookComponent"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ charTyped(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.recipeBookComponent"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ containerTick(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setFocuse", "this.recipeBookComponent"},
++writeEntities = {"this.focused"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mouseClicked(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.recipeBookComponent"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mouseDragged(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.leftPos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ initButton(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.recipeBookComponent"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ recipesUpdated(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.extractBackgroun", "this.recipeBookComponent", "this.widthTooNarrow"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.recipeBookComponent"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ keyPressed(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.recipeBookComponent"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ slotClicked(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.leftPos", "this.widthTooNarrow"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isBiggerResultSlo", "this.recipeBookComponent"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractSlots(/* params */);
+

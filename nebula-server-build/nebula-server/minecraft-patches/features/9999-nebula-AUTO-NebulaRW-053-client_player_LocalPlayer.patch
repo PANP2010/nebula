@@ -1,0 +1,658 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (53 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.suffocatesA", "this.get", "this.y"},
++readBlocks = {"{neighbors}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ moveTowardsClosestSpace(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.startedUsingItem", "this.startUsingIte", "this.entityData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSyncedDataUpdated(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isSprintin", "this.wasSprintin", "this.connection", "this.wasSprinting"},
++writeEntities = {"this.wasSprinting"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendIsSprintingIfNeeded(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ openItemGui(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendOverlayMessage(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ magicCrit(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyInput(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.boundingBox", "this.getBoundingBo", "this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ suffocatesAt(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.useItem"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ itemUseSpeedMultiplier(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.input", "this.controlledVehicle", "this.handsBusy", "this.getControlledVehicl", "this.handsBus"},
++writeEntities = {"this.handsBusy"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ rideTick(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chatAbilitie"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ chatAbilities(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ openTextEdit(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getJumpRidingScal", "this.jumpRidingScale", "this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendRidingJump(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.chatAbilities", "this.chatAbilitie"},
++writeEntities = {"this.chatAbilities"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ refreshChatAbilities(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendPosition(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.containerMenu", "this.connection", "this.clientSideCloseContaine"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ closeContainer(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.permission"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ permissions(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.deathTime", "this.deathTim", "this.remov"},
++writeEntities = {"this.deathTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickDeath(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ openCommandBlock(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ swing(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ clientSideCloseContainer(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ crit(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.addWalkedDistanc", "this.updateAutoJum", "this.get", "this.x", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ move(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ openJigsawBlock(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sprintTriggerTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ aiStep(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldStopRunSprinting(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getInventor", "this.connection", "this.inventory"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ drop(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.portalEffectIntensit", "this.minecraft", "this.closeContaine", "this.oPortalEffectIntensit", "this.portalProcess"},
++writeEntities = {"this.oPortalEffectIntensity"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handlePortalTransitionEffect(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldRotateWithMinecart(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendOpenInventory(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ openDialog(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.wasUnderwate", "this.isSpectato"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateIsUnderwater(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.input", "this.dropSpamThrottler", "this.lastSentInpu", "this.lastSentInput", "this.connection"},
++writeEntities = {"this.lastSentInput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getHealt", "this.invulnerableTim", "this.health", "this.flashOnSetHealth", "this.setHealt"},
++writeEntities = {"this.invulnerableTime", "this.health"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtTo(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.startedUsingIte"},
++writeEntities = {"this.startedUsingItem"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stopUsingItem(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ respawn(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateAutoJump(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.deltaMovement", "this.getDeltaMovemen", "this.setDeltaMovemen"},
++writeEntities = {"this.deltaMovement"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onGameModeChanged(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.abilities", "this.connection", "this.getAbilitie"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onUpdateAbilities(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.pose", "this.pos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetPos(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getActiveIte", "this.blockInteractionRang", "this.activeItem"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ raycastHitResult(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playSound(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ openTestInstanceBlock(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setPermission"},
++writeEntities = {"this.permissions"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleEntityEvent(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ openTestBlock(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendSystemMessage(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getItemInHan", "this.startedUsingIte", "this.usingItemHan", "this.itemInHand", "this.isUsingIte"},
++writeEntities = {"this.startedUsingItem", "this.usingItemHand"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startUsingItem(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ openStructureBlock(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateTutorialInventoryAction(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.input", "this.onGroun", "this.isSprintingPossibl", "this.isInWate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldStopSwimSprinting(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ openMinecartCommandBlock(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.showDeathScree"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldShowDeathScreen(/* params */);
+
+diff --git a/net.minecraft.client.player.LocalPlayer.java b/net.minecraft.client.player.LocalPlayer.java
+--- a/net.minecraft.client.player.LocalPlayer.java
++++ b/net.minecraft.client.player.LocalPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleCreativeModeItemDrop(/* params */);
+

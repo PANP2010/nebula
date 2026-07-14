@@ -1,0 +1,69 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.renderer.state.level.QuadParticleRenderState.java b/net.minecraft.client.renderer.state.level.QuadParticleRenderState.java
+--- a/net.minecraft.client.renderer.state.level.QuadParticleRenderState.java
++++ b/net.minecraft.client.renderer.state.level.QuadParticleRenderState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.particleCount"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ submit(/* params */);
+
+diff --git a/net.minecraft.client.renderer.state.level.QuadParticleRenderState.java b/net.minecraft.client.renderer.state.level.QuadParticleRenderState.java
+--- a/net.minecraft.client.renderer.state.level.QuadParticleRenderState.java
++++ b/net.minecraft.client.renderer.state.level.QuadParticleRenderState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.currentParticleInde"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ count(/* params */);
+
+diff --git a/net.minecraft.client.renderer.state.level.QuadParticleRenderState.java b/net.minecraft.client.renderer.state.level.QuadParticleRenderState.java
+--- a/net.minecraft.client.renderer.state.level.QuadParticleRenderState.java
++++ b/net.minecraft.client.renderer.state.level.QuadParticleRenderState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.intValues", "this.floatValues", "this.currentParticleInde"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forEachParticle(/* params */);
+
+diff --git a/net.minecraft.client.renderer.state.level.QuadParticleRenderState.java b/net.minecraft.client.renderer.state.level.QuadParticleRenderState.java
+--- a/net.minecraft.client.renderer.state.level.QuadParticleRenderState.java
++++ b/net.minecraft.client.renderer.state.level.QuadParticleRenderState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.intValues", "this.intValue", "this.floatValues", "this.floatValue", "this.capacity"},
++writeEntities = {"this.intValues", "this.floatValues"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ grow(/* params */);
+
+diff --git a/net.minecraft.client.renderer.state.level.QuadParticleRenderState.java b/net.minecraft.client.renderer.state.level.QuadParticleRenderState.java
+--- a/net.minecraft.client.renderer.state.level.QuadParticleRenderState.java
++++ b/net.minecraft.client.renderer.state.level.QuadParticleRenderState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.renderVerte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderRotatedQuad(/* params */);
+

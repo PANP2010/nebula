@@ -1,0 +1,120 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (9 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.components.toasts.ToastManager.java b/net.minecraft.client.gui.components.toasts.ToastManager.java
+--- a/net.minecraft.client.gui.components.toasts.ToastManager.java
++++ b/net.minecraft.client.gui.components.toasts.ToastManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.nowPlayingToast"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ showNowPlayingToast(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.toasts.ToastManager.java b/net.minecraft.client.gui.components.toasts.ToastManager.java
+--- a/net.minecraft.client.gui.components.toasts.ToastManager.java
++++ b/net.minecraft.client.gui.components.toasts.ToastManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.toasts.ToastManager.java b/net.minecraft.client.gui.components.toasts.ToastManager.java
+--- a/net.minecraft.client.gui.components.toasts.ToastManager.java
++++ b/net.minecraft.client.gui.components.toasts.ToastManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.visibilit", "this.animationStartTim"},
++writeEntities = {"this.animationStartTime", "this.visibility"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ update(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.toasts.ToastManager.java b/net.minecraft.client.gui.components.toasts.ToastManager.java
+--- a/net.minecraft.client.gui.components.toasts.ToastManager.java
++++ b/net.minecraft.client.gui.components.toasts.ToastManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetToast(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.toasts.ToastManager.java b/net.minecraft.client.gui.components.toasts.ToastManager.java
+--- a/net.minecraft.client.gui.components.toasts.ToastManager.java
++++ b/net.minecraft.client.gui.components.toasts.ToastManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.freeSlotCoun", "this.occupiedSlots"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findFreeSlotsIndex(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.toasts.ToastManager.java b/net.minecraft.client.gui.components.toasts.ToastManager.java
+--- a/net.minecraft.client.gui.components.toasts.ToastManager.java
++++ b/net.minecraft.client.gui.components.toasts.ToastManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.nowPlayingToast"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hideNowPlayingToast(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.toasts.ToastManager.java b/net.minecraft.client.gui.components.toasts.ToastManager.java
+--- a/net.minecraft.client.gui.components.toasts.ToastManager.java
++++ b/net.minecraft.client.gui.components.toasts.ToastManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.nowPlayingToas"},
++writeEntities = {"this.nowPlayingToast"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ initializeMusicToast(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.toasts.ToastManager.java b/net.minecraft.client.gui.components.toasts.ToastManager.java
+--- a/net.minecraft.client.gui.components.toasts.ToastManager.java
++++ b/net.minecraft.client.gui.components.toasts.ToastManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.visiblePortio", "this.visibilit", "this.animationStartTime"},
++writeEntities = {"this.visibility", "this.visiblePortion"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateVisiblePortion(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.toasts.ToastManager.java b/net.minecraft.client.gui.components.toasts.ToastManager.java
+--- a/net.minecraft.client.gui.components.toasts.ToastManager.java
++++ b/net.minecraft.client.gui.components.toasts.ToastManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.occupiedSlots"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ freeSlotCount(/* params */);
+

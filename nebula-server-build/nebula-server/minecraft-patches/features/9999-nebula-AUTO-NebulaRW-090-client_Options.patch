@@ -1,0 +1,1091 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (90 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.useNativeTranspor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ useNativeTransport(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.resourcePacks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadSelectedResourcePacks(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entityDistanceScalin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ entityDistanceScaling(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.prioritizeChunkUpdate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ prioritizeChunkUpdates(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modelParts"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ buildPlayerInformation(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.maxAnisotropyBi"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ maxAnisotropyBit(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.biomeBlendRadiu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ biomeBlendRadius(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.renderDistanc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderDistance(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.telemetryOptInExtr"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ telemetryOptInExtra(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.operatorItemsTa"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ operatorItemsTab(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.allowServerListin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ allowServerListing(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.attackIndicato"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ attackIndicator(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.highContras"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ highContrast(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.toggleSprin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toggleSprint(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.onlyShowSecureCha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onlyShowSecureChat(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.darkMojangStudiosBackgroun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ darkMojangStudiosBackground(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chatOpacit"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ chatOpacity(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.allowCursorChange"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ allowCursorChanges(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.menuBackgroundBlurrines"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ menuBackgroundBlurriness(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mouseWheelSensitivit"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mouseWheelSensitivity(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sprintWindo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sprintWindow(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fovEffectScal"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fovEffectScale(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.realmsNotification"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ realmsNotifications(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.invertXMous"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ invertMouseX(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.optionsFile"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ load(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.invertYMous"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ invertMouseY(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.buildPlayerInformatio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ broadcastOptions(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.cutoutLeave"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ cutoutLeaves(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.showAutosaveIndicato"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ showAutosaveIndicator(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chatLineSpacin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ chatLineSpacing(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.processDumpedOption"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dumpOptionsForReport(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.rawMouseInpu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ rawMouseInput(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ processDumpedOptions(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.cloudRang"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ cloudRange(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.notificationDisplayTim"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ notificationDisplayTime(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sensitivit"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sensitivity(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.textBackgroundOpacit"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ textBackgroundOpacity(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.discreteMouseScrol"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ discreteMouseScroll(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.improvedTransparenc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ improvedTransparency(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.isApplyingGraphicsPrese"},
++writeEntities = {"this.isApplyingGraphicsPreset"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyGraphicsPreset(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.onboardAccessibilit", "this.sav"},
++writeEntities = {"this.onboardAccessibility"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onboardingAccessibilityFinished(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chunkSectionFadeInTim"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ chunkSectionFadeInTime(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fullscree"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fullscreen(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.processOption", "this.optionsFile"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ save(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hideMatchedName"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hideMatchedNames(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.forceUnicodeFon"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forceUnicodeFont(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chatVisibilit"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ chatVisibility(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.damageTiltStrengt"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ damageTiltStrength(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.inactivityFpsLimi"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ inactivityFpsLimit(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.panoramaSpee"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ panoramaSpeed(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mipmapLevel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mipmapLevels(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.autoSuggestion"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ autoSuggestions(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.exclusiveFullscree"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ exclusiveFullscreen(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.saveChatDraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveChatDrafts(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entityShadow"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ entityShadows(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.reducedDebugInf"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reducedDebugInfo(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.musicToas"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ musicToast(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.resourcePacks", "this.incompatibleResourcePacks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateResourcePacks(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.enableVsyn"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ enableVsync(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.soundDevic"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ soundDevice(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.framerateLimi"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ framerateLimit(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.maxAnisotropyBit"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ maxAnisotropyValue(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.glintSpee"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ glintSpeed(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chatHeightUnfocuse"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ chatHeightUnfocused(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.showSubtitle"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ showSubtitles(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.backgroundForChatOnl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ backgroundForChatOnly(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.darknessEffectScal"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ darknessEffectScale(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.toggleCrouc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toggleCrouch(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.highContrastBlockOutlin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ highContrastBlockOutline(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.screenEffectScal"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ screenEffectScale(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.rotateWithMinecar"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ rotateWithMinecart(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.toggleAttac"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toggleAttack(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chatColor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ chatColors(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chatHeightFocuse"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ chatHeightFocused(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ processOptions(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.simulationDistanc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ simulationDistance(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hideSplashText"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hideSplashTexts(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ambientOcclusio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ ambientOcclusion(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.directionalAudi"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ directionalAudio(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.narratorHotke"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ narratorHotkey(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.cloudStatu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ cloudStatus(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.textureFilterin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ textureFiltering(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chatLinksPromp"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ chatLinksPrompt(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.finalSoundSourceVolume", "this.getFinalSoundSourceVolum"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createSoundSliderOptionInstance(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hideLightningFlas"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hideLightningFlash(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.weatherRadiu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ weatherRadius(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.glintStrengt"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ glintStrength(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.graphicsPrese"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ graphicsPreset(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.touchscree"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ touchscreen(/* params */);
+
+diff --git a/net.minecraft.client.Options.java b/net.minecraft.client.Options.java
+--- a/net.minecraft.client.Options.java
++++ b/net.minecraft.client.Options.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.japaneseGlyphVariant"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ japaneseGlyphVariants(/* params */);
+

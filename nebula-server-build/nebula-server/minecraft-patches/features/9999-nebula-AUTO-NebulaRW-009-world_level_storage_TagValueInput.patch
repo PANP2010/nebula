@@ -1,0 +1,116 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (9 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.storage.TagValueInput.java b/net.minecraft.world.level.storage.TagValueInput.java
+--- a/net.minecraft.world.level.storage.TagValueInput.java
++++ b/net.minecraft.world.level.storage.TagValueInput.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.codec", "this.context", "this.list", "this.reportIndexUnwrapProble"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stream(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.TagValueInput.java b/net.minecraft.world.level.storage.TagValueInput.java
+--- a/net.minecraft.world.level.storage.TagValueInput.java
++++ b/net.minecraft.world.level.storage.TagValueInput.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.wrapChil", "this.optionalTypedTag", "this.getOptionalTypedTa"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ child(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.TagValueInput.java b/net.minecraft.world.level.storage.TagValueInput.java
+--- a/net.minecraft.world.level.storage.TagValueInput.java
++++ b/net.minecraft.world.level.storage.TagValueInput.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.input", "this.problemReporter", "this.context"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ read(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.TagValueInput.java b/net.minecraft.world.level.storage.TagValueInput.java
+--- a/net.minecraft.world.level.storage.TagValueInput.java
++++ b/net.minecraft.world.level.storage.TagValueInput.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.problemReporter", "this.name"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reporterForChild(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.TagValueInput.java b/net.minecraft.world.level.storage.TagValueInput.java
+--- a/net.minecraft.world.level.storage.TagValueInput.java
++++ b/net.minecraft.world.level.storage.TagValueInput.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.problemReporter", "this.context"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ wrapChild(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.TagValueInput.java b/net.minecraft.world.level.storage.TagValueInput.java
+--- a/net.minecraft.world.level.storage.TagValueInput.java
++++ b/net.minecraft.world.level.storage.TagValueInput.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.problemReporter", "this.name"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reportIndexUnwrapProblem(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.TagValueInput.java b/net.minecraft.world.level.storage.TagValueInput.java
+--- a/net.minecraft.world.level.storage.TagValueInput.java
++++ b/net.minecraft.world.level.storage.TagValueInput.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.actual", "this.expected", "this.name"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ description(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.TagValueInput.java b/net.minecraft.world.level.storage.TagValueInput.java
+--- a/net.minecraft.world.level.storage.TagValueInput.java
++++ b/net.minecraft.world.level.storage.TagValueInput.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.list"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ iterator(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.TagValueInput.java b/net.minecraft.world.level.storage.TagValueInput.java
+--- a/net.minecraft.world.level.storage.TagValueInput.java
++++ b/net.minecraft.world.level.storage.TagValueInput.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.wrapChil", "this.context", "this.optionalTypedTag", "this.getOptionalTypedTa"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ childOrEmpty(/* params */);
+

@@ -1,0 +1,101 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.entity.CreakingHeartBlockEntity.java b/net.minecraft.world.level.block.entity.CreakingHeartBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.CreakingHeartBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.CreakingHeartBlockEntity.java
+@@ // 70% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++readBlocks = {"{position}"},
++triggeredEvents = {"SOUND_PLAY"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ creakingHurt(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.CreakingHeartBlockEntity.java b/net.minecraft.world.level.block.entity.CreakingHeartBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.CreakingHeartBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.CreakingHeartBlockEntity.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.worldPosition"},
++readBlocks = {"{neighbors}", "{position}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spreadResin(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.CreakingHeartBlockEntity.java b/net.minecraft.world.level.block.entity.CreakingHeartBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.CreakingHeartBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.CreakingHeartBlockEntity.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBlockPo", "this.blockPos", "this.getCreakingProtecto", "this.creakingProtector"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ emitParticles(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.CreakingHeartBlockEntity.java b/net.minecraft.world.level.block.entity.CreakingHeartBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.CreakingHeartBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.CreakingHeartBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.creakingInfo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveAdditional(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.CreakingHeartBlockEntity.java b/net.minecraft.world.level.block.entity.CreakingHeartBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.CreakingHeartBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.CreakingHeartBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.creakingInfo", "this.distanceToCreakin", "this.getCreakingProtecto", "this.creakingProtector"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ computeAnalogOutputSignal(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.CreakingHeartBlockEntity.java b/net.minecraft.world.level.block.entity.CreakingHeartBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.CreakingHeartBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.CreakingHeartBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBlockPo", "this.blockPos", "this.getCreakingProtecto", "this.creakingProtector"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ distanceToCreaking(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.CreakingHeartBlockEntity.java b/net.minecraft.world.level.block.entity.CreakingHeartBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.CreakingHeartBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.CreakingHeartBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.removeProtecto"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ preRemoveSideEffects(/* params */);
+

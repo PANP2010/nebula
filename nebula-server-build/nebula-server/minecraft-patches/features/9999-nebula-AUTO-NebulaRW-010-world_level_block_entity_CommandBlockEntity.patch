@@ -1,0 +1,134 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (10 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.entity.CommandBlockEntity.java b/net.minecraft.world.level.block.entity.CommandBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.CommandBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.CommandBlockEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.conditionMe", "this.worldPosition", "this.level", "this.isConditiona"},
++writeEntities = {"this.conditionMet"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ markConditionMet(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.CommandBlockEntity.java b/net.minecraft.world.level.block.entity.CommandBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.CommandBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.CommandBlockEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.worldPosition"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onUpdated(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.CommandBlockEntity.java b/net.minecraft.world.level.block.entity.CommandBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.CommandBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.CommandBlockEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.worldPosition", "this.blockState", "this.getBlockStat", "this.name", "this.getNam"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createCommandSourceStack(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.CommandBlockEntity.java b/net.minecraft.world.level.block.entity.CommandBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.CommandBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.CommandBlockEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.worldPosition", "this.blockState", "this.level", "this.getBlockStat", "this.markConditionMe"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scheduleTick(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.CommandBlockEntity.java b/net.minecraft.world.level.block.entity.CommandBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.CommandBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.CommandBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.commandBlock"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ collectImplicitComponents(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.CommandBlockEntity.java b/net.minecraft.world.level.block.entity.CommandBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.CommandBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.CommandBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.conditionMe", "this.powere", "this.setAutomati", "this.commandBlock"},
++writeEntities = {"this.conditionMet", "this.powered", "this.automatic"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadAdditional(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.CommandBlockEntity.java b/net.minecraft.world.level.block.entity.CommandBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.CommandBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.CommandBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onModeSwitch(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.CommandBlockEntity.java b/net.minecraft.world.level.block.entity.CommandBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.CommandBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.CommandBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.conditionMe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ wasConditionMet(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.CommandBlockEntity.java b/net.minecraft.world.level.block.entity.CommandBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.CommandBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.CommandBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.commandBlock"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyImplicitComponents(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.CommandBlockEntity.java b/net.minecraft.world.level.block.entity.CommandBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.CommandBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.CommandBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isPowere", "this.isAutomati", "this.wasConditionMe", "this.commandBlock"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveAdditional(/* params */);
+

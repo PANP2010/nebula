@@ -1,0 +1,34 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (2 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.ai.control.MoveControl.java b/net.minecraft.world.entity.ai.control.MoveControl.java
+--- a/net.minecraft.world.entity.ai.control.MoveControl.java
++++ b/net.minecraft.world.entity.ai.control.MoveControl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.strafeRigh", "this.speedModifie", "this.strafeForward", "this.operatio"},
++writeEntities = {"this.speedModifier", "this.strafeForwards", "this.strafeRight", "this.operation"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ strafe(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.control.MoveControl.java b/net.minecraft.world.entity.ai.control.MoveControl.java
+--- a/net.minecraft.world.entity.ai.control.MoveControl.java
++++ b/net.minecraft.world.entity.ai.control.MoveControl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.speedModifier", "this.mob", "this.strafeRigh", "this.strafeForward", "this.operatio"},
++writeEntities = {"this.operation"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+

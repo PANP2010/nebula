@@ -1,0 +1,224 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (18 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+--- a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
++++ b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.broadcastNotificatio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playerRemovedFromAllowlist(/* params */);
+
+diff --git a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+--- a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
++++ b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.broadcastNotificatio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playerAddedToAllowlist(/* params */);
+
+diff --git a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+--- a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
++++ b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.managementServer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ broadcastNotification(/* params */);
+
+diff --git a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+--- a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
++++ b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.broadcastNotificatio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playerUnbanned(/* params */);
+
+diff --git a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+--- a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
++++ b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.broadcastNotificatio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ serverActivityOccured(/* params */);
+
+diff --git a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+--- a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
++++ b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.broadcastNotificatio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ serverSaveCompleted(/* params */);
+
+diff --git a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+--- a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
++++ b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.broadcastNotificatio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ serverSaveStarted(/* params */);
+
+diff --git a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+--- a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
++++ b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.broadcastNotificatio", "this.minecraftApi"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onGameRuleChanged(/* params */);
+
+diff --git a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+--- a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
++++ b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.broadcastNotificatio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playerOped(/* params */);
+
+diff --git a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+--- a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
++++ b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.broadcastNotificatio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playerJoined(/* params */);
+
+diff --git a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+--- a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
++++ b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.broadcastNotificatio", "this.minecraftApi"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ statusHeartbeat(/* params */);
+
+diff --git a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+--- a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
++++ b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.broadcastNotificatio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playerLeft(/* params */);
+
+diff --git a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+--- a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
++++ b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.broadcastNotificatio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playerBanned(/* params */);
+
+diff --git a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+--- a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
++++ b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.broadcastNotificatio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ ipUnbanned(/* params */);
+
+diff --git a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+--- a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
++++ b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.broadcastNotificatio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playerDeoped(/* params */);
+
+diff --git a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+--- a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
++++ b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.broadcastNotificatio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ serverShuttingDown(/* params */);
+
+diff --git a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+--- a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
++++ b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.broadcastNotificatio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ ipBanned(/* params */);
+
+diff --git a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+--- a/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
++++ b/net.minecraft.server.jsonrpc.JsonRpcNotificationService.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.broadcastNotificatio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ serverStarted(/* params */);
+

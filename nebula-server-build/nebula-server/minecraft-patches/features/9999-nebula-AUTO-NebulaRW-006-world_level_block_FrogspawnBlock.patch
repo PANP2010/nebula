@@ -1,0 +1,88 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.FrogspawnBlock.java b/net.minecraft.world.level.block.FrogspawnBlock.java
+--- a/net.minecraft.world.level.block.FrogspawnBlock.java
++++ b/net.minecraft.world.level.block.FrogspawnBlock.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getRandomTadpolePositionOffse", "this.randomTadpolePositionOffset"},
++triggeredEvents = {"ENTITY_SPAWNED"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spawnTadpoles(/* params */);
+
+diff --git a/net.minecraft.world.level.block.FrogspawnBlock.java b/net.minecraft.world.level.block.FrogspawnBlock.java
+--- a/net.minecraft.world.level.block.FrogspawnBlock.java
++++ b/net.minecraft.world.level.block.FrogspawnBlock.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.spawnTadpole", "this.destroyBloc"},
++triggeredEvents = {"SOUND_PLAY"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hatchFrogspawn(/* params */);
+
+diff --git a/net.minecraft.world.level.block.FrogspawnBlock.java b/net.minecraft.world.level.block.FrogspawnBlock.java
+--- a/net.minecraft.world.level.block.FrogspawnBlock.java
++++ b/net.minecraft.world.level.block.FrogspawnBlock.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.canSurviv"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateShape(/* params */);
+
+diff --git a/net.minecraft.world.level.block.FrogspawnBlock.java b/net.minecraft.world.level.block.FrogspawnBlock.java
+--- a/net.minecraft.world.level.block.FrogspawnBlock.java
++++ b/net.minecraft.world.level.block.FrogspawnBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.destroyBloc", "this.canSurviv"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.level.block.FrogspawnBlock.java b/net.minecraft.world.level.block.FrogspawnBlock.java
+--- a/net.minecraft.world.level.block.FrogspawnBlock.java
++++ b/net.minecraft.world.level.block.FrogspawnBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.destroyBloc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ entityInside(/* params */);
+
+diff --git a/net.minecraft.world.level.block.FrogspawnBlock.java b/net.minecraft.world.level.block.FrogspawnBlock.java
+--- a/net.minecraft.world.level.block.FrogspawnBlock.java
++++ b/net.minecraft.world.level.block.FrogspawnBlock.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{neighbors}", "{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mayPlaceOn(/* params */);
+

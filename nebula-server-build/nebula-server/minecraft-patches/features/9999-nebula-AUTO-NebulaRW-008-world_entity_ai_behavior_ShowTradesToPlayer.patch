@@ -1,0 +1,108 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (8 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.ai.behavior.ShowTradesToPlayer.java b/net.minecraft.world.entity.ai.behavior.ShowTradesToPlayer.java
+--- a/net.minecraft.world.entity.ai.behavior.ShowTradesToPlayer.java
++++ b/net.minecraft.world.entity.ai.behavior.ShowTradesToPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playerItemStac"},
++writeEntities = {"this.playerItemStack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.ShowTradesToPlayer.java b/net.minecraft.world.entity.ai.behavior.ShowTradesToPlayer.java
+--- a/net.minecraft.world.entity.ai.behavior.ShowTradesToPlayer.java
++++ b/net.minecraft.world.entity.ai.behavior.ShowTradesToPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lookTim", "this.displayInde", "this.lookAtTarge", "this.cycleCounte"},
++writeEntities = {"this.cycleCounter", "this.lookTime", "this.displayIndex"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ start(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.ShowTradesToPlayer.java b/net.minecraft.world.entity.ai.behavior.ShowTradesToPlayer.java
+--- a/net.minecraft.world.entity.ai.behavior.ShowTradesToPlayer.java
++++ b/net.minecraft.world.entity.ai.behavior.ShowTradesToPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.displayCyclingItem", "this.lookAtTarge", "this.findItemsToDispla", "this.displayItems"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.ShowTradesToPlayer.java b/net.minecraft.world.entity.ai.behavior.ShowTradesToPlayer.java
+--- a/net.minecraft.world.entity.ai.behavior.ShowTradesToPlayer.java
++++ b/net.minecraft.world.entity.ai.behavior.ShowTradesToPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.displayItems"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ displayFirstItem(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.ShowTradesToPlayer.java b/net.minecraft.world.entity.ai.behavior.ShowTradesToPlayer.java
+--- a/net.minecraft.world.entity.ai.behavior.ShowTradesToPlayer.java
++++ b/net.minecraft.world.entity.ai.behavior.ShowTradesToPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playerItemStack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playerItemStackMatchesCostOfOffer(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.ShowTradesToPlayer.java b/net.minecraft.world.entity.ai.behavior.ShowTradesToPlayer.java
+--- a/net.minecraft.world.entity.ai.behavior.ShowTradesToPlayer.java
++++ b/net.minecraft.world.entity.ai.behavior.ShowTradesToPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playerItemStackMatchesCostOfOffe", "this.displayItems"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateDisplayItems(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.ShowTradesToPlayer.java b/net.minecraft.world.entity.ai.behavior.ShowTradesToPlayer.java
+--- a/net.minecraft.world.entity.ai.behavior.ShowTradesToPlayer.java
++++ b/net.minecraft.world.entity.ai.behavior.ShowTradesToPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playerItemStack", "this.playerItemStac", "this.displayItems"},
++writeEntities = {"this.playerItemStack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findItemsToDisplay(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.ShowTradesToPlayer.java b/net.minecraft.world.entity.ai.behavior.ShowTradesToPlayer.java
+--- a/net.minecraft.world.entity.ai.behavior.ShowTradesToPlayer.java
++++ b/net.minecraft.world.entity.ai.behavior.ShowTradesToPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.cycleCounter", "this.displayInde", "this.cycleCounte", "this.displayIndex", "this.displayItems"},
++writeEntities = {"this.cycleCounter", "this.displayIndex"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ displayCyclingItems(/* params */);
+

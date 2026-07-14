@@ -1,0 +1,133 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (10 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.WinScreen.java b/net.minecraft.client.gui.screens.WinScreen.java
+--- a/net.minecraft.client.gui.screens.WinScreen.java
++++ b/net.minecraft.client.gui.screens.WinScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.centeredLine", "this.poem", "this.line", "this.wrapCreditsI", "this.narratorComponent"},
++writeEntities = {"this.centeredLines", "this.lines", "this.narratorComponents"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.WinScreen.java b/net.minecraft.client.gui.screens.WinScreen.java
+--- a/net.minecraft.client.gui.screens.WinScreen.java
++++ b/net.minecraft.client.gui.screens.WinScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.directio"},
++writeEntities = {"this.direction"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ keyPressed(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.WinScreen.java b/net.minecraft.client.gui.screens.WinScreen.java
+--- a/net.minecraft.client.gui.screens.WinScreen.java
++++ b/net.minecraft.client.gui.screens.WinScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.totalScrollLength", "this.scroll", "this.respaw", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.WinScreen.java b/net.minecraft.client.gui.screens.WinScreen.java
+--- a/net.minecraft.client.gui.screens.WinScreen.java
++++ b/net.minecraft.client.gui.screens.WinScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.speedupActive", "this.directio", "this.unmodifiedScrollSpeed", "this.speedupModifiers"},
++writeEntities = {"this.direction"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateScrollSpeed(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.WinScreen.java b/net.minecraft.client.gui.screens.WinScreen.java
+--- a/net.minecraft.client.gui.screens.WinScreen.java
++++ b/net.minecraft.client.gui.screens.WinScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.poem", "this.width", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractBackground(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.WinScreen.java b/net.minecraft.client.gui.screens.WinScreen.java
+--- a/net.minecraft.client.gui.screens.WinScreen.java
++++ b/net.minecraft.client.gui.screens.WinScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.width", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractVignette(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.WinScreen.java b/net.minecraft.client.gui.screens.WinScreen.java
+--- a/net.minecraft.client.gui.screens.WinScreen.java
++++ b/net.minecraft.client.gui.screens.WinScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ wrapCreditsIO(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.WinScreen.java b/net.minecraft.client.gui.screens.WinScreen.java
+--- a/net.minecraft.client.gui.screens.WinScreen.java
++++ b/net.minecraft.client.gui.screens.WinScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.scroll"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.WinScreen.java b/net.minecraft.client.gui.screens.WinScreen.java
+--- a/net.minecraft.client.gui.screens.WinScreen.java
++++ b/net.minecraft.client.gui.screens.WinScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.scroll"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractMenuBackground(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.WinScreen.java b/net.minecraft.client.gui.screens.WinScreen.java
+--- a/net.minecraft.client.gui.screens.WinScreen.java
++++ b/net.minecraft.client.gui.screens.WinScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.directio"},
++writeEntities = {"this.direction"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ keyReleased(/* params */);
+

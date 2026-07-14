@@ -1,0 +1,92 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.util.parsing.packrat.Dictionary.java b/net.minecraft.util.parsing.packrat.Dictionary.java
+--- a/net.minecraft.util.parsing.packrat.Dictionary.java
++++ b/net.minecraft.util.parsing.packrat.Dictionary.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.value"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ value(/* params */);
+
+diff --git a/net.minecraft.util.parsing.packrat.Dictionary.java b/net.minecraft.util.parsing.packrat.Dictionary.java
+--- a/net.minecraft.util.parsing.packrat.Dictionary.java
++++ b/net.minecraft.util.parsing.packrat.Dictionary.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ruleToParse"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ parse(/* params */);
+
+diff --git a/net.minecraft.util.parsing.packrat.Dictionary.java b/net.minecraft.util.parsing.packrat.Dictionary.java
+--- a/net.minecraft.util.parsing.packrat.Dictionary.java
++++ b/net.minecraft.util.parsing.packrat.Dictionary.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putComplex(/* params */);
+
+diff --git a/net.minecraft.util.parsing.packrat.Dictionary.java b/net.minecraft.util.parsing.packrat.Dictionary.java
+--- a/net.minecraft.util.parsing.packrat.Dictionary.java
++++ b/net.minecraft.util.parsing.packrat.Dictionary.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.terms"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkAllBound(/* params */);
+
+diff --git a/net.minecraft.util.parsing.packrat.Dictionary.java b/net.minecraft.util.parsing.packrat.Dictionary.java
+--- a/net.minecraft.util.parsing.packrat.Dictionary.java
++++ b/net.minecraft.util.parsing.packrat.Dictionary.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getOrCreateEntr", "this.orCreateEntry"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ named(/* params */);
+
+diff --git a/net.minecraft.util.parsing.packrat.Dictionary.java b/net.minecraft.util.parsing.packrat.Dictionary.java
+--- a/net.minecraft.util.parsing.packrat.Dictionary.java
++++ b/net.minecraft.util.parsing.packrat.Dictionary.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getOrCreateEntr", "this.orCreateEntry"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forward(/* params */);
+
+diff --git a/net.minecraft.util.parsing.packrat.Dictionary.java b/net.minecraft.util.parsing.packrat.Dictionary.java
+--- a/net.minecraft.util.parsing.packrat.Dictionary.java
++++ b/net.minecraft.util.parsing.packrat.Dictionary.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getOrCreateEntr", "this.orCreateEntry"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ namedWithAlias(/* params */);
+

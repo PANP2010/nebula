@@ -1,0 +1,94 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.effect.MobEffect.java b/net.minecraft.world.effect.MobEffect.java
+--- a/net.minecraft.world.effect.MobEffect.java
++++ b/net.minecraft.world.effect.MobEffect.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.soundOnAdded"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onEffectAdded(/* params */);
+
+diff --git a/net.minecraft.world.effect.MobEffect.java b/net.minecraft.world.effect.MobEffect.java
+--- a/net.minecraft.world.effect.MobEffect.java
++++ b/net.minecraft.world.effect.MobEffect.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.attributeModifiers"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createModifiers(/* params */);
+
+diff --git a/net.minecraft.world.effect.MobEffect.java b/net.minecraft.world.effect.MobEffect.java
+--- a/net.minecraft.world.effect.MobEffect.java
++++ b/net.minecraft.world.effect.MobEffect.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.amount", "this.id", "this.operation"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ create(/* params */);
+
+diff --git a/net.minecraft.world.effect.MobEffect.java b/net.minecraft.world.effect.MobEffect.java
+--- a/net.minecraft.world.effect.MobEffect.java
++++ b/net.minecraft.world.effect.MobEffect.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.soundOnAdde"},
++writeEntities = {"this.soundOnAdded"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withSoundOnAdded(/* params */);
+
+diff --git a/net.minecraft.world.effect.MobEffect.java b/net.minecraft.world.effect.MobEffect.java
+--- a/net.minecraft.world.effect.MobEffect.java
++++ b/net.minecraft.world.effect.MobEffect.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.applyEffectTic"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyInstantenousEffect(/* params */);
+
+diff --git a/net.minecraft.world.effect.MobEffect.java b/net.minecraft.world.effect.MobEffect.java
+--- a/net.minecraft.world.effect.MobEffect.java
++++ b/net.minecraft.world.effect.MobEffect.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.particleFactory"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createParticleOptions(/* params */);
+
+diff --git a/net.minecraft.world.effect.MobEffect.java b/net.minecraft.world.effect.MobEffect.java
+--- a/net.minecraft.world.effect.MobEffect.java
++++ b/net.minecraft.world.effect.MobEffect.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.requiredFeature"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ requiredFeatures(/* params */);
+

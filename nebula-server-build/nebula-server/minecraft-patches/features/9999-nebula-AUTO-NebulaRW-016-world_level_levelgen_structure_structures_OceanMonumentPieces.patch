@@ -1,0 +1,204 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (16 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java b/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.worldPos", "this.getWorldPo"},
++triggeredEvents = {"ENTITY_SPAWNED"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spawnElder(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java b/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getWorld", "this.worldY", "this.getBloc", "this.block", "this.placeBloc"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateWaterBox(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java b/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBloc", "this.block", "this.placeBloc"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateBoxOnFillOnly(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java b/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hasOpening", "this.connections"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateOpenings(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java b/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chunkIntersect", "this.generateWaterBo", "this.generateBo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateLowerWall(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java b/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hasOpening"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ countOpenings(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java b/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mainDesig", "this.generateBo"},
++writeEntities = {"this.mainDesign"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ postProcess(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java b/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chunkIntersect", "this.generateWaterBo", "this.generateBo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateWing(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java b/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.generateBo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateDefaultFloor(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java b/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chunkIntersect", "this.generateWaterBo", "this.generateBo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateMiddleWall(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java b/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chunkIntersect", "this.generateWaterBo", "this.generateBo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateUpperWall(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java b/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chunkIntersect", "this.generateWaterBo", "this.generateBo", "this.placeBloc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateEntranceArchs(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java b/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chunkIntersect", "this.generateWaterBo", "this.generateBo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateRoofPiece(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java b/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chunkIntersect", "this.generateWaterBo", "this.generateBo", "this.placeBloc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateEntranceWall(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java b/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isSource"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findSource(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java b/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPieces.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getWorld", "this.worldX", "this.worldZ"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ chunkIntersects(/* params */);
+

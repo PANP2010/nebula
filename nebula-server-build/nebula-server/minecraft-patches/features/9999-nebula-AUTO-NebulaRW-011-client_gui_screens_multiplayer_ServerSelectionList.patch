@@ -1,0 +1,142 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (11 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java b/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java
+--- a/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java
++++ b/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.networkServers", "this.screen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateNetworkServers(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java b/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java
+--- a/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java
++++ b/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.icon"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ uploadServerIcon(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java b/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java
+--- a/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java
++++ b/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.screen", "this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ join(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java b/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java
+--- a/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java
++++ b/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.statusIco", "this.onlinePlayersToolti", "this.serverData", "this.statusIconToolti"},
++writeEntities = {"this.onlinePlayersTooltip", "this.statusIconTooltip", "this.statusIcon"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ refreshStatus(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java b/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java
+--- a/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java
++++ b/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.screen", "this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractContent(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java b/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java
+--- a/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java
++++ b/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.screen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateServerList(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java b/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java
+--- a/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java
++++ b/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.onlineServers", "this.screen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateOnlineServers(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java b/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java
+--- a/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java
++++ b/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.selected"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ refreshEntries(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java b/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java
+--- a/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java
++++ b/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.joi"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ keyPressed(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java b/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java
+--- a/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java
++++ b/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.screen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ swap(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java b/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java
+--- a/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java
++++ b/net.minecraft.client.gui.screens.multiplayer.ServerSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.contentX", "this.joi", "this.getContent", "this.mouseOverRightHal", "this.contentY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mouseClicked(/* params */);
+

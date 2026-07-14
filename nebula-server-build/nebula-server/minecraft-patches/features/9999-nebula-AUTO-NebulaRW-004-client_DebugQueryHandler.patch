@@ -1,0 +1,58 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.DebugQueryHandler.java b/net.minecraft.client.DebugQueryHandler.java
+--- a/net.minecraft.client.DebugQueryHandler.java
++++ b/net.minecraft.client.DebugQueryHandler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.startTransactio", "this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ queryEntityTag(/* params */);
+
+diff --git a/net.minecraft.client.DebugQueryHandler.java b/net.minecraft.client.DebugQueryHandler.java
+--- a/net.minecraft.client.DebugQueryHandler.java
++++ b/net.minecraft.client.DebugQueryHandler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.startTransactio", "this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ queryBlockEntityTag(/* params */);
+
+diff --git a/net.minecraft.client.DebugQueryHandler.java b/net.minecraft.client.DebugQueryHandler.java
+--- a/net.minecraft.client.DebugQueryHandler.java
++++ b/net.minecraft.client.DebugQueryHandler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.transactionI", "this.callbac"},
++writeEntities = {"this.callback"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startTransaction(/* params */);
+
+diff --git a/net.minecraft.client.DebugQueryHandler.java b/net.minecraft.client.DebugQueryHandler.java
+--- a/net.minecraft.client.DebugQueryHandler.java
++++ b/net.minecraft.client.DebugQueryHandler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.transactionI", "this.callbac", "this.callback"},
++writeEntities = {"this.callback", "this.transactionId"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleResponse(/* params */);
+

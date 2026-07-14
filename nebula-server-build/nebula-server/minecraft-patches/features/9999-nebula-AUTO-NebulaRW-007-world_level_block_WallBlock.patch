@@ -1,0 +1,93 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.WallBlock.java b/net.minecraft.world.level.block.WallBlock.java
+--- a/net.minecraft.world.level.block.WallBlock.java
++++ b/net.minecraft.world.level.block.WallBlock.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connectsT", "this.updateShap"},
++readBlocks = {"{neighbors}", "{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sideUpdate(/* params */);
+
+diff --git a/net.minecraft.world.level.block.WallBlock.java b/net.minecraft.world.level.block.WallBlock.java
+--- a/net.minecraft.world.level.block.WallBlock.java
++++ b/net.minecraft.world.level.block.WallBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.makeWallStat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateSides(/* params */);
+
+diff --git a/net.minecraft.world.level.block.WallBlock.java b/net.minecraft.world.level.block.WallBlock.java
+--- a/net.minecraft.world.level.block.WallBlock.java
++++ b/net.minecraft.world.level.block.WallBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shouldRaisePos", "this.updateSide"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateShape(/* params */);
+
+diff --git a/net.minecraft.world.level.block.WallBlock.java b/net.minecraft.world.level.block.WallBlock.java
+--- a/net.minecraft.world.level.block.WallBlock.java
++++ b/net.minecraft.world.level.block.WallBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shapeForEachState", "this.getShapeForEachStat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ makeShapes(/* params */);
+
+diff --git a/net.minecraft.world.level.block.WallBlock.java b/net.minecraft.world.level.block.WallBlock.java
+--- a/net.minecraft.world.level.block.WallBlock.java
++++ b/net.minecraft.world.level.block.WallBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateShap"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ topUpdate(/* params */);
+
+diff --git a/net.minecraft.world.level.block.WallBlock.java b/net.minecraft.world.level.block.WallBlock.java
+--- a/net.minecraft.world.level.block.WallBlock.java
++++ b/net.minecraft.world.level.block.WallBlock.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ connectsTo(/* params */);
+
+diff --git a/net.minecraft.world.level.block.WallBlock.java b/net.minecraft.world.level.block.WallBlock.java
+--- a/net.minecraft.world.level.block.WallBlock.java
++++ b/net.minecraft.world.level.block.WallBlock.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldRaisePost(/* params */);
+

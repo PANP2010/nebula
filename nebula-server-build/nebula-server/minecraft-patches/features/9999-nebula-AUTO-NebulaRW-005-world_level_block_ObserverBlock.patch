@@ -1,0 +1,69 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.ObserverBlock.java b/net.minecraft.world.level.block.ObserverBlock.java
+--- a/net.minecraft.world.level.block.ObserverBlock.java
++++ b/net.minecraft.world.level.block.ObserverBlock.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateNeighborsInFron"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onPlace(/* params */);
+
+diff --git a/net.minecraft.world.level.block.ObserverBlock.java b/net.minecraft.world.level.block.ObserverBlock.java
+--- a/net.minecraft.world.level.block.ObserverBlock.java
++++ b/net.minecraft.world.level.block.ObserverBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.startSigna"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateShape(/* params */);
+
+diff --git a/net.minecraft.world.level.block.ObserverBlock.java b/net.minecraft.world.level.block.ObserverBlock.java
+--- a/net.minecraft.world.level.block.ObserverBlock.java
++++ b/net.minecraft.world.level.block.ObserverBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateNeighborsInFron"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ affectNeighborsAfterRemoval(/* params */);
+
+diff --git a/net.minecraft.world.level.block.ObserverBlock.java b/net.minecraft.world.level.block.ObserverBlock.java
+--- a/net.minecraft.world.level.block.ObserverBlock.java
++++ b/net.minecraft.world.level.block.ObserverBlock.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.level.block.ObserverBlock.java b/net.minecraft.world.level.block.ObserverBlock.java
+--- a/net.minecraft.world.level.block.ObserverBlock.java
++++ b/net.minecraft.world.level.block.ObserverBlock.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{neighbors}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateNeighborsInFront(/* params */);
+

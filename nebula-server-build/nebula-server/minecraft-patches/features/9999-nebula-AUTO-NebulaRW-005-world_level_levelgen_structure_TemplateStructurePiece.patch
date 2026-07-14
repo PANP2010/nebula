@@ -1,0 +1,72 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.levelgen.structure.TemplateStructurePiece.java b/net.minecraft.world.level.levelgen.structure.TemplateStructurePiece.java
+--- a/net.minecraft.world.level.levelgen.structure.TemplateStructurePiece.java
++++ b/net.minecraft.world.level.levelgen.structure.TemplateStructurePiece.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.template", "this.handleDataMarke", "this.boundingBo", "this.placeSettings", "this.templatePosition"},
++writeEntities = {"this.boundingBox"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ postProcess(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.TemplateStructurePiece.java b/net.minecraft.world.level.levelgen.structure.TemplateStructurePiece.java
+--- a/net.minecraft.world.level.levelgen.structure.TemplateStructurePiece.java
++++ b/net.minecraft.world.level.levelgen.structure.TemplateStructurePiece.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.templateName"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ makeTemplateLocation(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.TemplateStructurePiece.java b/net.minecraft.world.level.levelgen.structure.TemplateStructurePiece.java
+--- a/net.minecraft.world.level.levelgen.structure.TemplateStructurePiece.java
++++ b/net.minecraft.world.level.levelgen.structure.TemplateStructurePiece.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.templatePositio", "this.templatePosition"},
++writeEntities = {"this.templatePosition"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ move(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.TemplateStructurePiece.java b/net.minecraft.world.level.levelgen.structure.TemplateStructurePiece.java
+--- a/net.minecraft.world.level.levelgen.structure.TemplateStructurePiece.java
++++ b/net.minecraft.world.level.levelgen.structure.TemplateStructurePiece.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.templatePositio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ templatePosition(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.TemplateStructurePiece.java b/net.minecraft.world.level.levelgen.structure.TemplateStructurePiece.java
+--- a/net.minecraft.world.level.levelgen.structure.TemplateStructurePiece.java
++++ b/net.minecraft.world.level.levelgen.structure.TemplateStructurePiece.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.placeSetting"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ placeSettings(/* params */);
+

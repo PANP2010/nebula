@@ -1,0 +1,80 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.phys.shapes.DiscreteVoxelShape.java b/net.minecraft.world.phys.shapes.DiscreteVoxelShape.java
+--- a/net.minecraft.world.phys.shapes.DiscreteVoxelShape.java
++++ b/net.minecraft.world.phys.shapes.DiscreteVoxelShape.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.forAllAxisEdge"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forAllEdges(/* params */);
+
+diff --git a/net.minecraft.world.phys.shapes.DiscreteVoxelShape.java b/net.minecraft.world.phys.shapes.DiscreteVoxelShape.java
+--- a/net.minecraft.world.phys.shapes.DiscreteVoxelShape.java
++++ b/net.minecraft.world.phys.shapes.DiscreteVoxelShape.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isFullWid", "this.size", "this.getSiz"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forAllAxisEdges(/* params */);
+
+diff --git a/net.minecraft.world.phys.shapes.DiscreteVoxelShape.java b/net.minecraft.world.phys.shapes.DiscreteVoxelShape.java
+--- a/net.minecraft.world.phys.shapes.DiscreteVoxelShape.java
++++ b/net.minecraft.world.phys.shapes.DiscreteVoxelShape.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.size", "this.getSiz", "this.isFul"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ firstFull(/* params */);
+
+diff --git a/net.minecraft.world.phys.shapes.DiscreteVoxelShape.java b/net.minecraft.world.phys.shapes.DiscreteVoxelShape.java
+--- a/net.minecraft.world.phys.shapes.DiscreteVoxelShape.java
++++ b/net.minecraft.world.phys.shapes.DiscreteVoxelShape.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.size", "this.getSiz", "this.isFul"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forAllAxisFaces(/* params */);
+
+diff --git a/net.minecraft.world.phys.shapes.DiscreteVoxelShape.java b/net.minecraft.world.phys.shapes.DiscreteVoxelShape.java
+--- a/net.minecraft.world.phys.shapes.DiscreteVoxelShape.java
++++ b/net.minecraft.world.phys.shapes.DiscreteVoxelShape.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.size", "this.getSiz", "this.isFul"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ lastFull(/* params */);
+
+diff --git a/net.minecraft.world.phys.shapes.DiscreteVoxelShape.java b/net.minecraft.world.phys.shapes.DiscreteVoxelShape.java
+--- a/net.minecraft.world.phys.shapes.DiscreteVoxelShape.java
++++ b/net.minecraft.world.phys.shapes.DiscreteVoxelShape.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.forAllAxisFace"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forAllFaces(/* params */);
+

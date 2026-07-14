@@ -1,0 +1,47 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (3 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.ai.behavior.AcquirePoi.java b/net.minecraft.world.entity.ai.behavior.AcquirePoi.java
+--- a/net.minecraft.world.entity.ai.behavior.AcquirePoi.java
++++ b/net.minecraft.world.entity.ai.behavior.AcquirePoi.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.currentDelay", "this.random", "this.currentDela", "this.previousAttemptTimestam", "this.nextScheduledAttemptTimestam"},
++writeEntities = {"this.currentDelay", "this.nextScheduledAttemptTimestamp", "this.previousAttemptTimestamp"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ markAttempt(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.AcquirePoi.java b/net.minecraft.world.entity.ai.behavior.AcquirePoi.java
+--- a/net.minecraft.world.entity.ai.behavior.AcquirePoi.java
++++ b/net.minecraft.world.entity.ai.behavior.AcquirePoi.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.currentDelay", "this.nextScheduledAttemptTimestamp", "this.previousAttemptTimestamp"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.AcquirePoi.java b/net.minecraft.world.entity.ai.behavior.AcquirePoi.java
+--- a/net.minecraft.world.entity.ai.behavior.AcquirePoi.java
++++ b/net.minecraft.world.entity.ai.behavior.AcquirePoi.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.nextScheduledAttemptTimestam"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldRetry(/* params */);
+

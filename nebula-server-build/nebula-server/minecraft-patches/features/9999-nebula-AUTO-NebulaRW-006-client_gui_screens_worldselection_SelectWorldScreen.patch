@@ -1,0 +1,81 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.SelectWorldScreen.java b/net.minecraft.client.gui.screens.worldselection.SelectWorldScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.SelectWorldScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.SelectWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.deleteButton", "this.editButton", "this.playWorldButton", "this.recreateButton"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createFooterButtons(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.SelectWorldScreen.java b/net.minecraft.client.gui.screens.worldselection.SelectWorldScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.SelectWorldScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.SelectWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.list"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createDebugWorldRecreateButton(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.SelectWorldScreen.java b/net.minecraft.client.gui.screens.worldselection.SelectWorldScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.SelectWorldScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.SelectWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.lastScreen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onClose(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.SelectWorldScreen.java b/net.minecraft.client.gui.screens.worldselection.SelectWorldScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.SelectWorldScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.SelectWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.layout", "this.title", "this.createDebugWorldRecreateButto", "this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.SelectWorldScreen.java b/net.minecraft.client.gui.screens.worldselection.SelectWorldScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.SelectWorldScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.SelectWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.layout", "this.width", "this.list"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ repositionElements(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.SelectWorldScreen.java b/net.minecraft.client.gui.screens.worldselection.SelectWorldScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.SelectWorldScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.SelectWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.deleteButton", "this.editButton", "this.playWorldButton", "this.recreateButton"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateButtonStatus(/* params */);
+

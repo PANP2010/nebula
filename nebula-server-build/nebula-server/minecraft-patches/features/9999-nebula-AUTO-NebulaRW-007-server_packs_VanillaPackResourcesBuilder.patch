@@ -1,0 +1,92 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.packs.VanillaPackResourcesBuilder.java b/net.minecraft.server.packs.VanillaPackResourcesBuilder.java
+--- a/net.minecraft.server.packs.VanillaPackResourcesBuilder.java
++++ b/net.minecraft.server.packs.VanillaPackResourcesBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pushRootPat", "this.pushPathForTyp"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pushJarResources(/* params */);
+
+diff --git a/net.minecraft.server.packs.VanillaPackResourcesBuilder.java b/net.minecraft.server.packs.VanillaPackResourcesBuilder.java
+--- a/net.minecraft.server.packs.VanillaPackResourcesBuilder.java
++++ b/net.minecraft.server.packs.VanillaPackResourcesBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.metadata", "this.rootPaths", "this.pathsForType", "this.namespaces"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ build(/* params */);
+
+diff --git a/net.minecraft.server.packs.VanillaPackResourcesBuilder.java b/net.minecraft.server.packs.VanillaPackResourcesBuilder.java
+--- a/net.minecraft.server.packs.VanillaPackResourcesBuilder.java
++++ b/net.minecraft.server.packs.VanillaPackResourcesBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.rootPaths", "this.validateDirPat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pushRootPath(/* params */);
+
+diff --git a/net.minecraft.server.packs.VanillaPackResourcesBuilder.java b/net.minecraft.server.packs.VanillaPackResourcesBuilder.java
+--- a/net.minecraft.server.packs.VanillaPackResourcesBuilder.java
++++ b/net.minecraft.server.packs.VanillaPackResourcesBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pushRootPat", "this.pushPathForTyp"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pushUniversalPath(/* params */);
+
+diff --git a/net.minecraft.server.packs.VanillaPackResourcesBuilder.java b/net.minecraft.server.packs.VanillaPackResourcesBuilder.java
+--- a/net.minecraft.server.packs.VanillaPackResourcesBuilder.java
++++ b/net.minecraft.server.packs.VanillaPackResourcesBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.namespaces"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ exposeNamespace(/* params */);
+
+diff --git a/net.minecraft.server.packs.VanillaPackResourcesBuilder.java b/net.minecraft.server.packs.VanillaPackResourcesBuilder.java
+--- a/net.minecraft.server.packs.VanillaPackResourcesBuilder.java
++++ b/net.minecraft.server.packs.VanillaPackResourcesBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.validateDirPat", "this.pathsForType"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pushPathForType(/* params */);
+
+diff --git a/net.minecraft.server.packs.VanillaPackResourcesBuilder.java b/net.minecraft.server.packs.VanillaPackResourcesBuilder.java
+--- a/net.minecraft.server.packs.VanillaPackResourcesBuilder.java
++++ b/net.minecraft.server.packs.VanillaPackResourcesBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pushRootPat", "this.pushPathForTyp"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pushAssetPath(/* params */);
+

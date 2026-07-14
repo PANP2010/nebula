@@ -1,0 +1,308 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (24 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.resources.server.DownloadedPackSource.java b/net.minecraft.client.resources.server.DownloadedPackSource.java
+--- a/net.minecraft.client.resources.server.DownloadedPackSource.java
++++ b/net.minecraft.client.resources.server.DownloadedPackSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.totalByte", "this.updateProgres"},
++writeEntities = {"this.totalBytes"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ downloadStart(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.DownloadedPackSource.java b/net.minecraft.client.resources.server.DownloadedPackSource.java
+--- a/net.minecraft.client.resources.server.DownloadedPackSource.java
++++ b/net.minecraft.client.resources.server.DownloadedPackSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.manager"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pushLocalPack(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.DownloadedPackSource.java b/net.minecraft.client.resources.server.DownloadedPackSource.java
+--- a/net.minecraft.client.resources.server.DownloadedPackSource.java
++++ b/net.minecraft.client.resources.server.DownloadedPackSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.manager"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ allowServerPacks(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.DownloadedPackSource.java b/net.minecraft.client.resources.server.DownloadedPackSource.java
+--- a/net.minecraft.client.resources.server.DownloadedPackSource.java
++++ b/net.minecraft.client.resources.server.DownloadedPackSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.manager", "this.packTyp", "this.packFeedbac"},
++writeEntities = {"this.packType", "this.packFeedback"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ configureForServerControl(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.DownloadedPackSource.java b/net.minecraft.client.resources.server.DownloadedPackSource.java
+--- a/net.minecraft.client.resources.server.DownloadedPackSource.java
++++ b/net.minecraft.client.resources.server.DownloadedPackSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.count", "this.updateToas", "this.titl"},
++writeEntities = {"this.title"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ requestStart(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.DownloadedPackSource.java b/net.minecraft.client.resources.server.DownloadedPackSource.java
+--- a/net.minecraft.client.resources.server.DownloadedPackSource.java
++++ b/net.minecraft.client.resources.server.DownloadedPackSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.packFeedbac"},
++writeEntities = {"this.packFeedback"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ waitForPackFeedback(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.DownloadedPackSource.java b/net.minecraft.client.resources.server.DownloadedPackSource.java
+--- a/net.minecraft.client.resources.server.DownloadedPackSource.java
++++ b/net.minecraft.client.resources.server.DownloadedPackSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pendingReload", "this.loadRequestedPack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onRecovery(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.DownloadedPackSource.java b/net.minecraft.client.resources.server.DownloadedPackSource.java
+--- a/net.minecraft.client.resources.server.DownloadedPackSource.java
++++ b/net.minecraft.client.resources.server.DownloadedPackSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createDownloadHeader", "this.createDownloadNotifie"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ download(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.DownloadedPackSource.java b/net.minecraft.client.resources.server.DownloadedPackSource.java
+--- a/net.minecraft.client.resources.server.DownloadedPackSource.java
++++ b/net.minecraft.client.resources.server.DownloadedPackSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pendingReload", "this.packSourc", "this.pendingReloa"},
++writeEntities = {"this.pendingReload", "this.packSource"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onRecoveryFailure(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.DownloadedPackSource.java b/net.minecraft.client.resources.server.DownloadedPackSource.java
+--- a/net.minecraft.client.resources.server.DownloadedPackSource.java
++++ b/net.minecraft.client.resources.server.DownloadedPackSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.manager", "this.packTyp", "this.packFeedbac"},
++writeEntities = {"this.packType", "this.packFeedback"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ configureForLocalWorld(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.DownloadedPackSource.java b/net.minecraft.client.resources.server.DownloadedPackSource.java
+--- a/net.minecraft.client.resources.server.DownloadedPackSource.java
++++ b/net.minecraft.client.resources.server.DownloadedPackSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.manager"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ rejectServerPacks(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.DownloadedPackSource.java b/net.minecraft.client.resources.server.DownloadedPackSource.java
+--- a/net.minecraft.client.resources.server.DownloadedPackSource.java
++++ b/net.minecraft.client.resources.server.DownloadedPackSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.packSource"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createRepositorySource(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.DownloadedPackSource.java b/net.minecraft.client.resources.server.DownloadedPackSource.java
+--- a/net.minecraft.client.resources.server.DownloadedPackSource.java
++++ b/net.minecraft.client.resources.server.DownloadedPackSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.manager"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ popPack(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.DownloadedPackSource.java b/net.minecraft.client.resources.server.DownloadedPackSource.java
+--- a/net.minecraft.client.resources.server.DownloadedPackSource.java
++++ b/net.minecraft.client.resources.server.DownloadedPackSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.count", "this.updateProgres"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ downloadedBytes(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.DownloadedPackSource.java b/net.minecraft.client.resources.server.DownloadedPackSource.java
+--- a/net.minecraft.client.resources.server.DownloadedPackSource.java
++++ b/net.minecraft.client.resources.server.DownloadedPackSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.failCount", "this.count"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ requestFinished(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.DownloadedPackSource.java b/net.minecraft.client.resources.server.DownloadedPackSource.java
+--- a/net.minecraft.client.resources.server.DownloadedPackSource.java
++++ b/net.minecraft.client.resources.server.DownloadedPackSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.packFeedbac"},
++writeEntities = {"this.packFeedback"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reportFinalResult(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.DownloadedPackSource.java b/net.minecraft.client.resources.server.DownloadedPackSource.java
+--- a/net.minecraft.client.resources.server.DownloadedPackSource.java
++++ b/net.minecraft.client.resources.server.DownloadedPackSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.downloadQueue"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ close(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.DownloadedPackSource.java b/net.minecraft.client.resources.server.DownloadedPackSource.java
+--- a/net.minecraft.client.resources.server.DownloadedPackSource.java
++++ b/net.minecraft.client.resources.server.DownloadedPackSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.totalBytes", "this.messag"},
++writeEntities = {"this.message"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateProgress(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.DownloadedPackSource.java b/net.minecraft.client.resources.server.DownloadedPackSource.java
+--- a/net.minecraft.client.resources.server.DownloadedPackSource.java
++++ b/net.minecraft.client.resources.server.DownloadedPackSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.toastId", "this.title", "this.message"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateToast(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.DownloadedPackSource.java b/net.minecraft.client.resources.server.DownloadedPackSource.java
+--- a/net.minecraft.client.resources.server.DownloadedPackSource.java
++++ b/net.minecraft.client.resources.server.DownloadedPackSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pendingReload", "this.pendingReloa"},
++writeEntities = {"this.pendingReload"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onReloadSuccess(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.DownloadedPackSource.java b/net.minecraft.client.resources.server.DownloadedPackSource.java
+--- a/net.minecraft.client.resources.server.DownloadedPackSource.java
++++ b/net.minecraft.client.resources.server.DownloadedPackSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.manager", "this.packFeedbac"},
++writeEntities = {"this.packFeedback"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ cleanupAfterDisconnect(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.DownloadedPackSource.java b/net.minecraft.client.resources.server.DownloadedPackSource.java
+--- a/net.minecraft.client.resources.server.DownloadedPackSource.java
++++ b/net.minecraft.client.resources.server.DownloadedPackSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.loadRequestedPack", "this.pendingReloa"},
++writeEntities = {"this.pendingReload"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startReload(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.DownloadedPackSource.java b/net.minecraft.client.resources.server.DownloadedPackSource.java
+--- a/net.minecraft.client.resources.server.DownloadedPackSource.java
++++ b/net.minecraft.client.resources.server.DownloadedPackSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.manager"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pushPack(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.DownloadedPackSource.java b/net.minecraft.client.resources.server.DownloadedPackSource.java
+--- a/net.minecraft.client.resources.server.DownloadedPackSource.java
++++ b/net.minecraft.client.resources.server.DownloadedPackSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hasUpdate", "this.manager", "this.hasUpdates"},
++writeEntities = {"this.hasUpdates"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ runAllUpdates(/* params */);
+

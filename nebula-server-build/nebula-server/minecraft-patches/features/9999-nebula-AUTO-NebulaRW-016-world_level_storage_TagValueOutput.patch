@@ -1,0 +1,200 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (16 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.storage.TagValueOutput.java b/net.minecraft.world.level.storage.TagValueOutput.java
+--- a/net.minecraft.world.level.storage.TagValueOutput.java
++++ b/net.minecraft.world.level.storage.TagValueOutput.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putBoolean(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.TagValueOutput.java b/net.minecraft.world.level.storage.TagValueOutput.java
+--- a/net.minecraft.world.level.storage.TagValueOutput.java
++++ b/net.minecraft.world.level.storage.TagValueOutput.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ discardLast(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.TagValueOutput.java b/net.minecraft.world.level.storage.TagValueOutput.java
+--- a/net.minecraft.world.level.storage.TagValueOutput.java
++++ b/net.minecraft.world.level.storage.TagValueOutput.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putIntArray(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.TagValueOutput.java b/net.minecraft.world.level.storage.TagValueOutput.java
+--- a/net.minecraft.world.level.storage.TagValueOutput.java
++++ b/net.minecraft.world.level.storage.TagValueOutput.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.stor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ storeNullable(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.TagValueOutput.java b/net.minecraft.world.level.storage.TagValueOutput.java
+--- a/net.minecraft.world.level.storage.TagValueOutput.java
++++ b/net.minecraft.world.level.storage.TagValueOutput.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.ops", "this.reporterForChil"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ child(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.TagValueOutput.java b/net.minecraft.world.level.storage.TagValueOutput.java
+--- a/net.minecraft.world.level.storage.TagValueOutput.java
++++ b/net.minecraft.world.level.storage.TagValueOutput.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output", "this.problemReporter", "this.ops"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ store(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.TagValueOutput.java b/net.minecraft.world.level.storage.TagValueOutput.java
+--- a/net.minecraft.world.level.storage.TagValueOutput.java
++++ b/net.minecraft.world.level.storage.TagValueOutput.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ discard(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.TagValueOutput.java b/net.minecraft.world.level.storage.TagValueOutput.java
+--- a/net.minecraft.world.level.storage.TagValueOutput.java
++++ b/net.minecraft.world.level.storage.TagValueOutput.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putFloat(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.TagValueOutput.java b/net.minecraft.world.level.storage.TagValueOutput.java
+--- a/net.minecraft.world.level.storage.TagValueOutput.java
++++ b/net.minecraft.world.level.storage.TagValueOutput.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putByte(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.TagValueOutput.java b/net.minecraft.world.level.storage.TagValueOutput.java
+--- a/net.minecraft.world.level.storage.TagValueOutput.java
++++ b/net.minecraft.world.level.storage.TagValueOutput.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putInt(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.TagValueOutput.java b/net.minecraft.world.level.storage.TagValueOutput.java
+--- a/net.minecraft.world.level.storage.TagValueOutput.java
++++ b/net.minecraft.world.level.storage.TagValueOutput.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.problemReporter"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reporterForChild(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.TagValueOutput.java b/net.minecraft.world.level.storage.TagValueOutput.java
+--- a/net.minecraft.world.level.storage.TagValueOutput.java
++++ b/net.minecraft.world.level.storage.TagValueOutput.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putShort(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.TagValueOutput.java b/net.minecraft.world.level.storage.TagValueOutput.java
+--- a/net.minecraft.world.level.storage.TagValueOutput.java
++++ b/net.minecraft.world.level.storage.TagValueOutput.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putLong(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.TagValueOutput.java b/net.minecraft.world.level.storage.TagValueOutput.java
+--- a/net.minecraft.world.level.storage.TagValueOutput.java
++++ b/net.minecraft.world.level.storage.TagValueOutput.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putString(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.TagValueOutput.java b/net.minecraft.world.level.storage.TagValueOutput.java
+--- a/net.minecraft.world.level.storage.TagValueOutput.java
++++ b/net.minecraft.world.level.storage.TagValueOutput.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putDouble(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.TagValueOutput.java b/net.minecraft.world.level.storage.TagValueOutput.java
+--- a/net.minecraft.world.level.storage.TagValueOutput.java
++++ b/net.minecraft.world.level.storage.TagValueOutput.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.error", "this.value"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ description(/* params */);
+

@@ -1,0 +1,93 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.lighting.LevelLightEngine.java b/net.minecraft.world.level.lighting.LevelLightEngine.java
+--- a/net.minecraft.world.level.lighting.LevelLightEngine.java
++++ b/net.minecraft.world.level.lighting.LevelLightEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockEngine"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ propagateLightSources(/* params */);
+
+diff --git a/net.minecraft.world.level.lighting.LevelLightEngine.java b/net.minecraft.world.level.lighting.LevelLightEngine.java
+--- a/net.minecraft.world.level.lighting.LevelLightEngine.java
++++ b/net.minecraft.world.level.lighting.LevelLightEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockEngine"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ retainData(/* params */);
+
+diff --git a/net.minecraft.world.level.lighting.LevelLightEngine.java b/net.minecraft.world.level.lighting.LevelLightEngine.java
+--- a/net.minecraft.world.level.lighting.LevelLightEngine.java
++++ b/net.minecraft.world.level.lighting.LevelLightEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.skyEngine", "this.blockEngin", "this.skyEngin", "this.blockEngine"},
++writeEntities = {"this.skyEngine", "this.blockEngine"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ lightOnInColumn(/* params */);
+
+diff --git a/net.minecraft.world.level.lighting.LevelLightEngine.java b/net.minecraft.world.level.lighting.LevelLightEngine.java
+--- a/net.minecraft.world.level.lighting.LevelLightEngine.java
++++ b/net.minecraft.world.level.lighting.LevelLightEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockEngine"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ queueSectionData(/* params */);
+
+diff --git a/net.minecraft.world.level.lighting.LevelLightEngine.java b/net.minecraft.world.level.lighting.LevelLightEngine.java
+--- a/net.minecraft.world.level.lighting.LevelLightEngine.java
++++ b/net.minecraft.world.level.lighting.LevelLightEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockEngine"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkBlock(/* params */);
+
+diff --git a/net.minecraft.world.level.lighting.LevelLightEngine.java b/net.minecraft.world.level.lighting.LevelLightEngine.java
+--- a/net.minecraft.world.level.lighting.LevelLightEngine.java
++++ b/net.minecraft.world.level.lighting.LevelLightEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockEngine"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateSectionStatus(/* params */);
+
+diff --git a/net.minecraft.world.level.lighting.LevelLightEngine.java b/net.minecraft.world.level.lighting.LevelLightEngine.java
+--- a/net.minecraft.world.level.lighting.LevelLightEngine.java
++++ b/net.minecraft.world.level.lighting.LevelLightEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockEngine"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ runLightUpdates(/* params */);
+

@@ -1,0 +1,128 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (10 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.renderer.SkyRenderer.java b/net.minecraft.client.renderer.SkyRenderer.java
+--- a/net.minecraft.client.renderer.SkyRenderer.java
++++ b/net.minecraft.client.renderer.SkyRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.quadIndices", "this.starIndexCount", "this.starBuffer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderStars(/* params */);
+
+diff --git a/net.minecraft.client.renderer.SkyRenderer.java b/net.minecraft.client.renderer.SkyRenderer.java
+--- a/net.minecraft.client.renderer.SkyRenderer.java
++++ b/net.minecraft.client.renderer.SkyRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.topSkyBuffer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderSkyDisc(/* params */);
+
+diff --git a/net.minecraft.client.renderer.SkyRenderer.java b/net.minecraft.client.renderer.SkyRenderer.java
+--- a/net.minecraft.client.renderer.SkyRenderer.java
++++ b/net.minecraft.client.renderer.SkyRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.quadIndices", "this.celestialsAtlas", "this.sunBuffer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderSun(/* params */);
+
+diff --git a/net.minecraft.client.renderer.SkyRenderer.java b/net.minecraft.client.renderer.SkyRenderer.java
+--- a/net.minecraft.client.renderer.SkyRenderer.java
++++ b/net.minecraft.client.renderer.SkyRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ close(/* params */);
+
+diff --git a/net.minecraft.client.renderer.SkyRenderer.java b/net.minecraft.client.renderer.SkyRenderer.java
+--- a/net.minecraft.client.renderer.SkyRenderer.java
++++ b/net.minecraft.client.renderer.SkyRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.endFlashBuffer", "this.quadIndices", "this.celestialsAtlas"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderEndFlash(/* params */);
+
+diff --git a/net.minecraft.client.renderer.SkyRenderer.java b/net.minecraft.client.renderer.SkyRenderer.java
+--- a/net.minecraft.client.renderer.SkyRenderer.java
++++ b/net.minecraft.client.renderer.SkyRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.bottomSkyBuffer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderDarkDisc(/* params */);
+
+diff --git a/net.minecraft.client.renderer.SkyRenderer.java b/net.minecraft.client.renderer.SkyRenderer.java
+--- a/net.minecraft.client.renderer.SkyRenderer.java
++++ b/net.minecraft.client.renderer.SkyRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.moonBuffer", "this.quadIndices", "this.celestialsAtlas"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderMoon(/* params */);
+
+diff --git a/net.minecraft.client.renderer.SkyRenderer.java b/net.minecraft.client.renderer.SkyRenderer.java
+--- a/net.minecraft.client.renderer.SkyRenderer.java
++++ b/net.minecraft.client.renderer.SkyRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sunriseBuffer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderSunriseAndSunset(/* params */);
+
+diff --git a/net.minecraft.client.renderer.SkyRenderer.java b/net.minecraft.client.renderer.SkyRenderer.java
+--- a/net.minecraft.client.renderer.SkyRenderer.java
++++ b/net.minecraft.client.renderer.SkyRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.endSkyBuffer", "this.endSkyTexture"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderEndSky(/* params */);
+
+diff --git a/net.minecraft.client.renderer.SkyRenderer.java b/net.minecraft.client.renderer.SkyRenderer.java
+--- a/net.minecraft.client.renderer.SkyRenderer.java
++++ b/net.minecraft.client.renderer.SkyRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.renderMoo", "this.renderStar", "this.renderSu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderSunMoonAndStars(/* params */);
+

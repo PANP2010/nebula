@@ -1,0 +1,106 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (8 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/com.mojang.realmsclient.gui.screens.AddRealmPopupScreen.java b/com.mojang.realmsclient.gui.screens.AddRealmPopupScreen.java
+--- a/com.mojang.realmsclient.gui.screens.AddRealmPopupScreen.java
++++ b/com.mojang.realmsclient.gui.screens.AddRealmPopupScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.carouselIndex", "this.carouselTic", "this.carouselTick", "this.carouselInde"},
++writeEntities = {"this.carouselIndex", "this.carouselTick"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.AddRealmPopupScreen.java b/com.mojang.realmsclient.gui.screens.AddRealmPopupScreen.java
+--- a/com.mojang.realmsclient.gui.screens.AddRealmPopupScreen.java
++++ b/com.mojang.realmsclient.gui.screens.AddRealmPopupScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lef"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ right(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.AddRealmPopupScreen.java b/com.mojang.realmsclient.gui.screens.AddRealmPopupScreen.java
+--- a/com.mojang.realmsclient.gui.screens.AddRealmPopupScreen.java
++++ b/com.mojang.realmsclient.gui.screens.AddRealmPopupScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.createTrialButton"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.AddRealmPopupScreen.java b/com.mojang.realmsclient.gui.screens.AddRealmPopupScreen.java
+--- a/com.mojang.realmsclient.gui.screens.AddRealmPopupScreen.java
++++ b/com.mojang.realmsclient.gui.screens.AddRealmPopupScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.to"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ bottom(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.AddRealmPopupScreen.java b/com.mojang.realmsclient.gui.screens.AddRealmPopupScreen.java
+--- a/com.mojang.realmsclient.gui.screens.AddRealmPopupScreen.java
++++ b/com.mojang.realmsclient.gui.screens.AddRealmPopupScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.backgroundScreen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onClose(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.AddRealmPopupScreen.java b/com.mojang.realmsclient.gui.screens.AddRealmPopupScreen.java
+--- a/com.mojang.realmsclient.gui.screens.AddRealmPopupScreen.java
++++ b/com.mojang.realmsclient.gui.screens.AddRealmPopupScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.carouselIndex", "this.backgroundScreen", "this.extractTransparentBackgroun", "this.to", "this.lef"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractBackground(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.AddRealmPopupScreen.java b/com.mojang.realmsclient.gui.screens.AddRealmPopupScreen.java
+--- a/com.mojang.realmsclient.gui.screens.AddRealmPopupScreen.java
++++ b/com.mojang.realmsclient.gui.screens.AddRealmPopupScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.width"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ left(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.AddRealmPopupScreen.java b/com.mojang.realmsclient.gui.screens.AddRealmPopupScreen.java
+--- a/com.mojang.realmsclient.gui.screens.AddRealmPopupScreen.java
++++ b/com.mojang.realmsclient.gui.screens.AddRealmPopupScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createTrialButton"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+

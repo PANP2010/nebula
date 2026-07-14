@@ -1,0 +1,45 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (3 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.tutorial.FindTreeTutorialStepInstance.java b/net.minecraft.client.tutorial.FindTreeTutorialStepInstance.java
+--- a/net.minecraft.client.tutorial.FindTreeTutorialStepInstance.java
++++ b/net.minecraft.client.tutorial.FindTreeTutorialStepInstance.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tutorial"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onLookAt(/* params */);
+
+diff --git a/net.minecraft.client.tutorial.FindTreeTutorialStepInstance.java b/net.minecraft.client.tutorial.FindTreeTutorialStepInstance.java
+--- a/net.minecraft.client.tutorial.FindTreeTutorialStepInstance.java
++++ b/net.minecraft.client.tutorial.FindTreeTutorialStepInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tutorial", "this.timeWaiting"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.client.tutorial.FindTreeTutorialStepInstance.java b/net.minecraft.client.tutorial.FindTreeTutorialStepInstance.java
+--- a/net.minecraft.client.tutorial.FindTreeTutorialStepInstance.java
++++ b/net.minecraft.client.tutorial.FindTreeTutorialStepInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tutorial"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onGetItem(/* params */);
+

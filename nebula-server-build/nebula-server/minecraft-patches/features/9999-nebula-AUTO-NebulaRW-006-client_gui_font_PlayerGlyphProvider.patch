@@ -1,0 +1,80 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.font.PlayerGlyphProvider.java b/net.minecraft.client.gui.font.PlayerGlyphProvider.java
+--- a/net.minecraft.client.gui.font.PlayerGlyphProvider.java
++++ b/net.minecraft.client.gui.font.PlayerGlyphProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hat", "this.to", "this.botto", "this.lef", "this.righ"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderSprite(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.PlayerGlyphProvider.java b/net.minecraft.client.gui.font.PlayerGlyphProvider.java
+--- a/net.minecraft.client.gui.font.PlayerGlyphProvider.java
++++ b/net.minecraft.client.gui.font.PlayerGlyphProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.skin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ textureView(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.PlayerGlyphProvider.java b/net.minecraft.client.gui.font.PlayerGlyphProvider.java
+--- a/net.minecraft.client.gui.font.PlayerGlyphProvider.java
++++ b/net.minecraft.client.gui.font.PlayerGlyphProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.wrapperCache"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sourceForPlayer(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.PlayerGlyphProvider.java b/net.minecraft.client.gui.font.PlayerGlyphProvider.java
+--- a/net.minecraft.client.gui.font.PlayerGlyphProvider.java
++++ b/net.minecraft.client.gui.font.PlayerGlyphProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playerSkinRenderCache"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ load(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.PlayerGlyphProvider.java b/net.minecraft.client.gui.font.PlayerGlyphProvider.java
+--- a/net.minecraft.client.gui.font.PlayerGlyphProvider.java
++++ b/net.minecraft.client.gui.font.PlayerGlyphProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.skin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderType(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.PlayerGlyphProvider.java b/net.minecraft.client.gui.font.PlayerGlyphProvider.java
+--- a/net.minecraft.client.gui.font.PlayerGlyphProvider.java
++++ b/net.minecraft.client.gui.font.PlayerGlyphProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.skin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ guiPipeline(/* params */);
+

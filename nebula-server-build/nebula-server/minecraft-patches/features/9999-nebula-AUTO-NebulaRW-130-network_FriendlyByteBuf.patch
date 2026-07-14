@@ -1,0 +1,1568 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (130 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.readLongArra"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readBitSet(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.readByteArra"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readPublicKey(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forEachByteDesc(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.readBoolea"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readOptional(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeCharSequence(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ order(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ duplicate(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ markWriterIndex(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readUnsignedShortLE(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.writeVarIn"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeMap(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.writeUt"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeJsonWithCodec(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forEachByte(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeByte(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeInt(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readMediumLE(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ compareTo(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.readFixedBitSe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readEnumSet(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeMedium(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ internalNioBuffer(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.writeVarIn"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeById(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.readMa"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readMap(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readUnsignedByte(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readVarInt(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readLongLE(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readUnsignedMediumLE(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.readVarIn"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readWithCount(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readInt(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.writeVarIn"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeVarIntArray(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ maxFastWritableBytes(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeDouble(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readShortLE(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.readVarIn"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readVarIntArray(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readIntLE(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ markReaderIndex(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.writeResourceKe", "this.writeBlockPo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeGlobalPos(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ bytesBefore(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readDouble(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeLongLE(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeFloat(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ retainedSlice(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.readIdentifie"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readResourceKey(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.readVarIn"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readEnum(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.readUt"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readIdentifier(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ memoryAddress(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ discardReadBytes(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeContainerId(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetReaderIndex(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.writeBoolea"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeEither(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeUtf(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeMediumLE(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.readVarIn"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readCollection(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ ensureWritable(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ retainedDuplicate(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ touch(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeZero(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readCharSequence(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.readBlockPo", "this.readEnu", "this.readBoolea", "this.readFloa"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readBlockHitResult(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ discardSomeReadBytes(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.readUt"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readLenientJsonWithCodec(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeBoolean(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeShortLE(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.readBoolea"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readEither(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeChar(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.writeVarIn"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeEnum(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readShort(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ nioBuffer(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ equals(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ skipBytes(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ nioBuffers(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ maxWritableBytes(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeVarInt(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readChar(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ array(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readUnsignedInt(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.writeBoolea"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeOptional(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writableBytes(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readBoolean(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.readBlockPo", "this.readResourceKe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readGlobalPos(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeBytes(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ retain(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.readByte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readFixedBitSet(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ release(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.readVarIn"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readIntIdList(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ slice(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readUnsignedIntLE(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ arrayOffset(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ copy(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetWriterIndex(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readString(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.readNb"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readWithCodec(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readFloat(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readContainerId(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ asReadOnly(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readableBytes(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.writeByteArra"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writePublicKey(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readUnsignedShort(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.writeFloa", "this.writeBoolea", "this.writeBlockPo", "this.writeEnu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeBlockHitResult(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeIntLE(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ capacity(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.readCollectio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readList(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeLong(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.readVarIn"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readById(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readerIndex(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.writeVarIn"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeCollection(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ nioBufferCount(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.readLon"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readInstant(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ refCnt(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.writeLon"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeInstant(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.writeNb"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeWithCodec(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readUtf(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.writeIdentifie"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeResourceKey(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ alloc(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readByte(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.writeUt"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeIdentifier(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeVarLong(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readLong(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writerIndex(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.readWithCode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readWithCodecTrusted(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.writeVarIn"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeIntIdList(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeShort(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readVarLong(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readUnsignedMedium(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ indexOf(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.writeLongArra"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeBitSet(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readBytes(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ maxCapacity(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readSlice(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readMedium(/* params */);
+
+diff --git a/net.minecraft.network.FriendlyByteBuf.java b/net.minecraft.network.FriendlyByteBuf.java
+--- a/net.minecraft.network.FriendlyByteBuf.java
++++ b/net.minecraft.network.FriendlyByteBuf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readRetainedSlice(/* params */);
+

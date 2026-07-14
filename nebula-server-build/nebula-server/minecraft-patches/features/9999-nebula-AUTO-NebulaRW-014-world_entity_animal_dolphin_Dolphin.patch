@@ -1,0 +1,191 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (14 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.animal.dolphin.Dolphin.java b/net.minecraft.world.entity.animal.dolphin.Dolphin.java
+--- a/net.minecraft.world.entity.animal.dolphin.Dolphin.java
++++ b/net.minecraft.world.entity.animal.dolphin.Dolphin.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++triggeredEvents = {"ENTITY_SPAWNED"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ drop(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.dolphin.Dolphin.java b/net.minecraft.world.entity.animal.dolphin.Dolphin.java
+--- a/net.minecraft.world.entity.animal.dolphin.Dolphin.java
++++ b/net.minecraft.world.entity.animal.dolphin.Dolphin.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun", "this.leve"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mobInteract(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.dolphin.Dolphin.java b/net.minecraft.world.entity.animal.dolphin.Dolphin.java
+--- a/net.minecraft.world.entity.animal.dolphin.Dolphin.java
++++ b/net.minecraft.world.entity.animal.dolphin.Dolphin.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playAttackSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.dolphin.Dolphin.java b/net.minecraft.world.entity.animal.dolphin.Dolphin.java
+--- a/net.minecraft.world.entity.animal.dolphin.Dolphin.java
++++ b/net.minecraft.world.entity.animal.dolphin.Dolphin.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ start(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.dolphin.Dolphin.java b/net.minecraft.world.entity.animal.dolphin.Dolphin.java
+--- a/net.minecraft.world.entity.animal.dolphin.Dolphin.java
++++ b/net.minecraft.world.entity.animal.dolphin.Dolphin.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.targetSelector", "this.goalSelector"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerGoals(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.dolphin.Dolphin.java b/net.minecraft.world.entity.animal.dolphin.Dolphin.java
+--- a/net.minecraft.world.entity.animal.dolphin.Dolphin.java
++++ b/net.minecraft.world.entity.animal.dolphin.Dolphin.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.cooldown", "this.itemSlot"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.dolphin.Dolphin.java b/net.minecraft.world.entity.animal.dolphin.Dolphin.java
+--- a/net.minecraft.world.entity.animal.dolphin.Dolphin.java
++++ b/net.minecraft.world.entity.animal.dolphin.Dolphin.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.deltaMovement"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ travelInWater(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.dolphin.Dolphin.java b/net.minecraft.world.entity.animal.dolphin.Dolphin.java
+--- a/net.minecraft.world.entity.animal.dolphin.Dolphin.java
++++ b/net.minecraft.world.entity.animal.dolphin.Dolphin.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.navigation", "this.getNavigatio", "this.positio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ closeToNextPos(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.dolphin.Dolphin.java b/net.minecraft.world.entity.animal.dolphin.Dolphin.java
+--- a/net.minecraft.world.entity.animal.dolphin.Dolphin.java
++++ b/net.minecraft.world.entity.animal.dolphin.Dolphin.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.guaranteedDrop", "this.itemSlot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pickUpItem(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.dolphin.Dolphin.java b/net.minecraft.world.entity.animal.dolphin.Dolphin.java
+--- a/net.minecraft.world.entity.animal.dolphin.Dolphin.java
++++ b/net.minecraft.world.entity.animal.dolphin.Dolphin.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.itemSlot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.dolphin.Dolphin.java b/net.minecraft.world.entity.animal.dolphin.Dolphin.java
+--- a/net.minecraft.world.entity.animal.dolphin.Dolphin.java
++++ b/net.minecraft.world.entity.animal.dolphin.Dolphin.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.maxAirSupply", "this.getMaxAirSuppl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ increaseAirSupply(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.dolphin.Dolphin.java b/net.minecraft.world.entity.animal.dolphin.Dolphin.java
+--- a/net.minecraft.world.entity.animal.dolphin.Dolphin.java
++++ b/net.minecraft.world.entity.animal.dolphin.Dolphin.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.addParticlesAroundSel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleEntityEvent(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.dolphin.Dolphin.java b/net.minecraft.world.entity.animal.dolphin.Dolphin.java
+--- a/net.minecraft.world.entity.animal.dolphin.Dolphin.java
++++ b/net.minecraft.world.entity.animal.dolphin.Dolphin.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setMoisntessLeve", "this.setGotFis"},
++writeEntities = {"this.moisntessLevel", "this.gotFish"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.dolphin.Dolphin.java b/net.minecraft.world.entity.animal.dolphin.Dolphin.java
+--- a/net.minecraft.world.entity.animal.dolphin.Dolphin.java
++++ b/net.minecraft.world.entity.animal.dolphin.Dolphin.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entityData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ gotFish(/* params */);
+

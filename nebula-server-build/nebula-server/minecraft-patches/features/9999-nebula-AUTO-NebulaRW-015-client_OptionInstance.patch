@@ -1,0 +1,192 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (15 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.OptionInstance.java b/net.minecraft.client.OptionInstance.java
+--- a/net.minecraft.client.OptionInstance.java
++++ b/net.minecraft.client.OptionInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.tooltip", "this.message"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateMessage(/* params */);
+
+diff --git a/net.minecraft.client.OptionInstance.java b/net.minecraft.client.OptionInstance.java
+--- a/net.minecraft.client.OptionInstance.java
++++ b/net.minecraft.client.OptionInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.canChangeValu"},
++writeEntities = {"this.canChangeValue"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ keyPressed(/* params */);
+
+diff --git a/net.minecraft.client.OptionInstance.java b/net.minecraft.client.OptionInstance.java
+--- a/net.minecraft.client.OptionInstance.java
++++ b/net.minecraft.client.OptionInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.maxSupplier"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ maxInclusive(/* params */);
+
+diff --git a/net.minecraft.client.OptionInstance.java b/net.minecraft.client.OptionInstance.java
+--- a/net.minecraft.client.OptionInstance.java
++++ b/net.minecraft.client.OptionInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.applyValueImmediately", "this.applyUnsavedValu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyValue(/* params */);
+
+diff --git a/net.minecraft.client.OptionInstance.java b/net.minecraft.client.OptionInstance.java
+--- a/net.minecraft.client.OptionInstance.java
++++ b/net.minecraft.client.OptionInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.values"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ previous(/* params */);
+
+diff --git a/net.minecraft.client.OptionInstance.java b/net.minecraft.client.OptionInstance.java
+--- a/net.minecraft.client.OptionInstance.java
++++ b/net.minecraft.client.OptionInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.values", "this.tooltip"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createButton(/* params */);
+
+diff --git a/net.minecraft.client.OptionInstance.java b/net.minecraft.client.OptionInstance.java
+--- a/net.minecraft.client.OptionInstance.java
++++ b/net.minecraft.client.OptionInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.instance", "this.values", "this.onValueChanged", "this.value"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyUnsavedValue(/* params */);
+
+diff --git a/net.minecraft.client.OptionInstance.java b/net.minecraft.client.OptionInstance.java
+--- a/net.minecraft.client.OptionInstance.java
++++ b/net.minecraft.client.OptionInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.resetValu", "this.applyValueImmediately"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onRelease(/* params */);
+
+diff --git a/net.minecraft.client.OptionInstance.java b/net.minecraft.client.OptionInstance.java
+--- a/net.minecraft.client.OptionInstance.java
++++ b/net.minecraft.client.OptionInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.delayedApplyAt", "this.value"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetValue(/* params */);
+
+diff --git a/net.minecraft.client.OptionInstance.java b/net.minecraft.client.OptionInstance.java
+--- a/net.minecraft.client.OptionInstance.java
++++ b/net.minecraft.client.OptionInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.resetValu", "this.delayedApplyAt", "this.delayedApplyA", "this.applyUnsavedValu"},
++writeEntities = {"this.delayedApplyAt"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractWidgetRenderState(/* params */);
+
+diff --git a/net.minecraft.client.OptionInstance.java b/net.minecraft.client.OptionInstance.java
+--- a/net.minecraft.client.OptionInstance.java
++++ b/net.minecraft.client.OptionInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.toSliderValu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toSliderValue(/* params */);
+
+diff --git a/net.minecraft.client.OptionInstance.java b/net.minecraft.client.OptionInstance.java
+--- a/net.minecraft.client.OptionInstance.java
++++ b/net.minecraft.client.OptionInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fromSliderValu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fromSliderValue(/* params */);
+
+diff --git a/net.minecraft.client.OptionInstance.java b/net.minecraft.client.OptionInstance.java
+--- a/net.minecraft.client.OptionInstance.java
++++ b/net.minecraft.client.OptionInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.caption"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.client.OptionInstance.java b/net.minecraft.client.OptionInstance.java
+--- a/net.minecraft.client.OptionInstance.java
++++ b/net.minecraft.client.OptionInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.validateValu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ validateValue(/* params */);
+
+diff --git a/net.minecraft.client.OptionInstance.java b/net.minecraft.client.OptionInstance.java
+--- a/net.minecraft.client.OptionInstance.java
++++ b/net.minecraft.client.OptionInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.values"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ next(/* params */);
+

@@ -1,0 +1,69 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.inventory.GrindstoneMenu.java b/net.minecraft.world.inventory.GrindstoneMenu.java
+--- a/net.minecraft.world.inventory.GrindstoneMenu.java
++++ b/net.minecraft.world.inventory.GrindstoneMenu.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.broadcastChange", "this.repairSlots", "this.resultSlots", "this.computeResul"},
++triggeredEvents = {"BLOCK_UPDATE"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createResult(/* params */);
+
+diff --git a/net.minecraft.world.inventory.GrindstoneMenu.java b/net.minecraft.world.inventory.GrindstoneMenu.java
+--- a/net.minecraft.world.inventory.GrindstoneMenu.java
++++ b/net.minecraft.world.inventory.GrindstoneMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.slots", "this.repairSlots", "this.moveItemStackT"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ quickMoveStack(/* params */);
+
+diff --git a/net.minecraft.world.inventory.GrindstoneMenu.java b/net.minecraft.world.inventory.GrindstoneMenu.java
+--- a/net.minecraft.world.inventory.GrindstoneMenu.java
++++ b/net.minecraft.world.inventory.GrindstoneMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.experienceAmount", "this.getExperienceAmoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onTake(/* params */);
+
+diff --git a/net.minecraft.world.inventory.GrindstoneMenu.java b/net.minecraft.world.inventory.GrindstoneMenu.java
+--- a/net.minecraft.world.inventory.GrindstoneMenu.java
++++ b/net.minecraft.world.inventory.GrindstoneMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.access"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stillValid(/* params */);
+
+diff --git a/net.minecraft.world.inventory.GrindstoneMenu.java b/net.minecraft.world.inventory.GrindstoneMenu.java
+--- a/net.minecraft.world.inventory.GrindstoneMenu.java
++++ b/net.minecraft.world.inventory.GrindstoneMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.repairSlots", "this.createResul"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ slotsChanged(/* params */);
+

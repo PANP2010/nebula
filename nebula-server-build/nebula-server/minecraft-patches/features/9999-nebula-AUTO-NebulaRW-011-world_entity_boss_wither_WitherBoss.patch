@@ -1,0 +1,145 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (11 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.boss.wither.WitherBoss.java b/net.minecraft.world.entity.boss.wither.WitherBoss.java
+--- a/net.minecraft.world.entity.boss.wither.WitherBoss.java
++++ b/net.minecraft.world.entity.boss.wither.WitherBoss.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.spawnAtLocatio"},
++triggeredEvents = {"ENTITY_SPAWNED"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropCustomDeathLoot(/* params */);
+
+diff --git a/net.minecraft.world.entity.boss.wither.WitherBoss.java b/net.minecraft.world.entity.boss.wither.WitherBoss.java
+--- a/net.minecraft.world.entity.boss.wither.WitherBoss.java
++++ b/net.minecraft.world.entity.boss.wither.WitherBoss.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.targetSelector", "this.goalSelector"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerGoals(/* params */);
+
+diff --git a/net.minecraft.world.entity.boss.wither.WitherBoss.java b/net.minecraft.world.entity.boss.wither.WitherBoss.java
+--- a/net.minecraft.world.entity.boss.wither.WitherBoss.java
++++ b/net.minecraft.world.entity.boss.wither.WitherBoss.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getDisplayNam", "this.setInvulnerableTick", "this.displayName", "this.hasCustomNam", "this.bossEvent"},
++writeEntities = {"this.invulnerableTicks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.boss.wither.WitherBoss.java b/net.minecraft.world.entity.boss.wither.WitherBoss.java
+--- a/net.minecraft.world.entity.boss.wither.WitherBoss.java
++++ b/net.minecraft.world.entity.boss.wither.WitherBoss.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ aiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.boss.wither.WitherBoss.java b/net.minecraft.world.entity.boss.wither.WitherBoss.java
+--- a/net.minecraft.world.entity.boss.wither.WitherBoss.java
++++ b/net.minecraft.world.entity.boss.wither.WitherBoss.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isInvulnerableT"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtServer(/* params */);
+
+diff --git a/net.minecraft.world.entity.boss.wither.WitherBoss.java b/net.minecraft.world.entity.boss.wither.WitherBoss.java
+--- a/net.minecraft.world.entity.boss.wither.WitherBoss.java
++++ b/net.minecraft.world.entity.boss.wither.WitherBoss.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.discar", "this.leve", "this.type", "this.getTyp"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkDespawn(/* params */);
+
+diff --git a/net.minecraft.world.entity.boss.wither.WitherBoss.java b/net.minecraft.world.entity.boss.wither.WitherBoss.java
+--- a/net.minecraft.world.entity.boss.wither.WitherBoss.java
++++ b/net.minecraft.world.entity.boss.wither.WitherBoss.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.bossEvent"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startSeenByPlayer(/* params */);
+
+diff --git a/net.minecraft.world.entity.boss.wither.WitherBoss.java b/net.minecraft.world.entity.boss.wither.WitherBoss.java
+--- a/net.minecraft.world.entity.boss.wither.WitherBoss.java
++++ b/net.minecraft.world.entity.boss.wither.WitherBoss.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ customServerAiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.boss.wither.WitherBoss.java b/net.minecraft.world.entity.boss.wither.WitherBoss.java
+--- a/net.minecraft.world.entity.boss.wither.WitherBoss.java
++++ b/net.minecraft.world.entity.boss.wither.WitherBoss.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.bossEvent"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stopSeenByPlayer(/* params */);
+
+diff --git a/net.minecraft.world.entity.boss.wither.WitherBoss.java b/net.minecraft.world.entity.boss.wither.WitherBoss.java
+--- a/net.minecraft.world.entity.boss.wither.WitherBoss.java
++++ b/net.minecraft.world.entity.boss.wither.WitherBoss.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setInvulnerableTick", "this.maxHealth", "this.getMaxHealt", "this.setHealt", "this.bossEvent"},
++writeEntities = {"this.invulnerableTicks", "this.health"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ makeInvulnerable(/* params */);
+
+diff --git a/net.minecraft.world.entity.boss.wither.WitherBoss.java b/net.minecraft.world.entity.boss.wither.WitherBoss.java
+--- a/net.minecraft.world.entity.boss.wither.WitherBoss.java
++++ b/net.minecraft.world.entity.boss.wither.WitherBoss.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.performRangedAttac"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ performRangedAttack(/* params */);
+

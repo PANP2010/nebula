@@ -1,0 +1,121 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (9 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.TripWireBlock.java b/net.minecraft.world.level.block.TripWireBlock.java
+--- a/net.minecraft.world.level.block.TripWireBlock.java
++++ b/net.minecraft.world.level.block.TripWireBlock.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hook"},
++readBlocks = {"{neighbors}", "{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateSource(/* params */);
+
+diff --git a/net.minecraft.world.level.block.TripWireBlock.java b/net.minecraft.world.level.block.TripWireBlock.java
+--- a/net.minecraft.world.level.block.TripWireBlock.java
++++ b/net.minecraft.world.level.block.TripWireBlock.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateSourc"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onPlace(/* params */);
+
+diff --git a/net.minecraft.world.level.block.TripWireBlock.java b/net.minecraft.world.level.block.TripWireBlock.java
+--- a/net.minecraft.world.level.block.TripWireBlock.java
++++ b/net.minecraft.world.level.block.TripWireBlock.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.checkPresse"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.level.block.TripWireBlock.java b/net.minecraft.world.level.block.TripWireBlock.java
+--- a/net.minecraft.world.level.block.TripWireBlock.java
++++ b/net.minecraft.world.level.block.TripWireBlock.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shouldConnectT"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateShape(/* params */);
+
+diff --git a/net.minecraft.world.level.block.TripWireBlock.java b/net.minecraft.world.level.block.TripWireBlock.java
+--- a/net.minecraft.world.level.block.TripWireBlock.java
++++ b/net.minecraft.world.level.block.TripWireBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hook"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldConnectTo(/* params */);
+
+diff --git a/net.minecraft.world.level.block.TripWireBlock.java b/net.minecraft.world.level.block.TripWireBlock.java
+--- a/net.minecraft.world.level.block.TripWireBlock.java
++++ b/net.minecraft.world.level.block.TripWireBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateSourc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ affectNeighborsAfterRemoval(/* params */);
+
+diff --git a/net.minecraft.world.level.block.TripWireBlock.java b/net.minecraft.world.level.block.TripWireBlock.java
+--- a/net.minecraft.world.level.block.TripWireBlock.java
++++ b/net.minecraft.world.level.block.TripWireBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.checkPresse"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ entityInside(/* params */);
+
+diff --git a/net.minecraft.world.level.block.TripWireBlock.java b/net.minecraft.world.level.block.TripWireBlock.java
+--- a/net.minecraft.world.level.block.TripWireBlock.java
++++ b/net.minecraft.world.level.block.TripWireBlock.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playerWillDestroy(/* params */);
+
+diff --git a/net.minecraft.world.level.block.TripWireBlock.java b/net.minecraft.world.level.block.TripWireBlock.java
+--- a/net.minecraft.world.level.block.TripWireBlock.java
++++ b/net.minecraft.world.level.block.TripWireBlock.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkPressed(/* params */);
+

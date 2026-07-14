@@ -1,0 +1,59 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.particle.DustColorTransitionParticle.java b/net.minecraft.client.particle.DustColorTransitionParticle.java
+--- a/net.minecraft.client.particle.DustColorTransitionParticle.java
++++ b/net.minecraft.client.particle.DustColorTransitionParticle.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.randomizeColo"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ randomizeColor(/* params */);
+
+diff --git a/net.minecraft.client.particle.DustColorTransitionParticle.java b/net.minecraft.client.particle.DustColorTransitionParticle.java
+--- a/net.minecraft.client.particle.DustColorTransitionParticle.java
++++ b/net.minecraft.client.particle.DustColorTransitionParticle.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sprites"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createParticle(/* params */);
+
+diff --git a/net.minecraft.client.particle.DustColorTransitionParticle.java b/net.minecraft.client.particle.DustColorTransitionParticle.java
+--- a/net.minecraft.client.particle.DustColorTransitionParticle.java
++++ b/net.minecraft.client.particle.DustColorTransitionParticle.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.bCol", "this.gCol", "this.rCol"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ lerpColors(/* params */);
+
+diff --git a/net.minecraft.client.particle.DustColorTransitionParticle.java b/net.minecraft.client.particle.DustColorTransitionParticle.java
+--- a/net.minecraft.client.particle.DustColorTransitionParticle.java
++++ b/net.minecraft.client.particle.DustColorTransitionParticle.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lerpColor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extract(/* params */);
+

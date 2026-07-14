@@ -1,0 +1,58 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.inventory.CartographyTableMenu.java b/net.minecraft.world.inventory.CartographyTableMenu.java
+--- a/net.minecraft.world.inventory.CartographyTableMenu.java
++++ b/net.minecraft.world.inventory.CartographyTableMenu.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.slots", "this.lastSoundTime", "this.lastSoundTim"},
++writeEntities = {"this.lastSoundTime"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onTake(/* params */);
+
+diff --git a/net.minecraft.world.inventory.CartographyTableMenu.java b/net.minecraft.world.inventory.CartographyTableMenu.java
+--- a/net.minecraft.world.inventory.CartographyTableMenu.java
++++ b/net.minecraft.world.inventory.CartographyTableMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.slots", "this.moveItemStackT"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ quickMoveStack(/* params */);
+
+diff --git a/net.minecraft.world.inventory.CartographyTableMenu.java b/net.minecraft.world.inventory.CartographyTableMenu.java
+--- a/net.minecraft.world.inventory.CartographyTableMenu.java
++++ b/net.minecraft.world.inventory.CartographyTableMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.access"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stillValid(/* params */);
+
+diff --git a/net.minecraft.world.inventory.CartographyTableMenu.java b/net.minecraft.world.inventory.CartographyTableMenu.java
+--- a/net.minecraft.world.inventory.CartographyTableMenu.java
++++ b/net.minecraft.world.inventory.CartographyTableMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.container", "this.setupResultSlo", "this.resultContainer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ slotsChanged(/* params */);
+

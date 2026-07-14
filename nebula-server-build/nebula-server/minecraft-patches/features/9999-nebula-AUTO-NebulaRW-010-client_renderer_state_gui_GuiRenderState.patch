@@ -1,0 +1,133 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (10 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.renderer.state.gui.GuiRenderState.java b/net.minecraft.client.renderer.state.gui.GuiRenderState.java
+--- a/net.minecraft.client.renderer.state.gui.GuiRenderState.java
++++ b/net.minecraft.client.renderer.state.gui.GuiRenderState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.travers", "this.curren"},
++writeEntities = {"this.current"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forEachPictureInPicture(/* params */);
+
+diff --git a/net.minecraft.client.renderer.state.gui.GuiRenderState.java b/net.minecraft.client.renderer.state.gui.GuiRenderState.java
+--- a/net.minecraft.client.renderer.state.gui.GuiRenderState.java
++++ b/net.minecraft.client.renderer.state.gui.GuiRenderState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.panoramaRenderState", "this.clearColorOverride", "this.firstStratumAfterBlur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reset(/* params */);
+
+diff --git a/net.minecraft.client.renderer.state.gui.GuiRenderState.java b/net.minecraft.client.renderer.state.gui.GuiRenderState.java
+--- a/net.minecraft.client.renderer.state.gui.GuiRenderState.java
++++ b/net.minecraft.client.renderer.state.gui.GuiRenderState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.travers", "this.curren"},
++writeEntities = {"this.current"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forEachItem(/* params */);
+
+diff --git a/net.minecraft.client.renderer.state.gui.GuiRenderState.java b/net.minecraft.client.renderer.state.gui.GuiRenderState.java
+--- a/net.minecraft.client.renderer.state.gui.GuiRenderState.java
++++ b/net.minecraft.client.renderer.state.gui.GuiRenderState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.travers"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sortElements(/* params */);
+
+diff --git a/net.minecraft.client.renderer.state.gui.GuiRenderState.java b/net.minecraft.client.renderer.state.gui.GuiRenderState.java
+--- a/net.minecraft.client.renderer.state.gui.GuiRenderState.java
++++ b/net.minecraft.client.renderer.state.gui.GuiRenderState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.firstStratumAfterBlur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ blurBeforeThisStratum(/* params */);
+
+diff --git a/net.minecraft.client.renderer.state.gui.GuiRenderState.java b/net.minecraft.client.renderer.state.gui.GuiRenderState.java
+--- a/net.minecraft.client.renderer.state.gui.GuiRenderState.java
++++ b/net.minecraft.client.renderer.state.gui.GuiRenderState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.current", "this.strata", "this.curren"},
++writeEntities = {"this.current"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ nextStratum(/* params */);
+
+diff --git a/net.minecraft.client.renderer.state.gui.GuiRenderState.java b/net.minecraft.client.renderer.state.gui.GuiRenderState.java
+--- a/net.minecraft.client.renderer.state.gui.GuiRenderState.java
++++ b/net.minecraft.client.renderer.state.gui.GuiRenderState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.travers"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forEachElement(/* params */);
+
+diff --git a/net.minecraft.client.renderer.state.gui.GuiRenderState.java b/net.minecraft.client.renderer.state.gui.GuiRenderState.java
+--- a/net.minecraft.client.renderer.state.gui.GuiRenderState.java
++++ b/net.minecraft.client.renderer.state.gui.GuiRenderState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.travers"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ traverse(/* params */);
+
+diff --git a/net.minecraft.client.renderer.state.gui.GuiRenderState.java b/net.minecraft.client.renderer.state.gui.GuiRenderState.java
+--- a/net.minecraft.client.renderer.state.gui.GuiRenderState.java
++++ b/net.minecraft.client.renderer.state.gui.GuiRenderState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.strata"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ navigateToAboveHighestElementWithIntersectingBounds(/* params */);
+
+diff --git a/net.minecraft.client.renderer.state.gui.GuiRenderState.java b/net.minecraft.client.renderer.state.gui.GuiRenderState.java
+--- a/net.minecraft.client.renderer.state.gui.GuiRenderState.java
++++ b/net.minecraft.client.renderer.state.gui.GuiRenderState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.travers", "this.curren"},
++writeEntities = {"this.current"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forEachText(/* params */);
+

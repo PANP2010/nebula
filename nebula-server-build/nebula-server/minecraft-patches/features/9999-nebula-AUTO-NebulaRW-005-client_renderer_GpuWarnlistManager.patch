@@ -1,0 +1,71 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.renderer.GpuWarnlistManager.java b/net.minecraft.client.renderer.GpuWarnlistManager.java
+--- a/net.minecraft.client.renderer.GpuWarnlistManager.java
++++ b/net.minecraft.client.renderer.GpuWarnlistManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.warningDismisse", "this.hasWarning"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ willShowWarning(/* params */);
+
+diff --git a/net.minecraft.client.renderer.GpuWarnlistManager.java b/net.minecraft.client.renderer.GpuWarnlistManager.java
+--- a/net.minecraft.client.renderer.GpuWarnlistManager.java
++++ b/net.minecraft.client.renderer.GpuWarnlistManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.warningDismisse"},
++writeEntities = {"this.warningDismissed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dismissWarning(/* params */);
+
+diff --git a/net.minecraft.client.renderer.GpuWarnlistManager.java b/net.minecraft.client.renderer.GpuWarnlistManager.java
+--- a/net.minecraft.client.renderer.GpuWarnlistManager.java
++++ b/net.minecraft.client.renderer.GpuWarnlistManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.rendererPatterns"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ apply(/* params */);
+
+diff --git a/net.minecraft.client.renderer.GpuWarnlistManager.java b/net.minecraft.client.renderer.GpuWarnlistManager.java
+--- a/net.minecraft.client.renderer.GpuWarnlistManager.java
++++ b/net.minecraft.client.renderer.GpuWarnlistManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.warningDismisse", "this.showWarnin"},
++writeEntities = {"this.showWarning", "this.warningDismissed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetWarnings(/* params */);
+
+diff --git a/net.minecraft.client.renderer.GpuWarnlistManager.java b/net.minecraft.client.renderer.GpuWarnlistManager.java
+--- a/net.minecraft.client.renderer.GpuWarnlistManager.java
++++ b/net.minecraft.client.renderer.GpuWarnlistManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.showWarnin"},
++writeEntities = {"this.showWarning"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ showWarning(/* params */);
+

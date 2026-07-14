@@ -1,0 +1,190 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (15 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java b/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractContent(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java b/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.label"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateNarration(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java b/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.gameRules", "this.exitCallback"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ closeAndApplyChanges(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java b/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.exitCallback"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ closeAndDiscardChanges(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java b/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ruleList", "this.repositionElement"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ filterGameRules(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java b/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.doneButton"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java b/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.layout", "this.ruleList", "this.width"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ repositionElements(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java b/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.new", "this.addEntr"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ visitBoolean(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java b/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.searchBo", "this.font", "this.searchBox"},
++writeEntities = {"this.searchBox"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createAndConfigureSearchBox(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java b/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.new", "this.addEntr"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ visitInteger(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java b/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.invalidEntries", "this.updateDoneButto"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ markInvalid(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java b/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.label"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractLabel(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java b/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.invalidEntries", "this.doneButton"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateDoneButton(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java b/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.gameRules", "this.clearEntrie"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ populateChildren(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java b/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hovered", "this.getHovere"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractWidgetRenderState(/* params */);
+

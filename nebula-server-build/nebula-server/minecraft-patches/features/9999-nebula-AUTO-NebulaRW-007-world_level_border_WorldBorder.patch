@@ -1,0 +1,96 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.border.WorldBorder.java b/net.minecraft.world.level.border.WorldBorder.java
+--- a/net.minecraft.world.level.border.WorldBorder.java
++++ b/net.minecraft.world.level.border.WorldBorder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.shape", "this.minX", "this.maxZ", "this.maxX", "this.minZ"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateBox(/* params */);
+
+diff --git a/net.minecraft.world.level.border.WorldBorder.java b/net.minecraft.world.level.border.WorldBorder.java
+--- a/net.minecraft.world.level.border.WorldBorder.java
++++ b/net.minecraft.world.level.border.WorldBorder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.extent", "this.exten"},
++writeEntities = {"this.extent"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.level.border.WorldBorder.java b/net.minecraft.world.level.border.WorldBorder.java
+--- a/net.minecraft.world.level.border.WorldBorder.java
++++ b/net.minecraft.world.level.border.WorldBorder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.clampVec3ToBoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ clampToBounds(/* params */);
+
+diff --git a/net.minecraft.world.level.border.WorldBorder.java b/net.minecraft.world.level.border.WorldBorder.java
+--- a/net.minecraft.world.level.border.WorldBorder.java
++++ b/net.minecraft.world.level.border.WorldBorder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ clampVec3ToBound(/* params */);
+
+diff --git a/net.minecraft.world.level.border.WorldBorder.java b/net.minecraft.world.level.border.WorldBorder.java
+--- a/net.minecraft.world.level.border.WorldBorder.java
++++ b/net.minecraft.world.level.border.WorldBorder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.safeZone", "this.center", "this.warningBlocks", "this.warningTime", "this.damagePerBlock"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyInitialSettings(/* params */);
+
+diff --git a/net.minecraft.world.level.border.WorldBorder.java b/net.minecraft.world.level.border.WorldBorder.java
+--- a/net.minecraft.world.level.border.WorldBorder.java
++++ b/net.minecraft.world.level.border.WorldBorder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateSize(/* params */);
+
+diff --git a/net.minecraft.world.level.border.WorldBorder.java b/net.minecraft.world.level.border.WorldBorder.java
+--- a/net.minecraft.world.level.border.WorldBorder.java
++++ b/net.minecraft.world.level.border.WorldBorder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setDirt", "this.listeners", "this.exten", "this.getListener"},
++writeEntities = {"this.extent", "this.dirty"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ lerpSizeBetween(/* params */);
+

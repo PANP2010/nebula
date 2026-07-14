@@ -1,0 +1,81 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.commands.execution.ExecutionContext.java b/net.minecraft.commands.execution.ExecutionContext.java
+--- a/net.minecraft.commands.execution.ExecutionContext.java
++++ b/net.minecraft.commands.execution.ExecutionContext.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tracer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ close(/* params */);
+
+diff --git a/net.minecraft.commands.execution.ExecutionContext.java b/net.minecraft.commands.execution.ExecutionContext.java
+--- a/net.minecraft.commands.execution.ExecutionContext.java
++++ b/net.minecraft.commands.execution.ExecutionContext.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.commandQueue", "this.newTopCommands", "this.handleQueueOverflo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ queueNext(/* params */);
+
+diff --git a/net.minecraft.commands.execution.ExecutionContext.java b/net.minecraft.commands.execution.ExecutionContext.java
+--- a/net.minecraft.commands.execution.ExecutionContext.java
++++ b/net.minecraft.commands.execution.ExecutionContext.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.commandQueue", "this.newTopCommands"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pushNewCommands(/* params */);
+
+diff --git a/net.minecraft.commands.execution.ExecutionContext.java b/net.minecraft.commands.execution.ExecutionContext.java
+--- a/net.minecraft.commands.execution.ExecutionContext.java
++++ b/net.minecraft.commands.execution.ExecutionContext.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.commandQueue"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ discardAtDepthOrHigher(/* params */);
+
+diff --git a/net.minecraft.commands.execution.ExecutionContext.java b/net.minecraft.commands.execution.ExecutionContext.java
+--- a/net.minecraft.commands.execution.ExecutionContext.java
++++ b/net.minecraft.commands.execution.ExecutionContext.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.commandQueue", "this.queueOverflo", "this.newTopCommands"},
++writeEntities = {"this.queueOverflow"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleQueueOverflow(/* params */);
+
+diff --git a/net.minecraft.commands.execution.ExecutionContext.java b/net.minecraft.commands.execution.ExecutionContext.java
+--- a/net.minecraft.commands.execution.ExecutionContext.java
++++ b/net.minecraft.commands.execution.ExecutionContext.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.commandQuota", "this.commandLimit", "this.pushNewCommand"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ runCommandQueue(/* params */);
+

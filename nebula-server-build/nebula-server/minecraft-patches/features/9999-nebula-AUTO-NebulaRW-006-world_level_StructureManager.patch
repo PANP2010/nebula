@@ -1,0 +1,82 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.StructureManager.java b/net.minecraft.world.level.StructureManager.java
+--- a/net.minecraft.world.level.StructureManager.java
++++ b/net.minecraft.world.level.StructureManager.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fillStartsForStructur", "this.level"},
++readBlocks = {"{chunk}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startsForStructure(/* params */);
+
+diff --git a/net.minecraft.world.level.StructureManager.java b/net.minecraft.world.level.StructureManager.java
+--- a/net.minecraft.world.level.StructureManager.java
++++ b/net.minecraft.world.level.StructureManager.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.startForStructure", "this.level", "this.getStartForStructur"},
++readBlocks = {"{chunk}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillStartsForStructure(/* params */);
+
+diff --git a/net.minecraft.world.level.StructureManager.java b/net.minecraft.world.level.StructureManager.java
+--- a/net.minecraft.world.level.StructureManager.java
++++ b/net.minecraft.world.level.StructureManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registryAccess(/* params */);
+
+diff --git a/net.minecraft.world.level.StructureManager.java b/net.minecraft.world.level.StructureManager.java
+--- a/net.minecraft.world.level.StructureManager.java
++++ b/net.minecraft.world.level.StructureManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.worldOptions"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldGenerateStructures(/* params */);
+
+diff --git a/net.minecraft.world.level.StructureManager.java b/net.minecraft.world.level.StructureManager.java
+--- a/net.minecraft.world.level.StructureManager.java
++++ b/net.minecraft.world.level.StructureManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forWorldGenRegion(/* params */);
+
+diff --git a/net.minecraft.world.level.StructureManager.java b/net.minecraft.world.level.StructureManager.java
+--- a/net.minecraft.world.level.StructureManager.java
++++ b/net.minecraft.world.level.StructureManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.structureCheck"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkStructurePresence(/* params */);
+

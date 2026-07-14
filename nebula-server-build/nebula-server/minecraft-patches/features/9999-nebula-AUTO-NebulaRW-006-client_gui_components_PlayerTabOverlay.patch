@@ -1,0 +1,82 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.components.PlayerTabOverlay.java b/net.minecraft.client.gui.components.PlayerTabOverlay.java
+--- a/net.minecraft.client.gui.components.PlayerTabOverlay.java
++++ b/net.minecraft.client.gui.components.PlayerTabOverlay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.displayedValu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ displayedValue(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.PlayerTabOverlay.java b/net.minecraft.client.gui.components.PlayerTabOverlay.java
+--- a/net.minecraft.client.gui.components.PlayerTabOverlay.java
++++ b/net.minecraft.client.gui.components.PlayerTabOverlay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lastValue", "this.blinkUntilTic", "this.lastUpdateTic", "this.lastValu"},
++writeEntities = {"this.lastValue", "this.blinkUntilTick", "this.lastUpdateTick"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ update(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.PlayerTabOverlay.java b/net.minecraft.client.gui.components.PlayerTabOverlay.java
+--- a/net.minecraft.client.gui.components.PlayerTabOverlay.java
++++ b/net.minecraft.client.gui.components.PlayerTabOverlay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.foote", "this.heade"},
++writeEntities = {"this.footer", "this.header"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reset(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.PlayerTabOverlay.java b/net.minecraft.client.gui.components.PlayerTabOverlay.java
+--- a/net.minecraft.client.gui.components.PlayerTabOverlay.java
++++ b/net.minecraft.client.gui.components.PlayerTabOverlay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.nameForDisplay", "this.getPlayerInfo", "this.getNameForDispla", "this.playerInfos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.PlayerTabOverlay.java b/net.minecraft.client.gui.components.PlayerTabOverlay.java
+--- a/net.minecraft.client.gui.components.PlayerTabOverlay.java
++++ b/net.minecraft.client.gui.components.PlayerTabOverlay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.extractTablistHeart"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractTablistScore(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.PlayerTabOverlay.java b/net.minecraft.client.gui.components.PlayerTabOverlay.java
+--- a/net.minecraft.client.gui.components.PlayerTabOverlay.java
++++ b/net.minecraft.client.gui.components.PlayerTabOverlay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.healthStates", "this.gui"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractTablistHearts(/* params */);
+

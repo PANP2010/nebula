@@ -1,0 +1,140 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (11 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.multiplayer.ClientChunkCache.java b/net.minecraft.client.multiplayer.ClientChunkCache.java
+--- a/net.minecraft.client.multiplayer.ClientChunkCache.java
++++ b/net.minecraft.client.multiplayer.ClientChunkCache.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.storage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ replaceBiomes(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientChunkCache.java b/net.minecraft.client.multiplayer.ClientChunkCache.java
+--- a/net.minecraft.client.multiplayer.ClientChunkCache.java
++++ b/net.minecraft.client.multiplayer.ClientChunkCache.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.storage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateViewCenter(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientChunkCache.java b/net.minecraft.client.multiplayer.ClientChunkCache.java
+--- a/net.minecraft.client.multiplayer.ClientChunkCache.java
++++ b/net.minecraft.client.multiplayer.ClientChunkCache.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.viewCenterZ", "this.viewCenterX", "this.storage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dumpChunks(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientChunkCache.java b/net.minecraft.client.multiplayer.ClientChunkCache.java
+--- a/net.minecraft.client.multiplayer.ClientChunkCache.java
++++ b/net.minecraft.client.multiplayer.ClientChunkCache.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.inRang", "this.loadedEmptySections"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSectionEmptinessChanged(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientChunkCache.java b/net.minecraft.client.multiplayer.ClientChunkCache.java
+--- a/net.minecraft.client.multiplayer.ClientChunkCache.java
++++ b/net.minecraft.client.multiplayer.ClientChunkCache.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chunks", "this.chunkCount", "this.dropEmptySection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ drop(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientChunkCache.java b/net.minecraft.client.multiplayer.ClientChunkCache.java
+--- a/net.minecraft.client.multiplayer.ClientChunkCache.java
++++ b/net.minecraft.client.multiplayer.ClientChunkCache.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getLoadedChunksCoun", "this.storage", "this.loadedChunksCount"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ gatherStats(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientChunkCache.java b/net.minecraft.client.multiplayer.ClientChunkCache.java
+--- a/net.minecraft.client.multiplayer.ClientChunkCache.java
++++ b/net.minecraft.client.multiplayer.ClientChunkCache.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.loadedEmptySections"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropEmptySections(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientChunkCache.java b/net.minecraft.client.multiplayer.ClientChunkCache.java
+--- a/net.minecraft.client.multiplayer.ClientChunkCache.java
++++ b/net.minecraft.client.multiplayer.ClientChunkCache.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chunkRadius", "this.viewCenterZ", "this.chunkRadiu", "this.viewCenterX"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ inRange(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientChunkCache.java b/net.minecraft.client.multiplayer.ClientChunkCache.java
+--- a/net.minecraft.client.multiplayer.ClientChunkCache.java
++++ b/net.minecraft.client.multiplayer.ClientChunkCache.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.chunks", "this.chunkCount", "this.dropEmptySection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ replace(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientChunkCache.java b/net.minecraft.client.multiplayer.ClientChunkCache.java
+--- a/net.minecraft.client.multiplayer.ClientChunkCache.java
++++ b/net.minecraft.client.multiplayer.ClientChunkCache.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.storage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateViewRadius(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientChunkCache.java b/net.minecraft.client.multiplayer.ClientChunkCache.java
+--- a/net.minecraft.client.multiplayer.ClientChunkCache.java
++++ b/net.minecraft.client.multiplayer.ClientChunkCache.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.loadedEmptySections"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ refreshEmptySections(/* params */);
+

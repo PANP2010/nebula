@@ -1,0 +1,230 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (18 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.resources.server.ServerPackManager.java b/net.minecraft.client.resources.server.ServerPackManager.java
+--- a/net.minecraft.client.resources.server.ServerPackManager.java
++++ b/net.minecraft.client.resources.server.ServerPackManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.packs"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onFailure(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.ServerPackManager.java b/net.minecraft.client.resources.server.ServerPackManager.java
+--- a/net.minecraft.client.resources.server.ServerPackManager.java
++++ b/net.minecraft.client.resources.server.ServerPackManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.findPackInf", "this.registerForUpdat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ popPack(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.ServerPackManager.java b/net.minecraft.client.resources.server.ServerPackManager.java
+--- a/net.minecraft.client.resources.server.ServerPackManager.java
++++ b/net.minecraft.client.resources.server.ServerPackManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.packs"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onDownload(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.ServerPackManager.java b/net.minecraft.client.resources.server.ServerPackManager.java
+--- a/net.minecraft.client.resources.server.ServerPackManager.java
++++ b/net.minecraft.client.resources.server.ServerPackManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.packs"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ triggerReloadIfNeeded(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.ServerPackManager.java b/net.minecraft.client.resources.server.ServerPackManager.java
+--- a/net.minecraft.client.resources.server.ServerPackManager.java
++++ b/net.minecraft.client.resources.server.ServerPackManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.packs"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ cleanupRemovedPacks(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.ServerPackManager.java b/net.minecraft.client.resources.server.ServerPackManager.java
+--- a/net.minecraft.client.resources.server.ServerPackManager.java
++++ b/net.minecraft.client.resources.server.ServerPackManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateDownload", "this.triggerReloadIfNeede"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.ServerPackManager.java b/net.minecraft.client.resources.server.ServerPackManager.java
+--- a/net.minecraft.client.resources.server.ServerPackManager.java
++++ b/net.minecraft.client.resources.server.ServerPackManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.packPromptStatu", "this.packs", "this.acceptPac"},
++writeEntities = {"this.packPromptStatus"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ allowServerPacks(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.ServerPackManager.java b/net.minecraft.client.resources.server.ServerPackManager.java
+--- a/net.minecraft.client.resources.server.ServerPackManager.java
++++ b/net.minecraft.client.resources.server.ServerPackManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.packs"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ popAll(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.ServerPackManager.java b/net.minecraft.client.resources.server.ServerPackManager.java
+--- a/net.minecraft.client.resources.server.ServerPackManager.java
++++ b/net.minecraft.client.resources.server.ServerPackManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.packLoadFeedback"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSuccess(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.ServerPackManager.java b/net.minecraft.client.resources.server.ServerPackManager.java
+--- a/net.minecraft.client.resources.server.ServerPackManager.java
++++ b/net.minecraft.client.resources.server.ServerPackManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.packPromptStatu"},
++writeEntities = {"this.packPromptStatus"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetPromptStatus(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.ServerPackManager.java b/net.minecraft.client.resources.server.ServerPackManager.java
+--- a/net.minecraft.client.resources.server.ServerPackManager.java
++++ b/net.minecraft.client.resources.server.ServerPackManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.packLoadFeedback", "this.packPromptStatu"},
++writeEntities = {"this.packPromptStatus"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pushPack(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.ServerPackManager.java b/net.minecraft.client.resources.server.ServerPackManager.java
+--- a/net.minecraft.client.resources.server.ServerPackManager.java
++++ b/net.minecraft.client.resources.server.ServerPackManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.packs"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ markExistingPacksAsRemoved(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.ServerPackManager.java b/net.minecraft.client.resources.server.ServerPackManager.java
+--- a/net.minecraft.client.resources.server.ServerPackManager.java
++++ b/net.minecraft.client.resources.server.ServerPackManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.markExistingPacksAsRemove", "this.packPromptStatu", "this.packs", "this.acceptPac"},
++writeEntities = {"this.packPromptStatus"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pushNewPack(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.ServerPackManager.java b/net.minecraft.client.resources.server.ServerPackManager.java
+--- a/net.minecraft.client.resources.server.ServerPackManager.java
++++ b/net.minecraft.client.resources.server.ServerPackManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.packLoadFeedback"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ acceptPack(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.ServerPackManager.java b/net.minecraft.client.resources.server.ServerPackManager.java
+--- a/net.minecraft.client.resources.server.ServerPackManager.java
++++ b/net.minecraft.client.resources.server.ServerPackManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.packLoadFeedback", "this.packPromptStatu"},
++writeEntities = {"this.packPromptStatus"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pushLocalPack(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.ServerPackManager.java b/net.minecraft.client.resources.server.ServerPackManager.java
+--- a/net.minecraft.client.resources.server.ServerPackManager.java
++++ b/net.minecraft.client.resources.server.ServerPackManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.packs"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateDownloads(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.ServerPackManager.java b/net.minecraft.client.resources.server.ServerPackManager.java
+--- a/net.minecraft.client.resources.server.ServerPackManager.java
++++ b/net.minecraft.client.resources.server.ServerPackManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.packPromptStatu", "this.packs"},
++writeEntities = {"this.packPromptStatus"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ rejectServerPacks(/* params */);
+
+diff --git a/net.minecraft.client.resources.server.ServerPackManager.java b/net.minecraft.client.resources.server.ServerPackManager.java
+--- a/net.minecraft.client.resources.server.ServerPackManager.java
++++ b/net.minecraft.client.resources.server.ServerPackManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateRequest"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerForUpdate(/* params */);
+

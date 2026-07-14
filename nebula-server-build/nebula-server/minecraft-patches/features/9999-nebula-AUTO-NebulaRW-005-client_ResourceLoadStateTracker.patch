@@ -1,0 +1,70 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.ResourceLoadStateTracker.java b/net.minecraft.client.ResourceLoadStateTracker.java
+--- a/net.minecraft.client.ResourceLoadStateTracker.java
++++ b/net.minecraft.client.ResourceLoadStateTracker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.reloadStat"},
++writeEntities = {"this.reloadState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ finishReload(/* params */);
+
+diff --git a/net.minecraft.client.ResourceLoadStateTracker.java b/net.minecraft.client.ResourceLoadStateTracker.java
+--- a/net.minecraft.client.ResourceLoadStateTracker.java
++++ b/net.minecraft.client.ResourceLoadStateTracker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.reloadCount", "this.reloadState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillCrashReport(/* params */);
+
+diff --git a/net.minecraft.client.ResourceLoadStateTracker.java b/net.minecraft.client.ResourceLoadStateTracker.java
+--- a/net.minecraft.client.ResourceLoadStateTracker.java
++++ b/net.minecraft.client.ResourceLoadStateTracker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.reloadReason", "this.recoveryReloadInfo", "this.finished", "this.packs"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillCrashInfo(/* params */);
+
+diff --git a/net.minecraft.client.ResourceLoadStateTracker.java b/net.minecraft.client.ResourceLoadStateTracker.java
+--- a/net.minecraft.client.ResourceLoadStateTracker.java
++++ b/net.minecraft.client.ResourceLoadStateTracker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.reloadCount", "this.reloadState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startReload(/* params */);
+
+diff --git a/net.minecraft.client.ResourceLoadStateTracker.java b/net.minecraft.client.ResourceLoadStateTracker.java
+--- a/net.minecraft.client.ResourceLoadStateTracker.java
++++ b/net.minecraft.client.ResourceLoadStateTracker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.reloadStat"},
++writeEntities = {"this.reloadState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startRecovery(/* params */);
+

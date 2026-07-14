@@ -1,0 +1,44 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (3 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.ai.goal.MoveThroughVillageGoal.java b/net.minecraft.world.entity.ai.goal.MoveThroughVillageGoal.java
+--- a/net.minecraft.world.entity.ai.goal.MoveThroughVillageGoal.java
++++ b/net.minecraft.world.entity.ai.goal.MoveThroughVillageGoal.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.visited"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateVisited(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.goal.MoveThroughVillageGoal.java b/net.minecraft.world.entity.ai.goal.MoveThroughVillageGoal.java
+--- a/net.minecraft.world.entity.ai.goal.MoveThroughVillageGoal.java
++++ b/net.minecraft.world.entity.ai.goal.MoveThroughVillageGoal.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mob", "this.poiPos", "this.visited", "this.distanceToPoi"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.goal.MoveThroughVillageGoal.java b/net.minecraft.world.entity.ai.goal.MoveThroughVillageGoal.java
+--- a/net.minecraft.world.entity.ai.goal.MoveThroughVillageGoal.java
++++ b/net.minecraft.world.entity.ai.goal.MoveThroughVillageGoal.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.speedModifier", "this.mob", "this.path"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ start(/* params */);
+

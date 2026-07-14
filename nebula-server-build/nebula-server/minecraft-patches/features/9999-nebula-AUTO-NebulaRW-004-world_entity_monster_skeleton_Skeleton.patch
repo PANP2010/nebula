@@ -1,0 +1,57 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.monster.skeleton.Skeleton.java b/net.minecraft.world.entity.monster.skeleton.Skeleton.java
+--- a/net.minecraft.world.entity.monster.skeleton.Skeleton.java
++++ b/net.minecraft.world.entity.monster.skeleton.Skeleton.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.startFreezeConversio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.skeleton.Skeleton.java b/net.minecraft.world.entity.monster.skeleton.Skeleton.java
+--- a/net.minecraft.world.entity.monster.skeleton.Skeleton.java
++++ b/net.minecraft.world.entity.monster.skeleton.Skeleton.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.conversionTim", "this.setFreezeConvertin"},
++writeEntities = {"this.freezeConverting", "this.conversionTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startFreezeConversion(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.skeleton.Skeleton.java b/net.minecraft.world.entity.monster.skeleton.Skeleton.java
+--- a/net.minecraft.world.entity.monster.skeleton.Skeleton.java
++++ b/net.minecraft.world.entity.monster.skeleton.Skeleton.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.skeleton.Skeleton.java b/net.minecraft.world.entity.monster.skeleton.Skeleton.java
+--- a/net.minecraft.world.entity.monster.skeleton.Skeleton.java
++++ b/net.minecraft.world.entity.monster.skeleton.Skeleton.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockPositio", "this.convertT", "this.leve", "this.isSilen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ doFreezeConversion(/* params */);
+

@@ -1,0 +1,180 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (14 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.components.AbstractScrollArea.java b/net.minecraft.client.gui.components.AbstractScrollArea.java
+--- a/net.minecraft.client.gui.components.AbstractScrollArea.java
++++ b/net.minecraft.client.gui.components.AbstractScrollArea.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.contentHeigh", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scrollerHeight(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractScrollArea.java b/net.minecraft.client.gui.components.AbstractScrollArea.java
+--- a/net.minecraft.client.gui.components.AbstractScrollArea.java
++++ b/net.minecraft.client.gui.components.AbstractScrollArea.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setScrollAmoun", "this.scrollAmount"},
++writeEntities = {"this.scrollAmount"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ refreshScrollAmount(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractScrollArea.java b/net.minecraft.client.gui.components.AbstractScrollArea.java
+--- a/net.minecraft.client.gui.components.AbstractScrollArea.java
++++ b/net.minecraft.client.gui.components.AbstractScrollArea.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.contentHeigh", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ maxScrollAmount(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractScrollArea.java b/net.minecraft.client.gui.components.AbstractScrollArea.java
+--- a/net.minecraft.client.gui.components.AbstractScrollArea.java
++++ b/net.minecraft.client.gui.components.AbstractScrollArea.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.scrollbarSettings"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scrollRate(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractScrollArea.java b/net.minecraft.client.gui.components.AbstractScrollArea.java
+--- a/net.minecraft.client.gui.components.AbstractScrollArea.java
++++ b/net.minecraft.client.gui.components.AbstractScrollArea.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.scrollAmoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scrollAmount(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractScrollArea.java b/net.minecraft.client.gui.components.AbstractScrollArea.java
+--- a/net.minecraft.client.gui.components.AbstractScrollArea.java
++++ b/net.minecraft.client.gui.components.AbstractScrollArea.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.scrollbarSettings"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scrollbarWidth(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractScrollArea.java b/net.minecraft.client.gui.components.AbstractScrollArea.java
+--- a/net.minecraft.client.gui.components.AbstractScrollArea.java
++++ b/net.minecraft.client.gui.components.AbstractScrollArea.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isValidClickButto", "this.scrollin", "this.scrollabl", "this.isOverScrollba"},
++writeEntities = {"this.scrolling"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateScrolling(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractScrollArea.java b/net.minecraft.client.gui.components.AbstractScrollArea.java
+--- a/net.minecraft.client.gui.components.AbstractScrollArea.java
++++ b/net.minecraft.client.gui.components.AbstractScrollArea.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractScrollbar(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractScrollArea.java b/net.minecraft.client.gui.components.AbstractScrollArea.java
+--- a/net.minecraft.client.gui.components.AbstractScrollArea.java
++++ b/net.minecraft.client.gui.components.AbstractScrollArea.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.visible"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mouseScrolled(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractScrollArea.java b/net.minecraft.client.gui.components.AbstractScrollArea.java
+--- a/net.minecraft.client.gui.components.AbstractScrollArea.java
++++ b/net.minecraft.client.gui.components.AbstractScrollArea.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.scrollin"},
++writeEntities = {"this.scrolling"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onRelease(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractScrollArea.java b/net.minecraft.client.gui.components.AbstractScrollArea.java
+--- a/net.minecraft.client.gui.components.AbstractScrollArea.java
++++ b/net.minecraft.client.gui.components.AbstractScrollArea.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.maxScrollAmoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scrollable(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractScrollArea.java b/net.minecraft.client.gui.components.AbstractScrollArea.java
+--- a/net.minecraft.client.gui.components.AbstractScrollArea.java
++++ b/net.minecraft.client.gui.components.AbstractScrollArea.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getRigh", "this.right", "this.scrollbarWidt"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scrollBarX(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractScrollArea.java b/net.minecraft.client.gui.components.AbstractScrollArea.java
+--- a/net.minecraft.client.gui.components.AbstractScrollArea.java
++++ b/net.minecraft.client.gui.components.AbstractScrollArea.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scrollBarY(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractScrollArea.java b/net.minecraft.client.gui.components.AbstractScrollArea.java
+--- a/net.minecraft.client.gui.components.AbstractScrollArea.java
++++ b/net.minecraft.client.gui.components.AbstractScrollArea.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.scrolling", "this.setScrollAmoun", "this.get", "this.y"},
++writeEntities = {"this.scrollAmount"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mouseDragged(/* params */);
+

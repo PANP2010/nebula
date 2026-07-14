@@ -1,0 +1,46 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (3 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.renderer.feature.BlockFeatureRenderer.java b/net.minecraft.client.renderer.feature.BlockFeatureRenderer.java
+--- a/net.minecraft.client.renderer.feature.BlockFeatureRenderer.java
++++ b/net.minecraft.client.renderer.feature.BlockFeatureRenderer.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random", "this.quadInstance", "this.parts"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderBreakingBlockModelSubmits(/* params */);
+
+diff --git a/net.minecraft.client.renderer.feature.BlockFeatureRenderer.java b/net.minecraft.client.renderer.feature.BlockFeatureRenderer.java
+--- a/net.minecraft.client.renderer.feature.BlockFeatureRenderer.java
++++ b/net.minecraft.client.renderer.feature.BlockFeatureRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.renderBlockModelSubmit", "this.renderMovingBlockSubmit"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderSolid(/* params */);
+
+diff --git a/net.minecraft.client.renderer.feature.BlockFeatureRenderer.java b/net.minecraft.client.renderer.feature.BlockFeatureRenderer.java
+--- a/net.minecraft.client.renderer.feature.BlockFeatureRenderer.java
++++ b/net.minecraft.client.renderer.feature.BlockFeatureRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.renderBlockModelSubmit", "this.renderBreakingBlockModelSubmit", "this.renderMovingBlockSubmit"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderTranslucent(/* params */);
+

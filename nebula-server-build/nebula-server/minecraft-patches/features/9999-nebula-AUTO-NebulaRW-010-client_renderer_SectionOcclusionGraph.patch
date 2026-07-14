@@ -1,0 +1,132 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (10 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.renderer.SectionOcclusionGraph.java b/net.minecraft.client.renderer.SectionOcclusionGraph.java
+--- a/net.minecraft.client.renderer.SectionOcclusionGraph.java
++++ b/net.minecraft.client.renderer.SectionOcclusionGraph.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.section"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ equals(/* params */);
+
+diff --git a/net.minecraft.client.renderer.SectionOcclusionGraph.java b/net.minecraft.client.renderer.SectionOcclusionGraph.java
+--- a/net.minecraft.client.renderer.SectionOcclusionGraph.java
++++ b/net.minecraft.client.renderer.SectionOcclusionGraph.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.fullUpdateTask", "this.needsFullUpdate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scheduleFullUpdate(/* params */);
+
+diff --git a/net.minecraft.client.renderer.SectionOcclusionGraph.java b/net.minecraft.client.renderer.SectionOcclusionGraph.java
+--- a/net.minecraft.client.renderer.SectionOcclusionGraph.java
++++ b/net.minecraft.client.renderer.SectionOcclusionGraph.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.needsFullUpdat"},
++writeEntities = {"this.needsFullUpdate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ invalidate(/* params */);
+
+diff --git a/net.minecraft.client.renderer.SectionOcclusionGraph.java b/net.minecraft.client.renderer.SectionOcclusionGraph.java
+--- a/net.minecraft.client.renderer.SectionOcclusionGraph.java
++++ b/net.minecraft.client.renderer.SectionOcclusionGraph.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.viewArea", "this.isInViewDistanc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ initializeQueueForFullUpdate(/* params */);
+
+diff --git a/net.minecraft.client.renderer.SectionOcclusionGraph.java b/net.minecraft.client.renderer.SectionOcclusionGraph.java
+--- a/net.minecraft.client.renderer.SectionOcclusionGraph.java
++++ b/net.minecraft.client.renderer.SectionOcclusionGraph.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.nextGraphEvents"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ schedulePropagationFrom(/* params */);
+
+diff --git a/net.minecraft.client.renderer.SectionOcclusionGraph.java b/net.minecraft.client.renderer.SectionOcclusionGraph.java
+--- a/net.minecraft.client.renderer.SectionOcclusionGraph.java
++++ b/net.minecraft.client.renderer.SectionOcclusionGraph.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fullUpdateTas", "this.fullUpdateTask"},
++writeEntities = {"this.fullUpdateTask"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ waitAndReset(/* params */);
+
+diff --git a/net.minecraft.client.renderer.SectionOcclusionGraph.java b/net.minecraft.client.renderer.SectionOcclusionGraph.java
+--- a/net.minecraft.client.renderer.SectionOcclusionGraph.java
++++ b/net.minecraft.client.renderer.SectionOcclusionGraph.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fullUpdateTas", "this.fullUpdateTask", "this.scheduleFullUpdat", "this.needsFullUpdate"},
++writeEntities = {"this.fullUpdateTask"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ update(/* params */);
+
+diff --git a/net.minecraft.client.renderer.SectionOcclusionGraph.java b/net.minecraft.client.renderer.SectionOcclusionGraph.java
+--- a/net.minecraft.client.renderer.SectionOcclusionGraph.java
++++ b/net.minecraft.client.renderer.SectionOcclusionGraph.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.queueSectionsWithNewNeighbor", "this.currentGraph"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ runPartialUpdate(/* params */);
+
+diff --git a/net.minecraft.client.renderer.SectionOcclusionGraph.java b/net.minecraft.client.renderer.SectionOcclusionGraph.java
+--- a/net.minecraft.client.renderer.SectionOcclusionGraph.java
++++ b/net.minecraft.client.renderer.SectionOcclusionGraph.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.needsFrustumUpdate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ consumeFrustumUpdate(/* params */);
+
+diff --git a/net.minecraft.client.renderer.SectionOcclusionGraph.java b/net.minecraft.client.renderer.SectionOcclusionGraph.java
+--- a/net.minecraft.client.renderer.SectionOcclusionGraph.java
++++ b/net.minecraft.client.renderer.SectionOcclusionGraph.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.nextGraphEvents", "this.addNeighbor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onChunkReadyToRender(/* params */);
+

@@ -1,0 +1,208 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (16 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.ServerScoreboard.java b/net.minecraft.server.ServerScoreboard.java
+--- a/net.minecraft.server.ServerScoreboard.java
++++ b/net.minecraft.server.ServerScoreboard.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.dirty", "this.stor", "this.dirt"},
++writeEntities = {"this.dirty"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ storeToSaveDataIfDirty(/* params */);
+
+diff --git a/net.minecraft.server.ServerScoreboard.java b/net.minecraft.server.ServerScoreboard.java
+--- a/net.minecraft.server.ServerScoreboard.java
++++ b/net.minecraft.server.ServerScoreboard.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateTeamWaypoints(/* params */);
+
+diff --git a/net.minecraft.server.ServerScoreboard.java b/net.minecraft.server.ServerScoreboard.java
+--- a/net.minecraft.server.ServerScoreboard.java
++++ b/net.minecraft.server.ServerScoreboard.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.loadPlayerScor", "this.loadObjectiv", "this.setDisplayObjectiv", "this.getObjectiv", "this.objective"},
++writeEntities = {"this.displayObjective"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ load(/* params */);
+
+diff --git a/net.minecraft.server.ServerScoreboard.java b/net.minecraft.server.ServerScoreboard.java
+--- a/net.minecraft.server.ServerScoreboard.java
++++ b/net.minecraft.server.ServerScoreboard.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setDirt", "this.server"},
++writeEntities = {"this.dirty"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onPlayerRemoved(/* params */);
+
+diff --git a/net.minecraft.server.ServerScoreboard.java b/net.minecraft.server.ServerScoreboard.java
+--- a/net.minecraft.server.ServerScoreboard.java
++++ b/net.minecraft.server.ServerScoreboard.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server", "this.trackedObjectives"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onScoreChanged(/* params */);
+
+diff --git a/net.minecraft.server.ServerScoreboard.java b/net.minecraft.server.ServerScoreboard.java
+--- a/net.minecraft.server.ServerScoreboard.java
++++ b/net.minecraft.server.ServerScoreboard.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setDirt", "this.server", "this.updateTeamWaypoint"},
++writeEntities = {"this.dirty"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onTeamChanged(/* params */);
+
+diff --git a/net.minecraft.server.ServerScoreboard.java b/net.minecraft.server.ServerScoreboard.java
+--- a/net.minecraft.server.ServerScoreboard.java
++++ b/net.minecraft.server.ServerScoreboard.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server", "this.trackedObjectives"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onPlayerScoreRemoved(/* params */);
+
+diff --git a/net.minecraft.server.ServerScoreboard.java b/net.minecraft.server.ServerScoreboard.java
+--- a/net.minecraft.server.ServerScoreboard.java
++++ b/net.minecraft.server.ServerScoreboard.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server", "this.trackedObjectives"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onObjectiveChanged(/* params */);
+
+diff --git a/net.minecraft.server.ServerScoreboard.java b/net.minecraft.server.ServerScoreboard.java
+--- a/net.minecraft.server.ServerScoreboard.java
++++ b/net.minecraft.server.ServerScoreboard.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setDirt", "this.server", "this.updateTeamWaypoint"},
++writeEntities = {"this.dirty"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onTeamRemoved(/* params */);
+
+diff --git a/net.minecraft.server.ServerScoreboard.java b/net.minecraft.server.ServerScoreboard.java
+--- a/net.minecraft.server.ServerScoreboard.java
++++ b/net.minecraft.server.ServerScoreboard.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server", "this.getStopTrackingPacket", "this.stopTrackingPackets"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stopTrackingObjective(/* params */);
+
+diff --git a/net.minecraft.server.ServerScoreboard.java b/net.minecraft.server.ServerScoreboard.java
+--- a/net.minecraft.server.ServerScoreboard.java
++++ b/net.minecraft.server.ServerScoreboard.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setDirt", "this.server"},
++writeEntities = {"this.dirty"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onTeamAdded(/* params */);
+
+diff --git a/net.minecraft.server.ServerScoreboard.java b/net.minecraft.server.ServerScoreboard.java
+--- a/net.minecraft.server.ServerScoreboard.java
++++ b/net.minecraft.server.ServerScoreboard.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updatePlayerWaypoint(/* params */);
+
+diff --git a/net.minecraft.server.ServerScoreboard.java b/net.minecraft.server.ServerScoreboard.java
+--- a/net.minecraft.server.ServerScoreboard.java
++++ b/net.minecraft.server.ServerScoreboard.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.stopTrackingObjectiv", "this.trackedObjectives"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onObjectiveRemoved(/* params */);
+
+diff --git a/net.minecraft.server.ServerScoreboard.java b/net.minecraft.server.ServerScoreboard.java
+--- a/net.minecraft.server.ServerScoreboard.java
++++ b/net.minecraft.server.ServerScoreboard.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setDirt"},
++writeEntities = {"this.dirty"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onScoreLockChanged(/* params */);
+
+diff --git a/net.minecraft.server.ServerScoreboard.java b/net.minecraft.server.ServerScoreboard.java
+--- a/net.minecraft.server.ServerScoreboard.java
++++ b/net.minecraft.server.ServerScoreboard.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setDirt"},
++writeEntities = {"this.dirty"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onObjectiveAdded(/* params */);
+
+diff --git a/net.minecraft.server.ServerScoreboard.java b/net.minecraft.server.ServerScoreboard.java
+--- a/net.minecraft.server.ServerScoreboard.java
++++ b/net.minecraft.server.ServerScoreboard.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server", "this.getStartTrackingPacket", "this.startTrackingPackets"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startTrackingObjective(/* params */);
+

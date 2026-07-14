@@ -1,0 +1,46 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (3 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.ai.goal.RandomStandGoal.java b/net.minecraft.world.entity.ai.goal.RandomStandGoal.java
+--- a/net.minecraft.world.entity.ai.goal.RandomStandGoal.java
++++ b/net.minecraft.world.entity.ai.goal.RandomStandGoal.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.horse"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playStandSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.goal.RandomStandGoal.java b/net.minecraft.world.entity.ai.goal.RandomStandGoal.java
+--- a/net.minecraft.world.entity.ai.goal.RandomStandGoal.java
++++ b/net.minecraft.world.entity.ai.goal.RandomStandGoal.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.nextStan"},
++writeEntities = {"this.nextStand"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetStandInterval(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.goal.RandomStandGoal.java b/net.minecraft.world.entity.ai.goal.RandomStandGoal.java
+--- a/net.minecraft.world.entity.ai.goal.RandomStandGoal.java
++++ b/net.minecraft.world.entity.ai.goal.RandomStandGoal.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.horse", "this.playStandSoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ start(/* params */);
+

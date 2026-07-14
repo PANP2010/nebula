@@ -1,0 +1,131 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (10 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.projectile.FireworkRocketEntity.java b/net.minecraft.world.entity.projectile.FireworkRocketEntity.java
+--- a/net.minecraft.world.entity.projectile.FireworkRocketEntity.java
++++ b/net.minecraft.world.entity.projectile.FireworkRocketEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leve", "this.explod", "this.hasExplosio"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onHitBlock(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.FireworkRocketEntity.java b/net.minecraft.world.entity.projectile.FireworkRocketEntity.java
+--- a/net.minecraft.world.entity.projectile.FireworkRocketEntity.java
++++ b/net.minecraft.world.entity.projectile.FireworkRocketEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleEntityEvent(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.FireworkRocketEntity.java b/net.minecraft.world.entity.projectile.FireworkRocketEntity.java
+--- a/net.minecraft.world.entity.projectile.FireworkRocketEntity.java
++++ b/net.minecraft.world.entity.projectile.FireworkRocketEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.positio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateHorizontalHurtKnockbackDirection(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.FireworkRocketEntity.java b/net.minecraft.world.entity.projectile.FireworkRocketEntity.java
+--- a/net.minecraft.world.entity.projectile.FireworkRocketEntity.java
++++ b/net.minecraft.world.entity.projectile.FireworkRocketEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lifetim", "this.lif", "this.entityData"},
++writeEntities = {"this.lifetime", "this.life"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.FireworkRocketEntity.java b/net.minecraft.world.entity.projectile.FireworkRocketEntity.java
+--- a/net.minecraft.world.entity.projectile.FireworkRocketEntity.java
++++ b/net.minecraft.world.entity.projectile.FireworkRocketEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.owner", "this.discar", "this.getOwne", "this.gameEven", "this.dealExplosionDamag"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ explode(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.FireworkRocketEntity.java b/net.minecraft.world.entity.projectile.FireworkRocketEntity.java
+--- a/net.minecraft.world.entity.projectile.FireworkRocketEntity.java
++++ b/net.minecraft.world.entity.projectile.FireworkRocketEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isAttachedToEntit"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldRenderAtSqrDistance(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.FireworkRocketEntity.java b/net.minecraft.world.entity.projectile.FireworkRocketEntity.java
+--- a/net.minecraft.world.entity.projectile.FireworkRocketEntity.java
++++ b/net.minecraft.world.entity.projectile.FireworkRocketEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isAttachedToEntit"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldRender(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.FireworkRocketEntity.java b/net.minecraft.world.entity.projectile.FireworkRocketEntity.java
+--- a/net.minecraft.world.entity.projectile.FireworkRocketEntity.java
++++ b/net.minecraft.world.entity.projectile.FireworkRocketEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leve", "this.explod"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onHitEntity(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.FireworkRocketEntity.java b/net.minecraft.world.entity.projectile.FireworkRocketEntity.java
+--- a/net.minecraft.world.entity.projectile.FireworkRocketEntity.java
++++ b/net.minecraft.world.entity.projectile.FireworkRocketEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.attachedToEntit", "this.isAttachedToEntit", "this.leve", "this.entityData"},
++writeEntities = {"this.attachedToEntity"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.FireworkRocketEntity.java b/net.minecraft.world.entity.projectile.FireworkRocketEntity.java
+--- a/net.minecraft.world.entity.projectile.FireworkRocketEntity.java
++++ b/net.minecraft.world.entity.projectile.FireworkRocketEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.explosions", "this.getExplosion"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dealExplosionDamage(/* params */);
+

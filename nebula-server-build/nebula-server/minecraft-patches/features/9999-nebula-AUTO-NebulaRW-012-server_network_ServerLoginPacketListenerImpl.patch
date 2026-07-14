@@ -1,0 +1,158 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (12 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.network.ServerLoginPacketListenerImpl.java b/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
+--- a/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
++++ b/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.state"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillListenerSpecificCrashDetails(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerLoginPacketListenerImpl.java b/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
+--- a/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
++++ b/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.disconnec"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleCookieResponse(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerLoginPacketListenerImpl.java b/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
+--- a/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
++++ b/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server", "this.stat", "this.transferred", "this.authenticatedProfile", "this.connection"},
++writeEntities = {"this.state"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleLoginAcknowledgement(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerLoginPacketListenerImpl.java b/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
+--- a/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
++++ b/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server", "this.stat", "this.challenge"},
++writeEntities = {"this.state"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleKey(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerLoginPacketListenerImpl.java b/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
+--- a/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
++++ b/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server", "this.connection", "this.disconnec"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ verifyLoginAndFinishConnectionSetup(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerLoginPacketListenerImpl.java b/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
+--- a/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
++++ b/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.authenticatedProfil", "this.stat"},
++writeEntities = {"this.authenticatedProfile", "this.state"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startClientVerification(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerLoginPacketListenerImpl.java b/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
+--- a/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
++++ b/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.disconnec"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleCustomQueryPacket(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerLoginPacketListenerImpl.java b/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
+--- a/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
++++ b/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.requestedUsernam", "this.server", "this.stat", "this.requestedUsername", "this.startClientVerificatio"},
++writeEntities = {"this.requestedUsername", "this.state"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleHello(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerLoginPacketListenerImpl.java b/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
+--- a/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
++++ b/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.userName", "this.getUserNam"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onDisconnect(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerLoginPacketListenerImpl.java b/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
+--- a/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
++++ b/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connection", "this.userName", "this.getUserNam"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ disconnect(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerLoginPacketListenerImpl.java b/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
+--- a/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
++++ b/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.stat", "this.verifyLoginAndFinishConnectionSetu", "this.authenticatedProfile"},
++writeEntities = {"this.state"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerLoginPacketListenerImpl.java b/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
+--- a/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
++++ b/net.minecraft.server.network.ServerLoginPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.stat", "this.connection"},
++writeEntities = {"this.state"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ finishLoginAndWaitForClient(/* params */);
+

@@ -1,0 +1,69 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.projectile.throwableitemprojectile.AbstractThrownPotion.java b/net.minecraft.world.entity.projectile.throwableitemprojectile.AbstractThrownPotion.java
+--- a/net.minecraft.world.entity.projectile.throwableitemprojectile.AbstractThrownPotion.java
++++ b/net.minecraft.world.entity.projectile.throwableitemprojectile.AbstractThrownPotion.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leve"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dowseFire(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.throwableitemprojectile.AbstractThrownPotion.java b/net.minecraft.world.entity.projectile.throwableitemprojectile.AbstractThrownPotion.java
+--- a/net.minecraft.world.entity.projectile.throwableitemprojectile.AbstractThrownPotion.java
++++ b/net.minecraft.world.entity.projectile.throwableitemprojectile.AbstractThrownPotion.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onHitAsWater(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.throwableitemprojectile.AbstractThrownPotion.java b/net.minecraft.world.entity.projectile.throwableitemprojectile.AbstractThrownPotion.java
+--- a/net.minecraft.world.entity.projectile.throwableitemprojectile.AbstractThrownPotion.java
++++ b/net.minecraft.world.entity.projectile.throwableitemprojectile.AbstractThrownPotion.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.positio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateHorizontalHurtKnockbackDirection(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.throwableitemprojectile.AbstractThrownPotion.java b/net.minecraft.world.entity.projectile.throwableitemprojectile.AbstractThrownPotion.java
+--- a/net.minecraft.world.entity.projectile.throwableitemprojectile.AbstractThrownPotion.java
++++ b/net.minecraft.world.entity.projectile.throwableitemprojectile.AbstractThrownPotion.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.item", "this.leve", "this.getIte", "this.dowseFir"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onHitBlock(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.throwableitemprojectile.AbstractThrownPotion.java b/net.minecraft.world.entity.projectile.throwableitemprojectile.AbstractThrownPotion.java
+--- a/net.minecraft.world.entity.projectile.throwableitemprojectile.AbstractThrownPotion.java
++++ b/net.minecraft.world.entity.projectile.throwableitemprojectile.AbstractThrownPotion.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.item", "this.leve", "this.getIte", "this.onHitAsWate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onHit(/* params */);
+

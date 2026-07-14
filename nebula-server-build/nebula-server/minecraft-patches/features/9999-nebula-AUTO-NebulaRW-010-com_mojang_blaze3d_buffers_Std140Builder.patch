@@ -1,0 +1,128 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (10 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/com.mojang.blaze3d.buffers.Std140Builder.java b/com.mojang.blaze3d.buffers.Std140Builder.java
+--- a/com.mojang.blaze3d.buffers.Std140Builder.java
++++ b/com.mojang.blaze3d.buffers.Std140Builder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.alig", "this.buffer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putInt(/* params */);
+
+diff --git a/com.mojang.blaze3d.buffers.Std140Builder.java b/com.mojang.blaze3d.buffers.Std140Builder.java
+--- a/com.mojang.blaze3d.buffers.Std140Builder.java
++++ b/com.mojang.blaze3d.buffers.Std140Builder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.alig", "this.buffer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putIVec3(/* params */);
+
+diff --git a/com.mojang.blaze3d.buffers.Std140Builder.java b/com.mojang.blaze3d.buffers.Std140Builder.java
+--- a/com.mojang.blaze3d.buffers.Std140Builder.java
++++ b/com.mojang.blaze3d.buffers.Std140Builder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.alig", "this.buffer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putIVec4(/* params */);
+
+diff --git a/com.mojang.blaze3d.buffers.Std140Builder.java b/com.mojang.blaze3d.buffers.Std140Builder.java
+--- a/com.mojang.blaze3d.buffers.Std140Builder.java
++++ b/com.mojang.blaze3d.buffers.Std140Builder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.alig", "this.buffer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putIVec2(/* params */);
+
+diff --git a/com.mojang.blaze3d.buffers.Std140Builder.java b/com.mojang.blaze3d.buffers.Std140Builder.java
+--- a/com.mojang.blaze3d.buffers.Std140Builder.java
++++ b/com.mojang.blaze3d.buffers.Std140Builder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.start", "this.buffer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ align(/* params */);
+
+diff --git a/com.mojang.blaze3d.buffers.Std140Builder.java b/com.mojang.blaze3d.buffers.Std140Builder.java
+--- a/com.mojang.blaze3d.buffers.Std140Builder.java
++++ b/com.mojang.blaze3d.buffers.Std140Builder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.alig", "this.buffer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putVec3(/* params */);
+
+diff --git a/com.mojang.blaze3d.buffers.Std140Builder.java b/com.mojang.blaze3d.buffers.Std140Builder.java
+--- a/com.mojang.blaze3d.buffers.Std140Builder.java
++++ b/com.mojang.blaze3d.buffers.Std140Builder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.alig", "this.buffer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putVec2(/* params */);
+
+diff --git a/com.mojang.blaze3d.buffers.Std140Builder.java b/com.mojang.blaze3d.buffers.Std140Builder.java
+--- a/com.mojang.blaze3d.buffers.Std140Builder.java
++++ b/com.mojang.blaze3d.buffers.Std140Builder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.alig", "this.buffer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putVec4(/* params */);
+
+diff --git a/com.mojang.blaze3d.buffers.Std140Builder.java b/com.mojang.blaze3d.buffers.Std140Builder.java
+--- a/com.mojang.blaze3d.buffers.Std140Builder.java
++++ b/com.mojang.blaze3d.buffers.Std140Builder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.alig", "this.buffer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putFloat(/* params */);
+
+diff --git a/com.mojang.blaze3d.buffers.Std140Builder.java b/com.mojang.blaze3d.buffers.Std140Builder.java
+--- a/com.mojang.blaze3d.buffers.Std140Builder.java
++++ b/com.mojang.blaze3d.buffers.Std140Builder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.alig", "this.buffer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putMat4f(/* params */);
+

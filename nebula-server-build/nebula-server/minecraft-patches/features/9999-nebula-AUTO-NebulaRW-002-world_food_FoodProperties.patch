@@ -1,0 +1,34 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (2 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.food.FoodProperties.java b/net.minecraft.world.food.FoodProperties.java
+--- a/net.minecraft.world.food.FoodProperties.java
++++ b/net.minecraft.world.food.FoodProperties.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++triggeredEvents = {"SOUND_PLAY"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onConsume(/* params */);
+
+diff --git a/net.minecraft.world.food.FoodProperties.java b/net.minecraft.world.food.FoodProperties.java
+--- a/net.minecraft.world.food.FoodProperties.java
++++ b/net.minecraft.world.food.FoodProperties.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.nutrition", "this.canAlwaysEat", "this.saturationModifier"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ build(/* params */);
+

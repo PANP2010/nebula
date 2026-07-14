@@ -1,0 +1,155 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (12 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.gametest.framework.GameTestSequence.java b/net.minecraft.gametest.framework.GameTestSequence.java
+--- a/net.minecraft.gametest.framework.GameTestSequence.java
++++ b/net.minecraft.gametest.framework.GameTestSequence.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.events"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ thenWaitUntil(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestSequence.java b/net.minecraft.gametest.framework.GameTestSequence.java
+--- a/net.minecraft.gametest.framework.GameTestSequence.java
++++ b/net.minecraft.gametest.framework.GameTestSequence.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lastTick", "this.parent", "this.executeWithoutFai", "this.events"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ thenExecuteFor(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestSequence.java b/net.minecraft.gametest.framework.GameTestSequence.java
+--- a/net.minecraft.gametest.framework.GameTestSequence.java
++++ b/net.minecraft.gametest.framework.GameTestSequence.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.parent", "this.lastTic", "this.events"},
++writeEntities = {"this.lastTick"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestSequence.java b/net.minecraft.gametest.framework.GameTestSequence.java
+--- a/net.minecraft.gametest.framework.GameTestSequence.java
++++ b/net.minecraft.gametest.framework.GameTestSequence.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.parent", "this.triggerTim", "this.triggerTime"},
++writeEntities = {"this.triggerTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assertTriggeredThisTick(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestSequence.java b/net.minecraft.gametest.framework.GameTestSequence.java
+--- a/net.minecraft.gametest.framework.GameTestSequence.java
++++ b/net.minecraft.gametest.framework.GameTestSequence.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.executeWithoutFai", "this.events"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ thenExecute(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestSequence.java b/net.minecraft.gametest.framework.GameTestSequence.java
+--- a/net.minecraft.gametest.framework.GameTestSequence.java
++++ b/net.minecraft.gametest.framework.GameTestSequence.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.events"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ thenWaitAtLeast(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestSequence.java b/net.minecraft.gametest.framework.GameTestSequence.java
+--- a/net.minecraft.gametest.framework.GameTestSequence.java
++++ b/net.minecraft.gametest.framework.GameTestSequence.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tic"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickAndContinue(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestSequence.java b/net.minecraft.gametest.framework.GameTestSequence.java
+--- a/net.minecraft.gametest.framework.GameTestSequence.java
++++ b/net.minecraft.gametest.framework.GameTestSequence.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lastTick", "this.parent", "this.events"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ thenExecuteAfter(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestSequence.java b/net.minecraft.gametest.framework.GameTestSequence.java
+--- a/net.minecraft.gametest.framework.GameTestSequence.java
++++ b/net.minecraft.gametest.framework.GameTestSequence.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.paren", "this.events"},
++writeEntities = {"this.parent"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ thenSucceed(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestSequence.java b/net.minecraft.gametest.framework.GameTestSequence.java
+--- a/net.minecraft.gametest.framework.GameTestSequence.java
++++ b/net.minecraft.gametest.framework.GameTestSequence.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.parent", "this.events"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ thenFail(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestSequence.java b/net.minecraft.gametest.framework.GameTestSequence.java
+--- a/net.minecraft.gametest.framework.GameTestSequence.java
++++ b/net.minecraft.gametest.framework.GameTestSequence.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.thenExecuteAfte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ thenIdle(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestSequence.java b/net.minecraft.gametest.framework.GameTestSequence.java
+--- a/net.minecraft.gametest.framework.GameTestSequence.java
++++ b/net.minecraft.gametest.framework.GameTestSequence.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tic"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickAndFailIfNotComplete(/* params */);
+

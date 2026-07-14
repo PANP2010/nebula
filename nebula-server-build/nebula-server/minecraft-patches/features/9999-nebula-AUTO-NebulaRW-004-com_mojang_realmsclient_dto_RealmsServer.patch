@@ -1,0 +1,57 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/com.mojang.realmsclient.dto.RealmsServer.java b/com.mojang.realmsclient.dto.RealmsServer.java
+--- a/com.mojang.realmsclient.dto.RealmsServer.java
++++ b/com.mojang.realmsclient.dto.RealmsServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.refOwner"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ compare(/* params */);
+
+diff --git a/com.mojang.realmsclient.dto.RealmsServer.java b/com.mojang.realmsclient.dto.RealmsServer.java
+--- a/com.mojang.realmsclient.dto.RealmsServer.java
++++ b/com.mojang.realmsclient.dto.RealmsServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.name"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toServerData(/* params */);
+
+diff --git a/com.mojang.realmsclient.dto.RealmsServer.java b/com.mojang.realmsclient.dto.RealmsServer.java
+--- a/com.mojang.realmsclient.dto.RealmsServer.java
++++ b/com.mojang.realmsclient.dto.RealmsServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ copy(/* params */);
+
+diff --git a/com.mojang.realmsclient.dto.RealmsServer.java b/com.mojang.realmsclient.dto.RealmsServer.java
+--- a/com.mojang.realmsclient.dto.RealmsServer.java
++++ b/com.mojang.realmsclient.dto.RealmsServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.needsUpgrad", "this.stat", "this.expired", "this.isSelfOwnedServe", "this.isCompatibl"},
++writeEntities = {"this.state"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldPlayButtonBeActive(/* params */);
+

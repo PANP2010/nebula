@@ -1,0 +1,84 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.AgeableMob.java b/net.minecraft.world.entity.AgeableMob.java
+--- a/net.minecraft.world.entity.AgeableMob.java
++++ b/net.minecraft.world.entity.AgeableMob.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ aiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.AgeableMob.java b/net.minecraft.world.entity.AgeableMob.java
+--- a/net.minecraft.world.entity.AgeableMob.java
++++ b/net.minecraft.world.entity.AgeableMob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ageU"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ ageUp(/* params */);
+
+diff --git a/net.minecraft.world.entity.AgeableMob.java b/net.minecraft.world.entity.AgeableMob.java
+--- a/net.minecraft.world.entity.AgeableMob.java
++++ b/net.minecraft.world.entity.AgeableMob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isBab", "this.isPassenge", "this.getVehicl", "this.stopRidin", "this.vehicle"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ ageBoundaryReached(/* params */);
+
+diff --git a/net.minecraft.world.entity.AgeableMob.java b/net.minecraft.world.entity.AgeableMob.java
+--- a/net.minecraft.world.entity.AgeableMob.java
++++ b/net.minecraft.world.entity.AgeableMob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.forcedAg", "this.setAg", "this.setAgeLocke"},
++writeEntities = {"this.forcedAge", "this.age", "this.ageLocked"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.AgeableMob.java b/net.minecraft.world.entity.AgeableMob.java
+--- a/net.minecraft.world.entity.AgeableMob.java
++++ b/net.minecraft.world.entity.AgeableMob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.refreshDimension"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSyncedDataUpdated(/* params */);
+
+diff --git a/net.minecraft.world.entity.AgeableMob.java b/net.minecraft.world.entity.AgeableMob.java
+--- a/net.minecraft.world.entity.AgeableMob.java
++++ b/net.minecraft.world.entity.AgeableMob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isBab", "this.setAgeLockedDat", "this.ageLockParticleTimer"},
++writeEntities = {"this.ageLockedData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mobInteract(/* params */);
+

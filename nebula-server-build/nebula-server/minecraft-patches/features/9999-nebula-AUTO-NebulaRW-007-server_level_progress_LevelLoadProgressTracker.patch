@@ -1,0 +1,97 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.level.progress.LevelLoadProgressTracker.java b/net.minecraft.server.level.progress.LevelLoadProgressTracker.java
+--- a/net.minecraft.server.level.progress.LevelLoadProgressTracker.java
++++ b/net.minecraft.server.level.progress.LevelLoadProgressTracker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tracksStag", "this.finishSegmen", "this.beginSegmen", "this.totalWeigh", "this.includePlayerChunks"},
++writeEntities = {"this.totalWeight"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ start(/* params */);
+
+diff --git a/net.minecraft.server.level.progress.LevelLoadProgressTracker.java b/net.minecraft.server.level.progress.LevelLoadProgressTracker.java
+--- a/net.minecraft.server.level.progress.LevelLoadProgressTracker.java
++++ b/net.minecraft.server.level.progress.LevelLoadProgressTracker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.totalWeigh", "this.progres"},
++writeEntities = {"this.totalWeight", "this.progress"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateProgress(/* params */);
+
+diff --git a/net.minecraft.server.level.progress.LevelLoadProgressTracker.java b/net.minecraft.server.level.progress.LevelLoadProgressTracker.java
+--- a/net.minecraft.server.level.progress.LevelLoadProgressTracker.java
++++ b/net.minecraft.server.level.progress.LevelLoadProgressTracker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateProgres", "this.finalizedWeight", "this.finalizedWeigh", "this.segmentWeigh"},
++writeEntities = {"this.finalizedWeight", "this.segmentWeight"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ finishSegment(/* params */);
+
+diff --git a/net.minecraft.server.level.progress.LevelLoadProgressTracker.java b/net.minecraft.server.level.progress.LevelLoadProgressTracker.java
+--- a/net.minecraft.server.level.progress.LevelLoadProgressTracker.java
++++ b/net.minecraft.server.level.progress.LevelLoadProgressTracker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tracksStag", "this.finishSegmen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ finish(/* params */);
+
+diff --git a/net.minecraft.server.level.progress.LevelLoadProgressTracker.java b/net.minecraft.server.level.progress.LevelLoadProgressTracker.java
+--- a/net.minecraft.server.level.progress.LevelLoadProgressTracker.java
++++ b/net.minecraft.server.level.progress.LevelLoadProgressTracker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tracksStag", "this.segmentFractio", "this.updateProgres"},
++writeEntities = {"this.segmentFraction"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ update(/* params */);
+
+diff --git a/net.minecraft.server.level.progress.LevelLoadProgressTracker.java b/net.minecraft.server.level.progress.LevelLoadProgressTracker.java
+--- a/net.minecraft.server.level.progress.LevelLoadProgressTracker.java
++++ b/net.minecraft.server.level.progress.LevelLoadProgressTracker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.includePlayerChunk"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tracksStage(/* params */);
+
+diff --git a/net.minecraft.server.level.progress.LevelLoadProgressTracker.java b/net.minecraft.server.level.progress.LevelLoadProgressTracker.java
+--- a/net.minecraft.server.level.progress.LevelLoadProgressTracker.java
++++ b/net.minecraft.server.level.progress.LevelLoadProgressTracker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.segmentFractio", "this.updateProgres", "this.segmentWeigh"},
++writeEntities = {"this.segmentFraction", "this.segmentWeight"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ beginSegment(/* params */);
+

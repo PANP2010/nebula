@@ -1,0 +1,33 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (2 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.redstone.DefaultRedstoneWireEvaluator.java b/net.minecraft.world.level.redstone.DefaultRedstoneWireEvaluator.java
+--- a/net.minecraft.world.level.redstone.DefaultRedstoneWireEvaluator.java
++++ b/net.minecraft.world.level.redstone.DefaultRedstoneWireEvaluator.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.calculateTargetStrengt"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updatePowerStrength(/* params */);
+
+diff --git a/net.minecraft.world.level.redstone.DefaultRedstoneWireEvaluator.java b/net.minecraft.world.level.redstone.DefaultRedstoneWireEvaluator.java
+--- a/net.minecraft.world.level.redstone.DefaultRedstoneWireEvaluator.java
++++ b/net.minecraft.world.level.redstone.DefaultRedstoneWireEvaluator.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.incomingWireSignal", "this.blockSignal", "this.getIncomingWireSigna", "this.getBlockSigna"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateTargetStrength(/* params */);
+

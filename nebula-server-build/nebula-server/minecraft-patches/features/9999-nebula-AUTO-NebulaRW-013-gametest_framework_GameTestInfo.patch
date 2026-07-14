@@ -1,0 +1,168 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (13 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.gametest.framework.GameTestInfo.java b/net.minecraft.gametest.framework.GameTestInfo.java
+--- a/net.minecraft.gametest.framework.GameTestInfo.java
++++ b/net.minecraft.gametest.framework.GameTestInfo.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tickCount", "this.started", "this.startTes"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickInternal(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestInfo.java b/net.minecraft.gametest.framework.GameTestInfo.java
+--- a/net.minecraft.gametest.framework.GameTestInfo.java
++++ b/net.minecraft.gametest.framework.GameTestInfo.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tickCount", "this.fai"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fail(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestInfo.java b/net.minecraft.gametest.framework.GameTestInfo.java
+--- a/net.minecraft.gametest.framework.GameTestInfo.java
++++ b/net.minecraft.gametest.framework.GameTestInfo.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.started"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startTest(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestInfo.java b/net.minecraft.gametest.framework.GameTestInfo.java
+--- a/net.minecraft.gametest.framework.GameTestInfo.java
++++ b/net.minecraft.gametest.framework.GameTestInfo.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.timer", "this.don", "this.done"},
++writeEntities = {"this.done"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ finish(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestInfo.java b/net.minecraft.gametest.framework.GameTestInfo.java
+--- a/net.minecraft.gametest.framework.GameTestInfo.java
++++ b/net.minecraft.gametest.framework.GameTestInfo.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.retryOption"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ retryOptions(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestInfo.java b/net.minecraft.gametest.framework.GameTestInfo.java
+--- a/net.minecraft.gametest.framework.GameTestInfo.java
++++ b/net.minecraft.gametest.framework.GameTestInfo.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isDon", "this.placedStructure", "this.fai"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestInfo.java b/net.minecraft.gametest.framework.GameTestInfo.java
+--- a/net.minecraft.gametest.framework.GameTestInfo.java
++++ b/net.minecraft.gametest.framework.GameTestInfo.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.test"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ maxAttempts(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestInfo.java b/net.minecraft.gametest.framework.GameTestInfo.java
+--- a/net.minecraft.gametest.framework.GameTestInfo.java
++++ b/net.minecraft.gametest.framework.GameTestInfo.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.test"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ requiredSuccesses(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestInfo.java b/net.minecraft.gametest.framework.GameTestInfo.java
+--- a/net.minecraft.gametest.framework.GameTestInfo.java
++++ b/net.minecraft.gametest.framework.GameTestInfo.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.i"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestInfo.java b/net.minecraft.gametest.framework.GameTestInfo.java
+--- a/net.minecraft.gametest.framework.GameTestInfo.java
++++ b/net.minecraft.gametest.framework.GameTestInfo.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.test", "this.tickCoun"},
++writeEntities = {"this.tickCount"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startExecution(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestInfo.java b/net.minecraft.gametest.framework.GameTestInfo.java
+--- a/net.minecraft.gametest.framework.GameTestInfo.java
++++ b/net.minecraft.gametest.framework.GameTestInfo.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.extraRotation", "this.test", "this.level", "this.retryOption", "this.testBlockPos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ copyReset(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestInfo.java b/net.minecraft.gametest.framework.GameTestInfo.java
+--- a/net.minecraft.gametest.framework.GameTestInfo.java
++++ b/net.minecraft.gametest.framework.GameTestInfo.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.error"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ succeed(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestInfo.java b/net.minecraft.gametest.framework.GameTestInfo.java
+--- a/net.minecraft.gametest.framework.GameTestInfo.java
++++ b/net.minecraft.gametest.framework.GameTestInfo.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getTestInstanceBlockEntit", "this.placedStructure", "this.testInstanceBlockEntity", "this.fai"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ placeStructure(/* params */);
+

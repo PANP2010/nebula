@@ -1,0 +1,225 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (18 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.util.HashOps.java b/net.minecraft.util.HashOps.java
+--- a/net.minecraft.util.HashOps.java
++++ b/net.minecraft.util.HashOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hashFunction"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createShort(/* params */);
+
+diff --git a/net.minecraft.util.HashOps.java b/net.minecraft.util.HashOps.java
+--- a/net.minecraft.util.HashOps.java
++++ b/net.minecraft.util.HashOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hashFunction"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createLong(/* params */);
+
+diff --git a/net.minecraft.util.HashOps.java b/net.minecraft.util.HashOps.java
+--- a/net.minecraft.util.HashOps.java
++++ b/net.minecraft.util.HashOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createNumeric(/* params */);
+
+diff --git a/net.minecraft.util.HashOps.java b/net.minecraft.util.HashOps.java
+--- a/net.minecraft.util.HashOps.java
++++ b/net.minecraft.util.HashOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hashFunction"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createByte(/* params */);
+
+diff --git a/net.minecraft.util.HashOps.java b/net.minecraft.util.HashOps.java
+--- a/net.minecraft.util.HashOps.java
++++ b/net.minecraft.util.HashOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hashFunctio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.util.HashOps.java b/net.minecraft.util.HashOps.java
+--- a/net.minecraft.util.HashOps.java
++++ b/net.minecraft.util.HashOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.falseHas", "this.trueHas"},
++writeEntities = {"this.trueHash"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createBoolean(/* params */);
+
+diff --git a/net.minecraft.util.HashOps.java b/net.minecraft.util.HashOps.java
+--- a/net.minecraft.util.HashOps.java
++++ b/net.minecraft.util.HashOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hashFunction"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createInt(/* params */);
+
+diff --git a/net.minecraft.util.HashOps.java b/net.minecraft.util.HashOps.java
+--- a/net.minecraft.util.HashOps.java
++++ b/net.minecraft.util.HashOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hashFunction"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createLongList(/* params */);
+
+diff --git a/net.minecraft.util.HashOps.java b/net.minecraft.util.HashOps.java
+--- a/net.minecraft.util.HashOps.java
++++ b/net.minecraft.util.HashOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hashFunction"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createMap(/* params */);
+
+diff --git a/net.minecraft.util.HashOps.java b/net.minecraft.util.HashOps.java
+--- a/net.minecraft.util.HashOps.java
++++ b/net.minecraft.util.HashOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createMa", "this.isEmpt"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mergeToMap(/* params */);
+
+diff --git a/net.minecraft.util.HashOps.java b/net.minecraft.util.HashOps.java
+--- a/net.minecraft.util.HashOps.java
++++ b/net.minecraft.util.HashOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hashFunction"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createByteList(/* params */);
+
+diff --git a/net.minecraft.util.HashOps.java b/net.minecraft.util.HashOps.java
+--- a/net.minecraft.util.HashOps.java
++++ b/net.minecraft.util.HashOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createLis", "this.isEmpt"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mergeToList(/* params */);
+
+diff --git a/net.minecraft.util.HashOps.java b/net.minecraft.util.HashOps.java
+--- a/net.minecraft.util.HashOps.java
++++ b/net.minecraft.util.HashOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hashFunction"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createIntList(/* params */);
+
+diff --git a/net.minecraft.util.HashOps.java b/net.minecraft.util.HashOps.java
+--- a/net.minecraft.util.HashOps.java
++++ b/net.minecraft.util.HashOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hashFunction"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createFloat(/* params */);
+
+diff --git a/net.minecraft.util.HashOps.java b/net.minecraft.util.HashOps.java
+--- a/net.minecraft.util.HashOps.java
++++ b/net.minecraft.util.HashOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hashFunction"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createString(/* params */);
+
+diff --git a/net.minecraft.util.HashOps.java b/net.minecraft.util.HashOps.java
+--- a/net.minecraft.util.HashOps.java
++++ b/net.minecraft.util.HashOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hashFunction"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createDouble(/* params */);
+
+diff --git a/net.minecraft.util.HashOps.java b/net.minecraft.util.HashOps.java
+--- a/net.minecraft.util.HashOps.java
++++ b/net.minecraft.util.HashOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hashFunction", "this.isEmpt"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ build(/* params */);
+
+diff --git a/net.minecraft.util.HashOps.java b/net.minecraft.util.HashOps.java
+--- a/net.minecraft.util.HashOps.java
++++ b/net.minecraft.util.HashOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hashFunction"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createList(/* params */);
+

@@ -1,0 +1,92 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.state.StateDefinition.java b/net.minecraft.world.level.block.state.StateDefinition.java
+--- a/net.minecraft.world.level.block.state.StateDefinition.java
++++ b/net.minecraft.world.level.block.state.StateDefinition.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.owner"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ validateProperty(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.StateDefinition.java b/net.minecraft.world.level.block.state.StateDefinition.java
+--- a/net.minecraft.world.level.block.state.StateDefinition.java
++++ b/net.minecraft.world.level.block.state.StateDefinition.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.computeStatesForPivo", "this.statesByPivotCache"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillStatesForPivot(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.StateDefinition.java b/net.minecraft.world.level.block.state.StateDefinition.java
+--- a/net.minecraft.world.level.block.state.StateDefinition.java
++++ b/net.minecraft.world.level.block.state.StateDefinition.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fillStatesForPivo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillNeighborsForState(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.StateDefinition.java b/net.minecraft.world.level.block.state.StateDefinition.java
+--- a/net.minecraft.world.level.block.state.StateDefinition.java
++++ b/net.minecraft.world.level.block.state.StateDefinition.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.propertiesCode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ propertiesCodec(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.StateDefinition.java b/net.minecraft.world.level.block.state.StateDefinition.java
+--- a/net.minecraft.world.level.block.state.StateDefinition.java
++++ b/net.minecraft.world.level.block.state.StateDefinition.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.owner", "this.properties"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ create(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.StateDefinition.java b/net.minecraft.world.level.block.state.StateDefinition.java
+--- a/net.minecraft.world.level.block.state.StateDefinition.java
++++ b/net.minecraft.world.level.block.state.StateDefinition.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.owner", "this.propertiesByName"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.StateDefinition.java b/net.minecraft.world.level.block.state.StateDefinition.java
+--- a/net.minecraft.world.level.block.state.StateDefinition.java
++++ b/net.minecraft.world.level.block.state.StateDefinition.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.statesByValues"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ computeStatesForPivot(/* params */);
+

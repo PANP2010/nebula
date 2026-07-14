@@ -1,0 +1,197 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (15 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java b/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
+--- a/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
++++ b/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hur", "this.body"},
++triggeredEvents = {"ENTITY_DAMAGED"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtServer(/* params */);
+
+diff --git a/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java b/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
+--- a/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
++++ b/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.health", "this.growlTime"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ aiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java b/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
+--- a/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
++++ b/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onFlap(/* params */);
+
+diff --git a/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java b/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
+--- a/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
++++ b/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getSubEntitie", "this.subEntities"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ recreateFromPacket(/* params */);
+
+diff --git a/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java b/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
+--- a/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
++++ b/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.remov", "this.dragonFight", "this.gameEven"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ kill(/* params */);
+
+diff --git a/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java b/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
+--- a/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
++++ b/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.phaseManager", "this.dragonDeathTim"},
++writeEntities = {"this.dragonDeathTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java b/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
+--- a/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
++++ b/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.get", "this.x", "this.y", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickPart(/* params */);
+
+diff --git a/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java b/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
+--- a/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
++++ b/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.nearestCrystal", "this.nearestCrysta"},
++writeEntities = {"this.nearestCrystal"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkCrystals(/* params */);
+
+diff --git a/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java b/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
+--- a/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
++++ b/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.dragonFight"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickDeath(/* params */);
+
+diff --git a/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java b/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
+--- a/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
++++ b/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getEntityDat", "this.phaseManager", "this.leve", "this.entityData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSyncedDataUpdated(/* params */);
+
+diff --git a/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java b/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
+--- a/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
++++ b/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.phaseManager", "this.damageSource", "this.body"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ knockBack(/* params */);
+
+diff --git a/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java b/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
+--- a/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
++++ b/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.phaseManager"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ knockback(/* params */);
+
+diff --git a/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java b/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
+--- a/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
++++ b/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.dragonFigh", "this.dragonFight"},
++writeEntities = {"this.dragonFight"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findClosestNode(/* params */);
+
+diff --git a/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java b/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
+--- a/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
++++ b/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.phaseManager"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurt(/* params */);
+
+diff --git a/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java b/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
+--- a/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
++++ b/net.minecraft.world.entity.boss.enderdragon.EnderDragon.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkWalls(/* params */);
+

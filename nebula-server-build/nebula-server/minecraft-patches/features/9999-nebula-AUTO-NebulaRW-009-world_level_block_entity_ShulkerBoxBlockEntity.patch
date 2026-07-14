@@ -1,0 +1,125 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (9 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java b/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java
+@@ // 70% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++readBlocks = {"{position}"},
++triggeredEvents = {"SOUND_PLAY"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stopOpen(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java b/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.progress", "this.progressOld"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ moveCollidedEntities(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java b/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.itemStacks", "this.trySaveLootTabl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveAdditional(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java b/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getContainerSiz", "this.itemStack", "this.tryLoadLootTabl", "this.itemStacks", "this.containerSize"},
++writeEntities = {"this.itemStacks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadFromTag(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java b/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.openCount", "this.openCoun", "this.remove"},
++writeEntities = {"this.openCount"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startOpen(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java b/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.animationStatu", "this.openCoun"},
++writeEntities = {"this.animationStatus", "this.openCount"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ triggerEvent(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java b/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.loadFromTa"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadAdditional(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java b/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.animationStatus", "this.progressOl", "this.progres", "this.progress"},
++writeEntities = {"this.progress", "this.progressOld"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateAnimation(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java b/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ doNeighborUpdates(/* params */);
+

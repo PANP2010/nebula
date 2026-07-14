@@ -1,0 +1,258 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (20 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.animal.axolotl.Axolotl.java b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+--- a/net.minecraft.world.entity.animal.axolotl.Axolotl.java
++++ b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playAttackSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.axolotl.Axolotl.java b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+--- a/net.minecraft.world.entity.animal.axolotl.Axolotl.java
++++ b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtServer(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.axolotl.Axolotl.java b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+--- a/net.minecraft.world.entity.animal.axolotl.Axolotl.java
++++ b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.handleAirSuppl", "this.leve", "this.isNoA", "this.getAirSuppl", "this.airSupply"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ baseTick(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.axolotl.Axolotl.java b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+--- a/net.minecraft.world.entity.animal.axolotl.Axolotl.java
++++ b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.axolotl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.axolotl.Axolotl.java b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+--- a/net.minecraft.world.entity.animal.axolotl.Axolotl.java
++++ b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isAgeLocke", "this.getBrai", "this.getAg", "this.brain", "this.age"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveToBucketTag(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.axolotl.Axolotl.java b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+--- a/net.minecraft.world.entity.animal.axolotl.Axolotl.java
++++ b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBrai", "this.setAg", "this.brain", "this.setAgeLocke"},
++writeEntities = {"this.age", "this.ageLocked"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadFromBucketTag(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.axolotl.Axolotl.java b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+--- a/net.minecraft.world.entity.animal.axolotl.Axolotl.java
++++ b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entityData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fromBucket(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.axolotl.Axolotl.java b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+--- a/net.minecraft.world.entity.animal.axolotl.Axolotl.java
++++ b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setAirSuppl", "this.maxAirSupply", "this.getMaxAirSuppl", "this.getAirSuppl", "this.airSupply"},
++writeEntities = {"this.airSupply"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ rehydrate(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.axolotl.Axolotl.java b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+--- a/net.minecraft.world.entity.animal.axolotl.Axolotl.java
++++ b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setVarian", "this.setFromBucke"},
++writeEntities = {"this.fromBucket", "this.variant"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.axolotl.Axolotl.java b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+--- a/net.minecraft.world.entity.animal.axolotl.Axolotl.java
++++ b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.deltaMovement"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ travelInWater(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.axolotl.Axolotl.java b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+--- a/net.minecraft.world.entity.animal.axolotl.Axolotl.java
++++ b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.applyImplicitComponentIfPresen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyImplicitComponents(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.axolotl.Axolotl.java b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+--- a/net.minecraft.world.entity.animal.axolotl.Axolotl.java
++++ b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setPlayingDea", "this.getBrai", "this.isNoA", "this.brain"},
++writeEntities = {"this.playingDead"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ customServerAiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.axolotl.Axolotl.java b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+--- a/net.minecraft.world.entity.animal.axolotl.Axolotl.java
++++ b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isPlayingDea"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickAdultAnimations(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.axolotl.Axolotl.java b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+--- a/net.minecraft.world.entity.animal.axolotl.Axolotl.java
++++ b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickBabyAnimations(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.axolotl.Axolotl.java b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+--- a/net.minecraft.world.entity.animal.axolotl.Axolotl.java
++++ b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tickCount"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ soloAnimation(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.axolotl.Axolotl.java b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+--- a/net.minecraft.world.entity.animal.axolotl.Axolotl.java
++++ b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setVarian"},
++writeEntities = {"this.variant"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyImplicitComponent(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.axolotl.Axolotl.java b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+--- a/net.minecraft.world.entity.animal.axolotl.Axolotl.java
++++ b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fromBucke"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ requiresCustomPersistence(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.axolotl.Axolotl.java b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+--- a/net.minecraft.world.entity.animal.axolotl.Axolotl.java
++++ b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.airSupply"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleAirSupply(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.axolotl.Axolotl.java b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+--- a/net.minecraft.world.entity.animal.axolotl.Axolotl.java
++++ b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isPlayingDea"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playAmbientSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.axolotl.Axolotl.java b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+--- a/net.minecraft.world.entity.animal.axolotl.Axolotl.java
++++ b/net.minecraft.world.entity.animal.axolotl.Axolotl.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{neighbors}", "{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkAxolotlSpawnRules(/* params */);
+

@@ -1,0 +1,227 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (18 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.effect.MobEffectInstance.java b/net.minecraft.world.effect.MobEffectInstance.java
+--- a/net.minecraft.world.effect.MobEffectInstance.java
++++ b/net.minecraft.world.effect.MobEffectInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.descriptionId", "this.describeDuratio", "this.amplifier", "this.getDescriptionI"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.world.effect.MobEffectInstance.java b/net.minecraft.world.effect.MobEffectInstance.java
+--- a/net.minecraft.world.effect.MobEffectInstance.java
++++ b/net.minecraft.world.effect.MobEffectInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.duratio", "this.hiddenEffec", "this.hiddenEffect", "this.setDetailsFro"},
++writeEntities = {"this.duration", "this.hiddenEffect", "this.detailsFrom"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ downgradeToHiddenEffect(/* params */);
+
+diff --git a/net.minecraft.world.effect.MobEffectInstance.java b/net.minecraft.world.effect.MobEffectInstance.java
+--- a/net.minecraft.world.effect.MobEffectInstance.java
++++ b/net.minecraft.world.effect.MobEffectInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blendState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ copyBlendState(/* params */);
+
+diff --git a/net.minecraft.world.effect.MobEffectInstance.java b/net.minecraft.world.effect.MobEffectInstance.java
+--- a/net.minecraft.world.effect.MobEffectInstance.java
++++ b/net.minecraft.world.effect.MobEffectInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.facto", "this.factorPreviousFram"},
++writeEntities = {"this.factorPreviousFrame", "this.factor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ copyFrom(/* params */);
+
+diff --git a/net.minecraft.world.effect.MobEffectInstance.java b/net.minecraft.world.effect.MobEffectInstance.java
+--- a/net.minecraft.world.effect.MobEffectInstance.java
++++ b/net.minecraft.world.effect.MobEffectInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.duration", "this.duratio", "this.isInfiniteDuratio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mapDuration(/* params */);
+
+diff --git a/net.minecraft.world.effect.MobEffectInstance.java b/net.minecraft.world.effect.MobEffectInstance.java
+--- a/net.minecraft.world.effect.MobEffectInstance.java
++++ b/net.minecraft.world.effect.MobEffectInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.effect", "this.amplifier"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onMobRemoved(/* params */);
+
+diff --git a/net.minecraft.world.effect.MobEffectInstance.java b/net.minecraft.world.effect.MobEffectInstance.java
+--- a/net.minecraft.world.effect.MobEffectInstance.java
++++ b/net.minecraft.world.effect.MobEffectInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hasRemainingDuratio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickServer(/* params */);
+
+diff --git a/net.minecraft.world.effect.MobEffectInstance.java b/net.minecraft.world.effect.MobEffectInstance.java
+--- a/net.minecraft.world.effect.MobEffectInstance.java
++++ b/net.minecraft.world.effect.MobEffectInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ compareTo(/* params */);
+
+diff --git a/net.minecraft.world.effect.MobEffectInstance.java b/net.minecraft.world.effect.MobEffectInstance.java
+--- a/net.minecraft.world.effect.MobEffectInstance.java
++++ b/net.minecraft.world.effect.MobEffectInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.effect", "this.amplifier"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onEffectAdded(/* params */);
+
+diff --git a/net.minecraft.world.effect.MobEffectInstance.java b/net.minecraft.world.effect.MobEffectInstance.java
+--- a/net.minecraft.world.effect.MobEffectInstance.java
++++ b/net.minecraft.world.effect.MobEffectInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blendState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ skipBlending(/* params */);
+
+diff --git a/net.minecraft.world.effect.MobEffectInstance.java b/net.minecraft.world.effect.MobEffectInstance.java
+--- a/net.minecraft.world.effect.MobEffectInstance.java
++++ b/net.minecraft.world.effect.MobEffectInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.effect", "this.amplifier"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onMobHurt(/* params */);
+
+diff --git a/net.minecraft.world.effect.MobEffectInstance.java b/net.minecraft.world.effect.MobEffectInstance.java
+--- a/net.minecraft.world.effect.MobEffectInstance.java
++++ b/net.minecraft.world.effect.MobEffectInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.duration", "this.isInfiniteDuratio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ describeDuration(/* params */);
+
+diff --git a/net.minecraft.world.effect.MobEffectInstance.java b/net.minecraft.world.effect.MobEffectInstance.java
+--- a/net.minecraft.world.effect.MobEffectInstance.java
++++ b/net.minecraft.world.effect.MobEffectInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.duration", "this.isInfiniteDuratio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ endsWithin(/* params */);
+
+diff --git a/net.minecraft.world.effect.MobEffectInstance.java b/net.minecraft.world.effect.MobEffectInstance.java
+--- a/net.minecraft.world.effect.MobEffectInstance.java
++++ b/net.minecraft.world.effect.MobEffectInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.facto", "this.factor", "this.factorPreviousFram"},
++writeEntities = {"this.factorPreviousFrame", "this.factor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.effect.MobEffectInstance.java b/net.minecraft.world.effect.MobEffectInstance.java
+--- a/net.minecraft.world.effect.MobEffectInstance.java
++++ b/net.minecraft.world.effect.MobEffectInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tickDownDuratio", "this.downgradeToHiddenEffec", "this.hasRemainingDuratio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickClient(/* params */);
+
+diff --git a/net.minecraft.world.effect.MobEffectInstance.java b/net.minecraft.world.effect.MobEffectInstance.java
+--- a/net.minecraft.world.effect.MobEffectInstance.java
++++ b/net.minecraft.world.effect.MobEffectInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.effect"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ update(/* params */);
+
+diff --git a/net.minecraft.world.effect.MobEffectInstance.java b/net.minecraft.world.effect.MobEffectInstance.java
+--- a/net.minecraft.world.effect.MobEffectInstance.java
++++ b/net.minecraft.world.effect.MobEffectInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.effect", "this.amplifier"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onEffectStarted(/* params */);
+
+diff --git a/net.minecraft.world.effect.MobEffectInstance.java b/net.minecraft.world.effect.MobEffectInstance.java
+--- a/net.minecraft.world.effect.MobEffectInstance.java
++++ b/net.minecraft.world.effect.MobEffectInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hiddenEffect"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickDownDuration(/* params */);
+

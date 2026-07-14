@@ -1,0 +1,80 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.item.alchemy.PotionContents.java b/net.minecraft.world.item.alchemy.PotionContents.java
+--- a/net.minecraft.world.item.alchemy.PotionContents.java
++++ b/net.minecraft.world.item.alchemy.PotionContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.customColor", "this.customEffects", "this.customName"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withPotion(/* params */);
+
+diff --git a/net.minecraft.world.item.alchemy.PotionContents.java b/net.minecraft.world.item.alchemy.PotionContents.java
+--- a/net.minecraft.world.item.alchemy.PotionContents.java
++++ b/net.minecraft.world.item.alchemy.PotionContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.forEachEffec"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyToLivingEntity(/* params */);
+
+diff --git a/net.minecraft.world.item.alchemy.PotionContents.java b/net.minecraft.world.item.alchemy.PotionContents.java
+--- a/net.minecraft.world.item.alchemy.PotionContents.java
++++ b/net.minecraft.world.item.alchemy.PotionContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.applyToLivingEntit"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onConsume(/* params */);
+
+diff --git a/net.minecraft.world.item.alchemy.PotionContents.java b/net.minecraft.world.item.alchemy.PotionContents.java
+--- a/net.minecraft.world.item.alchemy.PotionContents.java
++++ b/net.minecraft.world.item.alchemy.PotionContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.potion", "this.customColor", "this.customEffects", "this.customName"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withEffectAdded(/* params */);
+
+diff --git a/net.minecraft.world.item.alchemy.PotionContents.java b/net.minecraft.world.item.alchemy.PotionContents.java
+--- a/net.minecraft.world.item.alchemy.PotionContents.java
++++ b/net.minecraft.world.item.alchemy.PotionContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.customEffects"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ customEffects(/* params */);
+
+diff --git a/net.minecraft.world.item.alchemy.PotionContents.java b/net.minecraft.world.item.alchemy.PotionContents.java
+--- a/net.minecraft.world.item.alchemy.PotionContents.java
++++ b/net.minecraft.world.item.alchemy.PotionContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.potion"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forEachEffect(/* params */);
+

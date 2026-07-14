@@ -1,0 +1,165 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (12 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.animal.parrot.Parrot.java b/net.minecraft.world.entity.animal.parrot.Parrot.java
+--- a/net.minecraft.world.entity.animal.parrot.Parrot.java
++++ b/net.minecraft.world.entity.animal.parrot.Parrot.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++triggeredEvents = {"SOUND_PLAY"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mobInteract(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.parrot.Parrot.java b/net.minecraft.world.entity.animal.parrot.Parrot.java
+--- a/net.minecraft.world.entity.animal.parrot.Parrot.java
++++ b/net.minecraft.world.entity.animal.parrot.Parrot.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun", "this.flapSpeed", "this.flyDist", "this.nextFla"},
++writeEntities = {"this.nextFlap"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onFlap(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.parrot.Parrot.java b/net.minecraft.world.entity.animal.parrot.Parrot.java
+--- a/net.minecraft.world.entity.animal.parrot.Parrot.java
++++ b/net.minecraft.world.entity.animal.parrot.Parrot.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playStepSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.parrot.Parrot.java b/net.minecraft.world.entity.animal.parrot.Parrot.java
+--- a/net.minecraft.world.entity.animal.parrot.Parrot.java
++++ b/net.minecraft.world.entity.animal.parrot.Parrot.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.jukebo", "this.jukebox", "this.leve", "this.positio", "this.partyParro"},
++writeEntities = {"this.jukebox", "this.partyParrot"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ aiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.parrot.Parrot.java b/net.minecraft.world.entity.animal.parrot.Parrot.java
+--- a/net.minecraft.world.entity.animal.parrot.Parrot.java
++++ b/net.minecraft.world.entity.animal.parrot.Parrot.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++triggeredEvents = {"SOUND_PLAY"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ imitateNearbyMobs(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.parrot.Parrot.java b/net.minecraft.world.entity.animal.parrot.Parrot.java
+--- a/net.minecraft.world.entity.animal.parrot.Parrot.java
++++ b/net.minecraft.world.entity.animal.parrot.Parrot.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.applyImplicitComponentIfPresen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyImplicitComponents(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.parrot.Parrot.java b/net.minecraft.world.entity.animal.parrot.Parrot.java
+--- a/net.minecraft.world.entity.animal.parrot.Parrot.java
++++ b/net.minecraft.world.entity.animal.parrot.Parrot.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.goalSelector"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerGoals(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.parrot.Parrot.java b/net.minecraft.world.entity.animal.parrot.Parrot.java
+--- a/net.minecraft.world.entity.animal.parrot.Parrot.java
++++ b/net.minecraft.world.entity.animal.parrot.Parrot.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setVarian"},
++writeEntities = {"this.variant"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.parrot.Parrot.java b/net.minecraft.world.entity.animal.parrot.Parrot.java
+--- a/net.minecraft.world.entity.animal.parrot.Parrot.java
++++ b/net.minecraft.world.entity.animal.parrot.Parrot.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setVarian"},
++writeEntities = {"this.variant"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyImplicitComponent(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.parrot.Parrot.java b/net.minecraft.world.entity.animal.parrot.Parrot.java
+--- a/net.minecraft.world.entity.animal.parrot.Parrot.java
++++ b/net.minecraft.world.entity.animal.parrot.Parrot.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.flapSpeed", "this.oFlap", "this.flapping", "this.oFlapSpeed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateFlapping(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.parrot.Parrot.java b/net.minecraft.world.entity.animal.parrot.Parrot.java
+--- a/net.minecraft.world.entity.animal.parrot.Parrot.java
++++ b/net.minecraft.world.entity.animal.parrot.Parrot.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isInvulnerableT"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtServer(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.parrot.Parrot.java b/net.minecraft.world.entity.animal.parrot.Parrot.java
+--- a/net.minecraft.world.entity.animal.parrot.Parrot.java
++++ b/net.minecraft.world.entity.animal.parrot.Parrot.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{neighbors}", "{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkParrotSpawnRules(/* params */);
+

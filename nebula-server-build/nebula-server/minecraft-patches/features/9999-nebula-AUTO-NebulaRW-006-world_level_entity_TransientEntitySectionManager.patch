@@ -1,0 +1,82 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.entity.TransientEntitySectionManager.java b/net.minecraft.world.level.entity.TransientEntitySectionManager.java
+--- a/net.minecraft.world.level.entity.TransientEntitySectionManager.java
++++ b/net.minecraft.world.level.entity.TransientEntitySectionManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.currentSection", "this.currentSectionKey", "this.entity"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onMove(/* params */);
+
+diff --git a/net.minecraft.world.level.entity.TransientEntitySectionManager.java b/net.minecraft.world.level.entity.TransientEntitySectionManager.java
+--- a/net.minecraft.world.level.entity.TransientEntitySectionManager.java
++++ b/net.minecraft.world.level.entity.TransientEntitySectionManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entityStorage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ count(/* params */);
+
+diff --git a/net.minecraft.world.level.entity.TransientEntitySectionManager.java b/net.minecraft.world.level.entity.TransientEntitySectionManager.java
+--- a/net.minecraft.world.level.entity.TransientEntitySectionManager.java
++++ b/net.minecraft.world.level.entity.TransientEntitySectionManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tickingChunks", "this.entityStorage", "this.sectionStorage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ gatherStats(/* params */);
+
+diff --git a/net.minecraft.world.level.entity.TransientEntitySectionManager.java b/net.minecraft.world.level.entity.TransientEntitySectionManager.java
+--- a/net.minecraft.world.level.entity.TransientEntitySectionManager.java
++++ b/net.minecraft.world.level.entity.TransientEntitySectionManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tickingChunks", "this.callback", "this.sectionStorage"},
++writeEntities = {"this.callbacks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stopTicking(/* params */);
+
+diff --git a/net.minecraft.world.level.entity.TransientEntitySectionManager.java b/net.minecraft.world.level.entity.TransientEntitySectionManager.java
+--- a/net.minecraft.world.level.entity.TransientEntitySectionManager.java
++++ b/net.minecraft.world.level.entity.TransientEntitySectionManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tickingChunks", "this.callback", "this.sectionStorage"},
++writeEntities = {"this.callbacks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startTicking(/* params */);
+
+diff --git a/net.minecraft.world.level.entity.TransientEntitySectionManager.java b/net.minecraft.world.level.entity.TransientEntitySectionManager.java
+--- a/net.minecraft.world.level.entity.TransientEntitySectionManager.java
++++ b/net.minecraft.world.level.entity.TransientEntitySectionManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.currentSection", "this.currentSectionKey", "this.entity"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onRemove(/* params */);
+

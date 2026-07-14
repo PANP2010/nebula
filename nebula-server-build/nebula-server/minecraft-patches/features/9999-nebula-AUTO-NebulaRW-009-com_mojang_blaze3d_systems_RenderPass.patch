@@ -1,0 +1,116 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (9 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/com.mojang.blaze3d.systems.RenderPass.java b/com.mojang.blaze3d.systems.RenderPass.java
+--- a/com.mojang.blaze3d.systems.RenderPass.java
++++ b/com.mojang.blaze3d.systems.RenderPass.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.backend"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ bindTexture(/* params */);
+
+diff --git a/com.mojang.blaze3d.systems.RenderPass.java b/com.mojang.blaze3d.systems.RenderPass.java
+--- a/com.mojang.blaze3d.systems.RenderPass.java
++++ b/com.mojang.blaze3d.systems.RenderPass.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.backend"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ enableScissor(/* params */);
+
+diff --git a/com.mojang.blaze3d.systems.RenderPass.java b/com.mojang.blaze3d.systems.RenderPass.java
+--- a/com.mojang.blaze3d.systems.RenderPass.java
++++ b/com.mojang.blaze3d.systems.RenderPass.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.backend"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ drawIndexed(/* params */);
+
+diff --git a/com.mojang.blaze3d.systems.RenderPass.java b/com.mojang.blaze3d.systems.RenderPass.java
+--- a/com.mojang.blaze3d.systems.RenderPass.java
++++ b/com.mojang.blaze3d.systems.RenderPass.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.backend"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ draw(/* params */);
+
+diff --git a/com.mojang.blaze3d.systems.RenderPass.java b/com.mojang.blaze3d.systems.RenderPass.java
+--- a/com.mojang.blaze3d.systems.RenderPass.java
++++ b/com.mojang.blaze3d.systems.RenderPass.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.backend"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ popDebugGroup(/* params */);
+
+diff --git a/com.mojang.blaze3d.systems.RenderPass.java b/com.mojang.blaze3d.systems.RenderPass.java
+--- a/com.mojang.blaze3d.systems.RenderPass.java
++++ b/com.mojang.blaze3d.systems.RenderPass.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.backend"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ drawMultipleIndexed(/* params */);
+
+diff --git a/com.mojang.blaze3d.systems.RenderPass.java b/com.mojang.blaze3d.systems.RenderPass.java
+--- a/com.mojang.blaze3d.systems.RenderPass.java
++++ b/com.mojang.blaze3d.systems.RenderPass.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pushedDebugGroups", "this.backend"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ close(/* params */);
+
+diff --git a/com.mojang.blaze3d.systems.RenderPass.java b/com.mojang.blaze3d.systems.RenderPass.java
+--- a/com.mojang.blaze3d.systems.RenderPass.java
++++ b/com.mojang.blaze3d.systems.RenderPass.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.backend"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ disableScissor(/* params */);
+
+diff --git a/com.mojang.blaze3d.systems.RenderPass.java b/com.mojang.blaze3d.systems.RenderPass.java
+--- a/com.mojang.blaze3d.systems.RenderPass.java
++++ b/com.mojang.blaze3d.systems.RenderPass.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.backend"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pushDebugGroup(/* params */);
+

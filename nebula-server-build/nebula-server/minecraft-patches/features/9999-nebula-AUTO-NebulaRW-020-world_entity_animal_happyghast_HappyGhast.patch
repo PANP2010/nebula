@@ -1,0 +1,260 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (20 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+--- a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
++++ b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.goalSelector", "this.isBab", "this.isWearingBodyArmo"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerGoals(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+--- a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
++++ b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isBab", "this.babyGhastSetu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ ageBoundaryReached(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+--- a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
++++ b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isBab"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mobInteract(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+--- a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
++++ b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.serverStillTimeout", "this.entityData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ syncStayStillFlag(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+--- a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
++++ b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.yBodyRot", "this.yRotO", "this.yHeadRot", "this.rot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickRidden(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+--- a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
++++ b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.boundingBox", "this.getBoundingBo", "this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scanPlayerAboveGhast(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+--- a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
++++ b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.navigation", "this.lookControl", "this.moveControl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ adultGhastSetup(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+--- a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
++++ b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isOnStillTimeou", "this.setYRo", "this.yRot", "this.getYRo", "this.setYHeadRo"},
++writeEntities = {"this.yHeadRot", "this.yRot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+--- a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
++++ b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.deathTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ continuousHeal(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+--- a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
++++ b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ doPlayerRide(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+--- a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
++++ b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.travelFlyin", "this.attributeValue", "this.getAttributeValu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ travel(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+--- a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
++++ b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leashHolderTim"},
++writeEntities = {"this.leashHolderTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ notifyLeashHolder(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+--- a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
++++ b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBrai", "this.isBab", "this.brain"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ customServerAiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+--- a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
++++ b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.serverStillTimeout", "this.navigation", "this.lookControl", "this.moveControl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ babyGhastSetup(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+--- a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
++++ b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.homeTo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkRestriction(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+--- a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
++++ b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setServerStillTimeou"},
++writeEntities = {"this.serverStillTimeout"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+--- a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
++++ b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.yBodyRo", "this.yRot", "this.getYRo", "this.isVehicl", "this.yHeadRo"},
++writeEntities = {"this.yBodyRot", "this.yHeadRot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ clientTick(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+--- a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
++++ b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entityData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ staysStill(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+--- a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
++++ b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isOnStillTimeou", "this.setRequiresPrecisePositio", "this.leve"},
++writeEntities = {"this.requiresPrecisePosition"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ aiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+--- a/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
++++ b/net.minecraft.world.entity.animal.happyghast.HappyGhast.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getMoveContro", "this.moveControl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onElasticLeashPull(/* params */);
+

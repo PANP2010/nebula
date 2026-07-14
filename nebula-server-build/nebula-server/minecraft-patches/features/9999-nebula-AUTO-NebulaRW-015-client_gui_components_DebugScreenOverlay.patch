@@ -1,0 +1,192 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (15 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.components.DebugScreenOverlay.java b/net.minecraft.client.gui.components.DebugScreenOverlay.java
+--- a/net.minecraft.client.gui.components.DebugScreenOverlay.java
++++ b/net.minecraft.client.gui.components.DebugScreenOverlay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.renderLightmapTextur", "this.renderFpsChart", "this.renderNetworkCharts", "this.renderNetworkChart"},
++writeEntities = {"this.renderFpsCharts", "this.renderLightmapTexture", "this.renderNetworkCharts"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toggleNetworkCharts(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.DebugScreenOverlay.java b/net.minecraft.client.gui.components.DebugScreenOverlay.java
+--- a/net.minecraft.client.gui.components.DebugScreenOverlay.java
++++ b/net.minecraft.client.gui.components.DebugScreenOverlay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.renderProfilerChart", "this.renderProfilerChar"},
++writeEntities = {"this.renderProfilerChart"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toggleProfilerChart(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.DebugScreenOverlay.java b/net.minecraft.client.gui.components.DebugScreenOverlay.java
+--- a/net.minecraft.client.gui.components.DebugScreenOverlay.java
++++ b/net.minecraft.client.gui.components.DebugScreenOverlay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.renderLightmapTexture", "this.renderLightmapTextur", "this.renderFpsChart", "this.renderNetworkChart"},
++writeEntities = {"this.renderFpsCharts", "this.renderLightmapTexture", "this.renderNetworkCharts"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toggleLightmapTexture(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.DebugScreenOverlay.java b/net.minecraft.client.gui.components.DebugScreenOverlay.java
+--- a/net.minecraft.client.gui.components.DebugScreenOverlay.java
++++ b/net.minecraft.client.gui.components.DebugScreenOverlay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractLines(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.DebugScreenOverlay.java b/net.minecraft.client.gui.components.DebugScreenOverlay.java
+--- a/net.minecraft.client.gui.components.DebugScreenOverlay.java
++++ b/net.minecraft.client.gui.components.DebugScreenOverlay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.frameTimeLogger"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ logFrameDuration(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.DebugScreenOverlay.java b/net.minecraft.client.gui.components.DebugScreenOverlay.java
+--- a/net.minecraft.client.gui.components.DebugScreenOverlay.java
++++ b/net.minecraft.client.gui.components.DebugScreenOverlay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.renderProfilerChar"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ showProfilerChart(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.DebugScreenOverlay.java b/net.minecraft.client.gui.components.DebugScreenOverlay.java
+--- a/net.minecraft.client.gui.components.DebugScreenOverlay.java
++++ b/net.minecraft.client.gui.components.DebugScreenOverlay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.renderNetworkChart"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ showNetworkCharts(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.DebugScreenOverlay.java b/net.minecraft.client.gui.components.DebugScreenOverlay.java
+--- a/net.minecraft.client.gui.components.DebugScreenOverlay.java
++++ b/net.minecraft.client.gui.components.DebugScreenOverlay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.DebugScreenOverlay.java b/net.minecraft.client.gui.components.DebugScreenOverlay.java
+--- a/net.minecraft.client.gui.components.DebugScreenOverlay.java
++++ b/net.minecraft.client.gui.components.DebugScreenOverlay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ showDebugScreen(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.DebugScreenOverlay.java b/net.minecraft.client.gui.components.DebugScreenOverlay.java
+--- a/net.minecraft.client.gui.components.DebugScreenOverlay.java
++++ b/net.minecraft.client.gui.components.DebugScreenOverlay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.renderFpsCharts", "this.renderLightmapTextur", "this.renderFpsChart", "this.renderNetworkChart"},
++writeEntities = {"this.renderFpsCharts", "this.renderLightmapTexture", "this.renderNetworkCharts"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toggleFpsCharts(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.DebugScreenOverlay.java b/net.minecraft.client.gui.components.DebugScreenOverlay.java
+--- a/net.minecraft.client.gui.components.DebugScreenOverlay.java
++++ b/net.minecraft.client.gui.components.DebugScreenOverlay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.renderLightmapTextur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ showLightmapTexture(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.DebugScreenOverlay.java b/net.minecraft.client.gui.components.DebugScreenOverlay.java
+--- a/net.minecraft.client.gui.components.DebugScreenOverlay.java
++++ b/net.minecraft.client.gui.components.DebugScreenOverlay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.remoteSupportingLoggers"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ logRemoteSample(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.DebugScreenOverlay.java b/net.minecraft.client.gui.components.DebugScreenOverlay.java
+--- a/net.minecraft.client.gui.components.DebugScreenOverlay.java
++++ b/net.minecraft.client.gui.components.DebugScreenOverlay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.crosshairIndicies", "this.crosshairBuffer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ render3dCrosshair(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.DebugScreenOverlay.java b/net.minecraft.client.gui.components.DebugScreenOverlay.java
+--- a/net.minecraft.client.gui.components.DebugScreenOverlay.java
++++ b/net.minecraft.client.gui.components.DebugScreenOverlay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pingLogger", "this.bandwidthLogger", "this.tickTimeLogger"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reset(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.DebugScreenOverlay.java b/net.minecraft.client.gui.components.DebugScreenOverlay.java
+--- a/net.minecraft.client.gui.components.DebugScreenOverlay.java
++++ b/net.minecraft.client.gui.components.DebugScreenOverlay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.renderFpsChart"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ showFpsCharts(/* params */);
+

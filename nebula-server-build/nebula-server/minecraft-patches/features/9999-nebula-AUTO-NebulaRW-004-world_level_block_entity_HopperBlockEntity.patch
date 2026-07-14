@@ -1,0 +1,57 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.entity.HopperBlockEntity.java b/net.minecraft.world.level.block.entity.HopperBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.HopperBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.HopperBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getContainerSiz", "this.item", "this.tryLoadLootTabl", "this.items", "this.containerSize"},
++writeEntities = {"this.items"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadAdditional(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.HopperBlockEntity.java b/net.minecraft.world.level.block.entity.HopperBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.HopperBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.HopperBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.items"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ inventoryFull(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.HopperBlockEntity.java b/net.minecraft.world.level.block.entity.HopperBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.HopperBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.HopperBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.items", "this.trySaveLootTabl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveAdditional(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.HopperBlockEntity.java b/net.minecraft.world.level.block.entity.HopperBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.HopperBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.HopperBlockEntity.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ suckInItems(/* params */);
+

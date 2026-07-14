@@ -1,0 +1,105 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (8 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.DiodeBlock.java b/net.minecraft.world.level.block.DiodeBlock.java
+--- a/net.minecraft.world.level.block.DiodeBlock.java
++++ b/net.minecraft.world.level.block.DiodeBlock.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shouldTurnO", "this.isLocke"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.level.block.DiodeBlock.java b/net.minecraft.world.level.block.DiodeBlock.java
+--- a/net.minecraft.world.level.block.DiodeBlock.java
++++ b/net.minecraft.world.level.block.DiodeBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateNeighborsInFron"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onPlace(/* params */);
+
+diff --git a/net.minecraft.world.level.block.DiodeBlock.java b/net.minecraft.world.level.block.DiodeBlock.java
+--- a/net.minecraft.world.level.block.DiodeBlock.java
++++ b/net.minecraft.world.level.block.DiodeBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shouldTurnO", "this.shouldPrioritiz", "this.isLocke"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkTickOnNeighbor(/* params */);
+
+diff --git a/net.minecraft.world.level.block.DiodeBlock.java b/net.minecraft.world.level.block.DiodeBlock.java
+--- a/net.minecraft.world.level.block.DiodeBlock.java
++++ b/net.minecraft.world.level.block.DiodeBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateNeighborsInFron"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ affectNeighborsAfterRemoval(/* params */);
+
+diff --git a/net.minecraft.world.level.block.DiodeBlock.java b/net.minecraft.world.level.block.DiodeBlock.java
+--- a/net.minecraft.world.level.block.DiodeBlock.java
++++ b/net.minecraft.world.level.block.DiodeBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.checkTickOnNeighbo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ neighborChanged(/* params */);
+
+diff --git a/net.minecraft.world.level.block.DiodeBlock.java b/net.minecraft.world.level.block.DiodeBlock.java
+--- a/net.minecraft.world.level.block.DiodeBlock.java
++++ b/net.minecraft.world.level.block.DiodeBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.inputSignal", "this.getInputSigna"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldTurnOn(/* params */);
+
+diff --git a/net.minecraft.world.level.block.DiodeBlock.java b/net.minecraft.world.level.block.DiodeBlock.java
+--- a/net.minecraft.world.level.block.DiodeBlock.java
++++ b/net.minecraft.world.level.block.DiodeBlock.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{neighbors}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateNeighborsInFront(/* params */);
+
+diff --git a/net.minecraft.world.level.block.DiodeBlock.java b/net.minecraft.world.level.block.DiodeBlock.java
+--- a/net.minecraft.world.level.block.DiodeBlock.java
++++ b/net.minecraft.world.level.block.DiodeBlock.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{neighbors}", "{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldPrioritize(/* params */);
+

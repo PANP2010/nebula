@@ -1,0 +1,47 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (3 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.lighting.LeveledPriorityQueue.java b/net.minecraft.world.level.lighting.LeveledPriorityQueue.java
+--- a/net.minecraft.world.level.lighting.LeveledPriorityQueue.java
++++ b/net.minecraft.world.level.lighting.LeveledPriorityQueue.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.queues", "this.firstQueuedLeve", "this.firstQueuedLevel"},
++writeEntities = {"this.firstQueuedLevel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ enqueue(/* params */);
+
+diff --git a/net.minecraft.world.level.lighting.LeveledPriorityQueue.java b/net.minecraft.world.level.lighting.LeveledPriorityQueue.java
+--- a/net.minecraft.world.level.lighting.LeveledPriorityQueue.java
++++ b/net.minecraft.world.level.lighting.LeveledPriorityQueue.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.queues", "this.firstQueuedLeve", "this.checkFirstQueuedLeve"},
++writeEntities = {"this.firstQueuedLevel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dequeue(/* params */);
+
+diff --git a/net.minecraft.world.level.lighting.LeveledPriorityQueue.java b/net.minecraft.world.level.lighting.LeveledPriorityQueue.java
+--- a/net.minecraft.world.level.lighting.LeveledPriorityQueue.java
++++ b/net.minecraft.world.level.lighting.LeveledPriorityQueue.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.firstQueuedLeve", "this.queues"},
++writeEntities = {"this.firstQueuedLevel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkFirstQueuedLevel(/* params */);
+

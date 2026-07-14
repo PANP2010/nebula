@@ -1,0 +1,164 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (13 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.phys.shapes.VoxelShape.java b/net.minecraft.world.phys.shapes.VoxelShape.java
+--- a/net.minecraft.world.phys.shapes.VoxelShape.java
++++ b/net.minecraft.world.phys.shapes.VoxelShape.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shape", "this.getCoord", "this.coords"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forAllBoxes(/* params */);
+
+diff --git a/net.minecraft.world.phys.shapes.VoxelShape.java b/net.minecraft.world.phys.shapes.VoxelShape.java
+--- a/net.minecraft.world.phys.shapes.VoxelShape.java
++++ b/net.minecraft.world.phys.shapes.VoxelShape.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shape", "this.ge"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forAllEdges(/* params */);
+
+diff --git a/net.minecraft.world.phys.shapes.VoxelShape.java b/net.minecraft.world.phys.shapes.VoxelShape.java
+--- a/net.minecraft.world.phys.shapes.VoxelShape.java
++++ b/net.minecraft.world.phys.shapes.VoxelShape.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isEmpt", "this.shape", "this.getCoord", "this.coords"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ move(/* params */);
+
+diff --git a/net.minecraft.world.phys.shapes.VoxelShape.java b/net.minecraft.world.phys.shapes.VoxelShape.java
+--- a/net.minecraft.world.phys.shapes.VoxelShape.java
++++ b/net.minecraft.world.phys.shapes.VoxelShape.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.forAllBoxe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toAabbs(/* params */);
+
+diff --git a/net.minecraft.world.phys.shapes.VoxelShape.java b/net.minecraft.world.phys.shapes.VoxelShape.java
+--- a/net.minecraft.world.phys.shapes.VoxelShape.java
++++ b/net.minecraft.world.phys.shapes.VoxelShape.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shape", "this.ge"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findIndex(/* params */);
+
+diff --git a/net.minecraft.world.phys.shapes.VoxelShape.java b/net.minecraft.world.phys.shapes.VoxelShape.java
+--- a/net.minecraft.world.phys.shapes.VoxelShape.java
++++ b/net.minecraft.world.phys.shapes.VoxelShape.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isEmpt", "this.ma", "this.mi"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ singleEncompassing(/* params */);
+
+diff --git a/net.minecraft.world.phys.shapes.VoxelShape.java b/net.minecraft.world.phys.shapes.VoxelShape.java
+--- a/net.minecraft.world.phys.shapes.VoxelShape.java
++++ b/net.minecraft.world.phys.shapes.VoxelShape.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isEmpt"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ closestPointTo(/* params */);
+
+diff --git a/net.minecraft.world.phys.shapes.VoxelShape.java b/net.minecraft.world.phys.shapes.VoxelShape.java
+--- a/net.minecraft.world.phys.shapes.VoxelShape.java
++++ b/net.minecraft.world.phys.shapes.VoxelShape.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.forAllBoxe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ optimize(/* params */);
+
+diff --git a/net.minecraft.world.phys.shapes.VoxelShape.java b/net.minecraft.world.phys.shapes.VoxelShape.java
+--- a/net.minecraft.world.phys.shapes.VoxelShape.java
++++ b/net.minecraft.world.phys.shapes.VoxelShape.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isEmpt", "this.bound"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.world.phys.shapes.VoxelShape.java b/net.minecraft.world.phys.shapes.VoxelShape.java
+--- a/net.minecraft.world.phys.shapes.VoxelShape.java
++++ b/net.minecraft.world.phys.shapes.VoxelShape.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isEmpt"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ bounds(/* params */);
+
+diff --git a/net.minecraft.world.phys.shapes.VoxelShape.java b/net.minecraft.world.phys.shapes.VoxelShape.java
+--- a/net.minecraft.world.phys.shapes.VoxelShape.java
++++ b/net.minecraft.world.phys.shapes.VoxelShape.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isEmpt"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ collideX(/* params */);
+
+diff --git a/net.minecraft.world.phys.shapes.VoxelShape.java b/net.minecraft.world.phys.shapes.VoxelShape.java
+--- a/net.minecraft.world.phys.shapes.VoxelShape.java
++++ b/net.minecraft.world.phys.shapes.VoxelShape.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.collide"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ collide(/* params */);
+
+diff --git a/net.minecraft.world.phys.shapes.VoxelShape.java b/net.minecraft.world.phys.shapes.VoxelShape.java
+--- a/net.minecraft.world.phys.shapes.VoxelShape.java
++++ b/net.minecraft.world.phys.shapes.VoxelShape.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isCubeLikeAlon"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateFace(/* params */);
+

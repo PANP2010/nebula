@@ -1,0 +1,115 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (8 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.ServerExplosion.java b/net.minecraft.world.level.ServerExplosion.java
+--- a/net.minecraft.world.level.ServerExplosion.java
++++ b/net.minecraft.world.level.ServerExplosion.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level"},
++readBlocks = {"{position}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ interactWithBlocks(/* params */);
+
+diff --git a/net.minecraft.world.level.ServerExplosion.java b/net.minecraft.world.level.ServerExplosion.java
+--- a/net.minecraft.world.level.ServerExplosion.java
++++ b/net.minecraft.world.level.ServerExplosion.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.center", "this.radius"},
++readBlocks = {"{position}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateExplodedPositions(/* params */);
+
+diff --git a/net.minecraft.world.level.ServerExplosion.java b/net.minecraft.world.level.ServerExplosion.java
+--- a/net.minecraft.world.level.ServerExplosion.java
++++ b/net.minecraft.world.level.ServerExplosion.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level"},
++readBlocks = {"{neighbors}", "{position}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createFire(/* params */);
+
+diff --git a/net.minecraft.world.level.ServerExplosion.java b/net.minecraft.world.level.ServerExplosion.java
+--- a/net.minecraft.world.level.ServerExplosion.java
++++ b/net.minecraft.world.level.ServerExplosion.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockInteraction"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ interactsWithBlocks(/* params */);
+
+diff --git a/net.minecraft.world.level.ServerExplosion.java b/net.minecraft.world.level.ServerExplosion.java
+--- a/net.minecraft.world.level.ServerExplosion.java
++++ b/net.minecraft.world.level.ServerExplosion.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.stack", "this.stac"},
++writeEntities = {"this.stack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tryMerge(/* params */);
+
+diff --git a/net.minecraft.world.level.ServerExplosion.java b/net.minecraft.world.level.ServerExplosion.java
+--- a/net.minecraft.world.level.ServerExplosion.java
++++ b/net.minecraft.world.level.ServerExplosion.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtEntities(/* params */);
+
+diff --git a/net.minecraft.world.level.ServerExplosion.java b/net.minecraft.world.level.ServerExplosion.java
+--- a/net.minecraft.world.level.ServerExplosion.java
++++ b/net.minecraft.world.level.ServerExplosion.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ explode(/* params */);
+
+diff --git a/net.minecraft.world.level.ServerExplosion.java b/net.minecraft.world.level.ServerExplosion.java
+--- a/net.minecraft.world.level.ServerExplosion.java
++++ b/net.minecraft.world.level.ServerExplosion.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sourc", "this.level", "this.blockInteraction", "this.source"},
++writeEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldAffectBlocklikeEntities(/* params */);
+

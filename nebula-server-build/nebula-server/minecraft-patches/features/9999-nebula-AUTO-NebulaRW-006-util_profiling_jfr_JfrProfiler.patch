@@ -1,0 +1,83 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.util.profiling.jfr.JfrProfiler.java b/net.minecraft.util.profiling.jfr.JfrProfiler.java
+--- a/net.minecraft.util.profiling.jfr.JfrProfiler.java
++++ b/net.minecraft.util.profiling.jfr.JfrProfiler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.currentFP"},
++writeEntities = {"this.currentFPS"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onClientTick(/* params */);
+
+diff --git a/net.minecraft.util.profiling.jfr.JfrProfiler.java b/net.minecraft.util.profiling.jfr.JfrProfiler.java
+--- a/net.minecraft.util.profiling.jfr.JfrProfiler.java
++++ b/net.minecraft.util.profiling.jfr.JfrProfiler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.periodicClientFps", "this.periodicNetworkSummary", "this.periodicServerTickTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerPeriodicEvents(/* params */);
+
+diff --git a/net.minecraft.util.profiling.jfr.JfrProfiler.java b/net.minecraft.util.profiling.jfr.JfrProfiler.java
+--- a/net.minecraft.util.profiling.jfr.JfrProfiler.java
++++ b/net.minecraft.util.profiling.jfr.JfrProfiler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.currentAverageTickTimeServe"},
++writeEntities = {"this.currentAverageTickTimeServer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onServerTick(/* params */);
+
+diff --git a/net.minecraft.util.profiling.jfr.JfrProfiler.java b/net.minecraft.util.profiling.jfr.JfrProfiler.java
+--- a/net.minecraft.util.profiling.jfr.JfrProfiler.java
++++ b/net.minecraft.util.profiling.jfr.JfrProfiler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.recordin"},
++writeEntities = {"this.recording"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+
+diff --git a/net.minecraft.util.profiling.jfr.JfrProfiler.java b/net.minecraft.util.profiling.jfr.JfrProfiler.java
+--- a/net.minecraft.util.profiling.jfr.JfrProfiler.java
++++ b/net.minecraft.util.profiling.jfr.JfrProfiler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isRunnin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ start(/* params */);
+
+diff --git a/net.minecraft.util.profiling.jfr.JfrProfiler.java b/net.minecraft.util.profiling.jfr.JfrProfiler.java
+--- a/net.minecraft.util.profiling.jfr.JfrProfiler.java
++++ b/net.minecraft.util.profiling.jfr.JfrProfiler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.summaryReporter", "this.recording"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ recordingStateChanged(/* params */);
+

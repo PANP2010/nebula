@@ -1,0 +1,81 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.redstone.CollectingNeighborUpdater.java b/net.minecraft.world.level.redstone.CollectingNeighborUpdater.java
+--- a/net.minecraft.world.level.redstone.CollectingNeighborUpdater.java
++++ b/net.minecraft.world.level.redstone.CollectingNeighborUpdater.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.orientation", "this.pos", "this.block"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ runNext(/* params */);
+
+diff --git a/net.minecraft.world.level.redstone.CollectingNeighborUpdater.java b/net.minecraft.world.level.redstone.CollectingNeighborUpdater.java
+--- a/net.minecraft.world.level.redstone.CollectingNeighborUpdater.java
++++ b/net.minecraft.world.level.redstone.CollectingNeighborUpdater.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.addAndRu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shapeUpdate(/* params */);
+
+diff --git a/net.minecraft.world.level.redstone.CollectingNeighborUpdater.java b/net.minecraft.world.level.redstone.CollectingNeighborUpdater.java
+--- a/net.minecraft.world.level.redstone.CollectingNeighborUpdater.java
++++ b/net.minecraft.world.level.redstone.CollectingNeighborUpdater.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.addAndRu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ neighborChanged(/* params */);
+
+diff --git a/net.minecraft.world.level.redstone.CollectingNeighborUpdater.java b/net.minecraft.world.level.redstone.CollectingNeighborUpdater.java
+--- a/net.minecraft.world.level.redstone.CollectingNeighborUpdater.java
++++ b/net.minecraft.world.level.redstone.CollectingNeighborUpdater.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.stack", "this.addedThisLayer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ runUpdates(/* params */);
+
+diff --git a/net.minecraft.world.level.redstone.CollectingNeighborUpdater.java b/net.minecraft.world.level.redstone.CollectingNeighborUpdater.java
+--- a/net.minecraft.world.level.redstone.CollectingNeighborUpdater.java
++++ b/net.minecraft.world.level.redstone.CollectingNeighborUpdater.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.addAndRu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateNeighborsAtExceptFromFacing(/* params */);
+
+diff --git a/net.minecraft.world.level.redstone.CollectingNeighborUpdater.java b/net.minecraft.world.level.redstone.CollectingNeighborUpdater.java
+--- a/net.minecraft.world.level.redstone.CollectingNeighborUpdater.java
++++ b/net.minecraft.world.level.redstone.CollectingNeighborUpdater.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forEachUpdatedPos(/* params */);
+

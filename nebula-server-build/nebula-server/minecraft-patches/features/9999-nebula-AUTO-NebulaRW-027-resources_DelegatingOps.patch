@@ -1,0 +1,332 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (27 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.resources.DelegatingOps.java b/net.minecraft.resources.DelegatingOps.java
+--- a/net.minecraft.resources.DelegatingOps.java
++++ b/net.minecraft.resources.DelegatingOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.delegate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createMap(/* params */);
+
+diff --git a/net.minecraft.resources.DelegatingOps.java b/net.minecraft.resources.DelegatingOps.java
+--- a/net.minecraft.resources.DelegatingOps.java
++++ b/net.minecraft.resources.DelegatingOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.delegate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mergeToPrimitive(/* params */);
+
+diff --git a/net.minecraft.resources.DelegatingOps.java b/net.minecraft.resources.DelegatingOps.java
+--- a/net.minecraft.resources.DelegatingOps.java
++++ b/net.minecraft.resources.DelegatingOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.delegate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createNumeric(/* params */);
+
+diff --git a/net.minecraft.resources.DelegatingOps.java b/net.minecraft.resources.DelegatingOps.java
+--- a/net.minecraft.resources.DelegatingOps.java
++++ b/net.minecraft.resources.DelegatingOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.delegate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createInt(/* params */);
+
+diff --git a/net.minecraft.resources.DelegatingOps.java b/net.minecraft.resources.DelegatingOps.java
+--- a/net.minecraft.resources.DelegatingOps.java
++++ b/net.minecraft.resources.DelegatingOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.delegate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createShort(/* params */);
+
+diff --git a/net.minecraft.resources.DelegatingOps.java b/net.minecraft.resources.DelegatingOps.java
+--- a/net.minecraft.resources.DelegatingOps.java
++++ b/net.minecraft.resources.DelegatingOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.delegate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ empty(/* params */);
+
+diff --git a/net.minecraft.resources.DelegatingOps.java b/net.minecraft.resources.DelegatingOps.java
+--- a/net.minecraft.resources.DelegatingOps.java
++++ b/net.minecraft.resources.DelegatingOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.delegate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ emptyList(/* params */);
+
+diff --git a/net.minecraft.resources.DelegatingOps.java b/net.minecraft.resources.DelegatingOps.java
+--- a/net.minecraft.resources.DelegatingOps.java
++++ b/net.minecraft.resources.DelegatingOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.original"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mapError(/* params */);
+
+diff --git a/net.minecraft.resources.DelegatingOps.java b/net.minecraft.resources.DelegatingOps.java
+--- a/net.minecraft.resources.DelegatingOps.java
++++ b/net.minecraft.resources.DelegatingOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.delegate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mergeToList(/* params */);
+
+diff --git a/net.minecraft.resources.DelegatingOps.java b/net.minecraft.resources.DelegatingOps.java
+--- a/net.minecraft.resources.DelegatingOps.java
++++ b/net.minecraft.resources.DelegatingOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.delegate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ emptyMap(/* params */);
+
+diff --git a/net.minecraft.resources.DelegatingOps.java b/net.minecraft.resources.DelegatingOps.java
+--- a/net.minecraft.resources.DelegatingOps.java
++++ b/net.minecraft.resources.DelegatingOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.delegate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createLong(/* params */);
+
+diff --git a/net.minecraft.resources.DelegatingOps.java b/net.minecraft.resources.DelegatingOps.java
+--- a/net.minecraft.resources.DelegatingOps.java
++++ b/net.minecraft.resources.DelegatingOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.delegate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createLongList(/* params */);
+
+diff --git a/net.minecraft.resources.DelegatingOps.java b/net.minecraft.resources.DelegatingOps.java
+--- a/net.minecraft.resources.DelegatingOps.java
++++ b/net.minecraft.resources.DelegatingOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.delegate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createIntList(/* params */);
+
+diff --git a/net.minecraft.resources.DelegatingOps.java b/net.minecraft.resources.DelegatingOps.java
+--- a/net.minecraft.resources.DelegatingOps.java
++++ b/net.minecraft.resources.DelegatingOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.delegate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createList(/* params */);
+
+diff --git a/net.minecraft.resources.DelegatingOps.java b/net.minecraft.resources.DelegatingOps.java
+--- a/net.minecraft.resources.DelegatingOps.java
++++ b/net.minecraft.resources.DelegatingOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.original"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ build(/* params */);
+
+diff --git a/net.minecraft.resources.DelegatingOps.java b/net.minecraft.resources.DelegatingOps.java
+--- a/net.minecraft.resources.DelegatingOps.java
++++ b/net.minecraft.resources.DelegatingOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.delegate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ compressMaps(/* params */);
+
+diff --git a/net.minecraft.resources.DelegatingOps.java b/net.minecraft.resources.DelegatingOps.java
+--- a/net.minecraft.resources.DelegatingOps.java
++++ b/net.minecraft.resources.DelegatingOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.delegate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createBoolean(/* params */);
+
+diff --git a/net.minecraft.resources.DelegatingOps.java b/net.minecraft.resources.DelegatingOps.java
+--- a/net.minecraft.resources.DelegatingOps.java
++++ b/net.minecraft.resources.DelegatingOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.delegate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createFloat(/* params */);
+
+diff --git a/net.minecraft.resources.DelegatingOps.java b/net.minecraft.resources.DelegatingOps.java
+--- a/net.minecraft.resources.DelegatingOps.java
++++ b/net.minecraft.resources.DelegatingOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.delegate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createByteList(/* params */);
+
+diff --git a/net.minecraft.resources.DelegatingOps.java b/net.minecraft.resources.DelegatingOps.java
+--- a/net.minecraft.resources.DelegatingOps.java
++++ b/net.minecraft.resources.DelegatingOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.delegate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createByte(/* params */);
+
+diff --git a/net.minecraft.resources.DelegatingOps.java b/net.minecraft.resources.DelegatingOps.java
+--- a/net.minecraft.resources.DelegatingOps.java
++++ b/net.minecraft.resources.DelegatingOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.delegate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ listBuilder(/* params */);
+
+diff --git a/net.minecraft.resources.DelegatingOps.java b/net.minecraft.resources.DelegatingOps.java
+--- a/net.minecraft.resources.DelegatingOps.java
++++ b/net.minecraft.resources.DelegatingOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.delegate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createString(/* params */);
+
+diff --git a/net.minecraft.resources.DelegatingOps.java b/net.minecraft.resources.DelegatingOps.java
+--- a/net.minecraft.resources.DelegatingOps.java
++++ b/net.minecraft.resources.DelegatingOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.delegate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mapBuilder(/* params */);
+
+diff --git a/net.minecraft.resources.DelegatingOps.java b/net.minecraft.resources.DelegatingOps.java
+--- a/net.minecraft.resources.DelegatingOps.java
++++ b/net.minecraft.resources.DelegatingOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.delegate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ convertTo(/* params */);
+
+diff --git a/net.minecraft.resources.DelegatingOps.java b/net.minecraft.resources.DelegatingOps.java
+--- a/net.minecraft.resources.DelegatingOps.java
++++ b/net.minecraft.resources.DelegatingOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.delegate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mergeToMap(/* params */);
+
+diff --git a/net.minecraft.resources.DelegatingOps.java b/net.minecraft.resources.DelegatingOps.java
+--- a/net.minecraft.resources.DelegatingOps.java
++++ b/net.minecraft.resources.DelegatingOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.original"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withErrorsFrom(/* params */);
+
+diff --git a/net.minecraft.resources.DelegatingOps.java b/net.minecraft.resources.DelegatingOps.java
+--- a/net.minecraft.resources.DelegatingOps.java
++++ b/net.minecraft.resources.DelegatingOps.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.delegate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createDouble(/* params */);
+

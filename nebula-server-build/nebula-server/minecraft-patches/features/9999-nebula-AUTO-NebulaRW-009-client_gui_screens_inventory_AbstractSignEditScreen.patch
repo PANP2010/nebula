@@ -1,0 +1,119 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (9 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractSignText(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.signField"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ charTyped(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractSign(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onDone(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isVali", "this.onDon"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.width", "this.extractSig", "this.title", "this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sign", "this.preeditOverla", "this.font"},
++writeEntities = {"this.preeditOverlay"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ preeditUpdated(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.signField", "this.cursorBlinkStartTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lin", "this.line", "this.signField"},
++writeEntities = {"this.line"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ keyPressed(/* params */);
+

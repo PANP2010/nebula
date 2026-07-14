@@ -1,0 +1,80 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.renderer.gizmos.DrawableGizmoPrimitives.java b/net.minecraft.client.renderer.gizmos.DrawableGizmoPrimitives.java
+--- a/net.minecraft.client.renderer.gizmos.DrawableGizmoPrimitives.java
++++ b/net.minecraft.client.renderer.gizmos.DrawableGizmoPrimitives.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.renderLine", "this.renderQuad", "this.renderTriangleFan", "this.renderPoint", "this.renderText"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ render(/* params */);
+
+diff --git a/net.minecraft.client.renderer.gizmos.DrawableGizmoPrimitives.java b/net.minecraft.client.renderer.gizmos.DrawableGizmoPrimitives.java
+--- a/net.minecraft.client.renderer.gizmos.DrawableGizmoPrimitives.java
++++ b/net.minecraft.client.renderer.gizmos.DrawableGizmoPrimitives.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.quads"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderQuads(/* params */);
+
+diff --git a/net.minecraft.client.renderer.gizmos.DrawableGizmoPrimitives.java b/net.minecraft.client.renderer.gizmos.DrawableGizmoPrimitives.java
+--- a/net.minecraft.client.renderer.gizmos.DrawableGizmoPrimitives.java
++++ b/net.minecraft.client.renderer.gizmos.DrawableGizmoPrimitives.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.points"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderPoints(/* params */);
+
+diff --git a/net.minecraft.client.renderer.gizmos.DrawableGizmoPrimitives.java b/net.minecraft.client.renderer.gizmos.DrawableGizmoPrimitives.java
+--- a/net.minecraft.client.renderer.gizmos.DrawableGizmoPrimitives.java
++++ b/net.minecraft.client.renderer.gizmos.DrawableGizmoPrimitives.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.texts"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderTexts(/* params */);
+
+diff --git a/net.minecraft.client.renderer.gizmos.DrawableGizmoPrimitives.java b/net.minecraft.client.renderer.gizmos.DrawableGizmoPrimitives.java
+--- a/net.minecraft.client.renderer.gizmos.DrawableGizmoPrimitives.java
++++ b/net.minecraft.client.renderer.gizmos.DrawableGizmoPrimitives.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.opaque", "this.lines"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderLines(/* params */);
+
+diff --git a/net.minecraft.client.renderer.gizmos.DrawableGizmoPrimitives.java b/net.minecraft.client.renderer.gizmos.DrawableGizmoPrimitives.java
+--- a/net.minecraft.client.renderer.gizmos.DrawableGizmoPrimitives.java
++++ b/net.minecraft.client.renderer.gizmos.DrawableGizmoPrimitives.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.triangleFans"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderTriangleFans(/* params */);
+

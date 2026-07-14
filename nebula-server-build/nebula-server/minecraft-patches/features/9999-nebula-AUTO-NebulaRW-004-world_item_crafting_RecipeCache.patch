@@ -1,0 +1,58 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.item.crafting.RecipeCache.java b/net.minecraft.world.item.crafting.RecipeCache.java
+--- a/net.minecraft.world.item.crafting.RecipeCache.java
++++ b/net.minecraft.world.item.crafting.RecipeCache.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entries"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ moveEntryToFront(/* params */);
+
+diff --git a/net.minecraft.world.item.crafting.RecipeCache.java b/net.minecraft.world.item.crafting.RecipeCache.java
+--- a/net.minecraft.world.item.crafting.RecipeCache.java
++++ b/net.minecraft.world.item.crafting.RecipeCache.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.heigh", "this.widt", "this.key"},
++writeEntities = {"this.width", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ matches(/* params */);
+
+diff --git a/net.minecraft.world.item.crafting.RecipeCache.java b/net.minecraft.world.item.crafting.RecipeCache.java
+--- a/net.minecraft.world.item.crafting.RecipeCache.java
++++ b/net.minecraft.world.item.crafting.RecipeCache.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.inser"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ compute(/* params */);
+
+diff --git a/net.minecraft.world.item.crafting.RecipeCache.java b/net.minecraft.world.item.crafting.RecipeCache.java
+--- a/net.minecraft.world.item.crafting.RecipeCache.java
++++ b/net.minecraft.world.item.crafting.RecipeCache.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.cachedRecipeManage", "this.entries", "this.cachedRecipeManager"},
++writeEntities = {"this.cachedRecipeManager"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ validateRecipeManager(/* params */);
+

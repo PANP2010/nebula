@@ -1,0 +1,133 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (10 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java b/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java
+--- a/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java
++++ b/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.centerZ", "this.centerX", "this.scal"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toggleBanner(/* params */);
+
+diff --git a/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java b/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java
+--- a/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java
++++ b/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.dimensio"},
++writeEntities = {"this.dimension"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateRotation(/* params */);
+
+diff --git a/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java b/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java
+--- a/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java
++++ b/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.carriedByPlayers", "this.carriedBy"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickCarriedBy(/* params */);
+
+diff --git a/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java b/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java
+--- a/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java
++++ b/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setColo", "this.colors"},
++writeEntities = {"this.color"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateColor(/* params */);
+
+diff --git a/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java b/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java
+--- a/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java
++++ b/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyToMap(/* params */);
+
+diff --git a/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java b/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java
+--- a/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java
++++ b/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setDirt", "this.bannerMarkers", "this.removeDecoratio"},
++writeEntities = {"this.dirty"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkBanners(/* params */);
+
+diff --git a/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java b/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java
+--- a/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java
++++ b/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ locked(/* params */);
+
+diff --git a/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java b/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java
+--- a/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java
++++ b/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scaled(/* params */);
+
+diff --git a/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java b/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java
+--- a/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java
++++ b/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.minDirtyX", "this.minDirtyY", "this.maxDirtyY", "this.maxDirtyX"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ markColorsDirty(/* params */);
+
+diff --git a/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java b/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java
+--- a/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java
++++ b/net.minecraft.world.level.saveddata.maps.MapItemSavedData.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.dirtyDecoration"},
++writeEntities = {"this.dirtyDecorations"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ markDecorationsDirty(/* params */);
+

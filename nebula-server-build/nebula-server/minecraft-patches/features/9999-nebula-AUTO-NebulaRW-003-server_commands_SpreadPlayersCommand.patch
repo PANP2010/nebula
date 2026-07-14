@@ -1,0 +1,48 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (3 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.commands.SpreadPlayersCommand.java b/net.minecraft.server.commands.SpreadPlayersCommand.java
+--- a/net.minecraft.server.commands.SpreadPlayersCommand.java
++++ b/net.minecraft.server.commands.SpreadPlayersCommand.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++writeEntities = {"this.x", "this.z"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ randomize(/* params */);
+
+diff --git a/net.minecraft.server.commands.SpreadPlayersCommand.java b/net.minecraft.server.commands.SpreadPlayersCommand.java
+--- a/net.minecraft.server.commands.SpreadPlayersCommand.java
++++ b/net.minecraft.server.commands.SpreadPlayersCommand.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.x", "this.z"},
++writeEntities = {"this.x", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ moveAway(/* params */);
+
+diff --git a/net.minecraft.server.commands.SpreadPlayersCommand.java b/net.minecraft.server.commands.SpreadPlayersCommand.java
+--- a/net.minecraft.server.commands.SpreadPlayersCommand.java
++++ b/net.minecraft.server.commands.SpreadPlayersCommand.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.x"},
++writeEntities = {"this.x"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ clamp(/* params */);
+

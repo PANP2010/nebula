@@ -1,0 +1,164 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (12 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.levelgen.structure.StructurePiece.java b/net.minecraft.world.level.levelgen.structure.StructurePiece.java
+--- a/net.minecraft.world.level.levelgen.structure.StructurePiece.java
++++ b/net.minecraft.world.level.levelgen.structure.StructurePiece.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.worldPos", "this.getWorldPo", "this.placeBloc"},
++readBlocks = {"{position}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createDispenser(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.StructurePiece.java b/net.minecraft.world.level.levelgen.structure.StructurePiece.java
+--- a/net.minecraft.world.level.levelgen.structure.StructurePiece.java
++++ b/net.minecraft.world.level.levelgen.structure.StructurePiece.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBloc", "this.block", "this.isInterio", "this.placeBloc"},
++readBlocks = {"{position}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateMaybeBox(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.StructurePiece.java b/net.minecraft.world.level.levelgen.structure.StructurePiece.java
+--- a/net.minecraft.world.level.levelgen.structure.StructurePiece.java
++++ b/net.minecraft.world.level.levelgen.structure.StructurePiece.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBloc", "this.block", "this.placeBloc"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateUpperHalfSphere(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.StructurePiece.java b/net.minecraft.world.level.levelgen.structure.StructurePiece.java
+--- a/net.minecraft.world.level.levelgen.structure.StructurePiece.java
++++ b/net.minecraft.world.level.levelgen.structure.StructurePiece.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isReplaceableByStructure", "this.worldPos", "this.getWorldPo"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillColumnDown(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.StructurePiece.java b/net.minecraft.world.level.levelgen.structure.StructurePiece.java
+--- a/net.minecraft.world.level.levelgen.structure.StructurePiece.java
++++ b/net.minecraft.world.level.levelgen.structure.StructurePiece.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.generateBo"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateBox(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.StructurePiece.java b/net.minecraft.world.level.levelgen.structure.StructurePiece.java
+--- a/net.minecraft.world.level.levelgen.structure.StructurePiece.java
++++ b/net.minecraft.world.level.levelgen.structure.StructurePiece.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.placeBloc"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ maybeGenerateBlock(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.StructurePiece.java b/net.minecraft.world.level.levelgen.structure.StructurePiece.java
+--- a/net.minecraft.world.level.levelgen.structure.StructurePiece.java
++++ b/net.minecraft.world.level.levelgen.structure.StructurePiece.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mirror", "this.canBeReplace", "this.worldPos", "this.getWorldPo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ placeBlock(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.StructurePiece.java b/net.minecraft.world.level.levelgen.structure.StructurePiece.java
+--- a/net.minecraft.world.level.levelgen.structure.StructurePiece.java
++++ b/net.minecraft.world.level.levelgen.structure.StructurePiece.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.boundingBox"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ move(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.StructurePiece.java b/net.minecraft.world.level.levelgen.structure.StructurePiece.java
+--- a/net.minecraft.world.level.levelgen.structure.StructurePiece.java
++++ b/net.minecraft.world.level.levelgen.structure.StructurePiece.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createTag(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.StructurePiece.java b/net.minecraft.world.level.levelgen.structure.StructurePiece.java
+--- a/net.minecraft.world.level.levelgen.structure.StructurePiece.java
++++ b/net.minecraft.world.level.levelgen.structure.StructurePiece.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.placeBloc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateAirBox(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.StructurePiece.java b/net.minecraft.world.level.levelgen.structure.StructurePiece.java
+--- a/net.minecraft.world.level.levelgen.structure.StructurePiece.java
++++ b/net.minecraft.world.level.levelgen.structure.StructurePiece.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reorient(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.StructurePiece.java b/net.minecraft.world.level.levelgen.structure.StructurePiece.java
+--- a/net.minecraft.world.level.levelgen.structure.StructurePiece.java
++++ b/net.minecraft.world.level.levelgen.structure.StructurePiece.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createChest(/* params */);
+

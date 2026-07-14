@@ -1,0 +1,68 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.levelgen.Column.java b/net.minecraft.world.level.levelgen.Column.java
+--- a/net.minecraft.world.level.levelgen.Column.java
++++ b/net.minecraft.world.level.levelgen.Column.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ceiling", "this.getCeilin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withFloor(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.Column.java b/net.minecraft.world.level.levelgen.Column.java
+--- a/net.minecraft.world.level.levelgen.Column.java
++++ b/net.minecraft.world.level.levelgen.Column.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.edge", "this.pointingUp"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.Column.java b/net.minecraft.world.level.levelgen.Column.java
+--- a/net.minecraft.world.level.levelgen.Column.java
++++ b/net.minecraft.world.level.levelgen.Column.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ceiling", "this.floor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ height(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.Column.java b/net.minecraft.world.level.levelgen.Column.java
+--- a/net.minecraft.world.level.levelgen.Column.java
++++ b/net.minecraft.world.level.levelgen.Column.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getFloo", "this.floor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withCeiling(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.Column.java b/net.minecraft.world.level.levelgen.Column.java
+--- a/net.minecraft.world.level.levelgen.Column.java
++++ b/net.minecraft.world.level.levelgen.Column.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ceilin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ ceiling(/* params */);
+

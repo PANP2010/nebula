@@ -1,0 +1,72 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.TrapDoorBlock.java b/net.minecraft.world.level.block.TrapDoorBlock.java
+--- a/net.minecraft.world.level.block.TrapDoorBlock.java
++++ b/net.minecraft.world.level.block.TrapDoorBlock.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.type"},
++triggeredEvents = {"SOUND_PLAY"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playSound(/* params */);
+
+diff --git a/net.minecraft.world.level.block.TrapDoorBlock.java b/net.minecraft.world.level.block.TrapDoorBlock.java
+--- a/net.minecraft.world.level.block.TrapDoorBlock.java
++++ b/net.minecraft.world.level.block.TrapDoorBlock.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ neighborChanged(/* params */);
+
+diff --git a/net.minecraft.world.level.block.TrapDoorBlock.java b/net.minecraft.world.level.block.TrapDoorBlock.java
+--- a/net.minecraft.world.level.block.TrapDoorBlock.java
++++ b/net.minecraft.world.level.block.TrapDoorBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.toggl", "this.type"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onExplosionHit(/* params */);
+
+diff --git a/net.minecraft.world.level.block.TrapDoorBlock.java b/net.minecraft.world.level.block.TrapDoorBlock.java
+--- a/net.minecraft.world.level.block.TrapDoorBlock.java
++++ b/net.minecraft.world.level.block.TrapDoorBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.type"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ useWithoutItem(/* params */);
+
+diff --git a/net.minecraft.world.level.block.TrapDoorBlock.java b/net.minecraft.world.level.block.TrapDoorBlock.java
+--- a/net.minecraft.world.level.block.TrapDoorBlock.java
++++ b/net.minecraft.world.level.block.TrapDoorBlock.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toggle(/* params */);
+

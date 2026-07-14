@@ -1,0 +1,56 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.searchtree.SuffixArray.java b/net.minecraft.client.searchtree.SuffixArray.java
+--- a/net.minecraft.client.searchtree.SuffixArray.java
++++ b/net.minecraft.client.searchtree.SuffixArray.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chars"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generate(/* params */);
+
+diff --git a/net.minecraft.client.searchtree.SuffixArray.java b/net.minecraft.client.searchtree.SuffixArray.java
+--- a/net.minecraft.client.searchtree.SuffixArray.java
++++ b/net.minecraft.client.searchtree.SuffixArray.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.string", "this.suffixToT", "this.getStrin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ print(/* params */);
+
+diff --git a/net.minecraft.client.searchtree.SuffixArray.java b/net.minecraft.client.searchtree.SuffixArray.java
+--- a/net.minecraft.client.searchtree.SuffixArray.java
++++ b/net.minecraft.client.searchtree.SuffixArray.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.string", "this.suffixToT", "this.getStrin", "this.compar"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ search(/* params */);
+
+diff --git a/net.minecraft.client.searchtree.SuffixArray.java b/net.minecraft.client.searchtree.SuffixArray.java
+--- a/net.minecraft.client.searchtree.SuffixArray.java
++++ b/net.minecraft.client.searchtree.SuffixArray.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.offsets", "this.suffixToT", "this.wordStarts", "this.chars"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ compare(/* params */);
+

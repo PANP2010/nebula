@@ -1,0 +1,213 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (17 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.util.ArrayListDeque.java b/net.minecraft.util.ArrayListDeque.java
+--- a/net.minecraft.util.ArrayListDeque.java
++++ b/net.minecraft.util.ArrayListDeque.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.reverseInde", "this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ subList(/* params */);
+
+diff --git a/net.minecraft.util.ArrayListDeque.java b/net.minecraft.util.ArrayListDeque.java
+--- a/net.minecraft.util.ArrayListDeque.java
++++ b/net.minecraft.util.ArrayListDeque.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ iterator(/* params */);
+
+diff --git a/net.minecraft.util.ArrayListDeque.java b/net.minecraft.util.ArrayListDeque.java
+--- a/net.minecraft.util.ArrayListDeque.java
++++ b/net.minecraft.util.ArrayListDeque.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.reverseInde", "this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ lastIndexOf(/* params */);
+
+diff --git a/net.minecraft.util.ArrayListDeque.java b/net.minecraft.util.ArrayListDeque.java
+--- a/net.minecraft.util.ArrayListDeque.java
++++ b/net.minecraft.util.ArrayListDeque.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.reverseInde", "this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ indexOf(/* params */);
+
+diff --git a/net.minecraft.util.ArrayListDeque.java b/net.minecraft.util.ArrayListDeque.java
+--- a/net.minecraft.util.ArrayListDeque.java
++++ b/net.minecraft.util.ArrayListDeque.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ descendingIterator(/* params */);
+
+diff --git a/net.minecraft.util.ArrayListDeque.java b/net.minecraft.util.ArrayListDeque.java
+--- a/net.minecraft.util.ArrayListDeque.java
++++ b/net.minecraft.util.ArrayListDeque.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ offerFirst(/* params */);
+
+diff --git a/net.minecraft.util.ArrayListDeque.java b/net.minecraft.util.ArrayListDeque.java
+--- a/net.minecraft.util.ArrayListDeque.java
++++ b/net.minecraft.util.ArrayListDeque.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reverseIndex(/* params */);
+
+diff --git a/net.minecraft.util.ArrayListDeque.java b/net.minecraft.util.ArrayListDeque.java
+--- a/net.minecraft.util.ArrayListDeque.java
++++ b/net.minecraft.util.ArrayListDeque.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.size"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ verifyIndexInRange(/* params */);
+
+diff --git a/net.minecraft.util.ArrayListDeque.java b/net.minecraft.util.ArrayListDeque.java
+--- a/net.minecraft.util.ArrayListDeque.java
++++ b/net.minecraft.util.ArrayListDeque.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ size(/* params */);
+
+diff --git a/net.minecraft.util.ArrayListDeque.java b/net.minecraft.util.ArrayListDeque.java
+--- a/net.minecraft.util.ArrayListDeque.java
++++ b/net.minecraft.util.ArrayListDeque.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.siz", "this.ge"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forEach(/* params */);
+
+diff --git a/net.minecraft.util.ArrayListDeque.java b/net.minecraft.util.ArrayListDeque.java
+--- a/net.minecraft.util.ArrayListDeque.java
++++ b/net.minecraft.util.ArrayListDeque.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.contents"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ capacity(/* params */);
+
+diff --git a/net.minecraft.util.ArrayListDeque.java b/net.minecraft.util.ArrayListDeque.java
+--- a/net.minecraft.util.ArrayListDeque.java
++++ b/net.minecraft.util.ArrayListDeque.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ contains(/* params */);
+
+diff --git a/net.minecraft.util.ArrayListDeque.java b/net.minecraft.util.ArrayListDeque.java
+--- a/net.minecraft.util.ArrayListDeque.java
++++ b/net.minecraft.util.ArrayListDeque.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.index", "this.ge"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ next(/* params */);
+
+diff --git a/net.minecraft.util.ArrayListDeque.java b/net.minecraft.util.ArrayListDeque.java
+--- a/net.minecraft.util.ArrayListDeque.java
++++ b/net.minecraft.util.ArrayListDeque.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.size", "this.contents", "this.hea", "this.copyCoun", "this.content"},
++writeEntities = {"this.head", "this.contents"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ grow(/* params */);
+
+diff --git a/net.minecraft.util.ArrayListDeque.java b/net.minecraft.util.ArrayListDeque.java
+--- a/net.minecraft.util.ArrayListDeque.java
++++ b/net.minecraft.util.ArrayListDeque.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ offerLast(/* params */);
+
+diff --git a/net.minecraft.util.ArrayListDeque.java b/net.minecraft.util.ArrayListDeque.java
+--- a/net.minecraft.util.ArrayListDeque.java
++++ b/net.minecraft.util.ArrayListDeque.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ replaceAll(/* params */);
+
+diff --git a/net.minecraft.util.ArrayListDeque.java b/net.minecraft.util.ArrayListDeque.java
+--- a/net.minecraft.util.ArrayListDeque.java
++++ b/net.minecraft.util.ArrayListDeque.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ge"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ copyCount(/* params */);
+

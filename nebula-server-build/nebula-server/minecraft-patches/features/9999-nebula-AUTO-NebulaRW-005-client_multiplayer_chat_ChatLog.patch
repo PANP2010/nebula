@@ -1,0 +1,68 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.multiplayer.chat.ChatLog.java b/net.minecraft.client.multiplayer.chat.ChatLog.java
+--- a/net.minecraft.client.multiplayer.chat.ChatLog.java
++++ b/net.minecraft.client.multiplayer.chat.ChatLog.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.buffer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ index(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.chat.ChatLog.java b/net.minecraft.client.multiplayer.chat.ChatLog.java
+--- a/net.minecraft.client.multiplayer.chat.ChatLog.java
++++ b/net.minecraft.client.multiplayer.chat.ChatLog.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.nextId", "this.inde", "this.buffer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ push(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.chat.ChatLog.java b/net.minecraft.client.multiplayer.chat.ChatLog.java
+--- a/net.minecraft.client.multiplayer.chat.ChatLog.java
++++ b/net.minecraft.client.multiplayer.chat.ChatLog.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.nextId", "this.buffer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ start(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.chat.ChatLog.java b/net.minecraft.client.multiplayer.chat.ChatLog.java
+--- a/net.minecraft.client.multiplayer.chat.ChatLog.java
++++ b/net.minecraft.client.multiplayer.chat.ChatLog.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.star", "this.en"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ size(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.chat.ChatLog.java b/net.minecraft.client.multiplayer.chat.ChatLog.java
+--- a/net.minecraft.client.multiplayer.chat.ChatLog.java
++++ b/net.minecraft.client.multiplayer.chat.ChatLog.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.looku", "this.star", "this.siz", "this.en"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loggedChatEvents(/* params */);
+

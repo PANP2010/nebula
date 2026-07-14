@@ -1,0 +1,118 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (9 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/com.mojang.blaze3d.vertex.PoseStack.java b/com.mojang.blaze3d.vertex.PoseStack.java
+--- a/com.mojang.blaze3d.vertex.PoseStack.java
++++ b/com.mojang.blaze3d.vertex.PoseStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lastIndex", "this.poses", "this.las"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pushPose(/* params */);
+
+diff --git a/com.mojang.blaze3d.vertex.PoseStack.java b/com.mojang.blaze3d.vertex.PoseStack.java
+--- a/com.mojang.blaze3d.vertex.PoseStack.java
++++ b/com.mojang.blaze3d.vertex.PoseStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.normal", "this.pose"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scale(/* params */);
+
+diff --git a/com.mojang.blaze3d.vertex.PoseStack.java b/com.mojang.blaze3d.vertex.PoseStack.java
+--- a/com.mojang.blaze3d.vertex.PoseStack.java
++++ b/com.mojang.blaze3d.vertex.PoseStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mulPos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mulPose(/* params */);
+
+diff --git a/com.mojang.blaze3d.vertex.PoseStack.java b/com.mojang.blaze3d.vertex.PoseStack.java
+--- a/com.mojang.blaze3d.vertex.PoseStack.java
++++ b/com.mojang.blaze3d.vertex.PoseStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.normal", "this.trustedNormals"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ transformNormal(/* params */);
+
+diff --git a/com.mojang.blaze3d.vertex.PoseStack.java b/com.mojang.blaze3d.vertex.PoseStack.java
+--- a/com.mojang.blaze3d.vertex.PoseStack.java
++++ b/com.mojang.blaze3d.vertex.PoseStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.normal", "this.pose"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ rotate(/* params */);
+
+diff --git a/com.mojang.blaze3d.vertex.PoseStack.java b/com.mojang.blaze3d.vertex.PoseStack.java
+--- a/com.mojang.blaze3d.vertex.PoseStack.java
++++ b/com.mojang.blaze3d.vertex.PoseStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lastInde"},
++writeEntities = {"this.lastIndex"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ popPose(/* params */);
+
+diff --git a/com.mojang.blaze3d.vertex.PoseStack.java b/com.mojang.blaze3d.vertex.PoseStack.java
+--- a/com.mojang.blaze3d.vertex.PoseStack.java
++++ b/com.mojang.blaze3d.vertex.PoseStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.normal", "this.pose", "this.trustedNormal"},
++writeEntities = {"this.trustedNormals"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ computeNormalMatrix(/* params */);
+
+diff --git a/com.mojang.blaze3d.vertex.PoseStack.java b/com.mojang.blaze3d.vertex.PoseStack.java
+--- a/com.mojang.blaze3d.vertex.PoseStack.java
++++ b/com.mojang.blaze3d.vertex.PoseStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pose"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ translate(/* params */);
+
+diff --git a/com.mojang.blaze3d.vertex.PoseStack.java b/com.mojang.blaze3d.vertex.PoseStack.java
+--- a/com.mojang.blaze3d.vertex.PoseStack.java
++++ b/com.mojang.blaze3d.vertex.PoseStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.normal", "this.pose"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ rotateAround(/* params */);
+

@@ -1,0 +1,175 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (13 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.monster.Strider.java b/net.minecraft.world.entity.monster.Strider.java
+--- a/net.minecraft.world.entity.monster.Strider.java
++++ b/net.minecraft.world.entity.monster.Strider.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isInLav", "this.playSoun"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playStepSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Strider.java b/net.minecraft.world.entity.monster.Strider.java
+--- a/net.minecraft.world.entity.monster.Strider.java
++++ b/net.minecraft.world.entity.monster.Strider.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random", "this.getRando", "this.steering"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ boost(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Strider.java b/net.minecraft.world.entity.monster.Strider.java
+--- a/net.minecraft.world.entity.monster.Strider.java
++++ b/net.minecraft.world.entity.monster.Strider.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random", "this.isBeingTempte", "this.makeSoun"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Strider.java b/net.minecraft.world.entity.monster.Strider.java
+--- a/net.minecraft.world.entity.monster.Strider.java
++++ b/net.minecraft.world.entity.monster.Strider.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.temptGoal", "this.goalSelector", "this.temptGoa"},
++writeEntities = {"this.temptGoal"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerGoals(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Strider.java b/net.minecraft.world.entity.monster.Strider.java
+--- a/net.minecraft.world.entity.monster.Strider.java
++++ b/net.minecraft.world.entity.monster.Strider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tryTicks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldRecalculatePath(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Strider.java b/net.minecraft.world.entity.monster.Strider.java
+--- a/net.minecraft.world.entity.monster.Strider.java
++++ b/net.minecraft.world.entity.monster.Strider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.nodeEvaluato", "this.nodeEvaluator"},
++writeEntities = {"this.nodeEvaluator"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createPathFinder(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Strider.java b/net.minecraft.world.entity.monster.Strider.java
+--- a/net.minecraft.world.entity.monster.Strider.java
++++ b/net.minecraft.world.entity.monster.Strider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.onGround"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ floatStrider(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Strider.java b/net.minecraft.world.entity.monster.Strider.java
+--- a/net.minecraft.world.entity.monster.Strider.java
++++ b/net.minecraft.world.entity.monster.Strider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isFoo", "this.isSaddle", "this.leve", "this.isVehicl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mobInteract(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Strider.java b/net.minecraft.world.entity.monster.Strider.java
+--- a/net.minecraft.world.entity.monster.Strider.java
++++ b/net.minecraft.world.entity.monster.Strider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isInLav", "this.resetFallDistanc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkFallDamage(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Strider.java b/net.minecraft.world.entity.monster.Strider.java
+--- a/net.minecraft.world.entity.monster.Strider.java
++++ b/net.minecraft.world.entity.monster.Strider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.steering", "this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSyncedDataUpdated(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Strider.java b/net.minecraft.world.entity.monster.Strider.java
+--- a/net.minecraft.world.entity.monster.Strider.java
++++ b/net.minecraft.world.entity.monster.Strider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.yBodyRot", "this.yRotO", "this.yHeadRot", "this.rot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickRidden(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Strider.java b/net.minecraft.world.entity.monster.Strider.java
+--- a/net.minecraft.world.entity.monster.Strider.java
++++ b/net.minecraft.world.entity.monster.Strider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spawnJockey(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Strider.java b/net.minecraft.world.entity.monster.Strider.java
+--- a/net.minecraft.world.entity.monster.Strider.java
++++ b/net.minecraft.world.entity.monster.Strider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.moveDist"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ nextStep(/* params */);
+

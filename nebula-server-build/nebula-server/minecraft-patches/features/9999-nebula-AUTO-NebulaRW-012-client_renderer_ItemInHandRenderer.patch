@@ -1,0 +1,154 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (12 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.renderer.ItemInHandRenderer.java b/net.minecraft.client.renderer.ItemInHandRenderer.java
+--- a/net.minecraft.client.renderer.ItemInHandRenderer.java
++++ b/net.minecraft.client.renderer.ItemInHandRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderMap(/* params */);
+
+diff --git a/net.minecraft.client.renderer.ItemInHandRenderer.java b/net.minecraft.client.renderer.ItemInHandRenderer.java
+--- a/net.minecraft.client.renderer.ItemInHandRenderer.java
++++ b/net.minecraft.client.renderer.ItemInHandRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.renderPlayerAr"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderOneHandedMap(/* params */);
+
+diff --git a/net.minecraft.client.renderer.ItemInHandRenderer.java b/net.minecraft.client.renderer.ItemInHandRenderer.java
+--- a/net.minecraft.client.renderer.ItemInHandRenderer.java
++++ b/net.minecraft.client.renderer.ItemInHandRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.applyItemArmAttackTransfor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ swingArm(/* params */);
+
+diff --git a/net.minecraft.client.renderer.ItemInHandRenderer.java b/net.minecraft.client.renderer.ItemInHandRenderer.java
+--- a/net.minecraft.client.renderer.ItemInHandRenderer.java
++++ b/net.minecraft.client.renderer.ItemInHandRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.renderPlayerAr"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderArmWithItem(/* params */);
+
+diff --git a/net.minecraft.client.renderer.ItemInHandRenderer.java b/net.minecraft.client.renderer.ItemInHandRenderer.java
+--- a/net.minecraft.client.renderer.ItemInHandRenderer.java
++++ b/net.minecraft.client.renderer.ItemInHandRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.renderArmWithIte", "this.mainHandHeight", "this.mainHandItem", "this.itemModelResolver", "this.oMainHandHeight"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderHandsWithItems(/* params */);
+
+diff --git a/net.minecraft.client.renderer.ItemInHandRenderer.java b/net.minecraft.client.renderer.ItemInHandRenderer.java
+--- a/net.minecraft.client.renderer.ItemInHandRenderer.java
++++ b/net.minecraft.client.renderer.ItemInHandRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mainHandHeigh"},
++writeEntities = {"this.mainHandHeight"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ itemUsed(/* params */);
+
+diff --git a/net.minecraft.client.renderer.ItemInHandRenderer.java b/net.minecraft.client.renderer.ItemInHandRenderer.java
+--- a/net.minecraft.client.renderer.ItemInHandRenderer.java
++++ b/net.minecraft.client.renderer.ItemInHandRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.itemModelResolver"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderItem(/* params */);
+
+diff --git a/net.minecraft.client.renderer.ItemInHandRenderer.java b/net.minecraft.client.renderer.ItemInHandRenderer.java
+--- a/net.minecraft.client.renderer.ItemInHandRenderer.java
++++ b/net.minecraft.client.renderer.ItemInHandRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.entityRenderDispatcher"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderMapHand(/* params */);
+
+diff --git a/net.minecraft.client.renderer.ItemInHandRenderer.java b/net.minecraft.client.renderer.ItemInHandRenderer.java
+--- a/net.minecraft.client.renderer.ItemInHandRenderer.java
++++ b/net.minecraft.client.renderer.ItemInHandRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.entityRenderDispatcher"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderPlayerArm(/* params */);
+
+diff --git a/net.minecraft.client.renderer.ItemInHandRenderer.java b/net.minecraft.client.renderer.ItemInHandRenderer.java
+--- a/net.minecraft.client.renderer.ItemInHandRenderer.java
++++ b/net.minecraft.client.renderer.ItemInHandRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.itemModelResolver"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldInstantlyReplaceVisibleItem(/* params */);
+
+diff --git a/net.minecraft.client.renderer.ItemInHandRenderer.java b/net.minecraft.client.renderer.ItemInHandRenderer.java
+--- a/net.minecraft.client.renderer.ItemInHandRenderer.java
++++ b/net.minecraft.client.renderer.ItemInHandRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.oOffHandHeight", "this.mainHandItem", "this.oMainHandHeight"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.client.renderer.ItemInHandRenderer.java b/net.minecraft.client.renderer.ItemInHandRenderer.java
+--- a/net.minecraft.client.renderer.ItemInHandRenderer.java
++++ b/net.minecraft.client.renderer.ItemInHandRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.renderMapHan", "this.calculateMapTil"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderTwoHandedMap(/* params */);
+

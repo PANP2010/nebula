@@ -1,0 +1,164 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (13 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.chunk.storage.IOWorker.java b/net.minecraft.world.level.chunk.storage.IOWorker.java
+--- a/net.minecraft.world.level.chunk.storage.IOWorker.java
++++ b/net.minecraft.world.level.chunk.storage.IOWorker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shutdownRequested", "this.waitForShutdow", "this.consecutiveExecutor", "this.storage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ close(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.storage.IOWorker.java b/net.minecraft.world.level.chunk.storage.IOWorker.java
+--- a/net.minecraft.world.level.chunk.storage.IOWorker.java
++++ b/net.minecraft.world.level.chunk.storage.IOWorker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shutdownRequested", "this.consecutiveExecutor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ submitThrowingTask(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.storage.IOWorker.java b/net.minecraft.world.level.chunk.storage.IOWorker.java
+--- a/net.minecraft.world.level.chunk.storage.IOWorker.java
++++ b/net.minecraft.world.level.chunk.storage.IOWorker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.consecutiveExecutor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tellStorePending(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.storage.IOWorker.java b/net.minecraft.world.level.chunk.storage.IOWorker.java
+--- a/net.minecraft.world.level.chunk.storage.IOWorker.java
++++ b/net.minecraft.world.level.chunk.storage.IOWorker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.storage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ storageInfo(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.storage.IOWorker.java b/net.minecraft.world.level.chunk.storage.IOWorker.java
+--- a/net.minecraft.world.level.chunk.storage.IOWorker.java
++++ b/net.minecraft.world.level.chunk.storage.IOWorker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.submitThrowingTas", "this.pendingWrites"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scanChunk(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.storage.IOWorker.java b/net.minecraft.world.level.chunk.storage.IOWorker.java
+--- a/net.minecraft.world.level.chunk.storage.IOWorker.java
++++ b/net.minecraft.world.level.chunk.storage.IOWorker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.scanChun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createOldDataForRegion(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.storage.IOWorker.java b/net.minecraft.world.level.chunk.storage.IOWorker.java
+--- a/net.minecraft.world.level.chunk.storage.IOWorker.java
++++ b/net.minecraft.world.level.chunk.storage.IOWorker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.submitThrowingTas", "this.pendingWrites", "this.storage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ synchronize(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.storage.IOWorker.java b/net.minecraft.world.level.chunk.storage.IOWorker.java
+--- a/net.minecraft.world.level.chunk.storage.IOWorker.java
++++ b/net.minecraft.world.level.chunk.storage.IOWorker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.consecutiveExecutor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ waitForShutdown(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.storage.IOWorker.java b/net.minecraft.world.level.chunk.storage.IOWorker.java
+--- a/net.minecraft.world.level.chunk.storage.IOWorker.java
++++ b/net.minecraft.world.level.chunk.storage.IOWorker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.storage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ runStore(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.storage.IOWorker.java b/net.minecraft.world.level.chunk.storage.IOWorker.java
+--- a/net.minecraft.world.level.chunk.storage.IOWorker.java
++++ b/net.minecraft.world.level.chunk.storage.IOWorker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.submitThrowingTas", "this.pendingWrites"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadAsync(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.storage.IOWorker.java b/net.minecraft.world.level.chunk.storage.IOWorker.java
+--- a/net.minecraft.world.level.chunk.storage.IOWorker.java
++++ b/net.minecraft.world.level.chunk.storage.IOWorker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pendingWrites"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ store(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.storage.IOWorker.java b/net.minecraft.world.level.chunk.storage.IOWorker.java
+--- a/net.minecraft.world.level.chunk.storage.IOWorker.java
++++ b/net.minecraft.world.level.chunk.storage.IOWorker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tellStorePendin", "this.pendingWrites", "this.runStor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ storePendingChunk(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.storage.IOWorker.java b/net.minecraft.world.level.chunk.storage.IOWorker.java
+--- a/net.minecraft.world.level.chunk.storage.IOWorker.java
++++ b/net.minecraft.world.level.chunk.storage.IOWorker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shutdownRequested", "this.consecutiveExecutor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ submitTask(/* params */);
+

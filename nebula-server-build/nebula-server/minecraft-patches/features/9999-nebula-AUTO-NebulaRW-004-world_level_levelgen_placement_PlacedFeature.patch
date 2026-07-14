@@ -1,0 +1,62 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.levelgen.placement.PlacedFeature.java b/net.minecraft.world.level.levelgen.placement.PlacedFeature.java
+--- a/net.minecraft.world.level.levelgen.placement.PlacedFeature.java
++++ b/net.minecraft.world.level.levelgen.placement.PlacedFeature.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.placement"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ placeWithContext(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.placement.PlacedFeature.java b/net.minecraft.world.level.levelgen.placement.PlacedFeature.java
+--- a/net.minecraft.world.level.levelgen.placement.PlacedFeature.java
++++ b/net.minecraft.world.level.levelgen.placement.PlacedFeature.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.placeWithContex"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ placeWithBiomeCheck(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.placement.PlacedFeature.java b/net.minecraft.world.level.levelgen.placement.PlacedFeature.java
+--- a/net.minecraft.world.level.levelgen.placement.PlacedFeature.java
++++ b/net.minecraft.world.level.levelgen.placement.PlacedFeature.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.placeWithContex"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ place(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.placement.PlacedFeature.java b/net.minecraft.world.level.levelgen.placement.PlacedFeature.java
+--- a/net.minecraft.world.level.levelgen.placement.PlacedFeature.java
++++ b/net.minecraft.world.level.levelgen.placement.PlacedFeature.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.featur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+

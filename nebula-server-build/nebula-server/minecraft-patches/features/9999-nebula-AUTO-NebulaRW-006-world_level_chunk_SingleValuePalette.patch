@@ -1,0 +1,84 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.chunk.SingleValuePalette.java b/net.minecraft.world.level.chunk.SingleValuePalette.java
+--- a/net.minecraft.world.level.chunk.SingleValuePalette.java
++++ b/net.minecraft.world.level.chunk.SingleValuePalette.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.valu"},
++writeEntities = {"this.value"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ maybeHas(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.SingleValuePalette.java b/net.minecraft.world.level.chunk.SingleValuePalette.java
+--- a/net.minecraft.world.level.chunk.SingleValuePalette.java
++++ b/net.minecraft.world.level.chunk.SingleValuePalette.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.value"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ idFor(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.SingleValuePalette.java b/net.minecraft.world.level.chunk.SingleValuePalette.java
+--- a/net.minecraft.world.level.chunk.SingleValuePalette.java
++++ b/net.minecraft.world.level.chunk.SingleValuePalette.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.valu"},
++writeEntities = {"this.value"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ copy(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.SingleValuePalette.java b/net.minecraft.world.level.chunk.SingleValuePalette.java
+--- a/net.minecraft.world.level.chunk.SingleValuePalette.java
++++ b/net.minecraft.world.level.chunk.SingleValuePalette.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.valu"},
++writeEntities = {"this.value"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ write(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.SingleValuePalette.java b/net.minecraft.world.level.chunk.SingleValuePalette.java
+--- a/net.minecraft.world.level.chunk.SingleValuePalette.java
++++ b/net.minecraft.world.level.chunk.SingleValuePalette.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.valu", "this.value"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ valueFor(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.SingleValuePalette.java b/net.minecraft.world.level.chunk.SingleValuePalette.java
+--- a/net.minecraft.world.level.chunk.SingleValuePalette.java
++++ b/net.minecraft.world.level.chunk.SingleValuePalette.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.valu"},
++writeEntities = {"this.value"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ read(/* params */);
+

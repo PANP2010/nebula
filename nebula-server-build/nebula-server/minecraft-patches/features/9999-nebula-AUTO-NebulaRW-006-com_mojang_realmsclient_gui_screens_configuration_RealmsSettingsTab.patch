@@ -1,0 +1,82 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsSettingsTab.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsSettingsTab.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsSettingsTab.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsSettingsTab.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateRegionPreferenceValue", "this.preferredRegionSelectio"},
++writeEntities = {"this.preferredRegionSelection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyRegionPreferenceSelection(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsSettingsTab.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsSettingsTab.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsSettingsTab.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsSettingsTab.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.preferredRegionSelection", "this.configurationScreen", "this.regionServiceQuality"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ openPreferenceSelector(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsSettingsTab.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsSettingsTab.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsSettingsTab.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsSettingsTab.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.preferredRegionSelection", "this.regionServiceQuality", "this.selectedRegionStringWidget", "this.selectedRegionImageWidget"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateRegionPreferenceValues(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsSettingsTab.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsSettingsTab.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsSettingsTab.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsSettingsTab.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.serverDat"},
++writeEntities = {"this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateData(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsSettingsTab.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsSettingsTab.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsSettingsTab.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsSettingsTab.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateDat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSelected(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsSettingsTab.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsSettingsTab.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsSettingsTab.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsSettingsTab.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.preferredRegionSelection", "this.configurationScreen", "this.descEdit", "this.nameEdit", "this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ save(/* params */);
+

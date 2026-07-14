@@ -1,0 +1,201 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (16 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.ai.village.poi.PoiManager.java b/net.minecraft.world.entity.ai.village.poi.PoiManager.java
+--- a/net.minecraft.world.entity.ai.village.poi.PoiManager.java
++++ b/net.minecraft.world.entity.ai.village.poi.PoiManager.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getOrLoa", "this.levelHeightAccessor", "this.orLoad", "this.loadedChunks"},
++readBlocks = {"{chunk}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ ensureLoadedAndValid(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.village.poi.PoiManager.java b/net.minecraft.world.entity.ai.village.poi.PoiManager.java
+--- a/net.minecraft.world.entity.ai.village.poi.PoiManager.java
++++ b/net.minecraft.world.entity.ai.village.poi.PoiManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getOrLoa", "this.orLoad"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ release(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.village.poi.PoiManager.java b/net.minecraft.world.entity.ai.village.poi.PoiManager.java
+--- a/net.minecraft.world.entity.ai.village.poi.PoiManager.java
++++ b/net.minecraft.world.entity.ai.village.poi.PoiManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getOrLoa", "this.orLoad", "this.updateFromSectio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkConsistencyWithBlocks(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.village.poi.PoiManager.java b/net.minecraft.world.entity.ai.village.poi.PoiManager.java
+--- a/net.minecraft.world.entity.ai.village.poi.PoiManager.java
++++ b/net.minecraft.world.entity.ai.village.poi.PoiManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.exist"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ existsAtPosition(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.village.poi.PoiManager.java b/net.minecraft.world.entity.ai.village.poi.PoiManager.java
+--- a/net.minecraft.world.entity.ai.village.poi.PoiManager.java
++++ b/net.minecraft.world.entity.ai.village.poi.PoiManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.findAl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ find(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.village.poi.PoiManager.java b/net.minecraft.world.entity.ai.village.poi.PoiManager.java
+--- a/net.minecraft.world.entity.ai.village.poi.PoiManager.java
++++ b/net.minecraft.world.entity.ai.village.poi.PoiManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.findAllWithTyp"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findAllClosestFirstWithType(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.village.poi.PoiManager.java b/net.minecraft.world.entity.ai.village.poi.PoiManager.java
+--- a/net.minecraft.world.entity.ai.village.poi.PoiManager.java
++++ b/net.minecraft.world.entity.ai.village.poi.PoiManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getOrLoa", "this.orLoad"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ exists(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.village.poi.PoiManager.java b/net.minecraft.world.entity.ai.village.poi.PoiManager.java
+--- a/net.minecraft.world.entity.ai.village.poi.PoiManager.java
++++ b/net.minecraft.world.entity.ai.village.poi.PoiManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.distanceTracker"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSectionLoad(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.village.poi.PoiManager.java b/net.minecraft.world.entity.ai.village.poi.PoiManager.java
+--- a/net.minecraft.world.entity.ai.village.poi.PoiManager.java
++++ b/net.minecraft.world.entity.ai.village.poi.PoiManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getInRang", "this.inRange"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findClosest(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.village.poi.PoiManager.java b/net.minecraft.world.entity.ai.village.poi.PoiManager.java
+--- a/net.minecraft.world.entity.ai.village.poi.PoiManager.java
++++ b/net.minecraft.world.entity.ai.village.poi.PoiManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getInRang", "this.inRange"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findAll(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.village.poi.PoiManager.java b/net.minecraft.world.entity.ai.village.poi.PoiManager.java
+--- a/net.minecraft.world.entity.ai.village.poi.PoiManager.java
++++ b/net.minecraft.world.entity.ai.village.poi.PoiManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getInRang", "this.inRange"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ take(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.village.poi.PoiManager.java b/net.minecraft.world.entity.ai.village.poi.PoiManager.java
+--- a/net.minecraft.world.entity.ai.village.poi.PoiManager.java
++++ b/net.minecraft.world.entity.ai.village.poi.PoiManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getInRang", "this.inRange"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findClosestWithType(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.village.poi.PoiManager.java b/net.minecraft.world.entity.ai.village.poi.PoiManager.java
+--- a/net.minecraft.world.entity.ai.village.poi.PoiManager.java
++++ b/net.minecraft.world.entity.ai.village.poi.PoiManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getInRang", "this.inRange"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findAllWithType(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.village.poi.PoiManager.java b/net.minecraft.world.entity.ai.village.poi.PoiManager.java
+--- a/net.minecraft.world.entity.ai.village.poi.PoiManager.java
++++ b/net.minecraft.world.entity.ai.village.poi.PoiManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.distanceTracker"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.village.poi.PoiManager.java b/net.minecraft.world.entity.ai.village.poi.PoiManager.java
+--- a/net.minecraft.world.entity.ai.village.poi.PoiManager.java
++++ b/net.minecraft.world.entity.ai.village.poi.PoiManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.distanceTracker"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sectionsToVillage(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.village.poi.PoiManager.java b/net.minecraft.world.entity.ai.village.poi.PoiManager.java
+--- a/net.minecraft.world.entity.ai.village.poi.PoiManager.java
++++ b/net.minecraft.world.entity.ai.village.poi.PoiManager.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateFromSection(/* params */);
+

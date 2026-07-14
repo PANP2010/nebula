@@ -1,0 +1,57 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.attribute.EnvironmentAttribute.java b/net.minecraft.world.attribute.EnvironmentAttribute.java
+--- a/net.minecraft.world.attribute.EnvironmentAttribute.java
++++ b/net.minecraft.world.attribute.EnvironmentAttribute.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.valueRang", "this.type"},
++writeEntities = {"this.valueRange"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ valueCodec(/* params */);
+
+diff --git a/net.minecraft.world.attribute.EnvironmentAttribute.java b/net.minecraft.world.attribute.EnvironmentAttribute.java
+--- a/net.minecraft.world.attribute.EnvironmentAttribute.java
++++ b/net.minecraft.world.attribute.EnvironmentAttribute.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.valueRange"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sanitizeValue(/* params */);
+
+diff --git a/net.minecraft.world.attribute.EnvironmentAttribute.java b/net.minecraft.world.attribute.EnvironmentAttribute.java
+--- a/net.minecraft.world.attribute.EnvironmentAttribute.java
++++ b/net.minecraft.world.attribute.EnvironmentAttribute.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.defaultValu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ defaultValue(/* params */);
+
+diff --git a/net.minecraft.world.attribute.EnvironmentAttribute.java b/net.minecraft.world.attribute.EnvironmentAttribute.java
+--- a/net.minecraft.world.attribute.EnvironmentAttribute.java
++++ b/net.minecraft.world.attribute.EnvironmentAttribute.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ build(/* params */);
+

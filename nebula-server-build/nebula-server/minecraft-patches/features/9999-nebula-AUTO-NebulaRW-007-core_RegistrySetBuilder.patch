@@ -1,0 +1,93 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.core.RegistrySetBuilder.java b/net.minecraft.core.RegistrySetBuilder.java
+--- a/net.minecraft.core.RegistrySetBuilder.java
++++ b/net.minecraft.core.RegistrySetBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lookup", "this.errors"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reportNotCollectedHolders(/* params */);
+
+diff --git a/net.minecraft.core.RegistrySetBuilder.java b/net.minecraft.core.RegistrySetBuilder.java
+--- a/net.minecraft.core.RegistrySetBuilder.java
++++ b/net.minecraft.core.RegistrySetBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.supplie"},
++writeEntities = {"this.supplier"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ bindValue(/* params */);
+
+diff --git a/net.minecraft.core.RegistrySetBuilder.java b/net.minecraft.core.RegistrySetBuilder.java
+--- a/net.minecraft.core.RegistrySetBuilder.java
++++ b/net.minecraft.core.RegistrySetBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.errors"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ throwOnError(/* params */);
+
+diff --git a/net.minecraft.core.RegistrySetBuilder.java b/net.minecraft.core.RegistrySetBuilder.java
+--- a/net.minecraft.core.RegistrySetBuilder.java
++++ b/net.minecraft.core.RegistrySetBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.bindValu", "this.supplier"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ value(/* params */);
+
+diff --git a/net.minecraft.core.RegistrySetBuilder.java b/net.minecraft.core.RegistrySetBuilder.java
+--- a/net.minecraft.core.RegistrySetBuilder.java
++++ b/net.minecraft.core.RegistrySetBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lookup", "this.registries"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ lookup(/* params */);
+
+diff --git a/net.minecraft.core.RegistrySetBuilder.java b/net.minecraft.core.RegistrySetBuilder.java
+--- a/net.minecraft.core.RegistrySetBuilder.java
++++ b/net.minecraft.core.RegistrySetBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registeredValues", "this.errors"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reportUnclaimedRegisteredValues(/* params */);
+
+diff --git a/net.minecraft.core.RegistrySetBuilder.java b/net.minecraft.core.RegistrySetBuilder.java
+--- a/net.minecraft.core.RegistrySetBuilder.java
++++ b/net.minecraft.core.RegistrySetBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.bootstrap"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ apply(/* params */);
+

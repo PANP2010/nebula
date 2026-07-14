@@ -1,0 +1,85 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.ai.behavior.UseBonemeal.java b/net.minecraft.world.entity.ai.behavior.UseBonemeal.java
+--- a/net.minecraft.world.entity.ai.behavior.UseBonemeal.java
++++ b/net.minecraft.world.entity.ai.behavior.UseBonemeal.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.validPo"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pickNextTarget(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.UseBonemeal.java b/net.minecraft.world.entity.ai.behavior.UseBonemeal.java
+--- a/net.minecraft.world.entity.ai.behavior.UseBonemeal.java
++++ b/net.minecraft.world.entity.ai.behavior.UseBonemeal.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setCurrentCropAsTarge", "this.nextWorkCycleTim", "this.timeWorkedSoFa"},
++writeEntities = {"this.nextWorkCycleTime", "this.timeWorkedSoFar", "this.currentCropAsTarget"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ start(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.UseBonemeal.java b/net.minecraft.world.entity.ai.behavior.UseBonemeal.java
+--- a/net.minecraft.world.entity.ai.behavior.UseBonemeal.java
++++ b/net.minecraft.world.entity.ai.behavior.UseBonemeal.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.nextWorkCycleTime", "this.cropPos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.UseBonemeal.java b/net.minecraft.world.entity.ai.behavior.UseBonemeal.java
+--- a/net.minecraft.world.entity.ai.behavior.UseBonemeal.java
++++ b/net.minecraft.world.entity.ai.behavior.UseBonemeal.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lastBonemealingSession", "this.lastBonemealingSessio"},
++writeEntities = {"this.lastBonemealingSession"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkExtraStartConditions(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.UseBonemeal.java b/net.minecraft.world.entity.ai.behavior.UseBonemeal.java
+--- a/net.minecraft.world.entity.ai.behavior.UseBonemeal.java
++++ b/net.minecraft.world.entity.ai.behavior.UseBonemeal.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lastBonemealingSessio"},
++writeEntities = {"this.lastBonemealingSession"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.UseBonemeal.java b/net.minecraft.world.entity.ai.behavior.UseBonemeal.java
+--- a/net.minecraft.world.entity.ai.behavior.UseBonemeal.java
++++ b/net.minecraft.world.entity.ai.behavior.UseBonemeal.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ validPos(/* params */);
+

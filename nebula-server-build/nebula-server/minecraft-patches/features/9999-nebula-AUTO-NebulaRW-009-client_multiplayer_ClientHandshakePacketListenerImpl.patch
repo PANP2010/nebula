@@ -1,0 +1,116 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (9 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connection", "this.state", "this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillListenerSpecificCrashDetails(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleDisconnect(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connection", "this.cookies"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleRequestCookie(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.state"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ switchState(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleCompression(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.switchStat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleHello(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleLoginFinished(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.parent", "this.wasTransferredTo", "this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onDisconnect(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateStatus", "this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleCustomQuery(/* params */);
+

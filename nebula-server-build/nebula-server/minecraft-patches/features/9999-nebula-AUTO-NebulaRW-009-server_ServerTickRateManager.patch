@@ -1,0 +1,120 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (9 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.ServerTickRateManager.java b/net.minecraft.server.ServerTickRateManager.java
+--- a/net.minecraft.server.ServerTickRateManager.java
++++ b/net.minecraft.server.ServerTickRateManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.previousIsFrozen", "this.scheduledCurrentSprintTicks", "this.sprintTimeSpend", "this.frozen", "this.remainingSprintTicks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ requestGameToSprint(/* params */);
+
+diff --git a/net.minecraft.server.ServerTickRateManager.java b/net.minecraft.server.ServerTickRateManager.java
+--- a/net.minecraft.server.ServerTickRateManager.java
++++ b/net.minecraft.server.ServerTickRateManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateStepTicks(/* params */);
+
+diff --git a/net.minecraft.server.ServerTickRateManager.java b/net.minecraft.server.ServerTickRateManager.java
+--- a/net.minecraft.server.ServerTickRateManager.java
++++ b/net.minecraft.server.ServerTickRateManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.remainingSprintTicks", "this.finishTickSprin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stopSprinting(/* params */);
+
+diff --git a/net.minecraft.server.ServerTickRateManager.java b/net.minecraft.server.ServerTickRateManager.java
+--- a/net.minecraft.server.ServerTickRateManager.java
++++ b/net.minecraft.server.ServerTickRateManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.scheduledCurrentSprintTicks", "this.sprintTimeSpend", "this.frozen", "this.remainingSprintTicks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ finishTickSprint(/* params */);
+
+diff --git a/net.minecraft.server.ServerTickRateManager.java b/net.minecraft.server.ServerTickRateManager.java
+--- a/net.minecraft.server.ServerTickRateManager.java
++++ b/net.minecraft.server.ServerTickRateManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sprintTimeSpend", "this.sprintTickStartTime", "this.sprintTimeSpen"},
++writeEntities = {"this.sprintTimeSpend"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ endTickWork(/* params */);
+
+diff --git a/net.minecraft.server.ServerTickRateManager.java b/net.minecraft.server.ServerTickRateManager.java
+--- a/net.minecraft.server.ServerTickRateManager.java
++++ b/net.minecraft.server.ServerTickRateManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isFroze"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stepGameIfPaused(/* params */);
+
+diff --git a/net.minecraft.server.ServerTickRateManager.java b/net.minecraft.server.ServerTickRateManager.java
+--- a/net.minecraft.server.ServerTickRateManager.java
++++ b/net.minecraft.server.ServerTickRateManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.runGameElements"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkShouldSprintThisTick(/* params */);
+
+diff --git a/net.minecraft.server.ServerTickRateManager.java b/net.minecraft.server.ServerTickRateManager.java
+--- a/net.minecraft.server.ServerTickRateManager.java
++++ b/net.minecraft.server.ServerTickRateManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateStepTick", "this.frozenTicksToRu", "this.frozenTicksToRun"},
++writeEntities = {"this.frozenTicksToRun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stopStepping(/* params */);
+
+diff --git a/net.minecraft.server.ServerTickRateManager.java b/net.minecraft.server.ServerTickRateManager.java
+--- a/net.minecraft.server.ServerTickRateManager.java
++++ b/net.minecraft.server.ServerTickRateManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateStateToClients(/* params */);
+

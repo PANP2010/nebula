@@ -1,0 +1,48 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (3 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.levelgen.carver.CaveWorldCarver.java b/net.minecraft.world.level.levelgen.carver.CaveWorldCarver.java
+--- a/net.minecraft.world.level.levelgen.carver.CaveWorldCarver.java
++++ b/net.minecraft.world.level.levelgen.carver.CaveWorldCarver.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createTunne"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createTunnel(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.carver.CaveWorldCarver.java b/net.minecraft.world.level.levelgen.carver.CaveWorldCarver.java
+--- a/net.minecraft.world.level.levelgen.carver.CaveWorldCarver.java
++++ b/net.minecraft.world.level.levelgen.carver.CaveWorldCarver.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.caveBound", "this.range", "this.getRang", "this.getCaveBoun", "this.createRoo"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ carve(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.carver.CaveWorldCarver.java b/net.minecraft.world.level.levelgen.carver.CaveWorldCarver.java
+--- a/net.minecraft.world.level.levelgen.carver.CaveWorldCarver.java
++++ b/net.minecraft.world.level.levelgen.carver.CaveWorldCarver.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.carveEllipsoi"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createRoom(/* params */);
+

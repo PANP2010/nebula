@@ -1,0 +1,392 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (32 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/com.mojang.realmsclient.client.RealmsClient.java b/com.mojang.realmsclient.client.RealmsClient.java
+--- a/com.mojang.realmsclient.client.RealmsClient.java
++++ b/com.mojang.realmsclient.client.RealmsClient.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.execut", "this.ur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ subscriptionFor(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.RealmsClient.java b/com.mojang.realmsclient.client.RealmsClient.java
+--- a/com.mojang.realmsclient.client.RealmsClient.java
++++ b/com.mojang.realmsclient.client.RealmsClient.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.execut", "this.ur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fetchWorldTemplates(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.RealmsClient.java b/com.mojang.realmsclient.client.RealmsClient.java
+--- a/com.mojang.realmsclient.client.RealmsClient.java
++++ b/com.mojang.realmsclient.client.RealmsClient.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.execut", "this.ur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ restoreWorld(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.RealmsClient.java b/com.mojang.realmsclient.client.RealmsClient.java
+--- a/com.mojang.realmsclient.client.RealmsClient.java
++++ b/com.mojang.realmsclient.client.RealmsClient.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.execut", "this.ur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ invite(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.RealmsClient.java b/com.mojang.realmsclient.client.RealmsClient.java
+--- a/com.mojang.realmsclient.client.RealmsClient.java
++++ b/com.mojang.realmsclient.client.RealmsClient.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.execut", "this.ur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ switchSlot(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.RealmsClient.java b/com.mojang.realmsclient.client.RealmsClient.java
+--- a/com.mojang.realmsclient.client.RealmsClient.java
++++ b/com.mojang.realmsclient.client.RealmsClient.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.execut", "this.ur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ rejectInvitation(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.RealmsClient.java b/com.mojang.realmsclient.client.RealmsClient.java
+--- a/com.mojang.realmsclient.client.RealmsClient.java
++++ b/com.mojang.realmsclient.client.RealmsClient.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.execut", "this.ur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendPingResults(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.RealmsClient.java b/com.mojang.realmsclient.client.RealmsClient.java
+--- a/com.mojang.realmsclient.client.RealmsClient.java
++++ b/com.mojang.realmsclient.client.RealmsClient.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.execut", "this.ur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ trialAvailable(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.RealmsClient.java b/com.mojang.realmsclient.client.RealmsClient.java
+--- a/com.mojang.realmsclient.client.RealmsClient.java
++++ b/com.mojang.realmsclient.client.RealmsClient.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.execut", "this.ur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ join(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.RealmsClient.java b/com.mojang.realmsclient.client.RealmsClient.java
+--- a/com.mojang.realmsclient.client.RealmsClient.java
++++ b/com.mojang.realmsclient.client.RealmsClient.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.execut", "this.ur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateConfiguration(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.RealmsClient.java b/com.mojang.realmsclient.client.RealmsClient.java
+--- a/com.mojang.realmsclient.client.RealmsClient.java
++++ b/com.mojang.realmsclient.client.RealmsClient.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ listRealms(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.RealmsClient.java b/com.mojang.realmsclient.client.RealmsClient.java
+--- a/com.mojang.realmsclient.client.RealmsClient.java
++++ b/com.mojang.realmsclient.client.RealmsClient.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.execut", "this.ur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ deleteRealm(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.RealmsClient.java b/com.mojang.realmsclient.client.RealmsClient.java
+--- a/com.mojang.realmsclient.client.RealmsClient.java
++++ b/com.mojang.realmsclient.client.RealmsClient.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.execut", "this.ur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ backupsFor(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.RealmsClient.java b/com.mojang.realmsclient.client.RealmsClient.java
+--- a/com.mojang.realmsclient.client.RealmsClient.java
++++ b/com.mojang.realmsclient.client.RealmsClient.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.execut", "this.ur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetWorldWithTemplate(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.RealmsClient.java b/com.mojang.realmsclient.client.RealmsClient.java
+--- a/com.mojang.realmsclient.client.RealmsClient.java
++++ b/com.mojang.realmsclient.client.RealmsClient.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.execut", "this.ur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ agreeToTos(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.RealmsClient.java b/com.mojang.realmsclient.client.RealmsClient.java
+--- a/com.mojang.realmsclient.client.RealmsClient.java
++++ b/com.mojang.realmsclient.client.RealmsClient.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pendingInvite"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pendingInvitesCount(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.RealmsClient.java b/com.mojang.realmsclient.client.RealmsClient.java
+--- a/com.mojang.realmsclient.client.RealmsClient.java
++++ b/com.mojang.realmsclient.client.RealmsClient.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.execut", "this.ur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createSnapshotRealm(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.RealmsClient.java b/com.mojang.realmsclient.client.RealmsClient.java
+--- a/com.mojang.realmsclient.client.RealmsClient.java
++++ b/com.mojang.realmsclient.client.RealmsClient.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.execut", "this.ur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putIntoMinigameMode(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.RealmsClient.java b/com.mojang.realmsclient.client.RealmsClient.java
+--- a/com.mojang.realmsclient.client.RealmsClient.java
++++ b/com.mojang.realmsclient.client.RealmsClient.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.execut", "this.ur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ listSnapshotEligibleRealms(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.RealmsClient.java b/com.mojang.realmsclient.client.RealmsClient.java
+--- a/com.mojang.realmsclient.client.RealmsClient.java
++++ b/com.mojang.realmsclient.client.RealmsClient.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.execut", "this.ur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ requestDownloadInfo(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.RealmsClient.java b/com.mojang.realmsclient.client.RealmsClient.java
+--- a/com.mojang.realmsclient.client.RealmsClient.java
++++ b/com.mojang.realmsclient.client.RealmsClient.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.execut", "this.ur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ uninviteMyselfFrom(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.RealmsClient.java b/com.mojang.realmsclient.client.RealmsClient.java
+--- a/com.mojang.realmsclient.client.RealmsClient.java
++++ b/com.mojang.realmsclient.client.RealmsClient.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.execut", "this.ur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ uninvite(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.RealmsClient.java b/com.mojang.realmsclient.client.RealmsClient.java
+--- a/com.mojang.realmsclient.client.RealmsClient.java
++++ b/com.mojang.realmsclient.client.RealmsClient.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.execut", "this.ur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ open(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.RealmsClient.java b/com.mojang.realmsclient.client.RealmsClient.java
+--- a/com.mojang.realmsclient.client.RealmsClient.java
++++ b/com.mojang.realmsclient.client.RealmsClient.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.execut", "this.ur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateSlot(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.RealmsClient.java b/com.mojang.realmsclient.client.RealmsClient.java
+--- a/com.mojang.realmsclient.client.RealmsClient.java
++++ b/com.mojang.realmsclient.client.RealmsClient.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.execut", "this.ur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ close(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.RealmsClient.java b/com.mojang.realmsclient.client.RealmsClient.java
+--- a/com.mojang.realmsclient.client.RealmsClient.java
++++ b/com.mojang.realmsclient.client.RealmsClient.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.execut", "this.ur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ initializeRealm(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.RealmsClient.java b/com.mojang.realmsclient.client.RealmsClient.java
+--- a/com.mojang.realmsclient.client.RealmsClient.java
++++ b/com.mojang.realmsclient.client.RealmsClient.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.execut", "this.ur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ notificationsSeen(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.RealmsClient.java b/com.mojang.realmsclient.client.RealmsClient.java
+--- a/com.mojang.realmsclient.client.RealmsClient.java
++++ b/com.mojang.realmsclient.client.RealmsClient.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.execut", "this.ur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pendingInvites(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.RealmsClient.java b/com.mojang.realmsclient.client.RealmsClient.java
+--- a/com.mojang.realmsclient.client.RealmsClient.java
++++ b/com.mojang.realmsclient.client.RealmsClient.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.execut", "this.ur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ acceptInvitation(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.RealmsClient.java b/com.mojang.realmsclient.client.RealmsClient.java
+--- a/com.mojang.realmsclient.client.RealmsClient.java
++++ b/com.mojang.realmsclient.client.RealmsClient.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.execut", "this.ur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ notificationsDismiss(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.RealmsClient.java b/com.mojang.realmsclient.client.RealmsClient.java
+--- a/com.mojang.realmsclient.client.RealmsClient.java
++++ b/com.mojang.realmsclient.client.RealmsClient.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.execut", "this.ur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ deop(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.RealmsClient.java b/com.mojang.realmsclient.client.RealmsClient.java
+--- a/com.mojang.realmsclient.client.RealmsClient.java
++++ b/com.mojang.realmsclient.client.RealmsClient.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sessionId", "this.username"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ execute(/* params */);
+

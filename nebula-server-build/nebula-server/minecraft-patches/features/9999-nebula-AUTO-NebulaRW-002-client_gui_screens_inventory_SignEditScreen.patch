@@ -1,0 +1,34 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (2 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.inventory.SignEditScreen.java b/net.minecraft.client.gui.screens.inventory.SignEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.SignEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.SignEditScreen.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.woodType", "this.sign", "this.signMode"},
++writeEntities = {"this.signModel"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.SignEditScreen.java b/net.minecraft.client.gui.screens.inventory.SignEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.SignEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.SignEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.woodType", "this.width", "this.signModel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractSignBackground(/* params */);
+

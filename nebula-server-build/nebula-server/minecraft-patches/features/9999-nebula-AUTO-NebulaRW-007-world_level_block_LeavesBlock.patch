@@ -1,0 +1,99 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.LeavesBlock.java b/net.minecraft.world.level.block.LeavesBlock.java
+--- a/net.minecraft.world.level.block.LeavesBlock.java
++++ b/net.minecraft.world.level.block.LeavesBlock.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.makeFallingLeavesParticle"},
++readBlocks = {"{neighbors}", "{position}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ animateTick(/* params */);
+
+diff --git a/net.minecraft.world.level.block.LeavesBlock.java b/net.minecraft.world.level.block.LeavesBlock.java
+--- a/net.minecraft.world.level.block.LeavesBlock.java
++++ b/net.minecraft.world.level.block.LeavesBlock.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leafParticleChance", "this.spawnFallingLeavesParticl"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ makeFallingLeavesParticles(/* params */);
+
+diff --git a/net.minecraft.world.level.block.LeavesBlock.java b/net.minecraft.world.level.block.LeavesBlock.java
+--- a/net.minecraft.world.level.block.LeavesBlock.java
++++ b/net.minecraft.world.level.block.LeavesBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{neighbors}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ makeDrippingWaterParticles(/* params */);
+
+diff --git a/net.minecraft.world.level.block.LeavesBlock.java b/net.minecraft.world.level.block.LeavesBlock.java
+--- a/net.minecraft.world.level.block.LeavesBlock.java
++++ b/net.minecraft.world.level.block.LeavesBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.decayin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ randomTick(/* params */);
+
+diff --git a/net.minecraft.world.level.block.LeavesBlock.java b/net.minecraft.world.level.block.LeavesBlock.java
+--- a/net.minecraft.world.level.block.LeavesBlock.java
++++ b/net.minecraft.world.level.block.LeavesBlock.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ skipRendering(/* params */);
+
+diff --git a/net.minecraft.world.level.block.LeavesBlock.java b/net.minecraft.world.level.block.LeavesBlock.java
+--- a/net.minecraft.world.level.block.LeavesBlock.java
++++ b/net.minecraft.world.level.block.LeavesBlock.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateDistance(/* params */);
+
+diff --git a/net.minecraft.world.level.block.LeavesBlock.java b/net.minecraft.world.level.block.LeavesBlock.java
+--- a/net.minecraft.world.level.block.LeavesBlock.java
++++ b/net.minecraft.world.level.block.LeavesBlock.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+

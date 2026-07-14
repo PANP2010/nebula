@@ -1,0 +1,84 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/com.mojang.blaze3d.pipeline.RenderTarget.java b/com.mojang.blaze3d.pipeline.RenderTarget.java
+--- a/com.mojang.blaze3d.pipeline.RenderTarget.java
++++ b/com.mojang.blaze3d.pipeline.RenderTarget.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.depthTextureView", "this.width", "this.depthTexture", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createBuffers(/* params */);
+
+diff --git a/com.mojang.blaze3d.pipeline.RenderTarget.java b/com.mojang.blaze3d.pipeline.RenderTarget.java
+--- a/com.mojang.blaze3d.pipeline.RenderTarget.java
++++ b/com.mojang.blaze3d.pipeline.RenderTarget.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.colorTextureView"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ blitAndBlendToTexture(/* params */);
+
+diff --git a/com.mojang.blaze3d.pipeline.RenderTarget.java b/com.mojang.blaze3d.pipeline.RenderTarget.java
+--- a/com.mojang.blaze3d.pipeline.RenderTarget.java
++++ b/com.mojang.blaze3d.pipeline.RenderTarget.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.destroyBuffer", "this.createBuffer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resize(/* params */);
+
+diff --git a/com.mojang.blaze3d.pipeline.RenderTarget.java b/com.mojang.blaze3d.pipeline.RenderTarget.java
+--- a/com.mojang.blaze3d.pipeline.RenderTarget.java
++++ b/com.mojang.blaze3d.pipeline.RenderTarget.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.colorTextur"},
++writeEntities = {"this.colorTexture"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ blitToScreen(/* params */);
+
+diff --git a/com.mojang.blaze3d.pipeline.RenderTarget.java b/com.mojang.blaze3d.pipeline.RenderTarget.java
+--- a/com.mojang.blaze3d.pipeline.RenderTarget.java
++++ b/com.mojang.blaze3d.pipeline.RenderTarget.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.depthTextur"},
++writeEntities = {"this.depthTexture"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ copyDepthFrom(/* params */);
+
+diff --git a/com.mojang.blaze3d.pipeline.RenderTarget.java b/com.mojang.blaze3d.pipeline.RenderTarget.java
+--- a/com.mojang.blaze3d.pipeline.RenderTarget.java
++++ b/com.mojang.blaze3d.pipeline.RenderTarget.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.depthTextur", "this.depthTexture"},
++writeEntities = {"this.depthTexture"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ destroyBuffers(/* params */);
+

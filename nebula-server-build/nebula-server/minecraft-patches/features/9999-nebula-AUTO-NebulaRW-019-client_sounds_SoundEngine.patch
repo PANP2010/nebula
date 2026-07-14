@@ -1,0 +1,238 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (19 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.sounds.SoundEngine.java b/net.minecraft.client.sounds.SoundEngine.java
+--- a/net.minecraft.client.sounds.SoundEngine.java
++++ b/net.minecraft.client.sounds.SoundEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.library", "this.deviceTracker"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldChangeDevice(/* params */);
+
+diff --git a/net.minecraft.client.sounds.SoundEngine.java b/net.minecraft.client.sounds.SoundEngine.java
+--- a/net.minecraft.client.sounds.SoundEngine.java
++++ b/net.minecraft.client.sounds.SoundEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.preloadQueue", "this.loaded"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadLibrary(/* params */);
+
+diff --git a/net.minecraft.client.sounds.SoundEngine.java b/net.minecraft.client.sounds.SoundEngine.java
+--- a/net.minecraft.client.sounds.SoundEngine.java
++++ b/net.minecraft.client.sounds.SoundEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.loaded", "this.executor", "this.listener"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateSource(/* params */);
+
+diff --git a/net.minecraft.client.sounds.SoundEngine.java b/net.minecraft.client.sounds.SoundEngine.java
+--- a/net.minecraft.client.sounds.SoundEngine.java
++++ b/net.minecraft.client.sounds.SoundEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.loaded", "this.soundBuffers", "this.library", "this.stopAl", "this.loade"},
++writeEntities = {"this.loaded"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ destroy(/* params */);
+
+diff --git a/net.minecraft.client.sounds.SoundEngine.java b/net.minecraft.client.sounds.SoundEngine.java
+--- a/net.minecraft.client.sounds.SoundEngine.java
++++ b/net.minecraft.client.sounds.SoundEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.queuedTickableSounds"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ queueTickingSound(/* params */);
+
+diff --git a/net.minecraft.client.sounds.SoundEngine.java b/net.minecraft.client.sounds.SoundEngine.java
+--- a/net.minecraft.client.sounds.SoundEngine.java
++++ b/net.minecraft.client.sounds.SoundEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.loaded", "this.channelAccess"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resume(/* params */);
+
+diff --git a/net.minecraft.client.sounds.SoundEngine.java b/net.minecraft.client.sounds.SoundEngine.java
+--- a/net.minecraft.client.sounds.SoundEngine.java
++++ b/net.minecraft.client.sounds.SoundEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stopAll(/* params */);
+
+diff --git a/net.minecraft.client.sounds.SoundEngine.java b/net.minecraft.client.sounds.SoundEngine.java
+--- a/net.minecraft.client.sounds.SoundEngine.java
++++ b/net.minecraft.client.sounds.SoundEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.loaded", "this.instanceToChannel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pauseAllExcept(/* params */);
+
+diff --git a/net.minecraft.client.sounds.SoundEngine.java b/net.minecraft.client.sounds.SoundEngine.java
+--- a/net.minecraft.client.sounds.SoundEngine.java
++++ b/net.minecraft.client.sounds.SoundEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.refreshCategoryVolum", "this.gainBySource"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateCategoryVolume(/* params */);
+
+diff --git a/net.minecraft.client.sounds.SoundEngine.java b/net.minecraft.client.sounds.SoundEngine.java
+--- a/net.minecraft.client.sounds.SoundEngine.java
++++ b/net.minecraft.client.sounds.SoundEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.soundDeleteTime", "this.instanceToChannel", "this.instanceBySource"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickMusicWhenPaused(/* params */);
+
+diff --git a/net.minecraft.client.sounds.SoundEngine.java b/net.minecraft.client.sounds.SoundEngine.java
+--- a/net.minecraft.client.sounds.SoundEngine.java
++++ b/net.minecraft.client.sounds.SoundEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.instanceBySource", "this.sto"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+
+diff --git a/net.minecraft.client.sounds.SoundEngine.java b/net.minecraft.client.sounds.SoundEngine.java
+--- a/net.minecraft.client.sounds.SoundEngine.java
++++ b/net.minecraft.client.sounds.SoundEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tickCount", "this.queuedSounds"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playDelayed(/* params */);
+
+diff --git a/net.minecraft.client.sounds.SoundEngine.java b/net.minecraft.client.sounds.SoundEngine.java
+--- a/net.minecraft.client.sounds.SoundEngine.java
++++ b/net.minecraft.client.sounds.SoundEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.options", "this.gainBySource"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateVolume(/* params */);
+
+diff --git a/net.minecraft.client.sounds.SoundEngine.java b/net.minecraft.client.sounds.SoundEngine.java
+--- a/net.minecraft.client.sounds.SoundEngine.java
++++ b/net.minecraft.client.sounds.SoundEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.queuedTickableSounds", "this.tickingSounds", "this.tickCount", "this.sto"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickInGameSound(/* params */);
+
+diff --git a/net.minecraft.client.sounds.SoundEngine.java b/net.minecraft.client.sounds.SoundEngine.java
+--- a/net.minecraft.client.sounds.SoundEngine.java
++++ b/net.minecraft.client.sounds.SoundEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.preloadQueue"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ requestPreload(/* params */);
+
+diff --git a/net.minecraft.client.sounds.SoundEngine.java b/net.minecraft.client.sounds.SoundEngine.java
+--- a/net.minecraft.client.sounds.SoundEngine.java
++++ b/net.minecraft.client.sounds.SoundEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.soundManager"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reload(/* params */);
+
+diff --git a/net.minecraft.client.sounds.SoundEngine.java b/net.minecraft.client.sounds.SoundEngine.java
+--- a/net.minecraft.client.sounds.SoundEngine.java
++++ b/net.minecraft.client.sounds.SoundEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.loaded", "this.instanceToChannel", "this.calculateVolum"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ refreshCategoryVolume(/* params */);
+
+diff --git a/net.minecraft.client.sounds.SoundEngine.java b/net.minecraft.client.sounds.SoundEngine.java
+--- a/net.minecraft.client.sounds.SoundEngine.java
++++ b/net.minecraft.client.sounds.SoundEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.loaded", "this.library"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ emergencyShutdown(/* params */);
+
+diff --git a/net.minecraft.client.sounds.SoundEngine.java b/net.minecraft.client.sounds.SoundEngine.java
+--- a/net.minecraft.client.sounds.SoundEngine.java
++++ b/net.minecraft.client.sounds.SoundEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shouldChangeDevic", "this.reloa"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+

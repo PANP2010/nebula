@@ -1,0 +1,69 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.RailState.java b/net.minecraft.world.level.block.RailState.java
+--- a/net.minecraft.world.level.block.RailState.java
++++ b/net.minecraft.world.level.block.RailState.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hasRai", "this.pos"},
++readBlocks = {"{neighbors}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ countPotentialConnections(/* params */);
+
+diff --git a/net.minecraft.world.level.block.RailState.java b/net.minecraft.world.level.block.RailState.java
+--- a/net.minecraft.world.level.block.RailState.java
++++ b/net.minecraft.world.level.block.RailState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pos", "this.connections"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateConnections(/* params */);
+
+diff --git a/net.minecraft.world.level.block.RailState.java b/net.minecraft.world.level.block.RailState.java
+--- a/net.minecraft.world.level.block.RailState.java
++++ b/net.minecraft.world.level.block.RailState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pos", "this.hasNeighborRai"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ place(/* params */);
+
+diff --git a/net.minecraft.world.level.block.RailState.java b/net.minecraft.world.level.block.RailState.java
+--- a/net.minecraft.world.level.block.RailState.java
++++ b/net.minecraft.world.level.block.RailState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hasConnectio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ connectsTo(/* params */);
+
+diff --git a/net.minecraft.world.level.block.RailState.java b/net.minecraft.world.level.block.RailState.java
+--- a/net.minecraft.world.level.block.RailState.java
++++ b/net.minecraft.world.level.block.RailState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pos", "this.hasConnectio", "this.connections"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ connectTo(/* params */);
+

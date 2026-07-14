@@ -1,0 +1,69 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.data.models.ModelProvider.java b/net.minecraft.client.data.models.ModelProvider.java
+--- a/net.minecraft.client.data.models.ModelProvider.java
++++ b/net.minecraft.client.data.models.ModelProvider.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.copies", "this.itemInfos", "this.accep"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ finalizeAndValidate(/* params */);
+
+diff --git a/net.minecraft.client.data.models.ModelProvider.java b/net.minecraft.client.data.models.ModelProvider.java
+--- a/net.minecraft.client.data.models.ModelProvider.java
++++ b/net.minecraft.client.data.models.ModelProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.itemInfos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ register(/* params */);
+
+diff --git a/net.minecraft.client.data.models.ModelProvider.java b/net.minecraft.client.data.models.ModelProvider.java
+--- a/net.minecraft.client.data.models.ModelProvider.java
++++ b/net.minecraft.client.data.models.ModelProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.models"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ accept(/* params */);
+
+diff --git a/net.minecraft.client.data.models.ModelProvider.java b/net.minecraft.client.data.models.ModelProvider.java
+--- a/net.minecraft.client.data.models.ModelProvider.java
++++ b/net.minecraft.client.data.models.ModelProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.copies"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ copy(/* params */);
+
+diff --git a/net.minecraft.client.data.models.ModelProvider.java b/net.minecraft.client.data.models.ModelProvider.java
+--- a/net.minecraft.client.data.models.ModelProvider.java
++++ b/net.minecraft.client.data.models.ModelProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.generators"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ validate(/* params */);
+

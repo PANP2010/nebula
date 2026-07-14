@@ -1,0 +1,140 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (10 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java b/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java
+@@ // 70% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.worldPos", "this.getWorldPo", "this.placeBloc"},
++readBlocks = {"{neighbors}", "{position}"},
++triggeredEvents = {"ENTITY_SPAWNED"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createChest(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java b/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isReplaceableByStructure", "this.worldPos", "this.getWorldPo"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillColumnDown(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java b/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isReplaceableByStructure", "this.worldPos", "this.getWorldPo", "this.canPlaceColumnOnTopO"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillPillarDownOrChainUp(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java b/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fillPillarDownOrChainU", "this.getBloc", "this.block", "this.type"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ placeDoubleLowerOrUpperSupport(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java b/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBloc", "this.generateBo", "this.block", "this.type"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ placeSupportPillar(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java b/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isSupportingBo", "this.generateBo", "this.type"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ placeSupport(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java b/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isInterio", "this.hasSturdyNeighbour", "this.placeBloc"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ maybePlaceCobWeb(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java b/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isInInvalidLocatio", "this.generateBo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ postProcess(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java b/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.childEntranceBoxes"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ move(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java b/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillColumnBetween(/* params */);
+

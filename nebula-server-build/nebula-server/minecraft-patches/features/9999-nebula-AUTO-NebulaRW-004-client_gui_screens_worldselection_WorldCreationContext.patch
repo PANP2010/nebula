@@ -1,0 +1,56 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.WorldCreationContext.java b/net.minecraft.client.gui.screens.worldselection.WorldCreationContext.java
+--- a/net.minecraft.client.gui.screens.worldselection.WorldCreationContext.java
++++ b/net.minecraft.client.gui.screens.worldselection.WorldCreationContext.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.datapackDimension"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ validate(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.WorldCreationContext.java b/net.minecraft.client.gui.screens.worldselection.WorldCreationContext.java
+--- a/net.minecraft.client.gui.screens.worldselection.WorldCreationContext.java
++++ b/net.minecraft.client.gui.screens.worldselection.WorldCreationContext.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withOptions(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.WorldCreationContext.java b/net.minecraft.client.gui.screens.worldselection.WorldCreationContext.java
+--- a/net.minecraft.client.gui.screens.worldselection.WorldCreationContext.java
++++ b/net.minecraft.client.gui.screens.worldselection.WorldCreationContext.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.datapackDimensions", "this.initialWorldCreationOptions", "this.dataPackResources", "this.dataConfiguration", "this.worldgenRegistries"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withSettings(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.WorldCreationContext.java b/net.minecraft.client.gui.screens.worldselection.WorldCreationContext.java
+--- a/net.minecraft.client.gui.screens.worldselection.WorldCreationContext.java
++++ b/net.minecraft.client.gui.screens.worldselection.WorldCreationContext.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withDimensions(/* params */);
+

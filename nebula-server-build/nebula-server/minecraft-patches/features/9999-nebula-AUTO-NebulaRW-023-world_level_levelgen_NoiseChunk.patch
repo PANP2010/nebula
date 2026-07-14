@@ -1,0 +1,293 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (23 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.levelgen.NoiseChunk.java b/net.minecraft.world.level.levelgen.NoiseChunk.java
+--- a/net.minecraft.world.level.levelgen.NoiseChunk.java
++++ b/net.minecraft.world.level.levelgen.NoiseChunk.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fillingCell"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillArray(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.NoiseChunk.java b/net.minecraft.world.level.levelgen.NoiseChunk.java
+--- a/net.minecraft.world.level.levelgen.NoiseChunk.java
++++ b/net.minecraft.world.level.levelgen.NoiseChunk.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.preliminarySurfaceLevel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ computePreliminarySurfaceLevel(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.NoiseChunk.java b/net.minecraft.world.level.levelgen.NoiseChunk.java
+--- a/net.minecraft.world.level.levelgen.NoiseChunk.java
++++ b/net.minecraft.world.level.levelgen.NoiseChunk.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.valueXZ01", "this.valueXZ00", "this.valueXZ11", "this.valueXZ10"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateForY(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.NoiseChunk.java b/net.minecraft.world.level.levelgen.NoiseChunk.java
+--- a/net.minecraft.world.level.levelgen.NoiseChunk.java
++++ b/net.minecraft.world.level.levelgen.NoiseChunk.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.valu", "this.valueZ1", "this.valueZ0"},
++writeEntities = {"this.value"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateForZ(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.NoiseChunk.java b/net.minecraft.world.level.levelgen.NoiseChunk.java
+--- a/net.minecraft.world.level.levelgen.NoiseChunk.java
++++ b/net.minecraft.world.level.levelgen.NoiseChunk.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.valueXZ01", "this.valueZ", "this.valueXZ00", "this.valueXZ11", "this.valueXZ10"},
++writeEntities = {"this.valueZ1", "this.valueZ0"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateForX(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.NoiseChunk.java b/net.minecraft.world.level.levelgen.NoiseChunk.java
+--- a/net.minecraft.world.level.levelgen.NoiseChunk.java
++++ b/net.minecraft.world.level.levelgen.NoiseChunk.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.preliminarySurfaceLeve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ maxPreliminarySurfaceLevel(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.NoiseChunk.java b/net.minecraft.world.level.levelgen.NoiseChunk.java
+--- a/net.minecraft.world.level.levelgen.NoiseChunk.java
++++ b/net.minecraft.world.level.levelgen.NoiseChunk.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.wrappe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mapAll(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.NoiseChunk.java b/net.minecraft.world.level.levelgen.NoiseChunk.java
+--- a/net.minecraft.world.level.levelgen.NoiseChunk.java
++++ b/net.minecraft.world.level.levelgen.NoiseChunk.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.cellWidt", "this.cellStartBlock", "this.fillSlic", "this.firstCellX"},
++writeEntities = {"this.cellStartBlockX"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ advanceCellX(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.NoiseChunk.java b/net.minecraft.world.level.levelgen.NoiseChunk.java
+--- a/net.minecraft.world.level.levelgen.NoiseChunk.java
++++ b/net.minecraft.world.level.levelgen.NoiseChunk.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.cellWidth", "this.arrayInde", "this.cellHeight", "this.inCell"},
++writeEntities = {"this.inCellZ", "this.inCellY", "this.inCellX", "this.arrayIndex"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forIndex(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.NoiseChunk.java b/net.minecraft.world.level.levelgen.NoiseChunk.java
+--- a/net.minecraft.world.level.levelgen.NoiseChunk.java
++++ b/net.minecraft.world.level.levelgen.NoiseChunk.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.cellStartBlockZ", "this.inCell"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ blockZ(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.NoiseChunk.java b/net.minecraft.world.level.levelgen.NoiseChunk.java
+--- a/net.minecraft.world.level.levelgen.NoiseChunk.java
++++ b/net.minecraft.world.level.levelgen.NoiseChunk.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.cellStartBlockX", "this.inCell"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ blockX(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.NoiseChunk.java b/net.minecraft.world.level.levelgen.NoiseChunk.java
+--- a/net.minecraft.world.level.levelgen.NoiseChunk.java
++++ b/net.minecraft.world.level.levelgen.NoiseChunk.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.cellStartBlockY", "this.inCell"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ blockY(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.NoiseChunk.java b/net.minecraft.world.level.levelgen.NoiseChunk.java
+--- a/net.minecraft.world.level.levelgen.NoiseChunk.java
++++ b/net.minecraft.world.level.levelgen.NoiseChunk.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.preliminarySurfaceLevelCache"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ preliminarySurfaceLevel(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.NoiseChunk.java b/net.minecraft.world.level.levelgen.NoiseChunk.java
+--- a/net.minecraft.world.level.levelgen.NoiseChunk.java
++++ b/net.minecraft.world.level.levelgen.NoiseChunk.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.noiseFille"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ wrapped(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.NoiseChunk.java b/net.minecraft.world.level.levelgen.NoiseChunk.java
+--- a/net.minecraft.world.level.levelgen.NoiseChunk.java
++++ b/net.minecraft.world.level.levelgen.NoiseChunk.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.cellHeigh"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ cellHeight(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.NoiseChunk.java b/net.minecraft.world.level.levelgen.NoiseChunk.java
+--- a/net.minecraft.world.level.levelgen.NoiseChunk.java
++++ b/net.minecraft.world.level.levelgen.NoiseChunk.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.inCellZ", "this.cellStartBlockZ", "this.inCellX", "this.cellStartBlockX"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillSlice(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.NoiseChunk.java b/net.minecraft.world.level.levelgen.NoiseChunk.java
+--- a/net.minecraft.world.level.levelgen.NoiseChunk.java
++++ b/net.minecraft.world.level.levelgen.NoiseChunk.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ selectCellYZ(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.NoiseChunk.java b/net.minecraft.world.level.levelgen.NoiseChunk.java
+--- a/net.minecraft.world.level.levelgen.NoiseChunk.java
++++ b/net.minecraft.world.level.levelgen.NoiseChunk.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.wrapped"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ wrap(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.NoiseChunk.java b/net.minecraft.world.level.levelgen.NoiseChunk.java
+--- a/net.minecraft.world.level.levelgen.NoiseChunk.java
++++ b/net.minecraft.world.level.levelgen.NoiseChunk.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.arrayInde", "this.cellWidt", "this.cellHeight", "this.arrayIndex", "this.inCell"},
++writeEntities = {"this.inCellZ", "this.inCellY", "this.inCellX", "this.arrayIndex"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillAllDirectly(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.NoiseChunk.java b/net.minecraft.world.level.levelgen.NoiseChunk.java
+--- a/net.minecraft.world.level.levelgen.NoiseChunk.java
++++ b/net.minecraft.world.level.levelgen.NoiseChunk.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.interpolating"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ initializeForFirstCellX(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.NoiseChunk.java b/net.minecraft.world.level.levelgen.NoiseChunk.java
+--- a/net.minecraft.world.level.levelgen.NoiseChunk.java
++++ b/net.minecraft.world.level.levelgen.NoiseChunk.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.interpolating"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stopInterpolation(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.NoiseChunk.java b/net.minecraft.world.level.levelgen.NoiseChunk.java
+--- a/net.minecraft.world.level.levelgen.NoiseChunk.java
++++ b/net.minecraft.world.level.levelgen.NoiseChunk.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.noiseFiller"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ compute(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.NoiseChunk.java b/net.minecraft.world.level.levelgen.NoiseChunk.java
+--- a/net.minecraft.world.level.levelgen.NoiseChunk.java
++++ b/net.minecraft.world.level.levelgen.NoiseChunk.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.slice"},
++writeEntities = {"this.slice0", "this.slice1"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ swapSlices(/* params */);
+

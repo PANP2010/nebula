@@ -1,0 +1,69 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.packs.FilePackResources.java b/net.minecraft.server.packs.FilePackResources.java
+--- a/net.minecraft.server.packs.FilePackResources.java
++++ b/net.minecraft.server.packs.FilePackResources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.content"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ openPrimary(/* params */);
+
+diff --git a/net.minecraft.server.packs.FilePackResources.java b/net.minecraft.server.packs.FilePackResources.java
+--- a/net.minecraft.server.packs.FilePackResources.java
++++ b/net.minecraft.server.packs.FilePackResources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.content"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ openFull(/* params */);
+
+diff --git a/net.minecraft.server.packs.FilePackResources.java b/net.minecraft.server.packs.FilePackResources.java
+--- a/net.minecraft.server.packs.FilePackResources.java
++++ b/net.minecraft.server.packs.FilePackResources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.zipFileAccess", "this.addPrefi"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ listResources(/* params */);
+
+diff --git a/net.minecraft.server.packs.FilePackResources.java b/net.minecraft.server.packs.FilePackResources.java
+--- a/net.minecraft.server.packs.FilePackResources.java
++++ b/net.minecraft.server.packs.FilePackResources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.clos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ finalize(/* params */);
+
+diff --git a/net.minecraft.server.packs.FilePackResources.java b/net.minecraft.server.packs.FilePackResources.java
+--- a/net.minecraft.server.packs.FilePackResources.java
++++ b/net.minecraft.server.packs.FilePackResources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.zipFil", "this.zipFile"},
++writeEntities = {"this.zipFile"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ close(/* params */);
+

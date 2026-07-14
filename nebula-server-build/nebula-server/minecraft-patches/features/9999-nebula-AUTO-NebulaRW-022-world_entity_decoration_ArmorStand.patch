@@ -1,0 +1,279 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (22 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.decoration.ArmorStand.java b/net.minecraft.world.entity.decoration.ArmorStand.java
+--- a/net.minecraft.world.entity.decoration.ArmorStand.java
++++ b/net.minecraft.world.entity.decoration.ArmorStand.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playBrokenSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ArmorStand.java b/net.minecraft.world.entity.decoration.ArmorStand.java
+--- a/net.minecraft.world.entity.decoration.ArmorStand.java
++++ b/net.minecraft.world.entity.decoration.ArmorStand.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getHealt", "this.health", "this.brokenByAnythin", "this.kil"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ causeDamage(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ArmorStand.java b/net.minecraft.world.entity.decoration.ArmorStand.java
+--- a/net.minecraft.world.entity.decoration.ArmorStand.java
++++ b/net.minecraft.world.entity.decoration.ArmorStand.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockPositio", "this.getCustomNam", "this.leve", "this.customName", "this.brokenByAnythin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ brokenByPlayer(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ArmorStand.java b/net.minecraft.world.entity.decoration.ArmorStand.java
+--- a/net.minecraft.world.entity.decoration.ArmorStand.java
++++ b/net.minecraft.world.entity.decoration.ArmorStand.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entityData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ showBasePlate(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ArmorStand.java b/net.minecraft.world.entity.decoration.ArmorStand.java
+--- a/net.minecraft.world.entity.decoration.ArmorStand.java
++++ b/net.minecraft.world.entity.decoration.ArmorStand.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.lastHit"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleEntityEvent(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ArmorStand.java b/net.minecraft.world.entity.decoration.ArmorStand.java
+--- a/net.minecraft.world.entity.decoration.ArmorStand.java
++++ b/net.minecraft.world.entity.decoration.ArmorStand.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.yBodyRot", "this.yBodyRo", "this.yRot", "this.getYRo"},
++writeEntities = {"this.yBodyRot", "this.yBodyRotO"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickHeadTurn(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ArmorStand.java b/net.minecraft.world.entity.decoration.ArmorStand.java
+--- a/net.minecraft.world.entity.decoration.ArmorStand.java
++++ b/net.minecraft.world.entity.decoration.ArmorStand.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ArmorStand.java b/net.minecraft.world.entity.decoration.ArmorStand.java
+--- a/net.minecraft.world.entity.decoration.ArmorStand.java
++++ b/net.minecraft.world.entity.decoration.ArmorStand.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.boundingBox", "this.distanceToSq", "this.getBoundingBo", "this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pushEntities(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ArmorStand.java b/net.minecraft.world.entity.decoration.ArmorStand.java
+--- a/net.minecraft.world.entity.decoration.ArmorStand.java
++++ b/net.minecraft.world.entity.decoration.ArmorStand.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isRemove"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtServer(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ArmorStand.java b/net.minecraft.world.entity.decoration.ArmorStand.java
+--- a/net.minecraft.world.entity.decoration.ArmorStand.java
++++ b/net.minecraft.world.entity.decoration.ArmorStand.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getItemBySlo", "this.disabledSlots", "this.itemBySlot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ swapItem(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ArmorStand.java b/net.minecraft.world.entity.decoration.ArmorStand.java
+--- a/net.minecraft.world.entity.decoration.ArmorStand.java
++++ b/net.minecraft.world.entity.decoration.ArmorStand.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setPo", "this.get", "this.x", "this.y", "this.z"},
++writeEntities = {"this.pos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ refreshDimensions(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ArmorStand.java b/net.minecraft.world.entity.decoration.ArmorStand.java
+--- a/net.minecraft.world.entity.decoration.ArmorStand.java
++++ b/net.minecraft.world.entity.decoration.ArmorStand.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.remov", "this.gameEven"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ kill(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ArmorStand.java b/net.minecraft.world.entity.decoration.ArmorStand.java
+--- a/net.minecraft.world.entity.decoration.ArmorStand.java
++++ b/net.minecraft.world.entity.decoration.ArmorStand.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ showBreakingParticles(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ArmorStand.java b/net.minecraft.world.entity.decoration.ArmorStand.java
+--- a/net.minecraft.world.entity.decoration.ArmorStand.java
++++ b/net.minecraft.world.entity.decoration.ArmorStand.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockPositio", "this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ skipAttackInteraction(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ArmorStand.java b/net.minecraft.world.entity.decoration.ArmorStand.java
+--- a/net.minecraft.world.entity.decoration.ArmorStand.java
++++ b/net.minecraft.world.entity.decoration.ArmorStand.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isInvisibl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ ignoreExplosion(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ArmorStand.java b/net.minecraft.world.entity.decoration.ArmorStand.java
+--- a/net.minecraft.world.entity.decoration.ArmorStand.java
++++ b/net.minecraft.world.entity.decoration.ArmorStand.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.invisible", "this.setInvisibl"},
++writeEntities = {"this.invisible"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateInvisibilityStatus(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ArmorStand.java b/net.minecraft.world.entity.decoration.ArmorStand.java
+--- a/net.minecraft.world.entity.decoration.ArmorStand.java
++++ b/net.minecraft.world.entity.decoration.ArmorStand.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.dropAllDeathLoo", "this.blockPositio", "this.playBrokenSoun", "this.equipment", "this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ brokenByAnything(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ArmorStand.java b/net.minecraft.world.entity.decoration.ArmorStand.java
+--- a/net.minecraft.world.entity.decoration.ArmorStand.java
++++ b/net.minecraft.world.entity.decoration.ArmorStand.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entityData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ showArms(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ArmorStand.java b/net.minecraft.world.entity.decoration.ArmorStand.java
+--- a/net.minecraft.world.entity.decoration.ArmorStand.java
++++ b/net.minecraft.world.entity.decoration.ArmorStand.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hasPhysic"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ travel(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ArmorStand.java b/net.minecraft.world.entity.decoration.ArmorStand.java
+--- a/net.minecraft.world.entity.decoration.ArmorStand.java
++++ b/net.minecraft.world.entity.decoration.ArmorStand.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.boundingBox", "this.getBoundingBo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldRenderAtSqrDistance(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ArmorStand.java b/net.minecraft.world.entity.decoration.ArmorStand.java
+--- a/net.minecraft.world.entity.decoration.ArmorStand.java
++++ b/net.minecraft.world.entity.decoration.ArmorStand.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isMarke"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ interact(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.ArmorStand.java b/net.minecraft.world.entity.decoration.ArmorStand.java
+--- a/net.minecraft.world.entity.decoration.ArmorStand.java
++++ b/net.minecraft.world.entity.decoration.ArmorStand.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blocksBuildin", "this.refreshDimension", "this.isMarke"},
++writeEntities = {"this.blocksBuilding"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSyncedDataUpdated(/* params */);
+

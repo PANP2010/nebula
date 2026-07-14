@@ -1,0 +1,70 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.monster.warden.AngerManagement.java b/net.minecraft.world.entity.monster.warden.AngerManagement.java
+--- a/net.minecraft.world.entity.monster.warden.AngerManagement.java
++++ b/net.minecraft.world.entity.monster.warden.AngerManagement.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.angerByUuid", "this.suspects", "this.angerBySuspect"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ increaseAnger(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.warden.AngerManagement.java b/net.minecraft.world.entity.monster.warden.AngerManagement.java
+--- a/net.minecraft.world.entity.monster.warden.AngerManagement.java
++++ b/net.minecraft.world.entity.monster.warden.AngerManagement.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.angerByUuid", "this.suspects", "this.angerBySuspect"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ convertFromUuids(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.warden.AngerManagement.java b/net.minecraft.world.entity.monster.warden.AngerManagement.java
+--- a/net.minecraft.world.entity.monster.warden.AngerManagement.java
++++ b/net.minecraft.world.entity.monster.warden.AngerManagement.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.angerByUuid", "this.suspects", "this.angerBySuspect"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createUuidAngerPairs(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.warden.AngerManagement.java b/net.minecraft.world.entity.monster.warden.AngerManagement.java
+--- a/net.minecraft.world.entity.monster.warden.AngerManagement.java
++++ b/net.minecraft.world.entity.monster.warden.AngerManagement.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.highestAnge", "this.suspectSorter", "this.suspects", "this.angerBySuspect"},
++writeEntities = {"this.highestAnger"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sortAndUpdateHighestAnger(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.warden.AngerManagement.java b/net.minecraft.world.entity.monster.warden.AngerManagement.java
+--- a/net.minecraft.world.entity.monster.warden.AngerManagement.java
++++ b/net.minecraft.world.entity.monster.warden.AngerManagement.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.convertFromUuid", "this.conversionDela", "this.conversionDelay"},
++writeEntities = {"this.conversionDelay"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+

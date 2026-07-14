@@ -1,0 +1,864 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (70 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 70% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++readBlocks = {"{neighbors}", "{position}"},
++triggeredEvents = {"ENTITY_SPAWNED"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickThunder(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random", "this.blockState", "this.getBlockStat"},
++readBlocks = {"{position}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickBlock(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockState", "this.getBlockStat"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateNeighboursOnBlockSet(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockState", "this.getBlockStat"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ doBlockEvent(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockState", "this.getBlockStat"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickFluid(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random", "this.getBlockRandomPo", "this.blockRandomPos", "this.tickPrecipitatio"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickChunk(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.advanceWeatherCycl", "this.getWorldBorde", "this.tickRateManage", "this.handlingTic", "this.worldBorder"},
++writeEntities = {"this.handlingTick"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ potionBrewing(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ runBlockEvents(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server", "this.getWorldBorde", "this.worldBorder"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mayInteract(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.debugSynchronizers"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onBlockEntityAdded(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entityManager"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ areEntitiesActuallyLoadedAndTicking(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.neighborUpdater"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateNeighborsAtExceptFromFacing(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entityTickList"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onTickingStart(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onTrackingEnd(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getChunkSourc", "this.chunkSource"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ save(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockEvents"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ blockEvent(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.neighborUpdater"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateNeighborsAt(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getHeigh", "this.getPoiManage", "this.poiManager", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findLightningRod(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isUpdatingNavigations"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendBlockUpdated(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockEntityTickers"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dumpBlockEntityTickers(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.gameRules", "this.server", "this.getGameRule"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ globalLevelEvent(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.structureManage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ structureManager(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entityTickList"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onTickingEnd(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getHeightmapPo", "this.getBiom", "this.biome", "this.heightmapPos", "this.setBlockAndUpdat"},
++writeEntities = {"this.blockAndUpdate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickPrecipitation(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server", "this.getPoiManage", "this.getServe", "this.poiManager", "this.debugSynchronizers"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updatePOIOnBlockStateChange(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.debugSynchronizer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ debugSynchronizers(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entityManager"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ close(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entityManager", "this.chunkSource"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ gatherChunkSourceStats(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entityManage"},
++writeEntities = {"this.entityManager"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tryAddFreshEntityWithPassengers(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getChunkSourc", "this.chunkSource"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveLevelData(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.structureCheck", "this.server"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onStructureStartsAvailable(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server", "this.entityManager", "this.areEntitiesLoade"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ waitForEntities(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getDestroyTyp", "this.gameRules", "this.getGameRule", "this.destroyType"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ explode(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.gameEventDispatcher"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ gameEvent(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server", "this.dimensio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playSeededSound(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getChunkSourc", "this.getWaypointManage", "this.waypointManager", "this.players", "this.chunkSource"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onTrackingStart(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ destroyBlockProgress(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.gameTime", "this.getGameTim"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startTickingChunk(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ clockManager(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ enabledFeatures(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getChunkSourc", "this.chunkSource"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveDebugReport(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getWaypointManage", "this.waypointManager"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onCreated(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entityManager", "this.isThunderin", "this.weatherData", "this.getWeatherDat", "this.isRainin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillReportDetails(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.debugSynchronizers"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ unload(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getPoiManage", "this.poiManager"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sectionsToVillage(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server", "this.serverLevelData", "this.tickTime", "this.levelData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickTime(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.neighborUpdater"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ neighborChanged(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.dragonParts"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dragonParts(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.serverLevelData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.weatherData", "this.getWeatherDat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetWeatherCycle(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getChunkSourc", "this.chunkSource"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ broadcastDamageEvent(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chunkSource"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ anyPlayerCloseEnoughForSpawning(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ recipeAccess(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.rainLeve", "this.thunderLeve"},
++writeEntities = {"this.thunderLevel", "this.rainLevel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ prepareWeather(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.customSpawners"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickCustomSpawners(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.findLightningRo", "this.getHeightmapPo", "this.heightmapPos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findLightningTargetAround(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.environmentAttribute"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ environmentAttributes(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entityManager"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ areEntitiesLoaded(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ advanceWeatherCycle(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tickPassenge"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickNonPassenger(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chunkSource"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldTickBlocksAt(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickRateManager(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ announceSleepStatus(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fuelValues(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sleepStatus", "this.players"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ wakeUpAllPlayers(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getChunkSourc", "this.chunkSource"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ broadcastEntityEvent(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server", "this.dimensio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ levelEvent(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sleepStatus", "this.players", "this.announceSleepStatu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateSleepingPlayerList(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerLevel.java b/net.minecraft.server.level.ServerLevel.java
+--- a/net.minecraft.server.level.ServerLevel.java
++++ b/net.minecraft.server.level.ServerLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getWaypointManage", "this.waypointManager"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onDestroyed(/* params */);
+

@@ -1,0 +1,62 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.levelgen.WorldgenRandom.java b/net.minecraft.world.level.levelgen.WorldgenRandom.java
+--- a/net.minecraft.world.level.levelgen.WorldgenRandom.java
++++ b/net.minecraft.world.level.levelgen.WorldgenRandom.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.randomSource"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fork(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.WorldgenRandom.java b/net.minecraft.world.level.levelgen.WorldgenRandom.java
+--- a/net.minecraft.world.level.levelgen.WorldgenRandom.java
++++ b/net.minecraft.world.level.levelgen.WorldgenRandom.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.randomSource", "this.count"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ next(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.WorldgenRandom.java b/net.minecraft.world.level.levelgen.WorldgenRandom.java
+--- a/net.minecraft.world.level.levelgen.WorldgenRandom.java
++++ b/net.minecraft.world.level.levelgen.WorldgenRandom.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.randomSource"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forkPositional(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.WorldgenRandom.java b/net.minecraft.world.level.levelgen.WorldgenRandom.java
+--- a/net.minecraft.world.level.levelgen.WorldgenRandom.java
++++ b/net.minecraft.world.level.levelgen.WorldgenRandom.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.constructor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ newInstance(/* params */);
+

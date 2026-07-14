@@ -1,0 +1,98 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.OminousItemSpawner.java b/net.minecraft.world.entity.OminousItemSpawner.java
+--- a/net.minecraft.world.entity.OminousItemSpawner.java
++++ b/net.minecraft.world.entity.OminousItemSpawner.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockPositio", "this.tickCoun", "this.spawnItemAfterTicks"},
++writeEntities = {"this.tickCount"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickServer(/* params */);
+
+diff --git a/net.minecraft.world.entity.OminousItemSpawner.java b/net.minecraft.world.entity.OminousItemSpawner.java
+--- a/net.minecraft.world.entity.OminousItemSpawner.java
++++ b/net.minecraft.world.entity.OminousItemSpawner.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.item", "this.leve", "this.getIte", "this.spawnProjectil"},
++triggeredEvents = {"ENTITY_SPAWNED"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spawnItem(/* params */);
+
+diff --git a/net.minecraft.world.entity.OminousItemSpawner.java b/net.minecraft.world.entity.OminousItemSpawner.java
+--- a/net.minecraft.world.entity.OminousItemSpawner.java
++++ b/net.minecraft.world.entity.OminousItemSpawner.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++triggeredEvents = {"ENTITY_SPAWNED"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ create(/* params */);
+
+diff --git a/net.minecraft.world.entity.OminousItemSpawner.java b/net.minecraft.world.entity.OminousItemSpawner.java
+--- a/net.minecraft.world.entity.OminousItemSpawner.java
++++ b/net.minecraft.world.entity.OminousItemSpawner.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockPositio", "this.positio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spawnProjectile(/* params */);
+
+diff --git a/net.minecraft.world.entity.OminousItemSpawner.java b/net.minecraft.world.entity.OminousItemSpawner.java
+--- a/net.minecraft.world.entity.OminousItemSpawner.java
++++ b/net.minecraft.world.entity.OminousItemSpawner.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leve", "this.addParticle"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickClient(/* params */);
+
+diff --git a/net.minecraft.world.entity.OminousItemSpawner.java b/net.minecraft.world.entity.OminousItemSpawner.java
+--- a/net.minecraft.world.entity.OminousItemSpawner.java
++++ b/net.minecraft.world.entity.OminousItemSpawner.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setIte", "this.spawnItemAfterTick"},
++writeEntities = {"this.item", "this.spawnItemAfterTicks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.OminousItemSpawner.java b/net.minecraft.world.entity.OminousItemSpawner.java
+--- a/net.minecraft.world.entity.OminousItemSpawner.java
++++ b/net.minecraft.world.entity.OminousItemSpawner.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leve", "this.tickServe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+

@@ -1,0 +1,149 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (11 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.raid.Raid.java b/net.minecraft.world.entity.raid.Raid.java
+--- a/net.minecraft.world.entity.raid.Raid.java
++++ b/net.minecraft.world.entity.raid.Raid.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.addWaveMo"},
++triggeredEvents = {"ENTITY_SPAWNED"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ joinRaid(/* params */);
+
+diff --git a/net.minecraft.world.entity.raid.Raid.java b/net.minecraft.world.entity.raid.Raid.java
+--- a/net.minecraft.world.entity.raid.Raid.java
++++ b/net.minecraft.world.entity.raid.Raid.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.raidEvent", "this.random"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.raid.Raid.java b/net.minecraft.world.entity.raid.Raid.java
+--- a/net.minecraft.world.entity.raid.Raid.java
++++ b/net.minecraft.world.entity.raid.Raid.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.totalHealth"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spawnGroup(/* params */);
+
+diff --git a/net.minecraft.world.entity.raid.Raid.java b/net.minecraft.world.entity.raid.Raid.java
+--- a/net.minecraft.world.entity.raid.Raid.java
++++ b/net.minecraft.world.entity.raid.Raid.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.raidEvent", "this.activ", "this.statu"},
++writeEntities = {"this.active", "this.status"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+
+diff --git a/net.minecraft.world.entity.raid.Raid.java b/net.minecraft.world.entity.raid.Raid.java
+--- a/net.minecraft.world.entity.raid.Raid.java
++++ b/net.minecraft.world.entity.raid.Raid.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.center"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ moveRaidCenterToNearbyVillageSection(/* params */);
+
+diff --git a/net.minecraft.world.entity.raid.Raid.java b/net.minecraft.world.entity.raid.Raid.java
+--- a/net.minecraft.world.entity.raid.Raid.java
++++ b/net.minecraft.world.entity.raid.Raid.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.groupRaiderMap", "this.center"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateRaiders(/* params */);
+
+diff --git a/net.minecraft.world.entity.raid.Raid.java b/net.minecraft.world.entity.raid.Raid.java
+--- a/net.minecraft.world.entity.raid.Raid.java
++++ b/net.minecraft.world.entity.raid.Raid.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.raidEvent", "this.validPlaye"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updatePlayers(/* params */);
+
+diff --git a/net.minecraft.world.entity.raid.Raid.java b/net.minecraft.world.entity.raid.Raid.java
+--- a/net.minecraft.world.entity.raid.Raid.java
++++ b/net.minecraft.world.entity.raid.Raid.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.raidEvent", "this.totalHealth", "this.getHealthOfLivingRaider", "this.healthOfLivingRaiders"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateBossbar(/* params */);
+
+diff --git a/net.minecraft.world.entity.raid.Raid.java b/net.minecraft.world.entity.raid.Raid.java
+--- a/net.minecraft.world.entity.raid.Raid.java
++++ b/net.minecraft.world.entity.raid.Raid.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hasBonusWav", "this.totalRaidersAlive", "this.isFinalWav", "this.getTotalRaidersAliv"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldSpawnBonusGroup(/* params */);
+
+diff --git a/net.minecraft.world.entity.raid.Raid.java b/net.minecraft.world.entity.raid.Raid.java
+--- a/net.minecraft.world.entity.raid.Raid.java
++++ b/net.minecraft.world.entity.raid.Raid.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isStoppe", "this.center", "this.activ", "this.statu", "this.sto"},
++writeEntities = {"this.active", "this.status"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.raid.Raid.java b/net.minecraft.world.entity.raid.Raid.java
+--- a/net.minecraft.world.entity.raid.Raid.java
++++ b/net.minecraft.world.entity.raid.Raid.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.raidCooldownTicks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldSpawnGroup(/* params */);
+

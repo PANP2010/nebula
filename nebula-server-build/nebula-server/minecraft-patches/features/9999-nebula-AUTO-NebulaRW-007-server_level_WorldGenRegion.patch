@@ -1,0 +1,95 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.level.WorldGenRegion.java b/net.minecraft.server.level.WorldGenRegion.java
+--- a/net.minecraft.server.level.WorldGenRegion.java
++++ b/net.minecraft.server.level.WorldGenRegion.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getChun", "this.chunk"},
++readBlocks = {"{chunk}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ markPosForPostprocessing(/* params */);
+
+diff --git a/net.minecraft.server.level.WorldGenRegion.java b/net.minecraft.server.level.WorldGenRegion.java
+--- a/net.minecraft.server.level.WorldGenRegion.java
++++ b/net.minecraft.server.level.WorldGenRegion.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockState", "this.getBlockStat", "this.setBloc"},
++writeEntities = {"this.block"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ destroyBlock(/* params */);
+
+diff --git a/net.minecraft.server.level.WorldGenRegion.java b/net.minecraft.server.level.WorldGenRegion.java
+--- a/net.minecraft.server.level.WorldGenRegion.java
++++ b/net.minecraft.server.level.WorldGenRegion.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.subTickCount"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ nextSubTickCount(/* params */);
+
+diff --git a/net.minecraft.server.level.WorldGenRegion.java b/net.minecraft.server.level.WorldGenRegion.java
+--- a/net.minecraft.server.level.WorldGenRegion.java
++++ b/net.minecraft.server.level.WorldGenRegion.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.generatingStep", "this.getCente", "this.center"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ ensureCanWrite(/* params */);
+
+diff --git a/net.minecraft.server.level.WorldGenRegion.java b/net.minecraft.server.level.WorldGenRegion.java
+--- a/net.minecraft.server.level.WorldGenRegion.java
++++ b/net.minecraft.server.level.WorldGenRegion.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.dimensionTyp"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dimensionType(/* params */);
+
+diff --git a/net.minecraft.server.level.WorldGenRegion.java b/net.minecraft.server.level.WorldGenRegion.java
+--- a/net.minecraft.server.level.WorldGenRegion.java
++++ b/net.minecraft.server.level.WorldGenRegion.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registryAccess(/* params */);
+
+diff --git a/net.minecraft.server.level.WorldGenRegion.java b/net.minecraft.server.level.WorldGenRegion.java
+--- a/net.minecraft.server.level.WorldGenRegion.java
++++ b/net.minecraft.server.level.WorldGenRegion.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ enabledFeatures(/* params */);
+

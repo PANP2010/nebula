@@ -1,0 +1,69 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.players.SleepStatus.java b/net.minecraft.server.players.SleepStatus.java
+--- a/net.minecraft.server.players.SleepStatus.java
++++ b/net.minecraft.server.players.SleepStatus.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sleepingPlayer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ amountSleeping(/* params */);
+
+diff --git a/net.minecraft.server.players.SleepStatus.java b/net.minecraft.server.players.SleepStatus.java
+--- a/net.minecraft.server.players.SleepStatus.java
++++ b/net.minecraft.server.players.SleepStatus.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sleepingPlayers", "this.activePlayers", "this.activePlayer", "this.sleepingPlayer"},
++writeEntities = {"this.sleepingPlayers", "this.activePlayers"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ update(/* params */);
+
+diff --git a/net.minecraft.server.players.SleepStatus.java b/net.minecraft.server.players.SleepStatus.java
+--- a/net.minecraft.server.players.SleepStatus.java
++++ b/net.minecraft.server.players.SleepStatus.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sleepingPlayers", "this.sleepersNeede"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ areEnoughSleeping(/* params */);
+
+diff --git a/net.minecraft.server.players.SleepStatus.java b/net.minecraft.server.players.SleepStatus.java
+--- a/net.minecraft.server.players.SleepStatus.java
++++ b/net.minecraft.server.players.SleepStatus.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.activePlayers"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sleepersNeeded(/* params */);
+
+diff --git a/net.minecraft.server.players.SleepStatus.java b/net.minecraft.server.players.SleepStatus.java
+--- a/net.minecraft.server.players.SleepStatus.java
++++ b/net.minecraft.server.players.SleepStatus.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sleepersNeede"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ areEnoughDeepSleeping(/* params */);
+

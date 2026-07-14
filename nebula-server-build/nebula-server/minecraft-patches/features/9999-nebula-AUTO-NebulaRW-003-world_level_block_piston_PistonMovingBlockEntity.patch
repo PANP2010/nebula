@@ -1,0 +1,47 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (3 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.piston.PistonMovingBlockEntity.java b/net.minecraft.world.level.block.piston.PistonMovingBlockEntity.java
+--- a/net.minecraft.world.level.block.piston.PistonMovingBlockEntity.java
++++ b/net.minecraft.world.level.block.piston.PistonMovingBlockEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.progressO", "this.removed", "this.progress"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ finalTick(/* params */);
+
+diff --git a/net.minecraft.world.level.block.piston.PistonMovingBlockEntity.java b/net.minecraft.world.level.block.piston.PistonMovingBlockEntity.java
+--- a/net.minecraft.world.level.block.piston.PistonMovingBlockEntity.java
++++ b/net.minecraft.world.level.block.piston.PistonMovingBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadAdditional(/* params */);
+
+diff --git a/net.minecraft.world.level.block.piston.PistonMovingBlockEntity.java b/net.minecraft.world.level.block.piston.PistonMovingBlockEntity.java
+--- a/net.minecraft.world.level.block.piston.PistonMovingBlockEntity.java
++++ b/net.minecraft.world.level.block.piston.PistonMovingBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.progressO", "this.movedState", "this.isSourcePiston", "this.extending", "this.direction"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveAdditional(/* params */);
+

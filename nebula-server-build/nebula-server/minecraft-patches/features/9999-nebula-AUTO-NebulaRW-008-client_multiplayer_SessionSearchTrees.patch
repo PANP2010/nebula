@@ -1,0 +1,107 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (8 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.multiplayer.SessionSearchTrees.java b/net.minecraft.client.multiplayer.SessionSearchTrees.java
+--- a/net.minecraft.client.multiplayer.SessionSearchTrees.java
++++ b/net.minecraft.client.multiplayer.SessionSearchTrees.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registe", "this.recipeSearc"},
++writeEntities = {"this.recipeSearch"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateRecipes(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.SessionSearchTrees.java b/net.minecraft.client.multiplayer.SessionSearchTrees.java
+--- a/net.minecraft.client.multiplayer.SessionSearchTrees.java
++++ b/net.minecraft.client.multiplayer.SessionSearchTrees.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.creativeByNameSearc", "this.registe"},
++writeEntities = {"this.creativeByNameSearch"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateCreativeTooltips(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.SessionSearchTrees.java b/net.minecraft.client.multiplayer.SessionSearchTrees.java
+--- a/net.minecraft.client.multiplayer.SessionSearchTrees.java
++++ b/net.minecraft.client.multiplayer.SessionSearchTrees.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.reloaders"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ register(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.SessionSearchTrees.java b/net.minecraft.client.multiplayer.SessionSearchTrees.java
+--- a/net.minecraft.client.multiplayer.SessionSearchTrees.java
++++ b/net.minecraft.client.multiplayer.SessionSearchTrees.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registe", "this.creativeByTagSearc"},
++writeEntities = {"this.creativeByTagSearch"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateCreativeTags(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.SessionSearchTrees.java b/net.minecraft.client.multiplayer.SessionSearchTrees.java
+--- a/net.minecraft.client.multiplayer.SessionSearchTrees.java
++++ b/net.minecraft.client.multiplayer.SessionSearchTrees.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.recipeSearch"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ recipes(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.SessionSearchTrees.java b/net.minecraft.client.multiplayer.SessionSearchTrees.java
+--- a/net.minecraft.client.multiplayer.SessionSearchTrees.java
++++ b/net.minecraft.client.multiplayer.SessionSearchTrees.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.reloaders"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ rebuildAfterLanguageChange(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.SessionSearchTrees.java b/net.minecraft.client.multiplayer.SessionSearchTrees.java
+--- a/net.minecraft.client.multiplayer.SessionSearchTrees.java
++++ b/net.minecraft.client.multiplayer.SessionSearchTrees.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.creativeByNameSearch"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ creativeNameSearch(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.SessionSearchTrees.java b/net.minecraft.client.multiplayer.SessionSearchTrees.java
+--- a/net.minecraft.client.multiplayer.SessionSearchTrees.java
++++ b/net.minecraft.client.multiplayer.SessionSearchTrees.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.creativeByTagSearch"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ creativeTagSearch(/* params */);
+

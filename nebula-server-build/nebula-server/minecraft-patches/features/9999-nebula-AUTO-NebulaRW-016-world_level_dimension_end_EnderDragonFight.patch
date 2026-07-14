@@ -1,0 +1,216 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (16 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.dimension.end.EnderDragonFight.java b/net.minecraft.world.level.dimension.end.EnderDragonFight.java
+--- a/net.minecraft.world.level.dimension.end.EnderDragonFight.java
++++ b/net.minecraft.world.level.dimension.end.EnderDragonFight.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.findExitPorta", "this.respawnStag", "this.dragonKilled", "this.exitPortalPattern"},
++writeEntities = {"this.respawnStage"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ respawnDragon(/* params */);
+
+diff --git a/net.minecraft.world.level.dimension.end.EnderDragonFight.java b/net.minecraft.world.level.dimension.end.EnderDragonFight.java
+--- a/net.minecraft.world.level.dimension.end.EnderDragonFight.java
++++ b/net.minecraft.world.level.dimension.end.EnderDragonFight.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.exitPortalLocatio", "this.level", "this.origin", "this.exitPortalLocation"},
++writeEntities = {"this.exitPortalLocation"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spawnExitPortal(/* params */);
+
+diff --git a/net.minecraft.world.level.dimension.end.EnderDragonFight.java b/net.minecraft.world.level.dimension.end.EnderDragonFight.java
+--- a/net.minecraft.world.level.dimension.end.EnderDragonFight.java
++++ b/net.minecraft.world.level.dimension.end.EnderDragonFight.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.dirty", "this.level", "this.validPlayer", "this.origin", "this.dragonEvent"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/net.minecraft.world.level.dimension.end.EnderDragonFight.java b/net.minecraft.world.level.dimension.end.EnderDragonFight.java
+--- a/net.minecraft.world.level.dimension.end.EnderDragonFight.java
++++ b/net.minecraft.world.level.dimension.end.EnderDragonFight.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spawnNewGateway(/* params */);
+
+diff --git a/net.minecraft.world.level.dimension.end.EnderDragonFight.java b/net.minecraft.world.level.dimension.end.EnderDragonFight.java
+--- a/net.minecraft.world.level.dimension.end.EnderDragonFight.java
++++ b/net.minecraft.world.level.dimension.end.EnderDragonFight.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.aliveCrystals", "this.level", "this.ticksSinceCrystalsScanne", "this.aliveCrystal"},
++writeEntities = {"this.ticksSinceCrystalsScanned", "this.aliveCrystals"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateCrystalCount(/* params */);
+
+diff --git a/net.minecraft.world.level.dimension.end.EnderDragonFight.java b/net.minecraft.world.level.dimension.end.EnderDragonFight.java
+--- a/net.minecraft.world.level.dimension.end.EnderDragonFight.java
++++ b/net.minecraft.world.level.dimension.end.EnderDragonFight.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.aliveCrystal"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ aliveCrystals(/* params */);
+
+diff --git a/net.minecraft.world.level.dimension.end.EnderDragonFight.java b/net.minecraft.world.level.dimension.end.EnderDragonFight.java
+--- a/net.minecraft.world.level.dimension.end.EnderDragonFight.java
++++ b/net.minecraft.world.level.dimension.end.EnderDragonFight.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.validPlayer", "this.dragonEvent"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updatePlayers(/* params */);
+
+diff --git a/net.minecraft.world.level.dimension.end.EnderDragonFight.java b/net.minecraft.world.level.dimension.end.EnderDragonFight.java
+--- a/net.minecraft.world.level.dimension.end.EnderDragonFight.java
++++ b/net.minecraft.world.level.dimension.end.EnderDragonFight.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.createNewDrago"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findOrCreateDragon(/* params */);
+
+diff --git a/net.minecraft.world.level.dimension.end.EnderDragonFight.java b/net.minecraft.world.level.dimension.end.EnderDragonFight.java
+--- a/net.minecraft.world.level.dimension.end.EnderDragonFight.java
++++ b/net.minecraft.world.level.dimension.end.EnderDragonFight.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.exitPortalLocatio", "this.findExitPorta", "this.respawnStag", "this.spawnExitPorta", "this.dragonKilled"},
++writeEntities = {"this.respawnStage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tryRespawn(/* params */);
+
+diff --git a/net.minecraft.world.level.dimension.end.EnderDragonFight.java b/net.minecraft.world.level.dimension.end.EnderDragonFight.java
+--- a/net.minecraft.world.level.dimension.end.EnderDragonFight.java
++++ b/net.minecraft.world.level.dimension.end.EnderDragonFight.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setDirt", "this.respawnStag", "this.respawnTim", "this.spawnExitPorta", "this.resetSpikeCrystal"},
++writeEntities = {"this.respawnTime", "this.dirty", "this.respawnStage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ abortRespawnSequence(/* params */);
+
+diff --git a/net.minecraft.world.level.dimension.end.EnderDragonFight.java b/net.minecraft.world.level.dimension.end.EnderDragonFight.java
+--- a/net.minecraft.world.level.dimension.end.EnderDragonFight.java
++++ b/net.minecraft.world.level.dimension.end.EnderDragonFight.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ticksSinceLastPlayerScan", "this.updatePlayer", "this.ticksSinceLastPlayerSca", "this.dragonEvent", "this.dragonKilled"},
++writeEntities = {"this.ticksSinceLastPlayerScan"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.level.dimension.end.EnderDragonFight.java b/net.minecraft.world.level.dimension.end.EnderDragonFight.java
+--- a/net.minecraft.world.level.dimension.end.EnderDragonFight.java
++++ b/net.minecraft.world.level.dimension.end.EnderDragonFight.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.dragonUUID", "this.ticksSinceDragonSee", "this.dragonEvent"},
++writeEntities = {"this.ticksSinceDragonSeen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateDragon(/* params */);
+
+diff --git a/net.minecraft.world.level.dimension.end.EnderDragonFight.java b/net.minecraft.world.level.dimension.end.EnderDragonFight.java
+--- a/net.minecraft.world.level.dimension.end.EnderDragonFight.java
++++ b/net.minecraft.world.level.dimension.end.EnderDragonFight.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.skipArenaLoadedChec"},
++writeEntities = {"this.skipArenaLoadedCheck"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ skipArenaLoadedCheck(/* params */);
+
+diff --git a/net.minecraft.world.level.dimension.end.EnderDragonFight.java b/net.minecraft.world.level.dimension.end.EnderDragonFight.java
+--- a/net.minecraft.world.level.dimension.end.EnderDragonFight.java
++++ b/net.minecraft.world.level.dimension.end.EnderDragonFight.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetSpikeCrystals(/* params */);
+
+diff --git a/net.minecraft.world.level.dimension.end.EnderDragonFight.java b/net.minecraft.world.level.dimension.end.EnderDragonFight.java
+--- a/net.minecraft.world.level.dimension.end.EnderDragonFight.java
++++ b/net.minecraft.world.level.dimension.end.EnderDragonFight.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.respawnCrystals", "this.abortRespawnSequenc", "this.respawnStage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onCrystalDestroyed(/* params */);
+
+diff --git a/net.minecraft.world.level.dimension.end.EnderDragonFight.java b/net.minecraft.world.level.dimension.end.EnderDragonFight.java
+--- a/net.minecraft.world.level.dimension.end.EnderDragonFight.java
++++ b/net.minecraft.world.level.dimension.end.EnderDragonFight.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hasPreviouslyKilledDrago", "this.hasActiveExitPorta"},
++writeEntities = {"this.hasPreviouslyKilledDragon"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scanState(/* params */);
+

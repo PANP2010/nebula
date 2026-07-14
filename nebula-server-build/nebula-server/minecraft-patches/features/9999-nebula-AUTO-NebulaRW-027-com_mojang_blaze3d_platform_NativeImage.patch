@@ -1,0 +1,338 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (27 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/com.mojang.blaze3d.platform.NativeImage.java b/com.mojang.blaze3d.platform.NativeImage.java
+--- a/com.mojang.blaze3d.platform.NativeImage.java
++++ b/com.mojang.blaze3d.platform.NativeImage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getHeigh", "this.format", "this.width", "this.getWidt", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeToChannel(/* params */);
+
+diff --git a/com.mojang.blaze3d.platform.NativeImage.java b/com.mojang.blaze3d.platform.NativeImage.java
+--- a/com.mojang.blaze3d.platform.NativeImage.java
++++ b/com.mojang.blaze3d.platform.NativeImage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.redOffse"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ redOffset(/* params */);
+
+diff --git a/com.mojang.blaze3d.platform.NativeImage.java b/com.mojang.blaze3d.platform.NativeImage.java
+--- a/com.mojang.blaze3d.platform.NativeImage.java
++++ b/com.mojang.blaze3d.platform.NativeImage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.luminanceOffse", "this.hasLuminance", "this.alphaOffse"},
++writeEntities = {"this.luminanceOffset"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ luminanceOrAlphaOffset(/* params */);
+
+diff --git a/com.mojang.blaze3d.platform.NativeImage.java b/com.mojang.blaze3d.platform.NativeImage.java
+--- a/com.mojang.blaze3d.platform.NativeImage.java
++++ b/com.mojang.blaze3d.platform.NativeImage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pixels"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ untrack(/* params */);
+
+diff --git a/com.mojang.blaze3d.platform.NativeImage.java b/com.mojang.blaze3d.platform.NativeImage.java
+--- a/com.mojang.blaze3d.platform.NativeImage.java
++++ b/com.mojang.blaze3d.platform.NativeImage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.format"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ copyFromFont(/* params */);
+
+diff --git a/com.mojang.blaze3d.platform.NativeImage.java b/com.mojang.blaze3d.platform.NativeImage.java
+--- a/com.mojang.blaze3d.platform.NativeImage.java
++++ b/com.mojang.blaze3d.platform.NativeImage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.format"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mappedCopy(/* params */);
+
+diff --git a/com.mojang.blaze3d.platform.NativeImage.java b/com.mojang.blaze3d.platform.NativeImage.java
+--- a/com.mojang.blaze3d.platform.NativeImage.java
++++ b/com.mojang.blaze3d.platform.NativeImage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pixelABGR", "this.getPixelABG"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ copyRect(/* params */);
+
+diff --git a/com.mojang.blaze3d.platform.NativeImage.java b/com.mojang.blaze3d.platform.NativeImage.java
+--- a/com.mojang.blaze3d.platform.NativeImage.java
++++ b/com.mojang.blaze3d.platform.NativeImage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.supportedBySt"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ supportedByStb(/* params */);
+
+diff --git a/com.mojang.blaze3d.platform.NativeImage.java b/com.mojang.blaze3d.platform.NativeImage.java
+--- a/com.mojang.blaze3d.platform.NativeImage.java
++++ b/com.mojang.blaze3d.platform.NativeImage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setPixe"},
++writeEntities = {"this.pixel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillRect(/* params */);
+
+diff --git a/com.mojang.blaze3d.platform.NativeImage.java b/com.mojang.blaze3d.platform.NativeImage.java
+--- a/com.mojang.blaze3d.platform.NativeImage.java
++++ b/com.mojang.blaze3d.platform.NativeImage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.width", "this.computeTransparenc", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ computeTransparency(/* params */);
+
+diff --git a/com.mojang.blaze3d.platform.NativeImage.java b/com.mojang.blaze3d.platform.NativeImage.java
+--- a/com.mojang.blaze3d.platform.NativeImage.java
++++ b/com.mojang.blaze3d.platform.NativeImage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.exception", "this.exceptio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ throwIfException(/* params */);
+
+diff --git a/com.mojang.blaze3d.platform.NativeImage.java b/com.mojang.blaze3d.platform.NativeImage.java
+--- a/com.mojang.blaze3d.platform.NativeImage.java
++++ b/com.mojang.blaze3d.platform.NativeImage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pixel"},
++writeEntities = {"this.pixels"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkAllocated(/* params */);
+
+diff --git a/com.mojang.blaze3d.platform.NativeImage.java b/com.mojang.blaze3d.platform.NativeImage.java
+--- a/com.mojang.blaze3d.platform.NativeImage.java
++++ b/com.mojang.blaze3d.platform.NativeImage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.output"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ invoke(/* params */);
+
+diff --git a/com.mojang.blaze3d.platform.NativeImage.java b/com.mojang.blaze3d.platform.NativeImage.java
+--- a/com.mojang.blaze3d.platform.NativeImage.java
++++ b/com.mojang.blaze3d.platform.NativeImage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.luminanceOffse", "this.hasLuminance", "this.redOffse"},
++writeEntities = {"this.luminanceOffset"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ luminanceOrRedOffset(/* params */);
+
+diff --git a/com.mojang.blaze3d.platform.NativeImage.java b/com.mojang.blaze3d.platform.NativeImage.java
+--- a/com.mojang.blaze3d.platform.NativeImage.java
++++ b/com.mojang.blaze3d.platform.NativeImage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.format"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeToFile(/* params */);
+
+diff --git a/com.mojang.blaze3d.platform.NativeImage.java b/com.mojang.blaze3d.platform.NativeImage.java
+--- a/com.mojang.blaze3d.platform.NativeImage.java
++++ b/com.mojang.blaze3d.platform.NativeImage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.luminanceOffse", "this.hasLuminance", "this.greenOffse"},
++writeEntities = {"this.luminanceOffset"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ luminanceOrGreenOffset(/* params */);
+
+diff --git a/com.mojang.blaze3d.platform.NativeImage.java b/com.mojang.blaze3d.platform.NativeImage.java
+--- a/com.mojang.blaze3d.platform.NativeImage.java
++++ b/com.mojang.blaze3d.platform.NativeImage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.alphaOffse"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ alphaOffset(/* params */);
+
+diff --git a/com.mojang.blaze3d.platform.NativeImage.java b/com.mojang.blaze3d.platform.NativeImage.java
+--- a/com.mojang.blaze3d.platform.NativeImage.java
++++ b/com.mojang.blaze3d.platform.NativeImage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.component"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ components(/* params */);
+
+diff --git a/com.mojang.blaze3d.platform.NativeImage.java b/com.mojang.blaze3d.platform.NativeImage.java
+--- a/com.mojang.blaze3d.platform.NativeImage.java
++++ b/com.mojang.blaze3d.platform.NativeImage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.greenOffse"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ greenOffset(/* params */);
+
+diff --git a/com.mojang.blaze3d.platform.NativeImage.java b/com.mojang.blaze3d.platform.NativeImage.java
+--- a/com.mojang.blaze3d.platform.NativeImage.java
++++ b/com.mojang.blaze3d.platform.NativeImage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blueOffse"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ blueOffset(/* params */);
+
+diff --git a/com.mojang.blaze3d.platform.NativeImage.java b/com.mojang.blaze3d.platform.NativeImage.java
+--- a/com.mojang.blaze3d.platform.NativeImage.java
++++ b/com.mojang.blaze3d.platform.NativeImage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pixels", "this.useStbFree", "this.format", "this.width", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/com.mojang.blaze3d.platform.NativeImage.java b/com.mojang.blaze3d.platform.NativeImage.java
+--- a/com.mojang.blaze3d.platform.NativeImage.java
++++ b/com.mojang.blaze3d.platform.NativeImage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.checkAllocate", "this.format"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resizeSubRectTo(/* params */);
+
+diff --git a/com.mojang.blaze3d.platform.NativeImage.java b/com.mojang.blaze3d.platform.NativeImage.java
+--- a/com.mojang.blaze3d.platform.NativeImage.java
++++ b/com.mojang.blaze3d.platform.NativeImage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pixels", "this.useStbFree"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ close(/* params */);
+
+diff --git a/com.mojang.blaze3d.platform.NativeImage.java b/com.mojang.blaze3d.platform.NativeImage.java
+--- a/com.mojang.blaze3d.platform.NativeImage.java
++++ b/com.mojang.blaze3d.platform.NativeImage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.format"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ copyFrom(/* params */);
+
+diff --git a/com.mojang.blaze3d.platform.NativeImage.java b/com.mojang.blaze3d.platform.NativeImage.java
+--- a/com.mojang.blaze3d.platform.NativeImage.java
++++ b/com.mojang.blaze3d.platform.NativeImage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.format"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ makePixelArray(/* params */);
+
+diff --git a/com.mojang.blaze3d.platform.NativeImage.java b/com.mojang.blaze3d.platform.NativeImage.java
+--- a/com.mojang.blaze3d.platform.NativeImage.java
++++ b/com.mojang.blaze3d.platform.NativeImage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.luminanceOffse"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ luminanceOffset(/* params */);
+
+diff --git a/com.mojang.blaze3d.platform.NativeImage.java b/com.mojang.blaze3d.platform.NativeImage.java
+--- a/com.mojang.blaze3d.platform.NativeImage.java
++++ b/com.mojang.blaze3d.platform.NativeImage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.luminanceOffse", "this.hasLuminance", "this.blueOffse"},
++writeEntities = {"this.luminanceOffset"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ luminanceOrBlueOffset(/* params */);
+

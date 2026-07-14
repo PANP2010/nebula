@@ -1,0 +1,95 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.item.component.BlocksAttacks.java b/net.minecraft.world.item.component.BlocksAttacks.java
+--- a/net.minecraft.world.item.component.BlocksAttacks.java
++++ b/net.minecraft.world.item.component.BlocksAttacks.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockSound"},
++triggeredEvents = {"SOUND_PLAY"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onBlocked(/* params */);
+
+diff --git a/net.minecraft.world.item.component.BlocksAttacks.java b/net.minecraft.world.item.component.BlocksAttacks.java
+--- a/net.minecraft.world.item.component.BlocksAttacks.java
++++ b/net.minecraft.world.item.component.BlocksAttacks.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.threshold", "this.factor", "this.base"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ apply(/* params */);
+
+diff --git a/net.minecraft.world.item.component.BlocksAttacks.java b/net.minecraft.world.item.component.BlocksAttacks.java
+--- a/net.minecraft.world.item.component.BlocksAttacks.java
++++ b/net.minecraft.world.item.component.BlocksAttacks.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockDelaySeconds"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ blockDelayTicks(/* params */);
+
+diff --git a/net.minecraft.world.item.component.BlocksAttacks.java b/net.minecraft.world.item.component.BlocksAttacks.java
+--- a/net.minecraft.world.item.component.BlocksAttacks.java
++++ b/net.minecraft.world.item.component.BlocksAttacks.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.damageReductions"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resolveBlockedDamage(/* params */);
+
+diff --git a/net.minecraft.world.item.component.BlocksAttacks.java b/net.minecraft.world.item.component.BlocksAttacks.java
+--- a/net.minecraft.world.item.component.BlocksAttacks.java
++++ b/net.minecraft.world.item.component.BlocksAttacks.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.horizontalBlockingAngle"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resolve(/* params */);
+
+diff --git a/net.minecraft.world.item.component.BlocksAttacks.java b/net.minecraft.world.item.component.BlocksAttacks.java
+--- a/net.minecraft.world.item.component.BlocksAttacks.java
++++ b/net.minecraft.world.item.component.BlocksAttacks.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.disableCooldownScal"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ disableBlockingForTicks(/* params */);
+
+diff --git a/net.minecraft.world.item.component.BlocksAttacks.java b/net.minecraft.world.item.component.BlocksAttacks.java
+--- a/net.minecraft.world.item.component.BlocksAttacks.java
++++ b/net.minecraft.world.item.component.BlocksAttacks.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.disableBlockingForTick"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ disable(/* params */);
+

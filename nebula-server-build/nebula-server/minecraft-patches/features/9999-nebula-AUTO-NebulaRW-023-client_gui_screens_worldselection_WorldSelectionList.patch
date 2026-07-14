@@ -1,0 +1,287 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (23 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+--- a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
++++ b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.entryType", "this.clearEntrie", "this.screen", "this.addEntr"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleNewLevels(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+--- a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
++++ b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.filter", "this.currentlyDisplayedLevels", "this.fillLevel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateFilter(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+--- a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
++++ b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.iconFile", "this.icon"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadIcon(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+--- a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
++++ b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadLevels(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+--- a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
++++ b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.summary", "this.minecraft", "this.screen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ joinWorld(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+--- a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
++++ b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.screen", "this.reloadWorldLis"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ returnToScreen(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+--- a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
++++ b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.icon"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ close(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+--- a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
++++ b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.iconFile", "this.iconFil"},
++writeEntities = {"this.iconFile"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ validateIconFile(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+--- a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
++++ b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.doDeleteWorl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ deleteWorld(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+--- a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
++++ b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ queueLoadScreen(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+--- a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
++++ b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.summary"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ doDeleteWorld(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+--- a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
++++ b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.canInterac", "this.list"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ keyPressed(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+--- a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
++++ b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ build(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+--- a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
++++ b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.summary", "this.lis", "this.queueLoadScree", "this.screen"},
++writeEntities = {"this.list"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ recreateWorld(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+--- a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
++++ b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getSelectedOp", "this.filterAccept", "this.selectedOpt"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillLevels(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+--- a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
++++ b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.childre", "this.loadingHeader"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateWidgetNarration(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+--- a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
++++ b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.refreshScrollAmoun", "this.screen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ notifyListUpdated(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+--- a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
++++ b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mouseClicked(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+--- a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
++++ b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.currentlyDisplayedLevels", "this.handleNewLevel", "this.pollLevelsIgnoreError"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractWidgetRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+--- a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
++++ b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleLevelLoadFailure(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+--- a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
++++ b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pendingLevel", "this.loadLevel"},
++writeEntities = {"this.pendingLevels"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reloadWorldList(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+--- a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
++++ b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractContent(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+--- a/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
++++ b/net.minecraft.client.gui.screens.worldselection.WorldSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.summary", "this.minecraft", "this.queueLoadScree"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ editWorld(/* params */);
+

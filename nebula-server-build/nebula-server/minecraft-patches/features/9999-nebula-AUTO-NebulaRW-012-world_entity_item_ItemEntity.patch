@@ -1,0 +1,156 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (12 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.item.ItemEntity.java b/net.minecraft.world.entity.item.ItemEntity.java
+--- a/net.minecraft.world.entity.item.ItemEntity.java
++++ b/net.minecraft.world.entity.item.ItemEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ag", "this.setNeverPickU"},
++writeEntities = {"this.neverPickUp", "this.age"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ makeFakeItem(/* params */);
+
+diff --git a/net.minecraft.world.entity.item.ItemEntity.java b/net.minecraft.world.entity.item.ItemEntity.java
+--- a/net.minecraft.world.entity.item.ItemEntity.java
++++ b/net.minecraft.world.entity.item.ItemEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.item.ItemEntity.java b/net.minecraft.world.entity.item.ItemEntity.java
+--- a/net.minecraft.world.entity.item.ItemEntity.java
++++ b/net.minecraft.world.entity.item.ItemEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.pickupDelay", "this.target"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playerTouch(/* params */);
+
+diff --git a/net.minecraft.world.entity.item.ItemEntity.java b/net.minecraft.world.entity.item.ItemEntity.java
+--- a/net.minecraft.world.entity.item.ItemEntity.java
++++ b/net.minecraft.world.entity.item.ItemEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.item", "this.getIte", "this.target"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tryToMerge(/* params */);
+
+diff --git a/net.minecraft.world.entity.item.ItemEntity.java b/net.minecraft.world.entity.item.ItemEntity.java
+--- a/net.minecraft.world.entity.item.ItemEntity.java
++++ b/net.minecraft.world.entity.item.ItemEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.item", "this.getIte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dampensVibrations(/* params */);
+
+diff --git a/net.minecraft.world.entity.item.ItemEntity.java b/net.minecraft.world.entity.item.ItemEntity.java
+--- a/net.minecraft.world.entity.item.ItemEntity.java
++++ b/net.minecraft.world.entity.item.ItemEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.item", "this.damageSource", "this.getIte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fireImmune(/* params */);
+
+diff --git a/net.minecraft.world.entity.item.ItemEntity.java b/net.minecraft.world.entity.item.ItemEntity.java
+--- a/net.minecraft.world.entity.item.ItemEntity.java
++++ b/net.minecraft.world.entity.item.ItemEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.item", "this.discar", "this.getIte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.item.ItemEntity.java b/net.minecraft.world.entity.item.ItemEntity.java
+--- a/net.minecraft.world.entity.item.ItemEntity.java
++++ b/net.minecraft.world.entity.item.ItemEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tickCount", "this.health"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldPlayLavaHurtSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.item.ItemEntity.java b/net.minecraft.world.entity.item.ItemEntity.java
+--- a/net.minecraft.world.entity.item.ItemEntity.java
++++ b/net.minecraft.world.entity.item.ItemEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isInvulnerableToBas"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtServer(/* params */);
+
+diff --git a/net.minecraft.world.entity.item.ItemEntity.java b/net.minecraft.world.entity.item.ItemEntity.java
+--- a/net.minecraft.world.entity.item.ItemEntity.java
++++ b/net.minecraft.world.entity.item.ItemEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isInvulnerableToBas", "this.item", "this.getIte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtClient(/* params */);
+
+diff --git a/net.minecraft.world.entity.item.ItemEntity.java b/net.minecraft.world.entity.item.ItemEntity.java
+--- a/net.minecraft.world.entity.item.ItemEntity.java
++++ b/net.minecraft.world.entity.item.ItemEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mergeWithNeighbours(/* params */);
+
+diff --git a/net.minecraft.world.entity.item.ItemEntity.java b/net.minecraft.world.entity.item.ItemEntity.java
+--- a/net.minecraft.world.entity.item.ItemEntity.java
++++ b/net.minecraft.world.entity.item.ItemEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.throwe"},
++writeEntities = {"this.thrower"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ restoreFrom(/* params */);
+

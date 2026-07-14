@@ -1,0 +1,131 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (10 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.SculkSpreader.java b/net.minecraft.world.level.block.SculkSpreader.java
+--- a/net.minecraft.world.level.block.SculkSpreader.java
++++ b/net.minecraft.world.level.block.SculkSpreader.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.cursors"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateCursors(/* params */);
+
+diff --git a/net.minecraft.world.level.block.SculkSpreader.java b/net.minecraft.world.level.block.SculkSpreader.java
+--- a/net.minecraft.world.level.block.SculkSpreader.java
++++ b/net.minecraft.world.level.block.SculkSpreader.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateDelay", "this.shouldUpdat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ update(/* params */);
+
+diff --git a/net.minecraft.world.level.block.SculkSpreader.java b/net.minecraft.world.level.block.SculkSpreader.java
+--- a/net.minecraft.world.level.block.SculkSpreader.java
++++ b/net.minecraft.world.level.block.SculkSpreader.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.replaceableBlock"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ replaceableBlocks(/* params */);
+
+diff --git a/net.minecraft.world.level.block.SculkSpreader.java b/net.minecraft.world.level.block.SculkSpreader.java
+--- a/net.minecraft.world.level.block.SculkSpreader.java
++++ b/net.minecraft.world.level.block.SculkSpreader.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.noGrowthRadiu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ noGrowthRadius(/* params */);
+
+diff --git a/net.minecraft.world.level.block.SculkSpreader.java b/net.minecraft.world.level.block.SculkSpreader.java
+--- a/net.minecraft.world.level.block.SculkSpreader.java
++++ b/net.minecraft.world.level.block.SculkSpreader.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.cursors", "this.getCursor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ save(/* params */);
+
+diff --git a/net.minecraft.world.level.block.SculkSpreader.java b/net.minecraft.world.level.block.SculkSpreader.java
+--- a/net.minecraft.world.level.block.SculkSpreader.java
++++ b/net.minecraft.world.level.block.SculkSpreader.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.growthSpawnCos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ growthSpawnCost(/* params */);
+
+diff --git a/net.minecraft.world.level.block.SculkSpreader.java b/net.minecraft.world.level.block.SculkSpreader.java
+--- a/net.minecraft.world.level.block.SculkSpreader.java
++++ b/net.minecraft.world.level.block.SculkSpreader.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.charg", "this.charge", "this.updateDelay", "this.updateDela"},
++writeEntities = {"this.charge", "this.updateDelay"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mergeWith(/* params */);
+
+diff --git a/net.minecraft.world.level.block.SculkSpreader.java b/net.minecraft.world.level.block.SculkSpreader.java
+--- a/net.minecraft.world.level.block.SculkSpreader.java
++++ b/net.minecraft.world.level.block.SculkSpreader.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.charge"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldUpdate(/* params */);
+
+diff --git a/net.minecraft.world.level.block.SculkSpreader.java b/net.minecraft.world.level.block.SculkSpreader.java
+--- a/net.minecraft.world.level.block.SculkSpreader.java
++++ b/net.minecraft.world.level.block.SculkSpreader.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.cursors"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ load(/* params */);
+
+diff --git a/net.minecraft.world.level.block.SculkSpreader.java b/net.minecraft.world.level.block.SculkSpreader.java
+--- a/net.minecraft.world.level.block.SculkSpreader.java
++++ b/net.minecraft.world.level.block.SculkSpreader.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chargeDecayRat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ chargeDecayRate(/* params */);
+

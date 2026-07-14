@@ -1,0 +1,44 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (3 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.storage.loot.predicates.TimeCheck.java b/net.minecraft.world.level.storage.loot.predicates.TimeCheck.java
+--- a/net.minecraft.world.level.storage.loot.predicates.TimeCheck.java
++++ b/net.minecraft.world.level.storage.loot.predicates.TimeCheck.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.period", "this.clock", "this.value"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ build(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.loot.predicates.TimeCheck.java b/net.minecraft.world.level.storage.loot.predicates.TimeCheck.java
+--- a/net.minecraft.world.level.storage.loot.predicates.TimeCheck.java
++++ b/net.minecraft.world.level.storage.loot.predicates.TimeCheck.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.period", "this.clock"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ test(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.loot.predicates.TimeCheck.java b/net.minecraft.world.level.storage.loot.predicates.TimeCheck.java
+--- a/net.minecraft.world.level.storage.loot.predicates.TimeCheck.java
++++ b/net.minecraft.world.level.storage.loot.predicates.TimeCheck.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.value"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ validate(/* params */);
+

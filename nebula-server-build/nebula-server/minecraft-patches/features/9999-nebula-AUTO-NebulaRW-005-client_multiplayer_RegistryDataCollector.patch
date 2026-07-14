@@ -1,0 +1,70 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.multiplayer.RegistryDataCollector.java b/net.minecraft.client.multiplayer.RegistryDataCollector.java
+--- a/net.minecraft.client.multiplayer.RegistryDataCollector.java
++++ b/net.minecraft.client.multiplayer.RegistryDataCollector.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tags"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ append(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.RegistryDataCollector.java b/net.minecraft.client.multiplayer.RegistryDataCollector.java
+--- a/net.minecraft.client.multiplayer.RegistryDataCollector.java
++++ b/net.minecraft.client.multiplayer.RegistryDataCollector.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.contentsCollecto"},
++writeEntities = {"this.contentsCollector"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ appendContents(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.RegistryDataCollector.java b/net.minecraft.client.multiplayer.RegistryDataCollector.java
+--- a/net.minecraft.client.multiplayer.RegistryDataCollector.java
++++ b/net.minecraft.client.multiplayer.RegistryDataCollector.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tagCollecto"},
++writeEntities = {"this.tagCollector"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ appendTags(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.RegistryDataCollector.java b/net.minecraft.client.multiplayer.RegistryDataCollector.java
+--- a/net.minecraft.client.multiplayer.RegistryDataCollector.java
++++ b/net.minecraft.client.multiplayer.RegistryDataCollector.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tagCollector"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadNewElementsAndTags(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.RegistryDataCollector.java b/net.minecraft.client.multiplayer.RegistryDataCollector.java
+--- a/net.minecraft.client.multiplayer.RegistryDataCollector.java
++++ b/net.minecraft.client.multiplayer.RegistryDataCollector.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tags"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forEach(/* params */);
+

@@ -1,0 +1,83 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.components.Checkbox.java b/net.minecraft.client.gui.components.Checkbox.java
+--- a/net.minecraft.client.gui.components.Checkbox.java
++++ b/net.minecraft.client.gui.components.Checkbox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isFocuse", "this.selected"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractContents(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.Checkbox.java b/net.minecraft.client.gui.components.Checkbox.java
+--- a/net.minecraft.client.gui.components.Checkbox.java
++++ b/net.minecraft.client.gui.components.Checkbox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.textWidget", "this.width"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ overflowsRowLimit(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.Checkbox.java b/net.minecraft.client.gui.components.Checkbox.java
+--- a/net.minecraft.client.gui.components.Checkbox.java
++++ b/net.minecraft.client.gui.components.Checkbox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.width"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ adjustWidth(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.Checkbox.java b/net.minecraft.client.gui.components.Checkbox.java
+--- a/net.minecraft.client.gui.components.Checkbox.java
++++ b/net.minecraft.client.gui.components.Checkbox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isFocuse", "this.active", "this.createNarrationMessag", "this.selected"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateWidgetNarration(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.Checkbox.java b/net.minecraft.client.gui.components.Checkbox.java
+--- a/net.minecraft.client.gui.components.Checkbox.java
++++ b/net.minecraft.client.gui.components.Checkbox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.onValueChange", "this.selecte", "this.selected"},
++writeEntities = {"this.selected"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onPress(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.Checkbox.java b/net.minecraft.client.gui.components.Checkbox.java
+--- a/net.minecraft.client.gui.components.Checkbox.java
++++ b/net.minecraft.client.gui.components.Checkbox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.onValueChang", "this.onValueChange", "this.optio", "this.option"},
++writeEntities = {"this.onValueChange", "this.option"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ build(/* params */);
+

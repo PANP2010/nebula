@@ -1,0 +1,33 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (2 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.item.BucketItem.java b/net.minecraft.world.item.BucketItem.java
+--- a/net.minecraft.world.item.BucketItem.java
++++ b/net.minecraft.world.item.BucketItem.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.content"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playEmptySound(/* params */);
+
+diff --git a/net.minecraft.world.item.BucketItem.java b/net.minecraft.world.item.BucketItem.java
+--- a/net.minecraft.world.item.BucketItem.java
++++ b/net.minecraft.world.item.BucketItem.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.content"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ emptyContents(/* params */);
+

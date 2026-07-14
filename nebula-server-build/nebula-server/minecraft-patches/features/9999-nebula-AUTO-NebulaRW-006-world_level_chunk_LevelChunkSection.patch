@@ -1,0 +1,84 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.chunk.LevelChunkSection.java b/net.minecraft.world.level.chunk.LevelChunkSection.java
+--- a/net.minecraft.world.level.chunk.LevelChunkSection.java
++++ b/net.minecraft.world.level.chunk.LevelChunkSection.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tickingBlockCount", "this.nonEmptyBlockCount"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ accept(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.LevelChunkSection.java b/net.minecraft.world.level.chunk.LevelChunkSection.java
+--- a/net.minecraft.world.level.chunk.LevelChunkSection.java
++++ b/net.minecraft.world.level.chunk.LevelChunkSection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.biomes"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillBiomesFromNoise(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.LevelChunkSection.java b/net.minecraft.world.level.chunk.LevelChunkSection.java
+--- a/net.minecraft.world.level.chunk.LevelChunkSection.java
++++ b/net.minecraft.world.level.chunk.LevelChunkSection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.biomes", "this.biome"},
++writeEntities = {"this.biomes"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readBiomes(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.LevelChunkSection.java b/net.minecraft.world.level.chunk.LevelChunkSection.java
+--- a/net.minecraft.world.level.chunk.LevelChunkSection.java
++++ b/net.minecraft.world.level.chunk.LevelChunkSection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.nonEmptyBlockCoun", "this.fluidCoun", "this.biomes", "this.biome", "this.states"},
++writeEntities = {"this.biomes", "this.nonEmptyBlockCount", "this.fluidCount"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ read(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.LevelChunkSection.java b/net.minecraft.world.level.chunk.LevelChunkSection.java
+--- a/net.minecraft.world.level.chunk.LevelChunkSection.java
++++ b/net.minecraft.world.level.chunk.LevelChunkSection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.states"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ maybeHas(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.LevelChunkSection.java b/net.minecraft.world.level.chunk.LevelChunkSection.java
+--- a/net.minecraft.world.level.chunk.LevelChunkSection.java
++++ b/net.minecraft.world.level.chunk.LevelChunkSection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.biomes", "this.nonEmptyBlockCount", "this.fluidCount", "this.states"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ write(/* params */);
+

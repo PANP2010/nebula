@@ -1,0 +1,563 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (46 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.fil"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ textWithBackdrop(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.ite"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fakeItem(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pose", "this.guiRenderState", "this.scissorStack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ innerBlit(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fil"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ itemBar(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fil"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ outline(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.guiRenderState", "this.scissorStack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ entity(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tex"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ textWithWordWrap(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.guiRenderState", "this.scissorStack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ profilerChart(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createDefaultTextParameter"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ textRendererForWidget(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.stack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ push(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.innerBli"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ blit(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pendingCursor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyCursor(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.guiRenderState", "this.scissorStack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ book(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tex"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ text(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.innerBli"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ blitSprite(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tex"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ centeredText(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pose", "this.itemBa", "this.itemCooldow", "this.itemCoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ itemDecorations(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.stack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ containsPoint(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ guiHeight(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.innerFil"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillGradient(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.guiRenderState", "this.scissorStack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ bannerPattern(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.hoveredTextEffects", "this.additionalConsumer", "this.guiRenderState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ accept(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pose", "this.scissorStack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ enableScissor(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tex"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ itemCount(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.guiRenderState", "this.scissorStack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sign(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.defaultParameter"},
++writeEntities = {"this.defaultParameters"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ defaultParameters(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.scissorStack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ disableScissor(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hoveredTextStyle", "this.minecraft", "this.componentHoverEffec"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractDeferredElements(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.guiRenderState", "this.scissorStack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ skin(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fil"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ textHighlight(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.scissorStack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ containsPointInScissor(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.innerTiledBli"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ blitTiledSprite(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.innerFil"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fill(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createDefaultTextParameter"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ textRenderer(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.pose", "this.guiRenderState", "this.scissorStack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ item(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pose", "this.guiRenderState", "this.scissorStack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ innerFill(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.guiRenderState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ blurBeforeThisStratum(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blitSprit"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ blitNineSlicedSprite(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.guiRenderState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ nextStratum(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.defaultScrollingHelpe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ acceptScrolling(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.innerBli"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ blitNineSliceInnerSegment(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ guiWidth(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pose", "this.guiRenderState", "this.scissorStack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ innerTiledBlit(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pendingCurso"},
++writeEntities = {"this.pendingCursor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ requestCursor(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.setComponentTooltipForNextFram", "this.setTooltipForNextFram"},
++writeEntities = {"this.componentTooltipForNextFrame", "this.tooltipForNextFrame"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ componentHoverEffect(/* params */);
+
+diff --git a/net.minecraft.client.gui.GuiGraphicsExtractor.java b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+--- a/net.minecraft.client.gui.GuiGraphicsExtractor.java
++++ b/net.minecraft.client.gui.GuiGraphicsExtractor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.fil"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ itemCooldown(/* params */);
+

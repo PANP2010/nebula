@@ -1,0 +1,92 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.gamerules.GameRule.java b/net.minecraft.world.level.gamerules.GameRule.java
+--- a/net.minecraft.world.level.gamerules.GameRule.java
++++ b/net.minecraft.world.level.gamerules.GameRule.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.visitorCaller"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ callVisitor(/* params */);
+
+diff --git a/net.minecraft.world.level.gamerules.GameRule.java b/net.minecraft.world.level.gamerules.GameRule.java
+--- a/net.minecraft.world.level.gamerules.GameRule.java
++++ b/net.minecraft.world.level.gamerules.GameRule.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.argument"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ deserialize(/* params */);
+
+diff --git a/net.minecraft.world.level.gamerules.GameRule.java b/net.minecraft.world.level.gamerules.GameRule.java
+--- a/net.minecraft.world.level.gamerules.GameRule.java
++++ b/net.minecraft.world.level.gamerules.GameRule.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.requiredFeature"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ requiredFeatures(/* params */);
+
+diff --git a/net.minecraft.world.level.gamerules.GameRule.java b/net.minecraft.world.level.gamerules.GameRule.java
+--- a/net.minecraft.world.level.gamerules.GameRule.java
++++ b/net.minecraft.world.level.gamerules.GameRule.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.valueCode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ valueCodec(/* params */);
+
+diff --git a/net.minecraft.world.level.gamerules.GameRule.java b/net.minecraft.world.level.gamerules.GameRule.java
+--- a/net.minecraft.world.level.gamerules.GameRule.java
++++ b/net.minecraft.world.level.gamerules.GameRule.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.defaultValue"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ valueClass(/* params */);
+
+diff --git a/net.minecraft.world.level.gamerules.GameRule.java b/net.minecraft.world.level.gamerules.GameRule.java
+--- a/net.minecraft.world.level.gamerules.GameRule.java
++++ b/net.minecraft.world.level.gamerules.GameRule.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.defaultValu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ defaultValue(/* params */);
+
+diff --git a/net.minecraft.world.level.gamerules.GameRule.java b/net.minecraft.world.level.gamerules.GameRule.java
+--- a/net.minecraft.world.level.gamerules.GameRule.java
++++ b/net.minecraft.world.level.gamerules.GameRule.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.gameRuleTyp"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ gameRuleType(/* params */);
+

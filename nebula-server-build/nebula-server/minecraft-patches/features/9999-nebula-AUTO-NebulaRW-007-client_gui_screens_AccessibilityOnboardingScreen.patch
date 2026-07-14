@@ -1,0 +1,95 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.AccessibilityOnboardingScreen.java b/net.minecraft.client.gui.screens.AccessibilityOnboardingScreen.java
+--- a/net.minecraft.client.gui.screens.AccessibilityOnboardingScreen.java
++++ b/net.minecraft.client.gui.screens.AccessibilityOnboardingScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.clos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ closeAndSetScreen(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.AccessibilityOnboardingScreen.java b/net.minecraft.client.gui.screens.AccessibilityOnboardingScreen.java
+--- a/net.minecraft.client.gui.screens.AccessibilityOnboardingScreen.java
++++ b/net.minecraft.client.gui.screens.AccessibilityOnboardingScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fadeOutStar"},
++writeEntities = {"this.fadeOutStart"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onClose(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.AccessibilityOnboardingScreen.java b/net.minecraft.client.gui.screens.AccessibilityOnboardingScreen.java
+--- a/net.minecraft.client.gui.screens.AccessibilityOnboardingScreen.java
++++ b/net.minecraft.client.gui.screens.AccessibilityOnboardingScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.focusableTextWidget"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ repositionElements(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.AccessibilityOnboardingScreen.java b/net.minecraft.client.gui.screens.AccessibilityOnboardingScreen.java
+--- a/net.minecraft.client.gui.screens.AccessibilityOnboardingScreen.java
++++ b/net.minecraft.client.gui.screens.AccessibilityOnboardingScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hasNarrated", "this.narratorAvailable", "this.timer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleInitialNarrationDelay(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.AccessibilityOnboardingScreen.java b/net.minecraft.client.gui.screens.AccessibilityOnboardingScreen.java
+--- a/net.minecraft.client.gui.screens.AccessibilityOnboardingScreen.java
++++ b/net.minecraft.client.gui.screens.AccessibilityOnboardingScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fadeInStar", "this.handleInitialNarrationDela", "this.fadingIn"},
++writeEntities = {"this.fadeInStart"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.AccessibilityOnboardingScreen.java b/net.minecraft.client.gui.screens.AccessibilityOnboardingScreen.java
+--- a/net.minecraft.client.gui.screens.AccessibilityOnboardingScreen.java
++++ b/net.minecraft.client.gui.screens.AccessibilityOnboardingScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.options"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ close(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.AccessibilityOnboardingScreen.java b/net.minecraft.client.gui.screens.AccessibilityOnboardingScreen.java
+--- a/net.minecraft.client.gui.screens.AccessibilityOnboardingScreen.java
++++ b/net.minecraft.client.gui.screens.AccessibilityOnboardingScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.focusableTextWidget", "this.narratorButton"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+

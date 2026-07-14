@@ -1,0 +1,68 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.nbt.visitors.CollectToTag.java b/net.minecraft.nbt.visitors.CollectToTag.java
+--- a/net.minecraft.nbt.visitors.CollectToTag.java
++++ b/net.minecraft.nbt.visitors.CollectToTag.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.containerStack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ appendEntry(/* params */);
+
+diff --git a/net.minecraft.nbt.visitors.CollectToTag.java b/net.minecraft.nbt.visitors.CollectToTag.java
+--- a/net.minecraft.nbt.visitors.CollectToTag.java
++++ b/net.minecraft.nbt.visitors.CollectToTag.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.compoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ build(/* params */);
+
+diff --git a/net.minecraft.nbt.visitors.CollectToTag.java b/net.minecraft.nbt.visitors.CollectToTag.java
+--- a/net.minecraft.nbt.visitors.CollectToTag.java
++++ b/net.minecraft.nbt.visitors.CollectToTag.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.containerStack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ depth(/* params */);
+
+diff --git a/net.minecraft.nbt.visitors.CollectToTag.java b/net.minecraft.nbt.visitors.CollectToTag.java
+--- a/net.minecraft.nbt.visitors.CollectToTag.java
++++ b/net.minecraft.nbt.visitors.CollectToTag.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.containerStack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ enterContainerIfNeeded(/* params */);
+
+diff --git a/net.minecraft.nbt.visitors.CollectToTag.java b/net.minecraft.nbt.visitors.CollectToTag.java
+--- a/net.minecraft.nbt.visitors.CollectToTag.java
++++ b/net.minecraft.nbt.visitors.CollectToTag.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.list"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ acceptValue(/* params */);
+

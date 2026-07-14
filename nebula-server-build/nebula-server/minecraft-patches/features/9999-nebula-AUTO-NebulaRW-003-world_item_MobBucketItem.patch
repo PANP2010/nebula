@@ -1,0 +1,46 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (3 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.item.MobBucketItem.java b/net.minecraft.world.item.MobBucketItem.java
+--- a/net.minecraft.world.item.MobBucketItem.java
++++ b/net.minecraft.world.item.MobBucketItem.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.type"},
++triggeredEvents = {"ENTITY_SPAWNED"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spawn(/* params */);
+
+diff --git a/net.minecraft.world.item.MobBucketItem.java b/net.minecraft.world.item.MobBucketItem.java
+--- a/net.minecraft.world.item.MobBucketItem.java
++++ b/net.minecraft.world.item.MobBucketItem.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.emptySound"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playEmptySound(/* params */);
+
+diff --git a/net.minecraft.world.item.MobBucketItem.java b/net.minecraft.world.item.MobBucketItem.java
+--- a/net.minecraft.world.item.MobBucketItem.java
++++ b/net.minecraft.world.item.MobBucketItem.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.spaw"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkExtraContent(/* params */);
+

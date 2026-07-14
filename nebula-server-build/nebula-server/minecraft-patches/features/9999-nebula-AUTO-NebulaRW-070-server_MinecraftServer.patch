@@ -1,0 +1,868 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (70 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registrie"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registries(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.runningTas", "this.mayHaveDelayedTasks", "this.delayedTasksMaxNextTickTimeNano", "this.nextTickTimeNanos"},
++writeEntities = {"this.delayedTasksMaxNextTickTimeNanos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ haveTime(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.allLevels", "this.getAllLevel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateMobSpawningFlags(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playerList", "this.overworl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forceGameTimeSynchronization(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.levels"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveDebugReport(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.clockManage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ clockManager(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.worldData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ selectLevelLoadFocusPos(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getPendingTasksCoun", "this.pendingTasksCount", "this.currentSmoothedTickTime", "this.tickTimesNanos", "this.getCurrentSmoothedTickTim"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dumpMiscStats(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.packRepository"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reloadResources(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.idleTimeNano", "this.nextTickTimeNanos", "this.waitingForNextTick", "this.isTickTimeLoggingEnable", "this.idleTimeNanos"},
++writeEntities = {"this.idleTimeNanos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ waitForTasks(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.onlineMod"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ usesAuthentication(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isUsingWhitelis", "this.getPlayerLis", "this.playerList", "this.isEnforceWhitelis"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ kickUnlistedPlayers(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.metricsRecorder", "this.packetProcessor", "this.cancelRecordingMetric"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stopServer(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.saveAllChunk", "this.getPlayerLis", "this.playerList", "this.isSavin", "this.warnOnLowDiskSpac"},
++writeEntities = {"this.isSaving"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveEverything(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isStoppe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ executeIfPossible(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.metricsRecorde"},
++writeEntities = {"this.metricsRecorder"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stopRecordingMetrics(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.metricsRecorder"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ endMetricsRecordingTick(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lastServerStatu"},
++writeEntities = {"this.lastServerStatus"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ invalidateStatus(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tickFrame", "this.packetProcessor", "this.tickServe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ processPacketsAndTick(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickChildren(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadLevel(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.initServe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ runServer(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.allLevels", "this.getDataStorag", "this.dataStorage", "this.scoreboard", "this.getAllLevel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveAllChunks(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.debugSubscriber"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ debugSubscribers(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.debugCommandProfile"},
++writeEntities = {"this.debugCommandProfiler"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stopTimeProfiler(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getTickTimeLogge", "this.tickTimeLogger", "this.isTickTimeLoggingEnable"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ logTickMethodTime(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getTickTimeLogge", "this.taskExecutionStartNanos", "this.tickTimeLogger", "this.isTickTimeLoggingEnable", "this.idleTimeNanos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ finishMeasuringTaskExecutionTime(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tickCount"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ wrapRunnable(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.keyPai"},
++writeEntities = {"this.keyPair"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ initializeKeyPair(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.stopRecordingMetric", "this.onMetricsRecordingStoppe"},
++writeEntities = {"this.onMetricsRecordingStopped"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startRecordingMetrics(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.file", "this.getFil"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ storeChunkIoError(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.motd", "this.getMot", "this.buildPlayerStatu", "this.statusIcon", "this.enforceSecureProfil"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ buildServerStatus(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playerIdleTimeou"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playerIdleTimeout(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.storeChunkIoErro", "this.suppressedExceptions", "this.warnOnLowDiskSpac"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reportChunkLoadFailure(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.getWorldDat", "this.worldData", "this.getLeve", "this.overworl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findRespawnDimension(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getAverageTickTimeNano", "this.averageTickTimeNanos", "this.tickRateManager"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ computeNextAutosaveInterval(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.effectiveRespawnDat", "this.findRespawnDimensio", "this.worldData"},
++writeEntities = {"this.effectiveRespawnData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateEffectiveRespawnData(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.running", "this.playerList"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillSystemReport(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.findRespawnDimensio", "this.getRespawnDat", "this.respawnData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createCommandSourceStack(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ticksUntilAutosav", "this.computeNextAutosaveInterva", "this.saveEverythin"},
++writeEntities = {"this.ticksUntilAutosave"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ autoSave(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.levels"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ overworld(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.gameRules", "this.getGameRule"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dumpGameRules(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.metricsRecorder"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createProfiler(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tickCount", "this.haveTim"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldRun(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isStoppe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scheduleExecutables(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.potionBrewin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ potionBrewing(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tickRateManage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickRateManager(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.commandStorage", "this.stopwatches"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createLevels(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fuelValue"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fuelValues(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.taskExecutionStartNano", "this.idleTimeNano", "this.isTickTimeLoggingEnable"},
++writeEntities = {"this.taskExecutionStartNanos", "this.idleTimeNanos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startMeasuringTaskExecutionTime(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pollTaskInterna", "this.mayHaveDelayedTask"},
++writeEntities = {"this.mayHaveDelayedTasks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pollTask(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.suppressedExceptions"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reportPacketHandlingException(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ticksUntilAutosav", "this.ticksUntilAutosave", "this.computeNextAutosaveInterva"},
++writeEntities = {"this.ticksUntilAutosave"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onTickRateChanged(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.resourceManager"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ close(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.storageSource", "this.sendLowDiskSpaceWarnin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ warnOnLowDiskSpace(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.managedBloc", "this.waitingForNextTic", "this.haveTim", "this.runAllTask"},
++writeEntities = {"this.waitingForNextTick"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ waitUntilNextTick(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isDem"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createGameModeForPlayer(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connection", "this.getConnectio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickConnection(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getTickTimeLogge", "this.tickTimeLogger", "this.isTickTimeLoggingEnable", "this.lastTickNanos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ logFullTickTime(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.metricsRecorder"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ finishRecordingMetrics(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.notificationManage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ notificationManager(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.levels"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ levelKeys(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playerList", "this.emptyTicks", "this.pauseWhenEmptySecond", "this.tickRateManager"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickServer(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.centerChunk", "this.chunkMa", "this.level", "this.getLeve"},
++writeEntities = {"this.centerChunkX", "this.centerChunkZ", "this.chunkMap"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ moveTo(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getPlayerLis", "this.playerList", "this.notificationManage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onGameRuleChanged(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.levels"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ prepareLevels(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.runnin", "this.serverThread"},
++writeEntities = {"this.running"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ halt(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.debugCommandProfilerDelayStar"},
++writeEntities = {"this.debugCommandProfilerDelayStart"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startTimeProfiler(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.packetProcesso"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ packetProcessor(/* params */);
+
+diff --git a/net.minecraft.server.MinecraftServer.java b/net.minecraft.server.MinecraftServer.java
+--- a/net.minecraft.server.MinecraftServer.java
++++ b/net.minecraft.server.MinecraftServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.storeChunkIoErro", "this.suppressedExceptions", "this.warnOnLowDiskSpac"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reportChunkSaveFailure(/* params */);
+

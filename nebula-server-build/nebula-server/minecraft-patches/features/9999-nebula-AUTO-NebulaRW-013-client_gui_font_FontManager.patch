@@ -1,0 +1,166 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (13 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.font.FontManager.java b/net.minecraft.client.gui.font.FontManager.java
+--- a/net.minecraft.client.gui.font.FontManager.java
++++ b/net.minecraft.client.gui.font.FontManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.textureManager"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createFontSet(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.FontManager.java b/net.minecraft.client.gui.font.FontManager.java
+--- a/net.minecraft.client.gui.font.FontManager.java
++++ b/net.minecraft.client.gui.font.FontManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fontId", "this.index", "this.pack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.FontManager.java b/net.minecraft.client.gui.font.FontManager.java
+--- a/net.minecraft.client.gui.font.FontManager.java
++++ b/net.minecraft.client.gui.font.FontManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.providersToClose", "this.missingFontSet", "this.anyGlyphs", "this.fontSets", "this.nonFishyGlyphs"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ close(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.FontManager.java b/net.minecraft.client.gui.font.FontManager.java
+--- a/net.minecraft.client.gui.font.FontManager.java
++++ b/net.minecraft.client.gui.font.FontManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.builders"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ listBuilders(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.FontManager.java b/net.minecraft.client.gui.font.FontManager.java
+--- a/net.minecraft.client.gui.font.FontManager.java
++++ b/net.minecraft.client.gui.font.FontManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lastEntr", "this.whiteGlyp"},
++writeEntities = {"this.whiteGlyph", "this.lastEntry"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ invalidate(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.FontManager.java b/net.minecraft.client.gui.font.FontManager.java
+--- a/net.minecraft.client.gui.font.FontManager.java
++++ b/net.minecraft.client.gui.font.FontManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lastEntr"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ glyphs(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.FontManager.java b/net.minecraft.client.gui.font.FontManager.java
+--- a/net.minecraft.client.gui.font.FontManager.java
++++ b/net.minecraft.client.gui.font.FontManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.nonFishyGlyphs"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createFontFilterFishy(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.FontManager.java b/net.minecraft.client.gui.font.FontManager.java
+--- a/net.minecraft.client.gui.font.FontManager.java
++++ b/net.minecraft.client.gui.font.FontManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fontSets"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateOptions(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.FontManager.java b/net.minecraft.client.gui.font.FontManager.java
+--- a/net.minecraft.client.gui.font.FontManager.java
++++ b/net.minecraft.client.gui.font.FontManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.providersToClose", "this.anyGlyphs", "this.fontSets", "this.nonFishyGlyphs", "this.createFontSe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ apply(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.FontManager.java b/net.minecraft.client.gui.font.FontManager.java
+--- a/net.minecraft.client.gui.font.FontManager.java
++++ b/net.minecraft.client.gui.font.FontManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getFontSetRa", "this.whiteGlyp", "this.fontSetRaw"},
++writeEntities = {"this.whiteGlyph"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ effect(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.FontManager.java b/net.minecraft.client.gui.font.FontManager.java
+--- a/net.minecraft.client.gui.font.FontManager.java
++++ b/net.minecraft.client.gui.font.FontManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.dependencies"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ visitRequiredDependencies(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.FontManager.java b/net.minecraft.client.gui.font.FontManager.java
+--- a/net.minecraft.client.gui.font.FontManager.java
++++ b/net.minecraft.client.gui.font.FontManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.appl", "this.prepar"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reload(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.FontManager.java b/net.minecraft.client.gui.font.FontManager.java
+--- a/net.minecraft.client.gui.font.FontManager.java
++++ b/net.minecraft.client.gui.font.FontManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.anyGlyphs"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createFont(/* params */);
+

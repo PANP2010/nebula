@@ -1,0 +1,339 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (27 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.Screen.java b/net.minecraft.client.gui.screens.Screen.java
+--- a/net.minecraft.client.gui.screens.Screen.java
++++ b/net.minecraft.client.gui.screens.Screen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lastNarratable", "this.narratables", "this.lastNarratabl"},
++writeEntities = {"this.lastNarratable"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateNarratedWidget(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.Screen.java b/net.minecraft.client.gui.screens.Screen.java
+--- a/net.minecraft.client.gui.screens.Screen.java
++++ b/net.minecraft.client.gui.screens.Screen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.scheduleNarratio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateNarratorStatus(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.Screen.java b/net.minecraft.client.gui.screens.Screen.java
+--- a/net.minecraft.client.gui.screens.Screen.java
++++ b/net.minecraft.client.gui.screens.Screen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.nextNarrationTime", "this.runNarratio", "this.nextNarrationTim", "this.narrationSuppressTime", "this.shouldRunNarratio"},
++writeEntities = {"this.nextNarrationTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleDelayedNarration(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.Screen.java b/net.minecraft.client.gui.screens.Screen.java
+--- a/net.minecraft.client.gui.screens.Screen.java
++++ b/net.minecraft.client.gui.screens.Screen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.clearWidget", "this.clearFocu", "this.setInitialFocu", "this.ini"},
++writeEntities = {"this.initialFocus"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ rebuildWidgets(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.Screen.java b/net.minecraft.client.gui.screens.Screen.java
+--- a/net.minecraft.client.gui.screens.Screen.java
++++ b/net.minecraft.client.gui.screens.Screen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.clearFocu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ changeFocus(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.Screen.java b/net.minecraft.client.gui.screens.Screen.java
+--- a/net.minecraft.client.gui.screens.Screen.java
++++ b/net.minecraft.client.gui.screens.Screen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setNarrationSuppressTim"},
++writeEntities = {"this.narrationSuppressTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ suppressNarration(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.Screen.java b/net.minecraft.client.gui.screens.Screen.java
+--- a/net.minecraft.client.gui.screens.Screen.java
++++ b/net.minecraft.client.gui.screens.Screen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.extractTransparentBackgroun", "this.isInGameU"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractBackground(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.Screen.java b/net.minecraft.client.gui.screens.Screen.java
+--- a/net.minecraft.client.gui.screens.Screen.java
++++ b/net.minecraft.client.gui.screens.Screen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.width", "this.panoramaShouldSpi", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractPanorama(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.Screen.java b/net.minecraft.client.gui.screens.Screen.java
+--- a/net.minecraft.client.gui.screens.Screen.java
++++ b/net.minecraft.client.gui.screens.Screen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.extractRenderStat", "this.extractBackgroun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderStateWithTooltipAndSubtitles(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.Screen.java b/net.minecraft.client.gui.screens.Screen.java
+--- a/net.minecraft.client.gui.screens.Screen.java
++++ b/net.minecraft.client.gui.screens.Screen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.class", "this.getClas"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillCrashDetails(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.Screen.java b/net.minecraft.client.gui.screens.Screen.java
+--- a/net.minecraft.client.gui.screens.Screen.java
++++ b/net.minecraft.client.gui.screens.Screen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateNarratedWidge", "this.getNarrationMessag", "this.narrationMessage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateNarrationState(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.Screen.java b/net.minecraft.client.gui.screens.Screen.java
+--- a/net.minecraft.client.gui.screens.Screen.java
++++ b/net.minecraft.client.gui.screens.Screen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.runNarratio", "this.shouldRunNarratio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ triggerImmediateNarration(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.Screen.java b/net.minecraft.client.gui.screens.Screen.java
+--- a/net.minecraft.client.gui.screens.Screen.java
++++ b/net.minecraft.client.gui.screens.Screen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onClose(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.Screen.java b/net.minecraft.client.gui.screens.Screen.java
+--- a/net.minecraft.client.gui.screens.Screen.java
++++ b/net.minecraft.client.gui.screens.Screen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.scheduleNarratio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ afterKeyboardAction(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.Screen.java b/net.minecraft.client.gui.screens.Screen.java
+--- a/net.minecraft.client.gui.screens.Screen.java
++++ b/net.minecraft.client.gui.screens.Screen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.heigh", "this.setInitialFocu", "this.widt", "this.ini", "this.initialized"},
++writeEntities = {"this.initialFocus", "this.width", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.Screen.java b/net.minecraft.client.gui.screens.Screen.java
+--- a/net.minecraft.client.gui.screens.Screen.java
++++ b/net.minecraft.client.gui.screens.Screen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractMenuBackground(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.Screen.java b/net.minecraft.client.gui.screens.Screen.java
+--- a/net.minecraft.client.gui.screens.Screen.java
++++ b/net.minecraft.client.gui.screens.Screen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.renderables"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.Screen.java b/net.minecraft.client.gui.screens.Screen.java
+--- a/net.minecraft.client.gui.screens.Screen.java
++++ b/net.minecraft.client.gui.screens.Screen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.heigh", "this.widt", "this.repositionElement"},
++writeEntities = {"this.width", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resize(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.Screen.java b/net.minecraft.client.gui.screens.Screen.java
+--- a/net.minecraft.client.gui.screens.Screen.java
++++ b/net.minecraft.client.gui.screens.Screen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractBlurredBackground(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.Screen.java b/net.minecraft.client.gui.screens.Screen.java
+--- a/net.minecraft.client.gui.screens.Screen.java
++++ b/net.minecraft.client.gui.screens.Screen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.narrationState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ runNarration(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.Screen.java b/net.minecraft.client.gui.screens.Screen.java
+--- a/net.minecraft.client.gui.screens.Screen.java
++++ b/net.minecraft.client.gui.screens.Screen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.width", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractTransparentBackground(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.Screen.java b/net.minecraft.client.gui.screens.Screen.java
+--- a/net.minecraft.client.gui.screens.Screen.java
++++ b/net.minecraft.client.gui.screens.Screen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.onClos", "this.shouldCloseOnEs"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ keyPressed(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.Screen.java b/net.minecraft.client.gui.screens.Screen.java
+--- a/net.minecraft.client.gui.screens.Screen.java
++++ b/net.minecraft.client.gui.screens.Screen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.scheduleNarratio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ afterMouseAction(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.Screen.java b/net.minecraft.client.gui.screens.Screen.java
+--- a/net.minecraft.client.gui.screens.Screen.java
++++ b/net.minecraft.client.gui.screens.Screen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.nextNarrationTim", "this.narrationSuppressTim"},
++writeEntities = {"this.nextNarrationTime", "this.narrationSuppressTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scheduleNarration(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.Screen.java b/net.minecraft.client.gui.screens.Screen.java
+--- a/net.minecraft.client.gui.screens.Screen.java
++++ b/net.minecraft.client.gui.screens.Screen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.scheduleNarratio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ afterMouseMove(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.Screen.java b/net.minecraft.client.gui.screens.Screen.java
+--- a/net.minecraft.client.gui.screens.Screen.java
++++ b/net.minecraft.client.gui.screens.Screen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldRunNarration(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.Screen.java b/net.minecraft.client.gui.screens.Screen.java
+--- a/net.minecraft.client.gui.screens.Screen.java
++++ b/net.minecraft.client.gui.screens.Screen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.childre"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fadeWidgets(/* params */);
+

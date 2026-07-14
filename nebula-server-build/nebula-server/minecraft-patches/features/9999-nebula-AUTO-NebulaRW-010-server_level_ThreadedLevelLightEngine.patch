@@ -1,0 +1,128 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (10 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.level.ThreadedLevelLightEngine.java b/net.minecraft.server.level.ThreadedLevelLightEngine.java
+--- a/net.minecraft.server.level.ThreadedLevelLightEngine.java
++++ b/net.minecraft.server.level.ThreadedLevelLightEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.addTas", "this.levelHeightAccessor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ initializeLight(/* params */);
+
+diff --git a/net.minecraft.server.level.ThreadedLevelLightEngine.java b/net.minecraft.server.level.ThreadedLevelLightEngine.java
+--- a/net.minecraft.server.level.ThreadedLevelLightEngine.java
++++ b/net.minecraft.server.level.ThreadedLevelLightEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.addTas"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateSectionStatus(/* params */);
+
+diff --git a/net.minecraft.server.level.ThreadedLevelLightEngine.java b/net.minecraft.server.level.ThreadedLevelLightEngine.java
+--- a/net.minecraft.server.level.ThreadedLevelLightEngine.java
++++ b/net.minecraft.server.level.ThreadedLevelLightEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.addTas"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ propagateLightSources(/* params */);
+
+diff --git a/net.minecraft.server.level.ThreadedLevelLightEngine.java b/net.minecraft.server.level.ThreadedLevelLightEngine.java
+--- a/net.minecraft.server.level.ThreadedLevelLightEngine.java
++++ b/net.minecraft.server.level.ThreadedLevelLightEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.addTas"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ queueSectionData(/* params */);
+
+diff --git a/net.minecraft.server.level.ThreadedLevelLightEngine.java b/net.minecraft.server.level.ThreadedLevelLightEngine.java
+--- a/net.minecraft.server.level.ThreadedLevelLightEngine.java
++++ b/net.minecraft.server.level.ThreadedLevelLightEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.addTas"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ retainData(/* params */);
+
+diff --git a/net.minecraft.server.level.ThreadedLevelLightEngine.java b/net.minecraft.server.level.ThreadedLevelLightEngine.java
+--- a/net.minecraft.server.level.ThreadedLevelLightEngine.java
++++ b/net.minecraft.server.level.ThreadedLevelLightEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lightTasks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ runUpdate(/* params */);
+
+diff --git a/net.minecraft.server.level.ThreadedLevelLightEngine.java b/net.minecraft.server.level.ThreadedLevelLightEngine.java
+--- a/net.minecraft.server.level.ThreadedLevelLightEngine.java
++++ b/net.minecraft.server.level.ThreadedLevelLightEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lightTasks", "this.scheduled", "this.runUpdat", "this.consecutiveExecutor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tryScheduleUpdate(/* params */);
+
+diff --git a/net.minecraft.server.level.ThreadedLevelLightEngine.java b/net.minecraft.server.level.ThreadedLevelLightEngine.java
+--- a/net.minecraft.server.level.ThreadedLevelLightEngine.java
++++ b/net.minecraft.server.level.ThreadedLevelLightEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.addTas", "this.getMinLightSectio", "this.minLightSection", "this.maxLightSection", "this.getMaxLightSectio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateChunkStatus(/* params */);
+
+diff --git a/net.minecraft.server.level.ThreadedLevelLightEngine.java b/net.minecraft.server.level.ThreadedLevelLightEngine.java
+--- a/net.minecraft.server.level.ThreadedLevelLightEngine.java
++++ b/net.minecraft.server.level.ThreadedLevelLightEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.addTas"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkBlock(/* params */);
+
+diff --git a/net.minecraft.server.level.ThreadedLevelLightEngine.java b/net.minecraft.server.level.ThreadedLevelLightEngine.java
+--- a/net.minecraft.server.level.ThreadedLevelLightEngine.java
++++ b/net.minecraft.server.level.ThreadedLevelLightEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.addTas"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ lightChunk(/* params */);
+

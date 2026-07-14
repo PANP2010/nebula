@@ -1,0 +1,312 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (25 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.phys.Vec3.java b/net.minecraft.world.phys.Vec3.java
+--- a/net.minecraft.world.phys.Vec3.java
++++ b/net.minecraft.world.phys.Vec3.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ad"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ offsetRandomXZ(/* params */);
+
+diff --git a/net.minecraft.world.phys.Vec3.java b/net.minecraft.world.phys.Vec3.java
+--- a/net.minecraft.world.phys.Vec3.java
++++ b/net.minecraft.world.phys.Vec3.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ad"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ offsetRandom(/* params */);
+
+diff --git a/net.minecraft.world.phys.Vec3.java b/net.minecraft.world.phys.Vec3.java
+--- a/net.minecraft.world.phys.Vec3.java
++++ b/net.minecraft.world.phys.Vec3.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.x", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ horizontalDistanceSqr(/* params */);
+
+diff --git a/net.minecraft.world.phys.Vec3.java b/net.minecraft.world.phys.Vec3.java
+--- a/net.minecraft.world.phys.Vec3.java
++++ b/net.minecraft.world.phys.Vec3.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.x", "this.y", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ rotateClockwise90(/* params */);
+
+diff --git a/net.minecraft.world.phys.Vec3.java b/net.minecraft.world.phys.Vec3.java
+--- a/net.minecraft.world.phys.Vec3.java
++++ b/net.minecraft.world.phys.Vec3.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.x", "this.y", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ lengthSqr(/* params */);
+
+diff --git a/net.minecraft.world.phys.Vec3.java b/net.minecraft.world.phys.Vec3.java
+--- a/net.minecraft.world.phys.Vec3.java
++++ b/net.minecraft.world.phys.Vec3.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.x", "this.y", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ lerp(/* params */);
+
+diff --git a/net.minecraft.world.phys.Vec3.java b/net.minecraft.world.phys.Vec3.java
+--- a/net.minecraft.world.phys.Vec3.java
++++ b/net.minecraft.world.phys.Vec3.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.do"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ projectedOn(/* params */);
+
+diff --git a/net.minecraft.world.phys.Vec3.java b/net.minecraft.world.phys.Vec3.java
+--- a/net.minecraft.world.phys.Vec3.java
++++ b/net.minecraft.world.phys.Vec3.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.x", "this.y", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ rotation(/* params */);
+
+diff --git a/net.minecraft.world.phys.Vec3.java b/net.minecraft.world.phys.Vec3.java
+--- a/net.minecraft.world.phys.Vec3.java
++++ b/net.minecraft.world.phys.Vec3.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.x", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ horizontalDistance(/* params */);
+
+diff --git a/net.minecraft.world.phys.Vec3.java b/net.minecraft.world.phys.Vec3.java
+--- a/net.minecraft.world.phys.Vec3.java
++++ b/net.minecraft.world.phys.Vec3.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.x", "this.y", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ vectorTo(/* params */);
+
+diff --git a/net.minecraft.world.phys.Vec3.java b/net.minecraft.world.phys.Vec3.java
+--- a/net.minecraft.world.phys.Vec3.java
++++ b/net.minecraft.world.phys.Vec3.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.x", "this.y"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ zRot(/* params */);
+
+diff --git a/net.minecraft.world.phys.Vec3.java b/net.minecraft.world.phys.Vec3.java
+--- a/net.minecraft.world.phys.Vec3.java
++++ b/net.minecraft.world.phys.Vec3.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ad"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ subtract(/* params */);
+
+diff --git a/net.minecraft.world.phys.Vec3.java b/net.minecraft.world.phys.Vec3.java
+--- a/net.minecraft.world.phys.Vec3.java
++++ b/net.minecraft.world.phys.Vec3.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.x", "this.y", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ normalize(/* params */);
+
+diff --git a/net.minecraft.world.phys.Vec3.java b/net.minecraft.world.phys.Vec3.java
+--- a/net.minecraft.world.phys.Vec3.java
++++ b/net.minecraft.world.phys.Vec3.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.x", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ yRot(/* params */);
+
+diff --git a/net.minecraft.world.phys.Vec3.java b/net.minecraft.world.phys.Vec3.java
+--- a/net.minecraft.world.phys.Vec3.java
++++ b/net.minecraft.world.phys.Vec3.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.x", "this.y", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ length(/* params */);
+
+diff --git a/net.minecraft.world.phys.Vec3.java b/net.minecraft.world.phys.Vec3.java
+--- a/net.minecraft.world.phys.Vec3.java
++++ b/net.minecraft.world.phys.Vec3.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.y", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ xRot(/* params */);
+
+diff --git a/net.minecraft.world.phys.Vec3.java b/net.minecraft.world.phys.Vec3.java
+--- a/net.minecraft.world.phys.Vec3.java
++++ b/net.minecraft.world.phys.Vec3.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.x", "this.y", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ cross(/* params */);
+
+diff --git a/net.minecraft.world.phys.Vec3.java b/net.minecraft.world.phys.Vec3.java
+--- a/net.minecraft.world.phys.Vec3.java
++++ b/net.minecraft.world.phys.Vec3.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.x", "this.y", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ align(/* params */);
+
+diff --git a/net.minecraft.world.phys.Vec3.java b/net.minecraft.world.phys.Vec3.java
+--- a/net.minecraft.world.phys.Vec3.java
++++ b/net.minecraft.world.phys.Vec3.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.multipl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scale(/* params */);
+
+diff --git a/net.minecraft.world.phys.Vec3.java b/net.minecraft.world.phys.Vec3.java
+--- a/net.minecraft.world.phys.Vec3.java
++++ b/net.minecraft.world.phys.Vec3.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.x", "this.y", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ multiply(/* params */);
+
+diff --git a/net.minecraft.world.phys.Vec3.java b/net.minecraft.world.phys.Vec3.java
+--- a/net.minecraft.world.phys.Vec3.java
++++ b/net.minecraft.world.phys.Vec3.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.scal"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reverse(/* params */);
+
+diff --git a/net.minecraft.world.phys.Vec3.java b/net.minecraft.world.phys.Vec3.java
+--- a/net.minecraft.world.phys.Vec3.java
++++ b/net.minecraft.world.phys.Vec3.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.x", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ horizontal(/* params */);
+
+diff --git a/net.minecraft.world.phys.Vec3.java b/net.minecraft.world.phys.Vec3.java
+--- a/net.minecraft.world.phys.Vec3.java
++++ b/net.minecraft.world.phys.Vec3.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.x", "this.y", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.world.phys.Vec3.java b/net.minecraft.world.phys.Vec3.java
+--- a/net.minecraft.world.phys.Vec3.java
++++ b/net.minecraft.world.phys.Vec3.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.x", "this.y", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toVector3f(/* params */);
+
+diff --git a/net.minecraft.world.phys.Vec3.java b/net.minecraft.world.phys.Vec3.java
+--- a/net.minecraft.world.phys.Vec3.java
++++ b/net.minecraft.world.phys.Vec3.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.x", "this.y", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ relative(/* params */);
+

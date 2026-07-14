@@ -1,0 +1,68 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.player.ProfilePublicKey.java b/net.minecraft.world.entity.player.ProfilePublicKey.java
+--- a/net.minecraft.world.entity.player.ProfilePublicKey.java
++++ b/net.minecraft.world.entity.player.ProfilePublicKey.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.keySignature", "this.expiresAt", "this.key"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ write(/* params */);
+
+diff --git a/net.minecraft.world.entity.player.ProfilePublicKey.java b/net.minecraft.world.entity.player.ProfilePublicKey.java
+--- a/net.minecraft.world.entity.player.ProfilePublicKey.java
++++ b/net.minecraft.world.entity.player.ProfilePublicKey.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.data"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createSignatureValidator(/* params */);
+
+diff --git a/net.minecraft.world.entity.player.ProfilePublicKey.java b/net.minecraft.world.entity.player.ProfilePublicKey.java
+--- a/net.minecraft.world.entity.player.ProfilePublicKey.java
++++ b/net.minecraft.world.entity.player.ProfilePublicKey.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.signedPayloa", "this.keySignature"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ validateSignature(/* params */);
+
+diff --git a/net.minecraft.world.entity.player.ProfilePublicKey.java b/net.minecraft.world.entity.player.ProfilePublicKey.java
+--- a/net.minecraft.world.entity.player.ProfilePublicKey.java
++++ b/net.minecraft.world.entity.player.ProfilePublicKey.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.key", "this.expiresAt"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ signedPayload(/* params */);
+
+diff --git a/net.minecraft.world.entity.player.ProfilePublicKey.java b/net.minecraft.world.entity.player.ProfilePublicKey.java
+--- a/net.minecraft.world.entity.player.ProfilePublicKey.java
++++ b/net.minecraft.world.entity.player.ProfilePublicKey.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.keySignature", "this.expiresAt", "this.key"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ equals(/* params */);
+

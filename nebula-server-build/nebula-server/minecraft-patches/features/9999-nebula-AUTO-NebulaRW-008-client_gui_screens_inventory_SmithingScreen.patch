@@ -1,0 +1,104 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (8 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.inventory.SmithingScreen.java b/net.minecraft.client.gui.screens.inventory.SmithingScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.SmithingScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.SmithingScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.extractOnboardingTooltip"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.SmithingScreen.java b/net.minecraft.client.gui.screens.inventory.SmithingScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.SmithingScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.SmithingScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.templateItem", "this.baseIcon", "this.getTemplateIte", "this.templateIcon", "this.additionalIcon"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ containerTick(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.SmithingScreen.java b/net.minecraft.client.gui.screens.inventory.SmithingScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.SmithingScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.SmithingScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateArmorStandPrevie"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ slotChanged(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.SmithingScreen.java b/net.minecraft.client.gui.screens.inventory.SmithingScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.SmithingScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.SmithingScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hasRecipeErro"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractErrorIcon(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.SmithingScreen.java b/net.minecraft.client.gui.screens.inventory.SmithingScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.SmithingScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.SmithingScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractBackground(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.SmithingScreen.java b/net.minecraft.client.gui.screens.inventory.SmithingScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.SmithingScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.SmithingScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isHoverin", "this.hasRecipeErro"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractOnboardingTooltips(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.SmithingScreen.java b/net.minecraft.client.gui.screens.inventory.SmithingScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.SmithingScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.SmithingScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateArmorStandPrevie", "this.menu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ subInit(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.SmithingScreen.java b/net.minecraft.client.gui.screens.inventory.SmithingScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.SmithingScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.SmithingScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.armorStandPreview"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateArmorStandPreview(/* params */);
+

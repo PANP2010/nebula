@@ -1,0 +1,84 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.ai.goal.TemptGoal.java b/net.minecraft.world.entity.ai.goal.TemptGoal.java
+--- a/net.minecraft.world.entity.ai.goal.TemptGoal.java
++++ b/net.minecraft.world.entity.ai.goal.TemptGoal.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.speedModifier", "this.mob"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ navigateTowards(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.goal.TemptGoal.java b/net.minecraft.world.entity.ai.goal.TemptGoal.java
+--- a/net.minecraft.world.entity.ai.goal.TemptGoal.java
++++ b/net.minecraft.world.entity.ai.goal.TemptGoal.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.p", "this.isRunnin", "this.player"},
++writeEntities = {"this.isRunning", "this.px", "this.py", "this.pz"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ start(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.goal.TemptGoal.java b/net.minecraft.world.entity.ai.goal.TemptGoal.java
+--- a/net.minecraft.world.entity.ai.goal.TemptGoal.java
++++ b/net.minecraft.world.entity.ai.goal.TemptGoal.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isRunnin", "this.playe", "this.calmDow", "this.stopNavigatio"},
++writeEntities = {"this.isRunning", "this.calmDown", "this.player"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.goal.TemptGoal.java b/net.minecraft.world.entity.ai.goal.TemptGoal.java
+--- a/net.minecraft.world.entity.ai.goal.TemptGoal.java
++++ b/net.minecraft.world.entity.ai.goal.TemptGoal.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mob"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stopNavigation(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.goal.TemptGoal.java b/net.minecraft.world.entity.ai.goal.TemptGoal.java
+--- a/net.minecraft.world.entity.ai.goal.TemptGoal.java
++++ b/net.minecraft.world.entity.ai.goal.TemptGoal.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mob", "this.stopDistance", "this.player", "this.stopNavigatio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.goal.TemptGoal.java b/net.minecraft.world.entity.ai.goal.TemptGoal.java
+--- a/net.minecraft.world.entity.ai.goal.TemptGoal.java
++++ b/net.minecraft.world.entity.ai.goal.TemptGoal.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.items"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldFollow(/* params */);
+

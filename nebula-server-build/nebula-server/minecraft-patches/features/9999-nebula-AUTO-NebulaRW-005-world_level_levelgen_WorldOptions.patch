@@ -1,0 +1,70 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.levelgen.WorldOptions.java b/net.minecraft.world.level.levelgen.WorldOptions.java
+--- a/net.minecraft.world.level.levelgen.WorldOptions.java
++++ b/net.minecraft.world.level.levelgen.WorldOptions.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.legacyCustomOptions", "this.generateStructures", "this.generateBonusChest"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withSeed(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.WorldOptions.java b/net.minecraft.world.level.levelgen.WorldOptions.java
+--- a/net.minecraft.world.level.levelgen.WorldOptions.java
++++ b/net.minecraft.world.level.levelgen.WorldOptions.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.generateBonusChes"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateBonusChest(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.WorldOptions.java b/net.minecraft.world.level.levelgen.WorldOptions.java
+--- a/net.minecraft.world.level.levelgen.WorldOptions.java
++++ b/net.minecraft.world.level.levelgen.WorldOptions.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.legacyCustomOptions", "this.seed", "this.generateStructures"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withBonusChest(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.WorldOptions.java b/net.minecraft.world.level.levelgen.WorldOptions.java
+--- a/net.minecraft.world.level.levelgen.WorldOptions.java
++++ b/net.minecraft.world.level.levelgen.WorldOptions.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.legacyCustomOptions", "this.seed", "this.generateBonusChest"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withStructures(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.WorldOptions.java b/net.minecraft.world.level.levelgen.WorldOptions.java
+--- a/net.minecraft.world.level.levelgen.WorldOptions.java
++++ b/net.minecraft.world.level.levelgen.WorldOptions.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.generateStructure"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateStructures(/* params */);
+

@@ -1,0 +1,118 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (9 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.components.tabs.TabNavigationBar.java b/net.minecraft.client.gui.components.tabs.TabNavigationBar.java
+--- a/net.minecraft.client.gui.components.tabs.TabNavigationBar.java
++++ b/net.minecraft.client.gui.components.tabs.TabNavigationBar.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.widt", "this.arrangeElement"},
++writeEntities = {"this.width"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateWidth(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.tabs.TabNavigationBar.java b/net.minecraft.client.gui.components.tabs.TabNavigationBar.java
+--- a/net.minecraft.client.gui.components.tabs.TabNavigationBar.java
++++ b/net.minecraft.client.gui.components.tabs.TabNavigationBar.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.layout", "this.width", "this.tabButtons"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.tabs.TabNavigationBar.java b/net.minecraft.client.gui.components.tabs.TabNavigationBar.java
+--- a/net.minecraft.client.gui.components.tabs.TabNavigationBar.java
++++ b/net.minecraft.client.gui.components.tabs.TabNavigationBar.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tabs", "this.tabButtons"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ narrateListElementPosition(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.tabs.TabNavigationBar.java b/net.minecraft.client.gui.components.tabs.TabNavigationBar.java
+--- a/net.minecraft.client.gui.components.tabs.TabNavigationBar.java
++++ b/net.minecraft.client.gui.components.tabs.TabNavigationBar.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tabManager", "this.width", "this.tabs"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ build(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.tabs.TabNavigationBar.java b/net.minecraft.client.gui.components.tabs.TabNavigationBar.java
+--- a/net.minecraft.client.gui.components.tabs.TabNavigationBar.java
++++ b/net.minecraft.client.gui.components.tabs.TabNavigationBar.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.width", "this.tabs", "this.tabButtons"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ arrangeElements(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.tabs.TabNavigationBar.java b/net.minecraft.client.gui.components.tabs.TabNavigationBar.java
+--- a/net.minecraft.client.gui.components.tabs.TabNavigationBar.java
++++ b/net.minecraft.client.gui.components.tabs.TabNavigationBar.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.currentTabButto", "this.narrateListElementPositio", "this.tabButtons"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateNarration(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.tabs.TabNavigationBar.java b/net.minecraft.client.gui.components.tabs.TabNavigationBar.java
+--- a/net.minecraft.client.gui.components.tabs.TabNavigationBar.java
++++ b/net.minecraft.client.gui.components.tabs.TabNavigationBar.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isFocuse", "this.setFocuse", "this.tabButtons"},
++writeEntities = {"this.focused"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ selectTab(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.tabs.TabNavigationBar.java b/net.minecraft.client.gui.components.tabs.TabNavigationBar.java
+--- a/net.minecraft.client.gui.components.tabs.TabNavigationBar.java
++++ b/net.minecraft.client.gui.components.tabs.TabNavigationBar.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tabManager", "this.tabs"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ currentTabIndex(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.tabs.TabNavigationBar.java b/net.minecraft.client.gui.components.tabs.TabNavigationBar.java
+--- a/net.minecraft.client.gui.components.tabs.TabNavigationBar.java
++++ b/net.minecraft.client.gui.components.tabs.TabNavigationBar.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.nextTabIndex", "this.getNextTabInde", "this.tabs", "this.selectTa"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ keyPressed(/* params */);
+

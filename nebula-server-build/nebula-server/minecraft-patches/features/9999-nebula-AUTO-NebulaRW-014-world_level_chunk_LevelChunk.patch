@@ -1,0 +1,182 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (14 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.chunk.LevelChunk.java b/net.minecraft.world.level.chunk.LevelChunk.java
+--- a/net.minecraft.world.level.chunk.LevelChunk.java
++++ b/net.minecraft.world.level.chunk.LevelChunk.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.removeBlockEntityTicke"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateBlockEntityTicker(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.LevelChunk.java b/net.minecraft.world.level.chunk.LevelChunk.java
+--- a/net.minecraft.world.level.chunk.LevelChunk.java
++++ b/net.minecraft.world.level.chunk.LevelChunk.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ postProcessGeneration(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.LevelChunk.java b/net.minecraft.world.level.chunk.LevelChunk.java
+--- a/net.minecraft.world.level.chunk.LevelChunk.java
++++ b/net.minecraft.world.level.chunk.LevelChunk.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.loggedInvalidBlockState"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.LevelChunk.java b/net.minecraft.world.level.chunk.LevelChunk.java
+--- a/net.minecraft.world.level.chunk.LevelChunk.java
++++ b/net.minecraft.world.level.chunk.LevelChunk.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.allStarts", "this.getAllStart"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerDebugValues(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.LevelChunk.java b/net.minecraft.world.level.chunk.LevelChunk.java
+--- a/net.minecraft.world.level.chunk.LevelChunk.java
++++ b/net.minecraft.world.level.chunk.LevelChunk.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ticker"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.LevelChunk.java b/net.minecraft.world.level.chunk.LevelChunk.java
+--- a/net.minecraft.world.level.chunk.LevelChunk.java
++++ b/net.minecraft.world.level.chunk.LevelChunk.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.addGameEventListene", "this.level", "this.blockEntities"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerAllBlockEntitiesAfterLevelLoad(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.LevelChunk.java b/net.minecraft.world.level.chunk.LevelChunk.java
+--- a/net.minecraft.world.level.chunk.LevelChunk.java
++++ b/net.minecraft.world.level.chunk.LevelChunk.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.postLoa", "this.postLoad"},
++writeEntities = {"this.postLoad"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ runPostLoad(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.LevelChunk.java b/net.minecraft.world.level.chunk.LevelChunk.java
+--- a/net.minecraft.world.level.chunk.LevelChunk.java
++++ b/net.minecraft.world.level.chunk.LevelChunk.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.clearAllBlockEntitie", "this.sections"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ replaceWithPacketData(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.LevelChunk.java b/net.minecraft.world.level.chunk.LevelChunk.java
+--- a/net.minecraft.world.level.chunk.LevelChunk.java
++++ b/net.minecraft.world.level.chunk.LevelChunk.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ticke"},
++writeEntities = {"this.ticker"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ rebind(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.LevelChunk.java b/net.minecraft.world.level.chunk.LevelChunk.java
+--- a/net.minecraft.world.level.chunk.LevelChunk.java
++++ b/net.minecraft.world.level.chunk.LevelChunk.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fluidTicks", "this.chunkPos", "this.blockTicks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerTickContainerInLevel(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.LevelChunk.java b/net.minecraft.world.level.chunk.LevelChunk.java
+--- a/net.minecraft.world.level.chunk.LevelChunk.java
++++ b/net.minecraft.world.level.chunk.LevelChunk.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fluidTicks", "this.blockTicks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ unpackTicks(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.LevelChunk.java b/net.minecraft.world.level.chunk.LevelChunk.java
+--- a/net.minecraft.world.level.chunk.LevelChunk.java
++++ b/net.minecraft.world.level.chunk.LevelChunk.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.unsavedListener", "this.chunkPos", "this.isUnsave"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ markUnsaved(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.LevelChunk.java b/net.minecraft.world.level.chunk.LevelChunk.java
+--- a/net.minecraft.world.level.chunk.LevelChunk.java
++++ b/net.minecraft.world.level.chunk.LevelChunk.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sections"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ replaceBiomes(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.LevelChunk.java b/net.minecraft.world.level.chunk.LevelChunk.java
+--- a/net.minecraft.world.level.chunk.LevelChunk.java
++++ b/net.minecraft.world.level.chunk.LevelChunk.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chunkPos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ unregisterTickContainerFromLevel(/* params */);
+

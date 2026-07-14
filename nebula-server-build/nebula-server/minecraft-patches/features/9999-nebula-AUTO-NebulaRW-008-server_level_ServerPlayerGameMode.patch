@@ -1,0 +1,109 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (8 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.level.ServerPlayerGameMode.java b/net.minecraft.server.level.ServerPlayerGameMode.java
+--- a/net.minecraft.server.level.ServerPlayerGameMode.java
++++ b/net.minecraft.server.level.ServerPlayerGameMode.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.player"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ destroyBlock(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerPlayerGameMode.java b/net.minecraft.server.level.ServerPlayerGameMode.java
+--- a/net.minecraft.server.level.ServerPlayerGameMode.java
++++ b/net.minecraft.server.level.ServerPlayerGameMode.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hasDelayedDestro", "this.level", "this.hasDelayedDestroy", "this.gameTicks", "this.delayedDestroyPos"},
++writeEntities = {"this.hasDelayedDestroy"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerPlayerGameMode.java b/net.minecraft.server.level.ServerPlayerGameMode.java
+--- a/net.minecraft.server.level.ServerPlayerGameMode.java
++++ b/net.minecraft.server.level.ServerPlayerGameMode.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.debugLoggin", "this.player"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleBlockBreakAction(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerPlayerGameMode.java b/net.minecraft.server.level.ServerPlayerGameMode.java
+--- a/net.minecraft.server.level.ServerPlayerGameMode.java
++++ b/net.minecraft.server.level.ServerPlayerGameMode.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.gameTicks", "this.lastSentState", "this.lastSentStat", "this.player"},
++writeEntities = {"this.lastSentState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ incrementDestroyProgress(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerPlayerGameMode.java b/net.minecraft.server.level.ServerPlayerGameMode.java
+--- a/net.minecraft.server.level.ServerPlayerGameMode.java
++++ b/net.minecraft.server.level.ServerPlayerGameMode.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.debugLoggin", "this.destroyBloc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ destroyAndAck(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerPlayerGameMode.java b/net.minecraft.server.level.ServerPlayerGameMode.java
+--- a/net.minecraft.server.level.ServerPlayerGameMode.java
++++ b/net.minecraft.server.level.ServerPlayerGameMode.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.gameModeForPlayer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ changeGameModeForPlayer(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerPlayerGameMode.java b/net.minecraft.server.level.ServerPlayerGameMode.java
+--- a/net.minecraft.server.level.ServerPlayerGameMode.java
++++ b/net.minecraft.server.level.ServerPlayerGameMode.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.gameModeForPlaye"},
++writeEntities = {"this.gameModeForPlayer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ useItem(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerPlayerGameMode.java b/net.minecraft.server.level.ServerPlayerGameMode.java
+--- a/net.minecraft.server.level.ServerPlayerGameMode.java
++++ b/net.minecraft.server.level.ServerPlayerGameMode.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ useItemOn(/* params */);
+

@@ -1,0 +1,131 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (10 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.level.ChunkHolder.java b/net.minecraft.server.level.ChunkHolder.java
+--- a/net.minecraft.server.level.ChunkHolder.java
++++ b/net.minecraft.server.level.ChunkHolder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.broadcastBlockEntit"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ broadcastBlockEntityIfNeeded(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkHolder.java b/net.minecraft.server.level.ChunkHolder.java
+--- a/net.minecraft.server.level.ChunkHolder.java
++++ b/net.minecraft.server.level.ChunkHolder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tickingChunk", "this.getTickingChun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ blockChanged(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkHolder.java b/net.minecraft.server.level.ChunkHolder.java
+--- a/net.minecraft.server.level.ChunkHolder.java
++++ b/net.minecraft.server.level.ChunkHolder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.wasAccessibleSinceLastSav", "this.ticketLevel"},
++writeEntities = {"this.wasAccessibleSinceLastSave"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ refreshAccessibility(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkHolder.java b/net.minecraft.server.level.ChunkHolder.java
+--- a/net.minecraft.server.level.ChunkHolder.java
++++ b/net.minecraft.server.level.ChunkHolder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.broadcas"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ broadcastBlockEntity(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkHolder.java b/net.minecraft.server.level.ChunkHolder.java
+--- a/net.minecraft.server.level.ChunkHolder.java
++++ b/net.minecraft.server.level.ChunkHolder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.wasAccessibleSinceLastSav"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ wasAccessibleSinceLastSave(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkHolder.java b/net.minecraft.server.level.ChunkHolder.java
+--- a/net.minecraft.server.level.ChunkHolder.java
++++ b/net.minecraft.server.level.ChunkHolder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.fullChunkFuture"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateFutures(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkHolder.java b/net.minecraft.server.level.ChunkHolder.java
+--- a/net.minecraft.server.level.ChunkHolder.java
++++ b/net.minecraft.server.level.ChunkHolder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ broadcastChanges(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkHolder.java b/net.minecraft.server.level.ChunkHolder.java
+--- a/net.minecraft.server.level.ChunkHolder.java
++++ b/net.minecraft.server.level.ChunkHolder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chunkIfPresent", "this.getChunkIfPresen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sectionLightChanged(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkHolder.java b/net.minecraft.server.level.ChunkHolder.java
+--- a/net.minecraft.server.level.ChunkHolder.java
++++ b/net.minecraft.server.level.ChunkHolder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pendingFullStateConfirmation", "this.pos", "this.pendingFullStateConfirmatio"},
++writeEntities = {"this.pendingFullStateConfirmation"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scheduleFullChunkPromotion(/* params */);
+
+diff --git a/net.minecraft.server.level.ChunkHolder.java b/net.minecraft.server.level.ChunkHolder.java
+--- a/net.minecraft.server.level.ChunkHolder.java
++++ b/net.minecraft.server.level.ChunkHolder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pendingFullStateConfirmation", "this.pos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ demoteFullChunk(/* params */);
+

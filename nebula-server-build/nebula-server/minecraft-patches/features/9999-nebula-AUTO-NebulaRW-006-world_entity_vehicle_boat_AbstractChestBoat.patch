@@ -1,0 +1,80 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.vehicle.boat.AbstractChestBoat.java b/net.minecraft.world.entity.vehicle.boat.AbstractChestBoat.java
+--- a/net.minecraft.world.entity.vehicle.boat.AbstractChestBoat.java
++++ b/net.minecraft.world.entity.vehicle.boat.AbstractChestBoat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getDropIte", "this.dropItem", "this.destro", "this.chestVehicleDestroye"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ destroy(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.boat.AbstractChestBoat.java b/net.minecraft.world.entity.vehicle.boat.AbstractChestBoat.java
+--- a/net.minecraft.world.entity.vehicle.boat.AbstractChestBoat.java
++++ b/net.minecraft.world.entity.vehicle.boat.AbstractChestBoat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isChestVehicleStillVali"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stillValid(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.boat.AbstractChestBoat.java b/net.minecraft.world.entity.vehicle.boat.AbstractChestBoat.java
+--- a/net.minecraft.world.entity.vehicle.boat.AbstractChestBoat.java
++++ b/net.minecraft.world.entity.vehicle.boat.AbstractChestBoat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.readChestVehicleSaveDat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.boat.AbstractChestBoat.java b/net.minecraft.world.entity.vehicle.boat.AbstractChestBoat.java
+--- a/net.minecraft.world.entity.vehicle.boat.AbstractChestBoat.java
++++ b/net.minecraft.world.entity.vehicle.boat.AbstractChestBoat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.unpackChestVehicleLootTabl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ unpackLootTable(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.boat.AbstractChestBoat.java b/net.minecraft.world.entity.vehicle.boat.AbstractChestBoat.java
+--- a/net.minecraft.world.entity.vehicle.boat.AbstractChestBoat.java
++++ b/net.minecraft.world.entity.vehicle.boat.AbstractChestBoat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leve", "this.positio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stopOpen(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.boat.AbstractChestBoat.java b/net.minecraft.world.entity.vehicle.boat.AbstractChestBoat.java
+--- a/net.minecraft.world.entity.vehicle.boat.AbstractChestBoat.java
++++ b/net.minecraft.world.entity.vehicle.boat.AbstractChestBoat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.gameEven"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ openCustomInventoryScreen(/* params */);
+

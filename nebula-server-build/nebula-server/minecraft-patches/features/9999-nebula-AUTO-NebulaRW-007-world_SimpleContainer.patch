@@ -1,0 +1,95 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.SimpleContainer.java b/net.minecraft.world.SimpleContainer.java
+--- a/net.minecraft.world.SimpleContainer.java
++++ b/net.minecraft.world.SimpleContainer.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setChange", "this.maxStackSize", "this.getMaxStackSiz"},
++writeEntities = {"this.changed"},
++triggeredEvents = {"BLOCK_UPDATE"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ moveItemsBetweenStacks(/* params */);
+
+diff --git a/net.minecraft.world.SimpleContainer.java b/net.minecraft.world.SimpleContainer.java
+--- a/net.minecraft.world.SimpleContainer.java
++++ b/net.minecraft.world.SimpleContainer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.items"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillStackedContents(/* params */);
+
+diff --git a/net.minecraft.world.SimpleContainer.java b/net.minecraft.world.SimpleContainer.java
+--- a/net.minecraft.world.SimpleContainer.java
++++ b/net.minecraft.world.SimpleContainer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.item", "this.siz", "this.setIte", "this.getIte"},
++writeEntities = {"this.item"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ moveItemToEmptySlots(/* params */);
+
+diff --git a/net.minecraft.world.SimpleContainer.java b/net.minecraft.world.SimpleContainer.java
+--- a/net.minecraft.world.SimpleContainer.java
++++ b/net.minecraft.world.SimpleContainer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.moveItemsBetweenStack", "this.item", "this.siz", "this.getIte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ moveItemToOccupiedSlotsWithSameType(/* params */);
+
+diff --git a/net.minecraft.world.SimpleContainer.java b/net.minecraft.world.SimpleContainer.java
+--- a/net.minecraft.world.SimpleContainer.java
++++ b/net.minecraft.world.SimpleContainer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.items"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.world.SimpleContainer.java b/net.minecraft.world.SimpleContainer.java
+--- a/net.minecraft.world.SimpleContainer.java
++++ b/net.minecraft.world.SimpleContainer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getContainerSiz", "this.item", "this.getIte", "this.containerSize"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ storeAsItemList(/* params */);
+
+diff --git a/net.minecraft.world.SimpleContainer.java b/net.minecraft.world.SimpleContainer.java
+--- a/net.minecraft.world.SimpleContainer.java
++++ b/net.minecraft.world.SimpleContainer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.clearConten", "this.addIte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fromItemList(/* params */);
+

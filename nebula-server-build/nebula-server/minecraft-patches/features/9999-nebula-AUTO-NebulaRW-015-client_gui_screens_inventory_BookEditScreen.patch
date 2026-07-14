@@ -1,0 +1,191 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (15 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.inventory.BookEditScreen.java b/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.backgroundLef", "this.backgroundTo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractBackground(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.BookEditScreen.java b/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.forwardButton", "this.backButton"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ keyPressed(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.BookEditScreen.java b/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.numberOfPages"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updatePageContent(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.BookEditScreen.java b/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.numPages", "this.getNumPage", "this.currentPage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pageForward(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.BookEditScreen.java b/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pages", "this.book"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateLocalCopy(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.BookEditScreen.java b/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.hand"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveChanges(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.BookEditScreen.java b/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.backButton", "this.currentPage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateButtonVisibility(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.BookEditScreen.java b/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.width"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ backgroundLeft(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.BookEditScreen.java b/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.visitTex"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.BookEditScreen.java b/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.numPages", "this.pages", "this.getNumPage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ appendPageToBook(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.BookEditScreen.java b/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.currentPage", "this.updatePageConten"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pageBack(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.BookEditScreen.java b/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.backgroundTo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ menuControlsTop(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.BookEditScreen.java b/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.numberOfPages", "this.forwardButton", "this.backButton", "this.page"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.BookEditScreen.java b/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pages"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ eraseEmptyTrailingPages(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.BookEditScreen.java b/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.BookEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.numberOfPages", "this.backgroundLef", "this.backgroundTo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ visitText(/* params */);
+

@@ -1,0 +1,118 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (9 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CrafterScreen.java b/net.minecraft.client.gui.screens.inventory.CrafterScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CrafterScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CrafterScreen.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.menu", "this.player"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateSlotState(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CrafterScreen.java b/net.minecraft.client.gui.screens.inventory.CrafterScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CrafterScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CrafterScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.extractDisabledSlo", "this.menu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractSlot(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CrafterScreen.java b/net.minecraft.client.gui.screens.inventory.CrafterScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CrafterScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CrafterScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateSlotStat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ disableSlot(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CrafterScreen.java b/net.minecraft.client.gui.screens.inventory.CrafterScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CrafterScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CrafterScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateSlotStat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ enableSlot(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CrafterScreen.java b/net.minecraft.client.gui.screens.inventory.CrafterScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CrafterScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CrafterScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hoveredSlot", "this.extractRedston", "this.menu", "this.player", "this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CrafterScreen.java b/net.minecraft.client.gui.screens.inventory.CrafterScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CrafterScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CrafterScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.width", "this.menu", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRedstone(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CrafterScreen.java b/net.minecraft.client.gui.screens.inventory.CrafterScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CrafterScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CrafterScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.imageWidth", "this.titleLabel", "this.title", "this.font"},
++writeEntities = {"this.titleLabelX"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CrafterScreen.java b/net.minecraft.client.gui.screens.inventory.CrafterScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CrafterScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CrafterScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.imageWidth", "this.width", "this.imageHeight", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractBackground(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CrafterScreen.java b/net.minecraft.client.gui.screens.inventory.CrafterScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CrafterScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CrafterScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.enableSlo", "this.menu", "this.player"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ slotClicked(/* params */);
+

@@ -1,0 +1,94 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.resources.MapTextureManager.java b/net.minecraft.client.resources.MapTextureManager.java
+--- a/net.minecraft.client.resources.MapTextureManager.java
++++ b/net.minecraft.client.resources.MapTextureManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.data", "this.requiresUpload", "this.texture"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateTextureIfNeeded(/* params */);
+
+diff --git a/net.minecraft.client.resources.MapTextureManager.java b/net.minecraft.client.resources.MapTextureManager.java
+--- a/net.minecraft.client.resources.MapTextureManager.java
++++ b/net.minecraft.client.resources.MapTextureManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.data", "this.requiresUpload", "this.dat"},
++writeEntities = {"this.data"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ replaceMapData(/* params */);
+
+diff --git a/net.minecraft.client.resources.MapTextureManager.java b/net.minecraft.client.resources.MapTextureManager.java
+--- a/net.minecraft.client.resources.MapTextureManager.java
++++ b/net.minecraft.client.resources.MapTextureManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.maps"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetData(/* params */);
+
+diff --git a/net.minecraft.client.resources.MapTextureManager.java b/net.minecraft.client.resources.MapTextureManager.java
+--- a/net.minecraft.client.resources.MapTextureManager.java
++++ b/net.minecraft.client.resources.MapTextureManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getOrCreateMapInstanc", "this.orCreateMapInstance"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ update(/* params */);
+
+diff --git a/net.minecraft.client.resources.MapTextureManager.java b/net.minecraft.client.resources.MapTextureManager.java
+--- a/net.minecraft.client.resources.MapTextureManager.java
++++ b/net.minecraft.client.resources.MapTextureManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getOrCreateMapInstanc", "this.orCreateMapInstance"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ prepareMapTexture(/* params */);
+
+diff --git a/net.minecraft.client.resources.MapTextureManager.java b/net.minecraft.client.resources.MapTextureManager.java
+--- a/net.minecraft.client.resources.MapTextureManager.java
++++ b/net.minecraft.client.resources.MapTextureManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.texture"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ close(/* params */);
+
+diff --git a/net.minecraft.client.resources.MapTextureManager.java b/net.minecraft.client.resources.MapTextureManager.java
+--- a/net.minecraft.client.resources.MapTextureManager.java
++++ b/net.minecraft.client.resources.MapTextureManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.requiresUploa"},
++writeEntities = {"this.requiresUpload"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forceUpload(/* params */);
+

@@ -1,0 +1,155 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (11 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java b/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java
+--- a/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java
++++ b/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.settings", "this.biomeSource", "this.createNoiseChun", "this.getBiomeGenerationSetting", "this.biomeGenerationSettings"},
++readBlocks = {"{chunk}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyCarvers(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java b/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java
+--- a/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java
++++ b/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.settings"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spawnOriginalMobs(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java b/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java
+--- a/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java
++++ b/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.settings", "this.biomeSource", "this.createNoiseChun"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ doCreateBiomes(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java b/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java
+--- a/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java
++++ b/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.doCreateBiome"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createBiomes(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java b/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java
+--- a/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java
++++ b/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createNoiseChun"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ doFill(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java b/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java
+--- a/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java
++++ b/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.settings", "this.globalFluidPicker"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createNoiseChunk(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java b/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java
+--- a/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java
++++ b/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.settings", "this.createNoiseChun"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ buildSurface(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java b/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java
+--- a/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java
++++ b/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.settings"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillFromNoise(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java b/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java
+--- a/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java
++++ b/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.seaLevel", "this.getSeaLeve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ debugPreliminarySurfaceLevel(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java b/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java
+--- a/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java
++++ b/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.settings"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ iterateNoiseColumn(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java b/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java
+--- a/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java
++++ b/net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.settings"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stable(/* params */);
+

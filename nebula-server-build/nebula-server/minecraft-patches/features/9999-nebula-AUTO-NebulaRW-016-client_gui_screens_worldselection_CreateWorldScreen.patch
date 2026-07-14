@@ -1,0 +1,202 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (16 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java b/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.uiState", "this.minecraft", "this.tempDataPackDir"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createNewWorld(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java b/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.uiState", "this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tryApplyNewDataPacks(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java b/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.uiState", "this.createLevelSetting", "this.recreated"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onCreate(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java b/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.layout", "this.tabManager", "this.width", "this.tabNavigationBar", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ repositionElements(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java b/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.onClose", "this.removeTempDataPackDi"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ popScreen(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java b/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.dataPackSelectionSettings", "this.tryApplyNewDataPack", "this.getDataPackSelectionSetting"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ openExperimentsScreen(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java b/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.uiState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createLevelSettings(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java b/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyNewPackConfig(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java b/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.tabNavigationBar"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java b/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.layout", "this.extractMenuBackgroun", "this.width", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractMenuBackground(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java b/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.layout", "this.width", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java b/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.uiState", "this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ openPresetEditor(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java b/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tabNavigationBar"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ keyPressed(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java b/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.dataPackSelectionSettings", "this.tryApplyNewDataPack", "this.getDataPackSelectionSetting"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ openDataPackSelectionScreen(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java b/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.removeTempDataPackDi", "this.tempDataPackDir", "this.popScree", "this.createWorldCallback"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createWorldAndCleanup(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java b/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
+--- a/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
++++ b/net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.uiState", "this.uiStat"},
++writeEntities = {"this.uiState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ openGameRulesScreen(/* params */);
+

@@ -1,0 +1,57 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.CompoundContainer.java b/net.minecraft.world.CompoundContainer.java
+--- a/net.minecraft.world.CompoundContainer.java
++++ b/net.minecraft.world.CompoundContainer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.container1", "this.container2"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stopOpen(/* params */);
+
+diff --git a/net.minecraft.world.CompoundContainer.java b/net.minecraft.world.CompoundContainer.java
+--- a/net.minecraft.world.CompoundContainer.java
++++ b/net.minecraft.world.CompoundContainer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.container1", "this.container2"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stillValid(/* params */);
+
+diff --git a/net.minecraft.world.CompoundContainer.java b/net.minecraft.world.CompoundContainer.java
+--- a/net.minecraft.world.CompoundContainer.java
++++ b/net.minecraft.world.CompoundContainer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.container1", "this.container2"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startOpen(/* params */);
+
+diff --git a/net.minecraft.world.CompoundContainer.java b/net.minecraft.world.CompoundContainer.java
+--- a/net.minecraft.world.CompoundContainer.java
++++ b/net.minecraft.world.CompoundContainer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.container"},
++writeEntities = {"this.container1", "this.container2"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ contains(/* params */);
+

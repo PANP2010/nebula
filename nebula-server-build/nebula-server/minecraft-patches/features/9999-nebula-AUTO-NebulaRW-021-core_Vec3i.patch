@@ -1,0 +1,260 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (21 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.core.Vec3i.java b/net.minecraft.core.Vec3i.java
+--- a/net.minecraft.core.Vec3i.java
++++ b/net.minecraft.core.Vec3i.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.get", "this.x", "this.y", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ distChessboard(/* params */);
+
+diff --git a/net.minecraft.core.Vec3i.java b/net.minecraft.core.Vec3i.java
+--- a/net.minecraft.core.Vec3i.java
++++ b/net.minecraft.core.Vec3i.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.x", "this.y", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toMutable(/* params */);
+
+diff --git a/net.minecraft.core.Vec3i.java b/net.minecraft.core.Vec3i.java
+--- a/net.minecraft.core.Vec3i.java
++++ b/net.minecraft.core.Vec3i.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.offse"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ subtract(/* params */);
+
+diff --git a/net.minecraft.core.Vec3i.java b/net.minecraft.core.Vec3i.java
+--- a/net.minecraft.core.Vec3i.java
++++ b/net.minecraft.core.Vec3i.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.get", "this.x", "this.y", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ distToCenterSqr(/* params */);
+
+diff --git a/net.minecraft.core.Vec3i.java b/net.minecraft.core.Vec3i.java
+--- a/net.minecraft.core.Vec3i.java
++++ b/net.minecraft.core.Vec3i.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.relativ"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ east(/* params */);
+
+diff --git a/net.minecraft.core.Vec3i.java b/net.minecraft.core.Vec3i.java
+--- a/net.minecraft.core.Vec3i.java
++++ b/net.minecraft.core.Vec3i.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.distToLowCornerSq"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ distSqr(/* params */);
+
+diff --git a/net.minecraft.core.Vec3i.java b/net.minecraft.core.Vec3i.java
+--- a/net.minecraft.core.Vec3i.java
++++ b/net.minecraft.core.Vec3i.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.get", "this.x", "this.y", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.core.Vec3i.java b/net.minecraft.core.Vec3i.java
+--- a/net.minecraft.core.Vec3i.java
++++ b/net.minecraft.core.Vec3i.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.relativ"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ below(/* params */);
+
+diff --git a/net.minecraft.core.Vec3i.java b/net.minecraft.core.Vec3i.java
+--- a/net.minecraft.core.Vec3i.java
++++ b/net.minecraft.core.Vec3i.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.get", "this.x", "this.y", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ distManhattan(/* params */);
+
+diff --git a/net.minecraft.core.Vec3i.java b/net.minecraft.core.Vec3i.java
+--- a/net.minecraft.core.Vec3i.java
++++ b/net.minecraft.core.Vec3i.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.get", "this.x", "this.y", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ multiply(/* params */);
+
+diff --git a/net.minecraft.core.Vec3i.java b/net.minecraft.core.Vec3i.java
+--- a/net.minecraft.core.Vec3i.java
++++ b/net.minecraft.core.Vec3i.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.relativ"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ above(/* params */);
+
+diff --git a/net.minecraft.core.Vec3i.java b/net.minecraft.core.Vec3i.java
+--- a/net.minecraft.core.Vec3i.java
++++ b/net.minecraft.core.Vec3i.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.get", "this.x", "this.y", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toShortString(/* params */);
+
+diff --git a/net.minecraft.core.Vec3i.java b/net.minecraft.core.Vec3i.java
+--- a/net.minecraft.core.Vec3i.java
++++ b/net.minecraft.core.Vec3i.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.distToCenterSq"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ closerToCenterThan(/* params */);
+
+diff --git a/net.minecraft.core.Vec3i.java b/net.minecraft.core.Vec3i.java
+--- a/net.minecraft.core.Vec3i.java
++++ b/net.minecraft.core.Vec3i.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.relativ"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ west(/* params */);
+
+diff --git a/net.minecraft.core.Vec3i.java b/net.minecraft.core.Vec3i.java
+--- a/net.minecraft.core.Vec3i.java
++++ b/net.minecraft.core.Vec3i.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.distSq"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ closerThan(/* params */);
+
+diff --git a/net.minecraft.core.Vec3i.java b/net.minecraft.core.Vec3i.java
+--- a/net.minecraft.core.Vec3i.java
++++ b/net.minecraft.core.Vec3i.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.get", "this.x", "this.y", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ cross(/* params */);
+
+diff --git a/net.minecraft.core.Vec3i.java b/net.minecraft.core.Vec3i.java
+--- a/net.minecraft.core.Vec3i.java
++++ b/net.minecraft.core.Vec3i.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.get", "this.x", "this.y", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ compareTo(/* params */);
+
+diff --git a/net.minecraft.core.Vec3i.java b/net.minecraft.core.Vec3i.java
+--- a/net.minecraft.core.Vec3i.java
++++ b/net.minecraft.core.Vec3i.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.relativ"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ south(/* params */);
+
+diff --git a/net.minecraft.core.Vec3i.java b/net.minecraft.core.Vec3i.java
+--- a/net.minecraft.core.Vec3i.java
++++ b/net.minecraft.core.Vec3i.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.get", "this.x", "this.y", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ distToLowCornerSqr(/* params */);
+
+diff --git a/net.minecraft.core.Vec3i.java b/net.minecraft.core.Vec3i.java
+--- a/net.minecraft.core.Vec3i.java
++++ b/net.minecraft.core.Vec3i.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.relativ"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ north(/* params */);
+
+diff --git a/net.minecraft.core.Vec3i.java b/net.minecraft.core.Vec3i.java
+--- a/net.minecraft.core.Vec3i.java
++++ b/net.minecraft.core.Vec3i.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.offse"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ offset(/* params */);
+

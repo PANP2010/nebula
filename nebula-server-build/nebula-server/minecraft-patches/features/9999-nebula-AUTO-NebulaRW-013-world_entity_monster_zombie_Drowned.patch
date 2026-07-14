@@ -1,0 +1,177 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (13 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.monster.zombie.Drowned.java b/net.minecraft.world.entity.monster.zombie.Drowned.java
+--- a/net.minecraft.world.entity.monster.zombie.Drowned.java
++++ b/net.minecraft.world.entity.monster.zombie.Drowned.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{neighbors}"},
++triggeredEvents = {"ENTITY_SPAWNED"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkDrownedSpawnRules(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.zombie.Drowned.java b/net.minecraft.world.entity.monster.zombie.Drowned.java
+--- a/net.minecraft.world.entity.monster.zombie.Drowned.java
++++ b/net.minecraft.world.entity.monster.zombie.Drowned.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setItemSlo"},
++writeEntities = {"this.itemSlot"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ populateDefaultEquipmentSlots(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.zombie.Drowned.java b/net.minecraft.world.entity.monster.zombie.Drowned.java
+--- a/net.minecraft.world.entity.monster.zombie.Drowned.java
++++ b/net.minecraft.world.entity.monster.zombie.Drowned.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.seaLevel", "this.stuc", "this.drowned"},
++writeEntities = {"this.stuck"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.zombie.Drowned.java b/net.minecraft.world.entity.monster.zombie.Drowned.java
+--- a/net.minecraft.world.entity.monster.zombie.Drowned.java
++++ b/net.minecraft.world.entity.monster.zombie.Drowned.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setItemSlo", "this.setGuaranteedDro", "this.getItemBySlo", "this.itemBySlot"},
++writeEntities = {"this.guaranteedDrop", "this.itemSlot"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ finalizeSpawn(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.zombie.Drowned.java b/net.minecraft.world.entity.monster.zombie.Drowned.java
+--- a/net.minecraft.world.entity.monster.zombie.Drowned.java
++++ b/net.minecraft.world.entity.monster.zombie.Drowned.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.deltaMovement"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ travelInWater(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.zombie.Drowned.java b/net.minecraft.world.entity.monster.zombie.Drowned.java
+--- a/net.minecraft.world.entity.monster.zombie.Drowned.java
++++ b/net.minecraft.world.entity.monster.zombie.Drowned.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.wantsToSwi", "this.isUnderWate", "this.leve", "this.setSwimmin", "this.isEffectiveA"},
++writeEntities = {"this.swimming"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateSwimming(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.zombie.Drowned.java b/net.minecraft.world.entity.monster.zombie.Drowned.java
+--- a/net.minecraft.world.entity.monster.zombie.Drowned.java
++++ b/net.minecraft.world.entity.monster.zombie.Drowned.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.controlledVehicle", "this.yBodyRo", "this.getControlledVehicl"},
++writeEntities = {"this.yBodyRot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ rideTick(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.zombie.Drowned.java b/net.minecraft.world.entity.monster.zombie.Drowned.java
+--- a/net.minecraft.world.entity.monster.zombie.Drowned.java
++++ b/net.minecraft.world.entity.monster.zombie.Drowned.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ performRangedAttack(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.zombie.Drowned.java b/net.minecraft.world.entity.monster.zombie.Drowned.java
+--- a/net.minecraft.world.entity.monster.zombie.Drowned.java
++++ b/net.minecraft.world.entity.monster.zombie.Drowned.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.drowned"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ start(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.zombie.Drowned.java b/net.minecraft.world.entity.monster.zombie.Drowned.java
+--- a/net.minecraft.world.entity.monster.zombie.Drowned.java
++++ b/net.minecraft.world.entity.monster.zombie.Drowned.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.drowned"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.zombie.Drowned.java b/net.minecraft.world.entity.monster.zombie.Drowned.java
+--- a/net.minecraft.world.entity.monster.zombie.Drowned.java
++++ b/net.minecraft.world.entity.monster.zombie.Drowned.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ okTarget(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.zombie.Drowned.java b/net.minecraft.world.entity.monster.zombie.Drowned.java
+--- a/net.minecraft.world.entity.monster.zombie.Drowned.java
++++ b/net.minecraft.world.entity.monster.zombie.Drowned.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.navigation", "this.distanceToSq", "this.getNavigatio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ closeToNextPos(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.zombie.Drowned.java b/net.minecraft.world.entity.monster.zombie.Drowned.java
+--- a/net.minecraft.world.entity.monster.zombie.Drowned.java
++++ b/net.minecraft.world.entity.monster.zombie.Drowned.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.searchingForLand"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ wantsToSwim(/* params */);
+

@@ -1,0 +1,133 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (10 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.projectile.ShulkerBullet.java b/net.minecraft.world.entity.projectile.ShulkerBullet.java
+--- a/net.minecraft.world.entity.projectile.ShulkerBullet.java
++++ b/net.minecraft.world.entity.projectile.ShulkerBullet.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onHitBlock(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.ShulkerBullet.java b/net.minecraft.world.entity.projectile.ShulkerBullet.java
+--- a/net.minecraft.world.entity.projectile.ShulkerBullet.java
++++ b/net.minecraft.world.entity.projectile.ShulkerBullet.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtServer(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.ShulkerBullet.java b/net.minecraft.world.entity.projectile.ShulkerBullet.java
+--- a/net.minecraft.world.entity.projectile.ShulkerBullet.java
++++ b/net.minecraft.world.entity.projectile.ShulkerBullet.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.owner", "this.getOwne", "this.damageSource", "this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onHitEntity(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.ShulkerBullet.java b/net.minecraft.world.entity.projectile.ShulkerBullet.java
+--- a/net.minecraft.world.entity.projectile.ShulkerBullet.java
++++ b/net.minecraft.world.entity.projectile.ShulkerBullet.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.currentMoveDirectio", "this.finalTarge", "this.targetDelta", "this.flightStep"},
++writeEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.ShulkerBullet.java b/net.minecraft.world.entity.projectile.ShulkerBullet.java
+--- a/net.minecraft.world.entity.projectile.ShulkerBullet.java
++++ b/net.minecraft.world.entity.projectile.ShulkerBullet.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockPositio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ selectNextMoveDirection(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.ShulkerBullet.java b/net.minecraft.world.entity.projectile.ShulkerBullet.java
+--- a/net.minecraft.world.entity.projectile.ShulkerBullet.java
++++ b/net.minecraft.world.entity.projectile.ShulkerBullet.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.finalTarge", "this.leve", "this.finalTarget"},
++writeEntities = {"this.finalTarget"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.ShulkerBullet.java b/net.minecraft.world.entity.projectile.ShulkerBullet.java
+--- a/net.minecraft.world.entity.projectile.ShulkerBullet.java
++++ b/net.minecraft.world.entity.projectile.ShulkerBullet.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.discar", "this.leve", "this.positio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ destroy(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.ShulkerBullet.java b/net.minecraft.world.entity.projectile.ShulkerBullet.java
+--- a/net.minecraft.world.entity.projectile.ShulkerBullet.java
++++ b/net.minecraft.world.entity.projectile.ShulkerBullet.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.destro"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onHit(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.ShulkerBullet.java b/net.minecraft.world.entity.projectile.ShulkerBullet.java
+--- a/net.minecraft.world.entity.projectile.ShulkerBullet.java
++++ b/net.minecraft.world.entity.projectile.ShulkerBullet.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setDeltaMovemen"},
++writeEntities = {"this.deltaMovement"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ recreateFromPacket(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.ShulkerBullet.java b/net.minecraft.world.entity.projectile.ShulkerBullet.java
+--- a/net.minecraft.world.entity.projectile.ShulkerBullet.java
++++ b/net.minecraft.world.entity.projectile.ShulkerBullet.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.discar", "this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkDespawn(/* params */);
+

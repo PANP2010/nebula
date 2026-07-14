@@ -1,0 +1,93 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.redstone.Orientation.java b/net.minecraft.world.level.redstone.Orientation.java
+--- a/net.minecraft.world.level.redstone.Orientation.java
++++ b/net.minecraft.world.level.redstone.Orientation.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.withSideBia", "this.sideBias"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withMirror(/* params */);
+
+diff --git a/net.minecraft.world.level.redstone.Orientation.java b/net.minecraft.world.level.redstone.Orientation.java
+--- a/net.minecraft.world.level.redstone.Orientation.java
++++ b/net.minecraft.world.level.redstone.Orientation.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.withFron", "this.fron"},
++writeEntities = {"this.front"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withFrontAdjustSideBias(/* params */);
+
+diff --git a/net.minecraft.world.level.redstone.Orientation.java b/net.minecraft.world.level.redstone.Orientation.java
+--- a/net.minecraft.world.level.redstone.Orientation.java
++++ b/net.minecraft.world.level.redstone.Orientation.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.withFront", "this.up"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withFrontPreserveUp(/* params */);
+
+diff --git a/net.minecraft.world.level.redstone.Orientation.java b/net.minecraft.world.level.redstone.Orientation.java
+--- a/net.minecraft.world.level.redstone.Orientation.java
++++ b/net.minecraft.world.level.redstone.Orientation.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.withSideBias"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withSideBias(/* params */);
+
+diff --git a/net.minecraft.world.level.redstone.Orientation.java b/net.minecraft.world.level.redstone.Orientation.java
+--- a/net.minecraft.world.level.redstone.Orientation.java
++++ b/net.minecraft.world.level.redstone.Orientation.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.withFront"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withFront(/* params */);
+
+diff --git a/net.minecraft.world.level.redstone.Orientation.java b/net.minecraft.world.level.redstone.Orientation.java
+--- a/net.minecraft.world.level.redstone.Orientation.java
++++ b/net.minecraft.world.level.redstone.Orientation.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sideBias", "this.up", "this.front"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.world.level.redstone.Orientation.java b/net.minecraft.world.level.redstone.Orientation.java
+--- a/net.minecraft.world.level.redstone.Orientation.java
++++ b/net.minecraft.world.level.redstone.Orientation.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.withUp"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withUp(/* params */);
+

@@ -1,0 +1,33 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (2 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.rcon.thread.GenericThread.java b/net.minecraft.server.rcon.thread.GenericThread.java
+--- a/net.minecraft.server.rcon.thread.GenericThread.java
++++ b/net.minecraft.server.rcon.thread.GenericThread.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.running"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ start(/* params */);
+
+diff --git a/net.minecraft.server.rcon.thread.GenericThread.java b/net.minecraft.server.rcon.thread.GenericThread.java
+--- a/net.minecraft.server.rcon.thread.GenericThread.java
++++ b/net.minecraft.server.rcon.thread.GenericThread.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.runnin", "this.thread"},
++writeEntities = {"this.running"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+

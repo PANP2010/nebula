@@ -1,0 +1,86 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.boss.enderdragon.phases.DragonHoldingPatternPhase.java b/net.minecraft.world.entity.boss.enderdragon.phases.DragonHoldingPatternPhase.java
+--- a/net.minecraft.world.entity.boss.enderdragon.phases.DragonHoldingPatternPhase.java
++++ b/net.minecraft.world.entity.boss.enderdragon.phases.DragonHoldingPatternPhase.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.currentPath", "this.dragon"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ navigateToNextPathNode(/* params */);
+
+diff --git a/net.minecraft.world.entity.boss.enderdragon.phases.DragonHoldingPatternPhase.java b/net.minecraft.world.entity.boss.enderdragon.phases.DragonHoldingPatternPhase.java
+--- a/net.minecraft.world.entity.boss.enderdragon.phases.DragonHoldingPatternPhase.java
++++ b/net.minecraft.world.entity.boss.enderdragon.phases.DragonHoldingPatternPhase.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.currentPath", "this.dragon"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findNewTarget(/* params */);
+
+diff --git a/net.minecraft.world.entity.boss.enderdragon.phases.DragonHoldingPatternPhase.java b/net.minecraft.world.entity.boss.enderdragon.phases.DragonHoldingPatternPhase.java
+--- a/net.minecraft.world.entity.boss.enderdragon.phases.DragonHoldingPatternPhase.java
++++ b/net.minecraft.world.entity.boss.enderdragon.phases.DragonHoldingPatternPhase.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.targetLocatio", "this.currentPat"},
++writeEntities = {"this.currentPath", "this.targetLocation"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ begin(/* params */);
+
+diff --git a/net.minecraft.world.entity.boss.enderdragon.phases.DragonHoldingPatternPhase.java b/net.minecraft.world.entity.boss.enderdragon.phases.DragonHoldingPatternPhase.java
+--- a/net.minecraft.world.entity.boss.enderdragon.phases.DragonHoldingPatternPhase.java
++++ b/net.minecraft.world.entity.boss.enderdragon.phases.DragonHoldingPatternPhase.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.findNewTarge", "this.targetLocatio", "this.dragon", "this.targetLocation"},
++writeEntities = {"this.targetLocation"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ doServerTick(/* params */);
+
+diff --git a/net.minecraft.world.entity.boss.enderdragon.phases.DragonHoldingPatternPhase.java b/net.minecraft.world.entity.boss.enderdragon.phases.DragonHoldingPatternPhase.java
+--- a/net.minecraft.world.entity.boss.enderdragon.phases.DragonHoldingPatternPhase.java
++++ b/net.minecraft.world.entity.boss.enderdragon.phases.DragonHoldingPatternPhase.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.dragon"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ strafePlayer(/* params */);
+
+diff --git a/net.minecraft.world.entity.boss.enderdragon.phases.DragonHoldingPatternPhase.java b/net.minecraft.world.entity.boss.enderdragon.phases.DragonHoldingPatternPhase.java
+--- a/net.minecraft.world.entity.boss.enderdragon.phases.DragonHoldingPatternPhase.java
++++ b/net.minecraft.world.entity.boss.enderdragon.phases.DragonHoldingPatternPhase.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.dragon", "this.strafePlaye"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onCrystalDestroyed(/* params */);
+

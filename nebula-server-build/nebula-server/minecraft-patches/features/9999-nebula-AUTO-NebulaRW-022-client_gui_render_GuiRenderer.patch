@@ -1,0 +1,275 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (22 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.render.GuiRenderer.java b/net.minecraft.client.gui.render.GuiRenderer.java
+--- a/net.minecraft.client.gui.render.GuiRenderer.java
++++ b/net.minecraft.client.gui.render.GuiRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.renderState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ accept(/* params */);
+
+diff --git a/net.minecraft.client.gui.render.GuiRenderer.java b/net.minecraft.client.gui.render.GuiRenderer.java
+--- a/net.minecraft.client.gui.render.GuiRenderer.java
++++ b/net.minecraft.client.gui.render.GuiRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.cubeMap"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerPanoramaTextures(/* params */);
+
+diff --git a/net.minecraft.client.gui.render.GuiRenderer.java b/net.minecraft.client.gui.render.GuiRenderer.java
+--- a/net.minecraft.client.gui.render.GuiRenderer.java
++++ b/net.minecraft.client.gui.render.GuiRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.renderState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ submitBlitFromItemAtlas(/* params */);
+
+diff --git a/net.minecraft.client.gui.render.GuiRenderer.java b/net.minecraft.client.gui.render.GuiRenderer.java
+--- a/net.minecraft.client.gui.render.GuiRenderer.java
++++ b/net.minecraft.client.gui.render.GuiRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.renderState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ prepareText(/* params */);
+
+diff --git a/net.minecraft.client.gui.render.GuiRenderer.java b/net.minecraft.client.gui.render.GuiRenderer.java
+--- a/net.minecraft.client.gui.render.GuiRenderer.java
++++ b/net.minecraft.client.gui.render.GuiRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.itemAtlas", "this.itemAtla"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ prepareItemAtlas(/* params */);
+
+diff --git a/net.minecraft.client.gui.render.GuiRenderer.java b/net.minecraft.client.gui.render.GuiRenderer.java
+--- a/net.minecraft.client.gui.render.GuiRenderer.java
++++ b/net.minecraft.client.gui.render.GuiRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.itemAtlas", "this.itemAtla"},
++writeEntities = {"this.itemAtlas"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ invalidateItemAtlas(/* params */);
+
+diff --git a/net.minecraft.client.gui.render.GuiRenderer.java b/net.minecraft.client.gui.render.GuiRenderer.java
+--- a/net.minecraft.client.gui.render.GuiRenderer.java
++++ b/net.minecraft.client.gui.render.GuiRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.guiProjectionMatrixBuffer", "this.guiProjection", "this.draws"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ draw(/* params */);
+
+diff --git a/net.minecraft.client.gui.render.GuiRenderer.java b/net.minecraft.client.gui.render.GuiRenderer.java
+--- a/net.minecraft.client.gui.render.GuiRenderer.java
++++ b/net.minecraft.client.gui.render.GuiRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getGuiScaleInvalidatingItemAtlasIfChange", "this.guiScaleInvalidatingItemAtlasIfChanged", "this.prepareItemAtla", "this.renderState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ prepareItemElements(/* params */);
+
+diff --git a/net.minecraft.client.gui.render.GuiRenderer.java b/net.minecraft.client.gui.render.GuiRenderer.java
+--- a/net.minecraft.client.gui.render.GuiRenderer.java
++++ b/net.minecraft.client.gui.render.GuiRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.calculatedRequiredVertexBufferSize", "this.vertexBuffers"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ ensureVertexBufferSizes(/* params */);
+
+diff --git a/net.minecraft.client.gui.render.GuiRenderer.java b/net.minecraft.client.gui.render.GuiRenderer.java
+--- a/net.minecraft.client.gui.render.GuiRenderer.java
++++ b/net.minecraft.client.gui.render.GuiRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.meshesToDraw"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ recordMesh(/* params */);
+
+diff --git a/net.minecraft.client.gui.render.GuiRenderer.java b/net.minecraft.client.gui.render.GuiRenderer.java
+--- a/net.minecraft.client.gui.render.GuiRenderer.java
++++ b/net.minecraft.client.gui.render.GuiRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.accep"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ acceptEffect(/* params */);
+
+diff --git a/net.minecraft.client.gui.render.GuiRenderer.java b/net.minecraft.client.gui.render.GuiRenderer.java
+--- a/net.minecraft.client.gui.render.GuiRenderer.java
++++ b/net.minecraft.client.gui.render.GuiRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.enableScisso"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ executeDraw(/* params */);
+
+diff --git a/net.minecraft.client.gui.render.GuiRenderer.java b/net.minecraft.client.gui.render.GuiRenderer.java
+--- a/net.minecraft.client.gui.render.GuiRenderer.java
++++ b/net.minecraft.client.gui.render.GuiRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.byteBufferBuilder", "this.itemAtlas", "this.itemAtla"},
++writeEntities = {"this.itemAtlas"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ close(/* params */);
+
+diff --git a/net.minecraft.client.gui.render.GuiRenderer.java b/net.minecraft.client.gui.render.GuiRenderer.java
+--- a/net.minecraft.client.gui.render.GuiRenderer.java
++++ b/net.minecraft.client.gui.render.GuiRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.accep"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ acceptGlyph(/* params */);
+
+diff --git a/net.minecraft.client.gui.render.GuiRenderer.java b/net.minecraft.client.gui.render.GuiRenderer.java
+--- a/net.minecraft.client.gui.render.GuiRenderer.java
++++ b/net.minecraft.client.gui.render.GuiRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.preparePictureInPictureStat", "this.renderState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ preparePictureInPicture(/* params */);
+
+diff --git a/net.minecraft.client.gui.render.GuiRenderer.java b/net.minecraft.client.gui.render.GuiRenderer.java
+--- a/net.minecraft.client.gui.render.GuiRenderer.java
++++ b/net.minecraft.client.gui.render.GuiRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.draws", "this.executeDra"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ executeDrawRange(/* params */);
+
+diff --git a/net.minecraft.client.gui.render.GuiRenderer.java b/net.minecraft.client.gui.render.GuiRenderer.java
+--- a/net.minecraft.client.gui.render.GuiRenderer.java
++++ b/net.minecraft.client.gui.render.GuiRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.vertexBuffers", "this.meshesToDraw", "this.ensureVertexBufferSize"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ recordDraws(/* params */);
+
+diff --git a/net.minecraft.client.gui.render.GuiRenderer.java b/net.minecraft.client.gui.render.GuiRenderer.java
+--- a/net.minecraft.client.gui.render.GuiRenderer.java
++++ b/net.minecraft.client.gui.render.GuiRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pictureInPictureRenderers", "this.renderState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ preparePictureInPictureState(/* params */);
+
+diff --git a/net.minecraft.client.gui.render.GuiRenderer.java b/net.minecraft.client.gui.render.GuiRenderer.java
+--- a/net.minecraft.client.gui.render.GuiRenderer.java
++++ b/net.minecraft.client.gui.render.GuiRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.firstDrawIndexAfterBlur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ prepare(/* params */);
+
+diff --git a/net.minecraft.client.gui.render.GuiRenderer.java b/net.minecraft.client.gui.render.GuiRenderer.java
+--- a/net.minecraft.client.gui.render.GuiRenderer.java
++++ b/net.minecraft.client.gui.render.GuiRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.cubeMap", "this.renderState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ render(/* params */);
+
+diff --git a/net.minecraft.client.gui.render.GuiRenderer.java b/net.minecraft.client.gui.render.GuiRenderer.java
+--- a/net.minecraft.client.gui.render.GuiRenderer.java
++++ b/net.minecraft.client.gui.render.GuiRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.meshesToDraw"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculatedRequiredVertexBufferSizes(/* params */);
+
+diff --git a/net.minecraft.client.gui.render.GuiRenderer.java b/net.minecraft.client.gui.render.GuiRenderer.java
+--- a/net.minecraft.client.gui.render.GuiRenderer.java
++++ b/net.minecraft.client.gui.render.GuiRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.itemAtlas"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ endFrame(/* params */);
+

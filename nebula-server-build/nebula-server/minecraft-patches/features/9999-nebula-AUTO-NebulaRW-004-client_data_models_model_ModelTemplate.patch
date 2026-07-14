@@ -1,0 +1,56 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.data.models.model.ModelTemplate.java b/net.minecraft.client.data.models.model.ModelTemplate.java
+--- a/net.minecraft.client.data.models.model.ModelTemplate.java
++++ b/net.minecraft.client.data.models.model.ModelTemplate.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.creat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createWithOverride(/* params */);
+
+diff --git a/net.minecraft.client.data.models.model.ModelTemplate.java b/net.minecraft.client.data.models.model.ModelTemplate.java
+--- a/net.minecraft.client.data.models.model.ModelTemplate.java
++++ b/net.minecraft.client.data.models.model.ModelTemplate.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createMa", "this.model"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ create(/* params */);
+
+diff --git a/net.minecraft.client.data.models.model.ModelTemplate.java b/net.minecraft.client.data.models.model.ModelTemplate.java
+--- a/net.minecraft.client.data.models.model.ModelTemplate.java
++++ b/net.minecraft.client.data.models.model.ModelTemplate.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.creat", "this.suffix"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createWithSuffix(/* params */);
+
+diff --git a/net.minecraft.client.data.models.model.ModelTemplate.java b/net.minecraft.client.data.models.model.ModelTemplate.java
+--- a/net.minecraft.client.data.models.model.ModelTemplate.java
++++ b/net.minecraft.client.data.models.model.ModelTemplate.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.requiredSlots"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createMap(/* params */);
+

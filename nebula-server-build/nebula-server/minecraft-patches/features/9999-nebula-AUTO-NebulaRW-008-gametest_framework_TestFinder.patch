@@ -1,0 +1,104 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (8 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.gametest.framework.TestFinder.java b/net.minecraft.gametest.framework.TestFinder.java
+--- a/net.minecraft.gametest.framework.TestFinder.java
++++ b/net.minecraft.gametest.framework.TestFinder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.buil"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ lookedAt(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.TestFinder.java b/net.minecraft.gametest.framework.TestFinder.java
+--- a/net.minecraft.gametest.framework.TestFinder.java
++++ b/net.minecraft.gametest.framework.TestFinder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.failedTest"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ failedTests(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.TestFinder.java b/net.minecraft.gametest.framework.TestFinder.java
+--- a/net.minecraft.gametest.framework.TestFinder.java
++++ b/net.minecraft.gametest.framework.TestFinder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.buil"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ radius(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.TestFinder.java b/net.minecraft.gametest.framework.TestFinder.java
+--- a/net.minecraft.gametest.framework.TestFinder.java
++++ b/net.minecraft.gametest.framework.TestFinder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.buil"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ allNearby(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.TestFinder.java b/net.minecraft.gametest.framework.TestFinder.java
+--- a/net.minecraft.gametest.framework.TestFinder.java
++++ b/net.minecraft.gametest.framework.TestFinder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.buil"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ nearest(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.TestFinder.java b/net.minecraft.gametest.framework.TestFinder.java
+--- a/net.minecraft.gametest.framework.TestFinder.java
++++ b/net.minecraft.gametest.framework.TestFinder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.buil"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ byResourceSelection(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.TestFinder.java b/net.minecraft.gametest.framework.TestFinder.java
+--- a/net.minecraft.gametest.framework.TestFinder.java
++++ b/net.minecraft.gametest.framework.TestFinder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.structureBlockPosFinderWrapper", "this.testFinderWrapper"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ build(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.TestFinder.java b/net.minecraft.gametest.framework.TestFinder.java
+--- a/net.minecraft.gametest.framework.TestFinder.java
++++ b/net.minecraft.gametest.framework.TestFinder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.testPosFinder"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findTestPos(/* params */);
+

@@ -1,0 +1,33 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (2 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/com.mojang.realmsclient.gui.RealmsWorldSlotButton.java b/com.mojang.realmsclient.gui.RealmsWorldSlotButton.java
+--- a/com.mojang.realmsclient.gui.RealmsWorldSlotButton.java
++++ b/com.mojang.realmsclient.gui.RealmsWorldSlotButton.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.stat", "this.state", "this.slotNameWidget", "this.setServerDat"},
++writeEntities = {"this.state", "this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateSlotState(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.RealmsWorldSlotButton.java b/com.mojang.realmsclient.gui.RealmsWorldSlotButton.java
+--- a/com.mojang.realmsclient.gui.RealmsWorldSlotButton.java
++++ b/com.mojang.realmsclient.gui.RealmsWorldSlotButton.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.get", "this.x", "this.y", "this.state", "this.isHoveredOrFocuse"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractContents(/* params */);
+

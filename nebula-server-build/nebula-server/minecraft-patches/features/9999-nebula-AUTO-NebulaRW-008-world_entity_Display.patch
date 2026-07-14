@@ -1,0 +1,108 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (8 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.Display.java b/net.minecraft.world.entity.Display.java
+--- a/net.minecraft.world.entity.Display.java
++++ b/net.minecraft.world.entity.Display.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.cullingBoundingBox", "this.noCulling"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateCulling(/* params */);
+
+diff --git a/net.minecraft.world.entity.Display.java b/net.minecraft.world.entity.Display.java
+--- a/net.minecraft.world.entity.Display.java
++++ b/net.minecraft.world.entity.Display.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.noCullin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ affectedByCulling(/* params */);
+
+diff --git a/net.minecraft.world.entity.Display.java b/net.minecraft.world.entity.Display.java
+--- a/net.minecraft.world.entity.Display.java
++++ b/net.minecraft.world.entity.Display.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.textRenderStat", "this.textRenderState", "this.createInterpolatedTextRenderStat"},
++writeEntities = {"this.textRenderState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateRenderSubState(/* params */);
+
+diff --git a/net.minecraft.world.entity.Display.java b/net.minecraft.world.entity.Display.java
+--- a/net.minecraft.world.entity.Display.java
++++ b/net.minecraft.world.entity.Display.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setBackgroundColo", "this.setLineWidt", "this.setTextOpacit"},
++writeEntities = {"this.backgroundColor", "this.textOpacity", "this.lineWidth"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.Display.java b/net.minecraft.world.entity.Display.java
+--- a/net.minecraft.world.entity.Display.java
++++ b/net.minecraft.world.entity.Display.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getVehicl", "this.stopRidin", "this.vehicle"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.Display.java b/net.minecraft.world.entity.Display.java
+--- a/net.minecraft.world.entity.Display.java
++++ b/net.minecraft.world.entity.Display.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.interpolationDuratio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateInterpolationProgress(/* params */);
+
+diff --git a/net.minecraft.world.entity.Display.java b/net.minecraft.world.entity.Display.java
+--- a/net.minecraft.world.entity.Display.java
++++ b/net.minecraft.world.entity.Display.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getViewRang", "this.viewRange"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldRenderAtSqrDistance(/* params */);
+
+diff --git a/net.minecraft.world.entity.Display.java b/net.minecraft.world.entity.Display.java
+--- a/net.minecraft.world.entity.Display.java
++++ b/net.minecraft.world.entity.Display.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateRenderStat"},
++writeEntities = {"this.updateRenderState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSyncedDataUpdated(/* params */);
+

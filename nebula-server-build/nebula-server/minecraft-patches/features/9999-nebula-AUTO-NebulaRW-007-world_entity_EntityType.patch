@@ -1,0 +1,92 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.EntityType.java b/net.minecraft.world.entity.EntityType.java
+--- a/net.minecraft.world.entity.EntityType.java
++++ b/net.minecraft.world.entity.EntityType.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.descriptionId", "this.getDescriptionI"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.world.entity.EntityType.java b/net.minecraft.world.entity.EntityType.java
+--- a/net.minecraft.world.entity.EntityType.java
++++ b/net.minecraft.world.entity.EntityType.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.clientTrackingRang"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ clientTrackingRange(/* params */);
+
+diff --git a/net.minecraft.world.entity.EntityType.java b/net.minecraft.world.entity.EntityType.java
+--- a/net.minecraft.world.entity.EntityType.java
++++ b/net.minecraft.world.entity.EntityType.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.requiredFeature"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ requiredFeatures(/* params */);
+
+diff --git a/net.minecraft.world.entity.EntityType.java b/net.minecraft.world.entity.EntityType.java
+--- a/net.minecraft.world.entity.EntityType.java
++++ b/net.minecraft.world.entity.EntityType.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fireImmun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fireImmune(/* params */);
+
+diff --git a/net.minecraft.world.entity.EntityType.java b/net.minecraft.world.entity.EntityType.java
+--- a/net.minecraft.world.entity.EntityType.java
++++ b/net.minecraft.world.entity.EntityType.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateInterva"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateInterval(/* params */);
+
+diff --git a/net.minecraft.world.entity.EntityType.java b/net.minecraft.world.entity.EntityType.java
+--- a/net.minecraft.world.entity.EntityType.java
++++ b/net.minecraft.world.entity.EntityType.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.serialize"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ build(/* params */);
+
+diff --git a/net.minecraft.world.entity.EntityType.java b/net.minecraft.world.entity.EntityType.java
+--- a/net.minecraft.world.entity.EntityType.java
++++ b/net.minecraft.world.entity.EntityType.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.descriptionId", "this.getDescriptionI"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toShortString(/* params */);
+

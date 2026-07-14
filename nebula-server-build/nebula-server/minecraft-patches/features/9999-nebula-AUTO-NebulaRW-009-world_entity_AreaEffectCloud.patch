@@ -1,0 +1,121 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (9 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.AreaEffectCloud.java b/net.minecraft.world.entity.AreaEffectCloud.java
+--- a/net.minecraft.world.entity.AreaEffectCloud.java
++++ b/net.minecraft.world.entity.AreaEffectCloud.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ clientTick(/* params */);
+
+diff --git a/net.minecraft.world.entity.AreaEffectCloud.java b/net.minecraft.world.entity.AreaEffectCloud.java
+--- a/net.minecraft.world.entity.AreaEffectCloud.java
++++ b/net.minecraft.world.entity.AreaEffectCloud.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setPo", "this.get", "this.x", "this.y", "this.z"},
++writeEntities = {"this.pos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ refreshDimensions(/* params */);
+
+diff --git a/net.minecraft.world.entity.AreaEffectCloud.java b/net.minecraft.world.entity.AreaEffectCloud.java
+--- a/net.minecraft.world.entity.AreaEffectCloud.java
++++ b/net.minecraft.world.entity.AreaEffectCloud.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setPotionContent"},
++writeEntities = {"this.potionContents"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyImplicitComponent(/* params */);
+
+diff --git a/net.minecraft.world.entity.AreaEffectCloud.java b/net.minecraft.world.entity.AreaEffectCloud.java
+--- a/net.minecraft.world.entity.AreaEffectCloud.java
++++ b/net.minecraft.world.entity.AreaEffectCloud.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.duration", "this.tickCount", "this.discar", "this.waitTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ serverTick(/* params */);
+
+diff --git a/net.minecraft.world.entity.AreaEffectCloud.java b/net.minecraft.world.entity.AreaEffectCloud.java
+--- a/net.minecraft.world.entity.AreaEffectCloud.java
++++ b/net.minecraft.world.entity.AreaEffectCloud.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.applyImplicitComponentIfPresen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyImplicitComponents(/* params */);
+
+diff --git a/net.minecraft.world.entity.AreaEffectCloud.java b/net.minecraft.world.entity.AreaEffectCloud.java
+--- a/net.minecraft.world.entity.AreaEffectCloud.java
++++ b/net.minecraft.world.entity.AreaEffectCloud.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.serverTic", "this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.AreaEffectCloud.java b/net.minecraft.world.entity.AreaEffectCloud.java
+--- a/net.minecraft.world.entity.AreaEffectCloud.java
++++ b/net.minecraft.world.entity.AreaEffectCloud.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.AreaEffectCloud.java b/net.minecraft.world.entity.AreaEffectCloud.java
+--- a/net.minecraft.world.entity.AreaEffectCloud.java
++++ b/net.minecraft.world.entity.AreaEffectCloud.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.customParticle", "this.entityData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateParticle(/* params */);
+
+diff --git a/net.minecraft.world.entity.AreaEffectCloud.java b/net.minecraft.world.entity.AreaEffectCloud.java
+--- a/net.minecraft.world.entity.AreaEffectCloud.java
++++ b/net.minecraft.world.entity.AreaEffectCloud.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.refreshDimension"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSyncedDataUpdated(/* params */);
+

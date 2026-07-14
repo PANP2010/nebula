@@ -1,0 +1,81 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.chunk.LinearPalette.java b/net.minecraft.world.level.chunk.LinearPalette.java
+--- a/net.minecraft.world.level.chunk.LinearPalette.java
++++ b/net.minecraft.world.level.chunk.LinearPalette.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.siz", "this.values"},
++writeEntities = {"this.size"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ read(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.LinearPalette.java b/net.minecraft.world.level.chunk.LinearPalette.java
+--- a/net.minecraft.world.level.chunk.LinearPalette.java
++++ b/net.minecraft.world.level.chunk.LinearPalette.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.siz", "this.values"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ idFor(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.LinearPalette.java b/net.minecraft.world.level.chunk.LinearPalette.java
+--- a/net.minecraft.world.level.chunk.LinearPalette.java
++++ b/net.minecraft.world.level.chunk.LinearPalette.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.size", "this.siz", "this.values"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ write(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.LinearPalette.java b/net.minecraft.world.level.chunk.LinearPalette.java
+--- a/net.minecraft.world.level.chunk.LinearPalette.java
++++ b/net.minecraft.world.level.chunk.LinearPalette.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.siz", "this.values"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ maybeHas(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.LinearPalette.java b/net.minecraft.world.level.chunk.LinearPalette.java
+--- a/net.minecraft.world.level.chunk.LinearPalette.java
++++ b/net.minecraft.world.level.chunk.LinearPalette.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.size", "this.values"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ valueFor(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.LinearPalette.java b/net.minecraft.world.level.chunk.LinearPalette.java
+--- a/net.minecraft.world.level.chunk.LinearPalette.java
++++ b/net.minecraft.world.level.chunk.LinearPalette.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.size", "this.values", "this.bits"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ copy(/* params */);
+

@@ -1,0 +1,129 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (10 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.biome.Climate.java b/net.minecraft.world.level.biome.Climate.java
+--- a/net.minecraft.world.level.biome.Climate.java
++++ b/net.minecraft.world.level.biome.Climate.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toParameterArray(/* params */);
+
+diff --git a/net.minecraft.world.level.biome.Climate.java b/net.minecraft.world.level.biome.Climate.java
+--- a/net.minecraft.world.level.biome.Climate.java
++++ b/net.minecraft.world.level.biome.Climate.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.parameterSpace"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ distance(/* params */);
+
+diff --git a/net.minecraft.world.level.biome.Climate.java b/net.minecraft.world.level.biome.Climate.java
+--- a/net.minecraft.world.level.biome.Climate.java
++++ b/net.minecraft.world.level.biome.Climate.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fitness(/* params */);
+
+diff --git a/net.minecraft.world.level.biome.Climate.java b/net.minecraft.world.level.biome.Climate.java
+--- a/net.minecraft.world.level.biome.Climate.java
++++ b/net.minecraft.world.level.biome.Climate.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.result", "this.resul"},
++writeEntities = {"this.result"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ radialSearch(/* params */);
+
+diff --git a/net.minecraft.world.level.biome.Climate.java b/net.minecraft.world.level.biome.Climate.java
+--- a/net.minecraft.world.level.biome.Climate.java
++++ b/net.minecraft.world.level.biome.Climate.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.findValueInde"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findValue(/* params */);
+
+diff --git a/net.minecraft.world.level.biome.Climate.java b/net.minecraft.world.level.biome.Climate.java
+--- a/net.minecraft.world.level.biome.Climate.java
++++ b/net.minecraft.world.level.biome.Climate.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.parameterSpace"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.world.level.biome.Climate.java b/net.minecraft.world.level.biome.Climate.java
+--- a/net.minecraft.world.level.biome.Climate.java
++++ b/net.minecraft.world.level.biome.Climate.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.spawnTarget"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findSpawnPosition(/* params */);
+
+diff --git a/net.minecraft.world.level.biome.Climate.java b/net.minecraft.world.level.biome.Climate.java
+--- a/net.minecraft.world.level.biome.Climate.java
++++ b/net.minecraft.world.level.biome.Climate.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.value"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findValueBruteForce(/* params */);
+
+diff --git a/net.minecraft.world.level.biome.Climate.java b/net.minecraft.world.level.biome.Climate.java
+--- a/net.minecraft.world.level.biome.Climate.java
++++ b/net.minecraft.world.level.biome.Climate.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.index"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findValueIndex(/* params */);
+
+diff --git a/net.minecraft.world.level.biome.Climate.java b/net.minecraft.world.level.biome.Climate.java
+--- a/net.minecraft.world.level.biome.Climate.java
++++ b/net.minecraft.world.level.biome.Climate.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lastResult", "this.root"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ search(/* params */);
+

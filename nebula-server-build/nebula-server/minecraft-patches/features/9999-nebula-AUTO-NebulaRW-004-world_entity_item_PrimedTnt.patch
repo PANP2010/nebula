@@ -1,0 +1,60 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.item.PrimedTnt.java b/net.minecraft.world.entity.item.PrimedTnt.java
+--- a/net.minecraft.world.entity.item.PrimedTnt.java
++++ b/net.minecraft.world.entity.item.PrimedTnt.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setFus", "this.explosionPowe", "this.owne", "this.setBlockStat"},
++writeEntities = {"this.owner", "this.fuse", "this.blockState", "this.explosionPower"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.item.PrimedTnt.java b/net.minecraft.world.entity.item.PrimedTnt.java
+--- a/net.minecraft.world.entity.item.PrimedTnt.java
++++ b/net.minecraft.world.entity.item.PrimedTnt.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ explode(/* params */);
+
+diff --git a/net.minecraft.world.entity.item.PrimedTnt.java b/net.minecraft.world.entity.item.PrimedTnt.java
+--- a/net.minecraft.world.entity.item.PrimedTnt.java
++++ b/net.minecraft.world.entity.item.PrimedTnt.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.owne"},
++writeEntities = {"this.owner"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ restoreFrom(/* params */);
+
+diff --git a/net.minecraft.world.entity.item.PrimedTnt.java b/net.minecraft.world.entity.item.PrimedTnt.java
+--- a/net.minecraft.world.entity.item.PrimedTnt.java
++++ b/net.minecraft.world.entity.item.PrimedTnt.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.deltaMovement"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+

@@ -1,0 +1,116 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (9 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.GameNarrator.java b/net.minecraft.client.GameNarrator.java
+--- a/net.minecraft.client.GameNarrator.java
++++ b/net.minecraft.client.GameNarrator.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getStatu", "this.narrator", "this.narrateMessag", "this.logNarratedMessag", "this.status"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saySystemNow(/* params */);
+
+diff --git a/net.minecraft.client.GameNarrator.java b/net.minecraft.client.GameNarrator.java
+--- a/net.minecraft.client.GameNarrator.java
++++ b/net.minecraft.client.GameNarrator.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getStatu", "this.narrateNotInterruptingMessag", "this.status"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sayChatQueued(/* params */);
+
+diff --git a/net.minecraft.client.GameNarrator.java b/net.minecraft.client.GameNarrator.java
+--- a/net.minecraft.client.GameNarrator.java
++++ b/net.minecraft.client.GameNarrator.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.narrateMessag", "this.narrator", "this.clea"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateNarratorStatus(/* params */);
+
+diff --git a/net.minecraft.client.GameNarrator.java b/net.minecraft.client.GameNarrator.java
+--- a/net.minecraft.client.GameNarrator.java
++++ b/net.minecraft.client.GameNarrator.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.narrateMessag", "this.logNarratedMessag"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ narrateNotInterruptingMessage(/* params */);
+
+diff --git a/net.minecraft.client.GameNarrator.java b/net.minecraft.client.GameNarrator.java
+--- a/net.minecraft.client.GameNarrator.java
++++ b/net.minecraft.client.GameNarrator.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.narrator"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ narrateMessage(/* params */);
+
+diff --git a/net.minecraft.client.GameNarrator.java b/net.minecraft.client.GameNarrator.java
+--- a/net.minecraft.client.GameNarrator.java
++++ b/net.minecraft.client.GameNarrator.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getStatu", "this.narrateNotInterruptingMessag", "this.status"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saySystemQueued(/* params */);
+
+diff --git a/net.minecraft.client.GameNarrator.java b/net.minecraft.client.GameNarrator.java
+--- a/net.minecraft.client.GameNarrator.java
++++ b/net.minecraft.client.GameNarrator.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getStatu", "this.narrateNotInterruptingMessag", "this.status"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saySystemChatQueued(/* params */);
+
+diff --git a/net.minecraft.client.GameNarrator.java b/net.minecraft.client.GameNarrator.java
+--- a/net.minecraft.client.GameNarrator.java
++++ b/net.minecraft.client.GameNarrator.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.narrator"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ destroy(/* params */);
+
+diff --git a/net.minecraft.client.GameNarrator.java b/net.minecraft.client.GameNarrator.java
+--- a/net.minecraft.client.GameNarrator.java
++++ b/net.minecraft.client.GameNarrator.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isActiv"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkStatus(/* params */);
+

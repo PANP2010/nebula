@@ -1,0 +1,68 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.multiplayer.ServerStatusPinger.java b/net.minecraft.client.multiplayer.ServerStatusPinger.java
+--- a/net.minecraft.client.multiplayer.ServerStatusPinger.java
++++ b/net.minecraft.client.multiplayer.ServerStatusPinger.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.receivedPing"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleStatusResponse(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ServerStatusPinger.java b/net.minecraft.client.multiplayer.ServerStatusPinger.java
+--- a/net.minecraft.client.multiplayer.ServerStatusPinger.java
++++ b/net.minecraft.client.multiplayer.ServerStatusPinger.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.success", "this.onPingFaile", "this.pingLegacyServe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onDisconnect(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ServerStatusPinger.java b/net.minecraft.client.multiplayer.ServerStatusPinger.java
+--- a/net.minecraft.client.multiplayer.ServerStatusPinger.java
++++ b/net.minecraft.client.multiplayer.ServerStatusPinger.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connections"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ServerStatusPinger.java b/net.minecraft.client.multiplayer.ServerStatusPinger.java
+--- a/net.minecraft.client.multiplayer.ServerStatusPinger.java
++++ b/net.minecraft.client.multiplayer.ServerStatusPinger.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.onPingFaile"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pingServer(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ServerStatusPinger.java b/net.minecraft.client.multiplayer.ServerStatusPinger.java
+--- a/net.minecraft.client.multiplayer.ServerStatusPinger.java
++++ b/net.minecraft.client.multiplayer.ServerStatusPinger.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pingStar"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handlePongResponse(/* params */);
+

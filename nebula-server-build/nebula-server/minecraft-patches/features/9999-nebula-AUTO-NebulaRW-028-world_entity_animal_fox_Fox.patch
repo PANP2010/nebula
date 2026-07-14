@@ -1,0 +1,369 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (28 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.animal.fox.Fox.java b/net.minecraft.world.entity.animal.fox.Fox.java
+--- a/net.minecraft.world.entity.animal.fox.Fox.java
++++ b/net.minecraft.world.entity.animal.fox.Fox.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.get", "this.x", "this.y", "this.leve", "this.z"},
++triggeredEvents = {"ENTITY_SPAWNED"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropItemStack(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.fox.Fox.java b/net.minecraft.world.entity.animal.fox.Fox.java
+--- a/net.minecraft.world.entity.animal.fox.Fox.java
++++ b/net.minecraft.world.entity.animal.fox.Fox.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playEatingSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.fox.Fox.java b/net.minecraft.world.entity.animal.fox.Fox.java
+--- a/net.minecraft.world.entity.animal.fox.Fox.java
++++ b/net.minecraft.world.entity.animal.fox.Fox.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getAmbientSoun", "this.playSoun", "this.voicePitch", "this.getVoicePitc", "this.ambientSound"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playAmbientSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.fox.Fox.java b/net.minecraft.world.entity.animal.fox.Fox.java
+--- a/net.minecraft.world.entity.animal.fox.Fox.java
++++ b/net.minecraft.world.entity.animal.fox.Fox.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockPos", "this.pickSweetBerrie", "this.leve"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onReachedTarget(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.fox.Fox.java b/net.minecraft.world.entity.animal.fox.Fox.java
+--- a/net.minecraft.world.entity.animal.fox.Fox.java
++++ b/net.minecraft.world.entity.animal.fox.Fox.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++triggeredEvents = {"ENTITY_SPAWNED", "SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spitOutItem(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.fox.Fox.java b/net.minecraft.world.entity.animal.fox.Fox.java
+--- a/net.minecraft.world.entity.animal.fox.Fox.java
++++ b/net.minecraft.world.entity.animal.fox.Fox.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mob", "this.playSoun", "this.resetAttackCooldow", "this.canPerformAttac"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkAndPerformAttack(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.fox.Fox.java b/net.minecraft.world.entity.animal.fox.Fox.java
+--- a/net.minecraft.world.entity.animal.fox.Fox.java
++++ b/net.minecraft.world.entity.animal.fox.Fox.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lookTim", "this.random", "this.getRando", "this.rel", "this.adjustedTickDela"},
++writeEntities = {"this.relZ", "this.lookTime", "this.relX"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetLook(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.fox.Fox.java b/net.minecraft.world.entity.animal.fox.Fox.java
+--- a/net.minecraft.world.entity.animal.fox.Fox.java
++++ b/net.minecraft.world.entity.animal.fox.Fox.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleEntityEvent(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.fox.Fox.java b/net.minecraft.world.entity.animal.fox.Fox.java
+--- a/net.minecraft.world.entity.animal.fox.Fox.java
++++ b/net.minecraft.world.entity.animal.fox.Fox.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.landTargetGoal", "this.fishTargetGoal", "this.turtleEggTargetGoal"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerGoals(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.fox.Fox.java b/net.minecraft.world.entity.animal.fox.Fox.java
+--- a/net.minecraft.world.entity.animal.fox.Fox.java
++++ b/net.minecraft.world.entity.animal.fox.Fox.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setItemSlo", "this.getItemBySlo", "this.itemBySlot", "this.leve"},
++writeEntities = {"this.itemSlot"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pickSweetBerries(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.fox.Fox.java b/net.minecraft.world.entity.animal.fox.Fox.java
+--- a/net.minecraft.world.entity.animal.fox.Fox.java
++++ b/net.minecraft.world.entity.animal.fox.Fox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.applyImplicitComponentIfPresen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyImplicitComponents(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.fox.Fox.java b/net.minecraft.world.entity.animal.fox.Fox.java
+--- a/net.minecraft.world.entity.animal.fox.Fox.java
++++ b/net.minecraft.world.entity.animal.fox.Fox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.partner", "this.level", "this.animal"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ breed(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.fox.Fox.java b/net.minecraft.world.entity.animal.fox.Fox.java
+--- a/net.minecraft.world.entity.animal.fox.Fox.java
++++ b/net.minecraft.world.entity.animal.fox.Fox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockPos", "this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pickGlowBerry(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.fox.Fox.java b/net.minecraft.world.entity.animal.fox.Fox.java
+--- a/net.minecraft.world.entity.animal.fox.Fox.java
++++ b/net.minecraft.world.entity.animal.fox.Fox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.targetGoals", "this.isCrouching", "this.variant", "this.sleeping", "this.sitting"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.fox.Fox.java b/net.minecraft.world.entity.animal.fox.Fox.java
+--- a/net.minecraft.world.entity.animal.fox.Fox.java
++++ b/net.minecraft.world.entity.animal.fox.Fox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setSleepin"},
++writeEntities = {"this.sleeping"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ wakeUp(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.fox.Fox.java b/net.minecraft.world.entity.animal.fox.Fox.java
+--- a/net.minecraft.world.entity.animal.fox.Fox.java
++++ b/net.minecraft.world.entity.animal.fox.Fox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.boundingBox", "this.getBoundingBo", "this.alertableTargeting", "this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ alertable(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.fox.Fox.java b/net.minecraft.world.entity.animal.fox.Fox.java
+--- a/net.minecraft.world.entity.animal.fox.Fox.java
++++ b/net.minecraft.world.entity.animal.fox.Fox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isCrouchin", "this.isIntereste", "this.isFaceplante", "this.isPouncin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetXRotOnTick(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.fox.Fox.java b/net.minecraft.world.entity.animal.fox.Fox.java
+--- a/net.minecraft.world.entity.animal.fox.Fox.java
++++ b/net.minecraft.world.entity.animal.fox.Fox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.isCrouching", "this.isInterested"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.fox.Fox.java b/net.minecraft.world.entity.animal.fox.Fox.java
+--- a/net.minecraft.world.entity.animal.fox.Fox.java
++++ b/net.minecraft.world.entity.animal.fox.Fox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isDefendin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldPanic(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.fox.Fox.java b/net.minecraft.world.entity.animal.fox.Fox.java
+--- a/net.minecraft.world.entity.animal.fox.Fox.java
++++ b/net.minecraft.world.entity.animal.fox.Fox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.isCrouching", "this.isInterested"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.fox.Fox.java b/net.minecraft.world.entity.animal.fox.Fox.java
+--- a/net.minecraft.world.entity.animal.fox.Fox.java
++++ b/net.minecraft.world.entity.animal.fox.Fox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.canHoldIte", "this.dropItemStac"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pickUpItem(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.fox.Fox.java b/net.minecraft.world.entity.animal.fox.Fox.java
+--- a/net.minecraft.world.entity.animal.fox.Fox.java
++++ b/net.minecraft.world.entity.animal.fox.Fox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getTrustedEntitie", "this.trustedEntities"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ trusts(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.fox.Fox.java b/net.minecraft.world.entity.animal.fox.Fox.java
+--- a/net.minecraft.world.entity.animal.fox.Fox.java
++++ b/net.minecraft.world.entity.animal.fox.Fox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.itemSlot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ aiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.fox.Fox.java b/net.minecraft.world.entity.animal.fox.Fox.java
+--- a/net.minecraft.world.entity.animal.fox.Fox.java
++++ b/net.minecraft.world.entity.animal.fox.Fox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setItemSlo", "this.getItemBySlo", "this.spawnAtLocatio", "this.itemBySlot"},
++writeEntities = {"this.itemSlot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropAllDeathLoot(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.fox.Fox.java b/net.minecraft.world.entity.animal.fox.Fox.java
+--- a/net.minecraft.world.entity.animal.fox.Fox.java
++++ b/net.minecraft.world.entity.animal.fox.Fox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setVarian"},
++writeEntities = {"this.variant"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyImplicitComponent(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.fox.Fox.java b/net.minecraft.world.entity.animal.fox.Fox.java
+--- a/net.minecraft.world.entity.animal.fox.Fox.java
++++ b/net.minecraft.world.entity.animal.fox.Fox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setFaceplante", "this.setSittin"},
++writeEntities = {"this.faceplanted", "this.sitting"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ start(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.fox.Fox.java b/net.minecraft.world.entity.animal.fox.Fox.java
+--- a/net.minecraft.world.entity.animal.fox.Fox.java
++++ b/net.minecraft.world.entity.animal.fox.Fox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tryTicks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldRecalculatePath(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.fox.Fox.java b/net.minecraft.world.entity.animal.fox.Fox.java
+--- a/net.minecraft.world.entity.animal.fox.Fox.java
++++ b/net.minecraft.world.entity.animal.fox.Fox.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{neighbors}", "{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkFoxSpawnRules(/* params */);
+

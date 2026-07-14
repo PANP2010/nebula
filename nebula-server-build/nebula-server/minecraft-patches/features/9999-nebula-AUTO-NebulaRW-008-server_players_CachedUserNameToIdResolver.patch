@@ -1,0 +1,105 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (8 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.players.CachedUserNameToIdResolver.java b/net.minecraft.server.players.CachedUserNameToIdResolver.java
+--- a/net.minecraft.server.players.CachedUserNameToIdResolver.java
++++ b/net.minecraft.server.players.CachedUserNameToIdResolver.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.nameAndI"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ nameAndId(/* params */);
+
+diff --git a/net.minecraft.server.players.CachedUserNameToIdResolver.java b/net.minecraft.server.players.CachedUserNameToIdResolver.java
+--- a/net.minecraft.server.players.CachedUserNameToIdResolver.java
++++ b/net.minecraft.server.players.CachedUserNameToIdResolver.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.resolveOfflineUsers"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createUnknownProfile(/* params */);
+
+diff --git a/net.minecraft.server.players.CachedUserNameToIdResolver.java b/net.minecraft.server.players.CachedUserNameToIdResolver.java
+--- a/net.minecraft.server.players.CachedUserNameToIdResolver.java
++++ b/net.minecraft.server.players.CachedUserNameToIdResolver.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.resolveOfflineUser"},
++writeEntities = {"this.resolveOfflineUsers"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resolveOfflineUsers(/* params */);
+
+diff --git a/net.minecraft.server.players.CachedUserNameToIdResolver.java b/net.minecraft.server.players.CachedUserNameToIdResolver.java
+--- a/net.minecraft.server.players.CachedUserNameToIdResolver.java
++++ b/net.minecraft.server.players.CachedUserNameToIdResolver.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.expirationDat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ expirationDate(/* params */);
+
+diff --git a/net.minecraft.server.players.CachedUserNameToIdResolver.java b/net.minecraft.server.players.CachedUserNameToIdResolver.java
+--- a/net.minecraft.server.players.CachedUserNameToIdResolver.java
++++ b/net.minecraft.server.players.CachedUserNameToIdResolver.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.profilesByUUID", "this.getNextOperatio", "this.profilesByName", "this.nextOperation"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ safeAdd(/* params */);
+
+diff --git a/net.minecraft.server.players.CachedUserNameToIdResolver.java b/net.minecraft.server.players.CachedUserNameToIdResolver.java
+--- a/net.minecraft.server.players.CachedUserNameToIdResolver.java
++++ b/net.minecraft.server.players.CachedUserNameToIdResolver.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createUnknownProfil"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ lookupGameProfile(/* params */);
+
+diff --git a/net.minecraft.server.players.CachedUserNameToIdResolver.java b/net.minecraft.server.players.CachedUserNameToIdResolver.java
+--- a/net.minecraft.server.players.CachedUserNameToIdResolver.java
++++ b/net.minecraft.server.players.CachedUserNameToIdResolver.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.file", "this.topMRUProfiles", "this.getTopMRUProfile", "this.gson"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ save(/* params */);
+
+diff --git a/net.minecraft.server.players.CachedUserNameToIdResolver.java b/net.minecraft.server.players.CachedUserNameToIdResolver.java
+--- a/net.minecraft.server.players.CachedUserNameToIdResolver.java
++++ b/net.minecraft.server.players.CachedUserNameToIdResolver.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lastAcces"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ lastAccess(/* params */);
+

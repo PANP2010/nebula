@@ -1,0 +1,207 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (16 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.animal.frog.Frog.java b/net.minecraft.world.entity.animal.frog.Frog.java
+--- a/net.minecraft.world.entity.animal.frog.Frog.java
++++ b/net.minecraft.world.entity.animal.frog.Frog.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leve"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playEatingSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.frog.Frog.java b/net.minecraft.world.entity.animal.frog.Frog.java
+--- a/net.minecraft.world.entity.animal.frog.Frog.java
++++ b/net.minecraft.world.entity.animal.frog.Frog.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playStepSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.frog.Frog.java b/net.minecraft.world.entity.animal.frog.Frog.java
+--- a/net.minecraft.world.entity.animal.frog.Frog.java
++++ b/net.minecraft.world.entity.animal.frog.Frog.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockPositio"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ finalizeSpawn(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.frog.Frog.java b/net.minecraft.world.entity.animal.frog.Frog.java
+--- a/net.minecraft.world.entity.animal.frog.Frog.java
++++ b/net.minecraft.world.entity.animal.frog.Frog.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBrai", "this.finalizeSpawnChildFromBreedin", "this.brain"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spawnChildFromBreeding(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.frog.Frog.java b/net.minecraft.world.entity.animal.frog.Frog.java
+--- a/net.minecraft.world.entity.animal.frog.Frog.java
++++ b/net.minecraft.world.entity.animal.frog.Frog.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tongueTarget", "this.getTongueTarge"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetXRotOnTick(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.frog.Frog.java b/net.minecraft.world.entity.animal.frog.Frog.java
+--- a/net.minecraft.world.entity.animal.frog.Frog.java
++++ b/net.minecraft.world.entity.animal.frog.Frog.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.nodeEvaluato", "this.nodeEvaluator"},
++writeEntities = {"this.nodeEvaluator"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createPathFinder(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.frog.Frog.java b/net.minecraft.world.entity.animal.frog.Frog.java
+--- a/net.minecraft.world.entity.animal.frog.Frog.java
++++ b/net.minecraft.world.entity.animal.frog.Frog.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBrai", "this.brain"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ customServerAiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.frog.Frog.java b/net.minecraft.world.entity.animal.frog.Frog.java
+--- a/net.minecraft.world.entity.animal.frog.Frog.java
++++ b/net.minecraft.world.entity.animal.frog.Frog.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.applyImplicitComponentIfPresen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyImplicitComponents(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.frog.Frog.java b/net.minecraft.world.entity.animal.frog.Frog.java
+--- a/net.minecraft.world.entity.animal.frog.Frog.java
++++ b/net.minecraft.world.entity.animal.frog.Frog.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.deltaMovement"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ travelInWater(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.frog.Frog.java b/net.minecraft.world.entity.animal.frog.Frog.java
+--- a/net.minecraft.world.entity.animal.frog.Frog.java
++++ b/net.minecraft.world.entity.animal.frog.Frog.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setVarian"},
++writeEntities = {"this.variant"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyImplicitComponent(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.frog.Frog.java b/net.minecraft.world.entity.animal.frog.Frog.java
+--- a/net.minecraft.world.entity.animal.frog.Frog.java
++++ b/net.minecraft.world.entity.animal.frog.Frog.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tickCount", "this.walkAnimation", "this.leve", "this.isInWate", "this.swimIdleAnimationState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.frog.Frog.java b/net.minecraft.world.entity.animal.frog.Frog.java
+--- a/net.minecraft.world.entity.animal.frog.Frog.java
++++ b/net.minecraft.world.entity.animal.frog.Frog.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.jumpAnimationState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateWalkAnimation(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.frog.Frog.java b/net.minecraft.world.entity.animal.frog.Frog.java
+--- a/net.minecraft.world.entity.animal.frog.Frog.java
++++ b/net.minecraft.world.entity.animal.frog.Frog.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tickCount", "this.pose", "this.getPos", "this.jumpAnimationState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSyncedDataUpdated(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.frog.Frog.java b/net.minecraft.world.entity.animal.frog.Frog.java
+--- a/net.minecraft.world.entity.animal.frog.Frog.java
++++ b/net.minecraft.world.entity.animal.frog.Frog.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registryAcces"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ defineSynchedData(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.frog.Frog.java b/net.minecraft.world.entity.animal.frog.Frog.java
+--- a/net.minecraft.world.entity.animal.frog.Frog.java
++++ b/net.minecraft.world.entity.animal.frog.Frog.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entityData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ eraseTongueTarget(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.frog.Frog.java b/net.minecraft.world.entity.animal.frog.Frog.java
+--- a/net.minecraft.world.entity.animal.frog.Frog.java
++++ b/net.minecraft.world.entity.animal.frog.Frog.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{neighbors}", "{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkFrogSpawnRules(/* params */);
+

@@ -1,0 +1,120 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (9 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.renderer.block.ModelBlockRenderer.java b/net.minecraft.client.renderer.block.ModelBlockRenderer.java
+--- a/net.minecraft.client.renderer.block.ModelBlockRenderer.java
++++ b/net.minecraft.client.renderer.block.ModelBlockRenderer.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ambientOcclusion", "this.random", "this.tesselateAmbientOcclusio", "this.parts"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tesselateBlock(/* params */);
+
+diff --git a/net.minecraft.client.renderer.block.ModelBlockRenderer.java b/net.minecraft.client.renderer.block.ModelBlockRenderer.java
+--- a/net.minecraft.client.renderer.block.ModelBlockRenderer.java
++++ b/net.minecraft.client.renderer.block.ModelBlockRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.cull"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldRenderFace(/* params */);
+
+diff --git a/net.minecraft.client.renderer.block.ModelBlockRenderer.java b/net.minecraft.client.renderer.block.ModelBlockRenderer.java
+--- a/net.minecraft.client.renderer.block.ModelBlockRenderer.java
++++ b/net.minecraft.client.renderer.block.ModelBlockRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.quadInstance", "this.getTintColo", "this.tintColor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putQuadWithTint(/* params */);
+
+diff --git a/net.minecraft.client.renderer.block.ModelBlockRenderer.java b/net.minecraft.client.renderer.block.ModelBlockRenderer.java
+--- a/net.minecraft.client.renderer.block.ModelBlockRenderer.java
++++ b/net.minecraft.client.renderer.block.ModelBlockRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shouldRenderFac", "this.scratchPos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tesselateAmbientOcclusion(/* params */);
+
+diff --git a/net.minecraft.client.renderer.block.ModelBlockRenderer.java b/net.minecraft.client.renderer.block.ModelBlockRenderer.java
+--- a/net.minecraft.client.renderer.block.ModelBlockRenderer.java
++++ b/net.minecraft.client.renderer.block.ModelBlockRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tintSourcesInitialize", "this.tintSourcesInitialized", "this.configureTintCach"},
++writeEntities = {"this.tintSourcesInitialized"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ computeTintColor(/* params */);
+
+diff --git a/net.minecraft.client.renderer.block.ModelBlockRenderer.java b/net.minecraft.client.renderer.block.ModelBlockRenderer.java
+--- a/net.minecraft.client.renderer.block.ModelBlockRenderer.java
++++ b/net.minecraft.client.renderer.block.ModelBlockRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.computedTintValues", "this.tintSources", "this.blockColors"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ configureTintCache(/* params */);
+
+diff --git a/net.minecraft.client.renderer.block.ModelBlockRenderer.java b/net.minecraft.client.renderer.block.ModelBlockRenderer.java
+--- a/net.minecraft.client.renderer.block.ModelBlockRenderer.java
++++ b/net.minecraft.client.renderer.block.ModelBlockRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tintSourcesInitialize", "this.tintSourcesInitialized", "this.computedTintValues", "this.tintCacheInde", "this.tintSources"},
++writeEntities = {"this.tintSourcesInitialized", "this.tintCacheIndex"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetTintCache(/* params */);
+
+diff --git a/net.minecraft.client.renderer.block.ModelBlockRenderer.java b/net.minecraft.client.renderer.block.ModelBlockRenderer.java
+--- a/net.minecraft.client.renderer.block.ModelBlockRenderer.java
++++ b/net.minecraft.client.renderer.block.ModelBlockRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shouldRenderFac", "this.scratchPos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tesselateFlat(/* params */);
+
+diff --git a/net.minecraft.client.renderer.block.ModelBlockRenderer.java b/net.minecraft.client.renderer.block.ModelBlockRenderer.java
+--- a/net.minecraft.client.renderer.block.ModelBlockRenderer.java
++++ b/net.minecraft.client.renderer.block.ModelBlockRenderer.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forceOpaque(/* params */);
+

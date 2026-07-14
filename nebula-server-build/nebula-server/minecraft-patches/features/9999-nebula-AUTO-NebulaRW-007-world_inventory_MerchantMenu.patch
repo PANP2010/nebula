@@ -1,0 +1,92 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.inventory.MerchantMenu.java b/net.minecraft.world.inventory.MerchantMenu.java
+--- a/net.minecraft.world.inventory.MerchantMenu.java
++++ b/net.minecraft.world.inventory.MerchantMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.offers", "this.tradeContainer", "this.getOffer", "this.moveItemStackT"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tryMoveItems(/* params */);
+
+diff --git a/net.minecraft.world.inventory.MerchantMenu.java b/net.minecraft.world.inventory.MerchantMenu.java
+--- a/net.minecraft.world.inventory.MerchantMenu.java
++++ b/net.minecraft.world.inventory.MerchantMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.showProgressBa"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ showProgressBar(/* params */);
+
+diff --git a/net.minecraft.world.inventory.MerchantMenu.java b/net.minecraft.world.inventory.MerchantMenu.java
+--- a/net.minecraft.world.inventory.MerchantMenu.java
++++ b/net.minecraft.world.inventory.MerchantMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.slots", "this.moveItemStackT"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ quickMoveStack(/* params */);
+
+diff --git a/net.minecraft.world.inventory.MerchantMenu.java b/net.minecraft.world.inventory.MerchantMenu.java
+--- a/net.minecraft.world.inventory.MerchantMenu.java
++++ b/net.minecraft.world.inventory.MerchantMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.trader"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stillValid(/* params */);
+
+diff --git a/net.minecraft.world.inventory.MerchantMenu.java b/net.minecraft.world.inventory.MerchantMenu.java
+--- a/net.minecraft.world.inventory.MerchantMenu.java
++++ b/net.minecraft.world.inventory.MerchantMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.slots", "this.tradeContainer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ moveFromInventoryToPaymentSlot(/* params */);
+
+diff --git a/net.minecraft.world.inventory.MerchantMenu.java b/net.minecraft.world.inventory.MerchantMenu.java
+--- a/net.minecraft.world.inventory.MerchantMenu.java
++++ b/net.minecraft.world.inventory.MerchantMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.trade", "this.trader"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playTradeSound(/* params */);
+
+diff --git a/net.minecraft.world.inventory.MerchantMenu.java b/net.minecraft.world.inventory.MerchantMenu.java
+--- a/net.minecraft.world.inventory.MerchantMenu.java
++++ b/net.minecraft.world.inventory.MerchantMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tradeContainer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ slotsChanged(/* params */);
+

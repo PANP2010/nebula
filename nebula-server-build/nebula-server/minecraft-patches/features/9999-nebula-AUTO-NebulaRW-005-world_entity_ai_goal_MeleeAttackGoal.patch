@@ -1,0 +1,73 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.ai.goal.MeleeAttackGoal.java b/net.minecraft.world.entity.ai.goal.MeleeAttackGoal.java
+--- a/net.minecraft.world.entity.ai.goal.MeleeAttackGoal.java
++++ b/net.minecraft.world.entity.ai.goal.MeleeAttackGoal.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.pathedTargetZ", "this.pathedTargetY", "this.pathedTargetX", "this.ticksUntilNextPathRecalculation"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.goal.MeleeAttackGoal.java b/net.minecraft.world.entity.ai.goal.MeleeAttackGoal.java
+--- a/net.minecraft.world.entity.ai.goal.MeleeAttackGoal.java
++++ b/net.minecraft.world.entity.ai.goal.MeleeAttackGoal.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.speedModifier", "this.mob", "this.path", "this.ticksUntilNextPathRecalculatio", "this.ticksUntilNextAttac"},
++writeEntities = {"this.ticksUntilNextPathRecalculation", "this.ticksUntilNextAttack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ start(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.goal.MeleeAttackGoal.java b/net.minecraft.world.entity.ai.goal.MeleeAttackGoal.java
+--- a/net.minecraft.world.entity.ai.goal.MeleeAttackGoal.java
++++ b/net.minecraft.world.entity.ai.goal.MeleeAttackGoal.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mob", "this.resetAttackCooldow", "this.canPerformAttac"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkAndPerformAttack(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.goal.MeleeAttackGoal.java b/net.minecraft.world.entity.ai.goal.MeleeAttackGoal.java
+--- a/net.minecraft.world.entity.ai.goal.MeleeAttackGoal.java
++++ b/net.minecraft.world.entity.ai.goal.MeleeAttackGoal.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.adjustedTickDela", "this.ticksUntilNextAttac"},
++writeEntities = {"this.ticksUntilNextAttack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetAttackCooldown(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.goal.MeleeAttackGoal.java b/net.minecraft.world.entity.ai.goal.MeleeAttackGoal.java
+--- a/net.minecraft.world.entity.ai.goal.MeleeAttackGoal.java
++++ b/net.minecraft.world.entity.ai.goal.MeleeAttackGoal.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mob"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+

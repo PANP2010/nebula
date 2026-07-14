@@ -1,0 +1,279 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (22 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.Level.java b/net.minecraft.world.level.Level.java
+--- a/net.minecraft.world.level.Level.java
++++ b/net.minecraft.world.level.Level.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockState", "this.getBlockStat"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ blockEvent(/* params */);
+
+diff --git a/net.minecraft.world.level.Level.java b/net.minecraft.world.level.Level.java
+--- a/net.minecraft.world.level.Level.java
++++ b/net.minecraft.world.level.Level.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockState", "this.getBlockStat"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ destroyBlock(/* params */);
+
+diff --git a/net.minecraft.world.level.Level.java b/net.minecraft.world.level.Level.java
+--- a/net.minecraft.world.level.Level.java
++++ b/net.minecraft.world.level.Level.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockState", "this.getBlockStat", "this.hasChunkA", "this.neighborChange"},
++readBlocks = {"{neighbors}", "{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateNeighbourForOutputSignal(/* params */);
+
+diff --git a/net.minecraft.world.level.Level.java b/net.minecraft.world.level.Level.java
+--- a/net.minecraft.world.level.Level.java
++++ b/net.minecraft.world.level.Level.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSeededSoun", "this.soundSeedGenerator"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playSound(/* params */);
+
+diff --git a/net.minecraft.world.level.Level.java b/net.minecraft.world.level.Level.java
+--- a/net.minecraft.world.level.Level.java
++++ b/net.minecraft.world.level.Level.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shouldTickBlocksA"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldTickBlocksAt(/* params */);
+
+diff --git a/net.minecraft.world.level.Level.java b/net.minecraft.world.level.Level.java
+--- a/net.minecraft.world.level.Level.java
++++ b/net.minecraft.world.level.Level.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.dimensionTypeRegistratio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dimensionTypeRegistration(/* params */);
+
+diff --git a/net.minecraft.world.level.Level.java b/net.minecraft.world.level.Level.java
+--- a/net.minecraft.world.level.Level.java
++++ b/net.minecraft.world.level.Level.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.damageSource"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ damageSources(/* params */);
+
+diff --git a/net.minecraft.world.level.Level.java b/net.minecraft.world.level.Level.java
+--- a/net.minecraft.world.level.Level.java
++++ b/net.minecraft.world.level.Level.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.loadedAndEntityCanStandOnFac"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadedAndEntityCanStandOn(/* params */);
+
+diff --git a/net.minecraft.world.level.Level.java b/net.minecraft.world.level.Level.java
+--- a/net.minecraft.world.level.Level.java
++++ b/net.minecraft.world.level.Level.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.palettedContainerFactor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ palettedContainerFactory(/* params */);
+
+diff --git a/net.minecraft.world.level.Level.java b/net.minecraft.world.level.Level.java
+--- a/net.minecraft.world.level.Level.java
++++ b/net.minecraft.world.level.Level.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.skyDarke", "this.environmentAttribute"},
++writeEntities = {"this.skyDarken"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateSkyBrightness(/* params */);
+
+diff --git a/net.minecraft.world.level.Level.java b/net.minecraft.world.level.Level.java
+--- a/net.minecraft.world.level.Level.java
++++ b/net.minecraft.world.level.Level.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.player"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillReportDetails(/* params */);
+
+diff --git a/net.minecraft.world.level.Level.java b/net.minecraft.world.level.Level.java
+--- a/net.minecraft.world.level.Level.java
++++ b/net.minecraft.world.level.Level.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chunkAt", "this.getChunkA", "this.hasChunkA"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ blockEntityChanged(/* params */);
+
+diff --git a/net.minecraft.world.level.Level.java b/net.minecraft.world.level.Level.java
+--- a/net.minecraft.world.level.Level.java
++++ b/net.minecraft.world.level.Level.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.dimensionTypeRegistration"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dimensionType(/* params */);
+
+diff --git a/net.minecraft.world.level.Level.java b/net.minecraft.world.level.Level.java
+--- a/net.minecraft.world.level.Level.java
++++ b/net.minecraft.world.level.Level.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registryAcces"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registryAccess(/* params */);
+
+diff --git a/net.minecraft.world.level.Level.java b/net.minecraft.world.level.Level.java
+--- a/net.minecraft.world.level.Level.java
++++ b/net.minecraft.world.level.Level.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isInValidBound"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadedAndEntityCanStandOnFace(/* params */);
+
+diff --git a/net.minecraft.world.level.Level.java b/net.minecraft.world.level.Level.java
+--- a/net.minecraft.world.level.Level.java
++++ b/net.minecraft.world.level.Level.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.neighborUpdater"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ neighborShapeChanged(/* params */);
+
+diff --git a/net.minecraft.world.level.Level.java b/net.minecraft.world.level.Level.java
+--- a/net.minecraft.world.level.Level.java
++++ b/net.minecraft.world.level.Level.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playLocalSoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playLocalSound(/* params */);
+
+diff --git a/net.minecraft.world.level.Level.java b/net.minecraft.world.level.Level.java
+--- a/net.minecraft.world.level.Level.java
++++ b/net.minecraft.world.level.Level.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getChunkSourc", "this.chunkSource"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ close(/* params */);
+
+diff --git a/net.minecraft.world.level.Level.java b/net.minecraft.world.level.Level.java
+--- a/net.minecraft.world.level.Level.java
++++ b/net.minecraft.world.level.Level.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.subTickCount"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ nextSubTickCount(/* params */);
+
+diff --git a/net.minecraft.world.level.Level.java b/net.minecraft.world.level.Level.java
+--- a/net.minecraft.world.level.Level.java
++++ b/net.minecraft.world.level.Level.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pendingBlockEntityTickers", "this.blockEntityTickers", "this.tickingBlockEntitie"},
++writeEntities = {"this.tickingBlockEntities"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickBlockEntities(/* params */);
+
+diff --git a/net.minecraft.world.level.Level.java b/net.minecraft.world.level.Level.java
+--- a/net.minecraft.world.level.Level.java
++++ b/net.minecraft.world.level.Level.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.explod"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ explode(/* params */);
+
+diff --git a/net.minecraft.world.level.Level.java b/net.minecraft.world.level.Level.java
+--- a/net.minecraft.world.level.Level.java
++++ b/net.minecraft.world.level.Level.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSeededSoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playSeededSound(/* params */);
+

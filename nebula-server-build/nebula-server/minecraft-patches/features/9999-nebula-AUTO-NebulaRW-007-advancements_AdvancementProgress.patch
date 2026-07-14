@@ -1,0 +1,92 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.advancements.AdvancementProgress.java b/net.minecraft.advancements.AdvancementProgress.java
+--- a/net.minecraft.advancements.AdvancementProgress.java
++++ b/net.minecraft.advancements.AdvancementProgress.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.criteria"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ update(/* params */);
+
+diff --git a/net.minecraft.advancements.AdvancementProgress.java b/net.minecraft.advancements.AdvancementProgress.java
+--- a/net.minecraft.advancements.AdvancementProgress.java
++++ b/net.minecraft.advancements.AdvancementProgress.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.requirements"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ countCompletedRequirements(/* params */);
+
+diff --git a/net.minecraft.advancements.AdvancementProgress.java b/net.minecraft.advancements.AdvancementProgress.java
+--- a/net.minecraft.advancements.AdvancementProgress.java
++++ b/net.minecraft.advancements.AdvancementProgress.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.criteria"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ revokeProgress(/* params */);
+
+diff --git a/net.minecraft.advancements.AdvancementProgress.java b/net.minecraft.advancements.AdvancementProgress.java
+--- a/net.minecraft.advancements.AdvancementProgress.java
++++ b/net.minecraft.advancements.AdvancementProgress.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.criteria"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ grantProgress(/* params */);
+
+diff --git a/net.minecraft.advancements.AdvancementProgress.java b/net.minecraft.advancements.AdvancementProgress.java
+--- a/net.minecraft.advancements.AdvancementProgress.java
++++ b/net.minecraft.advancements.AdvancementProgress.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.requirements", "this.criteria"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.advancements.AdvancementProgress.java b/net.minecraft.advancements.AdvancementProgress.java
+--- a/net.minecraft.advancements.AdvancementProgress.java
++++ b/net.minecraft.advancements.AdvancementProgress.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.criteria"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ serializeToNetwork(/* params */);
+
+diff --git a/net.minecraft.advancements.AdvancementProgress.java b/net.minecraft.advancements.AdvancementProgress.java
+--- a/net.minecraft.advancements.AdvancementProgress.java
++++ b/net.minecraft.advancements.AdvancementProgress.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.firstProgressDate", "this.getFirstProgressDat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ compareTo(/* params */);
+

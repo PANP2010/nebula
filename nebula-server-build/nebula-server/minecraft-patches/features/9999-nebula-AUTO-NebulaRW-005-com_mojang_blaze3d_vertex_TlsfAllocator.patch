@@ -1,0 +1,68 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/com.mojang.blaze3d.vertex.TlsfAllocator.java b/com.mojang.blaze3d.vertex.TlsfAllocator.java
+--- a/com.mojang.blaze3d.vertex.TlsfAllocator.java
++++ b/com.mojang.blaze3d.vertex.TlsfAllocator.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.levelIndex", "this.getBlockFromFreeLis", "this.getLevelInde", "this.blockFromFreeList"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ insertFreeBlock(/* params */);
+
+diff --git a/com.mojang.blaze3d.vertex.TlsfAllocator.java b/com.mojang.blaze3d.vertex.TlsfAllocator.java
+--- a/com.mojang.blaze3d.vertex.TlsfAllocator.java
++++ b/com.mojang.blaze3d.vertex.TlsfAllocator.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.levelIndex", "this.removeFreeBloc", "this.getLevelInde"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mergeBlockWithPrevious(/* params */);
+
+diff --git a/com.mojang.blaze3d.vertex.TlsfAllocator.java b/com.mojang.blaze3d.vertex.TlsfAllocator.java
+--- a/com.mojang.blaze3d.vertex.TlsfAllocator.java
++++ b/com.mojang.blaze3d.vertex.TlsfAllocator.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.levelIndex", "this.removeFreeBloc", "this.getLevelInde"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mergeBlockWithNext(/* params */);
+
+diff --git a/com.mojang.blaze3d.vertex.TlsfAllocator.java b/com.mojang.blaze3d.vertex.TlsfAllocator.java
+--- a/com.mojang.blaze3d.vertex.TlsfAllocator.java
++++ b/com.mojang.blaze3d.vertex.TlsfAllocator.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mergeBlockWithNex", "this.insertFreeBloc", "this.mergeBlockWithPreviou"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ free(/* params */);
+
+diff --git a/com.mojang.blaze3d.vertex.TlsfAllocator.java b/com.mojang.blaze3d.vertex.TlsfAllocator.java
+--- a/com.mojang.blaze3d.vertex.TlsfAllocator.java
++++ b/com.mojang.blaze3d.vertex.TlsfAllocator.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBlockFromFreeLis", "this.blockFromFreeList"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ printAllocatorStatistics(/* params */);
+

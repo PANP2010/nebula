@@ -1,0 +1,106 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (8 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.chunk.storage.SectionStorage.java b/net.minecraft.world.level.chunk.storage.SectionStorage.java
+--- a/net.minecraft.world.level.chunk.storage.SectionStorage.java
++++ b/net.minecraft.world.level.chunk.storage.SectionStorage.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.dirtyChunks", "this.writeChun"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.storage.SectionStorage.java b/net.minecraft.world.level.chunk.storage.SectionStorage.java
+--- a/net.minecraft.world.level.chunk.storage.SectionStorage.java
++++ b/net.minecraft.world.level.chunk.storage.SectionStorage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.unpackChun", "this.pendingLoads", "this.loadedChunks", "this.loadLock"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ unpackPendingLoads(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.storage.SectionStorage.java b/net.minecraft.world.level.chunk.storage.SectionStorage.java
+--- a/net.minecraft.world.level.chunk.storage.SectionStorage.java
++++ b/net.minecraft.world.level.chunk.storage.SectionStorage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.codec", "this.packer", "this.storage", "this.levelHeightAccessor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeChunk(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.storage.SectionStorage.java b/net.minecraft.world.level.chunk.storage.SectionStorage.java
+--- a/net.minecraft.world.level.chunk.storage.SectionStorage.java
++++ b/net.minecraft.world.level.chunk.storage.SectionStorage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.simpleRegionStorage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ close(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.storage.SectionStorage.java b/net.minecraft.world.level.chunk.storage.SectionStorage.java
+--- a/net.minecraft.world.level.chunk.storage.SectionStorage.java
++++ b/net.minecraft.world.level.chunk.storage.SectionStorage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.levelHeightAccessor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ outsideStoredRange(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.storage.SectionStorage.java b/net.minecraft.world.level.chunk.storage.SectionStorage.java
+--- a/net.minecraft.world.level.chunk.storage.SectionStorage.java
++++ b/net.minecraft.world.level.chunk.storage.SectionStorage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.dirtyChunks", "this.writeChun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ flushAll(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.storage.SectionStorage.java b/net.minecraft.world.level.chunk.storage.SectionStorage.java
+--- a/net.minecraft.world.level.chunk.storage.SectionStorage.java
++++ b/net.minecraft.world.level.chunk.storage.SectionStorage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.storage", "this.levelHeightAccessor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ unpackChunk(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.storage.SectionStorage.java b/net.minecraft.world.level.chunk.storage.SectionStorage.java
+--- a/net.minecraft.world.level.chunk.storage.SectionStorage.java
++++ b/net.minecraft.world.level.chunk.storage.SectionStorage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.dirtyChunks", "this.writeChun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ flush(/* params */);
+

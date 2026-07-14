@@ -1,0 +1,105 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (8 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.data.HashCache.java b/net.minecraft.data.HashCache.java
+--- a/net.minecraft.data.HashCache.java
++++ b/net.minecraft.data.HashCache.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.oldCache"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldWrite(/* params */);
+
+diff --git a/net.minecraft.data.HashCache.java b/net.minecraft.data.HashCache.java
+--- a/net.minecraft.data.HashCache.java
++++ b/net.minecraft.data.HashCache.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.data"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ count(/* params */);
+
+diff --git a/net.minecraft.data.HashCache.java b/net.minecraft.data.HashCache.java
+--- a/net.minecraft.data.HashCache.java
++++ b/net.minecraft.data.HashCache.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.providerCachePath", "this.caches", "this.rootDir", "this.cachesToWrite", "this.getProviderCachePat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ purgeStaleAndWrite(/* params */);
+
+diff --git a/net.minecraft.data.HashCache.java b/net.minecraft.data.HashCache.java
+--- a/net.minecraft.data.HashCache.java
++++ b/net.minecraft.data.HashCache.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.closed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeIfNeeded(/* params */);
+
+diff --git a/net.minecraft.data.HashCache.java b/net.minecraft.data.HashCache.java
+--- a/net.minecraft.data.HashCache.java
++++ b/net.minecraft.data.HashCache.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.data", "this.version"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ save(/* params */);
+
+diff --git a/net.minecraft.data.HashCache.java b/net.minecraft.data.HashCache.java
+--- a/net.minecraft.data.HashCache.java
++++ b/net.minecraft.data.HashCache.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.versionId", "this.caches"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldRunInThisVersion(/* params */);
+
+diff --git a/net.minecraft.data.HashCache.java b/net.minecraft.data.HashCache.java
+--- a/net.minecraft.data.HashCache.java
++++ b/net.minecraft.data.HashCache.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.cachePaths"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ visitFile(/* params */);
+
+diff --git a/net.minecraft.data.HashCache.java b/net.minecraft.data.HashCache.java
+--- a/net.minecraft.data.HashCache.java
++++ b/net.minecraft.data.HashCache.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.caches", "this.writes", "this.write", "this.cachesToWrite"},
++writeEntities = {"this.writes"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyUpdate(/* params */);
+

@@ -1,0 +1,62 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.StrongholdPieces.java b/net.minecraft.world.level.levelgen.structure.structures.StrongholdPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.StrongholdPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.StrongholdPieces.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entryDoor", "this.generateBo", "this.generateSmallDoo", "this.placeBloc"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ postProcess(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.StrongholdPieces.java b/net.minecraft.world.level.levelgen.structure.structures.StrongholdPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.StrongholdPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.StrongholdPieces.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.nex"},
++writeEntities = {"this.next"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ next(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.StrongholdPieces.java b/net.minecraft.world.level.levelgen.structure.structures.StrongholdPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.StrongholdPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.StrongholdPieces.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.generateBo", "this.placeBloc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateSmallDoor(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.StrongholdPieces.java b/net.minecraft.world.level.levelgen.structure.structures.StrongholdPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.StrongholdPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.StrongholdPieces.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.placeCount", "this.maxPlaceCoun"},
++writeEntities = {"this.maxPlaceCount"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ doPlace(/* params */);
+

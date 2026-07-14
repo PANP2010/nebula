@@ -1,0 +1,58 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.WalkAnimationState.java b/net.minecraft.world.entity.WalkAnimationState.java
+--- a/net.minecraft.world.entity.WalkAnimationState.java
++++ b/net.minecraft.world.entity.WalkAnimationState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.speedOld", "this.positionScale", "this.position", "this.speed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ update(/* params */);
+
+diff --git a/net.minecraft.world.entity.WalkAnimationState.java b/net.minecraft.world.entity.WalkAnimationState.java
+--- a/net.minecraft.world.entity.WalkAnimationState.java
++++ b/net.minecraft.world.entity.WalkAnimationState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.positionScal", "this.position", "this.speed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ position(/* params */);
+
+diff --git a/net.minecraft.world.entity.WalkAnimationState.java b/net.minecraft.world.entity.WalkAnimationState.java
+--- a/net.minecraft.world.entity.WalkAnimationState.java
++++ b/net.minecraft.world.entity.WalkAnimationState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.spee", "this.positio", "this.speedOl"},
++writeEntities = {"this.speedOld", "this.position", "this.speed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+
+diff --git a/net.minecraft.world.entity.WalkAnimationState.java b/net.minecraft.world.entity.WalkAnimationState.java
+--- a/net.minecraft.world.entity.WalkAnimationState.java
++++ b/net.minecraft.world.entity.WalkAnimationState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.speedOld", "this.speed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ speed(/* params */);
+

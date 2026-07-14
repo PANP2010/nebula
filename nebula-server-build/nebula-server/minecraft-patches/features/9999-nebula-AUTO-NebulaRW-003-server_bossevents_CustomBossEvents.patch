@@ -1,0 +1,47 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (3 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.bossevents.CustomBossEvents.java b/net.minecraft.server.bossevents.CustomBossEvents.java
+--- a/net.minecraft.server.bossevents.CustomBossEvents.java
++++ b/net.minecraft.server.bossevents.CustomBossEvents.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setDirt", "this.events"},
++writeEntities = {"this.dirty"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ create(/* params */);
+
+diff --git a/net.minecraft.server.bossevents.CustomBossEvents.java b/net.minecraft.server.bossevents.CustomBossEvents.java
+--- a/net.minecraft.server.bossevents.CustomBossEvents.java
++++ b/net.minecraft.server.bossevents.CustomBossEvents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.events"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onPlayerDisconnect(/* params */);
+
+diff --git a/net.minecraft.server.bossevents.CustomBossEvents.java b/net.minecraft.server.bossevents.CustomBossEvents.java
+--- a/net.minecraft.server.bossevents.CustomBossEvents.java
++++ b/net.minecraft.server.bossevents.CustomBossEvents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.events"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onPlayerConnect(/* params */);
+

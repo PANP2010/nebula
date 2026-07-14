@@ -1,0 +1,48 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (3 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.levelgen.carver.CarvingContext.java b/net.minecraft.world.level.levelgen.carver.CarvingContext.java
+--- a/net.minecraft.world.level.levelgen.carver.CarvingContext.java
++++ b/net.minecraft.world.level.levelgen.carver.CarvingContext.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.surfaceRule", "this.randomState", "this.noiseChunk"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ topMaterial(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.carver.CarvingContext.java b/net.minecraft.world.level.levelgen.carver.CarvingContext.java
+--- a/net.minecraft.world.level.levelgen.carver.CarvingContext.java
++++ b/net.minecraft.world.level.levelgen.carver.CarvingContext.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.randomStat"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ randomState(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.carver.CarvingContext.java b/net.minecraft.world.level.levelgen.carver.CarvingContext.java
+--- a/net.minecraft.world.level.levelgen.carver.CarvingContext.java
++++ b/net.minecraft.world.level.levelgen.carver.CarvingContext.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registryAcces"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registryAccess(/* params */);
+

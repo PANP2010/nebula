@@ -1,0 +1,148 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (11 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.monster.Phantom.java b/net.minecraft.world.entity.monster.Phantom.java
+--- a/net.minecraft.world.entity.monster.Phantom.java
++++ b/net.minecraft.world.entity.monster.Phantom.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random", "this.heigh", "this.distanc", "this.clockwis", "this.selectNex"},
++writeEntities = {"this.distance", "this.clockwise", "this.height"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ start(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Phantom.java b/net.minecraft.world.entity.monster.Phantom.java
+--- a/net.minecraft.world.entity.monster.Phantom.java
++++ b/net.minecraft.world.entity.monster.Phantom.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.attackPhas", "this.setTarge"},
++writeEntities = {"this.attackPhase", "this.target"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Phantom.java b/net.minecraft.world.entity.monster.Phantom.java
+--- a/net.minecraft.world.entity.monster.Phantom.java
++++ b/net.minecraft.world.entity.monster.Phantom.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.get", "this.x", "this.y", "this.z", "this.moveTargetPoint"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ touchingTarget(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Phantom.java b/net.minecraft.world.entity.monster.Phantom.java
+--- a/net.minecraft.world.entity.monster.Phantom.java
++++ b/net.minecraft.world.entity.monster.Phantom.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.anchorPoin", "this.setPhantomSiz"},
++writeEntities = {"this.anchorPoint", "this.phantomSize"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Phantom.java b/net.minecraft.world.entity.monster.Phantom.java
+--- a/net.minecraft.world.entity.monster.Phantom.java
++++ b/net.minecraft.world.entity.monster.Phantom.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.yBodyRo", "this.yRot", "this.getYRo", "this.yHeadRo"},
++writeEntities = {"this.yBodyRot", "this.yHeadRot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ clientTick(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Phantom.java b/net.minecraft.world.entity.monster.Phantom.java
+--- a/net.minecraft.world.entity.monster.Phantom.java
++++ b/net.minecraft.world.entity.monster.Phantom.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getPhantomSiz", "this.getAttribut", "this.refreshDimension", "this.phantomSize", "this.attribute"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updatePhantomSizeInfo(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Phantom.java b/net.minecraft.world.entity.monster.Phantom.java
+--- a/net.minecraft.world.entity.monster.Phantom.java
++++ b/net.minecraft.world.entity.monster.Phantom.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.targetSelector", "this.goalSelector"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerGoals(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Phantom.java b/net.minecraft.world.entity.monster.Phantom.java
+--- a/net.minecraft.world.entity.monster.Phantom.java
++++ b/net.minecraft.world.entity.monster.Phantom.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.attackPhase", "this.moveTargetPoint"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Phantom.java b/net.minecraft.world.entity.monster.Phantom.java
+--- a/net.minecraft.world.entity.monster.Phantom.java
++++ b/net.minecraft.world.entity.monster.Phantom.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updatePhantomSizeInf"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSyncedDataUpdated(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Phantom.java b/net.minecraft.world.entity.monster.Phantom.java
+--- a/net.minecraft.world.entity.monster.Phantom.java
++++ b/net.minecraft.world.entity.monster.Phantom.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockPositio", "this.anchorPoin"},
++writeEntities = {"this.anchorPoint"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ selectNext(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Phantom.java b/net.minecraft.world.entity.monster.Phantom.java
+--- a/net.minecraft.world.entity.monster.Phantom.java
++++ b/net.minecraft.world.entity.monster.Phantom.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.travelFlyin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ travel(/* params */);
+

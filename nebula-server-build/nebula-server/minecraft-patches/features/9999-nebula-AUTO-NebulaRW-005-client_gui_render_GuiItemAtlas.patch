@@ -1,0 +1,68 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.render.GuiItemAtlas.java b/net.minecraft.client.gui.render.GuiItemAtlas.java
+--- a/net.minecraft.client.gui.render.GuiItemAtlas.java
++++ b/net.minecraft.client.gui.render.GuiItemAtlas.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.textureSiz"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ textureSize(/* params */);
+
+diff --git a/net.minecraft.client.gui.render.GuiItemAtlas.java b/net.minecraft.client.gui.render.GuiItemAtlas.java
+--- a/net.minecraft.client.gui.render.GuiItemAtlas.java
++++ b/net.minecraft.client.gui.render.GuiItemAtlas.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.allocator"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tryPrepareFor(/* params */);
+
+diff --git a/net.minecraft.client.gui.render.GuiItemAtlas.java b/net.minecraft.client.gui.render.GuiItemAtlas.java
+--- a/net.minecraft.client.gui.render.GuiItemAtlas.java
++++ b/net.minecraft.client.gui.render.GuiItemAtlas.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.allocator"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ endFrame(/* params */);
+
+diff --git a/net.minecraft.client.gui.render.GuiItemAtlas.java b/net.minecraft.client.gui.render.GuiItemAtlas.java
+--- a/net.minecraft.client.gui.render.GuiItemAtlas.java
++++ b/net.minecraft.client.gui.render.GuiItemAtlas.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.slotTextureSiz", "this.textureSize", "this.texture", "this.slotTextureSize", "this.depthTexture"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ drawToSlot(/* params */);
+
+diff --git a/net.minecraft.client.gui.render.GuiItemAtlas.java b/net.minecraft.client.gui.render.GuiItemAtlas.java
+--- a/net.minecraft.client.gui.render.GuiItemAtlas.java
++++ b/net.minecraft.client.gui.render.GuiItemAtlas.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.textureView", "this.projectionMatrixBuffer", "this.depthTextureView", "this.texture", "this.depthTexture"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ close(/* params */);
+

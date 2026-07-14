@@ -1,0 +1,107 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (8 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.projectile.arrow.ThrownTrident.java b/net.minecraft.world.entity.projectile.arrow.ThrownTrident.java
+--- a/net.minecraft.world.entity.projectile.arrow.ThrownTrident.java
++++ b/net.minecraft.world.entity.projectile.arrow.ThrownTrident.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.owner", "this.getOwne", "this.kil"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hitBlockEnchantmentEffects(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.arrow.ThrownTrident.java b/net.minecraft.world.entity.projectile.arrow.ThrownTrident.java
+--- a/net.minecraft.world.entity.projectile.arrow.ThrownTrident.java
++++ b/net.minecraft.world.entity.projectile.arrow.ThrownTrident.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isNoPhysic", "this.getPickupIte", "this.ownedB", "this.pickupItem"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tryPickup(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.arrow.ThrownTrident.java b/net.minecraft.world.entity.projectile.arrow.ThrownTrident.java
+--- a/net.minecraft.world.entity.projectile.arrow.ThrownTrident.java
++++ b/net.minecraft.world.entity.projectile.arrow.ThrownTrident.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.findHitEntit"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findHitEntities(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.arrow.ThrownTrident.java b/net.minecraft.world.entity.projectile.arrow.ThrownTrident.java
+--- a/net.minecraft.world.entity.projectile.arrow.ThrownTrident.java
++++ b/net.minecraft.world.entity.projectile.arrow.ThrownTrident.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pickup", "this.entityData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickDespawn(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.arrow.ThrownTrident.java b/net.minecraft.world.entity.projectile.arrow.ThrownTrident.java
+--- a/net.minecraft.world.entity.projectile.arrow.ThrownTrident.java
++++ b/net.minecraft.world.entity.projectile.arrow.ThrownTrident.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.dealtDamage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.arrow.ThrownTrident.java b/net.minecraft.world.entity.projectile.arrow.ThrownTrident.java
+--- a/net.minecraft.world.entity.projectile.arrow.ThrownTrident.java
++++ b/net.minecraft.world.entity.projectile.arrow.ThrownTrident.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.owner", "this.getOwne", "this.ownedB"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playerTouch(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.arrow.ThrownTrident.java b/net.minecraft.world.entity.projectile.arrow.ThrownTrident.java
+--- a/net.minecraft.world.entity.projectile.arrow.ThrownTrident.java
++++ b/net.minecraft.world.entity.projectile.arrow.ThrownTrident.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onHitEntity(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.arrow.ThrownTrident.java b/net.minecraft.world.entity.projectile.arrow.ThrownTrident.java
+--- a/net.minecraft.world.entity.projectile.arrow.ThrownTrident.java
++++ b/net.minecraft.world.entity.projectile.arrow.ThrownTrident.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.inGroundTime", "this.dealtDamag"},
++writeEntities = {"this.dealtDamage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+

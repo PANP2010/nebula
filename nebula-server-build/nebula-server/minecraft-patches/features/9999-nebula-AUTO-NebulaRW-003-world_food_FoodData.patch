@@ -1,0 +1,46 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (3 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.food.FoodData.java b/net.minecraft.world.food.FoodData.java
+--- a/net.minecraft.world.food.FoodData.java
++++ b/net.minecraft.world.food.FoodData.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.saturationLevel", "this.saturationLeve", "this.exhaustionLevel"},
++writeEntities = {"this.saturationLevel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.food.FoodData.java b/net.minecraft.world.food.FoodData.java
+--- a/net.minecraft.world.food.FoodData.java
++++ b/net.minecraft.world.food.FoodData.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tickTime", "this.exhaustionLeve", "this.saturationLeve", "this.foodLeve"},
++writeEntities = {"this.tickTimer", "this.saturationLevel", "this.foodLevel", "this.exhaustionLevel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.food.FoodData.java b/net.minecraft.world.food.FoodData.java
+--- a/net.minecraft.world.food.FoodData.java
++++ b/net.minecraft.world.food.FoodData.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.foodLevel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ needsFood(/* params */);
+

@@ -1,0 +1,131 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (10 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.level.DistanceManager.java b/net.minecraft.server.level.DistanceManager.java
+--- a/net.minecraft.server.level.DistanceManager.java
++++ b/net.minecraft.server.level.DistanceManager.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ticketDispatcher", "this.toUpdate", "this.level", "this.queueLevels", "this.getLeve"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ runAllUpdates(/* params */);
+
+diff --git a/net.minecraft.server.level.DistanceManager.java b/net.minecraft.server.level.DistanceManager.java
+--- a/net.minecraft.server.level.DistanceManager.java
++++ b/net.minecraft.server.level.DistanceManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.viewDistanc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ haveTicketFor(/* params */);
+
+diff --git a/net.minecraft.server.level.DistanceManager.java b/net.minecraft.server.level.DistanceManager.java
+--- a/net.minecraft.server.level.DistanceManager.java
++++ b/net.minecraft.server.level.DistanceManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playerTicketManager"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updatePlayerTickets(/* params */);
+
+diff --git a/net.minecraft.server.level.DistanceManager.java b/net.minecraft.server.level.DistanceManager.java
+--- a/net.minecraft.server.level.DistanceManager.java
++++ b/net.minecraft.server.level.DistanceManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getPlayerTicketLeve", "this.playerTicketLevel", "this.simulationDistanc", "this.simulationDistance", "this.ticketStorage"},
++writeEntities = {"this.simulationDistance"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateSimulationDistance(/* params */);
+
+diff --git a/net.minecraft.server.level.DistanceManager.java b/net.minecraft.server.level.DistanceManager.java
+--- a/net.minecraft.server.level.DistanceManager.java
++++ b/net.minecraft.server.level.DistanceManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.onLevelChang", "this.chunks", "this.haveTicketFo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateViewDistance(/* params */);
+
+diff --git a/net.minecraft.server.level.DistanceManager.java b/net.minecraft.server.level.DistanceManager.java
+--- a/net.minecraft.server.level.DistanceManager.java
++++ b/net.minecraft.server.level.DistanceManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.simulationChunkTracker"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ inBlockTickingRange(/* params */);
+
+diff --git a/net.minecraft.server.level.DistanceManager.java b/net.minecraft.server.level.DistanceManager.java
+--- a/net.minecraft.server.level.DistanceManager.java
++++ b/net.minecraft.server.level.DistanceManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onLevelChange(/* params */);
+
+diff --git a/net.minecraft.server.level.DistanceManager.java b/net.minecraft.server.level.DistanceManager.java
+--- a/net.minecraft.server.level.DistanceManager.java
++++ b/net.minecraft.server.level.DistanceManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.simulationChunkTracker"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forEachEntityTickingChunk(/* params */);
+
+diff --git a/net.minecraft.server.level.DistanceManager.java b/net.minecraft.server.level.DistanceManager.java
+--- a/net.minecraft.server.level.DistanceManager.java
++++ b/net.minecraft.server.level.DistanceManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.simulationChunkTracker"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ inEntityTickingRange(/* params */);
+
+diff --git a/net.minecraft.server.level.DistanceManager.java b/net.minecraft.server.level.DistanceManager.java
+--- a/net.minecraft.server.level.DistanceManager.java
++++ b/net.minecraft.server.level.DistanceManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playersPerChunk"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ havePlayer(/* params */);
+

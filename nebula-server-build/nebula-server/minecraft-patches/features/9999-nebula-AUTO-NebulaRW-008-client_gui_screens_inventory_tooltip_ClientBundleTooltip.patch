@@ -1,0 +1,104 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (8 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip.java b/net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip.java
+--- a/net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip.java
++++ b/net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.contents"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractSelectedItemTooltip(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip.java b/net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip.java
+--- a/net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip.java
++++ b/net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractBundleWithItemsTooltip(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip.java b/net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip.java
+--- a/net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip.java
++++ b/net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.slotCoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ gridSizeY(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip.java b/net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip.java
+--- a/net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip.java
++++ b/net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.contents"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractImage(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip.java b/net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip.java
+--- a/net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip.java
++++ b/net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.gridSize"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ itemGridHeight(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip.java b/net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip.java
+--- a/net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip.java
++++ b/net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.contents"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractSlot(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip.java b/net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip.java
+--- a/net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip.java
++++ b/net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.itemGridHeigh"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ backgroundHeight(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip.java b/net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip.java
+--- a/net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip.java
++++ b/net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.contents"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ slotCount(/* params */);
+

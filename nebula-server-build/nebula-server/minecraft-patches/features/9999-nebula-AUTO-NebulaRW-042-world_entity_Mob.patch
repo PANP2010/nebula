@@ -1,0 +1,532 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (42 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{neighbors}", "{position}"},
++triggeredEvents = {"ENTITY_SPAWNED"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkMobSpawnRules(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random", "this.isAliv", "this.ambientSoundTime", "this.resetAmbientSoundTim", "this.playAmbientSoun"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ baseTick(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.enchantSpawnedArmo", "this.enchantSpawnedWeapo"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ populateDefaultEquipmentEnchantments(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.enchantSpawnedEquipmen"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ enchantSpawnedWeapon(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.itemSlot"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ burnUndead(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.enchantSpawnedEquipmen"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ enchantSpawnedArmor(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setItemSlo", "this.getItemBySlo", "this.itemBySlot"},
++writeEntities = {"this.itemSlot"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ enchantSpawnedEquipment(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tickCount", "this.leve", "this.updateControlFlag"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getAmbientSoun", "this.makeSoun", "this.ambientSound"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playAmbientSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.navigation", "this.getNavigatio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ jumpInLiquid(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.discar", "this.leve", "this.type", "this.getTyp"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkDespawn(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ serverAiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isLeashe", "this.dropLeas"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startRiding(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isAliv"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ interact(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.onItemPicku", "this.equipItemIfPossibl", "this.tak"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pickUpItem(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getEye", "this.get", "this.eyeY", "this.x", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ lookAt(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.xxa", "this.yya", "this.deltaMovement", "this.speed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stopInPlace(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.burnUndea", "this.i"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ aiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.clearHom", "this.getLeashDat", "this.leashData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onLeashRemoved(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getItemBySlo", "this.itemBySlot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropPreservedEquipment(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leve", "this.createEquipmentParam", "this.equi"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ equip(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.preferredWeaponType", "this.getPreferredWeaponTyp"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ compareWeapons(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.yHeadRot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ clampHeadRotationToBody(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.navigation", "this.getNavigatio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerDebugValues(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.resetAmbientSoundTim"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playHurtSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.boundingBox", "this.getBoundingBo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkSpawnObstruction(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.goalSelector"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ leashTooFarBehaviour(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isLeashe", "this.isPassenge"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ requiresCustomPersistence(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.canPickUpLoot", "this.homeRadius", "this.dropChances", "this.persistenceRequired", "this.homePosition"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leashData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetAngularLeashMomentum(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.makePoofParticle", "this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spawnAnim(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.navigation", "this.getNavigatio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onAttributeUpdated(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lootTabl"},
++writeEntities = {"this.lootTable"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropFromLootTable(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ doHurtTarget(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ambientSoundTim", "this.getAmbientSoundInterva", "this.ambientSoundInterval"},
++writeEntities = {"this.ambientSoundTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetAmbientSoundTime(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.bodyRotationControl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickHeadTurn(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isEquippableInSlo", "this.getEquipmentSlotForIte", "this.equipmentSlotForItem"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ equipItemIfPossible(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.canHoldIte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ wantsToPickUp(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.positio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createEquipmentParams(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.spawnAni"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleEntityEvent(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.goalSelector", "this.getControllingPassenge", "this.controllingPassenger", "this.getVehicl", "this.vehicle"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateControlFlags(/* params */);
+
+diff --git a/net.minecraft.world.entity.Mob.java b/net.minecraft.world.entity.Mob.java
+--- a/net.minecraft.world.entity.Mob.java
++++ b/net.minecraft.world.entity.Mob.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getItemBySlo", "this.itemBySlot", "this.leve", "this.dropChances"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropCustomDeathLoot(/* params */);
+

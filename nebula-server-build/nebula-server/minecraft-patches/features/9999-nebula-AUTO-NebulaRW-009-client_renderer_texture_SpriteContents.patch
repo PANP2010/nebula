@@ -1,0 +1,118 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (9 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.renderer.texture.SpriteContents.java b/net.minecraft.client.renderer.texture.SpriteContents.java
+--- a/net.minecraft.client.renderer.texture.SpriteContents.java
++++ b/net.minecraft.client.renderer.texture.SpriteContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.isDirty", "this.subFrame", "this.frame"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.client.renderer.texture.SpriteContents.java b/net.minecraft.client.renderer.texture.SpriteContents.java
+--- a/net.minecraft.client.renderer.texture.SpriteContents.java
++++ b/net.minecraft.client.renderer.texture.SpriteContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.width", "this.byMipLevel", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ uploadFirstFrame(/* params */);
+
+diff --git a/net.minecraft.client.renderer.texture.SpriteContents.java b/net.minecraft.client.renderer.texture.SpriteContents.java
+--- a/net.minecraft.client.renderer.texture.SpriteContents.java
++++ b/net.minecraft.client.renderer.texture.SpriteContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.transparenc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ transparency(/* params */);
+
+diff --git a/net.minecraft.client.renderer.texture.SpriteContents.java b/net.minecraft.client.renderer.texture.SpriteContents.java
+--- a/net.minecraft.client.renderer.texture.SpriteContents.java
++++ b/net.minecraft.client.renderer.texture.SpriteContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isDirt", "this.animationInfo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ needsToDraw(/* params */);
+
+diff --git a/net.minecraft.client.renderer.texture.SpriteContents.java b/net.minecraft.client.renderer.texture.SpriteContents.java
+--- a/net.minecraft.client.renderer.texture.SpriteContents.java
++++ b/net.minecraft.client.renderer.texture.SpriteContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.frameTexturesByIndex"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ close(/* params */);
+
+diff --git a/net.minecraft.client.renderer.texture.SpriteContents.java b/net.minecraft.client.renderer.texture.SpriteContents.java
+--- a/net.minecraft.client.renderer.texture.SpriteContents.java
++++ b/net.minecraft.client.renderer.texture.SpriteContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.frameCount", "this.name", "this.width", "this.getFrameCoun", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.client.renderer.texture.SpriteContents.java b/net.minecraft.client.renderer.texture.SpriteContents.java
+--- a/net.minecraft.client.renderer.texture.SpriteContents.java
++++ b/net.minecraft.client.renderer.texture.SpriteContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.transparency", "this.transparenc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ computeTransparency(/* params */);
+
+diff --git a/net.minecraft.client.renderer.texture.SpriteContents.java b/net.minecraft.client.renderer.texture.SpriteContents.java
+--- a/net.minecraft.client.renderer.texture.SpriteContents.java
++++ b/net.minecraft.client.renderer.texture.SpriteContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.byMipLevel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ increaseMipLevel(/* params */);
+
+diff --git a/net.minecraft.client.renderer.texture.SpriteContents.java b/net.minecraft.client.renderer.texture.SpriteContents.java
+--- a/net.minecraft.client.renderer.texture.SpriteContents.java
++++ b/net.minecraft.client.renderer.texture.SpriteContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.subFrame", "this.animationInfo", "this.frame", "this.frameTexturesByIndex"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ drawToAtlas(/* params */);
+

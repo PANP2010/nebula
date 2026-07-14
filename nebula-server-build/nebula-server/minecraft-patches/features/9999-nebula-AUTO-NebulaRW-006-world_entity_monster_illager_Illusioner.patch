@@ -1,0 +1,85 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.monster.illager.Illusioner.java b/net.minecraft.world.entity.monster.illager.Illusioner.java
+--- a/net.minecraft.world.entity.monster.illager.Illusioner.java
++++ b/net.minecraft.world.entity.monster.illager.Illusioner.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.targetSelector", "this.goalSelector"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerGoals(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.illager.Illusioner.java b/net.minecraft.world.entity.monster.illager.Illusioner.java
+--- a/net.minecraft.world.entity.monster.illager.Illusioner.java
++++ b/net.minecraft.world.entity.monster.illager.Illusioner.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ performRangedAttack(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.illager.Illusioner.java b/net.minecraft.world.entity.monster.illager.Illusioner.java
+--- a/net.minecraft.world.entity.monster.illager.Illusioner.java
++++ b/net.minecraft.world.entity.monster.illager.Illusioner.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.addEffec"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ performSpellCasting(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.illager.Illusioner.java b/net.minecraft.world.entity.monster.illager.Illusioner.java
+--- a/net.minecraft.world.entity.monster.illager.Illusioner.java
++++ b/net.minecraft.world.entity.monster.illager.Illusioner.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getTarge", "this.lastTargetI", "this.target"},
++writeEntities = {"this.lastTargetId"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ start(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.illager.Illusioner.java b/net.minecraft.world.entity.monster.illager.Illusioner.java
+--- a/net.minecraft.world.entity.monster.illager.Illusioner.java
++++ b/net.minecraft.world.entity.monster.illager.Illusioner.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.clientSideIllusionTicks", "this.clientSideIllusionTick", "this.leve", "this.isInvisibl"},
++writeEntities = {"this.clientSideIllusionTicks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ aiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.illager.Illusioner.java b/net.minecraft.world.entity.monster.illager.Illusioner.java
+--- a/net.minecraft.world.entity.monster.illager.Illusioner.java
++++ b/net.minecraft.world.entity.monster.illager.Illusioner.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setItemSlo"},
++writeEntities = {"this.itemSlot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ finalizeSpawn(/* params */);
+

@@ -1,0 +1,118 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (9 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.StringSplitter.java b/net.minecraft.client.StringSplitter.java
+--- a/net.minecraft.client.StringSplitter.java
++++ b/net.minecraft.client.StringSplitter.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lineBreak"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ lineBreakFound(/* params */);
+
+diff --git a/net.minecraft.client.StringSplitter.java b/net.minecraft.client.StringSplitter.java
+--- a/net.minecraft.client.StringSplitter.java
++++ b/net.minecraft.client.StringSplitter.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.widthProvider"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stringWidth(/* params */);
+
+diff --git a/net.minecraft.client.StringSplitter.java b/net.minecraft.client.StringSplitter.java
+--- a/net.minecraft.client.StringSplitter.java
++++ b/net.minecraft.client.StringSplitter.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lineBrea", "this.lineBreakStyl"},
++writeEntities = {"this.lineBreak", "this.lineBreakStyle"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ finishIteration(/* params */);
+
+diff --git a/net.minecraft.client.StringSplitter.java b/net.minecraft.client.StringSplitter.java
+--- a/net.minecraft.client.StringSplitter.java
++++ b/net.minecraft.client.StringSplitter.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.contents", "this.style"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ visit(/* params */);
+
+diff --git a/net.minecraft.client.StringSplitter.java b/net.minecraft.client.StringSplitter.java
+--- a/net.minecraft.client.StringSplitter.java
++++ b/net.minecraft.client.StringSplitter.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.flatParts"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ charAt(/* params */);
+
+diff --git a/net.minecraft.client.StringSplitter.java b/net.minecraft.client.StringSplitter.java
+--- a/net.minecraft.client.StringSplitter.java
++++ b/net.minecraft.client.StringSplitter.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.parts"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ splitAt(/* params */);
+
+diff --git a/net.minecraft.client.StringSplitter.java b/net.minecraft.client.StringSplitter.java
+--- a/net.minecraft.client.StringSplitter.java
++++ b/net.minecraft.client.StringSplitter.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.maxWidt", "this.widthProvider", "this.positio", "this.maxWidth"},
++writeEntities = {"this.position", "this.maxWidth"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ accept(/* params */);
+
+diff --git a/net.minecraft.client.StringSplitter.java b/net.minecraft.client.StringSplitter.java
+--- a/net.minecraft.client.StringSplitter.java
++++ b/net.minecraft.client.StringSplitter.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.plainIndexAtWidt"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ plainHeadByWidth(/* params */);
+
+diff --git a/net.minecraft.client.StringSplitter.java b/net.minecraft.client.StringSplitter.java
+--- a/net.minecraft.client.StringSplitter.java
++++ b/net.minecraft.client.StringSplitter.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.widthProvider"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ plainTailByWidth(/* params */);
+

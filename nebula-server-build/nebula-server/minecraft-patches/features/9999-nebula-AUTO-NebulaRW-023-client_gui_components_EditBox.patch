@@ -1,0 +1,288 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (23 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.components.EditBox.java b/net.minecraft.client.gui.components.EditBox.java
+--- a/net.minecraft.client.gui.components.EditBox.java
++++ b/net.minecraft.client.gui.components.EditBox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.highlightPos", "this.cursorPos", "this.insertTex", "this.value"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ deleteWords(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.EditBox.java b/net.minecraft.client.gui.components.EditBox.java
+--- a/net.minecraft.client.gui.components.EditBox.java
++++ b/net.minecraft.client.gui.components.EditBox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.canConsumeInpu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ charTyped(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.EditBox.java b/net.minecraft.client.gui.components.EditBox.java
+--- a/net.minecraft.client.gui.components.EditBox.java
++++ b/net.minecraft.client.gui.components.EditBox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setCursorPositio", "this.setHighlightPo", "this.cursorPos"},
++writeEntities = {"this.cursorPosition", "this.highlightPos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ moveCursorTo(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.EditBox.java b/net.minecraft.client.gui.components.EditBox.java
+--- a/net.minecraft.client.gui.components.EditBox.java
++++ b/net.minecraft.client.gui.components.EditBox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.textX", "this.textY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateTextPosition(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.EditBox.java b/net.minecraft.client.gui.components.EditBox.java
+--- a/net.minecraft.client.gui.components.EditBox.java
++++ b/net.minecraft.client.gui.components.EditBox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.formatters"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyFormat(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.EditBox.java b/net.minecraft.client.gui.components.EditBox.java
+--- a/net.minecraft.client.gui.components.EditBox.java
++++ b/net.minecraft.client.gui.components.EditBox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isFocuse", "this.deleteTex", "this.isEditable", "this.isActiv"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ keyPressed(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.EditBox.java b/net.minecraft.client.gui.components.EditBox.java
+--- a/net.minecraft.client.gui.components.EditBox.java
++++ b/net.minecraft.client.gui.components.EditBox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.deleteWord"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ deleteText(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.EditBox.java b/net.minecraft.client.gui.components.EditBox.java
+--- a/net.minecraft.client.gui.components.EditBox.java
++++ b/net.minecraft.client.gui.components.EditBox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findClickedPositionInText(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.EditBox.java b/net.minecraft.client.gui.components.EditBox.java
+--- a/net.minecraft.client.gui.components.EditBox.java
++++ b/net.minecraft.client.gui.components.EditBox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getMessag", "this.message", "this.value"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createNarrationMessage(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.EditBox.java b/net.minecraft.client.gui.components.EditBox.java
+--- a/net.minecraft.client.gui.components.EditBox.java
++++ b/net.minecraft.client.gui.components.EditBox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.moveCursorT", "this.getCursorPo", "this.cursorPos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ moveCursor(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.EditBox.java b/net.minecraft.client.gui.components.EditBox.java
+--- a/net.minecraft.client.gui.components.EditBox.java
++++ b/net.minecraft.client.gui.components.EditBox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractWidgetRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.EditBox.java b/net.minecraft.client.gui.components.EditBox.java
+--- a/net.minecraft.client.gui.components.EditBox.java
++++ b/net.minecraft.client.gui.components.EditBox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.moveCursorT"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ moveCursorToStart(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.EditBox.java b/net.minecraft.client.gui.components.EditBox.java
+--- a/net.minecraft.client.gui.components.EditBox.java
++++ b/net.minecraft.client.gui.components.EditBox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.highlightPos", "this.cursorPos", "this.insertTex", "this.value"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ deleteCharsToPos(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.EditBox.java b/net.minecraft.client.gui.components.EditBox.java
+--- a/net.minecraft.client.gui.components.EditBox.java
++++ b/net.minecraft.client.gui.components.EditBox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.responder"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onValueChange(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.EditBox.java b/net.minecraft.client.gui.components.EditBox.java
+--- a/net.minecraft.client.gui.components.EditBox.java
++++ b/net.minecraft.client.gui.components.EditBox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getCursorPo", "this.cursorPos", "this.deleteCharsToPo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ deleteChars(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.EditBox.java b/net.minecraft.client.gui.components.EditBox.java
+--- a/net.minecraft.client.gui.components.EditBox.java
++++ b/net.minecraft.client.gui.components.EditBox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.selectWor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onClick(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.EditBox.java b/net.minecraft.client.gui.components.EditBox.java
+--- a/net.minecraft.client.gui.components.EditBox.java
++++ b/net.minecraft.client.gui.components.EditBox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.preeditOverla", "this.font"},
++writeEntities = {"this.preeditOverlay"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ preeditUpdated(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.EditBox.java b/net.minecraft.client.gui.components.EditBox.java
+--- a/net.minecraft.client.gui.components.EditBox.java
++++ b/net.minecraft.client.gui.components.EditBox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createNarrationMessag"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateWidgetNarration(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.EditBox.java b/net.minecraft.client.gui.components.EditBox.java
+--- a/net.minecraft.client.gui.components.EditBox.java
++++ b/net.minecraft.client.gui.components.EditBox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.highlightPos", "this.cursorPos", "this.value", "this.maxLength"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ insertText(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.EditBox.java b/net.minecraft.client.gui.components.EditBox.java
+--- a/net.minecraft.client.gui.components.EditBox.java
++++ b/net.minecraft.client.gui.components.EditBox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.displayPos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scrollTo(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.EditBox.java b/net.minecraft.client.gui.components.EditBox.java
+--- a/net.minecraft.client.gui.components.EditBox.java
++++ b/net.minecraft.client.gui.components.EditBox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.moveCursorT", "this.findClickedPositionInTex"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onDrag(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.EditBox.java b/net.minecraft.client.gui.components.EditBox.java
+--- a/net.minecraft.client.gui.components.EditBox.java
++++ b/net.minecraft.client.gui.components.EditBox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.moveCursorT", "this.value"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ moveCursorToEnd(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.EditBox.java b/net.minecraft.client.gui.components.EditBox.java
+--- a/net.minecraft.client.gui.components.EditBox.java
++++ b/net.minecraft.client.gui.components.EditBox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.moveCursorT", "this.findClickedPositionInTex", "this.wordPosition", "this.getWordPositio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ selectWord(/* params */);
+

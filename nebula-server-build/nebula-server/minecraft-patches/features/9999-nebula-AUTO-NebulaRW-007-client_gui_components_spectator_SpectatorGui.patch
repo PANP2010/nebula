@@ -1,0 +1,95 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.components.spectator.SpectatorGui.java b/net.minecraft.client.gui.components.spectator.SpectatorGui.java
+--- a/net.minecraft.client.gui.components.spectator.SpectatorGui.java
++++ b/net.minecraft.client.gui.components.spectator.SpectatorGui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getHotbarAlph", "this.hotbarAlpha", "this.menu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractHotbar(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.spectator.SpectatorGui.java b/net.minecraft.client.gui.components.spectator.SpectatorGui.java
+--- a/net.minecraft.client.gui.components.spectator.SpectatorGui.java
++++ b/net.minecraft.client.gui.components.spectator.SpectatorGui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isMenuActiv", "this.menu", "this.lastSelectionTim"},
++writeEntities = {"this.lastSelectionTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onHotbarActionKeyPressed(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.spectator.SpectatorGui.java b/net.minecraft.client.gui.components.spectator.SpectatorGui.java
+--- a/net.minecraft.client.gui.components.spectator.SpectatorGui.java
++++ b/net.minecraft.client.gui.components.spectator.SpectatorGui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.men", "this.lastSelectionTim"},
++writeEntities = {"this.lastSelectionTime", "this.menu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSpectatorMenuClosed(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.spectator.SpectatorGui.java b/net.minecraft.client.gui.components.spectator.SpectatorGui.java
+--- a/net.minecraft.client.gui.components.spectator.SpectatorGui.java
++++ b/net.minecraft.client.gui.components.spectator.SpectatorGui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.getHotbarAlph", "this.hotbarAlpha", "this.menu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractAction(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.spectator.SpectatorGui.java b/net.minecraft.client.gui.components.spectator.SpectatorGui.java
+--- a/net.minecraft.client.gui.components.spectator.SpectatorGui.java
++++ b/net.minecraft.client.gui.components.spectator.SpectatorGui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.menu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onMouseScrolled(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.spectator.SpectatorGui.java b/net.minecraft.client.gui.components.spectator.SpectatorGui.java
+--- a/net.minecraft.client.gui.components.spectator.SpectatorGui.java
++++ b/net.minecraft.client.gui.components.spectator.SpectatorGui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.menu", "this.lastSelectionTim"},
++writeEntities = {"this.lastSelectionTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onHotbarSelected(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.spectator.SpectatorGui.java b/net.minecraft.client.gui.components.spectator.SpectatorGui.java
+--- a/net.minecraft.client.gui.components.spectator.SpectatorGui.java
++++ b/net.minecraft.client.gui.components.spectator.SpectatorGui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractSlot(/* params */);
+

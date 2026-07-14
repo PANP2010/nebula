@@ -1,0 +1,86 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.monster.Silverfish.java b/net.minecraft.world.entity.monster.Silverfish.java
+--- a/net.minecraft.world.entity.monster.Silverfish.java
++++ b/net.minecraft.world.entity.monster.Silverfish.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lookForFriends", "this.silverfish"},
++readBlocks = {"{position}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Silverfish.java b/net.minecraft.world.entity.monster.Silverfish.java
+--- a/net.minecraft.world.entity.monster.Silverfish.java
++++ b/net.minecraft.world.entity.monster.Silverfish.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playStepSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Silverfish.java b/net.minecraft.world.entity.monster.Silverfish.java
+--- a/net.minecraft.world.entity.monster.Silverfish.java
++++ b/net.minecraft.world.entity.monster.Silverfish.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.doMerge"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ start(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Silverfish.java b/net.minecraft.world.entity.monster.Silverfish.java
+--- a/net.minecraft.world.entity.monster.Silverfish.java
++++ b/net.minecraft.world.entity.monster.Silverfish.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.targetSelector", "this.goalSelector", "this.leve", "this.friendsGoa", "this.friendsGoal"},
++writeEntities = {"this.friendsGoal"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerGoals(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Silverfish.java b/net.minecraft.world.entity.monster.Silverfish.java
+--- a/net.minecraft.world.entity.monster.Silverfish.java
++++ b/net.minecraft.world.entity.monster.Silverfish.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lookForFriend", "this.adjustedTickDela"},
++writeEntities = {"this.lookForFriends"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ notifyHurt(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Silverfish.java b/net.minecraft.world.entity.monster.Silverfish.java
+--- a/net.minecraft.world.entity.monster.Silverfish.java
++++ b/net.minecraft.world.entity.monster.Silverfish.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isInvulnerableT"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtServer(/* params */);
+

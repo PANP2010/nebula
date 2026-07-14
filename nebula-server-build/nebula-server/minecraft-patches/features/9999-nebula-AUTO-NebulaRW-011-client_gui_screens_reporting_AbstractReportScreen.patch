@@ -1,0 +1,141 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (11 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java b/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.attestation", "this.reportBuilder", "this.sendButton"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onReportChanged(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java b/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.reportBuilder", "this.reportingContext", "this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createCommentBox(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java b/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ displayReportSendError(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java b/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.reportBuilder", "this.reportingContext"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveDraft(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java b/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.layout", "this.getRectangl", "this.rectangle"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ repositionElements(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java b/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.reportBuilder", "this.reportingContext"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendReport(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java b/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.clearDraf"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onReportSendSuccess(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java b/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.layout", "this.reportBuilder", "this.onReportChange", "this.attestatio", "this.font"},
++writeEntities = {"this.attestation"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createFooter(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java b/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.layout", "this.title", "this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createHeader(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java b/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java b/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.AbstractReportScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onClose(/* params */);
+

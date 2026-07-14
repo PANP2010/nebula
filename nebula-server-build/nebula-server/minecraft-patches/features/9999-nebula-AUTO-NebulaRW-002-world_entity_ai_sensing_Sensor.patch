@@ -1,0 +1,36 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (2 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.ai.sensing.Sensor.java b/net.minecraft.world.entity.ai.sensing.Sensor.java
+--- a/net.minecraft.world.entity.ai.sensing.Sensor.java
++++ b/net.minecraft.world.entity.ai.sensing.Sensor.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.scanRate", "this.timeToTic"},
++writeEntities = {"this.timeToTick"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ randomlyDelayStart(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.sensing.Sensor.java b/net.minecraft.world.entity.ai.sensing.Sensor.java
+--- a/net.minecraft.world.entity.ai.sensing.Sensor.java
++++ b/net.minecraft.world.entity.ai.sensing.Sensor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateTargetingConditionRange", "this.timeToTic", "this.doTic", "this.timeToTick", "this.scanRat"},
++writeEntities = {"this.timeToTick"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+

@@ -1,0 +1,177 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (14 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.PlayerAdvancements.java b/net.minecraft.server.PlayerAdvancements.java
+--- a/net.minecraft.server.PlayerAdvancements.java
++++ b/net.minecraft.server.PlayerAdvancements.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.progress"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startProgress(/* params */);
+
+diff --git a/net.minecraft.server.PlayerAdvancements.java b/net.minecraft.server.PlayerAdvancements.java
+--- a/net.minecraft.server.PlayerAdvancements.java
++++ b/net.minecraft.server.PlayerAdvancements.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.awar", "this.player"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkForAutomaticTriggers(/* params */);
+
+diff --git a/net.minecraft.server.PlayerAdvancements.java b/net.minecraft.server.PlayerAdvancements.java
+--- a/net.minecraft.server.PlayerAdvancements.java
++++ b/net.minecraft.server.PlayerAdvancements.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.codec", "this.asDat", "this.playerSavePath"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ save(/* params */);
+
+diff --git a/net.minecraft.server.PlayerAdvancements.java b/net.minecraft.server.PlayerAdvancements.java
+--- a/net.minecraft.server.PlayerAdvancements.java
++++ b/net.minecraft.server.PlayerAdvancements.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.codec", "this.applyFro", "this.playerSavePath"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ load(/* params */);
+
+diff --git a/net.minecraft.server.PlayerAdvancements.java b/net.minecraft.server.PlayerAdvancements.java
+--- a/net.minecraft.server.PlayerAdvancements.java
++++ b/net.minecraft.server.PlayerAdvancements.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.orStartProgress", "this.getOrStartProgres", "this.registerListene"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerListeners(/* params */);
+
+diff --git a/net.minecraft.server.PlayerAdvancements.java b/net.minecraft.server.PlayerAdvancements.java
+--- a/net.minecraft.server.PlayerAdvancements.java
++++ b/net.minecraft.server.PlayerAdvancements.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tree", "this.rootsToUpdate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ markForVisibilityUpdate(/* params */);
+
+diff --git a/net.minecraft.server.PlayerAdvancements.java b/net.minecraft.server.PlayerAdvancements.java
+--- a/net.minecraft.server.PlayerAdvancements.java
++++ b/net.minecraft.server.PlayerAdvancements.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.map"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forEach(/* params */);
+
+diff --git a/net.minecraft.server.PlayerAdvancements.java b/net.minecraft.server.PlayerAdvancements.java
+--- a/net.minecraft.server.PlayerAdvancements.java
++++ b/net.minecraft.server.PlayerAdvancements.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.progressChanged", "this.orStartProgress", "this.visible", "this.progress", "this.getOrStartProgres"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateTreeVisibility(/* params */);
+
+diff --git a/net.minecraft.server.PlayerAdvancements.java b/net.minecraft.server.PlayerAdvancements.java
+--- a/net.minecraft.server.PlayerAdvancements.java
++++ b/net.minecraft.server.PlayerAdvancements.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.removeListene", "this.orStartProgress", "this.getOrStartProgres"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ unregisterListeners(/* params */);
+
+diff --git a/net.minecraft.server.PlayerAdvancements.java b/net.minecraft.server.PlayerAdvancements.java
+--- a/net.minecraft.server.PlayerAdvancements.java
++++ b/net.minecraft.server.PlayerAdvancements.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.isFirstPacket", "this.lastSelectedTab", "this.tree"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reload(/* params */);
+
+diff --git a/net.minecraft.server.PlayerAdvancements.java b/net.minecraft.server.PlayerAdvancements.java
+--- a/net.minecraft.server.PlayerAdvancements.java
++++ b/net.minecraft.server.PlayerAdvancements.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.progressChanged", "this.orStartProgress", "this.getOrStartProgres", "this.registerListener"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ revoke(/* params */);
+
+diff --git a/net.minecraft.server.PlayerAdvancements.java b/net.minecraft.server.PlayerAdvancements.java
+--- a/net.minecraft.server.PlayerAdvancements.java
++++ b/net.minecraft.server.PlayerAdvancements.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ award(/* params */);
+
+diff --git a/net.minecraft.server.PlayerAdvancements.java b/net.minecraft.server.PlayerAdvancements.java
+--- a/net.minecraft.server.PlayerAdvancements.java
++++ b/net.minecraft.server.PlayerAdvancements.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playerSavePath"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyFrom(/* params */);
+
+diff --git a/net.minecraft.server.PlayerAdvancements.java b/net.minecraft.server.PlayerAdvancements.java
+--- a/net.minecraft.server.PlayerAdvancements.java
++++ b/net.minecraft.server.PlayerAdvancements.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isFirstPacket", "this.progressChanged", "this.updateTreeVisibilit", "this.rootsToUpdate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ flushDirty(/* params */);
+

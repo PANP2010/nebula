@@ -1,0 +1,374 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (30 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.renderer.GameRenderer.java b/net.minecraft.client.renderer.GameRenderer.java
+--- a/net.minecraft.client.renderer.GameRenderer.java
++++ b/net.minecraft.client.renderer.GameRenderer.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random", "this.screenEffectRenderer"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ displayItemActivation(/* params */);
+
+diff --git a/net.minecraft.client.renderer.GameRenderer.java b/net.minecraft.client.renderer.GameRenderer.java
+--- a/net.minecraft.client.renderer.GameRenderer.java
++++ b/net.minecraft.client.renderer.GameRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mainCamera"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ projectHorizonToScreen(/* params */);
+
+diff --git a/net.minecraft.client.renderer.GameRenderer.java b/net.minecraft.client.renderer.GameRenderer.java
+--- a/net.minecraft.client.renderer.GameRenderer.java
++++ b/net.minecraft.client.renderer.GameRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.renderBlockOutline"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldRenderBlockOutline(/* params */);
+
+diff --git a/net.minecraft.client.renderer.GameRenderer.java b/net.minecraft.client.renderer.GameRenderer.java
+--- a/net.minecraft.client.renderer.GameRenderer.java
++++ b/net.minecraft.client.renderer.GameRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.gameRenderState", "this.resiz"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ render(/* params */);
+
+diff --git a/net.minecraft.client.renderer.GameRenderer.java b/net.minecraft.client.renderer.GameRenderer.java
+--- a/net.minecraft.client.renderer.GameRenderer.java
++++ b/net.minecraft.client.renderer.GameRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.gameRenderState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractOptions(/* params */);
+
+diff --git a/net.minecraft.client.renderer.GameRenderer.java b/net.minecraft.client.renderer.GameRenderer.java
+--- a/net.minecraft.client.renderer.GameRenderer.java
++++ b/net.minecraft.client.renderer.GameRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mainCamera"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ projectPointToScreen(/* params */);
+
+diff --git a/net.minecraft.client.renderer.GameRenderer.java b/net.minecraft.client.renderer.GameRenderer.java
+--- a/net.minecraft.client.renderer.GameRenderer.java
++++ b/net.minecraft.client.renderer.GameRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.effectActiv"},
++writeEntities = {"this.effectActive"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ togglePostEffect(/* params */);
+
+diff --git a/net.minecraft.client.renderer.GameRenderer.java b/net.minecraft.client.renderer.GameRenderer.java
+--- a/net.minecraft.client.renderer.GameRenderer.java
++++ b/net.minecraft.client.renderer.GameRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.clearPostEffec", "this.setPostEffec"},
++writeEntities = {"this.postEffect"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkEntityPostEffect(/* params */);
+
+diff --git a/net.minecraft.client.renderer.GameRenderer.java b/net.minecraft.client.renderer.GameRenderer.java
+--- a/net.minecraft.client.renderer.GameRenderer.java
++++ b/net.minecraft.client.renderer.GameRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.mainCamera"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ update(/* params */);
+
+diff --git a/net.minecraft.client.renderer.GameRenderer.java b/net.minecraft.client.renderer.GameRenderer.java
+--- a/net.minecraft.client.renderer.GameRenderer.java
++++ b/net.minecraft.client.renderer.GameRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractCamera(/* params */);
+
+diff --git a/net.minecraft.client.renderer.GameRenderer.java b/net.minecraft.client.renderer.GameRenderer.java
+--- a/net.minecraft.client.renderer.GameRenderer.java
++++ b/net.minecraft.client.renderer.GameRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.gameRenderState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderActiveTextDebug(/* params */);
+
+diff --git a/net.minecraft.client.renderer.GameRenderer.java b/net.minecraft.client.renderer.GameRenderer.java
+--- a/net.minecraft.client.renderer.GameRenderer.java
++++ b/net.minecraft.client.renderer.GameRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.index"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderDebugMarkers(/* params */);
+
+diff --git a/net.minecraft.client.renderer.GameRenderer.java b/net.minecraft.client.renderer.GameRenderer.java
+--- a/net.minecraft.client.renderer.GameRenderer.java
++++ b/net.minecraft.client.renderer.GameRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.gameRenderState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractGui(/* params */);
+
+diff --git a/net.minecraft.client.renderer.GameRenderer.java b/net.minecraft.client.renderer.GameRenderer.java
+--- a/net.minecraft.client.renderer.GameRenderer.java
++++ b/net.minecraft.client.renderer.GameRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.resourcePool"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ processBlurEffect(/* params */);
+
+diff --git a/net.minecraft.client.renderer.GameRenderer.java b/net.minecraft.client.renderer.GameRenderer.java
+--- a/net.minecraft.client.renderer.GameRenderer.java
++++ b/net.minecraft.client.renderer.GameRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.guiRenderer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerPanoramaTextures(/* params */);
+
+diff --git a/net.minecraft.client.renderer.GameRenderer.java b/net.minecraft.client.renderer.GameRenderer.java
+--- a/net.minecraft.client.renderer.GameRenderer.java
++++ b/net.minecraft.client.renderer.GameRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.renderDebugMarker"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ acceptEmptyArea(/* params */);
+
+diff --git a/net.minecraft.client.renderer.GameRenderer.java b/net.minecraft.client.renderer.GameRenderer.java
+--- a/net.minecraft.client.renderer.GameRenderer.java
++++ b/net.minecraft.client.renderer.GameRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lightmap"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ levelLightmap(/* params */);
+
+diff --git a/net.minecraft.client.renderer.GameRenderer.java b/net.minecraft.client.renderer.GameRenderer.java
+--- a/net.minecraft.client.renderer.GameRenderer.java
++++ b/net.minecraft.client.renderer.GameRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.overlayTextur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ overlayTexture(/* params */);
+
+diff --git a/net.minecraft.client.renderer.GameRenderer.java b/net.minecraft.client.renderer.GameRenderer.java
+--- a/net.minecraft.client.renderer.GameRenderer.java
++++ b/net.minecraft.client.renderer.GameRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ close(/* params */);
+
+diff --git a/net.minecraft.client.renderer.GameRenderer.java b/net.minecraft.client.renderer.GameRenderer.java
+--- a/net.minecraft.client.renderer.GameRenderer.java
++++ b/net.minecraft.client.renderer.GameRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extract(/* params */);
+
+diff --git a/net.minecraft.client.renderer.GameRenderer.java b/net.minecraft.client.renderer.GameRenderer.java
+--- a/net.minecraft.client.renderer.GameRenderer.java
++++ b/net.minecraft.client.renderer.GameRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ takeAutoScreenshot(/* params */);
+
+diff --git a/net.minecraft.client.renderer.GameRenderer.java b/net.minecraft.client.renderer.GameRenderer.java
+--- a/net.minecraft.client.renderer.GameRenderer.java
++++ b/net.minecraft.client.renderer.GameRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.renderDebugMarker"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ acceptGlyph(/* params */);
+
+diff --git a/net.minecraft.client.renderer.GameRenderer.java b/net.minecraft.client.renderer.GameRenderer.java
+--- a/net.minecraft.client.renderer.GameRenderer.java
++++ b/net.minecraft.client.renderer.GameRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.hasWorldScreensho", "this.mainCamera", "this.screenEffectRenderer"},
++writeEntities = {"this.hasWorldScreenshot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetData(/* params */);
+
+diff --git a/net.minecraft.client.renderer.GameRenderer.java b/net.minecraft.client.renderer.GameRenderer.java
+--- a/net.minecraft.client.renderer.GameRenderer.java
++++ b/net.minecraft.client.renderer.GameRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.uiLightmap", "this.lightmap", "this.useUiLightmap"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ lightmap(/* params */);
+
+diff --git a/net.minecraft.client.renderer.GameRenderer.java b/net.minecraft.client.renderer.GameRenderer.java
+--- a/net.minecraft.client.renderer.GameRenderer.java
++++ b/net.minecraft.client.renderer.GameRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.gameRenderState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractWindow(/* params */);
+
+diff --git a/net.minecraft.client.renderer.GameRenderer.java b/net.minecraft.client.renderer.GameRenderer.java
+--- a/net.minecraft.client.renderer.GameRenderer.java
++++ b/net.minecraft.client.renderer.GameRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.mainCamera", "this.lightmapRenderStateExtractor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.client.renderer.GameRenderer.java b/net.minecraft.client.renderer.GameRenderer.java
+--- a/net.minecraft.client.renderer.GameRenderer.java
++++ b/net.minecraft.client.renderer.GameRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.renderBuffers", "this.bobHur", "this.gameRenderState", "this.bobVie", "this.featureRenderDispatcher"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderItemInHand(/* params */);
+
+diff --git a/net.minecraft.client.renderer.GameRenderer.java b/net.minecraft.client.renderer.GameRenderer.java
+--- a/net.minecraft.client.renderer.GameRenderer.java
++++ b/net.minecraft.client.renderer.GameRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.lastScreenshotAttemp", "this.hasWorldScreensho", "this.lastScreenshotAttempt", "this.hasWorldScreenshot"},
++writeEntities = {"this.lastScreenshotAttempt", "this.hasWorldScreenshot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tryTakeScreenshotIfNeeded(/* params */);
+
+diff --git a/net.minecraft.client.renderer.GameRenderer.java b/net.minecraft.client.renderer.GameRenderer.java
+--- a/net.minecraft.client.renderer.GameRenderer.java
++++ b/net.minecraft.client.renderer.GameRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderLevel(/* params */);
+
+diff --git a/net.minecraft.client.renderer.GameRenderer.java b/net.minecraft.client.renderer.GameRenderer.java
+--- a/net.minecraft.client.renderer.GameRenderer.java
++++ b/net.minecraft.client.renderer.GameRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.resourcePool"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resize(/* params */);
+

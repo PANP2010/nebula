@@ -1,0 +1,242 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (19 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.inventory.AbstractContainerMenu.java b/net.minecraft.world.inventory.AbstractContainerMenu.java
+--- a/net.minecraft.world.inventory.AbstractContainerMenu.java
++++ b/net.minecraft.world.inventory.AbstractContainerMenu.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.broadcastChange"},
++triggeredEvents = {"BLOCK_UPDATE"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ slotsChanged(/* params */);
+
+diff --git a/net.minecraft.world.inventory.AbstractContainerMenu.java b/net.minecraft.world.inventory.AbstractContainerMenu.java
+--- a/net.minecraft.world.inventory.AbstractContainerMenu.java
++++ b/net.minecraft.world.inventory.AbstractContainerMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.containerListeners"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateDataSlotListeners(/* params */);
+
+diff --git a/net.minecraft.world.inventory.AbstractContainerMenu.java b/net.minecraft.world.inventory.AbstractContainerMenu.java
+--- a/net.minecraft.world.inventory.AbstractContainerMenu.java
++++ b/net.minecraft.world.inventory.AbstractContainerMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.quickcraftSlots", "this.quickcraftStatu"},
++writeEntities = {"this.quickcraftStatus"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetQuickCraft(/* params */);
+
+diff --git a/net.minecraft.world.inventory.AbstractContainerMenu.java b/net.minecraft.world.inventory.AbstractContainerMenu.java
+--- a/net.minecraft.world.inventory.AbstractContainerMenu.java
++++ b/net.minecraft.world.inventory.AbstractContainerMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createCarriedSlotAcces"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tryItemClickBehaviourOverride(/* params */);
+
+diff --git a/net.minecraft.world.inventory.AbstractContainerMenu.java b/net.minecraft.world.inventory.AbstractContainerMenu.java
+--- a/net.minecraft.world.inventory.AbstractContainerMenu.java
++++ b/net.minecraft.world.inventory.AbstractContainerMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.suppressRemoteUpdates", "this.synchronizer", "this.remoteDataSlots"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ synchronizeDataSlotToRemote(/* params */);
+
+diff --git a/net.minecraft.world.inventory.AbstractContainerMenu.java b/net.minecraft.world.inventory.AbstractContainerMenu.java
+--- a/net.minecraft.world.inventory.AbstractContainerMenu.java
++++ b/net.minecraft.world.inventory.AbstractContainerMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.suppressRemoteUpdate"},
++writeEntities = {"this.suppressRemoteUpdates"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ suppressRemoteUpdates(/* params */);
+
+diff --git a/net.minecraft.world.inventory.AbstractContainerMenu.java b/net.minecraft.world.inventory.AbstractContainerMenu.java
+--- a/net.minecraft.world.inventory.AbstractContainerMenu.java
++++ b/net.minecraft.world.inventory.AbstractContainerMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.resetQuickCraf", "this.quickcraftStatu", "this.quickcraftStatus"},
++writeEntities = {"this.quickcraftStatus"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ doClick(/* params */);
+
+diff --git a/net.minecraft.world.inventory.AbstractContainerMenu.java b/net.minecraft.world.inventory.AbstractContainerMenu.java
+--- a/net.minecraft.world.inventory.AbstractContainerMenu.java
++++ b/net.minecraft.world.inventory.AbstractContainerMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.slots", "this.triggerSlotListener"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ broadcastFullState(/* params */);
+
+diff --git a/net.minecraft.world.inventory.AbstractContainerMenu.java b/net.minecraft.world.inventory.AbstractContainerMenu.java
+--- a/net.minecraft.world.inventory.AbstractContainerMenu.java
++++ b/net.minecraft.world.inventory.AbstractContainerMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.doClic"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ clicked(/* params */);
+
+diff --git a/net.minecraft.world.inventory.AbstractContainerMenu.java b/net.minecraft.world.inventory.AbstractContainerMenu.java
+--- a/net.minecraft.world.inventory.AbstractContainerMenu.java
++++ b/net.minecraft.world.inventory.AbstractContainerMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.slots"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findSlot(/* params */);
+
+diff --git a/net.minecraft.world.inventory.AbstractContainerMenu.java b/net.minecraft.world.inventory.AbstractContainerMenu.java
+--- a/net.minecraft.world.inventory.AbstractContainerMenu.java
++++ b/net.minecraft.world.inventory.AbstractContainerMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.stateI", "this.stateId"},
++writeEntities = {"this.stateId"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ incrementStateId(/* params */);
+
+diff --git a/net.minecraft.world.inventory.AbstractContainerMenu.java b/net.minecraft.world.inventory.AbstractContainerMenu.java
+--- a/net.minecraft.world.inventory.AbstractContainerMenu.java
++++ b/net.minecraft.world.inventory.AbstractContainerMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.slots", "this.triggerSlotListener", "this.synchronizeSlotToRemot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ broadcastChanges(/* params */);
+
+diff --git a/net.minecraft.world.inventory.AbstractContainerMenu.java b/net.minecraft.world.inventory.AbstractContainerMenu.java
+--- a/net.minecraft.world.inventory.AbstractContainerMenu.java
++++ b/net.minecraft.world.inventory.AbstractContainerMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getSlo", "this.slot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ initializeContents(/* params */);
+
+diff --git a/net.minecraft.world.inventory.AbstractContainerMenu.java b/net.minecraft.world.inventory.AbstractContainerMenu.java
+--- a/net.minecraft.world.inventory.AbstractContainerMenu.java
++++ b/net.minecraft.world.inventory.AbstractContainerMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.carried", "this.suppressRemoteUpdates", "this.getCarrie", "this.remoteCarried", "this.synchronizer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ synchronizeCarriedToRemote(/* params */);
+
+diff --git a/net.minecraft.world.inventory.AbstractContainerMenu.java b/net.minecraft.world.inventory.AbstractContainerMenu.java
+--- a/net.minecraft.world.inventory.AbstractContainerMenu.java
++++ b/net.minecraft.world.inventory.AbstractContainerMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.containerListeners", "this.lastSlots"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ triggerSlotListeners(/* params */);
+
+diff --git a/net.minecraft.world.inventory.AbstractContainerMenu.java b/net.minecraft.world.inventory.AbstractContainerMenu.java
+--- a/net.minecraft.world.inventory.AbstractContainerMenu.java
++++ b/net.minecraft.world.inventory.AbstractContainerMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.suppressRemoteUpdate"},
++writeEntities = {"this.suppressRemoteUpdates"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resumeRemoteUpdates(/* params */);
+
+diff --git a/net.minecraft.world.inventory.AbstractContainerMenu.java b/net.minecraft.world.inventory.AbstractContainerMenu.java
+--- a/net.minecraft.world.inventory.AbstractContainerMenu.java
++++ b/net.minecraft.world.inventory.AbstractContainerMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.slots", "this.remoteSlots"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendAllDataToRemote(/* params */);
+
+diff --git a/net.minecraft.world.inventory.AbstractContainerMenu.java b/net.minecraft.world.inventory.AbstractContainerMenu.java
+--- a/net.minecraft.world.inventory.AbstractContainerMenu.java
++++ b/net.minecraft.world.inventory.AbstractContainerMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.suppressRemoteUpdates", "this.synchronizer", "this.remoteSlots"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ synchronizeSlotToRemote(/* params */);
+
+diff --git a/net.minecraft.world.inventory.AbstractContainerMenu.java b/net.minecraft.world.inventory.AbstractContainerMenu.java
+--- a/net.minecraft.world.inventory.AbstractContainerMenu.java
++++ b/net.minecraft.world.inventory.AbstractContainerMenu.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stillValid(/* params */);
+

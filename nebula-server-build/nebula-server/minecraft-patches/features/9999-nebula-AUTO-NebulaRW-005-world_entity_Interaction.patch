@@ -1,0 +1,70 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.Interaction.java b/net.minecraft.world.entity.Interaction.java
+--- a/net.minecraft.world.entity.Interaction.java
++++ b/net.minecraft.world.entity.Interaction.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.refreshDimension"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSyncedDataUpdated(/* params */);
+
+diff --git a/net.minecraft.world.entity.Interaction.java b/net.minecraft.world.entity.Interaction.java
+--- a/net.minecraft.world.entity.Interaction.java
++++ b/net.minecraft.world.entity.Interaction.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.response", "this.getRespons", "this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ interact(/* params */);
+
+diff --git a/net.minecraft.world.entity.Interaction.java b/net.minecraft.world.entity.Interaction.java
+--- a/net.minecraft.world.entity.Interaction.java
++++ b/net.minecraft.world.entity.Interaction.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.Interaction.java b/net.minecraft.world.entity.Interaction.java
+--- a/net.minecraft.world.entity.Interaction.java
++++ b/net.minecraft.world.entity.Interaction.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leve", "this.attac"},
++writeEntities = {"this.attack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ skipAttackInteraction(/* params */);
+
+diff --git a/net.minecraft.world.entity.Interaction.java b/net.minecraft.world.entity.Interaction.java
+--- a/net.minecraft.world.entity.Interaction.java
++++ b/net.minecraft.world.entity.Interaction.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getDimension", "this.dimensions"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ makeBoundingBox(/* params */);
+

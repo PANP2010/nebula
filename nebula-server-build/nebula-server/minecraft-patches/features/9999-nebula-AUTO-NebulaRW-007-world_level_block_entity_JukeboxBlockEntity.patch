@@ -1,0 +1,101 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.entity.JukeboxBlockEntity.java b/net.minecraft.world.level.block.entity.JukeboxBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.JukeboxBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.JukeboxBlockEntity.java
+@@ // 65% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.changed"},
++readBlocks = {"{position}"},
++triggeredEvents = {"BLOCK_UPDATE"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSongChanged(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.JukeboxBlockEntity.java b/net.minecraft.world.level.block.entity.JukeboxBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.JukeboxBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.JukeboxBlockEntity.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++triggeredEvents = {"ENTITY_SPAWNED"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ popOutTheItem(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.JukeboxBlockEntity.java b/net.minecraft.world.level.block.entity.JukeboxBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.JukeboxBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.JukeboxBlockEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockState", "this.item", "this.level", "this.getBlockStat", "this.jukeboxSongPlayer"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadAdditional(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.JukeboxBlockEntity.java b/net.minecraft.world.level.block.entity.JukeboxBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.JukeboxBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.JukeboxBlockEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBlockPo", "this.blockState", "this.blockPos", "this.level", "this.getBlockStat"},
++readBlocks = {"{level}", "{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ notifyItemChangedInJukebox(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.JukeboxBlockEntity.java b/net.minecraft.world.level.block.entity.JukeboxBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.JukeboxBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.JukeboxBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.theItem", "this.getTheIte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveAdditional(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.JukeboxBlockEntity.java b/net.minecraft.world.level.block.entity.JukeboxBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.JukeboxBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.JukeboxBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ite", "this.setTheIte"},
++writeEntities = {"this.theItem"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ splitTheItem(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.JukeboxBlockEntity.java b/net.minecraft.world.level.block.entity.JukeboxBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.JukeboxBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.JukeboxBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.jukeboxSongPlayer", "this.theItem", "this.getTheIte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tryForcePlaySong(/* params */);
+

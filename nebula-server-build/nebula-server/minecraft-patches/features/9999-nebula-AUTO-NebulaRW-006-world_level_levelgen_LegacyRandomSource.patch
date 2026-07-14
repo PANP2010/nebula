@@ -1,0 +1,90 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.levelgen.LegacyRandomSource.java b/net.minecraft.world.level.levelgen.LegacyRandomSource.java
+--- a/net.minecraft.world.level.levelgen.LegacyRandomSource.java
++++ b/net.minecraft.world.level.levelgen.LegacyRandomSource.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.seed"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fromHashOf(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.LegacyRandomSource.java b/net.minecraft.world.level.levelgen.LegacyRandomSource.java
+--- a/net.minecraft.world.level.levelgen.LegacyRandomSource.java
++++ b/net.minecraft.world.level.levelgen.LegacyRandomSource.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.nextLon"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forkPositional(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.LegacyRandomSource.java b/net.minecraft.world.level.levelgen.LegacyRandomSource.java
+--- a/net.minecraft.world.level.levelgen.LegacyRandomSource.java
++++ b/net.minecraft.world.level.levelgen.LegacyRandomSource.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.seed"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ parityConfigString(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.LegacyRandomSource.java b/net.minecraft.world.level.levelgen.LegacyRandomSource.java
+--- a/net.minecraft.world.level.levelgen.LegacyRandomSource.java
++++ b/net.minecraft.world.level.levelgen.LegacyRandomSource.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.seed"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ next(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.LegacyRandomSource.java b/net.minecraft.world.level.levelgen.LegacyRandomSource.java
+--- a/net.minecraft.world.level.levelgen.LegacyRandomSource.java
++++ b/net.minecraft.world.level.levelgen.LegacyRandomSource.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.nextLon"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fork(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.LegacyRandomSource.java b/net.minecraft.world.level.levelgen.LegacyRandomSource.java
+--- a/net.minecraft.world.level.levelgen.LegacyRandomSource.java
++++ b/net.minecraft.world.level.levelgen.LegacyRandomSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.gaussianSource"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ nextGaussian(/* params */);
+

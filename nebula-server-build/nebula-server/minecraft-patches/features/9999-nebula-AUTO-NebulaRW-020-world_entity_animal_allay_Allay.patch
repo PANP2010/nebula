@@ -1,0 +1,260 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (20 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.animal.allay.Allay.java b/net.minecraft.world.entity.animal.allay.Allay.java
+--- a/net.minecraft.world.entity.animal.allay.Allay.java
++++ b/net.minecraft.world.entity.animal.allay.Allay.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.jukeboxPo", "this.leve", "this.positio", "this.jukeboxPos"},
++writeEntities = {"this.jukeboxPos"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldStopDancing(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.allay.Allay.java b/net.minecraft.world.entity.animal.allay.Allay.java
+--- a/net.minecraft.world.entity.animal.allay.Allay.java
++++ b/net.minecraft.world.entity.animal.allay.Allay.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mobInteract(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.allay.Allay.java b/net.minecraft.world.entity.animal.allay.Allay.java
+--- a/net.minecraft.world.entity.animal.allay.Allay.java
++++ b/net.minecraft.world.entity.animal.allay.Allay.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.resetDuplicationCooldow", "this.leve", "this.positio"},
++triggeredEvents = {"ENTITY_SPAWNED"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ duplicateAllay(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.allay.Allay.java b/net.minecraft.world.entity.animal.allay.Allay.java
+--- a/net.minecraft.world.entity.animal.allay.Allay.java
++++ b/net.minecraft.world.entity.animal.allay.Allay.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spawnHeartParticle(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.allay.Allay.java b/net.minecraft.world.entity.animal.allay.Allay.java
+--- a/net.minecraft.world.entity.animal.allay.Allay.java
++++ b/net.minecraft.world.entity.animal.allay.Allay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isLikedPlaye"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ considersEntityAsAlly(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.allay.Allay.java b/net.minecraft.world.entity.animal.allay.Allay.java
+--- a/net.minecraft.world.entity.animal.allay.Allay.java
++++ b/net.minecraft.world.entity.animal.allay.Allay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isAliv", "this.tickCount", "this.hea", "this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ aiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.allay.Allay.java b/net.minecraft.world.entity.animal.allay.Allay.java
+--- a/net.minecraft.world.entity.animal.allay.Allay.java
++++ b/net.minecraft.world.entity.animal.allay.Allay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setDuplicationCooldow", "this.leve", "this.duplicationCooldown"},
++writeEntities = {"this.duplicationCooldown"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateDuplicationCooldown(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.allay.Allay.java b/net.minecraft.world.entity.animal.allay.Allay.java
+--- a/net.minecraft.world.entity.animal.allay.Allay.java
++++ b/net.minecraft.world.entity.animal.allay.Allay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setItemSlo", "this.getItemBySlo", "this.spawnAtLocatio", "this.itemBySlot", "this.inventory"},
++writeEntities = {"this.itemSlot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropEquipment(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.allay.Allay.java b/net.minecraft.world.entity.animal.allay.Allay.java
+--- a/net.minecraft.world.entity.animal.allay.Allay.java
++++ b/net.minecraft.world.entity.animal.allay.Allay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.spawnHeartParticl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleEntityEvent(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.allay.Allay.java b/net.minecraft.world.entity.animal.allay.Allay.java
+--- a/net.minecraft.world.entity.animal.allay.Allay.java
++++ b/net.minecraft.world.entity.animal.allay.Allay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leve", "this.dynamicVibrationListener", "this.dynamicJukeboxListener"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateDynamicGameEventListener(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.allay.Allay.java b/net.minecraft.world.entity.animal.allay.Allay.java
+--- a/net.minecraft.world.entity.animal.allay.Allay.java
++++ b/net.minecraft.world.entity.animal.allay.Allay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setDuplicationCooldow"},
++writeEntities = {"this.duplicationCooldown"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetDuplicationCooldown(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.allay.Allay.java b/net.minecraft.world.entity.animal.allay.Allay.java
+--- a/net.minecraft.world.entity.animal.allay.Allay.java
++++ b/net.minecraft.world.entity.animal.allay.Allay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBrai", "this.brain"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ customServerAiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.allay.Allay.java b/net.minecraft.world.entity.animal.allay.Allay.java
+--- a/net.minecraft.world.entity.animal.allay.Allay.java
++++ b/net.minecraft.world.entity.animal.allay.Allay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.travelFlyin", "this.getSpee", "this.speed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ travel(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.allay.Allay.java b/net.minecraft.world.entity.animal.allay.Allay.java
+--- a/net.minecraft.world.entity.animal.allay.Allay.java
++++ b/net.minecraft.world.entity.animal.allay.Allay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setJukeboxPlayin"},
++writeEntities = {"this.jukeboxPlaying"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleGameEvent(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.allay.Allay.java b/net.minecraft.world.entity.animal.allay.Allay.java
+--- a/net.minecraft.world.entity.animal.allay.Allay.java
++++ b/net.minecraft.world.entity.animal.allay.Allay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.allayConsidersItemEqua"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ equipmentHasChanged(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.allay.Allay.java b/net.minecraft.world.entity.animal.allay.Allay.java
+--- a/net.minecraft.world.entity.animal.allay.Allay.java
++++ b/net.minecraft.world.entity.animal.allay.Allay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.readInventoryFromTa", "this.vibrationDat", "this.setDuplicationCooldow"},
++writeEntities = {"this.vibrationData", "this.duplicationCooldown"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.allay.Allay.java b/net.minecraft.world.entity.animal.allay.Allay.java
+--- a/net.minecraft.world.entity.animal.allay.Allay.java
++++ b/net.minecraft.world.entity.animal.allay.Allay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.allayConsidersItemEqua", "this.getItemInHan", "this.itemInHand", "this.inventory"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ wantsToPickUp(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.allay.Allay.java b/net.minecraft.world.entity.animal.allay.Allay.java
+--- a/net.minecraft.world.entity.animal.allay.Allay.java
++++ b/net.minecraft.world.entity.animal.allay.Allay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hasNonMatchingPotio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ allayConsidersItemEqual(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.allay.Allay.java b/net.minecraft.world.entity.animal.allay.Allay.java
+--- a/net.minecraft.world.entity.animal.allay.Allay.java
++++ b/net.minecraft.world.entity.animal.allay.Allay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.holdingItemAnimationTicks", "this.hasItemInHan", "this.leve", "this.holdingItemAnimationTick"},
++writeEntities = {"this.holdingItemAnimationTicks", "this.holdingItemAnimationTicks0"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.allay.Allay.java b/net.minecraft.world.entity.animal.allay.Allay.java
+--- a/net.minecraft.world.entity.animal.allay.Allay.java
++++ b/net.minecraft.world.entity.animal.allay.Allay.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isLikedPlaye"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtServer(/* params */);
+

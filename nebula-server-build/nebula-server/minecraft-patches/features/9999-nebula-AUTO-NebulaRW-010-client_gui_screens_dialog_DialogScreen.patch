@@ -1,0 +1,129 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (10 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.dialog.DialogScreen.java b/net.minecraft.client.gui.screens.dialog.DialogScreen.java
+--- a/net.minecraft.client.gui.screens.dialog.DialogScreen.java
++++ b/net.minecraft.client.gui.screens.dialog.DialogScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.warningButton"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.dialog.DialogScreen.java b/net.minecraft.client.gui.screens.dialog.DialogScreen.java
+--- a/net.minecraft.client.gui.screens.dialog.DialogScreen.java
++++ b/net.minecraft.client.gui.screens.dialog.DialogScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.dialog"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldCloseOnEsc(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.dialog.DialogScreen.java b/net.minecraft.client.gui.screens.dialog.DialogScreen.java
+--- a/net.minecraft.client.gui.screens.dialog.DialogScreen.java
++++ b/net.minecraft.client.gui.screens.dialog.DialogScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.layout", "this.makeSureWarningButtonIsInBound", "this.bodyScroll"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ repositionElements(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.dialog.DialogScreen.java b/net.minecraft.client.gui.screens.dialog.DialogScreen.java
+--- a/net.minecraft.client.gui.screens.dialog.DialogScreen.java
++++ b/net.minecraft.client.gui.screens.dialog.DialogScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.previousScree", "this.previousScreen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ runAction(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.dialog.DialogScreen.java b/net.minecraft.client.gui.screens.dialog.DialogScreen.java
+--- a/net.minecraft.client.gui.screens.dialog.DialogScreen.java
++++ b/net.minecraft.client.gui.screens.dialog.DialogScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.onClose", "this.runActio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onClose(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.dialog.DialogScreen.java b/net.minecraft.client.gui.screens.dialog.DialogScreen.java
+--- a/net.minecraft.client.gui.screens.dialog.DialogScreen.java
++++ b/net.minecraft.client.gui.screens.dialog.DialogScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.warningButton", "this.width", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ makeSureWarningButtonIsInBounds(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.dialog.DialogScreen.java b/net.minecraft.client.gui.screens.dialog.DialogScreen.java
+--- a/net.minecraft.client.gui.screens.dialog.DialogScreen.java
++++ b/net.minecraft.client.gui.screens.dialog.DialogScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connectionAccess", "this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleDialogClickEvent(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.dialog.DialogScreen.java b/net.minecraft.client.gui.screens.dialog.DialogScreen.java
+--- a/net.minecraft.client.gui.screens.dialog.DialogScreen.java
++++ b/net.minecraft.client.gui.screens.dialog.DialogScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.returnScreen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateReturnScreen(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.dialog.DialogScreen.java b/net.minecraft.client.gui.screens.dialog.DialogScreen.java
+--- a/net.minecraft.client.gui.screens.dialog.DialogScreen.java
++++ b/net.minecraft.client.gui.screens.dialog.DialogScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.warningButton", "this.title", "this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createTitleWithWarningButton(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.dialog.DialogScreen.java b/net.minecraft.client.gui.screens.dialog.DialogScreen.java
+--- a/net.minecraft.client.gui.screens.dialog.DialogScreen.java
++++ b/net.minecraft.client.gui.screens.dialog.DialogScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.connectionAccess"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createWarningButton(/* params */);
+

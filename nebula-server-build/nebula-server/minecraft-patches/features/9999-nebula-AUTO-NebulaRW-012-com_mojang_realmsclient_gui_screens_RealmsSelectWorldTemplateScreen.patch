@@ -1,0 +1,155 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (12 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java b/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractContent(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java b/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.callback", "this.selectedTemplate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ selectTemplate(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java b/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.currentLink"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mouseClicked(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java b/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.callback"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onClose(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java b/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.selectedTemplate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onTrailer(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java b/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.layout", "this.width", "this.worldTemplateList"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ repositionElements(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java b/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.extractMultilineMessag", "this.noTemplatesMessage", "this.currentLin"},
++writeEntities = {"this.currentLink"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java b/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.width", "this.font", "this.currentLin"},
++writeEntities = {"this.currentLink"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractMultilineMessage(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java b/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.trailerButton", "this.publisherButton", "this.selectedTemplate", "this.selectButton"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateButtonStates(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java b/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.worldType"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fetchTemplates(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java b/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.trailerButton", "this.publisherButton", "this.worldTemplateList", "this.selectButton"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java b/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsSelectWorldTemplateScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.selectedTemplate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onPublish(/* params */);
+

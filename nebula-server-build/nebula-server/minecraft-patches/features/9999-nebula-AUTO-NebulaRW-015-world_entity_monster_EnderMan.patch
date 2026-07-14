@@ -1,0 +1,210 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (15 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.monster.EnderMan.java b/net.minecraft.world.entity.monster.EnderMan.java
+--- a/net.minecraft.world.entity.monster.EnderMan.java
++++ b/net.minecraft.world.entity.monster.EnderMan.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.enderman"},
++readBlocks = {"{position}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.EnderMan.java b/net.minecraft.world.entity.monster.EnderMan.java
+--- a/net.minecraft.world.entity.monster.EnderMan.java
++++ b/net.minecraft.world.entity.monster.EnderMan.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leve"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ teleport(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.EnderMan.java b/net.minecraft.world.entity.monster.EnderMan.java
+--- a/net.minecraft.world.entity.monster.EnderMan.java
++++ b/net.minecraft.world.entity.monster.EnderMan.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropCustomDeathLoot(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.EnderMan.java b/net.minecraft.world.entity.monster.EnderMan.java
+--- a/net.minecraft.world.entity.monster.EnderMan.java
++++ b/net.minecraft.world.entity.monster.EnderMan.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.target"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ customServerAiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.EnderMan.java b/net.minecraft.world.entity.monster.EnderMan.java
+--- a/net.minecraft.world.entity.monster.EnderMan.java
++++ b/net.minecraft.world.entity.monster.EnderMan.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ aiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.EnderMan.java b/net.minecraft.world.entity.monster.EnderMan.java
+--- a/net.minecraft.world.entity.monster.EnderMan.java
++++ b/net.minecraft.world.entity.monster.EnderMan.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ teleportTowards(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.EnderMan.java b/net.minecraft.world.entity.monster.EnderMan.java
+--- a/net.minecraft.world.entity.monster.EnderMan.java
++++ b/net.minecraft.world.entity.monster.EnderMan.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.targetSelector", "this.goalSelector"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerGoals(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.EnderMan.java b/net.minecraft.world.entity.monster.EnderMan.java
+--- a/net.minecraft.world.entity.monster.EnderMan.java
++++ b/net.minecraft.world.entity.monster.EnderMan.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random", "this.setTimeToRemainAngr"},
++writeEntities = {"this.timeToRemainAngry"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startPersistentAngerTimer(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.EnderMan.java b/net.minecraft.world.entity.monster.EnderMan.java
+--- a/net.minecraft.world.entity.monster.EnderMan.java
++++ b/net.minecraft.world.entity.monster.EnderMan.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leve", "this.setCarriedBloc", "this.readPersistentAngerSaveDat"},
++writeEntities = {"this.carriedBlock"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.EnderMan.java b/net.minecraft.world.entity.monster.EnderMan.java
+--- a/net.minecraft.world.entity.monster.EnderMan.java
++++ b/net.minecraft.world.entity.monster.EnderMan.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isInvulnerableT"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtServer(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.EnderMan.java b/net.minecraft.world.entity.monster.EnderMan.java
+--- a/net.minecraft.world.entity.monster.EnderMan.java
++++ b/net.minecraft.world.entity.monster.EnderMan.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pendingTarge"},
++writeEntities = {"this.pendingTarget"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.EnderMan.java b/net.minecraft.world.entity.monster.EnderMan.java
+--- a/net.minecraft.world.entity.monster.EnderMan.java
++++ b/net.minecraft.world.entity.monster.EnderMan.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.lastStareSound"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playStareSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.EnderMan.java b/net.minecraft.world.entity.monster.EnderMan.java
+--- a/net.minecraft.world.entity.monster.EnderMan.java
++++ b/net.minecraft.world.entity.monster.EnderMan.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playStareSoun", "this.leve", "this.hasBeenStaredA"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSyncedDataUpdated(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.EnderMan.java b/net.minecraft.world.entity.monster.EnderMan.java
+--- a/net.minecraft.world.entity.monster.EnderMan.java
++++ b/net.minecraft.world.entity.monster.EnderMan.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getCarriedBloc", "this.carriedBlock"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ requiresCustomPersistence(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.EnderMan.java b/net.minecraft.world.entity.monster.EnderMan.java
+--- a/net.minecraft.world.entity.monster.EnderMan.java
++++ b/net.minecraft.world.entity.monster.EnderMan.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.aggroTim", "this.adjustedTickDela", "this.teleportTim", "this.enderman"},
++writeEntities = {"this.teleportTime", "this.aggroTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ start(/* params */);
+

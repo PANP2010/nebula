@@ -1,0 +1,80 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.lighting.SkyLightEngine.java b/net.minecraft.world.level.lighting.SkyLightEngine.java
+--- a/net.minecraft.world.level.lighting.SkyLightEngine.java
++++ b/net.minecraft.world.level.lighting.SkyLightEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.enqueueDecreas", "this.propagateFromEmptySection", "this.countEmptySectionsBelowIfAtBorde", "this.storage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ propagateDecrease(/* params */);
+
+diff --git a/net.minecraft.world.level.lighting.SkyLightEngine.java b/net.minecraft.world.level.lighting.SkyLightEngine.java
+--- a/net.minecraft.world.level.lighting.SkyLightEngine.java
++++ b/net.minecraft.world.level.lighting.SkyLightEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.storage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ propagateFromEmptySections(/* params */);
+
+diff --git a/net.minecraft.world.level.lighting.SkyLightEngine.java b/net.minecraft.world.level.lighting.SkyLightEngine.java
+--- a/net.minecraft.world.level.lighting.SkyLightEngine.java
++++ b/net.minecraft.world.level.lighting.SkyLightEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.enqueueIncreas", "this.emptyChunkSources", "this.getChunkSource", "this.storage", "this.chunkSources"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ propagateLightSources(/* params */);
+
+diff --git a/net.minecraft.world.level.lighting.SkyLightEngine.java b/net.minecraft.world.level.lighting.SkyLightEngine.java
+--- a/net.minecraft.world.level.lighting.SkyLightEngine.java
++++ b/net.minecraft.world.level.lighting.SkyLightEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.addSourcesAbov", "this.storage", "this.removeSourcesBelo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateSourcesInColumn(/* params */);
+
+diff --git a/net.minecraft.world.level.lighting.SkyLightEngine.java b/net.minecraft.world.level.lighting.SkyLightEngine.java
+--- a/net.minecraft.world.level.lighting.SkyLightEngine.java
++++ b/net.minecraft.world.level.lighting.SkyLightEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getLowestSource", "this.updateSourcesInColum", "this.storage", "this.lowestSourceY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkNode(/* params */);
+
+diff --git a/net.minecraft.world.level.lighting.SkyLightEngine.java b/net.minecraft.world.level.lighting.SkyLightEngine.java
+--- a/net.minecraft.world.level.lighting.SkyLightEngine.java
++++ b/net.minecraft.world.level.lighting.SkyLightEngine.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ propagateIncrease(/* params */);
+

@@ -1,0 +1,32 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (2 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.packs.repository.FolderRepositorySource.java b/net.minecraft.server.packs.repository.FolderRepositorySource.java
+--- a/net.minecraft.server.packs.repository.FolderRepositorySource.java
++++ b/net.minecraft.server.packs.repository.FolderRepositorySource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.packSource"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createDiscoveredFilePackInfo(/* params */);
+
+diff --git a/net.minecraft.server.packs.repository.FolderRepositorySource.java b/net.minecraft.server.packs.repository.FolderRepositorySource.java
+--- a/net.minecraft.server.packs.repository.FolderRepositorySource.java
++++ b/net.minecraft.server.packs.repository.FolderRepositorySource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.folder", "this.validator", "this.packType", "this.createDiscoveredFilePackInf"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadPacks(/* params */);
+

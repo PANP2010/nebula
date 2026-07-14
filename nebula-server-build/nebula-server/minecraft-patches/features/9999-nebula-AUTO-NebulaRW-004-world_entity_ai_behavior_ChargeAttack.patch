@@ -1,0 +1,58 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.ai.behavior.ChargeAttack.java b/net.minecraft.world.entity.ai.behavior.ChargeAttack.java
+--- a/net.minecraft.world.entity.ai.behavior.ChargeAttack.java
++++ b/net.minecraft.world.entity.ai.behavior.ChargeAttack.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.canStillUs", "this.chargeVelocityVecto", "this.startPositio", "this.chargeSound", "this.speed"},
++writeEntities = {"this.startPosition", "this.chargeVelocityVector"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ start(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.ChargeAttack.java b/net.minecraft.world.entity.ai.behavior.ChargeAttack.java
+--- a/net.minecraft.world.entity.ai.behavior.ChargeAttack.java
++++ b/net.minecraft.world.entity.ai.behavior.ChargeAttack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.timeBetweenAttacks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.ChargeAttack.java b/net.minecraft.world.entity.ai.behavior.ChargeAttack.java
+--- a/net.minecraft.world.entity.ai.behavior.ChargeAttack.java
++++ b/net.minecraft.world.entity.ai.behavior.ChargeAttack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.knockbackForce", "this.speed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dealKnockBack(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.ChargeAttack.java b/net.minecraft.world.entity.ai.behavior.ChargeAttack.java
+--- a/net.minecraft.world.entity.ai.behavior.ChargeAttack.java
++++ b/net.minecraft.world.entity.ai.behavior.ChargeAttack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chargeTargeting", "this.chargeVelocityVector"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+

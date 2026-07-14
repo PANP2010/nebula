@@ -1,0 +1,47 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (3 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.ShipwreckPieces.java b/net.minecraft.world.level.levelgen.structure.structures.ShipwreckPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.ShipwreckPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.ShipwreckPieces.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.template"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateBeachedPosition(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.ShipwreckPieces.java b/net.minecraft.world.level.levelgen.structure.structures.ShipwreckPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.ShipwreckPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.ShipwreckPieces.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.templatePositio", "this.heightAdjuste", "this.templatePosition"},
++writeEntities = {"this.templatePosition", "this.heightAdjusted"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ adjustPositionHeight(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.ShipwreckPieces.java b/net.minecraft.world.level.levelgen.structure.structures.ShipwreckPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.ShipwreckPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.ShipwreckPieces.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.template", "this.isTooBigToFitInWorldGenRegio", "this.isBeached", "this.templatePosition", "this.heightAdjusted"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ postProcess(/* params */);
+

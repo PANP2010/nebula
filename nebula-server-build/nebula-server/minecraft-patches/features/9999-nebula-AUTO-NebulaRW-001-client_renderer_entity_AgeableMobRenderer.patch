@@ -1,0 +1,21 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (1 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.renderer.entity.AgeableMobRenderer.java b/net.minecraft.client.renderer.entity.AgeableMobRenderer.java
+--- a/net.minecraft.client.renderer.entity.AgeableMobRenderer.java
++++ b/net.minecraft.client.renderer.entity.AgeableMobRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mode", "this.babyMode", "this.adultMode"},
++writeEntities = {"this.babyModel", "this.model"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ submit(/* params */);
+

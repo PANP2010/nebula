@@ -1,0 +1,82 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.renderer.item.ItemStackRenderState.java b/net.minecraft.client.renderer.item.ItemStackRenderState.java
+--- a/net.minecraft.client.renderer.item.ItemStackRenderState.java
++++ b/net.minecraft.client.renderer.item.ItemStackRenderState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.argumentForSpecialRendering", "this.foilType", "this.specialRenderer", "this.applyTransfor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ submit(/* params */);
+
+diff --git a/net.minecraft.client.renderer.item.ItemStackRenderState.java b/net.minecraft.client.renderer.item.ItemStackRenderState.java
+--- a/net.minecraft.client.renderer.item.ItemStackRenderState.java
++++ b/net.minecraft.client.renderer.item.ItemStackRenderState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tintLayer"},
++writeEntities = {"this.tintLayers"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tintLayers(/* params */);
+
+diff --git a/net.minecraft.client.renderer.item.ItemStackRenderState.java b/net.minecraft.client.renderer.item.ItemStackRenderState.java
+--- a/net.minecraft.client.renderer.item.ItemStackRenderState.java
++++ b/net.minecraft.client.renderer.item.ItemStackRenderState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.firstLaye"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ usesBlockLight(/* params */);
+
+diff --git a/net.minecraft.client.renderer.item.ItemStackRenderState.java b/net.minecraft.client.renderer.item.ItemStackRenderState.java
+--- a/net.minecraft.client.renderer.item.ItemStackRenderState.java
++++ b/net.minecraft.client.renderer.item.ItemStackRenderState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.itemTransform", "this.localTransform", "this.displayContext"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyTransform(/* params */);
+
+diff --git a/net.minecraft.client.renderer.item.ItemStackRenderState.java b/net.minecraft.client.renderer.item.ItemStackRenderState.java
+--- a/net.minecraft.client.renderer.item.ItemStackRenderState.java
++++ b/net.minecraft.client.renderer.item.ItemStackRenderState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.activeLayerCount", "this.layers", "this.layer"},
++writeEntities = {"this.layers"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ ensureCapacity(/* params */);
+
+diff --git a/net.minecraft.client.renderer.item.ItemStackRenderState.java b/net.minecraft.client.renderer.item.ItemStackRenderState.java
+--- a/net.minecraft.client.renderer.item.ItemStackRenderState.java
++++ b/net.minecraft.client.renderer.item.ItemStackRenderState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.layers", "this.activeLayerCoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ visitExtents(/* params */);
+

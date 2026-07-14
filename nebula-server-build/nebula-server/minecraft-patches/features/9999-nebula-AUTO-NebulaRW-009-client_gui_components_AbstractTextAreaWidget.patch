@@ -1,0 +1,117 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (9 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.components.AbstractTextAreaWidget.java b/net.minecraft.client.gui.components.AbstractTextAreaWidget.java
+--- a/net.minecraft.client.gui.components.AbstractTextAreaWidget.java
++++ b/net.minecraft.client.gui.components.AbstractTextAreaWidget.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isFocuse", "this.isActiv"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractBorder(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractTextAreaWidget.java b/net.minecraft.client.gui.components.AbstractTextAreaWidget.java
+--- a/net.minecraft.client.gui.components.AbstractTextAreaWidget.java
++++ b/net.minecraft.client.gui.components.AbstractTextAreaWidget.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.visible", "this.showBackground", "this.extractBackgroun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractWidgetRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractTextAreaWidget.java b/net.minecraft.client.gui.components.AbstractTextAreaWidget.java
+--- a/net.minecraft.client.gui.components.AbstractTextAreaWidget.java
++++ b/net.minecraft.client.gui.components.AbstractTextAreaWidget.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getRigh", "this.right"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scrollBarX(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractTextAreaWidget.java b/net.minecraft.client.gui.components.AbstractTextAreaWidget.java
+--- a/net.minecraft.client.gui.components.AbstractTextAreaWidget.java
++++ b/net.minecraft.client.gui.components.AbstractTextAreaWidget.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateScrollin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mouseClicked(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractTextAreaWidget.java b/net.minecraft.client.gui.components.AbstractTextAreaWidget.java
+--- a/net.minecraft.client.gui.components.AbstractTextAreaWidget.java
++++ b/net.minecraft.client.gui.components.AbstractTextAreaWidget.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getInnerHeigh", "this.innerHeight", "this.totalInnerPaddin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ contentHeight(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractTextAreaWidget.java b/net.minecraft.client.gui.components.AbstractTextAreaWidget.java
+--- a/net.minecraft.client.gui.components.AbstractTextAreaWidget.java
++++ b/net.minecraft.client.gui.components.AbstractTextAreaWidget.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.innerPaddin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ totalInnerPadding(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractTextAreaWidget.java b/net.minecraft.client.gui.components.AbstractTextAreaWidget.java
+--- a/net.minecraft.client.gui.components.AbstractTextAreaWidget.java
++++ b/net.minecraft.client.gui.components.AbstractTextAreaWidget.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setScrollAmoun", "this.scrollAmoun", "this.scrollRat"},
++writeEntities = {"this.scrollAmount"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ keyPressed(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractTextAreaWidget.java b/net.minecraft.client.gui.components.AbstractTextAreaWidget.java
+--- a/net.minecraft.client.gui.components.AbstractTextAreaWidget.java
++++ b/net.minecraft.client.gui.components.AbstractTextAreaWidget.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractBackground(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractTextAreaWidget.java b/net.minecraft.client.gui.components.AbstractTextAreaWidget.java
+--- a/net.minecraft.client.gui.components.AbstractTextAreaWidget.java
++++ b/net.minecraft.client.gui.components.AbstractTextAreaWidget.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.heigh", "this.get", "this.y", "this.scrollAmoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withinContentAreaTopBottom(/* params */);
+

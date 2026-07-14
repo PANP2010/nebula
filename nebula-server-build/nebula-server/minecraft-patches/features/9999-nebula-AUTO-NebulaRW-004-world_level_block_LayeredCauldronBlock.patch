@@ -1,0 +1,57 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.LayeredCauldronBlock.java b/net.minecraft.world.level.block.LayeredCauldronBlock.java
+--- a/net.minecraft.world.level.block.LayeredCauldronBlock.java
++++ b/net.minecraft.world.level.block.LayeredCauldronBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.precipitationTyp"},
++writeEntities = {"this.precipitationType"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleEntityOnFireInside(/* params */);
+
+diff --git a/net.minecraft.world.level.block.LayeredCauldronBlock.java b/net.minecraft.world.level.block.LayeredCauldronBlock.java
+--- a/net.minecraft.world.level.block.LayeredCauldronBlock.java
++++ b/net.minecraft.world.level.block.LayeredCauldronBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.handleEntityOnFireInsid"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ entityInside(/* params */);
+
+diff --git a/net.minecraft.world.level.block.LayeredCauldronBlock.java b/net.minecraft.world.level.block.LayeredCauldronBlock.java
+--- a/net.minecraft.world.level.block.LayeredCauldronBlock.java
++++ b/net.minecraft.world.level.block.LayeredCauldronBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isFul"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ receiveStalactiteDrip(/* params */);
+
+diff --git a/net.minecraft.world.level.block.LayeredCauldronBlock.java b/net.minecraft.world.level.block.LayeredCauldronBlock.java
+--- a/net.minecraft.world.level.block.LayeredCauldronBlock.java
++++ b/net.minecraft.world.level.block.LayeredCauldronBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.precipitationType"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handlePrecipitation(/* params */);
+

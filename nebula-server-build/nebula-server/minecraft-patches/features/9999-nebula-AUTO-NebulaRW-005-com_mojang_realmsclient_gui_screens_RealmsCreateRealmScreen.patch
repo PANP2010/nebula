@@ -1,0 +1,69 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsCreateRealmScreen.java b/com.mojang.realmsclient.gui.screens.RealmsCreateRealmScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsCreateRealmScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsCreateRealmScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.layout"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ repositionElements(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsCreateRealmScreen.java b/com.mojang.realmsclient.gui.screens.RealmsCreateRealmScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsCreateRealmScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsCreateRealmScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.nameBox", "this.descriptionBox"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsCreateRealmScreen.java b/com.mojang.realmsclient.gui.screens.RealmsCreateRealmScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsCreateRealmScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsCreateRealmScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.lastScreen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onClose(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsCreateRealmScreen.java b/com.mojang.realmsclient.gui.screens.RealmsCreateRealmScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsCreateRealmScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsCreateRealmScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.nameBox", "this.descriptionBox", "this.lastScreen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ showResetWorldScreen(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsCreateRealmScreen.java b/com.mojang.realmsclient.gui.screens.RealmsCreateRealmScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsCreateRealmScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsCreateRealmScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.lastScreen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createWorld(/* params */);
+

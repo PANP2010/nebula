@@ -1,0 +1,80 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.phys.Vec2.java b/net.minecraft.world.phys.Vec2.java
+--- a/net.minecraft.world.phys.Vec2.java
++++ b/net.minecraft.world.phys.Vec2.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++writeEntities = {"this.x", "this.y"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ equals(/* params */);
+
+diff --git a/net.minecraft.world.phys.Vec2.java b/net.minecraft.world.phys.Vec2.java
+--- a/net.minecraft.world.phys.Vec2.java
++++ b/net.minecraft.world.phys.Vec2.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.x", "this.y"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ normalized(/* params */);
+
+diff --git a/net.minecraft.world.phys.Vec2.java b/net.minecraft.world.phys.Vec2.java
+--- a/net.minecraft.world.phys.Vec2.java
++++ b/net.minecraft.world.phys.Vec2.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.x", "this.y"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ length(/* params */);
+
+diff --git a/net.minecraft.world.phys.Vec2.java b/net.minecraft.world.phys.Vec2.java
+--- a/net.minecraft.world.phys.Vec2.java
++++ b/net.minecraft.world.phys.Vec2.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.x", "this.y"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ lengthSquared(/* params */);
+
+diff --git a/net.minecraft.world.phys.Vec2.java b/net.minecraft.world.phys.Vec2.java
+--- a/net.minecraft.world.phys.Vec2.java
++++ b/net.minecraft.world.phys.Vec2.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.x", "this.y"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scale(/* params */);
+
+diff --git a/net.minecraft.world.phys.Vec2.java b/net.minecraft.world.phys.Vec2.java
+--- a/net.minecraft.world.phys.Vec2.java
++++ b/net.minecraft.world.phys.Vec2.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.x", "this.y"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ negated(/* params */);
+

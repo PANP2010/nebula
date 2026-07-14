@@ -1,0 +1,373 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (30 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ignoreTextInpu"},
++writeEntities = {"this.ignoreTextInput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ keyReleased(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.target"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mayPlace(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.scrollOffs", "this.menu", "this.refreshSearchResult"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ refreshCurrentTabContents(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractLabels(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.extractTabButto"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractBackground(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.target"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mayPickup(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.slots"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ quickMoveStack(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tabY", "this.tabX", "this.isHoverin", "this.getTab", "this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkTabHovering(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ignoreTextInput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ charTyped(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.clearDraggingStat", "this.quickCraftSlots", "this.menu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ selectTab(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.hasPermission", "this.tryRefreshInvalidatedTab"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ containerTick(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.effects", "this.checkTabHoverin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.selectTa", "this.tryRebuildTabContent"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tryRefreshInvalidatedTabs(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.topPo", "this.leftPo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ insideScrollbar(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leftPos", "this.tabX", "this.getTab", "this.topPos", "this.imageHeight"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractTabButton(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.checkTabClicke", "this.topPo", "this.scrollin", "this.leftPo", "this.selectTa"},
++writeEntities = {"this.scrolling"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mouseReleased(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getRowIndexForScrol", "this.items", "this.rowIndexForScroll"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scrollTo(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.checkTabClicke", "this.topPo", "this.leftPo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mouseClicked(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.calculateRowCoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ subtractInputFromScroll(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tabY", "this.tabX", "this.getTab"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkTabClicked(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isCreativeSlo", "this.searchBox"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ slotClicked(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.visibleTags", "this.menu", "this.searchBox"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ refreshSearchResults(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.effects"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ showsActiveEffects(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ignoreTextInput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ preeditUpdated(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.ignoreTextInpu", "this.selectTa"},
++writeEntities = {"this.ignoreTextInput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ keyPressed(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.items"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateRowCount(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.scrollOffs", "this.ini", "this.menu", "this.refreshSearchResult", "this.searchBox"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resize(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.listener", "this.searchBox"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.scrollOffs", "this.scrolling", "this.scrollOff", "this.menu", "this.topPos"},
++writeEntities = {"this.scrollOffs"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mouseDragged(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.target"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onTake(/* params */);
+

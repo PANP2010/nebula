@@ -1,0 +1,45 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (3 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.projectile.throwableitemprojectile.Snowball.java b/net.minecraft.world.entity.projectile.throwableitemprojectile.Snowball.java
+--- a/net.minecraft.world.entity.projectile.throwableitemprojectile.Snowball.java
++++ b/net.minecraft.world.entity.projectile.throwableitemprojectile.Snowball.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.owner", "this.getOwne", "this.damageSource"},
++triggeredEvents = {"ENTITY_DAMAGED"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onHitEntity(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.throwableitemprojectile.Snowball.java b/net.minecraft.world.entity.projectile.throwableitemprojectile.Snowball.java
+--- a/net.minecraft.world.entity.projectile.throwableitemprojectile.Snowball.java
++++ b/net.minecraft.world.entity.projectile.throwableitemprojectile.Snowball.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleEntityEvent(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.throwableitemprojectile.Snowball.java b/net.minecraft.world.entity.projectile.throwableitemprojectile.Snowball.java
+--- a/net.minecraft.world.entity.projectile.throwableitemprojectile.Snowball.java
++++ b/net.minecraft.world.entity.projectile.throwableitemprojectile.Snowball.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.discar", "this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onHit(/* params */);
+

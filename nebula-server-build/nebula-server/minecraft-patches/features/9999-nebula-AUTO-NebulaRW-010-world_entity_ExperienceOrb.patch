@@ -1,0 +1,135 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (10 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.ExperienceOrb.java b/net.minecraft.world.entity.ExperienceOrb.java
+--- a/net.minecraft.world.entity.ExperienceOrb.java
++++ b/net.minecraft.world.entity.ExperienceOrb.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.repairPlayerItem"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ repairPlayerItems(/* params */);
+
+diff --git a/net.minecraft.world.entity.ExperienceOrb.java b/net.minecraft.world.entity.ExperienceOrb.java
+--- a/net.minecraft.world.entity.ExperienceOrb.java
++++ b/net.minecraft.world.entity.ExperienceOrb.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.healt", "this.ag", "this.setValu", "this.coun"},
++writeEntities = {"this.count", "this.health", "this.value", "this.age"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.ExperienceOrb.java b/net.minecraft.world.entity.ExperienceOrb.java
+--- a/net.minecraft.world.entity.ExperienceOrb.java
++++ b/net.minecraft.world.entity.ExperienceOrb.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.firstTick", "this.interpolation", "this.firstTic", "this.leve"},
++writeEntities = {"this.firstTick"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.ExperienceOrb.java b/net.minecraft.world.entity.ExperienceOrb.java
+--- a/net.minecraft.world.entity.ExperienceOrb.java
++++ b/net.minecraft.world.entity.ExperienceOrb.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.pos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ unstuckIfPossible(/* params */);
+
+diff --git a/net.minecraft.world.entity.ExperienceOrb.java b/net.minecraft.world.entity.ExperienceOrb.java
+--- a/net.minecraft.world.entity.ExperienceOrb.java
++++ b/net.minecraft.world.entity.ExperienceOrb.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isInvulnerableToBas"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtClient(/* params */);
+
+diff --git a/net.minecraft.world.entity.ExperienceOrb.java b/net.minecraft.world.entity.ExperienceOrb.java
+--- a/net.minecraft.world.entity.ExperienceOrb.java
++++ b/net.minecraft.world.entity.ExperienceOrb.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ag", "this.count", "this.coun", "this.age"},
++writeEntities = {"this.count", "this.age"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ merge(/* params */);
+
+diff --git a/net.minecraft.world.entity.ExperienceOrb.java b/net.minecraft.world.entity.ExperienceOrb.java
+--- a/net.minecraft.world.entity.ExperienceOrb.java
++++ b/net.minecraft.world.entity.ExperienceOrb.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.followingPlayer", "this.followingPlaye", "this.leve"},
++writeEntities = {"this.followingPlayer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ followNearbyPlayer(/* params */);
+
+diff --git a/net.minecraft.world.entity.ExperienceOrb.java b/net.minecraft.world.entity.ExperienceOrb.java
+--- a/net.minecraft.world.entity.ExperienceOrb.java
++++ b/net.minecraft.world.entity.ExperienceOrb.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.boundingBox", "this.getBoundingBo", "this.leve", "this.merg"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scanForMerges(/* params */);
+
+diff --git a/net.minecraft.world.entity.ExperienceOrb.java b/net.minecraft.world.entity.ExperienceOrb.java
+--- a/net.minecraft.world.entity.ExperienceOrb.java
++++ b/net.minecraft.world.entity.ExperienceOrb.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isInvulnerableToBas"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtServer(/* params */);
+
+diff --git a/net.minecraft.world.entity.ExperienceOrb.java b/net.minecraft.world.entity.ExperienceOrb.java
+--- a/net.minecraft.world.entity.ExperienceOrb.java
++++ b/net.minecraft.world.entity.ExperienceOrb.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.repairPlayerItem", "this.getValu", "this.value"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playerTouch(/* params */);
+

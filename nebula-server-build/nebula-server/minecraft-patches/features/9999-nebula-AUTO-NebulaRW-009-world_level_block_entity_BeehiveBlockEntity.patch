@@ -1,0 +1,120 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (9 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java b/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.worldPosition", "this.savedFlowerPos", "this.level", "this.stored"},
++triggeredEvents = {"ENTITY_SPAWNED", "BLOCK_UPDATE"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ releaseAllOccupants(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java b/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++triggeredEvents = {"SOUND_PLAY"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ serverTick(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java b/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.stored"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ storeBee(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java b/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBee", "this.bees"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ collectImplicitComponents(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java b/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.savedFlowerPo", "this.stored"},
++writeEntities = {"this.savedFlowerPos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadAdditional(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java b/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.releaseAllOccupant", "this.isSedate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ emptyAllLivingFromHive(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java b/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.savedFlowerPos", "this.getBee", "this.bees"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveAdditional(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java b/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ticksInHive", "this.occupant"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java b/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BeehiveBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.stored"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyImplicitComponents(/* params */);
+

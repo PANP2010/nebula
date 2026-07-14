@@ -1,0 +1,124 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (9 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.entity.StructureBlockEntity.java b/net.minecraft.world.level.block.entity.StructureBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.StructureBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.StructureBlockEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setChange", "this.autho", "this.structureSiz"},
++writeEntities = {"this.author", "this.structureSize", "this.changed"},
++triggeredEvents = {"BLOCK_UPDATE"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadStructureInfo(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.StructureBlockEntity.java b/net.minecraft.world.level.block.entity.StructureBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.StructureBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.StructureBlockEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBlockPo", "this.mode", "this.blockPos", "this.level"},
++readBlocks = {"{level}", "{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateBlockState(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.StructureBlockEntity.java b/net.minecraft.world.level.block.entity.StructureBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.StructureBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.StructureBlockEntity.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ placeStructure(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.StructureBlockEntity.java b/net.minecraft.world.level.block.entity.StructureBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.StructureBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.StructureBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.structureName", "this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ unloadStructure(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.StructureBlockEntity.java b/net.minecraft.world.level.block.entity.StructureBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.StructureBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.StructureBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mod", "this.structureName"},
++writeEntities = {"this.mode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ placeStructureIfSameSize(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.StructureBlockEntity.java b/net.minecraft.world.level.block.entity.StructureBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.StructureBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.StructureBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveAdditional(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.StructureBlockEntity.java b/net.minecraft.world.level.block.entity.StructureBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.StructureBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.StructureBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ detectSize(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.StructureBlockEntity.java b/net.minecraft.world.level.block.entity.StructureBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.StructureBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.StructureBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.autho"},
++writeEntities = {"this.author"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createdBy(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.StructureBlockEntity.java b/net.minecraft.world.level.block.entity.StructureBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.StructureBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.StructureBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadAdditional(/* params */);
+

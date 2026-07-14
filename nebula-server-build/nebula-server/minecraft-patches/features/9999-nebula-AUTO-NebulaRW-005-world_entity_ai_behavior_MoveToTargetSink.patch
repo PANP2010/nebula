@@ -1,0 +1,73 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.ai.behavior.MoveToTargetSink.java b/net.minecraft.world.entity.ai.behavior.MoveToTargetSink.java
+--- a/net.minecraft.world.entity.ai.behavior.MoveToTargetSink.java
++++ b/net.minecraft.world.entity.ai.behavior.MoveToTargetSink.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.reachedTarge", "this.remainingCooldow"},
++writeEntities = {"this.remainingCooldown"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.MoveToTargetSink.java b/net.minecraft.world.entity.ai.behavior.MoveToTargetSink.java
+--- a/net.minecraft.world.entity.ai.behavior.MoveToTargetSink.java
++++ b/net.minecraft.world.entity.ai.behavior.MoveToTargetSink.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pat", "this.speedModifie", "this.reachedTarge"},
++writeEntities = {"this.speedModifier", "this.path"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tryComputePath(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.MoveToTargetSink.java b/net.minecraft.world.entity.ai.behavior.MoveToTargetSink.java
+--- a/net.minecraft.world.entity.ai.behavior.MoveToTargetSink.java
++++ b/net.minecraft.world.entity.ai.behavior.MoveToTargetSink.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.remainingCooldown"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkExtraStartConditions(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.MoveToTargetSink.java b/net.minecraft.world.entity.ai.behavior.MoveToTargetSink.java
+--- a/net.minecraft.world.entity.ai.behavior.MoveToTargetSink.java
++++ b/net.minecraft.world.entity.ai.behavior.MoveToTargetSink.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.path", "this.pat"},
++writeEntities = {"this.path"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.behavior.MoveToTargetSink.java b/net.minecraft.world.entity.ai.behavior.MoveToTargetSink.java
+--- a/net.minecraft.world.entity.ai.behavior.MoveToTargetSink.java
++++ b/net.minecraft.world.entity.ai.behavior.MoveToTargetSink.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.speedModifier", "this.path"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ start(/* params */);
+

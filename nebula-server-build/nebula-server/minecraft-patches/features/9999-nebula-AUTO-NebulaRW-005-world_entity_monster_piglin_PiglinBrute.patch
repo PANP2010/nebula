@@ -1,0 +1,70 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.monster.piglin.PiglinBrute.java b/net.minecraft.world.entity.monster.piglin.PiglinBrute.java
+--- a/net.minecraft.world.entity.monster.piglin.PiglinBrute.java
++++ b/net.minecraft.world.entity.monster.piglin.PiglinBrute.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playStepSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.piglin.PiglinBrute.java b/net.minecraft.world.entity.monster.piglin.PiglinBrute.java
+--- a/net.minecraft.world.entity.monster.piglin.PiglinBrute.java
++++ b/net.minecraft.world.entity.monster.piglin.PiglinBrute.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBrai", "this.brain"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ customServerAiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.piglin.PiglinBrute.java b/net.minecraft.world.entity.monster.piglin.PiglinBrute.java
+--- a/net.minecraft.world.entity.monster.piglin.PiglinBrute.java
++++ b/net.minecraft.world.entity.monster.piglin.PiglinBrute.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setItemSlo"},
++writeEntities = {"this.itemSlot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ populateDefaultEquipmentSlots(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.piglin.PiglinBrute.java b/net.minecraft.world.entity.monster.piglin.PiglinBrute.java
+--- a/net.minecraft.world.entity.monster.piglin.PiglinBrute.java
++++ b/net.minecraft.world.entity.monster.piglin.PiglinBrute.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.makeSoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playConvertedSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.piglin.PiglinBrute.java b/net.minecraft.world.entity.monster.piglin.PiglinBrute.java
+--- a/net.minecraft.world.entity.monster.piglin.PiglinBrute.java
++++ b/net.minecraft.world.entity.monster.piglin.PiglinBrute.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.makeSoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playAngrySound(/* params */);
+

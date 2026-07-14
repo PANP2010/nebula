@@ -1,0 +1,93 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.item.component.BundleContents.java b/net.minecraft.world.item.component.BundleContents.java
+--- a/net.minecraft.world.item.component.BundleContents.java
++++ b/net.minecraft.world.item.component.BundleContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.indexIsOutsideAllowedBound", "this.selectedItem", "this.selectedIte"},
++writeEntities = {"this.selectedItem"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toggleSelectedItem(/* params */);
+
+diff --git a/net.minecraft.world.item.component.BundleContents.java b/net.minecraft.world.item.component.BundleContents.java
+--- a/net.minecraft.world.item.component.BundleContents.java
++++ b/net.minecraft.world.item.component.BundleContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.items"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toImmutable(/* params */);
+
+diff --git a/net.minecraft.world.item.component.BundleContents.java b/net.minecraft.world.item.component.BundleContents.java
+--- a/net.minecraft.world.item.component.BundleContents.java
++++ b/net.minecraft.world.item.component.BundleContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.items"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ indexIsOutsideAllowedBounds(/* params */);
+
+diff --git a/net.minecraft.world.item.component.BundleContents.java b/net.minecraft.world.item.component.BundleContents.java
+--- a/net.minecraft.world.item.component.BundleContents.java
++++ b/net.minecraft.world.item.component.BundleContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.item"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.world.item.component.BundleContents.java b/net.minecraft.world.item.component.BundleContents.java
+--- a/net.minecraft.world.item.component.BundleContents.java
++++ b/net.minecraft.world.item.component.BundleContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.items"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ size(/* params */);
+
+diff --git a/net.minecraft.world.item.component.BundleContents.java b/net.minecraft.world.item.component.BundleContents.java
+--- a/net.minecraft.world.item.component.BundleContents.java
++++ b/net.minecraft.world.item.component.BundleContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.weight"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ weight(/* params */);
+
+diff --git a/net.minecraft.world.item.component.BundleContents.java b/net.minecraft.world.item.component.BundleContents.java
+--- a/net.minecraft.world.item.component.BundleContents.java
++++ b/net.minecraft.world.item.component.BundleContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.items"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ itemCopyStream(/* params */);
+

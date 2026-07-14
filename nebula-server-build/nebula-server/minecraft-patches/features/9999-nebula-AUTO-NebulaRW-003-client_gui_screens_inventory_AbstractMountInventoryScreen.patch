@@ -1,0 +1,45 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (3 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractMountInventoryScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractMountInventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractMountInventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractMountInventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getSlotSpriteLocatio", "this.slotSpriteLocation"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractSlot(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractMountInventoryScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractMountInventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractMountInventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractMountInventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractBackground(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractMountInventoryScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractMountInventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractMountInventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractMountInventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.yMous", "this.xMous"},
++writeEntities = {"this.yMouse", "this.xMouse"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+

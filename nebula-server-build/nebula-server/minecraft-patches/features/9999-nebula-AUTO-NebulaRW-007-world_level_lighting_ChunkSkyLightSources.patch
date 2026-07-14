@@ -1,0 +1,93 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.lighting.ChunkSkyLightSources.java b/net.minecraft.world.level.lighting.ChunkSkyLightSources.java
+--- a/net.minecraft.world.level.lighting.ChunkSkyLightSources.java
++++ b/net.minecraft.world.level.lighting.ChunkSkyLightSources.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minY", "this.mutablePos1", "this.mutablePos2"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findLowestSourceBelow(/* params */);
+
+diff --git a/net.minecraft.world.level.lighting.ChunkSkyLightSources.java b/net.minecraft.world.level.lighting.ChunkSkyLightSources.java
+--- a/net.minecraft.world.level.lighting.ChunkSkyLightSources.java
++++ b/net.minecraft.world.level.lighting.ChunkSkyLightSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.heightmap", "this.min"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fill(/* params */);
+
+diff --git a/net.minecraft.world.level.lighting.ChunkSkyLightSources.java b/net.minecraft.world.level.lighting.ChunkSkyLightSources.java
+--- a/net.minecraft.world.level.lighting.ChunkSkyLightSources.java
++++ b/net.minecraft.world.level.lighting.ChunkSkyLightSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ge"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ update(/* params */);
+
+diff --git a/net.minecraft.world.level.lighting.ChunkSkyLightSources.java b/net.minecraft.world.level.lighting.ChunkSkyLightSources.java
+--- a/net.minecraft.world.level.lighting.ChunkSkyLightSources.java
++++ b/net.minecraft.world.level.lighting.ChunkSkyLightSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extendSourcesBelowWorld(/* params */);
+
+diff --git a/net.minecraft.world.level.lighting.ChunkSkyLightSources.java b/net.minecraft.world.level.lighting.ChunkSkyLightSources.java
+--- a/net.minecraft.world.level.lighting.ChunkSkyLightSources.java
++++ b/net.minecraft.world.level.lighting.ChunkSkyLightSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minY", "this.fil"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillFrom(/* params */);
+
+diff --git a/net.minecraft.world.level.lighting.ChunkSkyLightSources.java b/net.minecraft.world.level.lighting.ChunkSkyLightSources.java
+--- a/net.minecraft.world.level.lighting.ChunkSkyLightSources.java
++++ b/net.minecraft.world.level.lighting.ChunkSkyLightSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mutablePos1", "this.mutablePos2"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findLowestSourceY(/* params */);
+
+diff --git a/net.minecraft.world.level.lighting.ChunkSkyLightSources.java b/net.minecraft.world.level.lighting.ChunkSkyLightSources.java
+--- a/net.minecraft.world.level.lighting.ChunkSkyLightSources.java
++++ b/net.minecraft.world.level.lighting.ChunkSkyLightSources.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.se"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateEdge(/* params */);
+

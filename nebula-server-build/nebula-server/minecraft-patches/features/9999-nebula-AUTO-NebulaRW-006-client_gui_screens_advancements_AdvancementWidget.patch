@@ -1,0 +1,83 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.advancements.AdvancementWidget.java b/net.minecraft.client.gui.screens.advancements.AdvancementWidget.java
+--- a/net.minecraft.client.gui.screens.advancements.AdvancementWidget.java
++++ b/net.minecraft.client.gui.screens.advancements.AdvancementWidget.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.parent", "this.x", "this.y"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractConnectivity(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.advancements.AdvancementWidget.java b/net.minecraft.client.gui.screens.advancements.AdvancementWidget.java
+--- a/net.minecraft.client.gui.screens.advancements.AdvancementWidget.java
++++ b/net.minecraft.client.gui.screens.advancements.AdvancementWidget.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractMultilineText(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.advancements.AdvancementWidget.java b/net.minecraft.client.gui.screens.advancements.AdvancementWidget.java
+--- a/net.minecraft.client.gui.screens.advancements.AdvancementWidget.java
++++ b/net.minecraft.client.gui.screens.advancements.AdvancementWidget.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findOptimalLines(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.advancements.AdvancementWidget.java b/net.minecraft.client.gui.screens.advancements.AdvancementWidget.java
+--- a/net.minecraft.client.gui.screens.advancements.AdvancementWidget.java
++++ b/net.minecraft.client.gui.screens.advancements.AdvancementWidget.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.progress"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractHover(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.advancements.AdvancementWidget.java b/net.minecraft.client.gui.screens.advancements.AdvancementWidget.java
+--- a/net.minecraft.client.gui.screens.advancements.AdvancementWidget.java
++++ b/net.minecraft.client.gui.screens.advancements.AdvancementWidget.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.display", "this.progress", "this.progres"},
++writeEntities = {"this.progress"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.advancements.AdvancementWidget.java b/net.minecraft.client.gui.screens.advancements.AdvancementWidget.java
+--- a/net.minecraft.client.gui.screens.advancements.AdvancementWidget.java
++++ b/net.minecraft.client.gui.screens.advancements.AdvancementWidget.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.parent", "this.paren", "this.firstVisibleParent", "this.advancementNode", "this.getFirstVisibleParen"},
++writeEntities = {"this.parent"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ attachToParent(/* params */);
+

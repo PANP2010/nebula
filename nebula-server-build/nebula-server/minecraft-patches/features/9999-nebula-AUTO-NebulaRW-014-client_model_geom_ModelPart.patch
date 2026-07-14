@@ -1,0 +1,181 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (14 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.model.geom.ModelPart.java b/net.minecraft.client.model.geom.ModelPart.java
+--- a/net.minecraft.client.model.geom.ModelPart.java
++++ b/net.minecraft.client.model.geom.ModelPart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.xScale", "this.yScale", "this.zScale"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ offsetScale(/* params */);
+
+diff --git a/net.minecraft.client.model.geom.ModelPart.java b/net.minecraft.client.model.geom.ModelPart.java
+--- a/net.minecraft.client.model.geom.ModelPart.java
++++ b/net.minecraft.client.model.geom.ModelPart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.x", "this.y", "this.z"},
++writeEntities = {"this.x", "this.y", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ offsetPos(/* params */);
+
+diff --git a/net.minecraft.client.model.geom.ModelPart.java b/net.minecraft.client.model.geom.ModelPart.java
+--- a/net.minecraft.client.model.geom.ModelPart.java
++++ b/net.minecraft.client.model.geom.ModelPart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadPose(/* params */);
+
+diff --git a/net.minecraft.client.model.geom.ModelPart.java b/net.minecraft.client.model.geom.ModelPart.java
+--- a/net.minecraft.client.model.geom.ModelPart.java
++++ b/net.minecraft.client.model.geom.ModelPart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.polygons"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ compile(/* params */);
+
+diff --git a/net.minecraft.client.model.geom.ModelPart.java b/net.minecraft.client.model.geom.ModelPart.java
+--- a/net.minecraft.client.model.geom.ModelPart.java
++++ b/net.minecraft.client.model.geom.ModelPart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.children", "this.cubes", "this.translateAndRotat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ visit(/* params */);
+
+diff --git a/net.minecraft.client.model.geom.ModelPart.java b/net.minecraft.client.model.geom.ModelPart.java
+--- a/net.minecraft.client.model.geom.ModelPart.java
++++ b/net.minecraft.client.model.geom.ModelPart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ storePose(/* params */);
+
+diff --git a/net.minecraft.client.model.geom.ModelPart.java b/net.minecraft.client.model.geom.ModelPart.java
+--- a/net.minecraft.client.model.geom.ModelPart.java
++++ b/net.minecraft.client.model.geom.ModelPart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ translateAndRotate(/* params */);
+
+diff --git a/net.minecraft.client.model.geom.ModelPart.java b/net.minecraft.client.model.geom.ModelPart.java
+--- a/net.minecraft.client.model.geom.ModelPart.java
++++ b/net.minecraft.client.model.geom.ModelPart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ render(/* params */);
+
+diff --git a/net.minecraft.client.model.geom.ModelPart.java b/net.minecraft.client.model.geom.ModelPart.java
+--- a/net.minecraft.client.model.geom.ModelPart.java
++++ b/net.minecraft.client.model.geom.ModelPart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.initialPose", "this.loadPos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetPose(/* params */);
+
+diff --git a/net.minecraft.client.model.geom.ModelPart.java b/net.minecraft.client.model.geom.ModelPart.java
+--- a/net.minecraft.client.model.geom.ModelPart.java
++++ b/net.minecraft.client.model.geom.ModelPart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setRotatio", "this.zRot", "this.yRot", "this.xRot"},
++writeEntities = {"this.rotation"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ rotateBy(/* params */);
+
+diff --git a/net.minecraft.client.model.geom.ModelPart.java b/net.minecraft.client.model.geom.ModelPart.java
+--- a/net.minecraft.client.model.geom.ModelPart.java
++++ b/net.minecraft.client.model.geom.ModelPart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.y"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ worldY(/* params */);
+
+diff --git a/net.minecraft.client.model.geom.ModelPart.java b/net.minecraft.client.model.geom.ModelPart.java
+--- a/net.minecraft.client.model.geom.ModelPart.java
++++ b/net.minecraft.client.model.geom.ModelPart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.x"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ worldX(/* params */);
+
+diff --git a/net.minecraft.client.model.geom.ModelPart.java b/net.minecraft.client.model.geom.ModelPart.java
+--- a/net.minecraft.client.model.geom.ModelPart.java
++++ b/net.minecraft.client.model.geom.ModelPart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ worldZ(/* params */);
+
+diff --git a/net.minecraft.client.model.geom.ModelPart.java b/net.minecraft.client.model.geom.ModelPart.java
+--- a/net.minecraft.client.model.geom.ModelPart.java
++++ b/net.minecraft.client.model.geom.ModelPart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.zRot", "this.yRot", "this.xRot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ offsetRotation(/* params */);
+

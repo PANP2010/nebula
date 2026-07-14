@@ -1,0 +1,95 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEnderpearl.java b/net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEnderpearl.java
+--- a/net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEnderpearl.java
++++ b/net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEnderpearl.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.owner", "this.getOwne", "this.damageSource"},
++triggeredEvents = {"ENTITY_DAMAGED"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onHitEntity(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEnderpearl.java b/net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEnderpearl.java
+--- a/net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEnderpearl.java
++++ b/net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEnderpearl.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onHit(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEnderpearl.java b/net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEnderpearl.java
+--- a/net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEnderpearl.java
++++ b/net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEnderpearl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.deregisterFromCurrentOwne"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onRemoval(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEnderpearl.java b/net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEnderpearl.java
+--- a/net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEnderpearl.java
++++ b/net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEnderpearl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.owner", "this.getOwne"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onInsideBlock(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEnderpearl.java b/net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEnderpearl.java
+--- a/net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEnderpearl.java
++++ b/net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEnderpearl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.owner", "this.getOwne"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ deregisterFromCurrentOwner(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEnderpearl.java b/net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEnderpearl.java
+--- a/net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEnderpearl.java
++++ b/net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEnderpearl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.owner", "this.discar", "this.leve", "this.positio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEnderpearl.java b/net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEnderpearl.java
+--- a/net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEnderpearl.java
++++ b/net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEnderpearl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.owner", "this.getOwne"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerToCurrentOwner(/* params */);
+

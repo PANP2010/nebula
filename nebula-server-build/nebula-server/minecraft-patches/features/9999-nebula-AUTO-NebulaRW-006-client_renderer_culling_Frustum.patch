@@ -1,0 +1,84 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.renderer.culling.Frustum.java b/net.minecraft.client.renderer.culling.Frustum.java
+--- a/net.minecraft.client.renderer.culling.Frustum.java
++++ b/net.minecraft.client.renderer.culling.Frustum.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.camY", "this.camZ", "this.intersection", "this.camX"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pointInFrustum(/* params */);
+
+diff --git a/net.minecraft.client.renderer.culling.Frustum.java b/net.minecraft.client.renderer.culling.Frustum.java
+--- a/net.minecraft.client.renderer.culling.Frustum.java
++++ b/net.minecraft.client.renderer.culling.Frustum.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.cam"},
++writeEntities = {"this.camY", "this.camZ", "this.camX"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ prepare(/* params */);
+
+diff --git a/net.minecraft.client.renderer.culling.Frustum.java b/net.minecraft.client.renderer.culling.Frustum.java
+--- a/net.minecraft.client.renderer.culling.Frustum.java
++++ b/net.minecraft.client.renderer.culling.Frustum.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.camY", "this.camZ", "this.camX", "this.cam", "this.viewVector"},
++writeEntities = {"this.camY", "this.camZ", "this.camX"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ offset(/* params */);
+
+diff --git a/net.minecraft.client.renderer.culling.Frustum.java b/net.minecraft.client.renderer.culling.Frustum.java
+--- a/net.minecraft.client.renderer.culling.Frustum.java
++++ b/net.minecraft.client.renderer.culling.Frustum.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.camY", "this.camZ", "this.camX"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ offsetToFullyIncludeCameraCube(/* params */);
+
+diff --git a/net.minecraft.client.renderer.culling.Frustum.java b/net.minecraft.client.renderer.culling.Frustum.java
+--- a/net.minecraft.client.renderer.culling.Frustum.java
++++ b/net.minecraft.client.renderer.culling.Frustum.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.camY", "this.camZ", "this.camX", "this.intersection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ cubeInFrustum(/* params */);
+
+diff --git a/net.minecraft.client.renderer.culling.Frustum.java b/net.minecraft.client.renderer.culling.Frustum.java
+--- a/net.minecraft.client.renderer.culling.Frustum.java
++++ b/net.minecraft.client.renderer.culling.Frustum.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.intersection", "this.matrix", "this.viewVecto"},
++writeEntities = {"this.viewVector"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateFrustum(/* params */);
+

@@ -1,0 +1,56 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.ai.village.poi.PoiSection.java b/net.minecraft.world.entity.ai.village.poi.PoiSection.java
+--- a/net.minecraft.world.entity.ai.village.poi.PoiSection.java
++++ b/net.minecraft.world.entity.ai.village.poi.PoiSection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ad", "this.records", "this.isValid", "this.clea", "this.setDirty"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ refresh(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.village.poi.PoiSection.java b/net.minecraft.world.entity.ai.village.poi.PoiSection.java
+--- a/net.minecraft.world.entity.ai.village.poi.PoiSection.java
++++ b/net.minecraft.world.entity.ai.village.poi.PoiSection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.records", "this.isValid"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ unpack(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.village.poi.PoiSection.java b/net.minecraft.world.entity.ai.village.poi.PoiSection.java
+--- a/net.minecraft.world.entity.ai.village.poi.PoiSection.java
++++ b/net.minecraft.world.entity.ai.village.poi.PoiSection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.records"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ release(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.village.poi.PoiSection.java b/net.minecraft.world.entity.ai.village.poi.PoiSection.java
+--- a/net.minecraft.world.entity.ai.village.poi.PoiSection.java
++++ b/net.minecraft.world.entity.ai.village.poi.PoiSection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.type", "this.getTyp"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ exists(/* params */);
+

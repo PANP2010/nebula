@@ -1,0 +1,273 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (20 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.monster.Shulker.java b/net.minecraft.world.entity.monster.Shulker.java
+--- a/net.minecraft.world.entity.monster.Shulker.java
++++ b/net.minecraft.world.entity.monster.Shulker.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++triggeredEvents = {"ENTITY_SPAWNED"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hitByShulkerBullet(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Shulker.java b/net.minecraft.world.entity.monster.Shulker.java
+--- a/net.minecraft.world.entity.monster.Shulker.java
++++ b/net.minecraft.world.entity.monster.Shulker.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.pos", "this.attachFace", "this.target"},
++triggeredEvents = {"SOUND_PLAY"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ teleportSomewhere(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Shulker.java b/net.minecraft.world.entity.monster.Shulker.java
+--- a/net.minecraft.world.entity.monster.Shulker.java
++++ b/net.minecraft.world.entity.monster.Shulker.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.attackTime"},
++triggeredEvents = {"ENTITY_SPAWNED", "SOUND_PLAY"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Shulker.java b/net.minecraft.world.entity.monster.Shulker.java
+--- a/net.minecraft.world.entity.monster.Shulker.java
++++ b/net.minecraft.world.entity.monster.Shulker.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random", "this.setRawPeekAmoun", "this.peekTim", "this.adjustedTickDela"},
++writeEntities = {"this.rawPeekAmount", "this.peekTime"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ start(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Shulker.java b/net.minecraft.world.entity.monster.Shulker.java
+--- a/net.minecraft.world.entity.monster.Shulker.java
++++ b/net.minecraft.world.entity.monster.Shulker.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.targetSelector", "this.goalSelector", "this.class", "this.getClas"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerGoals(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Shulker.java b/net.minecraft.world.entity.monster.Shulker.java
+--- a/net.minecraft.world.entity.monster.Shulker.java
++++ b/net.minecraft.world.entity.monster.Shulker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.applyImplicitComponentIfPresen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyImplicitComponents(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Shulker.java b/net.minecraft.world.entity.monster.Shulker.java
+--- a/net.minecraft.world.entity.monster.Shulker.java
++++ b/net.minecraft.world.entity.monster.Shulker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.teleportSomewher"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ move(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Shulker.java b/net.minecraft.world.entity.monster.Shulker.java
+--- a/net.minecraft.world.entity.monster.Shulker.java
++++ b/net.minecraft.world.entity.monster.Shulker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setBoundingBo", "this.makeBoundingBo"},
++writeEntities = {"this.boundingBox"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSyncedDataUpdated(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Shulker.java b/net.minecraft.world.entity.monster.Shulker.java
+--- a/net.minecraft.world.entity.monster.Shulker.java
++++ b/net.minecraft.world.entity.monster.Shulker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.clientOldAttachPositio", "this.leve", "this.clientSideTeleportInterpolatio"},
++writeEntities = {"this.clientOldAttachPosition", "this.clientSideTeleportInterpolation"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startRiding(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Shulker.java b/net.minecraft.world.entity.monster.Shulker.java
+--- a/net.minecraft.world.entity.monster.Shulker.java
++++ b/net.minecraft.world.entity.monster.Shulker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onPeekAmountChange(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Shulker.java b/net.minecraft.world.entity.monster.Shulker.java
+--- a/net.minecraft.world.entity.monster.Shulker.java
++++ b/net.minecraft.world.entity.monster.Shulker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.findAttachableSurfac", "this.setAttachFac", "this.blockPositio"},
++writeEntities = {"this.attachFace"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findNewAttachment(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Shulker.java b/net.minecraft.world.entity.monster.Shulker.java
+--- a/net.minecraft.world.entity.monster.Shulker.java
++++ b/net.minecraft.world.entity.monster.Shulker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.currentPeekAmount", "this.getScal", "this.attachFace", "this.scale", "this.getAttachFac"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ makeBoundingBox(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Shulker.java b/net.minecraft.world.entity.monster.Shulker.java
+--- a/net.minecraft.world.entity.monster.Shulker.java
++++ b/net.minecraft.world.entity.monster.Shulker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.yBodyRot", "this.yBodyRo"},
++writeEntities = {"this.yBodyRot", "this.yBodyRotO"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ recreateFromPacket(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Shulker.java b/net.minecraft.world.entity.monster.Shulker.java
+--- a/net.minecraft.world.entity.monster.Shulker.java
++++ b/net.minecraft.world.entity.monster.Shulker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getTarge", "this.setRawPeekAmoun", "this.target"},
++writeEntities = {"this.rawPeekAmount"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Shulker.java b/net.minecraft.world.entity.monster.Shulker.java
+--- a/net.minecraft.world.entity.monster.Shulker.java
++++ b/net.minecraft.world.entity.monster.Shulker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setAttachFac", "this.entityData"},
++writeEntities = {"this.attachFace"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Shulker.java b/net.minecraft.world.entity.monster.Shulker.java
+--- a/net.minecraft.world.entity.monster.Shulker.java
++++ b/net.minecraft.world.entity.monster.Shulker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isClose"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtServer(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Shulker.java b/net.minecraft.world.entity.monster.Shulker.java
+--- a/net.minecraft.world.entity.monster.Shulker.java
++++ b/net.minecraft.world.entity.monster.Shulker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setVarian"},
++writeEntities = {"this.variant"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyImplicitComponent(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Shulker.java b/net.minecraft.world.entity.monster.Shulker.java
+--- a/net.minecraft.world.entity.monster.Shulker.java
++++ b/net.minecraft.world.entity.monster.Shulker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isClose"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playAmbientSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Shulker.java b/net.minecraft.world.entity.monster.Shulker.java
+--- a/net.minecraft.world.entity.monster.Shulker.java
++++ b/net.minecraft.world.entity.monster.Shulker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.rawPeekAmount", "this.currentPeekAmount", "this.currentPeekAmoun", "this.getRawPeekAmoun"},
++writeEntities = {"this.currentPeekAmount", "this.currentPeekAmountO"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updatePeekAmount(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Shulker.java b/net.minecraft.world.entity.monster.Shulker.java
+--- a/net.minecraft.world.entity.monster.Shulker.java
++++ b/net.minecraft.world.entity.monster.Shulker.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockPositio", "this.clientOldAttachPositio", "this.leve"},
++writeEntities = {"this.clientOldAttachPosition"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stopRiding(/* params */);
+

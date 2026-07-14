@@ -1,0 +1,183 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (14 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.projectile.FishingHook.java b/net.minecraft.world.entity.projectile.FishingHook.java
+--- a/net.minecraft.world.entity.projectile.FishingHook.java
++++ b/net.minecraft.world.entity.projectile.FishingHook.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.FishingHook.java b/net.minecraft.world.entity.projectile.FishingHook.java
+--- a/net.minecraft.world.entity.projectile.FishingHook.java
++++ b/net.minecraft.world.entity.projectile.FishingHook.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random", "this.leve"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ catchingFish(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.FishingHook.java b/net.minecraft.world.entity.projectile.FishingHook.java
+--- a/net.minecraft.world.entity.projectile.FishingHook.java
++++ b/net.minecraft.world.entity.projectile.FishingHook.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ retrieve(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.FishingHook.java b/net.minecraft.world.entity.projectile.FishingHook.java
+--- a/net.minecraft.world.entity.projectile.FishingHook.java
++++ b/net.minecraft.world.entity.projectile.FishingHook.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getOpenWaterTypeForAre", "this.openWaterTypeForArea"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateOpenWater(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.FishingHook.java b/net.minecraft.world.entity.projectile.FishingHook.java
+--- a/net.minecraft.world.entity.projectile.FishingHook.java
++++ b/net.minecraft.world.entity.projectile.FishingHook.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.distanceToSq"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldStopFishing(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.FishingHook.java b/net.minecraft.world.entity.projectile.FishingHook.java
+--- a/net.minecraft.world.entity.projectile.FishingHook.java
++++ b/net.minecraft.world.entity.projectile.FishingHook.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pullEntity(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.FishingHook.java b/net.minecraft.world.entity.projectile.FishingHook.java
+--- a/net.minecraft.world.entity.projectile.FishingHook.java
++++ b/net.minecraft.world.entity.projectile.FishingHook.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pullEntit", "this.leve", "this.hookedIn"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleEntityEvent(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.FishingHook.java b/net.minecraft.world.entity.projectile.FishingHook.java
+--- a/net.minecraft.world.entity.projectile.FishingHook.java
++++ b/net.minecraft.world.entity.projectile.FishingHook.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hitTargetOrDeflectSel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkCollision(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.FishingHook.java b/net.minecraft.world.entity.projectile.FishingHook.java
+--- a/net.minecraft.world.entity.projectile.FishingHook.java
++++ b/net.minecraft.world.entity.projectile.FishingHook.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateOwnerInf"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onClientRemoval(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.FishingHook.java b/net.minecraft.world.entity.projectile.FishingHook.java
+--- a/net.minecraft.world.entity.projectile.FishingHook.java
++++ b/net.minecraft.world.entity.projectile.FishingHook.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setHookedEntit", "this.leve"},
++writeEntities = {"this.hookedEntity"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onHitEntity(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.FishingHook.java b/net.minecraft.world.entity.projectile.FishingHook.java
+--- a/net.minecraft.world.entity.projectile.FishingHook.java
++++ b/net.minecraft.world.entity.projectile.FishingHook.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getEntityDat", "this.hookedI", "this.leve", "this.entityData"},
++writeEntities = {"this.hookedIn"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSyncedDataUpdated(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.FishingHook.java b/net.minecraft.world.entity.projectile.FishingHook.java
+--- a/net.minecraft.world.entity.projectile.FishingHook.java
++++ b/net.minecraft.world.entity.projectile.FishingHook.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playerOwner", "this.getPlayerOwne"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateOwnerInfo(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.FishingHook.java b/net.minecraft.world.entity.projectile.FishingHook.java
+--- a/net.minecraft.world.entity.projectile.FishingHook.java
++++ b/net.minecraft.world.entity.projectile.FishingHook.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.deltaMovement", "this.getDeltaMovemen", "this.setDeltaMovemen"},
++writeEntities = {"this.deltaMovement"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onHitBlock(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.FishingHook.java b/net.minecraft.world.entity.projectile.FishingHook.java
+--- a/net.minecraft.world.entity.projectile.FishingHook.java
++++ b/net.minecraft.world.entity.projectile.FishingHook.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.discar", "this.playerOwner", "this.leve", "this.getPlayerOwne"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ recreateFromPacket(/* params */);
+

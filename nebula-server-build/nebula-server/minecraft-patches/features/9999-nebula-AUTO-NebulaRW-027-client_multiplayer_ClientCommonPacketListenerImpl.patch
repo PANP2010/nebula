@@ -1,0 +1,335 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (27 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ disconnect(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.showDialo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ openDialog(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isTransferring"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldHandleMessage(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.storeDisconnectionRepor", "this.connection", "this.serverLinks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onPacketError(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connection", "this.serverBrand", "this.customReportDetails", "this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillListenerSpecificCrashDetails(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.customReportDetail"},
++writeEntities = {"this.customReportDetails"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleCustomReportDetails(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.storeDisconnectionRepor", "this.serverLinks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createDisconnectionInfo(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.serverBran", "this.telemetryManager"},
++writeEntities = {"this.serverBrand"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleCustomPayload(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.serverLink"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ serverLinks(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.deferredPackets", "this.sen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendDeferredPackets(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.isTransferrin", "this.serverDat"},
++writeEntities = {"this.isTransferring", "this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleTransfer(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleResourcePackPop(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleServerLinks(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ send(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.postDisconnectScreen", "this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createDisconnectScreen(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleDisconnect(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sendWhe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleKeepAlive(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleResourcePackPush(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.clearDialo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleClearDialog(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.serverCookies"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleStoreCookie(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.sen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handlePing(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.createDisconnectScree", "this.isTransferring", "this.telemetryManager"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onDisconnect(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.connection", "this.serverCookies"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleRequestCookie(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.serverLinks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ storeDisconnectionReport(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.showDialo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleShowDialog(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendWhen(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+--- a/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
++++ b/net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendCustomAction(/* params */);
+

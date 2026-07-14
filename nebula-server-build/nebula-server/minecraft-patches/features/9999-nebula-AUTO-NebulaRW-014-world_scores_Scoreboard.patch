@@ -1,0 +1,178 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (14 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.scores.Scoreboard.java b/net.minecraft.world.scores.Scoreboard.java
+--- a/net.minecraft.world.scores.Scoreboard.java
++++ b/net.minecraft.world.scores.Scoreboard.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sendScoreToPlayer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ display(/* params */);
+
+diff --git a/net.minecraft.world.scores.Scoreboard.java b/net.minecraft.world.scores.Scoreboard.java
+--- a/net.minecraft.world.scores.Scoreboard.java
++++ b/net.minecraft.world.scores.Scoreboard.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setLocke"},
++writeEntities = {"this.locked"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ unlock(/* params */);
+
+diff --git a/net.minecraft.world.scores.Scoreboard.java b/net.minecraft.world.scores.Scoreboard.java
+--- a/net.minecraft.world.scores.Scoreboard.java
++++ b/net.minecraft.world.scores.Scoreboard.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.onScoreChange"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendScoreToPlayers(/* params */);
+
+diff --git a/net.minecraft.world.scores.Scoreboard.java b/net.minecraft.world.scores.Scoreboard.java
+--- a/net.minecraft.world.scores.Scoreboard.java
++++ b/net.minecraft.world.scores.Scoreboard.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playerScores", "this.onPlayerRemove"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetSinglePlayerScore(/* params */);
+
+diff --git a/net.minecraft.world.scores.Scoreboard.java b/net.minecraft.world.scores.Scoreboard.java
+--- a/net.minecraft.world.scores.Scoreboard.java
++++ b/net.minecraft.world.scores.Scoreboard.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.addPlayerTea", "this.addPlayerToTea"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadPlayerTeam(/* params */);
+
+diff --git a/net.minecraft.world.scores.Scoreboard.java b/net.minecraft.world.scores.Scoreboard.java
+--- a/net.minecraft.world.scores.Scoreboard.java
++++ b/net.minecraft.world.scores.Scoreboard.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sendScoreToPlayer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ numberFormatOverride(/* params */);
+
+diff --git a/net.minecraft.world.scores.Scoreboard.java b/net.minecraft.world.scores.Scoreboard.java
+--- a/net.minecraft.world.scores.Scoreboard.java
++++ b/net.minecraft.world.scores.Scoreboard.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.resetAllPlayerScore", "this.removePlayerFromTea"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ entityRemoved(/* params */);
+
+diff --git a/net.minecraft.world.scores.Scoreboard.java b/net.minecraft.world.scores.Scoreboard.java
+--- a/net.minecraft.world.scores.Scoreboard.java
++++ b/net.minecraft.world.scores.Scoreboard.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.addObjectiv"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadObjective(/* params */);
+
+diff --git a/net.minecraft.world.scores.Scoreboard.java b/net.minecraft.world.scores.Scoreboard.java
+--- a/net.minecraft.world.scores.Scoreboard.java
++++ b/net.minecraft.world.scores.Scoreboard.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setLocke"},
++writeEntities = {"this.locked"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ lock(/* params */);
+
+diff --git a/net.minecraft.world.scores.Scoreboard.java b/net.minecraft.world.scores.Scoreboard.java
+--- a/net.minecraft.world.scores.Scoreboard.java
++++ b/net.minecraft.world.scores.Scoreboard.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.displayObjective", "this.getDisplayObjectiv"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ packDisplaySlots(/* params */);
+
+diff --git a/net.minecraft.world.scores.Scoreboard.java b/net.minecraft.world.scores.Scoreboard.java
+--- a/net.minecraft.world.scores.Scoreboard.java
++++ b/net.minecraft.world.scores.Scoreboard.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.objectivesByCriteria", "this.getOrCreatePlayerScor", "this.orCreatePlayerScore"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forAllObjectives(/* params */);
+
+diff --git a/net.minecraft.world.scores.Scoreboard.java b/net.minecraft.world.scores.Scoreboard.java
+--- a/net.minecraft.world.scores.Scoreboard.java
++++ b/net.minecraft.world.scores.Scoreboard.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playerScores"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ listPlayerScores(/* params */);
+
+diff --git a/net.minecraft.world.scores.Scoreboard.java b/net.minecraft.world.scores.Scoreboard.java
+--- a/net.minecraft.world.scores.Scoreboard.java
++++ b/net.minecraft.world.scores.Scoreboard.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playerScores", "this.onPlayerRemove"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetAllPlayerScores(/* params */);
+
+diff --git a/net.minecraft.world.scores.Scoreboard.java b/net.minecraft.world.scores.Scoreboard.java
+--- a/net.minecraft.world.scores.Scoreboard.java
++++ b/net.minecraft.world.scores.Scoreboard.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getObjectiv", "this.objective"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadPlayerScore(/* params */);
+

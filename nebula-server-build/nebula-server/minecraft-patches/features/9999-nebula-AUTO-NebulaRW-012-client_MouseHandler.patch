@@ -1,0 +1,156 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (12 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.MouseHandler.java b/net.minecraft.client.MouseHandler.java
+--- a/net.minecraft.client.MouseHandler.java
++++ b/net.minecraft.client.MouseHandler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.ypos", "this.xpos", "this.mouseGrabbed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ releaseMouse(/* params */);
+
+diff --git a/net.minecraft.client.MouseHandler.java b/net.minecraft.client.MouseHandler.java
+--- a/net.minecraft.client.MouseHandler.java
++++ b/net.minecraft.client.MouseHandler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.lastHandleMovementTim", "this.accumulatedDX", "this.accumulatedDY"},
++writeEntities = {"this.lastHandleMovementTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleAccumulatedMovement(/* params */);
+
+diff --git a/net.minecraft.client.MouseHandler.java b/net.minecraft.client.MouseHandler.java
+--- a/net.minecraft.client.MouseHandler.java
++++ b/net.minecraft.client.MouseHandler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ypos", "this.xpos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillMousePositionDetails(/* params */);
+
+diff --git a/net.minecraft.client.MouseHandler.java b/net.minecraft.client.MouseHandler.java
+--- a/net.minecraft.client.MouseHandler.java
++++ b/net.minecraft.client.MouseHandler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onButton(/* params */);
+
+diff --git a/net.minecraft.client.MouseHandler.java b/net.minecraft.client.MouseHandler.java
+--- a/net.minecraft.client.MouseHandler.java
++++ b/net.minecraft.client.MouseHandler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.accumulatedDX", "this.accumulatedDY", "this.smoothTurnX", "this.smoothTurnY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ turnPlayer(/* params */);
+
+diff --git a/net.minecraft.client.MouseHandler.java b/net.minecraft.client.MouseHandler.java
+--- a/net.minecraft.client.MouseHandler.java
++++ b/net.minecraft.client.MouseHandler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.ignoreFirstMove", "this.ignoreFirstMov", "this.xpo", "this.ypo"},
++writeEntities = {"this.ypos", "this.ignoreFirstMove", "this.xpos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onMove(/* params */);
+
+diff --git a/net.minecraft.client.MouseHandler.java b/net.minecraft.client.MouseHandler.java
+--- a/net.minecraft.client.MouseHandler.java
++++ b/net.minecraft.client.MouseHandler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onDrop(/* params */);
+
+diff --git a/net.minecraft.client.MouseHandler.java b/net.minecraft.client.MouseHandler.java
+--- a/net.minecraft.client.MouseHandler.java
++++ b/net.minecraft.client.MouseHandler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ignoreFirstMov"},
++writeEntities = {"this.ignoreFirstMove"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ cursorEntered(/* params */);
+
+diff --git a/net.minecraft.client.MouseHandler.java b/net.minecraft.client.MouseHandler.java
+--- a/net.minecraft.client.MouseHandler.java
++++ b/net.minecraft.client.MouseHandler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.getScaledXPo", "this.scaledYPos", "this.getScaledYPo", "this.scaledXPos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onScroll(/* params */);
+
+diff --git a/net.minecraft.client.MouseHandler.java b/net.minecraft.client.MouseHandler.java
+--- a/net.minecraft.client.MouseHandler.java
++++ b/net.minecraft.client.MouseHandler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fakeRightMouse"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ simulateRightClick(/* params */);
+
+diff --git a/net.minecraft.client.MouseHandler.java b/net.minecraft.client.MouseHandler.java
+--- a/net.minecraft.client.MouseHandler.java
++++ b/net.minecraft.client.MouseHandler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.getScaledXPo", "this.scaledYPos", "this.getScaledYPo", "this.scaledXPos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ drawDebugMouseInfo(/* params */);
+
+diff --git a/net.minecraft.client.MouseHandler.java b/net.minecraft.client.MouseHandler.java
+--- a/net.minecraft.client.MouseHandler.java
++++ b/net.minecraft.client.MouseHandler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.mouseGrabbed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ grabMouse(/* params */);
+

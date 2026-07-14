@@ -1,0 +1,56 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.renderer.ShaderManager.java b/net.minecraft.client.renderer.ShaderManager.java
+--- a/net.minecraft.client.renderer.ShaderManager.java
++++ b/net.minecraft.client.renderer.ShaderManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.configs"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadPostChain(/* params */);
+
+diff --git a/net.minecraft.client.renderer.ShaderManager.java b/net.minecraft.client.renderer.ShaderManager.java
+--- a/net.minecraft.client.renderer.ShaderManager.java
++++ b/net.minecraft.client.renderer.ShaderManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.compilationCache", "this.recoveryHandler"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tryTriggerRecovery(/* params */);
+
+diff --git a/net.minecraft.client.renderer.ShaderManager.java b/net.minecraft.client.renderer.ShaderManager.java
+--- a/net.minecraft.client.renderer.ShaderManager.java
++++ b/net.minecraft.client.renderer.ShaderManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.id", "this.type"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.client.renderer.ShaderManager.java b/net.minecraft.client.renderer.ShaderManager.java
+--- a/net.minecraft.client.renderer.ShaderManager.java
++++ b/net.minecraft.client.renderer.ShaderManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.postChains"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ close(/* params */);
+

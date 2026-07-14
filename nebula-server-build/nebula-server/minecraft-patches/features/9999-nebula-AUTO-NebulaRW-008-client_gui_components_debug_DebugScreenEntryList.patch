@@ -1,0 +1,108 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (8 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.components.debug.DebugScreenEntryList.java b/net.minecraft.client.gui.components.debug.DebugScreenEntryList.java
+--- a/net.minecraft.client.gui.components.debug.DebugScreenEntryList.java
++++ b/net.minecraft.client.gui.components.debug.DebugScreenEntryList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.rebuildCurrentLis", "this.debugProfileFile", "this.resetToProfil"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ load(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.debug.DebugScreenEntryList.java b/net.minecraft.client.gui.components.debug.DebugScreenEntryList.java
+--- a/net.minecraft.client.gui.components.debug.DebugScreenEntryList.java
++++ b/net.minecraft.client.gui.components.debug.DebugScreenEntryList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.codec", "this.profil", "this.profile", "this.allStatuses", "this.debugProfileFile"},
++writeEntities = {"this.profile"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ save(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.debug.DebugScreenEntryList.java b/net.minecraft.client.gui.components.debug.DebugScreenEntryList.java
+--- a/net.minecraft.client.gui.components.debug.DebugScreenEntryList.java
++++ b/net.minecraft.client.gui.components.debug.DebugScreenEntryList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isOverlayVisible", "this.setOverlayVisibl"},
++writeEntities = {"this.overlayVisible"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toggleDebugOverlay(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.debug.DebugScreenEntryList.java b/net.minecraft.client.gui.components.debug.DebugScreenEntryList.java
+--- a/net.minecraft.client.gui.components.debug.DebugScreenEntryList.java
++++ b/net.minecraft.client.gui.components.debug.DebugScreenEntryList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.allStatuses", "this.isOverlayVisible", "this.currentlyEnabled"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ rebuildCurrentList(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.debug.DebugScreenEntryList.java b/net.minecraft.client.gui.components.debug.DebugScreenEntryList.java
+--- a/net.minecraft.client.gui.components.debug.DebugScreenEntryList.java
++++ b/net.minecraft.client.gui.components.debug.DebugScreenEntryList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.allStatuses"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetStatuses(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.debug.DebugScreenEntryList.java b/net.minecraft.client.gui.components.debug.DebugScreenEntryList.java
+--- a/net.minecraft.client.gui.components.debug.DebugScreenEntryList.java
++++ b/net.minecraft.client.gui.components.debug.DebugScreenEntryList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.allStatuses", "this.isOverlayVisible", "this.setStatu"},
++writeEntities = {"this.status"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toggleStatus(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.debug.DebugScreenEntryList.java b/net.minecraft.client.gui.components.debug.DebugScreenEntryList.java
+--- a/net.minecraft.client.gui.components.debug.DebugScreenEntryList.java
++++ b/net.minecraft.client.gui.components.debug.DebugScreenEntryList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.resetStatuse", "this.profil"},
++writeEntities = {"this.profile"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetToProfile(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.debug.DebugScreenEntryList.java b/net.minecraft.client.gui.components.debug.DebugScreenEntryList.java
+--- a/net.minecraft.client.gui.components.debug.DebugScreenEntryList.java
++++ b/net.minecraft.client.gui.components.debug.DebugScreenEntryList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.rebuildCurrentLis", "this.resetToProfil"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadProfile(/* params */);
+

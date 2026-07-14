@@ -1,0 +1,130 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (10 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java b/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random", "this.recursiveCorrido"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ recursiveCorridor(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java b/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ge"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ edgesTo(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java b/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.traverseTur", "this.traverseWallPiec"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ traverseOuterWalls(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java b/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.structureTemplateManager", "this.startY", "this.startX"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createRoof(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java b/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.structureTemplateManager"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ entrance(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java b/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entranc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createMansion(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java b/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.structureTemplateManager"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ traverseWallPiece(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java b/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.structureTemplateManager"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ traverseTurn(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java b/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.placeSettings"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleDataMarker(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java b/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java
+--- a/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java
++++ b/net.minecraft.world.level.levelgen.structure.structures.WoodlandMansionPieces.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.templateName"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ makeTemplateLocation(/* params */);
+

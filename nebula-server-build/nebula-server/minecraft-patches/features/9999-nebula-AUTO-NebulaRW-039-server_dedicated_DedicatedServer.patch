@@ -1,0 +1,479 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (39 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getPropertie", "this.properties"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ operatorUserPermissions(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.moddedStatus", "this.getModdedStatu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillServerSystemReport(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.settings"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ viewDistance(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getPropertie", "this.properties"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldInformAdmins(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.executeBlockin", "this.rconConsoleSource", "this.getCommand", "this.commands"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ runCommand(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.debugSubscriber", "this.isTickTimeLoggingEnable"},
++writeEntities = {"this.isTickTimeLoggingEnabled"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ endMetricsRecordingTick(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.settings"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pauseWhenEmptySeconds(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.gu"},
++writeEntities = {"this.gui"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ showGui(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.settings"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forceGameMode(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.settings"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ acceptsTransfers(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.jsonRpcServer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickServer(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getPropertie", "this.properties"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ useNativeTransport(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getPropertie", "this.services", "this.properties"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ enforceSecureProfile(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.settings"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forceSynchronousWrites(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getPropertie", "this.setDifficult", "this.properties"},
++writeEntities = {"this.difficulty"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forceDifficulty(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getPropertie", "this.properties"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ entityBroadcastRangePercentage(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.notificationManage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stopServer(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.handleConsoleInput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickConnection(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getPropertie", "this.properties"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ gameMode(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.settings"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ simulationDistance(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.settings"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ statusHeartbeatInterval(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.settings"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ allowFlight(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.serverTextFilter"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onServerExit(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getPropertie", "this.properties"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ logIPs(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.serverLink"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ serverLinks(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getPropertie", "this.properties"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createSslContext(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.serverTextFilter"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createTextFilterForPlayer(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.settings"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playerIdleTimeout(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getPropertie", "this.properties"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hidesOnlinePlayers(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getPropertie", "this.properties"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dumpServerProperties(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getPropertie", "this.settings", "this.properties"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ initServer(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.notificationManage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveAllChunks(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.waitForRetr"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ convertOldUsers(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getPropertie", "this.properties"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldRconBroadcast(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getPropertie", "this.properties"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ repliesToStatus(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.consoleInput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleConsoleInput(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getCommand", "this.consoleInput", "this.commands"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleConsoleInputs(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getPropertie", "this.properties"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spawnProtectionRadius(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedServer.java b/net.minecraft.server.dedicated.DedicatedServer.java
+--- a/net.minecraft.server.dedicated.DedicatedServer.java
++++ b/net.minecraft.server.dedicated.DedicatedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getPlayerLis", "this.playerList"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendLowDiskSpaceWarning(/* params */);
+

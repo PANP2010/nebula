@@ -1,0 +1,81 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.InsideBlockEffectApplier.java b/net.minecraft.world.entity.InsideBlockEffectApplier.java
+--- a/net.minecraft.world.entity.InsideBlockEffectApplier.java
++++ b/net.minecraft.world.entity.InsideBlockEffectApplier.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.finalEffects", "this.effectsInStep", "this.beforeEffectsInStep"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ flushStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.InsideBlockEffectApplier.java b/net.minecraft.world.entity.InsideBlockEffectApplier.java
+--- a/net.minecraft.world.entity.InsideBlockEffectApplier.java
++++ b/net.minecraft.world.entity.InsideBlockEffectApplier.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.afterEffectsInStep"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ runAfter(/* params */);
+
+diff --git a/net.minecraft.world.entity.InsideBlockEffectApplier.java b/net.minecraft.world.entity.InsideBlockEffectApplier.java
+--- a/net.minecraft.world.entity.InsideBlockEffectApplier.java
++++ b/net.minecraft.world.entity.InsideBlockEffectApplier.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.beforeEffectsInStep"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ runBefore(/* params */);
+
+diff --git a/net.minecraft.world.entity.InsideBlockEffectApplier.java b/net.minecraft.world.entity.InsideBlockEffectApplier.java
+--- a/net.minecraft.world.entity.InsideBlockEffectApplier.java
++++ b/net.minecraft.world.entity.InsideBlockEffectApplier.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lastStep", "this.flushSte", "this.lastSte"},
++writeEntities = {"this.lastStep"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ advanceStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.InsideBlockEffectApplier.java b/net.minecraft.world.entity.InsideBlockEffectApplier.java
+--- a/net.minecraft.world.entity.InsideBlockEffectApplier.java
++++ b/net.minecraft.world.entity.InsideBlockEffectApplier.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.flushSte", "this.finalEffects"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyAndClear(/* params */);
+
+diff --git a/net.minecraft.world.entity.InsideBlockEffectApplier.java b/net.minecraft.world.entity.InsideBlockEffectApplier.java
+--- a/net.minecraft.world.entity.InsideBlockEffectApplier.java
++++ b/net.minecraft.world.entity.InsideBlockEffectApplier.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.effectsInStep"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ apply(/* params */);
+

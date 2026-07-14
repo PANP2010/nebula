@@ -1,0 +1,249 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (19 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+--- a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
++++ b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random", "this.tam", "this.navigation", "this.leve"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tryToTame(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+--- a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
++++ b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spawnBubbles(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+--- a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
++++ b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hasPassenge", "this.leve", "this.isVehicl", "this.isTam", "this.inventory"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ openCustomInventoryScreen(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+--- a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
++++ b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isTam"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ requiresCustomPersistence(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+--- a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
++++ b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isSaddle", "this.getPlayerJumpPendingScal", "this.dashCooldown", "this.playerJumpPendingScale", "this.playerJumpPendingScal"},
++writeEntities = {"this.playerJumpPendingScale"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onPlayerJump(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+--- a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
++++ b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isBab"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mobInteract(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+--- a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
++++ b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.checkRestrictio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ customServerAiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+--- a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
++++ b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.clearHom", "this.leve", "this.isVehicl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ doPlayerRide(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+--- a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
++++ b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.homeTo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkRestriction(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+--- a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
++++ b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setPersistenceRequire"},
++writeEntities = {"this.persistenceRequired"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ interact(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+--- a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
++++ b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.yBodyRot", "this.yRotO", "this.yHeadRot", "this.rot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickRidden(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+--- a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
++++ b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.applyEffect", "this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+--- a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
++++ b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getInventorySiz", "this.inventor", "this.inventory", "this.inventorySize"},
++writeEntities = {"this.inventory"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createInventory(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+--- a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
++++ b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getFirstPassenge", "this.firstPassenger"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyEffects(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+--- a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
++++ b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.firstTick", "this.dashCooldow"},
++writeEntities = {"this.dashCooldown"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSyncedDataUpdated(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+--- a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
++++ b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.deltaMovement"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ travelInWater(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+--- a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
++++ b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.dashCooldown", "this.dashing", "this.needsSync"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ executeRidersJump(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+--- a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
++++ b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setDashin", "this.getDashSoun", "this.makeSoun", "this.gameEven", "this.dashSound"},
++writeEntities = {"this.dashing"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleStartJump(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+--- a/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
++++ b/net.minecraft.world.entity.animal.nautilus.AbstractNautilus.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{neighbors}", "{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkNautilusSpawnRules(/* params */);
+

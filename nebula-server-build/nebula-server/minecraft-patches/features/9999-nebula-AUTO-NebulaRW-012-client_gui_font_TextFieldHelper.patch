@@ -1,0 +1,158 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (12 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.font.TextFieldHelper.java b/net.minecraft.client.gui.font.TextFieldHelper.java
+--- a/net.minecraft.client.gui.font.TextFieldHelper.java
++++ b/net.minecraft.client.gui.font.TextFieldHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.moveByWord", "this.moveByChar"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ moveBy(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.TextFieldHelper.java b/net.minecraft.client.gui.font.TextFieldHelper.java
+--- a/net.minecraft.client.gui.font.TextFieldHelper.java
++++ b/net.minecraft.client.gui.font.TextFieldHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getMessageFn", "this.selectionPo", "this.cursorPo"},
++writeEntities = {"this.cursorPos", "this.selectionPos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ selectAll(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.TextFieldHelper.java b/net.minecraft.client.gui.font.TextFieldHelper.java
+--- a/net.minecraft.client.gui.font.TextFieldHelper.java
++++ b/net.minecraft.client.gui.font.TextFieldHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.selectionPo", "this.cursorPos"},
++writeEntities = {"this.selectionPos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ deleteSelection(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.TextFieldHelper.java b/net.minecraft.client.gui.font.TextFieldHelper.java
+--- a/net.minecraft.client.gui.font.TextFieldHelper.java
++++ b/net.minecraft.client.gui.font.TextFieldHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getMessageFn", "this.getSelecte", "this.setClipboardFn", "this.selected"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ copy(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.TextFieldHelper.java b/net.minecraft.client.gui.font.TextFieldHelper.java
+--- a/net.minecraft.client.gui.font.TextFieldHelper.java
++++ b/net.minecraft.client.gui.font.TextFieldHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getMessageFn", "this.insertTex"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ charTyped(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.TextFieldHelper.java b/net.minecraft.client.gui.font.TextFieldHelper.java
+--- a/net.minecraft.client.gui.font.TextFieldHelper.java
++++ b/net.minecraft.client.gui.font.TextFieldHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getMessageFn", "this.resetSelectionIfNeede", "this.cursorPo", "this.cursorPos"},
++writeEntities = {"this.cursorPos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ moveByWords(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.TextFieldHelper.java b/net.minecraft.client.gui.font.TextFieldHelper.java
+--- a/net.minecraft.client.gui.font.TextFieldHelper.java
++++ b/net.minecraft.client.gui.font.TextFieldHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getMessageFn"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ clampToMsgLength(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.TextFieldHelper.java b/net.minecraft.client.gui.font.TextFieldHelper.java
+--- a/net.minecraft.client.gui.font.TextFieldHelper.java
++++ b/net.minecraft.client.gui.font.TextFieldHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.selectionPo", "this.cursorPo"},
++writeEntities = {"this.selectionPos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetSelectionIfNeeded(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.TextFieldHelper.java b/net.minecraft.client.gui.font.TextFieldHelper.java
+--- a/net.minecraft.client.gui.font.TextFieldHelper.java
++++ b/net.minecraft.client.gui.font.TextFieldHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getMessageFn", "this.getClipboardFn", "this.selectionPo", "this.insertTex", "this.cursorPo"},
++writeEntities = {"this.selectionPos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ paste(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.TextFieldHelper.java b/net.minecraft.client.gui.font.TextFieldHelper.java
+--- a/net.minecraft.client.gui.font.TextFieldHelper.java
++++ b/net.minecraft.client.gui.font.TextFieldHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getMessageFn", "this.insertTex"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ insertText(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.TextFieldHelper.java b/net.minecraft.client.gui.font.TextFieldHelper.java
+--- a/net.minecraft.client.gui.font.TextFieldHelper.java
++++ b/net.minecraft.client.gui.font.TextFieldHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.selectAl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ keyPressed(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.TextFieldHelper.java b/net.minecraft.client.gui.font.TextFieldHelper.java
+--- a/net.minecraft.client.gui.font.TextFieldHelper.java
++++ b/net.minecraft.client.gui.font.TextFieldHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getMessageFn", "this.resetSelectionIfNeede", "this.cursorPo", "this.cursorPos"},
++writeEntities = {"this.cursorPos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ moveByChars(/* params */);
+

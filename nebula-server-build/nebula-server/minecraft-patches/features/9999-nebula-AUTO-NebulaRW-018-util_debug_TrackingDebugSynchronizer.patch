@@ -1,0 +1,224 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (18 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.util.debug.TrackingDebugSynchronizer.java b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+--- a/net.minecraft.util.debug.TrackingDebugSynchronizer.java
++++ b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.subscription"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendInitialChunk(/* params */);
+
+diff --git a/net.minecraft.util.debug.TrackingDebugSynchronizer.java b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+--- a/net.minecraft.util.debug.TrackingDebugSynchronizer.java
++++ b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entitySources"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerEntity(/* params */);
+
+diff --git a/net.minecraft.util.debug.TrackingDebugSynchronizer.java b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+--- a/net.minecraft.util.debug.TrackingDebugSynchronizer.java
++++ b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.subscribedPlayers"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendToPlayersTrackingEntity(/* params */);
+
+diff --git a/net.minecraft.util.debug.TrackingDebugSynchronizer.java b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+--- a/net.minecraft.util.debug.TrackingDebugSynchronizer.java
++++ b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sendVillageSectionsPacke"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onPoiAdded(/* params */);
+
+diff --git a/net.minecraft.util.debug.TrackingDebugSynchronizer.java b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+--- a/net.minecraft.util.debug.TrackingDebugSynchronizer.java
++++ b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockEntitySources"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerBlockEntity(/* params */);
+
+diff --git a/net.minecraft.util.debug.TrackingDebugSynchronizer.java b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+--- a/net.minecraft.util.debug.TrackingDebugSynchronizer.java
++++ b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sendVillageSectionsPacke"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onPoiRemoved(/* params */);
+
+diff --git a/net.minecraft.util.debug.TrackingDebugSynchronizer.java b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+--- a/net.minecraft.util.debug.TrackingDebugSynchronizer.java
++++ b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sendToPlayersTrackingChun", "this.subscription", "this.chunkSources"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pollAndSendUpdates(/* params */);
+
+diff --git a/net.minecraft.util.debug.TrackingDebugSynchronizer.java b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+--- a/net.minecraft.util.debug.TrackingDebugSynchronizer.java
++++ b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sendInitialChun", "this.subscribedPlayers"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startTrackingChunk(/* params */);
+
+diff --git a/net.minecraft.util.debug.TrackingDebugSynchronizer.java b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+--- a/net.minecraft.util.debug.TrackingDebugSynchronizer.java
++++ b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chunkSources"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerChunk(/* params */);
+
+diff --git a/net.minecraft.util.debug.TrackingDebugSynchronizer.java b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+--- a/net.minecraft.util.debug.TrackingDebugSynchronizer.java
++++ b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entitySources", "this.subscription"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendInitialEntity(/* params */);
+
+diff --git a/net.minecraft.util.debug.TrackingDebugSynchronizer.java b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+--- a/net.minecraft.util.debug.TrackingDebugSynchronizer.java
++++ b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockEntitySources", "this.chunkSources"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropChunk(/* params */);
+
+diff --git a/net.minecraft.util.debug.TrackingDebugSynchronizer.java b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+--- a/net.minecraft.util.debug.TrackingDebugSynchronizer.java
++++ b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sendToPlayersTrackingChun", "this.subscription"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendVillageSectionsPacket(/* params */);
+
+diff --git a/net.minecraft.util.debug.TrackingDebugSynchronizer.java b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+--- a/net.minecraft.util.debug.TrackingDebugSynchronizer.java
++++ b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entitySources"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropEntity(/* params */);
+
+diff --git a/net.minecraft.util.debug.TrackingDebugSynchronizer.java b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+--- a/net.minecraft.util.debug.TrackingDebugSynchronizer.java
++++ b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockEntitySources", "this.sendToPlayersTrackingChun", "this.subscription"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropBlockEntity(/* params */);
+
+diff --git a/net.minecraft.util.debug.TrackingDebugSynchronizer.java b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+--- a/net.minecraft.util.debug.TrackingDebugSynchronizer.java
++++ b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.subscribedPlayers", "this.sendInitialEntit"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startTrackingEntity(/* params */);
+
+diff --git a/net.minecraft.util.debug.TrackingDebugSynchronizer.java b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+--- a/net.minecraft.util.debug.TrackingDebugSynchronizer.java
++++ b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sendToPlayersTrackingChun", "this.subscription"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onPoiTicketCountChanged(/* params */);
+
+diff --git a/net.minecraft.util.debug.TrackingDebugSynchronizer.java b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+--- a/net.minecraft.util.debug.TrackingDebugSynchronizer.java
++++ b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.subscribedPlayers"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendToPlayersTrackingChunk(/* params */);
+
+diff --git a/net.minecraft.util.debug.TrackingDebugSynchronizer.java b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+--- a/net.minecraft.util.debug.TrackingDebugSynchronizer.java
++++ b/net.minecraft.util.debug.TrackingDebugSynchronizer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.subscribedPlayers", "this.subscription", "this.addSubscribe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+

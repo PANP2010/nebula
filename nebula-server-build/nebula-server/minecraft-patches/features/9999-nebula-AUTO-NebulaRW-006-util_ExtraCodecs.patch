@@ -1,0 +1,82 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.util.ExtraCodecs.java b/net.minecraft.util.ExtraCodecs.java
+--- a/net.minecraft.util.ExtraCodecs.java
++++ b/net.minecraft.util.ExtraCodecs.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.idToValue"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ values(/* params */);
+
+diff --git a/net.minecraft.util.ExtraCodecs.java b/net.minecraft.util.ExtraCodecs.java
+--- a/net.minecraft.util.ExtraCodecs.java
++++ b/net.minecraft.util.ExtraCodecs.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.encod"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ encode(/* params */);
+
+diff --git a/net.minecraft.util.ExtraCodecs.java b/net.minecraft.util.ExtraCodecs.java
+--- a/net.minecraft.util.ExtraCodecs.java
++++ b/net.minecraft.util.ExtraCodecs.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.i", "this.tag", "this.id"},
++writeEntities = {"this.id"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ decoratedId(/* params */);
+
+diff --git a/net.minecraft.util.ExtraCodecs.java b/net.minecraft.util.ExtraCodecs.java
+--- a/net.minecraft.util.ExtraCodecs.java
++++ b/net.minecraft.util.ExtraCodecs.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.idToValu", "this.idToValue"},
++writeEntities = {"this.idToValue"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ codec(/* params */);
+
+diff --git a/net.minecraft.util.ExtraCodecs.java b/net.minecraft.util.ExtraCodecs.java
+--- a/net.minecraft.util.ExtraCodecs.java
++++ b/net.minecraft.util.ExtraCodecs.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.decoratedI"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.util.ExtraCodecs.java b/net.minecraft.util.ExtraCodecs.java
+--- a/net.minecraft.util.ExtraCodecs.java
++++ b/net.minecraft.util.ExtraCodecs.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.decod"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ decode(/* params */);
+

@@ -1,0 +1,94 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.BaseCommandBlock.java b/net.minecraft.world.level.BaseCommandBlock.java
+--- a/net.minecraft.world.level.BaseCommandBlock.java
++++ b/net.minecraft.world.level.BaseCommandBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.closed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldInformAdmins(/* params */);
+
+diff --git a/net.minecraft.world.level.BaseCommandBlock.java b/net.minecraft.world.level.BaseCommandBlock.java
+--- a/net.minecraft.world.level.BaseCommandBlock.java
++++ b/net.minecraft.world.level.BaseCommandBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.trackOutput", "this.successCount", "this.customName", "this.command", "this.lastOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ load(/* params */);
+
+diff --git a/net.minecraft.world.level.BaseCommandBlock.java b/net.minecraft.world.level.BaseCommandBlock.java
+--- a/net.minecraft.world.level.BaseCommandBlock.java
++++ b/net.minecraft.world.level.BaseCommandBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lastOutpu", "this.level", "this.closed", "this.onUpdate"},
++writeEntities = {"this.lastOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendSystemMessage(/* params */);
+
+diff --git a/net.minecraft.world.level.BaseCommandBlock.java b/net.minecraft.world.level.BaseCommandBlock.java
+--- a/net.minecraft.world.level.BaseCommandBlock.java
++++ b/net.minecraft.world.level.BaseCommandBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.trackOutput", "this.successCount", "this.customName", "this.command", "this.lastOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ save(/* params */);
+
+diff --git a/net.minecraft.world.level.BaseCommandBlock.java b/net.minecraft.world.level.BaseCommandBlock.java
+--- a/net.minecraft.world.level.BaseCommandBlock.java
++++ b/net.minecraft.world.level.BaseCommandBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.close"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ acceptsFailure(/* params */);
+
+diff --git a/net.minecraft.world.level.BaseCommandBlock.java b/net.minecraft.world.level.BaseCommandBlock.java
+--- a/net.minecraft.world.level.BaseCommandBlock.java
++++ b/net.minecraft.world.level.BaseCommandBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lastExecution"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ performCommand(/* params */);
+
+diff --git a/net.minecraft.world.level.BaseCommandBlock.java b/net.minecraft.world.level.BaseCommandBlock.java
+--- a/net.minecraft.world.level.BaseCommandBlock.java
++++ b/net.minecraft.world.level.BaseCommandBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.closed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ acceptsSuccess(/* params */);
+

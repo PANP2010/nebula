@@ -1,0 +1,56 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.storage.LevelVersion.java b/net.minecraft.world.level.storage.LevelVersion.java
+--- a/net.minecraft.world.level.storage.LevelVersion.java
++++ b/net.minecraft.world.level.storage.LevelVersion.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraftVersionNam"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ minecraftVersionName(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.LevelVersion.java b/net.minecraft.world.level.storage.LevelVersion.java
+--- a/net.minecraft.world.level.storage.LevelVersion.java
++++ b/net.minecraft.world.level.storage.LevelVersion.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lastPlaye"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ lastPlayed(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.LevelVersion.java b/net.minecraft.world.level.storage.LevelVersion.java
+--- a/net.minecraft.world.level.storage.LevelVersion.java
++++ b/net.minecraft.world.level.storage.LevelVersion.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraftVersio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ minecraftVersion(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.LevelVersion.java b/net.minecraft.world.level.storage.LevelVersion.java
+--- a/net.minecraft.world.level.storage.LevelVersion.java
++++ b/net.minecraft.world.level.storage.LevelVersion.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.levelDataVersio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ levelDataVersion(/* params */);
+

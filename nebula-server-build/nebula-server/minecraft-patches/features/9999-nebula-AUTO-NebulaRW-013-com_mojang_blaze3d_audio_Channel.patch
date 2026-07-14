@@ -1,0 +1,165 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (13 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/com.mojang.blaze3d.audio.Channel.java b/com.mojang.blaze3d.audio.Channel.java
+--- a/com.mojang.blaze3d.audio.Channel.java
++++ b/com.mojang.blaze3d.audio.Channel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.stream", "this.removeProcessedBuffer", "this.pumpBuffer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateStream(/* params */);
+
+diff --git a/com.mojang.blaze3d.audio.Channel.java b/com.mojang.blaze3d.audio.Channel.java
+--- a/com.mojang.blaze3d.audio.Channel.java
++++ b/com.mojang.blaze3d.audio.Channel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ disableAttenuation(/* params */);
+
+diff --git a/com.mojang.blaze3d.audio.Channel.java b/com.mojang.blaze3d.audio.Channel.java
+--- a/com.mojang.blaze3d.audio.Channel.java
++++ b/com.mojang.blaze3d.audio.Channel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ linearAttenuation(/* params */);
+
+diff --git a/com.mojang.blaze3d.audio.Channel.java b/com.mojang.blaze3d.audio.Channel.java
+--- a/com.mojang.blaze3d.audio.Channel.java
++++ b/com.mojang.blaze3d.audio.Channel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source", "this.state", "this.getStat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ unpause(/* params */);
+
+diff --git a/com.mojang.blaze3d.audio.Channel.java b/com.mojang.blaze3d.audio.Channel.java
+--- a/com.mojang.blaze3d.audio.Channel.java
++++ b/com.mojang.blaze3d.audio.Channel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.stream", "this.initialized", "this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ destroy(/* params */);
+
+diff --git a/com.mojang.blaze3d.audio.Channel.java b/com.mojang.blaze3d.audio.Channel.java
+--- a/com.mojang.blaze3d.audio.Channel.java
++++ b/com.mojang.blaze3d.audio.Channel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.stream", "this.source", "this.streamingBufferSize"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pumpBuffers(/* params */);
+
+diff --git a/com.mojang.blaze3d.audio.Channel.java b/com.mojang.blaze3d.audio.Channel.java
+--- a/com.mojang.blaze3d.audio.Channel.java
++++ b/com.mojang.blaze3d.audio.Channel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source", "this.state", "this.getStat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pause(/* params */);
+
+diff --git a/com.mojang.blaze3d.audio.Channel.java b/com.mojang.blaze3d.audio.Channel.java
+--- a/com.mojang.blaze3d.audio.Channel.java
++++ b/com.mojang.blaze3d.audio.Channel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.strea", "this.streamingBufferSiz", "this.pumpBuffer"},
++writeEntities = {"this.stream", "this.streamingBufferSize"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ attachBufferStream(/* params */);
+
+diff --git a/com.mojang.blaze3d.audio.Channel.java b/com.mojang.blaze3d.audio.Channel.java
+--- a/com.mojang.blaze3d.audio.Channel.java
++++ b/com.mojang.blaze3d.audio.Channel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ attachStaticBuffer(/* params */);
+
+diff --git a/com.mojang.blaze3d.audio.Channel.java b/com.mojang.blaze3d.audio.Channel.java
+--- a/com.mojang.blaze3d.audio.Channel.java
++++ b/com.mojang.blaze3d.audio.Channel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.state", "this.getStat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playing(/* params */);
+
+diff --git a/com.mojang.blaze3d.audio.Channel.java b/com.mojang.blaze3d.audio.Channel.java
+--- a/com.mojang.blaze3d.audio.Channel.java
++++ b/com.mojang.blaze3d.audio.Channel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ play(/* params */);
+
+diff --git a/com.mojang.blaze3d.audio.Channel.java b/com.mojang.blaze3d.audio.Channel.java
+--- a/com.mojang.blaze3d.audio.Channel.java
++++ b/com.mojang.blaze3d.audio.Channel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.initialized", "this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+
+diff --git a/com.mojang.blaze3d.audio.Channel.java b/com.mojang.blaze3d.audio.Channel.java
+--- a/com.mojang.blaze3d.audio.Channel.java
++++ b/com.mojang.blaze3d.audio.Channel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.state", "this.getStat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stopped(/* params */);
+

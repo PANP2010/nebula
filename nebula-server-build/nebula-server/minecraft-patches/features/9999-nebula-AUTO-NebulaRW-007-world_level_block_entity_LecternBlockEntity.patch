@@ -1,0 +1,96 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.entity.LecternBlockEntity.java b/net.minecraft.world.level.block.entity.LecternBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.LecternBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.LecternBlockEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.pageCount", "this.page"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onBookItemRemove(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.LecternBlockEntity.java b/net.minecraft.world.level.block.entity.LecternBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.LecternBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.LecternBlockEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBoo", "this.level", "this.book"},
++triggeredEvents = {"ENTITY_SPAWNED"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ preRemoveSideEffects(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.LecternBlockEntity.java b/net.minecraft.world.level.block.entity.LecternBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.LecternBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.LecternBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.pageCount", "this.book", "this.page"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadAdditional(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.LecternBlockEntity.java b/net.minecraft.world.level.block.entity.LecternBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.LecternBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.LecternBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.dataAccess", "this.bookAccess"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createMenu(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.LecternBlockEntity.java b/net.minecraft.world.level.block.entity.LecternBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.LecternBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.LecternBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hasBoo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stillValid(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.LecternBlockEntity.java b/net.minecraft.world.level.block.entity.LecternBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.LecternBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.LecternBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.createCommandSourceStac"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resolveBook(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.LecternBlockEntity.java b/net.minecraft.world.level.block.entity.LecternBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.LecternBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.LecternBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBoo", "this.book", "this.page"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveAdditional(/* params */);
+

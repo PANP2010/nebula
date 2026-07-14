@@ -1,0 +1,224 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (18 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.nbt.TextComponentTagVisitor.java b/net.minecraft.nbt.TextComponentTagVisitor.java
+--- a/net.minecraft.nbt.TextComponentTagVisitor.java
++++ b/net.minecraft.nbt.TextComponentTagVisitor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.appen", "this.styling"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ visitByteArray(/* params */);
+
+diff --git a/net.minecraft.nbt.TextComponentTagVisitor.java b/net.minecraft.nbt.TextComponentTagVisitor.java
+--- a/net.minecraft.nbt.TextComponentTagVisitor.java
++++ b/net.minecraft.nbt.TextComponentTagVisitor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.styling"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleEscapePretty(/* params */);
+
+diff --git a/net.minecraft.nbt.TextComponentTagVisitor.java b/net.minecraft.nbt.TextComponentTagVisitor.java
+--- a/net.minecraft.nbt.TextComponentTagVisitor.java
++++ b/net.minecraft.nbt.TextComponentTagVisitor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.result", "this.styling"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ append(/* params */);
+
+diff --git a/net.minecraft.nbt.TextComponentTagVisitor.java b/net.minecraft.nbt.TextComponentTagVisitor.java
+--- a/net.minecraft.nbt.TextComponentTagVisitor.java
++++ b/net.minecraft.nbt.TextComponentTagVisitor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tokens"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ token(/* params */);
+
+diff --git a/net.minecraft.nbt.TextComponentTagVisitor.java b/net.minecraft.nbt.TextComponentTagVisitor.java
+--- a/net.minecraft.nbt.TextComponentTagVisitor.java
++++ b/net.minecraft.nbt.TextComponentTagVisitor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.appen", "this.styling"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ visitInt(/* params */);
+
+diff --git a/net.minecraft.nbt.TextComponentTagVisitor.java b/net.minecraft.nbt.TextComponentTagVisitor.java
+--- a/net.minecraft.nbt.TextComponentTagVisitor.java
++++ b/net.minecraft.nbt.TextComponentTagVisitor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.appen", "this.styling"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ visitShort(/* params */);
+
+diff --git a/net.minecraft.nbt.TextComponentTagVisitor.java b/net.minecraft.nbt.TextComponentTagVisitor.java
+--- a/net.minecraft.nbt.TextComponentTagVisitor.java
++++ b/net.minecraft.nbt.TextComponentTagVisitor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.appen", "this.styling"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ visitLong(/* params */);
+
+diff --git a/net.minecraft.nbt.TextComponentTagVisitor.java b/net.minecraft.nbt.TextComponentTagVisitor.java
+--- a/net.minecraft.nbt.TextComponentTagVisitor.java
++++ b/net.minecraft.nbt.TextComponentTagVisitor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.appen", "this.styling"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ visitLongArray(/* params */);
+
+diff --git a/net.minecraft.nbt.TextComponentTagVisitor.java b/net.minecraft.nbt.TextComponentTagVisitor.java
+--- a/net.minecraft.nbt.TextComponentTagVisitor.java
++++ b/net.minecraft.nbt.TextComponentTagVisitor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.appen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ visitCompound(/* params */);
+
+diff --git a/net.minecraft.nbt.TextComponentTagVisitor.java b/net.minecraft.nbt.TextComponentTagVisitor.java
+--- a/net.minecraft.nbt.TextComponentTagVisitor.java
++++ b/net.minecraft.nbt.TextComponentTagVisitor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.appen", "this.styling"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ visitIntArray(/* params */);
+
+diff --git a/net.minecraft.nbt.TextComponentTagVisitor.java b/net.minecraft.nbt.TextComponentTagVisitor.java
+--- a/net.minecraft.nbt.TextComponentTagVisitor.java
++++ b/net.minecraft.nbt.TextComponentTagVisitor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tokens"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ overrideToken(/* params */);
+
+diff --git a/net.minecraft.nbt.TextComponentTagVisitor.java b/net.minecraft.nbt.TextComponentTagVisitor.java
+--- a/net.minecraft.nbt.TextComponentTagVisitor.java
++++ b/net.minecraft.nbt.TextComponentTagVisitor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.appen", "this.styling"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ visitFloat(/* params */);
+
+diff --git a/net.minecraft.nbt.TextComponentTagVisitor.java b/net.minecraft.nbt.TextComponentTagVisitor.java
+--- a/net.minecraft.nbt.TextComponentTagVisitor.java
++++ b/net.minecraft.nbt.TextComponentTagVisitor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.resul"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ visit(/* params */);
+
+diff --git a/net.minecraft.nbt.TextComponentTagVisitor.java b/net.minecraft.nbt.TextComponentTagVisitor.java
+--- a/net.minecraft.nbt.TextComponentTagVisitor.java
++++ b/net.minecraft.nbt.TextComponentTagVisitor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.appen", "this.styling"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ visitByte(/* params */);
+
+diff --git a/net.minecraft.nbt.TextComponentTagVisitor.java b/net.minecraft.nbt.TextComponentTagVisitor.java
+--- a/net.minecraft.nbt.TextComponentTagVisitor.java
++++ b/net.minecraft.nbt.TextComponentTagVisitor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.appen", "this.styling"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ visitDouble(/* params */);
+
+diff --git a/net.minecraft.nbt.TextComponentTagVisitor.java b/net.minecraft.nbt.TextComponentTagVisitor.java
+--- a/net.minecraft.nbt.TextComponentTagVisitor.java
++++ b/net.minecraft.nbt.TextComponentTagVisitor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.appen", "this.styling"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ visitString(/* params */);
+
+diff --git a/net.minecraft.nbt.TextComponentTagVisitor.java b/net.minecraft.nbt.TextComponentTagVisitor.java
+--- a/net.minecraft.nbt.TextComponentTagVisitor.java
++++ b/net.minecraft.nbt.TextComponentTagVisitor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.appen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ visitList(/* params */);
+
+diff --git a/net.minecraft.nbt.TextComponentTagVisitor.java b/net.minecraft.nbt.TextComponentTagVisitor.java
+--- a/net.minecraft.nbt.TextComponentTagVisitor.java
++++ b/net.minecraft.nbt.TextComponentTagVisitor.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.indentDepth"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ appendSubTag(/* params */);
+

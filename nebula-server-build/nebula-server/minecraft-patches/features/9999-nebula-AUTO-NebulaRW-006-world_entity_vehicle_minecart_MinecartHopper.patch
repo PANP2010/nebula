@@ -1,0 +1,85 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.MinecartHopper.java b/net.minecraft.world.entity.vehicle.minecart.MinecartHopper.java
+--- a/net.minecraft.world.entity.vehicle.minecart.MinecartHopper.java
++++ b/net.minecraft.world.entity.vehicle.minecart.MinecartHopper.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.consumedItemThisFrame", "this.changed"},
++triggeredEvents = {"BLOCK_UPDATE"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tryConsumeItems(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.MinecartHopper.java b/net.minecraft.world.entity.vehicle.minecart.MinecartHopper.java
+--- a/net.minecraft.world.entity.vehicle.minecart.MinecartHopper.java
++++ b/net.minecraft.world.entity.vehicle.minecart.MinecartHopper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tryConsumeItem", "this.consumedItemThisFram"},
++writeEntities = {"this.consumedItemThisFrame"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.MinecartHopper.java b/net.minecraft.world.entity.vehicle.minecart.MinecartHopper.java
+--- a/net.minecraft.world.entity.vehicle.minecart.MinecartHopper.java
++++ b/net.minecraft.world.entity.vehicle.minecart.MinecartHopper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.enable"},
++writeEntities = {"this.enabled"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.MinecartHopper.java b/net.minecraft.world.entity.vehicle.minecart.MinecartHopper.java
+--- a/net.minecraft.world.entity.vehicle.minecart.MinecartHopper.java
++++ b/net.minecraft.world.entity.vehicle.minecart.MinecartHopper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ suckInItems(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.MinecartHopper.java b/net.minecraft.world.entity.vehicle.minecart.MinecartHopper.java
+--- a/net.minecraft.world.entity.vehicle.minecart.MinecartHopper.java
++++ b/net.minecraft.world.entity.vehicle.minecart.MinecartHopper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tryConsumeItem"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ makeStepAlongTrack(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.MinecartHopper.java b/net.minecraft.world.entity.vehicle.minecart.MinecartHopper.java
+--- a/net.minecraft.world.entity.vehicle.minecart.MinecartHopper.java
++++ b/net.minecraft.world.entity.vehicle.minecart.MinecartHopper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setEnable", "this.isEnable"},
++writeEntities = {"this.enabled"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ activateMinecart(/* params */);
+

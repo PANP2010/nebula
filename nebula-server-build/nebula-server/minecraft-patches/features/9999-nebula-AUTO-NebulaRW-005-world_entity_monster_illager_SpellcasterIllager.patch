@@ -1,0 +1,74 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.monster.illager.SpellcasterIllager.java b/net.minecraft.world.entity.monster.illager.SpellcasterIllager.java
+--- a/net.minecraft.world.entity.monster.illager.SpellcasterIllager.java
++++ b/net.minecraft.world.entity.monster.illager.SpellcasterIllager.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.nextAttackTickCount", "this.spellCastingTickCount", "this.attackWarmupDelay"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ start(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.illager.SpellcasterIllager.java b/net.minecraft.world.entity.monster.illager.SpellcasterIllager.java
+--- a/net.minecraft.world.entity.monster.illager.SpellcasterIllager.java
++++ b/net.minecraft.world.entity.monster.illager.SpellcasterIllager.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.attackWarmupDelay"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.illager.SpellcasterIllager.java b/net.minecraft.world.entity.monster.illager.SpellcasterIllager.java
+--- a/net.minecraft.world.entity.monster.illager.SpellcasterIllager.java
++++ b/net.minecraft.world.entity.monster.illager.SpellcasterIllager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.spellCastingTickCount"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ customServerAiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.illager.SpellcasterIllager.java b/net.minecraft.world.entity.monster.illager.SpellcasterIllager.java
+--- a/net.minecraft.world.entity.monster.illager.SpellcasterIllager.java
++++ b/net.minecraft.world.entity.monster.illager.SpellcasterIllager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.spellCastingTickCoun"},
++writeEntities = {"this.spellCastingTickCount"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.illager.SpellcasterIllager.java b/net.minecraft.world.entity.monster.illager.SpellcasterIllager.java
+--- a/net.minecraft.world.entity.monster.illager.SpellcasterIllager.java
++++ b/net.minecraft.world.entity.monster.illager.SpellcasterIllager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setIsCastingSpel"},
++writeEntities = {"this.isCastingSpell"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+

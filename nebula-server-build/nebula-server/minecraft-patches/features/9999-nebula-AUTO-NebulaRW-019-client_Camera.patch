@@ -1,0 +1,246 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (19 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.Camera.java b/net.minecraft.client.Camera.java
+--- a/net.minecraft.client.Camera.java
++++ b/net.minecraft.client.Camera.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isPanoramicMod"},
++writeEntities = {"this.isPanoramicMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ disablePanoramicMode(/* params */);
+
+diff --git a/net.minecraft.client.Camera.java b/net.minecraft.client.Camera.java
+--- a/net.minecraft.client.Camera.java
++++ b/net.minecraft.client.Camera.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.cullFrustu", "this.captureFrustum", "this.capturedFrustum", "this.capturedFrustu"},
++writeEntities = {"this.cullFrustum"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ prepareCullFrustum(/* params */);
+
+diff --git a/net.minecraft.client.Camera.java b/net.minecraft.client.Camera.java
+--- a/net.minecraft.client.Camera.java
++++ b/net.minecraft.client.Camera.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.attributeProb"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ attributeProbe(/* params */);
+
+diff --git a/net.minecraft.client.Camera.java b/net.minecraft.client.Camera.java
+--- a/net.minecraft.client.Camera.java
++++ b/net.minecraft.client.Camera.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.eyeHeightOld", "this.setRotatio", "this.eyeHeight", "this.setPositio", "this.entity"},
++writeEntities = {"this.rotation", "this.position"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ alignWithEntity(/* params */);
+
+diff --git a/net.minecraft.client.Camera.java b/net.minecraft.client.Camera.java
+--- a/net.minecraft.client.Camera.java
++++ b/net.minecraft.client.Camera.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isPanoramicMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateFov(/* params */);
+
+diff --git a/net.minecraft.client.Camera.java b/net.minecraft.client.Camera.java
+--- a/net.minecraft.client.Camera.java
++++ b/net.minecraft.client.Camera.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.capturedFrustu"},
++writeEntities = {"this.capturedFrustum"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ killFrustum(/* params */);
+
+diff --git a/net.minecraft.client.Camera.java b/net.minecraft.client.Camera.java
+--- a/net.minecraft.client.Camera.java
++++ b/net.minecraft.client.Camera.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.panoramicForward"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ panoramicForwards(/* params */);
+
+diff --git a/net.minecraft.client.Camera.java b/net.minecraft.client.Camera.java
+--- a/net.minecraft.client.Camera.java
++++ b/net.minecraft.client.Camera.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.rotation", "this.setPositio", "this.position"},
++writeEntities = {"this.position"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ move(/* params */);
+
+diff --git a/net.minecraft.client.Camera.java b/net.minecraft.client.Camera.java
+--- a/net.minecraft.client.Camera.java
++++ b/net.minecraft.client.Camera.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.captureFrustu"},
++writeEntities = {"this.captureFrustum"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ captureFrustum(/* params */);
+
+diff --git a/net.minecraft.client.Camera.java b/net.minecraft.client.Camera.java
+--- a/net.minecraft.client.Camera.java
++++ b/net.minecraft.client.Camera.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entity"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ modifyFovBasedOnDeathOrFluid(/* params */);
+
+diff --git a/net.minecraft.client.Camera.java b/net.minecraft.client.Camera.java
+--- a/net.minecraft.client.Camera.java
++++ b/net.minecraft.client.Camera.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockPositio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ blockPosition(/* params */);
+
+diff --git a/net.minecraft.client.Camera.java b/net.minecraft.client.Camera.java
+--- a/net.minecraft.client.Camera.java
++++ b/net.minecraft.client.Camera.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.forwards", "this.isPanoramicMod", "this.panoramicForwards"},
++writeEntities = {"this.isPanoramicMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ enablePanoramicMode(/* params */);
+
+diff --git a/net.minecraft.client.Camera.java b/net.minecraft.client.Camera.java
+--- a/net.minecraft.client.Camera.java
++++ b/net.minecraft.client.Camera.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/net.minecraft.client.Camera.java b/net.minecraft.client.Camera.java
+--- a/net.minecraft.client.Camera.java
++++ b/net.minecraft.client.Camera.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.eyeHeightOld", "this.eyeHeight"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.client.Camera.java b/net.minecraft.client.Camera.java
+--- a/net.minecraft.client.Camera.java
++++ b/net.minecraft.client.Camera.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entit", "this.attributeProbe", "this.leve", "this.initialize"},
++writeEntities = {"this.level", "this.initialized", "this.entity"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reset(/* params */);
+
+diff --git a/net.minecraft.client.Camera.java b/net.minecraft.client.Camera.java
+--- a/net.minecraft.client.Camera.java
++++ b/net.minecraft.client.Camera.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modifyFovBasedOnDeathOrFlui"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateHudFov(/* params */);
+
+diff --git a/net.minecraft.client.Camera.java b/net.minecraft.client.Camera.java
+--- a/net.minecraft.client.Camera.java
++++ b/net.minecraft.client.Camera.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickFov(/* params */);
+
+diff --git a/net.minecraft.client.Camera.java b/net.minecraft.client.Camera.java
+--- a/net.minecraft.client.Camera.java
++++ b/net.minecraft.client.Camera.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level", "this.entit", "this.depthFa", "this.setEntit"},
++writeEntities = {"this.depthFar", "this.entity"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ update(/* params */);
+
+diff --git a/net.minecraft.client.Camera.java b/net.minecraft.client.Camera.java
+--- a/net.minecraft.client.Camera.java
++++ b/net.minecraft.client.Camera.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.depthFar", "this.fov"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createProjectionMatrixForCulling(/* params */);
+

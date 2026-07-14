@@ -1,0 +1,129 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (10 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.packs.resources.FallbackResourceManager.java b/net.minecraft.server.packs.resources.FallbackResourceManager.java
+--- a/net.minecraft.server.packs.resources.FallbackResourceManager.java
++++ b/net.minecraft.server.packs.resources.FallbackResourceManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.filter"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ filterAll(/* params */);
+
+diff --git a/net.minecraft.server.packs.resources.FallbackResourceManager.java b/net.minecraft.server.packs.resources.FallbackResourceManager.java
+--- a/net.minecraft.server.packs.resources.FallbackResourceManager.java
++++ b/net.minecraft.server.packs.resources.FallbackResourceManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fallbacks", "this.type"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createStackMetadataFinder(/* params */);
+
+diff --git a/net.minecraft.server.packs.resources.FallbackResourceManager.java b/net.minecraft.server.packs.resources.FallbackResourceManager.java
+--- a/net.minecraft.server.packs.resources.FallbackResourceManager.java
++++ b/net.minecraft.server.packs.resources.FallbackResourceManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fallbacks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ listPacks(/* params */);
+
+diff --git a/net.minecraft.server.packs.resources.FallbackResourceManager.java b/net.minecraft.server.packs.resources.FallbackResourceManager.java
+--- a/net.minecraft.server.packs.resources.FallbackResourceManager.java
++++ b/net.minecraft.server.packs.resources.FallbackResourceManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.close"},
++writeEntities = {"this.closed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ close(/* params */);
+
+diff --git a/net.minecraft.server.packs.resources.FallbackResourceManager.java b/net.minecraft.server.packs.resources.FallbackResourceManager.java
+--- a/net.minecraft.server.packs.resources.FallbackResourceManager.java
++++ b/net.minecraft.server.packs.resources.FallbackResourceManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pushInterna"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pushFilterOnly(/* params */);
+
+diff --git a/net.minecraft.server.packs.resources.FallbackResourceManager.java b/net.minecraft.server.packs.resources.FallbackResourceManager.java
+--- a/net.minecraft.server.packs.resources.FallbackResourceManager.java
++++ b/net.minecraft.server.packs.resources.FallbackResourceManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pushInterna"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ push(/* params */);
+
+diff --git a/net.minecraft.server.packs.resources.FallbackResourceManager.java b/net.minecraft.server.packs.resources.FallbackResourceManager.java
+--- a/net.minecraft.server.packs.resources.FallbackResourceManager.java
++++ b/net.minecraft.server.packs.resources.FallbackResourceManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.namespace", "this.type"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ listPackResources(/* params */);
+
+diff --git a/net.minecraft.server.packs.resources.FallbackResourceManager.java b/net.minecraft.server.packs.resources.FallbackResourceManager.java
+--- a/net.minecraft.server.packs.resources.FallbackResourceManager.java
++++ b/net.minecraft.server.packs.resources.FallbackResourceManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fallbacks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pushInternal(/* params */);
+
+diff --git a/net.minecraft.server.packs.resources.FallbackResourceManager.java b/net.minecraft.server.packs.resources.FallbackResourceManager.java
+--- a/net.minecraft.server.packs.resources.FallbackResourceManager.java
++++ b/net.minecraft.server.packs.resources.FallbackResourceManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.closed", "this.message"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ finalize(/* params */);
+
+diff --git a/net.minecraft.server.packs.resources.FallbackResourceManager.java b/net.minecraft.server.packs.resources.FallbackResourceManager.java
+--- a/net.minecraft.server.packs.resources.FallbackResourceManager.java
++++ b/net.minecraft.server.packs.resources.FallbackResourceManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fallbacks", "this.listPackResource"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ listResourceStacks(/* params */);
+

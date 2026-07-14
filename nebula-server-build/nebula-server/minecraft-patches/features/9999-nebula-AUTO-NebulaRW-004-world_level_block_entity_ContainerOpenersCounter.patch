@@ -1,0 +1,58 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.entity.ContainerOpenersCounter.java b/net.minecraft.world.level.block.entity.ContainerOpenersCounter.java
+--- a/net.minecraft.world.level.block.entity.ContainerOpenersCounter.java
++++ b/net.minecraft.world.level.block.entity.ContainerOpenersCounter.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.maxInteractionRang", "this.onClos", "this.openCount", "this.openCoun"},
++writeEntities = {"this.maxInteractionRange", "this.openCount"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ decrementOpeners(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.ContainerOpenersCounter.java b/net.minecraft.world.level.block.entity.ContainerOpenersCounter.java
+--- a/net.minecraft.world.level.block.entity.ContainerOpenersCounter.java
++++ b/net.minecraft.world.level.block.entity.ContainerOpenersCounter.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.onOpe", "this.openCount"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ incrementOpeners(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.ContainerOpenersCounter.java b/net.minecraft.world.level.block.entity.ContainerOpenersCounter.java
+--- a/net.minecraft.world.level.block.entity.ContainerOpenersCounter.java
++++ b/net.minecraft.world.level.block.entity.ContainerOpenersCounter.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getEntitiesWithContainerOpe", "this.maxInteractionRang", "this.entitiesWithContainerOpen", "this.maxInteractionRange"},
++writeEntities = {"this.maxInteractionRange"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ recheckOpeners(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.ContainerOpenersCounter.java b/net.minecraft.world.level.block.entity.ContainerOpenersCounter.java
+--- a/net.minecraft.world.level.block.entity.ContainerOpenersCounter.java
++++ b/net.minecraft.world.level.block.entity.ContainerOpenersCounter.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scheduleRecheck(/* params */);
+

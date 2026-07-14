@@ -1,0 +1,191 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (15 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.entity.BlockEntity.java b/net.minecraft.world.level.block.entity.BlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BlockEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.worldPosition", "this.blockState", "this.getBlockStat", "this.leve"},
++writeEntities = {"this.level"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillCrashReportCategory(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BlockEntity.java b/net.minecraft.world.level.block.entity.BlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.components", "this.saveAdditiona"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveWithoutMetadata(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BlockEntity.java b/net.minecraft.world.level.block.entity.BlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.worldPosition", "this.isValidBlockStat", "this.getNameForReportin", "this.nameForReporting"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ validateBlockState(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BlockEntity.java b/net.minecraft.world.level.block.entity.BlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.saveI", "this.saveWithoutMetadat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveWithId(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BlockEntity.java b/net.minecraft.world.level.block.entity.BlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.type", "this.getTyp"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveId(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BlockEntity.java b/net.minecraft.world.level.block.entity.BlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.applyImplicitComponent"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyComponents(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BlockEntity.java b/net.minecraft.world.level.block.entity.BlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.saveMetadat", "this.saveWithoutMetadat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveWithFullMetadata(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BlockEntity.java b/net.minecraft.world.level.block.entity.BlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.loadAdditiona"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadCustomOnly(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BlockEntity.java b/net.minecraft.world.level.block.entity.BlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.worldPosition", "this.saveI"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveMetadata(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BlockEntity.java b/net.minecraft.world.level.block.entity.BlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.components", "this.collectImplicitComponent"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ collectComponents(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BlockEntity.java b/net.minecraft.world.level.block.entity.BlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ preRemoveSideEffects(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BlockEntity.java b/net.minecraft.world.level.block.entity.BlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.component"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ components(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BlockEntity.java b/net.minecraft.world.level.block.entity.BlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.applyComponent"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyComponentsFromItemStack(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BlockEntity.java b/net.minecraft.world.level.block.entity.BlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.component", "this.loadAdditiona"},
++writeEntities = {"this.components"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadWithComponents(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BlockEntity.java b/net.minecraft.world.level.block.entity.BlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.saveAdditiona"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveCustomOnly(/* params */);
+

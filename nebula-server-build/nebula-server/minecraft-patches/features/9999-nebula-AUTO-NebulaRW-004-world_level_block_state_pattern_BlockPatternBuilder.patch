@@ -1,0 +1,57 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.state.pattern.BlockPatternBuilder.java b/net.minecraft.world.level.block.state.pattern.BlockPatternBuilder.java
+--- a/net.minecraft.world.level.block.state.pattern.BlockPatternBuilder.java
++++ b/net.minecraft.world.level.block.state.pattern.BlockPatternBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.heigh", "this.widt", "this.pattern"},
++writeEntities = {"this.width", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ aisle(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.pattern.BlockPatternBuilder.java b/net.minecraft.world.level.block.state.pattern.BlockPatternBuilder.java
+--- a/net.minecraft.world.level.block.state.pattern.BlockPatternBuilder.java
++++ b/net.minecraft.world.level.block.state.pattern.BlockPatternBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createPatter"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ build(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.pattern.BlockPatternBuilder.java b/net.minecraft.world.level.block.state.pattern.BlockPatternBuilder.java
+--- a/net.minecraft.world.level.block.state.pattern.BlockPatternBuilder.java
++++ b/net.minecraft.world.level.block.state.pattern.BlockPatternBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lookup", "this.unknownCharacters"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ where(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.pattern.BlockPatternBuilder.java b/net.minecraft.world.level.block.state.pattern.BlockPatternBuilder.java
+--- a/net.minecraft.world.level.block.state.pattern.BlockPatternBuilder.java
++++ b/net.minecraft.world.level.block.state.pattern.BlockPatternBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.unknownCharacters"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createPattern(/* params */);
+

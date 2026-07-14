@@ -1,0 +1,95 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile.java b/net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile.java
+--- a/net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile.java
++++ b/net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.deltaMovement", "this.getDeltaMovemen", "this.isInWate", "this.leve", "this.positio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyInertia(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile.java b/net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile.java
+--- a/net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile.java
++++ b/net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leve", "this.trailParticle", "this.positio", "this.getTrailParticl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createParticleTrail(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile.java b/net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile.java
+--- a/net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile.java
++++ b/net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.accelerationPowe"},
++writeEntities = {"this.accelerationPower"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onDeflection(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile.java b/net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile.java
+--- a/net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile.java
++++ b/net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.boundingBox", "this.getBoundingBo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldRenderAtSqrDistance(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile.java b/net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile.java
+--- a/net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile.java
++++ b/net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile.java b/net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile.java
+--- a/net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile.java
++++ b/net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setDeltaMovemen", "this.needsSyn"},
++writeEntities = {"this.deltaMovement", "this.needsSync"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assignDirectionalMovement(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile.java b/net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile.java
+--- a/net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile.java
++++ b/net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.accelerationPowe"},
++writeEntities = {"this.accelerationPower"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+

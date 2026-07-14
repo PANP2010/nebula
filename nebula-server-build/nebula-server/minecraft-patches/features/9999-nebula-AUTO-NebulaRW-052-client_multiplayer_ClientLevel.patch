@@ -1,0 +1,652 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (52 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random", "this.playSoun"},
++triggeredEvents = {"SOUND_PLAY"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playLocalSound(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++readBlocks = {"{neighbors}", "{position}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ doAnimateTick(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.blockState", "this.getBlockStat", "this.setBloc"},
++writeEntities = {"this.block"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ syncBlockState(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.random"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playPlayerSound(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playSound(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random", "this.addParticl"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spawnFluidParticle(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.random"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateParticleLevel(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random", "this.addParticl"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createFireworks(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getMarkerParticleTarge", "this.doAnimateTic", "this.markerParticleTarget"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ animateTick(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ disconnect(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateSkyBrightnes", "this.getWorldBorde", "this.tickRateManage", "this.worldBorder", "this.tickTim"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.dragonParts", "this.players"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onTrackingStart(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.levelEventHandler"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ globalLevelEvent(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chunkSource", "this.entityStorage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ unload(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBiom", "this.biome"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateBlockTint(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ potionBrewing(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.levelRenderer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ destroyBlockProgress(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.levelRenderer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSectionBecomingNonEmpty(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerForCleaning(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ clockManager(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.calculateParticleLeve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ doAddParticle(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isFlat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ voidDarknessOnsetRange(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.spawnFluidParticl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ trySpawnDripParticles(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tickingEntities"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onTickingStart(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mapData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ overrideMapData(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playSeededSound(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chunkSource", "this.entityStorage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ gatherChunkSourceStats(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entityStorage", "this.tintCaches"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onChunkLoaded(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.dragonParts", "this.players"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onTrackingEnd(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.dimensionTyp"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ cardinalLighting(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fuelValues(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ enabledFeatures(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.levelEventHandler"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ levelEvent(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.clientLevelData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickTime(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.levelRenderer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendBlockUpdated(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.entityCount", "this.isThunderin", "this.getEntityCoun", "this.isRainin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillReportDetails(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.environmentAttribute"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ environmentAttributes(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tickPassenge"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickNonPassenger(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tickingEntities", "this.guardEntityTic", "this.tickRateManager"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickEntities(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.spawnFluidParticl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spawnParticle(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.serverSimulationDistanc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldTickDeath(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lightUpdateQueue"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ queueLightUpdate(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.explosionTracker"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ trackExplosionEffects(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pollLightUpdate", "this.getChunkSourc", "this.chunkSource"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ update(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ recipeAccess(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lightUpdateQueue"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pollLightUpdates(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entities", "this.getEntitie"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ entitiesForRendering(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendPacketToServer(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tickRateManage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickRateManager(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.globallyRenderedBlockEntities"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onBlockEntityAdded(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.dragonPart"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dragonParts(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientLevel.java b/net.minecraft.client.multiplayer.ClientLevel.java
+--- a/net.minecraft.client.multiplayer.ClientLevel.java
++++ b/net.minecraft.client.multiplayer.ClientLevel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tickingEntities"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onTickingEnd(/* params */);
+

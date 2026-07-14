@@ -1,0 +1,61 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.monster.Witch.java b/net.minecraft.world.entity.monster.Witch.java
+--- a/net.minecraft.world.entity.monster.Witch.java
++++ b/net.minecraft.world.entity.monster.Witch.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.attackPlayersGoal", "this.healRaidersGoal"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerGoals(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Witch.java b/net.minecraft.world.entity.monster.Witch.java
+--- a/net.minecraft.world.entity.monster.Witch.java
++++ b/net.minecraft.world.entity.monster.Witch.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleEntityEvent(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Witch.java b/net.minecraft.world.entity.monster.Witch.java
+--- a/net.minecraft.world.entity.monster.Witch.java
++++ b/net.minecraft.world.entity.monster.Witch.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isAliv", "this.attackPlayersGoal", "this.leve", "this.healRaidersGoal"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ aiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Witch.java b/net.minecraft.world.entity.monster.Witch.java
+--- a/net.minecraft.world.entity.monster.Witch.java
++++ b/net.minecraft.world.entity.monster.Witch.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isDrinkingPotio", "this.get", "this.x", "this.y", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ performRangedAttack(/* params */);
+

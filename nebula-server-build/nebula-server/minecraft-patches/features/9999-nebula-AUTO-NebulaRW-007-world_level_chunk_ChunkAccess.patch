@@ -1,0 +1,95 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.chunk.ChunkAccess.java b/net.minecraft.world.level.chunk.ChunkAccess.java
+--- a/net.minecraft.world.level.chunk.ChunkAccess.java
++++ b/net.minecraft.world.level.chunk.ChunkAccess.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findBlocks(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.ChunkAccess.java b/net.minecraft.world.level.chunk.ChunkAccess.java
+--- a/net.minecraft.world.level.chunk.ChunkAccess.java
++++ b/net.minecraft.world.level.chunk.ChunkAccess.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.inhabitedTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ incrementInhabitedTime(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.ChunkAccess.java b/net.minecraft.world.level.chunk.ChunkAccess.java
+--- a/net.minecraft.world.level.chunk.ChunkAccess.java
++++ b/net.minecraft.world.level.chunk.ChunkAccess.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.unsave", "this.unsaved"},
++writeEntities = {"this.unsaved"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tryMarkSaved(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.ChunkAccess.java b/net.minecraft.world.level.chunk.ChunkAccess.java
+--- a/net.minecraft.world.level.chunk.ChunkAccess.java
++++ b/net.minecraft.world.level.chunk.ChunkAccess.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillBiomesFromNoise(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.ChunkAccess.java b/net.minecraft.world.level.chunk.ChunkAccess.java
+--- a/net.minecraft.world.level.chunk.ChunkAccess.java
++++ b/net.minecraft.world.level.chunk.ChunkAccess.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.skyLightSources"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ initializeLightSources(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.ChunkAccess.java b/net.minecraft.world.level.chunk.ChunkAccess.java
+--- a/net.minecraft.world.level.chunk.ChunkAccess.java
++++ b/net.minecraft.world.level.chunk.ChunkAccess.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.findBlock"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findBlockLightSources(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.ChunkAccess.java b/net.minecraft.world.level.chunk.ChunkAccess.java
+--- a/net.minecraft.world.level.chunk.ChunkAccess.java
++++ b/net.minecraft.world.level.chunk.ChunkAccess.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.carverBiomeSetting"},
++writeEntities = {"this.carverBiomeSettings"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ carverBiome(/* params */);
+

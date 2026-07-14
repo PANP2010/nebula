@@ -1,0 +1,80 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsResetWorldScreen.java b/com.mojang.realmsclient.gui.screens.RealmsResetWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsResetWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsResetWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.resetWorldRunnable", "this.runResetTask", "this.resetTaskTitle", "this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ templateSelectionCallback(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsResetWorldScreen.java b/com.mojang.realmsclient.gui.screens.RealmsResetWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsResetWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsResetWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.lastScreen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onClose(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsResetWorldScreen.java b/com.mojang.realmsclient.gui.screens.RealmsResetWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsResetWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsResetWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.realmCreationTask"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ runResetTasks(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsResetWorldScreen.java b/com.mojang.realmsclient.gui.screens.RealmsResetWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsResetWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsResetWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.layout", "this.subtitle", "this.title", "this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsResetWorldScreen.java b/com.mojang.realmsclient.gui.screens.RealmsResetWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsResetWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsResetWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.layout"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ repositionElements(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsResetWorldScreen.java b/com.mojang.realmsclient.gui.screens.RealmsResetWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsResetWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsResetWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isHoveredOrFocuse"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractContents(/* params */);
+

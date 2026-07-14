@@ -1,0 +1,495 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (38 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.asStat", "this.getBloc", "this.block"},
++readBlocks = {"{position}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.fluidState", "this.cache", "this.isRandomlyTicking"},
++readBlocks = {"{position}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ initCache(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.asStat", "this.getBloc", "this.block"},
++readBlocks = {"{position}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ randomTick(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.asStat", "this.getBloc", "this.block"},
++readBlocks = {"{position}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateShape(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.asStat", "this.getBloc", "this.block"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ useItemOn(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.asStat", "this.getBloc", "this.block"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spawnAfterBreak(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBloc", "this.block", "this.isSoli"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ blocksMotion(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.asStat", "this.getBloc", "this.block"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ rotate(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.asStat", "this.getBloc", "this.block"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onPlace(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.asStat", "this.getBloc", "this.block"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mirror(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.asStat", "this.getBloc", "this.block"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ skipRendering(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.asStat", "this.getBloc", "this.block"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ affectNeighborsAfterRemoval(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.asStat", "this.getBloc", "this.block"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateIndirectNeighbourShapes(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBloc", "this.block"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldChangedStateKeepBlockEntity(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.asStat", "this.getBloc", "this.block"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onExplosionHit(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBloc", "this.block"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onProjectileHit(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.asStat", "this.getBloc", "this.block"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ useWithoutItem(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.asStat", "this.getBloc", "this.block"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ entityInside(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBloc", "this.block"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ typeHolder(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.asStat", "this.getBloc", "this.block"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ triggerEvent(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.asStat", "this.getBloc", "this.block"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ attack(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.asStat", "this.getBloc", "this.block"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleNeighborChanged(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.requiredFeature"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ requiredFeatures(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.owner"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateSolid(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.asStat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateNeighbourShapes(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entityCanStandOnFac"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ entityCanStandOn(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.drops", "this.id"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ effectiveDrops(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.requiresCorrectToolForDrop"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ requiresCorrectToolForDrops(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.collisionShape", "this.getCollisionShap"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ entityCanStandOnFace(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.emissiveRendering", "this.asStat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ emissiveRendering(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.useShapeForLightOcclusio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ useShapeForLightOcclusion(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.instrumen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ instrument(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ignitedByLav"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ ignitedByLava(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.asBloc", "this.properties"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ defaultMapColor(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.spawnTerrainParticle"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldSpawnTerrainParticles(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.propagatesSkylightDow"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ propagatesSkylightDown(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.properties"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ defaultDestroyTime(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.BlockBehaviour.java b/net.minecraft.world.level.block.state.BlockBehaviour.java
+--- a/net.minecraft.world.level.block.state.BlockBehaviour.java
++++ b/net.minecraft.world.level.block.state.BlockBehaviour.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.descriptionId", "this.id"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ effectiveDescriptionId(/* params */);
+

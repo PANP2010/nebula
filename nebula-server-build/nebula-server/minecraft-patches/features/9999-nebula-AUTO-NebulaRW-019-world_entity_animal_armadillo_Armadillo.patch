@@ -1,0 +1,245 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (19 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.animal.armadillo.Armadillo.java b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+--- a/net.minecraft.world.entity.animal.armadillo.Armadillo.java
++++ b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++triggeredEvents = {"SOUND_PLAY"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ customServerAiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.armadillo.Armadillo.java b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+--- a/net.minecraft.world.entity.animal.armadillo.Armadillo.java
++++ b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playStepSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.armadillo.Armadillo.java b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+--- a/net.minecraft.world.entity.animal.armadillo.Armadillo.java
++++ b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pickNextScuteDropTime(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.armadillo.Armadillo.java b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+--- a/net.minecraft.world.entity.animal.armadillo.Armadillo.java
++++ b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.brushOffScut"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mobInteract(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.armadillo.Armadillo.java b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+--- a/net.minecraft.world.entity.animal.armadillo.Armadillo.java
++++ b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ actuallyHurt(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.armadillo.Armadillo.java b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+--- a/net.minecraft.world.entity.animal.armadillo.Armadillo.java
++++ b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isScare"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtServer(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.armadillo.Armadillo.java b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+--- a/net.minecraft.world.entity.animal.armadillo.Armadillo.java
++++ b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ rollUp(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.armadillo.Armadillo.java b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+--- a/net.minecraft.world.entity.animal.armadillo.Armadillo.java
++++ b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isBab"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ brushOffScute(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.armadillo.Armadillo.java b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+--- a/net.minecraft.world.entity.animal.armadillo.Armadillo.java
++++ b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.switchToStat", "this.scuteTim"},
++writeEntities = {"this.scuteTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.armadillo.Armadillo.java b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+--- a/net.minecraft.world.entity.animal.armadillo.Armadillo.java
++++ b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.inStateTicks", "this.state", "this.getStat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldSwitchToScaredState(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.armadillo.Armadillo.java b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+--- a/net.minecraft.world.entity.animal.armadillo.Armadillo.java
++++ b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.peekReceivedClient"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleEntityEvent(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.armadillo.Armadillo.java b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+--- a/net.minecraft.world.entity.animal.armadillo.Armadillo.java
++++ b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leve", "this.setupAnimationState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.armadillo.Armadillo.java b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+--- a/net.minecraft.world.entity.animal.armadillo.Armadillo.java
++++ b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isScare"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ clientTick(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.armadillo.Armadillo.java b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+--- a/net.minecraft.world.entity.animal.armadillo.Armadillo.java
++++ b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.makeSoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playEatingSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.armadillo.Armadillo.java b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+--- a/net.minecraft.world.entity.animal.armadillo.Armadillo.java
++++ b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entityData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ switchToState(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.armadillo.Armadillo.java b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+--- a/net.minecraft.world.entity.animal.armadillo.Armadillo.java
++++ b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.inStateTick"},
++writeEntities = {"this.inStateTicks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSyncedDataUpdated(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.armadillo.Armadillo.java b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+--- a/net.minecraft.world.entity.animal.armadillo.Armadillo.java
++++ b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.animationDuratio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ animationDuration(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.armadillo.Armadillo.java b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+--- a/net.minecraft.world.entity.animal.armadillo.Armadillo.java
++++ b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isScare", "this.switchToStat", "this.gameEven", "this.makeSoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ rollOut(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.armadillo.Armadillo.java b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+--- a/net.minecraft.world.entity.animal.armadillo.Armadillo.java
++++ b/net.minecraft.world.entity.animal.armadillo.Armadillo.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{neighbors}", "{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkArmadilloSpawnRules(/* params */);
+

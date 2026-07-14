@@ -1,0 +1,22 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (1 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.util.datafix.fixes.RandomSequenceSettingsFix.java b/net.minecraft.util.datafix.fixes.RandomSequenceSettingsFix.java
+--- a/net.minecraft.util.datafix.fixes.RandomSequenceSettingsFix.java
++++ b/net.minecraft.util.datafix.fixes.RandomSequenceSettingsFix.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.inputSchema", "this.getInputSchem", "this.fixTypeEverywhereType"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ makeRule(/* params */);
+

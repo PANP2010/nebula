@@ -1,0 +1,1003 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (81 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.absolutePo", "this.level", "this.getLeve"},
++readBlocks = {"{position}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickBlock(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.absolutePo", "this.level", "this.getLeve"},
++readBlocks = {"{position}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ randomTick(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.assertBlockStat"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assertBlockTag(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.assertBlockPresen", "this.absolutePo", "this.level", "this.getLeve"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pullLever(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.assertBlockStat"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assertBlock(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.absolutePo"},
++readBlocks = {"{neighbors}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ placeAt(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockState", "this.getBlockStat", "this.assertBloc"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assertBlockNotPresent(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockState", "this.getRelativeBound", "this.getBlockStat", "this.assertionExceptio", "this.relativeBounds"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assertBlockPresent(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.absolutePo", "this.level", "this.getLeve", "this.assertBlockTa"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pressButton(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.absolutePo", "this.level", "this.getLeve"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ useBlock(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockState", "this.getBlockStat", "this.assertionExceptio"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assertSameBlockState(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockState", "this.getBlockStat", "this.assertionExceptio"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assertBlockState(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setBloc", "this.runAfterDela"},
++writeEntities = {"this.block"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pulseRedstone(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.absolutePo", "this.level", "this.assertionExceptio", "this.getLeve"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assertRedstoneSignal(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.getLeve"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ makeMockServerPlayerInLevel(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.getLeve"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ makeMockPlayer(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.testInfo", "this.runAtTickTim"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ runBeforeTestEnd(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.assertionExceptio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assertionException(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.spaw"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spawn(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.assertionExceptio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fail(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.bounds", "this.getLeve", "this.getBound"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ killAllEntitiesOfClass(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.spawnIte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spawnItem(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.findEntitie", "this.assertionExceptio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findClosestEntity(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.assertEntityPresen", "this.succeedWhe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ succeedWhenEntityPresent(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBlockEntit", "this.blockEntity", "this.assertionExceptio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assertBlockEntityData(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.testInfo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ absolutePos(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.testInfo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ failIfEver(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.assertBlockStat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assertBlockProperty(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.succeedWhe", "this.assertEntityDat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ succeedWhenEntityData(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBlockEntit", "this.blockEntity", "this.assertionExceptio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assertContainerEmpty(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getRelativeBound", "this.tickPrecipitatio", "this.relativeBounds"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickPrecipitation(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.absoluteAAB", "this.level", "this.assertionExceptio", "this.getLeve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assertEntityNotPresent(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.assertTru"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assertTrue(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.absolutePo", "this.level", "this.assertionExceptio", "this.getLeve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assertEntityInstancePresent(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBlockEntit", "this.blockEntity", "this.assertionExceptio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assertContainerContains(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.testInfo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ succeed(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.bounds", "this.assertionExceptio", "this.getLeve", "this.getBound"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assertItemEntityNotPresent(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.assertFals"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assertFalse(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.absolutePo", "this.level", "this.getLeve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ destroyBlock(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.getLeve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurt(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.testInfo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ absoluteVec(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.bounds", "this.assertionExceptio", "this.getLeve", "this.getBound"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assertItemEntityPresent(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.relativeVe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ relativeAABB(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.testInfo", "this.ensureSingleFinalChec"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ succeedWhen(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.testInfo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ relativePos(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.startSequenc", "this.absolutePo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ walkTo(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.testInfo", "this.runAtTickTim"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ runAfterDelay(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.testInfo", "this.ensureSingleFinalChec"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ succeedIf(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.absoluteVe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ absoluteAABB(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assertEntityNotTouching(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.assertEntityNotPresen", "this.succeedWhe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ succeedWhenEntityNotPresent(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.testInfo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onEachTick(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getRelativeBound", "this.relativeBounds"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forEveryBlockInStructure(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.assertionExceptio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assertLivingEntityHasMobEffect(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assertEntityTouching(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.testInfo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startSequence(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.absoluteVe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ moveTo(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.spawnWithNoFreeWil"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spawnWithNoFreeWill(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.testInfo", "this.ensureSingleFinalChec"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ succeedOnTickWhen(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.killAllEntitiesOfClas"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ killAllEntities(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.absolutePo", "this.level", "this.assertionExceptio", "this.getLeve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assertEntityIsHolding(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.assertContainerContainsSingl", "this.runAtTickTim"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assertAtTickTimeContainerContains(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.absolutePo", "this.level", "this.getLeve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ despawnItem(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.testInfo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ runAtTickTime(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.absolutePo", "this.entities", "this.getEntitie", "this.assertionExceptio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assertEntitiesPresent(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.testInfo", "this.assertionExceptio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ failIf(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.testInfo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ relativeVec(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.absolutePo", "this.entities", "this.getEntitie", "this.assertionExceptio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assertEntityPresent(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.testInfo", "this.absoluteVe", "this.level", "this.getLeve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findEntities(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.assertionExceptio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assertValueEqual(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.assertSameBlockStat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assertSameBlockStates(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.placeBloc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ placeBlock(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.runAtTickTim", "this.assertContainerEmpt"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assertAtTickTimeContainerEmpty(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.getLeve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ kill(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.findClosestEntit"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findOneEntity(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.finalCheckAdded"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ ensureSingleFinalCheck(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.absoluteAAB", "this.level", "this.assertionExceptio", "this.getLeve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assertEntityData(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.assertionExceptio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assertEntityProperty(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.absolutePo", "this.level", "this.getLeve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assertItemEntityCountIs(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBlockEntit", "this.blockEntity", "this.assertionExceptio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assertContainerContainsSingle(/* params */);
+
+diff --git a/net.minecraft.gametest.framework.GameTestHelper.java b/net.minecraft.gametest.framework.GameTestHelper.java
+--- a/net.minecraft.gametest.framework.GameTestHelper.java
++++ b/net.minecraft.gametest.framework.GameTestHelper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.assertBlockPresen", "this.succeedWhe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ succeedWhenBlockPresent(/* params */);
+

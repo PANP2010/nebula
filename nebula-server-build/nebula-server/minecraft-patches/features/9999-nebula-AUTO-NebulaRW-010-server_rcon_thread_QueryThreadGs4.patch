@@ -1,0 +1,131 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (10 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.rcon.thread.QueryThreadGs4.java b/net.minecraft.server.rcon.thread.QueryThreadGs4.java
+--- a/net.minecraft.server.rcon.thread.QueryThreadGs4.java
++++ b/net.minecraft.server.rcon.thread.QueryThreadGs4.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.validChallenges"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ validChallenge(/* params */);
+
+diff --git a/net.minecraft.server.rcon.thread.QueryThreadGs4.java b/net.minecraft.server.rcon.thread.QueryThreadGs4.java
+--- a/net.minecraft.server.rcon.thread.QueryThreadGs4.java
++++ b/net.minecraft.server.rcon.thread.QueryThreadGs4.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.validChalleng"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ processPacket(/* params */);
+
+diff --git a/net.minecraft.server.rcon.thread.QueryThreadGs4.java b/net.minecraft.server.rcon.thread.QueryThreadGs4.java
+--- a/net.minecraft.server.rcon.thread.QueryThreadGs4.java
++++ b/net.minecraft.server.rcon.thread.QueryThreadGs4.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.socket"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendTo(/* params */);
+
+diff --git a/net.minecraft.server.rcon.thread.QueryThreadGs4.java b/net.minecraft.server.rcon.thread.QueryThreadGs4.java
+--- a/net.minecraft.server.rcon.thread.QueryThreadGs4.java
++++ b/net.minecraft.server.rcon.thread.QueryThreadGs4.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.running", "this.runnin", "this.initSocke"},
++writeEntities = {"this.running"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ recoverSocketError(/* params */);
+
+diff --git a/net.minecraft.server.rcon.thread.QueryThreadGs4.java b/net.minecraft.server.rcon.thread.QueryThreadGs4.java
+--- a/net.minecraft.server.rcon.thread.QueryThreadGs4.java
++++ b/net.minecraft.server.rcon.thread.QueryThreadGs4.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.time"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ before(/* params */);
+
+diff --git a/net.minecraft.server.rcon.thread.QueryThreadGs4.java b/net.minecraft.server.rcon.thread.QueryThreadGs4.java
+--- a/net.minecraft.server.rcon.thread.QueryThreadGs4.java
++++ b/net.minecraft.server.rcon.thread.QueryThreadGs4.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.running", "this.validChallenges", "this.lastChallengeChec", "this.lastChallengeCheck"},
++writeEntities = {"this.lastChallengeCheck"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pruneChallenges(/* params */);
+
+diff --git a/net.minecraft.server.rcon.thread.QueryThreadGs4.java b/net.minecraft.server.rcon.thread.QueryThreadGs4.java
+--- a/net.minecraft.server.rcon.thread.QueryThreadGs4.java
++++ b/net.minecraft.server.rcon.thread.QueryThreadGs4.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.validChallenges", "this.sendT"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendChallenge(/* params */);
+
+diff --git a/net.minecraft.server.rcon.thread.QueryThreadGs4.java b/net.minecraft.server.rcon.thread.QueryThreadGs4.java
+--- a/net.minecraft.server.rcon.thread.QueryThreadGs4.java
++++ b/net.minecraft.server.rcon.thread.QueryThreadGs4.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.running"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ start(/* params */);
+
+diff --git a/net.minecraft.server.rcon.thread.QueryThreadGs4.java b/net.minecraft.server.rcon.thread.QueryThreadGs4.java
+--- a/net.minecraft.server.rcon.thread.QueryThreadGs4.java
++++ b/net.minecraft.server.rcon.thread.QueryThreadGs4.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.port", "this.socke", "this.serverIp", "this.socket"},
++writeEntities = {"this.socket"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ initSocket(/* params */);
+
+diff --git a/net.minecraft.server.rcon.thread.QueryThreadGs4.java b/net.minecraft.server.rcon.thread.QueryThreadGs4.java
+--- a/net.minecraft.server.rcon.thread.QueryThreadGs4.java
++++ b/net.minecraft.server.rcon.thread.QueryThreadGs4.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.identBytes", "this.getIdentByte", "this.rulesResponse", "this.lastRulesResponse"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ buildRuleResponse(/* params */);
+

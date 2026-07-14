@@ -1,0 +1,80 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.item.Item.java b/net.minecraft.world.item.Item.java
+--- a/net.minecraft.world.item.Item.java
++++ b/net.minecraft.world.item.Item.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.requiredFeature"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ requiredFeatures(/* params */);
+
+diff --git a/net.minecraft.world.item.Item.java b/net.minecraft.world.item.Item.java
+--- a/net.minecraft.world.item.Item.java
++++ b/net.minecraft.world.item.Item.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.model", "this.itemIdOrThro"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ effectiveModel(/* params */);
+
+diff --git a/net.minecraft.world.item.Item.java b/net.minecraft.world.item.Item.java
+--- a/net.minecraft.world.item.Item.java
++++ b/net.minecraft.world.item.Item.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.onCraftedPostProces"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onCraftedBy(/* params */);
+
+diff --git a/net.minecraft.world.item.Item.java b/net.minecraft.world.item.Item.java
+--- a/net.minecraft.world.item.Item.java
++++ b/net.minecraft.world.item.Item.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.id"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ itemIdOrThrow(/* params */);
+
+diff --git a/net.minecraft.world.item.Item.java b/net.minecraft.world.item.Item.java
+--- a/net.minecraft.world.item.Item.java
++++ b/net.minecraft.world.item.Item.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.descriptionId", "this.itemIdOrThro"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ effectiveDescriptionId(/* params */);
+
+diff --git a/net.minecraft.world.item.Item.java b/net.minecraft.world.item.Item.java
+--- a/net.minecraft.world.item.Item.java
++++ b/net.minecraft.world.item.Item.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.builtInRegistryHolder"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ components(/* params */);
+

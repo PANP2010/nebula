@@ -1,0 +1,34 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (2 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.gizmos.SimpleGizmoCollector.java b/net.minecraft.gizmos.SimpleGizmoCollector.java
+--- a/net.minecraft.gizmos.SimpleGizmoCollector.java
++++ b/net.minecraft.gizmos.SimpleGizmoCollector.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.startTimeMilli", "this.startTimeMillis", "this.expireTimeMilli"},
++writeEntities = {"this.expireTimeMillis", "this.startTimeMillis"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ persistForMillis(/* params */);
+
+diff --git a/net.minecraft.gizmos.SimpleGizmoCollector.java b/net.minecraft.gizmos.SimpleGizmoCollector.java
+--- a/net.minecraft.gizmos.SimpleGizmoCollector.java
++++ b/net.minecraft.gizmos.SimpleGizmoCollector.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shouldFadeOu"},
++writeEntities = {"this.shouldFadeOut"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fadeOut(/* params */);
+

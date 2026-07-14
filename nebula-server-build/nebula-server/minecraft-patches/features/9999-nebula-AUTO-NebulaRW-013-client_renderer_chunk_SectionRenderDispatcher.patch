@@ -1,0 +1,167 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (13 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java b/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
+--- a/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
++++ b/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level"},
++readBlocks = {"{chunk}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ doesChunkExistAt(/* params */);
+
+diff --git a/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java b/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
+--- a/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
++++ b/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.copyLock"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ unlock(/* params */);
+
+diff --git a/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java b/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
+--- a/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
++++ b/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.copyLock", "this.chunkUberBuffers", "this.close", "this.clearCompileQueu"},
++writeEntities = {"this.closed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dispose(/* params */);
+
+diff --git a/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java b/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
+--- a/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
++++ b/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sectionMesh", "this.copyLock", "this.cancelTask", "this.releaseSectionMes"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reset(/* params */);
+
+diff --git a/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java b/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
+--- a/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
++++ b/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createCompileTas", "this.fixedBuffers"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ compileSync(/* params */);
+
+diff --git a/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java b/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
+--- a/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
++++ b/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chunkUberBuffers"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ uploadGlobalGeomBuffersToGPU(/* params */);
+
+diff --git a/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java b/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
+--- a/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
++++ b/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lastResortTransparencyTask"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ transparencyResortingScheduled(/* params */);
+
+diff --git a/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java b/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
+--- a/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
++++ b/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sectionMesh", "this.lastResortTransparencyTask", "this.lastResortTransparencyTas", "this.getSectionMes"},
++writeEntities = {"this.lastResortTransparencyTask"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resortTransparency(/* params */);
+
+diff --git a/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java b/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
+--- a/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
++++ b/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.bufferPool", "this.closed", "this.cameraPosition", "this.compileQueue"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ runTask(/* params */);
+
+diff --git a/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java b/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
+--- a/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
++++ b/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chunkUberBuffers"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ releaseSectionMesh(/* params */);
+
+diff --git a/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java b/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
+--- a/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
++++ b/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.wasPreviouslyEmpt"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ wasPreviouslyEmpty(/* params */);
+
+diff --git a/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java b/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
+--- a/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
++++ b/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.executor", "this.closed", "this.compileQueue"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ schedule(/* params */);
+
+diff --git a/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java b/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
+--- a/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
++++ b/net.minecraft.client.renderer.chunk.SectionRenderDispatcher.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createCompileTas", "this.schedul"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ rebuildSectionAsync(/* params */);
+

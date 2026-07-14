@@ -1,0 +1,304 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (24 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.components.ChatComponent.java b/net.minecraft.client.gui.components.ChatComponent.java
+--- a/net.minecraft.client.gui.components.ChatComponent.java
++++ b/net.minecraft.client.gui.components.ChatComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.extractRenderStat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ captureClickableText(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.ChatComponent.java b/net.minecraft.client.gui.components.ChatComponent.java
+--- a/net.minecraft.client.gui.components.ChatComponent.java
++++ b/net.minecraft.client.gui.components.ChatComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateLocalMousePo", "this.parameter", "this.graphics", "this.parameters"},
++writeEntities = {"this.parameters"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updatePose(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.ChatComponent.java b/net.minecraft.client.gui.components.ChatComponent.java
+--- a/net.minecraft.client.gui.components.ChatComponent.java
++++ b/net.minecraft.client.gui.components.ChatComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.graphics"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fill(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.ChatComponent.java b/net.minecraft.client.gui.components.ChatComponent.java
+--- a/net.minecraft.client.gui.components.ChatComponent.java
++++ b/net.minecraft.client.gui.components.ChatComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.latestDraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createScreen(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.ChatComponent.java b/net.minecraft.client.gui.components.ChatComponent.java
+--- a/net.minecraft.client.gui.components.ChatComponent.java
++++ b/net.minecraft.client.gui.components.ChatComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.showToolti", "this.isMouseOve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleTagIcon(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.ChatComponent.java b/net.minecraft.client.gui.components.ChatComponent.java
+--- a/net.minecraft.client.gui.components.ChatComponent.java
++++ b/net.minecraft.client.gui.components.ChatComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.messageDeletionQueue", "this.deleteMessageOrDela"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ deleteMessage(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.ChatComponent.java b/net.minecraft.client.gui.components.ChatComponent.java
+--- a/net.minecraft.client.gui.components.ChatComponent.java
++++ b/net.minecraft.client.gui.components.ChatComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.trimmedMessages", "this.visibleMessageFilter", "this.addMessageToDisplayQueu", "this.allMessages"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ refreshTrimmedMessages(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.ChatComponent.java b/net.minecraft.client.gui.components.ChatComponent.java
+--- a/net.minecraft.client.gui.components.ChatComponent.java
++++ b/net.minecraft.client.gui.components.ChatComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.processMessageDeletionQueu", "this.messageDeletionQueue"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.ChatComponent.java b/net.minecraft.client.gui.components.ChatComponent.java
+--- a/net.minecraft.client.gui.components.ChatComponent.java
++++ b/net.minecraft.client.gui.components.ChatComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.hoveredStyle"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleMessage(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.ChatComponent.java b/net.minecraft.client.gui.components.ChatComponent.java
+--- a/net.minecraft.client.gui.components.ChatComponent.java
++++ b/net.minecraft.client.gui.components.ChatComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.createScree"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ openScreen(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.ChatComponent.java b/net.minecraft.client.gui.components.ChatComponent.java
+--- a/net.minecraft.client.gui.components.ChatComponent.java
++++ b/net.minecraft.client.gui.components.ChatComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.preservedScree"},
++writeEntities = {"this.preservedScreen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ preserveCurrentChatScreen(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.ChatComponent.java b/net.minecraft.client.gui.components.ChatComponent.java
+--- a/net.minecraft.client.gui.components.ChatComponent.java
++++ b/net.minecraft.client.gui.components.ChatComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.refreshTrimmedMessage", "this.resetChatScrol"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ rescaleChat(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.ChatComponent.java b/net.minecraft.client.gui.components.ChatComponent.java
+--- a/net.minecraft.client.gui.components.ChatComponent.java
++++ b/net.minecraft.client.gui.components.ChatComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.latestDraf"},
++writeEntities = {"this.latestDraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ discardDraft(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.ChatComponent.java b/net.minecraft.client.gui.components.ChatComponent.java
+--- a/net.minecraft.client.gui.components.ChatComponent.java
++++ b/net.minecraft.client.gui.components.ChatComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.messageDeletionQueue", "this.deleteMessageOrDela"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ processMessageDeletionQueue(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.ChatComponent.java b/net.minecraft.client.gui.components.ChatComponent.java
+--- a/net.minecraft.client.gui.components.ChatComponent.java
++++ b/net.minecraft.client.gui.components.ChatComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.graphics", "this.globalMouseX", "this.globalMouseY", "this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ showTooltip(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.ChatComponent.java b/net.minecraft.client.gui.components.ChatComponent.java
+--- a/net.minecraft.client.gui.components.ChatComponent.java
++++ b/net.minecraft.client.gui.components.ChatComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.latestDraf"},
++writeEntities = {"this.latestDraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveAsDraft(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.ChatComponent.java b/net.minecraft.client.gui.components.ChatComponent.java
+--- a/net.minecraft.client.gui.components.ChatComponent.java
++++ b/net.minecraft.client.gui.components.ChatComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.ChatComponent.java b/net.minecraft.client.gui.components.ChatComponent.java
+--- a/net.minecraft.client.gui.components.ChatComponent.java
++++ b/net.minecraft.client.gui.components.ChatComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.linesPerPage", "this.trimmedMessages", "this.chatScrollbarPos", "this.getLinesPerPag", "this.chatScrollbarPo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forEachLine(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.ChatComponent.java b/net.minecraft.client.gui.components.ChatComponent.java
+--- a/net.minecraft.client.gui.components.ChatComponent.java
++++ b/net.minecraft.client.gui.components.ChatComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.showToolti", "this.isMouseOve", "this.graphics"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleTag(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.ChatComponent.java b/net.minecraft.client.gui.components.ChatComponent.java
+--- a/net.minecraft.client.gui.components.ChatComponent.java
++++ b/net.minecraft.client.gui.components.ChatComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.newMessageSinceScrol", "this.chatScrollbarPo"},
++writeEntities = {"this.chatScrollbarPos", "this.newMessageSinceScroll"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetChatScroll(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.ChatComponent.java b/net.minecraft.client.gui.components.ChatComponent.java
+--- a/net.minecraft.client.gui.components.ChatComponent.java
++++ b/net.minecraft.client.gui.components.ChatComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.localMousePos", "this.graphics", "this.globalMouseX", "this.globalMouseY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateLocalMousePos(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.ChatComponent.java b/net.minecraft.client.gui.components.ChatComponent.java
+--- a/net.minecraft.client.gui.components.ChatComponent.java
++++ b/net.minecraft.client.gui.components.ChatComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.linesPerPage", "this.chatScrollbarPos", "this.trimmedMessages", "this.getLinesPerPag", "this.chatScrollbarPo"},
++writeEntities = {"this.chatScrollbarPos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scrollChat(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.ChatComponent.java b/net.minecraft.client.gui.components.ChatComponent.java
+--- a/net.minecraft.client.gui.components.ChatComponent.java
++++ b/net.minecraft.client.gui.components.ChatComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hoveredStyl"},
++writeEntities = {"this.hoveredStyle"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ accept(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.ChatComponent.java b/net.minecraft.client.gui.components.ChatComponent.java
+--- a/net.minecraft.client.gui.components.ChatComponent.java
++++ b/net.minecraft.client.gui.components.ChatComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.refreshTrimmedMessage", "this.recentChat", "this.allMessages", "this.messageDeletionQueue"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ restoreState(/* params */);
+

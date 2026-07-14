@@ -1,0 +1,59 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.renderer.block.BlockModelLighter.java b/net.minecraft.client.renderer.block.BlockModelLighter.java
+--- a/net.minecraft.client.renderer.block.BlockModelLighter.java
++++ b/net.minecraft.client.renderer.block.BlockModelLighter.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.faceCubic", "this.cache", "this.scratchPo", "this.prepareQuadShap"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ prepareQuadAmbientOcclusion(/* params */);
+
+diff --git a/net.minecraft.client.renderer.block.BlockModelLighter.java b/net.minecraft.client.renderer.block.BlockModelLighter.java
+--- a/net.minecraft.client.renderer.block.BlockModelLighter.java
++++ b/net.minecraft.client.renderer.block.BlockModelLighter.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.colorCache", "this.enable", "this.brightnessCache"},
++writeEntities = {"this.enabled"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ disable(/* params */);
+
+diff --git a/net.minecraft.client.renderer.block.BlockModelLighter.java b/net.minecraft.client.renderer.block.BlockModelLighter.java
+--- a/net.minecraft.client.renderer.block.BlockModelLighter.java
++++ b/net.minecraft.client.renderer.block.BlockModelLighter.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.faceCubic", "this.cache", "this.scratchPos", "this.prepareQuadShap"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ prepareQuadFlat(/* params */);
+
+diff --git a/net.minecraft.client.renderer.block.BlockModelLighter.java b/net.minecraft.client.renderer.block.BlockModelLighter.java
+--- a/net.minecraft.client.renderer.block.BlockModelLighter.java
++++ b/net.minecraft.client.renderer.block.BlockModelLighter.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.enable"},
++writeEntities = {"this.enabled"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ enable(/* params */);
+

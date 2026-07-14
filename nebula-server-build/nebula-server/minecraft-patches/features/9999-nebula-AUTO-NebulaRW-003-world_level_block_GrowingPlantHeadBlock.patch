@@ -1,0 +1,50 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (3 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.GrowingPlantHeadBlock.java b/net.minecraft.world.level.block.GrowingPlantHeadBlock.java
+--- a/net.minecraft.world.level.block.GrowingPlantHeadBlock.java
++++ b/net.minecraft.world.level.block.GrowingPlantHeadBlock.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.growthDirection", "this.canGrowInt", "this.growPerTickProbability", "this.growIntoState", "this.getGrowIntoStat"},
++readBlocks = {"{neighbors}", "{position}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ randomTick(/* params */);
+
+diff --git a/net.minecraft.world.level.block.GrowingPlantHeadBlock.java b/net.minecraft.world.level.block.GrowingPlantHeadBlock.java
+--- a/net.minecraft.world.level.block.GrowingPlantHeadBlock.java
++++ b/net.minecraft.world.level.block.GrowingPlantHeadBlock.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.growthDirection", "this.canGrowInt", "this.blocksToGrowWhenBonemealed", "this.getBlocksToGrowWhenBonemeale"},
++readBlocks = {"{neighbors}", "{position}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ performBonemeal(/* params */);
+
+diff --git a/net.minecraft.world.level.block.GrowingPlantHeadBlock.java b/net.minecraft.world.level.block.GrowingPlantHeadBlock.java
+--- a/net.minecraft.world.level.block.GrowingPlantHeadBlock.java
++++ b/net.minecraft.world.level.block.GrowingPlantHeadBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.growthDirection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateShape(/* params */);
+

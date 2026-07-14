@@ -1,0 +1,37 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (2 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.levelgen.feature.DiskFeature.java b/net.minecraft.world.level.levelgen.feature.DiskFeature.java
+--- a/net.minecraft.world.level.levelgen.feature.DiskFeature.java
++++ b/net.minecraft.world.level.levelgen.feature.DiskFeature.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.markAboveForPostProcessin"},
++readBlocks = {"{position}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ placeColumn(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.feature.DiskFeature.java b/net.minecraft.world.level.levelgen.feature.DiskFeature.java
+--- a/net.minecraft.world.level.levelgen.feature.DiskFeature.java
++++ b/net.minecraft.world.level.levelgen.feature.DiskFeature.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.placeColum"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ place(/* params */);
+

@@ -1,0 +1,80 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.levelgen.presets.WorldPresets.java b/net.minecraft.world.level.levelgen.presets.WorldPresets.java
+--- a/net.minecraft.world.level.levelgen.presets.WorldPresets.java
++++ b/net.minecraft.world.level.levelgen.presets.WorldPresets.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ bootstrap(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.presets.WorldPresets.java b/net.minecraft.world.level.levelgen.presets.WorldPresets.java
+--- a/net.minecraft.world.level.levelgen.presets.WorldPresets.java
++++ b/net.minecraft.world.level.levelgen.presets.WorldPresets.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.makeNoiseBasedOverworl", "this.registerCustomOverworldPrese", "this.noiseSettings"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerOverworlds(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.presets.WorldPresets.java b/net.minecraft.world.level.levelgen.presets.WorldPresets.java
+--- a/net.minecraft.world.level.levelgen.presets.WorldPresets.java
++++ b/net.minecraft.world.level.levelgen.presets.WorldPresets.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.makeOverworl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ makeNoiseBasedOverworld(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.presets.WorldPresets.java b/net.minecraft.world.level.levelgen.presets.WorldPresets.java
+--- a/net.minecraft.world.level.levelgen.presets.WorldPresets.java
++++ b/net.minecraft.world.level.levelgen.presets.WorldPresets.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.overworldDimensionType"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ makeOverworld(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.presets.WorldPresets.java b/net.minecraft.world.level.levelgen.presets.WorldPresets.java
+--- a/net.minecraft.world.level.levelgen.presets.WorldPresets.java
++++ b/net.minecraft.world.level.levelgen.presets.WorldPresets.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.netherStem", "this.endStem"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createPresetWithCustomOverworld(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.presets.WorldPresets.java b/net.minecraft.world.level.levelgen.presets.WorldPresets.java
+--- a/net.minecraft.world.level.levelgen.presets.WorldPresets.java
++++ b/net.minecraft.world.level.levelgen.presets.WorldPresets.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.context", "this.createPresetWithCustomOverworl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerCustomOverworldPreset(/* params */);
+

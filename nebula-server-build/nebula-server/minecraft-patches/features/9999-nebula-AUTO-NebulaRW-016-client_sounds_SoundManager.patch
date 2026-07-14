@@ -1,0 +1,201 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (16 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.sounds.SoundManager.java b/net.minecraft.client.sounds.SoundManager.java
+--- a/net.minecraft.client.sounds.SoundManager.java
++++ b/net.minecraft.client.sounds.SoundManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.soundEngine"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playDelayed(/* params */);
+
+diff --git a/net.minecraft.client.sounds.SoundManager.java b/net.minecraft.client.sounds.SoundManager.java
+--- a/net.minecraft.client.sounds.SoundManager.java
++++ b/net.minecraft.client.sounds.SoundManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.soundEngine"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ refreshCategoryVolume(/* params */);
+
+diff --git a/net.minecraft.client.sounds.SoundManager.java b/net.minecraft.client.sounds.SoundManager.java
+--- a/net.minecraft.client.sounds.SoundManager.java
++++ b/net.minecraft.client.sounds.SoundManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.soundEngine"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateCategoryVolume(/* params */);
+
+diff --git a/net.minecraft.client.sounds.SoundManager.java b/net.minecraft.client.sounds.SoundManager.java
+--- a/net.minecraft.client.sounds.SoundManager.java
++++ b/net.minecraft.client.sounds.SoundManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.soundEngine"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+
+diff --git a/net.minecraft.client.sounds.SoundManager.java b/net.minecraft.client.sounds.SoundManager.java
+--- a/net.minecraft.client.sounds.SoundManager.java
++++ b/net.minecraft.client.sounds.SoundManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registry"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleRegistration(/* params */);
+
+diff --git a/net.minecraft.client.sounds.SoundManager.java b/net.minecraft.client.sounds.SoundManager.java
+--- a/net.minecraft.client.sounds.SoundManager.java
++++ b/net.minecraft.client.sounds.SoundManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.soundEngine"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.client.sounds.SoundManager.java b/net.minecraft.client.sounds.SoundManager.java
+--- a/net.minecraft.client.sounds.SoundManager.java
++++ b/net.minecraft.client.sounds.SoundManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.soundEngine"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reload(/* params */);
+
+diff --git a/net.minecraft.client.sounds.SoundManager.java b/net.minecraft.client.sounds.SoundManager.java
+--- a/net.minecraft.client.sounds.SoundManager.java
++++ b/net.minecraft.client.sounds.SoundManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.soundCache", "this.registry"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ apply(/* params */);
+
+diff --git a/net.minecraft.client.sounds.SoundManager.java b/net.minecraft.client.sounds.SoundManager.java
+--- a/net.minecraft.client.sounds.SoundManager.java
++++ b/net.minecraft.client.sounds.SoundManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.soundEngine"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pauseAllExcept(/* params */);
+
+diff --git a/net.minecraft.client.sounds.SoundManager.java b/net.minecraft.client.sounds.SoundManager.java
+--- a/net.minecraft.client.sounds.SoundManager.java
++++ b/net.minecraft.client.sounds.SoundManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.soundEngine"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ queueTickingSound(/* params */);
+
+diff --git a/net.minecraft.client.sounds.SoundManager.java b/net.minecraft.client.sounds.SoundManager.java
+--- a/net.minecraft.client.sounds.SoundManager.java
++++ b/net.minecraft.client.sounds.SoundManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.soundEngine"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateSource(/* params */);
+
+diff --git a/net.minecraft.client.sounds.SoundManager.java b/net.minecraft.client.sounds.SoundManager.java
+--- a/net.minecraft.client.sounds.SoundManager.java
++++ b/net.minecraft.client.sounds.SoundManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.soundEngine"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ emergencyShutdown(/* params */);
+
+diff --git a/net.minecraft.client.sounds.SoundManager.java b/net.minecraft.client.sounds.SoundManager.java
+--- a/net.minecraft.client.sounds.SoundManager.java
++++ b/net.minecraft.client.sounds.SoundManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.soundEngine"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resume(/* params */);
+
+diff --git a/net.minecraft.client.sounds.SoundManager.java b/net.minecraft.client.sounds.SoundManager.java
+--- a/net.minecraft.client.sounds.SoundManager.java
++++ b/net.minecraft.client.sounds.SoundManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registry"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ preloadIfRequired(/* params */);
+
+diff --git a/net.minecraft.client.sounds.SoundManager.java b/net.minecraft.client.sounds.SoundManager.java
+--- a/net.minecraft.client.sounds.SoundManager.java
++++ b/net.minecraft.client.sounds.SoundManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.soundEngine"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ destroy(/* params */);
+
+diff --git a/net.minecraft.client.sounds.SoundManager.java b/net.minecraft.client.sounds.SoundManager.java
+--- a/net.minecraft.client.sounds.SoundManager.java
++++ b/net.minecraft.client.sounds.SoundManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.soundCach"},
++writeEntities = {"this.soundCache"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ listResources(/* params */);
+

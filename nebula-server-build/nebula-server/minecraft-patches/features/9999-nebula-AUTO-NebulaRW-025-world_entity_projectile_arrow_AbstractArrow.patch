@@ -1,0 +1,325 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (25 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+--- a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
++++ b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.deltaMovement", "this.inGround", "this.life"},
++triggeredEvents = {"ENTITY_MOVED"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startFalling(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+--- a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
++++ b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.deltaMovement", "this.inGround"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+--- a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
++++ b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.weaponItem", "this.getWeaponIte", "this.lastStat", "this.leve", "this.hitBlockEnchantmentEffect"},
++writeEntities = {"this.lastState"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onHitBlock(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+--- a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
++++ b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.owner", "this.firedFromWeapo", "this.getOwne"},
++writeEntities = {"this.firedFromWeapon"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hitBlockEnchantmentEffects(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+--- a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
++++ b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isInGroun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onAboveBubbleColumn(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+--- a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
++++ b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leve", "this.isInGroun", "this.positio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldFall(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+--- a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
++++ b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.pos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stepMoveAndHit(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+--- a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
++++ b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.boundingBox", "this.getBoundingBo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldRenderAtSqrDistance(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+--- a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
++++ b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lif"},
++writeEntities = {"this.life"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shoot(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+--- a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
++++ b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isInGroun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onInsideBubbleColumn(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+--- a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
++++ b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.discar", "this.life"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickDespawn(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+--- a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
++++ b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isAliv", "this.hitTargetOrDeflectSel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hitTargetsOrDeflectSelf(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+--- a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
++++ b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isInGroun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ push(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+--- a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
++++ b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onHitEntity(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+--- a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
++++ b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.boundingBox", "this.deltaMovement", "this.getBoundingBo", "this.leve", "this.getDeltaMovemen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findHitEntities(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+--- a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
++++ b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.startFallin", "this.shouldFal"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ move(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+--- a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
++++ b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+--- a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
++++ b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.deltaMovement", "this.firedFromWeapon", "this.leve", "this.getDeltaMovemen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ doKnockback(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+--- a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
++++ b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getPickupIte", "this.pickup", "this.pickupItem"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tryPickup(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+--- a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
++++ b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lif", "this.setInGroun", "this.isInGroun"},
++writeEntities = {"this.inGround", "this.life"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ lerpMotion(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+--- a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
++++ b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.piercedAndKilledEntities"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetPiercedEntities(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+--- a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
++++ b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.firedFromWeapo"},
++writeEntities = {"this.firedFromWeapon"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onItemBreak(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+--- a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
++++ b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.deltaMovement", "this.getDeltaMovemen", "this.setDeltaMovemen"},
++writeEntities = {"this.deltaMovement"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyInertia(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+--- a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
++++ b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playerTouch(/* params */);
+
+diff --git a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+--- a/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
++++ b/net.minecraft.world.entity.projectile.arrow.AbstractArrow.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.firstTick", "this.shakeTime", "this.shakeTim", "this.isInGroun"},
++writeEntities = {"this.shakeTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSyncedDataUpdated(/* params */);
+

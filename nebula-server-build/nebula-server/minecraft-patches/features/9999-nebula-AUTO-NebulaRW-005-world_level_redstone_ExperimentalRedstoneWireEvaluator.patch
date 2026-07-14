@@ -1,0 +1,75 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.redstone.ExperimentalRedstoneWireEvaluator.java b/net.minecraft.world.level.redstone.ExperimentalRedstoneWireEvaluator.java
+--- a/net.minecraft.world.level.redstone.ExperimentalRedstoneWireEvaluator.java
++++ b/net.minecraft.world.level.redstone.ExperimentalRedstoneWireEvaluator.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.wireBlock", "this.updatedWires"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ causeNeighborUpdates(/* params */);
+
+diff --git a/net.minecraft.world.level.redstone.ExperimentalRedstoneWireEvaluator.java b/net.minecraft.world.level.redstone.ExperimentalRedstoneWireEvaluator.java
+--- a/net.minecraft.world.level.redstone.ExperimentalRedstoneWireEvaluator.java
++++ b/net.minecraft.world.level.redstone.ExperimentalRedstoneWireEvaluator.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.enqueueNeighborWir"},
++readBlocks = {"{neighbors}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ propagateChangeToNeighbors(/* params */);
+
+diff --git a/net.minecraft.world.level.redstone.ExperimentalRedstoneWireEvaluator.java b/net.minecraft.world.level.redstone.ExperimentalRedstoneWireEvaluator.java
+--- a/net.minecraft.world.level.redstone.ExperimentalRedstoneWireEvaluator.java
++++ b/net.minecraft.world.level.redstone.ExperimentalRedstoneWireEvaluator.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setPowe", "this.wiresToTurnOff", "this.wireBlock"},
++writeEntities = {"this.power"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateCurrentChanges(/* params */);
+
+diff --git a/net.minecraft.world.level.redstone.ExperimentalRedstoneWireEvaluator.java b/net.minecraft.world.level.redstone.ExperimentalRedstoneWireEvaluator.java
+--- a/net.minecraft.world.level.redstone.ExperimentalRedstoneWireEvaluator.java
++++ b/net.minecraft.world.level.redstone.ExperimentalRedstoneWireEvaluator.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setPowe", "this.getWireSigna", "this.wiresToTurnOn", "this.wireBlock", "this.wireSignal"},
++writeEntities = {"this.power"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ enqueueNeighborWire(/* params */);
+
+diff --git a/net.minecraft.world.level.redstone.ExperimentalRedstoneWireEvaluator.java b/net.minecraft.world.level.redstone.ExperimentalRedstoneWireEvaluator.java
+--- a/net.minecraft.world.level.redstone.ExperimentalRedstoneWireEvaluator.java
++++ b/net.minecraft.world.level.redstone.ExperimentalRedstoneWireEvaluator.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.calculateCurrentChange", "this.wireBlock", "this.updatedWires"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updatePowerStrength(/* params */);
+

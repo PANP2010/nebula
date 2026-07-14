@@ -1,0 +1,72 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.OldMinecartBehavior.java b/net.minecraft.world.entity.vehicle.minecart.OldMinecartBehavior.java
+--- a/net.minecraft.world.entity.vehicle.minecart.OldMinecartBehavior.java
++++ b/net.minecraft.world.entity.vehicle.minecart.OldMinecartBehavior.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecart", "this.moveAlongTrac", "this.leve"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.OldMinecartBehavior.java b/net.minecraft.world.entity.vehicle.minecart.OldMinecartBehavior.java
+--- a/net.minecraft.world.entity.vehicle.minecart.OldMinecartBehavior.java
++++ b/net.minecraft.world.entity.vehicle.minecart.OldMinecartBehavior.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecart", "this.pos", "this.leve", "this.getPo"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ moveAlongTrack(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.OldMinecartBehavior.java b/net.minecraft.world.entity.vehicle.minecart.OldMinecartBehavior.java
+--- a/net.minecraft.world.entity.vehicle.minecart.OldMinecartBehavior.java
++++ b/net.minecraft.world.entity.vehicle.minecart.OldMinecartBehavior.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.targetDeltaMovement", "this.setDeltaMovemen"},
++writeEntities = {"this.deltaMovement"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onInterpolation(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.OldMinecartBehavior.java b/net.minecraft.world.entity.vehicle.minecart.OldMinecartBehavior.java
+--- a/net.minecraft.world.entity.vehicle.minecart.OldMinecartBehavior.java
++++ b/net.minecraft.world.entity.vehicle.minecart.OldMinecartBehavior.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecart", "this.deltaMovement", "this.getDeltaMovemen", "this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pushAndPickupEntities(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.OldMinecartBehavior.java b/net.minecraft.world.entity.vehicle.minecart.OldMinecartBehavior.java
+--- a/net.minecraft.world.entity.vehicle.minecart.OldMinecartBehavior.java
++++ b/net.minecraft.world.entity.vehicle.minecart.OldMinecartBehavior.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.targetDeltaMovement", "this.targetDeltaMovemen", "this.setDeltaMovemen"},
++writeEntities = {"this.deltaMovement", "this.targetDeltaMovement"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ lerpMotion(/* params */);
+

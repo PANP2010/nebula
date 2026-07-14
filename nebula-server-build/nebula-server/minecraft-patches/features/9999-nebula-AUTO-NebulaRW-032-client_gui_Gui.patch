@@ -1,0 +1,403 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (32 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.Gui.java b/net.minecraft.client.gui.Gui.java
+--- a/net.minecraft.client.gui.Gui.java
++++ b/net.minecraft.client.gui.Gui.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lastBubblePopSoundPlayed", "this.lastBubblePopSoundPlaye"},
++writeEntities = {"this.lastBubblePopSoundPlayed"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playAirBubblePoppedSound(/* params */);
+
+diff --git a/net.minecraft.client.gui.Gui.java b/net.minecraft.client.gui.Gui.java
+--- a/net.minecraft.client.gui.Gui.java
++++ b/net.minecraft.client.gui.Gui.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractHearts(/* params */);
+
+diff --git a/net.minecraft.client.gui.Gui.java b/net.minecraft.client.gui.Gui.java
+--- a/net.minecraft.client.gui.Gui.java
++++ b/net.minecraft.client.gui.Gui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.overlayMessageTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.client.gui.Gui.java b/net.minecraft.client.gui.Gui.java
+--- a/net.minecraft.client.gui.Gui.java
++++ b/net.minecraft.client.gui.Gui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.vignetteBrightnes", "this.vignetteBrightness"},
++writeEntities = {"this.vignetteBrightness"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateVignetteBrightness(/* params */);
+
+diff --git a/net.minecraft.client.gui.Gui.java b/net.minecraft.client.gui.Gui.java
+--- a/net.minecraft.client.gui.Gui.java
++++ b/net.minecraft.client.gui.Gui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractDemoOverlay(/* params */);
+
+diff --git a/net.minecraft.client.gui.Gui.java b/net.minecraft.client.gui.Gui.java
+--- a/net.minecraft.client.gui.Gui.java
++++ b/net.minecraft.client.gui.Gui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ willPrioritizeJumpInfo(/* params */);
+
+diff --git a/net.minecraft.client.gui.Gui.java b/net.minecraft.client.gui.Gui.java
+--- a/net.minecraft.client.gui.Gui.java
++++ b/net.minecraft.client.gui.Gui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.titleFadeInTim", "this.titleStayTim", "this.titleFadeOutTim"},
++writeEntities = {"this.titleFadeInTime", "this.titleFadeOutTime", "this.titleStayTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetTitleTimes(/* params */);
+
+diff --git a/net.minecraft.client.gui.Gui.java b/net.minecraft.client.gui.Gui.java
+--- a/net.minecraft.client.gui.Gui.java
++++ b/net.minecraft.client.gui.Gui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.cameraPlayer", "this.getCameraPlaye"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractItemHotbar(/* params */);
+
+diff --git a/net.minecraft.client.gui.Gui.java b/net.minecraft.client.gui.Gui.java
+--- a/net.minecraft.client.gui.Gui.java
++++ b/net.minecraft.client.gui.Gui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.autosaveIndicatorValue", "this.autosaveIndicatorValu", "this.lastAutosaveIndicatorValu"},
++writeEntities = {"this.autosaveIndicatorValue", "this.lastAutosaveIndicatorValue"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickAutosaveIndicator(/* params */);
+
+diff --git a/net.minecraft.client.gui.Gui.java b/net.minecraft.client.gui.Gui.java
+--- a/net.minecraft.client.gui.Gui.java
++++ b/net.minecraft.client.gui.Gui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.tabList"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractTabList(/* params */);
+
+diff --git a/net.minecraft.client.gui.Gui.java b/net.minecraft.client.gui.Gui.java
+--- a/net.minecraft.client.gui.Gui.java
++++ b/net.minecraft.client.gui.Gui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lastToolHighlight", "this.toolHighlightTimer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractSelectedItemName(/* params */);
+
+diff --git a/net.minecraft.client.gui.Gui.java b/net.minecraft.client.gui.Gui.java
+--- a/net.minecraft.client.gui.Gui.java
++++ b/net.minecraft.client.gui.Gui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractScoreboardSidebar(/* params */);
+
+diff --git a/net.minecraft.client.gui.Gui.java b/net.minecraft.client.gui.Gui.java
+--- a/net.minecraft.client.gui.Gui.java
++++ b/net.minecraft.client.gui.Gui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.extractVignett"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractCameraOverlays(/* params */);
+
+diff --git a/net.minecraft.client.gui.Gui.java b/net.minecraft.client.gui.Gui.java
+--- a/net.minecraft.client.gui.Gui.java
++++ b/net.minecraft.client.gui.Gui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.canRenderCrosshairForSpectato"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractCrosshair(/* params */);
+
+diff --git a/net.minecraft.client.gui.Gui.java b/net.minecraft.client.gui.Gui.java
+--- a/net.minecraft.client.gui.Gui.java
++++ b/net.minecraft.client.gui.Gui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.overlayMessageString", "this.getFon", "this.overlayMessageTime", "this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractOverlayMessage(/* params */);
+
+diff --git a/net.minecraft.client.gui.Gui.java b/net.minecraft.client.gui.Gui.java
+--- a/net.minecraft.client.gui.Gui.java
++++ b/net.minecraft.client.gui.Gui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.deferredSubtitles", "this.deferredSubtitle"},
++writeEntities = {"this.deferredSubtitles"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractDeferredSubtitles(/* params */);
+
+diff --git a/net.minecraft.client.gui.Gui.java b/net.minecraft.client.gui.Gui.java
+--- a/net.minecraft.client.gui.Gui.java
++++ b/net.minecraft.client.gui.Gui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.subtitleOverlay", "this.deferredSubtitle"},
++writeEntities = {"this.deferredSubtitles"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractSubtitleOverlay(/* params */);
+
+diff --git a/net.minecraft.client.gui.Gui.java b/net.minecraft.client.gui.Gui.java
+--- a/net.minecraft.client.gui.Gui.java
++++ b/net.minecraft.client.gui.Gui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.debugOverlay"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractDebugOverlay(/* params */);
+
+diff --git a/net.minecraft.client.gui.Gui.java b/net.minecraft.client.gui.Gui.java
+--- a/net.minecraft.client.gui.Gui.java
++++ b/net.minecraft.client.gui.Gui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.healthBlinkTime", "this.lastHealthTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractPlayerHealth(/* params */);
+
+diff --git a/net.minecraft.client.gui.Gui.java b/net.minecraft.client.gui.Gui.java
+--- a/net.minecraft.client.gui.Gui.java
++++ b/net.minecraft.client.gui.Gui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.spectatorGui"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractHotbarAndDecorations(/* params */);
+
+diff --git a/net.minecraft.client.gui.Gui.java b/net.minecraft.client.gui.Gui.java
+--- a/net.minecraft.client.gui.Gui.java
++++ b/net.minecraft.client.gui.Gui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.Gui.java b/net.minecraft.client.gui.Gui.java
+--- a/net.minecraft.client.gui.Gui.java
++++ b/net.minecraft.client.gui.Gui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ willPrioritizeExperienceInfo(/* params */);
+
+diff --git a/net.minecraft.client.gui.Gui.java b/net.minecraft.client.gui.Gui.java
+--- a/net.minecraft.client.gui.Gui.java
++++ b/net.minecraft.client.gui.Gui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.bossOverlay"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractBossOverlay(/* params */);
+
+diff --git a/net.minecraft.client.gui.Gui.java b/net.minecraft.client.gui.Gui.java
+--- a/net.minecraft.client.gui.Gui.java
++++ b/net.minecraft.client.gui.Gui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onDisconnected(/* params */);
+
+diff --git a/net.minecraft.client.gui.Gui.java b/net.minecraft.client.gui.Gui.java
+--- a/net.minecraft.client.gui.Gui.java
++++ b/net.minecraft.client.gui.Gui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getAirBubbleYLin", "this.airBubbleYLine", "this.lastBubblePopSoundPlaye"},
++writeEntities = {"this.lastBubblePopSoundPlayed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractAirBubbles(/* params */);
+
+diff --git a/net.minecraft.client.gui.Gui.java b/net.minecraft.client.gui.Gui.java
+--- a/net.minecraft.client.gui.Gui.java
++++ b/net.minecraft.client.gui.Gui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.tickCount", "this.chat", "this.getFon", "this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractChat(/* params */);
+
+diff --git a/net.minecraft.client.gui.Gui.java b/net.minecraft.client.gui.Gui.java
+--- a/net.minecraft.client.gui.Gui.java
++++ b/net.minecraft.client.gui.Gui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.autosaveIndicatorValue", "this.getFon", "this.lastAutosaveIndicatorValue", "this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractSavingIndicator(/* params */);
+
+diff --git a/net.minecraft.client.gui.Gui.java b/net.minecraft.client.gui.Gui.java
+--- a/net.minecraft.client.gui.Gui.java
++++ b/net.minecraft.client.gui.Gui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractSleepOverlay(/* params */);
+
+diff --git a/net.minecraft.client.gui.Gui.java b/net.minecraft.client.gui.Gui.java
+--- a/net.minecraft.client.gui.Gui.java
++++ b/net.minecraft.client.gui.Gui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractTitle(/* params */);
+
+diff --git a/net.minecraft.client.gui.Gui.java b/net.minecraft.client.gui.Gui.java
+--- a/net.minecraft.client.gui.Gui.java
++++ b/net.minecraft.client.gui.Gui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractEffects(/* params */);
+
+diff --git a/net.minecraft.client.gui.Gui.java b/net.minecraft.client.gui.Gui.java
+--- a/net.minecraft.client.gui.Gui.java
++++ b/net.minecraft.client.gui.Gui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getVehicleMaxHeart", "this.getPlayerVehicleWithHealt", "this.playerVehicleWithHealth", "this.vehicleMaxHearts"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractVehicleHealth(/* params */);
+
+diff --git a/net.minecraft.client.gui.Gui.java b/net.minecraft.client.gui.Gui.java
+--- a/net.minecraft.client.gui.Gui.java
++++ b/net.minecraft.client.gui.Gui.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractVignette(/* params */);
+

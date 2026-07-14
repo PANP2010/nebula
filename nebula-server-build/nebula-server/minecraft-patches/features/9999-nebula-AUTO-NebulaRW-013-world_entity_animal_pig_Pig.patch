@@ -1,0 +1,176 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (13 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.animal.pig.Pig.java b/net.minecraft.world.entity.animal.pig.Pig.java
+--- a/net.minecraft.world.entity.animal.pig.Pig.java
++++ b/net.minecraft.world.entity.animal.pig.Pig.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun", "this.getSoundSe", "this.soundSet"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playStepSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.pig.Pig.java b/net.minecraft.world.entity.animal.pig.Pig.java
+--- a/net.minecraft.world.entity.animal.pig.Pig.java
++++ b/net.minecraft.world.entity.animal.pig.Pig.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random", "this.getRando", "this.steering"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ boost(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.pig.Pig.java b/net.minecraft.world.entity.animal.pig.Pig.java
+--- a/net.minecraft.world.entity.animal.pig.Pig.java
++++ b/net.minecraft.world.entity.animal.pig.Pig.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random", "this.blockPositio", "this.getRando", "this.convertT"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ thunderHit(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.pig.Pig.java b/net.minecraft.world.entity.animal.pig.Pig.java
+--- a/net.minecraft.world.entity.animal.pig.Pig.java
++++ b/net.minecraft.world.entity.animal.pig.Pig.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockPositio", "this.setSoundVarian", "this.registryAcces"},
++writeEntities = {"this.soundVariant"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ finalizeSpawn(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.pig.Pig.java b/net.minecraft.world.entity.animal.pig.Pig.java
+--- a/net.minecraft.world.entity.animal.pig.Pig.java
++++ b/net.minecraft.world.entity.animal.pig.Pig.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.goalSelector"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerGoals(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.pig.Pig.java b/net.minecraft.world.entity.animal.pig.Pig.java
+--- a/net.minecraft.world.entity.animal.pig.Pig.java
++++ b/net.minecraft.world.entity.animal.pig.Pig.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setVarian"},
++writeEntities = {"this.variant"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyImplicitComponent(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.pig.Pig.java b/net.minecraft.world.entity.animal.pig.Pig.java
+--- a/net.minecraft.world.entity.animal.pig.Pig.java
++++ b/net.minecraft.world.entity.animal.pig.Pig.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.steering", "this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSyncedDataUpdated(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.pig.Pig.java b/net.minecraft.world.entity.animal.pig.Pig.java
+--- a/net.minecraft.world.entity.animal.pig.Pig.java
++++ b/net.minecraft.world.entity.animal.pig.Pig.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registryAcces"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.pig.Pig.java b/net.minecraft.world.entity.animal.pig.Pig.java
+--- a/net.minecraft.world.entity.animal.pig.Pig.java
++++ b/net.minecraft.world.entity.animal.pig.Pig.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registryAcces"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ defineSynchedData(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.pig.Pig.java b/net.minecraft.world.entity.animal.pig.Pig.java
+--- a/net.minecraft.world.entity.animal.pig.Pig.java
++++ b/net.minecraft.world.entity.animal.pig.Pig.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.applyImplicitComponentIfPresen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyImplicitComponents(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.pig.Pig.java b/net.minecraft.world.entity.animal.pig.Pig.java
+--- a/net.minecraft.world.entity.animal.pig.Pig.java
++++ b/net.minecraft.world.entity.animal.pig.Pig.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getSoundSe", "this.makeSoun", "this.soundSet"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playEatingSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.pig.Pig.java b/net.minecraft.world.entity.animal.pig.Pig.java
+--- a/net.minecraft.world.entity.animal.pig.Pig.java
++++ b/net.minecraft.world.entity.animal.pig.Pig.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.yBodyRot", "this.yRotO", "this.yHeadRot", "this.rot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickRidden(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.pig.Pig.java b/net.minecraft.world.entity.animal.pig.Pig.java
+--- a/net.minecraft.world.entity.animal.pig.Pig.java
++++ b/net.minecraft.world.entity.animal.pig.Pig.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isFoo", "this.isSaddle", "this.leve", "this.isVehicl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mobInteract(/* params */);
+

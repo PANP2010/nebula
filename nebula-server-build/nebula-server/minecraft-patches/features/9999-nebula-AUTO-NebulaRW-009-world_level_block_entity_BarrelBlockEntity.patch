@@ -1,0 +1,126 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (9 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.entity.BarrelBlockEntity.java b/net.minecraft.world.level.block.entity.BarrelBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BarrelBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BarrelBlockEntity.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.worldPosition", "this.level"},
++triggeredEvents = {"SOUND_PLAY"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playSound(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BarrelBlockEntity.java b/net.minecraft.world.level.block.entity.BarrelBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BarrelBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BarrelBlockEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBlockPo", "this.blockPos", "this.level"},
++readBlocks = {"{level}", "{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateBlockState(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BarrelBlockEntity.java b/net.minecraft.world.level.block.entity.BarrelBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BarrelBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BarrelBlockEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun", "this.updateBlockStat"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onClose(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BarrelBlockEntity.java b/net.minecraft.world.level.block.entity.BarrelBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BarrelBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BarrelBlockEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startOpen(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BarrelBlockEntity.java b/net.minecraft.world.level.block.entity.BarrelBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BarrelBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BarrelBlockEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun", "this.updateBlockStat"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onOpen(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BarrelBlockEntity.java b/net.minecraft.world.level.block.entity.BarrelBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BarrelBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BarrelBlockEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stopOpen(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BarrelBlockEntity.java b/net.minecraft.world.level.block.entity.BarrelBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BarrelBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BarrelBlockEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ recheckOpen(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BarrelBlockEntity.java b/net.minecraft.world.level.block.entity.BarrelBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BarrelBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BarrelBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.items", "this.trySaveLootTabl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveAdditional(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BarrelBlockEntity.java b/net.minecraft.world.level.block.entity.BarrelBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BarrelBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BarrelBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getContainerSiz", "this.item", "this.tryLoadLootTabl", "this.items", "this.containerSize"},
++writeEntities = {"this.items"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadAdditional(/* params */);
+

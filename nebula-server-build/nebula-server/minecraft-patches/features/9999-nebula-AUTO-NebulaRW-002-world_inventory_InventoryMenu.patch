@@ -1,0 +1,32 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (2 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.inventory.InventoryMenu.java b/net.minecraft.world.inventory.InventoryMenu.java
+--- a/net.minecraft.world.inventory.InventoryMenu.java
++++ b/net.minecraft.world.inventory.InventoryMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.owner", "this.craftSlots", "this.resultSlots"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ slotsChanged(/* params */);
+
+diff --git a/net.minecraft.world.inventory.InventoryMenu.java b/net.minecraft.world.inventory.InventoryMenu.java
+--- a/net.minecraft.world.inventory.InventoryMenu.java
++++ b/net.minecraft.world.inventory.InventoryMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.slots", "this.moveItemStackT"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ quickMoveStack(/* params */);
+

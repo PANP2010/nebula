@@ -1,0 +1,104 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (8 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.levelgen.DensityFunctions.java b/net.minecraft.world.level.levelgen.DensityFunctions.java
+--- a/net.minecraft.world.level.levelgen.DensityFunctions.java
++++ b/net.minecraft.world.level.levelgen.DensityFunctions.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fromValue", "this.toValue"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ maxValue(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.DensityFunctions.java b/net.minecraft.world.level.levelgen.DensityFunctions.java
+--- a/net.minecraft.world.level.levelgen.DensityFunctions.java
++++ b/net.minecraft.world.level.levelgen.DensityFunctions.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.rarityValueMapper", "this.noise"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ transform(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.DensityFunctions.java b/net.minecraft.world.level.levelgen.DensityFunctions.java
+--- a/net.minecraft.world.level.levelgen.DensityFunctions.java
++++ b/net.minecraft.world.level.levelgen.DensityFunctions.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.function"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.DensityFunctions.java b/net.minecraft.world.level.levelgen.DensityFunctions.java
+--- a/net.minecraft.world.level.levelgen.DensityFunctions.java
++++ b/net.minecraft.world.level.levelgen.DensityFunctions.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fromValue", "this.toValue"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ minValue(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.DensityFunctions.java b/net.minecraft.world.level.levelgen.DensityFunctions.java
+--- a/net.minecraft.world.level.levelgen.DensityFunctions.java
++++ b/net.minecraft.world.level.levelgen.DensityFunctions.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fromValue", "this.toValue", "this.fromY", "this.toY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ compute(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.DensityFunctions.java b/net.minecraft.world.level.levelgen.DensityFunctions.java
+--- a/net.minecraft.world.level.levelgen.DensityFunctions.java
++++ b/net.minecraft.world.level.levelgen.DensityFunctions.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.function"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ apply(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.DensityFunctions.java b/net.minecraft.world.level.levelgen.DensityFunctions.java
+--- a/net.minecraft.world.level.levelgen.DensityFunctions.java
++++ b/net.minecraft.world.level.levelgen.DensityFunctions.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.argument"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ argument1(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.DensityFunctions.java b/net.minecraft.world.level.levelgen.DensityFunctions.java
+--- a/net.minecraft.world.level.levelgen.DensityFunctions.java
++++ b/net.minecraft.world.level.levelgen.DensityFunctions.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.input", "this.rarityValueMapper", "this.noise"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mapAll(/* params */);
+

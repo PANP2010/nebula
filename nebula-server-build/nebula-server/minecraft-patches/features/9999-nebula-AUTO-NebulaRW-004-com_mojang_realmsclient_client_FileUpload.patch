@@ -1,0 +1,56 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/com.mojang.realmsclient.client.FileUpload.java b/com.mojang.realmsclient.client.FileUpload.java
+--- a/com.mojang.realmsclient.client.FileUpload.java
++++ b/com.mojang.realmsclient.client.FileUpload.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getByteCoun", "this.byteCount", "this.uploadStatus"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ afterRead(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.FileUpload.java b/com.mojang.realmsclient.client.FileUpload.java
+--- a/com.mojang.realmsclient.client.FileUpload.java
++++ b/com.mojang.realmsclient.client.FileUpload.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.file", "this.uploadStatus", "this.requestUploa"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startUpload(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.FileUpload.java b/com.mojang.realmsclient.client.FileUpload.java
+--- a/com.mojang.realmsclient.client.FileUpload.java
++++ b/com.mojang.realmsclient.client.FileUpload.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.uploadInfo", "this.sessionId", "this.clientVersion", "this.worldVersio", "this.username"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ uploadCookie(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.FileUpload.java b/com.mojang.realmsclient.client.FileUpload.java
+--- a/com.mojang.realmsclient.client.FileUpload.java
++++ b/com.mojang.realmsclient.client.FileUpload.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.file", "this.uploadStatus"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ requestUpload(/* params */);
+

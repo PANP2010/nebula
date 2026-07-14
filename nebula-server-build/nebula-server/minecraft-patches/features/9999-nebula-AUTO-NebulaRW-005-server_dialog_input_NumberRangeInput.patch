@@ -1,0 +1,69 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.dialog.input.NumberRangeInput.java b/net.minecraft.server.dialog.input.NumberRangeInput.java
+--- a/net.minecraft.server.dialog.input.NumberRangeInput.java
++++ b/net.minecraft.server.dialog.input.NumberRangeInput.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.labelFormat", "this.label"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ computeLabel(/* params */);
+
+diff --git a/net.minecraft.server.dialog.input.NumberRangeInput.java b/net.minecraft.server.dialog.input.NumberRangeInput.java
+--- a/net.minecraft.server.dialog.input.NumberRangeInput.java
++++ b/net.minecraft.server.dialog.input.NumberRangeInput.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.start", "this.end", "this.step"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ computeScaledValue(/* params */);
+
+diff --git a/net.minecraft.server.dialog.input.NumberRangeInput.java b/net.minecraft.server.dialog.input.NumberRangeInput.java
+--- a/net.minecraft.server.dialog.input.NumberRangeInput.java
++++ b/net.minecraft.server.dialog.input.NumberRangeInput.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.star", "this.start", "this.end"},
++writeEntities = {"this.start"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scaledValueToSlider(/* params */);
+
+diff --git a/net.minecraft.server.dialog.input.NumberRangeInput.java b/net.minecraft.server.dialog.input.NumberRangeInput.java
+--- a/net.minecraft.server.dialog.input.NumberRangeInput.java
++++ b/net.minecraft.server.dialog.input.NumberRangeInput.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.scaledValueToSlide", "this.initialScaledValu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ initialSliderValue(/* params */);
+
+diff --git a/net.minecraft.server.dialog.input.NumberRangeInput.java b/net.minecraft.server.dialog.input.NumberRangeInput.java
+--- a/net.minecraft.server.dialog.input.NumberRangeInput.java
++++ b/net.minecraft.server.dialog.input.NumberRangeInput.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.initial", "this.start", "this.end"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ initialScaledValue(/* params */);
+

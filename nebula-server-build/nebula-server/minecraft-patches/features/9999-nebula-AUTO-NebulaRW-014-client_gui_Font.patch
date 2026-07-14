@@ -1,0 +1,178 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (14 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.Font.java b/net.minecraft.client.gui.Font.java
+--- a/net.minecraft.client.gui.Font.java
++++ b/net.minecraft.client.gui.Font.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ accept(/* params */);
+
+diff --git a/net.minecraft.client.gui.Font.java b/net.minecraft.client.gui.Font.java
+--- a/net.minecraft.client.gui.Font.java
++++ b/net.minecraft.client.gui.Font.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.splitter"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ split(/* params */);
+
+diff --git a/net.minecraft.client.gui.Font.java b/net.minecraft.client.gui.Font.java
+--- a/net.minecraft.client.gui.Font.java
++++ b/net.minecraft.client.gui.Font.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.splitter"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ plainSubstrByWidth(/* params */);
+
+diff --git a/net.minecraft.client.gui.Font.java b/net.minecraft.client.gui.Font.java
+--- a/net.minecraft.client.gui.Font.java
++++ b/net.minecraft.client.gui.Font.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.rende"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ acceptGlyph(/* params */);
+
+diff --git a/net.minecraft.client.gui.Font.java b/net.minecraft.client.gui.Font.java
+--- a/net.minecraft.client.gui.Font.java
++++ b/net.minecraft.client.gui.Font.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.splitter"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ splitIgnoringLanguage(/* params */);
+
+diff --git a/net.minecraft.client.gui.Font.java b/net.minecraft.client.gui.Font.java
+--- a/net.minecraft.client.gui.Font.java
++++ b/net.minecraft.client.gui.Font.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.backgroundTop", "this.backgroundRight", "this.backgroundLeft", "this.backgroundBottom"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ markBackground(/* params */);
+
+diff --git a/net.minecraft.client.gui.Font.java b/net.minecraft.client.gui.Font.java
+--- a/net.minecraft.client.gui.Font.java
++++ b/net.minecraft.client.gui.Font.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.splitter"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ width(/* params */);
+
+diff --git a/net.minecraft.client.gui.Font.java b/net.minecraft.client.gui.Font.java
+--- a/net.minecraft.client.gui.Font.java
++++ b/net.minecraft.client.gui.Font.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.splitter"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ substrByWidth(/* params */);
+
+diff --git a/net.minecraft.client.gui.Font.java b/net.minecraft.client.gui.Font.java
+--- a/net.minecraft.client.gui.Font.java
++++ b/net.minecraft.client.gui.Font.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.glyph", "this.getGlyp"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ drawInBatch8xOutline(/* params */);
+
+diff --git a/net.minecraft.client.gui.Font.java b/net.minecraft.client.gui.Font.java
+--- a/net.minecraft.client.gui.Font.java
++++ b/net.minecraft.client.gui.Font.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.prepareTex"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ drawInBatch(/* params */);
+
+diff --git a/net.minecraft.client.gui.Font.java b/net.minecraft.client.gui.Font.java
+--- a/net.minecraft.client.gui.Font.java
++++ b/net.minecraft.client.gui.Font.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ visit(/* params */);
+
+diff --git a/net.minecraft.client.gui.Font.java b/net.minecraft.client.gui.Font.java
+--- a/net.minecraft.client.gui.Font.java
++++ b/net.minecraft.client.gui.Font.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.top", "this.left", "this.bottom", "this.right"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ markSize(/* params */);
+
+diff --git a/net.minecraft.client.gui.Font.java b/net.minecraft.client.gui.Font.java
+--- a/net.minecraft.client.gui.Font.java
++++ b/net.minecraft.client.gui.Font.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.rende"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ acceptEffect(/* params */);
+
+diff --git a/net.minecraft.client.gui.Font.java b/net.minecraft.client.gui.Font.java
+--- a/net.minecraft.client.gui.Font.java
++++ b/net.minecraft.client.gui.Font.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.splitter"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ wordWrapHeight(/* params */);
+

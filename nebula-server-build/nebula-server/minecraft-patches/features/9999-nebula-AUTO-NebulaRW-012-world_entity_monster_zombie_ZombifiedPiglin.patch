@@ -1,0 +1,160 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (12 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java b/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
+--- a/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
++++ b/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun", "this.soundVolume", "this.voicePitch", "this.getSoundVolum", "this.getVoicePitc"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playAngerSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java b/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
+--- a/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
++++ b/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setItemSlo"},
++writeEntities = {"this.itemSlot"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ populateDefaultEquipmentSlots(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java b/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
+--- a/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
++++ b/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random", "this.setTimeToRemainAngr"},
++writeEntities = {"this.timeToRemainAngry"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startPersistentAngerTimer(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java b/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
+--- a/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
++++ b/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.boundingBox", "this.getBoundingBo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkSpawnObstruction(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java b/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
+--- a/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
++++ b/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isAngr", "this.isBab", "this.getAttribut", "this.attribute"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ customServerAiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java b/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
+--- a/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
++++ b/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ticksUntilNextAlert"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ maybeAlertOthers(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java b/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
+--- a/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
++++ b/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leve", "this.readPersistentAngerSaveDat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java b/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
+--- a/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
++++ b/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getAttribut", "this.attribute"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ randomizeReinforcementsChance(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java b/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
+--- a/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
++++ b/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.canHoldIte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ wantsToPickUp(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java b/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
+--- a/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
++++ b/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playAngerSoun", "this.playFirstAngerSoundIn", "this.playFirstAngerSoundI"},
++writeEntities = {"this.playFirstAngerSoundIn"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ maybePlayFirstAngerSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java b/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
+--- a/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
++++ b/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ alertOthers(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java b/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
+--- a/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
++++ b/net.minecraft.world.entity.monster.zombie.ZombifiedPiglin.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{neighbors}", "{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkZombifiedPiglinSpawnRules(/* params */);
+

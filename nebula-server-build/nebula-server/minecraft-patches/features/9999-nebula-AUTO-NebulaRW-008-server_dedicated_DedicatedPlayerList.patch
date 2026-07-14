@@ -1,0 +1,104 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (8 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.dedicated.DedicatedPlayerList.java b/net.minecraft.server.dedicated.DedicatedPlayerList.java
+--- a/net.minecraft.server.dedicated.DedicatedPlayerList.java
++++ b/net.minecraft.server.dedicated.DedicatedPlayerList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.whiteList", "this.getWhiteLis"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadWhiteList(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedPlayerList.java b/net.minecraft.server.dedicated.DedicatedPlayerList.java
+--- a/net.minecraft.server.dedicated.DedicatedPlayerList.java
++++ b/net.minecraft.server.dedicated.DedicatedPlayerList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ops", "this.getOp"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadOps(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedPlayerList.java b/net.minecraft.server.dedicated.DedicatedPlayerList.java
+--- a/net.minecraft.server.dedicated.DedicatedPlayerList.java
++++ b/net.minecraft.server.dedicated.DedicatedPlayerList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBan", "this.bans"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveUserBanList(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedPlayerList.java b/net.minecraft.server.dedicated.DedicatedPlayerList.java
+--- a/net.minecraft.server.dedicated.DedicatedPlayerList.java
++++ b/net.minecraft.server.dedicated.DedicatedPlayerList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getIpBan", "this.ipBans"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveIpBanList(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedPlayerList.java b/net.minecraft.server.dedicated.DedicatedPlayerList.java
+--- a/net.minecraft.server.dedicated.DedicatedPlayerList.java
++++ b/net.minecraft.server.dedicated.DedicatedPlayerList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.whiteList", "this.getWhiteLis"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveWhiteList(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedPlayerList.java b/net.minecraft.server.dedicated.DedicatedPlayerList.java
+--- a/net.minecraft.server.dedicated.DedicatedPlayerList.java
++++ b/net.minecraft.server.dedicated.DedicatedPlayerList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getIpBan", "this.ipBans"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadIpBanList(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedPlayerList.java b/net.minecraft.server.dedicated.DedicatedPlayerList.java
+--- a/net.minecraft.server.dedicated.DedicatedPlayerList.java
++++ b/net.minecraft.server.dedicated.DedicatedPlayerList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ops", "this.getOp"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveOps(/* params */);
+
+diff --git a/net.minecraft.server.dedicated.DedicatedPlayerList.java b/net.minecraft.server.dedicated.DedicatedPlayerList.java
+--- a/net.minecraft.server.dedicated.DedicatedPlayerList.java
++++ b/net.minecraft.server.dedicated.DedicatedPlayerList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBan", "this.bans"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadUserBanList(/* params */);
+

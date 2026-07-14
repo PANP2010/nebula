@@ -1,0 +1,105 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (8 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.pathfinder.Node.java b/net.minecraft.world.level.pathfinder.Node.java
+--- a/net.minecraft.world.level.pathfinder.Node.java
++++ b/net.minecraft.world.level.pathfinder.Node.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.x", "this.y", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ distanceManhattan(/* params */);
+
+diff --git a/net.minecraft.world.level.pathfinder.Node.java b/net.minecraft.world.level.pathfinder.Node.java
+--- a/net.minecraft.world.level.pathfinder.Node.java
++++ b/net.minecraft.world.level.pathfinder.Node.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ cloneAndMove(/* params */);
+
+diff --git a/net.minecraft.world.level.pathfinder.Node.java b/net.minecraft.world.level.pathfinder.Node.java
+--- a/net.minecraft.world.level.pathfinder.Node.java
++++ b/net.minecraft.world.level.pathfinder.Node.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeToStream(/* params */);
+
+diff --git a/net.minecraft.world.level.pathfinder.Node.java b/net.minecraft.world.level.pathfinder.Node.java
+--- a/net.minecraft.world.level.pathfinder.Node.java
++++ b/net.minecraft.world.level.pathfinder.Node.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.x", "this.y", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ asVec3(/* params */);
+
+diff --git a/net.minecraft.world.level.pathfinder.Node.java b/net.minecraft.world.level.pathfinder.Node.java
+--- a/net.minecraft.world.level.pathfinder.Node.java
++++ b/net.minecraft.world.level.pathfinder.Node.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.heapIdx"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ inOpenSet(/* params */);
+
+diff --git a/net.minecraft.world.level.pathfinder.Node.java b/net.minecraft.world.level.pathfinder.Node.java
+--- a/net.minecraft.world.level.pathfinder.Node.java
++++ b/net.minecraft.world.level.pathfinder.Node.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.has"},
++writeEntities = {"this.x", "this.y", "this.z", "this.hash"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ equals(/* params */);
+
+diff --git a/net.minecraft.world.level.pathfinder.Node.java b/net.minecraft.world.level.pathfinder.Node.java
+--- a/net.minecraft.world.level.pathfinder.Node.java
++++ b/net.minecraft.world.level.pathfinder.Node.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.x", "this.y", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.world.level.pathfinder.Node.java b/net.minecraft.world.level.pathfinder.Node.java
+--- a/net.minecraft.world.level.pathfinder.Node.java
++++ b/net.minecraft.world.level.pathfinder.Node.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.x", "this.y", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ asBlockPos(/* params */);
+

@@ -1,0 +1,169 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (13 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java b/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
+--- a/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
++++ b/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecart", "this.adjustToRail", "this.deltaMovement", "this.getDeltaMovemen", "this.leve"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ moveAlongTrack(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java b/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
+--- a/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
++++ b/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecart", "this.adjustToRail", "this.leve"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java b/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
+--- a/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
++++ b/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.deltaMovement", "this.getDeltaMovemen", "this.isDecendin"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ adjustToRails(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java b/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
+--- a/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
++++ b/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.currentLerpSteps"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ cartHasPosRotLerp(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java b/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
+--- a/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
++++ b/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.deltaMovement", "this.getDeltaMovemen", "this.isDecendin", "this.setDeltaMovemen"},
++writeEntities = {"this.deltaMovement"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ restAtVShape(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java b/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
+--- a/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
++++ b/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.movementLeft", "this.firstIteration"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldIterate(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java b/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
+--- a/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
++++ b/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.calculateSlopeSpee"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateTrackSpeed(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java b/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
+--- a/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
++++ b/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pickupEntitie", "this.minecart"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pushAndPickupEntities(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java b/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
+--- a/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
++++ b/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecart"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateSlopeSpeed(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java b/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
+--- a/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
++++ b/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecart", "this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pickupEntities(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java b/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
+--- a/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
++++ b/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecart"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculatePlayerInputSpeed(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java b/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
+--- a/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
++++ b/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.currentLerpStepsTotalWeight", "this.oldLerpValues"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ lerpClientPositionAndRotation(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java b/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
+--- a/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
++++ b/net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecart", "this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pushEntities(/* params */);
+

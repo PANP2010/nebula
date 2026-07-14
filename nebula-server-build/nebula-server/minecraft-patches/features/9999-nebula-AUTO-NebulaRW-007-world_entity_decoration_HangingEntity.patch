@@ -1,0 +1,95 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.decoration.HangingEntity.java b/net.minecraft.world.entity.decoration.HangingEntity.java
+--- a/net.minecraft.world.entity.decoration.HangingEntity.java
++++ b/net.minecraft.world.entity.decoration.HangingEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++triggeredEvents = {"ENTITY_SPAWNED"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spawnAtLocation(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.HangingEntity.java b/net.minecraft.world.entity.decoration.HangingEntity.java
+--- a/net.minecraft.world.entity.decoration.HangingEntity.java
++++ b/net.minecraft.world.entity.decoration.HangingEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.boundingBox", "this.posRaw"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ recalculateBoundingBox(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.HangingEntity.java b/net.minecraft.world.entity.decoration.HangingEntity.java
+--- a/net.minecraft.world.entity.decoration.HangingEntity.java
++++ b/net.minecraft.world.entity.decoration.HangingEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getDirectio", "this.boundingBox", "this.getBoundingBo", "this.direction"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateSupportBox(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.HangingEntity.java b/net.minecraft.world.entity.decoration.HangingEntity.java
+--- a/net.minecraft.world.entity.decoration.HangingEntity.java
++++ b/net.minecraft.world.entity.decoration.HangingEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getDirectio", "this.setDirectio", "this.direction"},
++writeEntities = {"this.direction"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSyncedDataUpdated(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.HangingEntity.java b/net.minecraft.world.entity.decoration.HangingEntity.java
+--- a/net.minecraft.world.entity.decoration.HangingEntity.java
++++ b/net.minecraft.world.entity.decoration.HangingEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getDirectio", "this.direction"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ rotate(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.HangingEntity.java b/net.minecraft.world.entity.decoration.HangingEntity.java
+--- a/net.minecraft.world.entity.decoration.HangingEntity.java
++++ b/net.minecraft.world.entity.decoration.HangingEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.rotat", "this.getDirectio", "this.direction"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mirror(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.HangingEntity.java b/net.minecraft.world.entity.decoration.HangingEntity.java
+--- a/net.minecraft.world.entity.decoration.HangingEntity.java
++++ b/net.minecraft.world.entity.decoration.HangingEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hasLevelCollisio", "this.getPopBo", "this.popBox"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ survives(/* params */);
+

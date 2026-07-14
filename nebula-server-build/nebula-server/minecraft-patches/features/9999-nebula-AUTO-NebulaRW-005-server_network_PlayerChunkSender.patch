@@ -1,0 +1,70 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.network.PlayerChunkSender.java b/net.minecraft.server.network.PlayerChunkSender.java
+--- a/net.minecraft.server.network.PlayerChunkSender.java
++++ b/net.minecraft.server.network.PlayerChunkSender.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pendingChunks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropChunk(/* params */);
+
+diff --git a/net.minecraft.server.network.PlayerChunkSender.java b/net.minecraft.server.network.PlayerChunkSender.java
+--- a/net.minecraft.server.network.PlayerChunkSender.java
++++ b/net.minecraft.server.network.PlayerChunkSender.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pendingChunks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ markChunkPendingToSend(/* params */);
+
+diff --git a/net.minecraft.server.network.PlayerChunkSender.java b/net.minecraft.server.network.PlayerChunkSender.java
+--- a/net.minecraft.server.network.PlayerChunkSender.java
++++ b/net.minecraft.server.network.PlayerChunkSender.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.batchQuota"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendNextChunks(/* params */);
+
+diff --git a/net.minecraft.server.network.PlayerChunkSender.java b/net.minecraft.server.network.PlayerChunkSender.java
+--- a/net.minecraft.server.network.PlayerChunkSender.java
++++ b/net.minecraft.server.network.PlayerChunkSender.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.unacknowledgedBatche", "this.desiredChunksPerTic", "this.batchQuot", "this.unacknowledgedBatches"},
++writeEntities = {"this.desiredChunksPerTick", "this.unacknowledgedBatches", "this.batchQuota"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onChunkBatchReceivedByClient(/* params */);
+
+diff --git a/net.minecraft.server.network.PlayerChunkSender.java b/net.minecraft.server.network.PlayerChunkSender.java
+--- a/net.minecraft.server.network.PlayerChunkSender.java
++++ b/net.minecraft.server.network.PlayerChunkSender.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.memoryConnection", "this.pendingChunks", "this.batchQuota"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ collectChunksToSend(/* params */);
+

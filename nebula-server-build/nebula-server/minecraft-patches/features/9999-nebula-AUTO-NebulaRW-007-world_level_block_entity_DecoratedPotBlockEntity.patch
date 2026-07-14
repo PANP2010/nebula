@@ -1,0 +1,97 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.entity.DecoratedPotBlockEntity.java b/net.minecraft.world.level.block.entity.DecoratedPotBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.DecoratedPotBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.DecoratedPotBlockEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBlockPo", "this.blockState", "this.blockPos", "this.level", "this.getBlockStat"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ wobble(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.DecoratedPotBlockEntity.java b/net.minecraft.world.level.block.entity.DecoratedPotBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.DecoratedPotBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.DecoratedPotBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.item", "this.decorations"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ collectImplicitComponents(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.DecoratedPotBlockEntity.java b/net.minecraft.world.level.block.entity.DecoratedPotBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.DecoratedPotBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.DecoratedPotBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.decorations"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveAdditional(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.DecoratedPotBlockEntity.java b/net.minecraft.world.level.block.entity.DecoratedPotBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.DecoratedPotBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.DecoratedPotBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.lastWobbleStyl", "this.wobbleStartedAtTic"},
++writeEntities = {"this.lastWobbleStyle", "this.wobbleStartedAtTick"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ triggerEvent(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.DecoratedPotBlockEntity.java b/net.minecraft.world.level.block.entity.DecoratedPotBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.DecoratedPotBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.DecoratedPotBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tryLoadLootTabl", "this.ite", "this.decoration"},
++writeEntities = {"this.item", "this.decorations"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadAdditional(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.DecoratedPotBlockEntity.java b/net.minecraft.world.level.block.entity.DecoratedPotBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.DecoratedPotBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.DecoratedPotBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ite", "this.decoration"},
++writeEntities = {"this.item", "this.decorations"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyImplicitComponents(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.DecoratedPotBlockEntity.java b/net.minecraft.world.level.block.entity.DecoratedPotBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.DecoratedPotBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.DecoratedPotBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.item", "this.ite", "this.unpackLootTabl"},
++writeEntities = {"this.item"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ splitTheItem(/* params */);
+

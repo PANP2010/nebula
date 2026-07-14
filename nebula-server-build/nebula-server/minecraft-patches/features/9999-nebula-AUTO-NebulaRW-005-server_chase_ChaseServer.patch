@@ -1,0 +1,69 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.chase.ChaseServer.java b/net.minecraft.server.chase.ChaseServer.java
+--- a/net.minecraft.server.chase.ChaseServer.java
++++ b/net.minecraft.server.chase.ChaseServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.serverSocket"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ start(/* params */);
+
+diff --git a/net.minecraft.server.chase.ChaseServer.java b/net.minecraft.server.chase.ChaseServer.java
+--- a/net.minecraft.server.chase.ChaseServer.java
++++ b/net.minecraft.server.chase.ChaseServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.serverSocke", "this.serverSocket", "this.wantsToRu"},
++writeEntities = {"this.serverSocket", "this.wantsToRun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+
+diff --git a/net.minecraft.server.chase.ChaseServer.java b/net.minecraft.server.chase.ChaseServer.java
+--- a/net.minecraft.server.chase.ChaseServer.java
++++ b/net.minecraft.server.chase.ChaseServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.serverSocket", "this.wantsToRun", "this.serverPort", "this.clientSockets"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ runAcceptor(/* params */);
+
+diff --git a/net.minecraft.server.chase.ChaseServer.java b/net.minecraft.server.chase.ChaseServer.java
+--- a/net.minecraft.server.chase.ChaseServer.java
++++ b/net.minecraft.server.chase.ChaseServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getPlayerPositio", "this.wantsToRun", "this.clientSockets", "this.playerPosition"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ runSender(/* params */);
+
+diff --git a/net.minecraft.server.chase.ChaseServer.java b/net.minecraft.server.chase.ChaseServer.java
+--- a/net.minecraft.server.chase.ChaseServer.java
++++ b/net.minecraft.server.chase.ChaseServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ format(/* params */);
+

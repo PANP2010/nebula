@@ -1,0 +1,105 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (8 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.levelgen.structure.BoundingBox.java b/net.minecraft.world.level.levelgen.structure.BoundingBox.java
+--- a/net.minecraft.world.level.levelgen.structure.BoundingBox.java
++++ b/net.minecraft.world.level.levelgen.structure.BoundingBox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mov"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ move(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.BoundingBox.java b/net.minecraft.world.level.levelgen.structure.BoundingBox.java
+--- a/net.minecraft.world.level.levelgen.structure.BoundingBox.java
++++ b/net.minecraft.world.level.levelgen.structure.BoundingBox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forAllCorners(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.BoundingBox.java b/net.minecraft.world.level.levelgen.structure.BoundingBox.java
+--- a/net.minecraft.world.level.levelgen.structure.BoundingBox.java
++++ b/net.minecraft.world.level.levelgen.structure.BoundingBox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ encapsulate(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.BoundingBox.java b/net.minecraft.world.level.levelgen.structure.BoundingBox.java
+--- a/net.minecraft.world.level.levelgen.structure.BoundingBox.java
++++ b/net.minecraft.world.level.levelgen.structure.BoundingBox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.min", "this.max"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ inflatedBy(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.BoundingBox.java b/net.minecraft.world.level.levelgen.structure.BoundingBox.java
+--- a/net.minecraft.world.level.levelgen.structure.BoundingBox.java
++++ b/net.minecraft.world.level.levelgen.structure.BoundingBox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minX", "this.maxZ", "this.maxX", "this.minZ"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ intersects(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.BoundingBox.java b/net.minecraft.world.level.levelgen.structure.BoundingBox.java
+--- a/net.minecraft.world.level.levelgen.structure.BoundingBox.java
++++ b/net.minecraft.world.level.levelgen.structure.BoundingBox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.BoundingBox.java b/net.minecraft.world.level.levelgen.structure.BoundingBox.java
+--- a/net.minecraft.world.level.levelgen.structure.BoundingBox.java
++++ b/net.minecraft.world.level.levelgen.structure.BoundingBox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.min", "this.max"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ intersectingChunks(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.structure.BoundingBox.java b/net.minecraft.world.level.levelgen.structure.BoundingBox.java
+--- a/net.minecraft.world.level.levelgen.structure.BoundingBox.java
++++ b/net.minecraft.world.level.levelgen.structure.BoundingBox.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ moved(/* params */);
+

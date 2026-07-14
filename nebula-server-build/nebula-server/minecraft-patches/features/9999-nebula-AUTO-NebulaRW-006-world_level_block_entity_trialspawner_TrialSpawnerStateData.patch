@@ -1,0 +1,83 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerStateData.java b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerStateData.java
+--- a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerStateData.java
++++ b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerStateData.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.currentMobs"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ haveAllCurrentMobsDied(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerStateData.java b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerStateData.java
+--- a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerStateData.java
++++ b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerStateData.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.resetStatistic", "this.currentMobs", "this.nextSpawnDat"},
++writeEntities = {"this.nextSpawnData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reset(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerStateData.java b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerStateData.java
+--- a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerStateData.java
++++ b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerStateData.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.detectedPlayers"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ countAdditionalPlayers(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerStateData.java b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerStateData.java
+--- a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerStateData.java
++++ b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerStateData.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.nextMobSpawnsAt", "this.totalMobsSpawned", "this.ejectingLootTable", "this.cooldownEndsAt", "this.nextSpawnData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ apply(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerStateData.java b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerStateData.java
+--- a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerStateData.java
++++ b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerStateData.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.nextMobSpawnsA", "this.cooldownEndsA", "this.detectedPlayers", "this.totalMobsSpawne"},
++writeEntities = {"this.nextMobSpawnsAt", "this.totalMobsSpawned", "this.cooldownEndsAt"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetStatistics(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerStateData.java b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerStateData.java
+--- a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerStateData.java
++++ b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerStateData.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.currentMobs"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetAfterBecomingOminous(/* params */);
+

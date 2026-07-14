@@ -1,0 +1,69 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.multiplayer.AccountProfileKeyPairManager.java b/net.minecraft.client.multiplayer.AccountProfileKeyPairManager.java
+--- a/net.minecraft.client.multiplayer.AccountProfileKeyPairManager.java
++++ b/net.minecraft.client.multiplayer.AccountProfileKeyPairManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.nextProfileKeyRefreshTime", "this.keyPair"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldRefreshKeyPair(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.AccountProfileKeyPairManager.java b/net.minecraft.client.multiplayer.AccountProfileKeyPairManager.java
+--- a/net.minecraft.client.multiplayer.AccountProfileKeyPairManager.java
++++ b/net.minecraft.client.multiplayer.AccountProfileKeyPairManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.nextProfileKeyRefreshTim", "this.keyPai", "this.keyPair"},
++writeEntities = {"this.nextProfileKeyRefreshTime", "this.keyPair"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ prepareKeyPair(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.AccountProfileKeyPairManager.java b/net.minecraft.client.multiplayer.AccountProfileKeyPairManager.java
+--- a/net.minecraft.client.multiplayer.AccountProfileKeyPairManager.java
++++ b/net.minecraft.client.multiplayer.AccountProfileKeyPairManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.profileKeyPairPath"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readProfileKeyPair(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.AccountProfileKeyPairManager.java b/net.minecraft.client.multiplayer.AccountProfileKeyPairManager.java
+--- a/net.minecraft.client.multiplayer.AccountProfileKeyPairManager.java
++++ b/net.minecraft.client.multiplayer.AccountProfileKeyPairManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.profileKeyPairPath"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeProfileKeyPair(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.AccountProfileKeyPairManager.java b/net.minecraft.client.multiplayer.AccountProfileKeyPairManager.java
+--- a/net.minecraft.client.multiplayer.AccountProfileKeyPairManager.java
++++ b/net.minecraft.client.multiplayer.AccountProfileKeyPairManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.writeProfileKeyPai"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readOrFetchProfileKeyPair(/* params */);
+

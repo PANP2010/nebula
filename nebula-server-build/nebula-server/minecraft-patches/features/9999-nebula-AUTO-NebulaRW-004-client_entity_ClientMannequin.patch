@@ -1,0 +1,58 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.entity.ClientMannequin.java b/net.minecraft.client.entity.ClientMannequin.java
+--- a/net.minecraft.client.entity.ClientMannequin.java
++++ b/net.minecraft.client.entity.ClientMannequin.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.skinLookup", "this.skinLooku"},
++writeEntities = {"this.skinLookup"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateSkin(/* params */);
+
+diff --git a/net.minecraft.client.entity.ClientMannequin.java b/net.minecraft.client.entity.ClientMannequin.java
+--- a/net.minecraft.client.entity.ClientMannequin.java
++++ b/net.minecraft.client.entity.ClientMannequin.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.skinLookup"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.client.entity.ClientMannequin.java b/net.minecraft.client.entity.ClientMannequin.java
+--- a/net.minecraft.client.entity.ClientMannequin.java
++++ b/net.minecraft.client.entity.ClientMannequin.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateSki"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSyncedDataUpdated(/* params */);
+
+diff --git a/net.minecraft.client.entity.ClientMannequin.java b/net.minecraft.client.entity.ClientMannequin.java
+--- a/net.minecraft.client.entity.ClientMannequin.java
++++ b/net.minecraft.client.entity.ClientMannequin.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.avatarStat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ avatarState(/* params */);
+

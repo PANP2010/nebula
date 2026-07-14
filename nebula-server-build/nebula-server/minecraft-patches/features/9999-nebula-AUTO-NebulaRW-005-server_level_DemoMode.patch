@@ -1,0 +1,70 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.level.DemoMode.java b/net.minecraft.server.level.DemoMode.java
+--- a/net.minecraft.server.level.DemoMode.java
++++ b/net.minecraft.server.level.DemoMode.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.outputDemoReminde", "this.demoHasEnded"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ useItem(/* params */);
+
+diff --git a/net.minecraft.server.level.DemoMode.java b/net.minecraft.server.level.DemoMode.java
+--- a/net.minecraft.server.level.DemoMode.java
++++ b/net.minecraft.server.level.DemoMode.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.outputDemoReminde", "this.demoHasEnded"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ useItemOn(/* params */);
+
+diff --git a/net.minecraft.server.level.DemoMode.java b/net.minecraft.server.level.DemoMode.java
+--- a/net.minecraft.server.level.DemoMode.java
++++ b/net.minecraft.server.level.DemoMode.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.gameModeTicks", "this.level", "this.displayedIntro", "this.displayedIntr", "this.player"},
++writeEntities = {"this.displayedIntro"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.server.level.DemoMode.java b/net.minecraft.server.level.DemoMode.java
+--- a/net.minecraft.server.level.DemoMode.java
++++ b/net.minecraft.server.level.DemoMode.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.demoEndedReminder", "this.demoEndedReminde", "this.player"},
++writeEntities = {"this.demoEndedReminder"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ outputDemoReminder(/* params */);
+
+diff --git a/net.minecraft.server.level.DemoMode.java b/net.minecraft.server.level.DemoMode.java
+--- a/net.minecraft.server.level.DemoMode.java
++++ b/net.minecraft.server.level.DemoMode.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.outputDemoReminde", "this.demoHasEnded"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleBlockBreakAction(/* params */);
+

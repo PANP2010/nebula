@@ -1,0 +1,93 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.inventory.ItemCombinerMenu.java b/net.minecraft.world.inventory.ItemCombinerMenu.java
+--- a/net.minecraft.world.inventory.ItemCombinerMenu.java
++++ b/net.minecraft.world.inventory.ItemCombinerMenu.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.access", "this.isValidBloc"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stillValid(/* params */);
+
+diff --git a/net.minecraft.world.inventory.ItemCombinerMenu.java b/net.minecraft.world.inventory.ItemCombinerMenu.java
+--- a/net.minecraft.world.inventory.ItemCombinerMenu.java
++++ b/net.minecraft.world.inventory.ItemCombinerMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ quickMoveStack(/* params */);
+
+diff --git a/net.minecraft.world.inventory.ItemCombinerMenu.java b/net.minecraft.world.inventory.ItemCombinerMenu.java
+--- a/net.minecraft.world.inventory.ItemCombinerMenu.java
++++ b/net.minecraft.world.inventory.ItemCombinerMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mayPicku", "this.hasIte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mayPickup(/* params */);
+
+diff --git a/net.minecraft.world.inventory.ItemCombinerMenu.java b/net.minecraft.world.inventory.ItemCombinerMenu.java
+--- a/net.minecraft.world.inventory.ItemCombinerMenu.java
++++ b/net.minecraft.world.inventory.ItemCombinerMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.addSlo", "this.resultSlots"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createResultSlot(/* params */);
+
+diff --git a/net.minecraft.world.inventory.ItemCombinerMenu.java b/net.minecraft.world.inventory.ItemCombinerMenu.java
+--- a/net.minecraft.world.inventory.ItemCombinerMenu.java
++++ b/net.minecraft.world.inventory.ItemCombinerMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.addSlo", "this.inputSlots"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createInputSlots(/* params */);
+
+diff --git a/net.minecraft.world.inventory.ItemCombinerMenu.java b/net.minecraft.world.inventory.ItemCombinerMenu.java
+--- a/net.minecraft.world.inventory.ItemCombinerMenu.java
++++ b/net.minecraft.world.inventory.ItemCombinerMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.onTak"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onTake(/* params */);
+
+diff --git a/net.minecraft.world.inventory.ItemCombinerMenu.java b/net.minecraft.world.inventory.ItemCombinerMenu.java
+--- a/net.minecraft.world.inventory.ItemCombinerMenu.java
++++ b/net.minecraft.world.inventory.ItemCombinerMenu.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.inputSlots", "this.createResul"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ slotsChanged(/* params */);
+

@@ -1,0 +1,408 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (33 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.renderer.LevelRenderer.java b/net.minecraft.client.renderer.LevelRenderer.java
+--- a/net.minecraft.client.renderer.LevelRenderer.java
++++ b/net.minecraft.client.renderer.LevelRenderer.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractBlockOutline(/* params */);
+
+diff --git a/net.minecraft.client.renderer.LevelRenderer.java b/net.minecraft.client.renderer.LevelRenderer.java
+--- a/net.minecraft.client.renderer.LevelRenderer.java
++++ b/net.minecraft.client.renderer.LevelRenderer.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.destructionProgress", "this.level"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractBlockDestroyAnimation(/* params */);
+
+diff --git a/net.minecraft.client.renderer.LevelRenderer.java b/net.minecraft.client.renderer.LevelRenderer.java
+--- a/net.minecraft.client.renderer.LevelRenderer.java
++++ b/net.minecraft.client.renderer.LevelRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.destructionProgress", "this.visibleSections"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractVisibleBlockEntities(/* params */);
+
+diff --git a/net.minecraft.client.renderer.LevelRenderer.java b/net.minecraft.client.renderer.LevelRenderer.java
+--- a/net.minecraft.client.renderer.LevelRenderer.java
++++ b/net.minecraft.client.renderer.LevelRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entityRenderDispatcher"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractEntity(/* params */);
+
+diff --git a/net.minecraft.client.renderer.LevelRenderer.java b/net.minecraft.client.renderer.LevelRenderer.java
+--- a/net.minecraft.client.renderer.LevelRenderer.java
++++ b/net.minecraft.client.renderer.LevelRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sectionOcclusionGraph", "this.viewArea"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSectionBecomingNonEmpty(/* params */);
+
+diff --git a/net.minecraft.client.renderer.LevelRenderer.java b/net.minecraft.client.renderer.LevelRenderer.java
+--- a/net.minecraft.client.renderer.LevelRenderer.java
++++ b/net.minecraft.client.renderer.LevelRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.visibleSections"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ prepareChunkRenders(/* params */);
+
+diff --git a/net.minecraft.client.renderer.LevelRenderer.java b/net.minecraft.client.renderer.LevelRenderer.java
+--- a/net.minecraft.client.renderer.LevelRenderer.java
++++ b/net.minecraft.client.renderer.LevelRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.removeProgres", "this.destroyingBlocks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ destroyBlockProgress(/* params */);
+
+diff --git a/net.minecraft.client.renderer.LevelRenderer.java b/net.minecraft.client.renderer.LevelRenderer.java
+--- a/net.minecraft.client.renderer.LevelRenderer.java
++++ b/net.minecraft.client.renderer.LevelRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.visibleSections"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ compileSections(/* params */);
+
+diff --git a/net.minecraft.client.renderer.LevelRenderer.java b/net.minecraft.client.renderer.LevelRenderer.java
+--- a/net.minecraft.client.renderer.LevelRenderer.java
++++ b/net.minecraft.client.renderer.LevelRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.skyRenderer", "this.initOutlin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onResourceManagerReload(/* params */);
+
+diff --git a/net.minecraft.client.renderer.LevelRenderer.java b/net.minecraft.client.renderer.LevelRenderer.java
+--- a/net.minecraft.client.renderer.LevelRenderer.java
++++ b/net.minecraft.client.renderer.LevelRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.renderHitOutlin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderBlockOutline(/* params */);
+
+diff --git a/net.minecraft.client.renderer.LevelRenderer.java b/net.minecraft.client.renderer.LevelRenderer.java
+--- a/net.minecraft.client.renderer.LevelRenderer.java
++++ b/net.minecraft.client.renderer.LevelRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderLevel(/* params */);
+
+diff --git a/net.minecraft.client.renderer.LevelRenderer.java b/net.minecraft.client.renderer.LevelRenderer.java
+--- a/net.minecraft.client.renderer.LevelRenderer.java
++++ b/net.minecraft.client.renderer.LevelRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setBlockDirt"},
++writeEntities = {"this.blockDirty"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ blockChanged(/* params */);
+
+diff --git a/net.minecraft.client.renderer.LevelRenderer.java b/net.minecraft.client.renderer.LevelRenderer.java
+--- a/net.minecraft.client.renderer.LevelRenderer.java
++++ b/net.minecraft.client.renderer.LevelRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.renderBuffers", "this.level", "this.sectionRenderDispatche"},
++writeEntities = {"this.sectionRenderDispatcher"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ allChanged(/* params */);
+
+diff --git a/net.minecraft.client.renderer.LevelRenderer.java b/net.minecraft.client.renderer.LevelRenderer.java
+--- a/net.minecraft.client.renderer.LevelRenderer.java
++++ b/net.minecraft.client.renderer.LevelRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entityOutlineTarget"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ initOutline(/* params */);
+
+diff --git a/net.minecraft.client.renderer.LevelRenderer.java b/net.minecraft.client.renderer.LevelRenderer.java
+--- a/net.minecraft.client.renderer.LevelRenderer.java
++++ b/net.minecraft.client.renderer.LevelRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockEntityRenderDispatcher"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ submitBlockEntities(/* params */);
+
+diff --git a/net.minecraft.client.renderer.LevelRenderer.java b/net.minecraft.client.renderer.LevelRenderer.java
+--- a/net.minecraft.client.renderer.LevelRenderer.java
++++ b/net.minecraft.client.renderer.LevelRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.collectedGizmos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ finalizeGizmoCollection(/* params */);
+
+diff --git a/net.minecraft.client.renderer.LevelRenderer.java b/net.minecraft.client.renderer.LevelRenderer.java
+--- a/net.minecraft.client.renderer.LevelRenderer.java
++++ b/net.minecraft.client.renderer.LevelRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.cloudRenderer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ endFrame(/* params */);
+
+diff --git a/net.minecraft.client.renderer.LevelRenderer.java b/net.minecraft.client.renderer.LevelRenderer.java
+--- a/net.minecraft.client.renderer.LevelRenderer.java
++++ b/net.minecraft.client.renderer.LevelRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.needsUpdat", "this.entityOutlineTarget"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resize(/* params */);
+
+diff --git a/net.minecraft.client.renderer.LevelRenderer.java b/net.minecraft.client.renderer.LevelRenderer.java
+--- a/net.minecraft.client.renderer.LevelRenderer.java
++++ b/net.minecraft.client.renderer.LevelRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.entityOutlineTarget", "this.shouldShowEntityOutline"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ doEntityOutline(/* params */);
+
+diff --git a/net.minecraft.client.renderer.LevelRenderer.java b/net.minecraft.client.renderer.LevelRenderer.java
+--- a/net.minecraft.client.renderer.LevelRenderer.java
++++ b/net.minecraft.client.renderer.LevelRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.ticks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.client.renderer.LevelRenderer.java b/net.minecraft.client.renderer.LevelRenderer.java
+--- a/net.minecraft.client.renderer.LevelRenderer.java
++++ b/net.minecraft.client.renderer.LevelRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.compileSection", "this.cullTerrai"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ update(/* params */);
+
+diff --git a/net.minecraft.client.renderer.LevelRenderer.java b/net.minecraft.client.renderer.LevelRenderer.java
+--- a/net.minecraft.client.renderer.LevelRenderer.java
++++ b/net.minecraft.client.renderer.LevelRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.allChange", "this.lastViewDistance"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ cullTerrain(/* params */);
+
+diff --git a/net.minecraft.client.renderer.LevelRenderer.java b/net.minecraft.client.renderer.LevelRenderer.java
+--- a/net.minecraft.client.renderer.LevelRenderer.java
++++ b/net.minecraft.client.renderer.LevelRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ submitBlockDestroyAnimation(/* params */);
+
+diff --git a/net.minecraft.client.renderer.LevelRenderer.java b/net.minecraft.client.renderer.LevelRenderer.java
+--- a/net.minecraft.client.renderer.LevelRenderer.java
++++ b/net.minecraft.client.renderer.LevelRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sectionOcclusionGraph"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onChunkReadyToRender(/* params */);
+
+diff --git a/net.minecraft.client.renderer.LevelRenderer.java b/net.minecraft.client.renderer.LevelRenderer.java
+--- a/net.minecraft.client.renderer.LevelRenderer.java
++++ b/net.minecraft.client.renderer.LevelRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chunkLayerSampler"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetSampler(/* params */);
+
+diff --git a/net.minecraft.client.renderer.LevelRenderer.java b/net.minecraft.client.renderer.LevelRenderer.java
+--- a/net.minecraft.client.renderer.LevelRenderer.java
++++ b/net.minecraft.client.renderer.LevelRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entityOutlineTarget"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ close(/* params */);
+
+diff --git a/net.minecraft.client.renderer.LevelRenderer.java b/net.minecraft.client.renderer.LevelRenderer.java
+--- a/net.minecraft.client.renderer.LevelRenderer.java
++++ b/net.minecraft.client.renderer.LevelRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sectionRenderDispatcher"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scheduleResort(/* params */);
+
+diff --git a/net.minecraft.client.renderer.LevelRenderer.java b/net.minecraft.client.renderer.LevelRenderer.java
+--- a/net.minecraft.client.renderer.LevelRenderer.java
++++ b/net.minecraft.client.renderer.LevelRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lastTranslucentSortBlockPos", "this.visibleSections", "this.nearbyVisibleSections", "this.scheduleResor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scheduleTranslucentSectionResort(/* params */);
+
+diff --git a/net.minecraft.client.renderer.LevelRenderer.java b/net.minecraft.client.renderer.LevelRenderer.java
+--- a/net.minecraft.client.renderer.LevelRenderer.java
++++ b/net.minecraft.client.renderer.LevelRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.visibleSections"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ countRenderedSections(/* params */);
+
+diff --git a/net.minecraft.client.renderer.LevelRenderer.java b/net.minecraft.client.renderer.LevelRenderer.java
+--- a/net.minecraft.client.renderer.LevelRenderer.java
++++ b/net.minecraft.client.renderer.LevelRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractLevel(/* params */);
+
+diff --git a/net.minecraft.client.renderer.LevelRenderer.java b/net.minecraft.client.renderer.LevelRenderer.java
+--- a/net.minecraft.client.renderer.LevelRenderer.java
++++ b/net.minecraft.client.renderer.LevelRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.cloudRenderer", "this.sectionOcclusionGraph"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ needsUpdate(/* params */);
+
+diff --git a/net.minecraft.client.renderer.LevelRenderer.java b/net.minecraft.client.renderer.LevelRenderer.java
+--- a/net.minecraft.client.renderer.LevelRenderer.java
++++ b/net.minecraft.client.renderer.LevelRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level", "this.entityRenderDispatcher", "this.shouldShowEntityOutline", "this.isSectionCompiledAndVisibl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractVisibleEntities(/* params */);
+
+diff --git a/net.minecraft.client.renderer.LevelRenderer.java b/net.minecraft.client.renderer.LevelRenderer.java
+--- a/net.minecraft.client.renderer.LevelRenderer.java
++++ b/net.minecraft.client.renderer.LevelRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.levelRenderState", "this.entityOutlineTarget"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldShowEntityOutlines(/* params */);
+

@@ -1,0 +1,81 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.waypoints.TrackedWaypoint.java b/net.minecraft.world.waypoints.TrackedWaypoint.java
+--- a/net.minecraft.world.waypoints.TrackedWaypoint.java
++++ b/net.minecraft.world.waypoints.TrackedWaypoint.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.vector"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ distanceSquared(/* params */);
+
+diff --git a/net.minecraft.world.waypoints.TrackedWaypoint.java b/net.minecraft.world.waypoints.TrackedWaypoint.java
+--- a/net.minecraft.world.waypoints.TrackedWaypoint.java
++++ b/net.minecraft.world.waypoints.TrackedWaypoint.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.vecto"},
++writeEntities = {"this.vector"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ update(/* params */);
+
+diff --git a/net.minecraft.world.waypoints.TrackedWaypoint.java b/net.minecraft.world.waypoints.TrackedWaypoint.java
+--- a/net.minecraft.world.waypoints.TrackedWaypoint.java
++++ b/net.minecraft.world.waypoints.TrackedWaypoint.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.identifier", "this.icon", "this.writeContent", "this.type"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ write(/* params */);
+
+diff --git a/net.minecraft.world.waypoints.TrackedWaypoint.java b/net.minecraft.world.waypoints.TrackedWaypoint.java
+--- a/net.minecraft.world.waypoints.TrackedWaypoint.java
++++ b/net.minecraft.world.waypoints.TrackedWaypoint.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.positio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ yawAngleToCamera(/* params */);
+
+diff --git a/net.minecraft.world.waypoints.TrackedWaypoint.java b/net.minecraft.world.waypoints.TrackedWaypoint.java
+--- a/net.minecraft.world.waypoints.TrackedWaypoint.java
++++ b/net.minecraft.world.waypoints.TrackedWaypoint.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.identifier", "this.vector"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ position(/* params */);
+
+diff --git a/net.minecraft.world.waypoints.TrackedWaypoint.java b/net.minecraft.world.waypoints.TrackedWaypoint.java
+--- a/net.minecraft.world.waypoints.TrackedWaypoint.java
++++ b/net.minecraft.world.waypoints.TrackedWaypoint.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.vector"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ writeContents(/* params */);
+

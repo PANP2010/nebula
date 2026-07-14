@@ -1,0 +1,106 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.levelgen.feature.FallenTreeFeature.java b/net.minecraft.world.level.levelgen.feature.FallenTreeFeature.java
+--- a/net.minecraft.world.level.levelgen.feature.FallenTreeFeature.java
++++ b/net.minecraft.world.level.levelgen.feature.FallenTreeFeature.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.markAboveForPostProcessin"},
++readBlocks = {"{position}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ placeLogBlock(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.feature.FallenTreeFeature.java b/net.minecraft.world.level.levelgen.feature.FallenTreeFeature.java
+--- a/net.minecraft.world.level.levelgen.feature.FallenTreeFeature.java
++++ b/net.minecraft.world.level.levelgen.feature.FallenTreeFeature.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.placeFallenLo", "this.placeStum", "this.canPlaceEntireFallenLo", "this.setGroundHeightForFallenLogStartPo"},
++writeEntities = {"this.groundHeightForFallenLogStartPos"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ placeFallenTree(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.feature.FallenTreeFeature.java b/net.minecraft.world.level.levelgen.feature.FallenTreeFeature.java
+--- a/net.minecraft.world.level.levelgen.feature.FallenTreeFeature.java
++++ b/net.minecraft.world.level.levelgen.feature.FallenTreeFeature.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.placeLogBloc"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ placeFallenLog(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.feature.FallenTreeFeature.java b/net.minecraft.world.level.levelgen.feature.FallenTreeFeature.java
+--- a/net.minecraft.world.level.levelgen.feature.FallenTreeFeature.java
++++ b/net.minecraft.world.level.levelgen.feature.FallenTreeFeature.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.placeFallenTre"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ place(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.feature.FallenTreeFeature.java b/net.minecraft.world.level.levelgen.feature.FallenTreeFeature.java
+--- a/net.minecraft.world.level.levelgen.feature.FallenTreeFeature.java
++++ b/net.minecraft.world.level.levelgen.feature.FallenTreeFeature.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getDecorationSette", "this.decorationSetter"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ decorateLogs(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.feature.FallenTreeFeature.java b/net.minecraft.world.level.levelgen.feature.FallenTreeFeature.java
+--- a/net.minecraft.world.level.levelgen.feature.FallenTreeFeature.java
++++ b/net.minecraft.world.level.levelgen.feature.FallenTreeFeature.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.decorateLog", "this.placeLogBloc"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ placeStump(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.feature.FallenTreeFeature.java b/net.minecraft.world.level.levelgen.feature.FallenTreeFeature.java
+--- a/net.minecraft.world.level.levelgen.feature.FallenTreeFeature.java
++++ b/net.minecraft.world.level.levelgen.feature.FallenTreeFeature.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isOverSolidGroun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mayPlaceOn(/* params */);
+

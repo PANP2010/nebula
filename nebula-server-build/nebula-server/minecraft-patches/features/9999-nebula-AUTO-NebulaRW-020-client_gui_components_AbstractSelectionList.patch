@@ -1,0 +1,251 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (20 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.components.AbstractSelectionList.java b/net.minecraft.client.gui.components.AbstractSelectionList.java
+--- a/net.minecraft.client.gui.components.AbstractSelectionList.java
++++ b/net.minecraft.client.gui.components.AbstractSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.children"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ centerScrollOn(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractSelectionList.java b/net.minecraft.client.gui.components.AbstractSelectionList.java
+--- a/net.minecraft.client.gui.components.AbstractSelectionList.java
++++ b/net.minecraft.client.gui.components.AbstractSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.scrollbarWidt", "this.getRowRigh", "this.rowRight"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scrollBarX(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractSelectionList.java b/net.minecraft.client.gui.components.AbstractSelectionList.java
+--- a/net.minecraft.client.gui.components.AbstractSelectionList.java
++++ b/net.minecraft.client.gui.components.AbstractSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.childre"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ narrateListElementPosition(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractSelectionList.java b/net.minecraft.client.gui.components.AbstractSelectionList.java
+--- a/net.minecraft.client.gui.components.AbstractSelectionList.java
++++ b/net.minecraft.client.gui.components.AbstractSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.hovered"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractWidgetRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractSelectionList.java b/net.minecraft.client.gui.components.AbstractSelectionList.java
+--- a/net.minecraft.client.gui.components.AbstractSelectionList.java
++++ b/net.minecraft.client.gui.components.AbstractSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.children"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ contentHeight(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractSelectionList.java b/net.minecraft.client.gui.components.AbstractSelectionList.java
+--- a/net.minecraft.client.gui.components.AbstractSelectionList.java
++++ b/net.minecraft.client.gui.components.AbstractSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractListBackground(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractSelectionList.java b/net.minecraft.client.gui.components.AbstractSelectionList.java
+--- a/net.minecraft.client.gui.components.AbstractSelectionList.java
++++ b/net.minecraft.client.gui.components.AbstractSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.children", "this.repositionEntrie"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sort(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractSelectionList.java b/net.minecraft.client.gui.components.AbstractSelectionList.java
+--- a/net.minecraft.client.gui.components.AbstractSelectionList.java
++++ b/net.minecraft.client.gui.components.AbstractSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractListSeparators(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractSelectionList.java b/net.minecraft.client.gui.components.AbstractSelectionList.java
+--- a/net.minecraft.client.gui.components.AbstractSelectionList.java
++++ b/net.minecraft.client.gui.components.AbstractSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.size", "this.position"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateSizeAndPosition(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractSelectionList.java b/net.minecraft.client.gui.components.AbstractSelectionList.java
+--- a/net.minecraft.client.gui.components.AbstractSelectionList.java
++++ b/net.minecraft.client.gui.components.AbstractSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.delegate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ size(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractSelectionList.java b/net.minecraft.client.gui.components.AbstractSelectionList.java
+--- a/net.minecraft.client.gui.components.AbstractSelectionList.java
++++ b/net.minecraft.client.gui.components.AbstractSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.get", "this.y", "this.scrol"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scrollToEntry(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractSelectionList.java b/net.minecraft.client.gui.components.AbstractSelectionList.java
+--- a/net.minecraft.client.gui.components.AbstractSelectionList.java
++++ b/net.minecraft.client.gui.components.AbstractSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.clearEntrie", "this.addEntr"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ replaceEntries(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractSelectionList.java b/net.minecraft.client.gui.components.AbstractSelectionList.java
+--- a/net.minecraft.client.gui.components.AbstractSelectionList.java
++++ b/net.minecraft.client.gui.components.AbstractSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.children", "this.repositionEntrie", "this.scrollToEntr"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ swap(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractSelectionList.java b/net.minecraft.client.gui.components.AbstractSelectionList.java
+--- a/net.minecraft.client.gui.components.AbstractSelectionList.java
++++ b/net.minecraft.client.gui.components.AbstractSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractListItems(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractSelectionList.java b/net.minecraft.client.gui.components.AbstractSelectionList.java
+--- a/net.minecraft.client.gui.components.AbstractSelectionList.java
++++ b/net.minecraft.client.gui.components.AbstractSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ enableScissor(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractSelectionList.java b/net.minecraft.client.gui.components.AbstractSelectionList.java
+--- a/net.minecraft.client.gui.components.AbstractSelectionList.java
++++ b/net.minecraft.client.gui.components.AbstractSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ repositionEntries(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractSelectionList.java b/net.minecraft.client.gui.components.AbstractSelectionList.java
+--- a/net.minecraft.client.gui.components.AbstractSelectionList.java
++++ b/net.minecraft.client.gui.components.AbstractSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.extractSelectio", "this.isFocuse", "this.entriesCanBeSelecte", "this.getSelecte", "this.selected"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractItem(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractSelectionList.java b/net.minecraft.client.gui.components.AbstractSelectionList.java
+--- a/net.minecraft.client.gui.components.AbstractSelectionList.java
++++ b/net.minecraft.client.gui.components.AbstractSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setScrollAmoun", "this.scrollAmoun"},
++writeEntities = {"this.scrollAmount"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scroll(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractSelectionList.java b/net.minecraft.client.gui.components.AbstractSelectionList.java
+--- a/net.minecraft.client.gui.components.AbstractSelectionList.java
++++ b/net.minecraft.client.gui.components.AbstractSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.children"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ children(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractSelectionList.java b/net.minecraft.client.gui.components.AbstractSelectionList.java
+--- a/net.minecraft.client.gui.components.AbstractSelectionList.java
++++ b/net.minecraft.client.gui.components.AbstractSelectionList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateSizeAndPositio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateSize(/* params */);
+

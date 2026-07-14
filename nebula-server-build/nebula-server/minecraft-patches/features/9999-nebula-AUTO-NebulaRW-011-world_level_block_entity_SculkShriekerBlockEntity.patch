@@ -1,0 +1,150 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (11 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java b/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBlockPo", "this.blockPos", "this.warningLevel"},
++triggeredEvents = {"SOUND_PLAY"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playWardenReplySound(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java b/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBlockPo", "this.blockState", "this.blockPos", "this.getBlockStat"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shriek(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java b/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setChange"},
++writeEntities = {"this.changed"},
++triggeredEvents = {"BLOCK_UPDATE"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onDataChanged(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java b/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.warningLevel"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tryShriek(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java b/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.canRespon", "this.trySummonWarde", "this.playWardenReplySoun", "this.warningLevel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tryRespond(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java b/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tryShrie"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onReceiveVibration(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java b/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.tryRespon"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ preRemoveSideEffects(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java b/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBlockPo", "this.blockPos", "this.warningLevel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ trySummonWarden(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java b/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.vibrationDat", "this.warningLeve"},
++writeEntities = {"this.vibrationData", "this.warningLevel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadAdditional(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java b/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBlockPo", "this.warningLeve", "this.blockPos"},
++writeEntities = {"this.warningLevel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tryToWarn(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java b/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.vibrationData", "this.warningLevel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveAdditional(/* params */);
+

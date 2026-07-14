@@ -1,0 +1,204 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (15 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.animal.golem.CopperGolem.java b/net.minecraft.world.entity.animal.golem.CopperGolem.java
+--- a/net.minecraft.world.entity.animal.golem.CopperGolem.java
++++ b/net.minecraft.world.entity.animal.golem.CopperGolem.java
+@@ // 70% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++readBlocks = {"{position}"},
++triggeredEvents = {"SOUND_PLAY"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ turnToStatue(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.golem.CopperGolem.java b/net.minecraft.world.entity.animal.golem.CopperGolem.java
+--- a/net.minecraft.world.entity.animal.golem.CopperGolem.java
++++ b/net.minecraft.world.entity.animal.golem.CopperGolem.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun", "this.getWeatherStat", "this.weatherState"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playStepSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.golem.CopperGolem.java b/net.minecraft.world.entity.animal.golem.CopperGolem.java
+--- a/net.minecraft.world.entity.animal.golem.CopperGolem.java
++++ b/net.minecraft.world.entity.animal.golem.CopperGolem.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setItemSlo", "this.getItemBySlo", "this.spawnAtLocatio", "this.itemBySlot"},
++writeEntities = {"this.itemSlot"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shear(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.golem.CopperGolem.java b/net.minecraft.world.entity.animal.golem.CopperGolem.java
+--- a/net.minecraft.world.entity.animal.golem.CopperGolem.java
++++ b/net.minecraft.world.entity.animal.golem.CopperGolem.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playSpawnSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.golem.CopperGolem.java b/net.minecraft.world.entity.animal.golem.CopperGolem.java
+--- a/net.minecraft.world.entity.animal.golem.CopperGolem.java
++++ b/net.minecraft.world.entity.animal.golem.CopperGolem.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.nextWeatheringTic", "this.nextWeatheringTick"},
++writeEntities = {"this.nextWeatheringTick"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateWeathering(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.golem.CopperGolem.java b/net.minecraft.world.entity.animal.golem.CopperGolem.java
+--- a/net.minecraft.world.entity.animal.golem.CopperGolem.java
++++ b/net.minecraft.world.entity.animal.golem.CopperGolem.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.nextWeatheringTic", "this.setWeatherStat"},
++writeEntities = {"this.weatherState", "this.nextWeatheringTick"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.golem.CopperGolem.java b/net.minecraft.world.entity.animal.golem.CopperGolem.java
+--- a/net.minecraft.world.entity.animal.golem.CopperGolem.java
++++ b/net.minecraft.world.entity.animal.golem.CopperGolem.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSpawnSoun", "this.setWeatherStat"},
++writeEntities = {"this.weatherState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spawn(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.golem.CopperGolem.java b/net.minecraft.world.entity.animal.golem.CopperGolem.java
+--- a/net.minecraft.world.entity.animal.golem.CopperGolem.java
++++ b/net.minecraft.world.entity.animal.golem.CopperGolem.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leve", "this.isNoA", "this.setupAnimationState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.golem.CopperGolem.java b/net.minecraft.world.entity.animal.golem.CopperGolem.java
+--- a/net.minecraft.world.entity.animal.golem.CopperGolem.java
++++ b/net.minecraft.world.entity.animal.golem.CopperGolem.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.dropPreservedEquipmen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropEquipment(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.golem.CopperGolem.java b/net.minecraft.world.entity.animal.golem.CopperGolem.java
+--- a/net.minecraft.world.entity.animal.golem.CopperGolem.java
++++ b/net.minecraft.world.entity.animal.golem.CopperGolem.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBrai", "this.brain"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ customServerAiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.golem.CopperGolem.java b/net.minecraft.world.entity.animal.golem.CopperGolem.java
+--- a/net.minecraft.world.entity.animal.golem.CopperGolem.java
++++ b/net.minecraft.world.entity.animal.golem.CopperGolem.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setStat"},
++writeEntities = {"this.state"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ actuallyHurt(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.golem.CopperGolem.java b/net.minecraft.world.entity.animal.golem.CopperGolem.java
+--- a/net.minecraft.world.entity.animal.golem.CopperGolem.java
++++ b/net.minecraft.world.entity.animal.golem.CopperGolem.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playHeadSpinSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.golem.CopperGolem.java b/net.minecraft.world.entity.animal.golem.CopperGolem.java
+--- a/net.minecraft.world.entity.animal.golem.CopperGolem.java
++++ b/net.minecraft.world.entity.animal.golem.CopperGolem.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getItemBySlo", "this.isAliv", "this.itemBySlot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readyForShearing(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.golem.CopperGolem.java b/net.minecraft.world.entity.animal.golem.CopperGolem.java
+--- a/net.minecraft.world.entity.animal.golem.CopperGolem.java
++++ b/net.minecraft.world.entity.animal.golem.CopperGolem.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.lastLightningBoltUUID", "this.nextWeatheringTick"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ thunderHit(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.golem.CopperGolem.java b/net.minecraft.world.entity.animal.golem.CopperGolem.java
+--- a/net.minecraft.world.entity.animal.golem.CopperGolem.java
++++ b/net.minecraft.world.entity.animal.golem.CopperGolem.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setItemInHan", "this.mainHandItem", "this.getMainHandIte"},
++writeEntities = {"this.itemInHand"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mobInteract(/* params */);
+

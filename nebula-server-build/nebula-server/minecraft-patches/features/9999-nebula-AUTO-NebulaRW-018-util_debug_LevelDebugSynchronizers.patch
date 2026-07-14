@@ -1,0 +1,225 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (18 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.util.debug.LevelDebugSynchronizers.java b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+--- a/net.minecraft.util.debug.LevelDebugSynchronizers.java
++++ b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.registerEntit"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ wakeUp(/* params */);
+
+diff --git a/net.minecraft.util.debug.LevelDebugSynchronizers.java b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+--- a/net.minecraft.util.debug.LevelDebugSynchronizers.java
++++ b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getSourceSynchronize", "this.sourceSynchronizer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ register(/* params */);
+
+diff --git a/net.minecraft.util.debug.LevelDebugSynchronizers.java b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+--- a/net.minecraft.util.debug.LevelDebugSynchronizers.java
++++ b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sourceSynchronizers", "this.sleeping"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropEntity(/* params */);
+
+diff --git a/net.minecraft.util.debug.LevelDebugSynchronizers.java b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+--- a/net.minecraft.util.debug.LevelDebugSynchronizers.java
++++ b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.allSynchronizers", "this.sleeping"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startTrackingEntity(/* params */);
+
+diff --git a/net.minecraft.util.debug.LevelDebugSynchronizers.java b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+--- a/net.minecraft.util.debug.LevelDebugSynchronizers.java
++++ b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.poiSynchronizer", "this.sleeping"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updatePoi(/* params */);
+
+diff --git a/net.minecraft.util.debug.LevelDebugSynchronizers.java b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+--- a/net.minecraft.util.debug.LevelDebugSynchronizers.java
++++ b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ broadcastToTracking(/* params */);
+
+diff --git a/net.minecraft.util.debug.LevelDebugSynchronizers.java b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+--- a/net.minecraft.util.debug.LevelDebugSynchronizers.java
++++ b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.allSynchronizers", "this.enabledSubscription", "this.sleepin", "this.enabledSubscriptions", "this.sleeping"},
++writeEntities = {"this.enabledSubscriptions", "this.sleeping"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.util.debug.LevelDebugSynchronizers.java b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+--- a/net.minecraft.util.debug.LevelDebugSynchronizers.java
++++ b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.broadcastToTrackin", "this.hasAnySubscriberFo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ broadcastEventToTracking(/* params */);
+
+diff --git a/net.minecraft.util.debug.LevelDebugSynchronizers.java b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+--- a/net.minecraft.util.debug.LevelDebugSynchronizers.java
++++ b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.sleeping"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerEntity(/* params */);
+
+diff --git a/net.minecraft.util.debug.LevelDebugSynchronizers.java b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+--- a/net.minecraft.util.debug.LevelDebugSynchronizers.java
++++ b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.sleeping"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerChunk(/* params */);
+
+diff --git a/net.minecraft.util.debug.LevelDebugSynchronizers.java b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+--- a/net.minecraft.util.debug.LevelDebugSynchronizers.java
++++ b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.sleeping"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerBlockEntity(/* params */);
+
+diff --git a/net.minecraft.util.debug.LevelDebugSynchronizers.java b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+--- a/net.minecraft.util.debug.LevelDebugSynchronizers.java
++++ b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.villageSectionSynchronizer", "this.poiSynchronizer", "this.sleeping"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerPoi(/* params */);
+
+diff --git a/net.minecraft.util.debug.LevelDebugSynchronizers.java b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+--- a/net.minecraft.util.debug.LevelDebugSynchronizers.java
++++ b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.allSynchronizers", "this.sleeping"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startTrackingChunk(/* params */);
+
+diff --git a/net.minecraft.util.debug.LevelDebugSynchronizers.java b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+--- a/net.minecraft.util.debug.LevelDebugSynchronizers.java
++++ b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.broadcastToTrackin", "this.hasAnySubscriberFo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendBlockValue(/* params */);
+
+diff --git a/net.minecraft.util.debug.LevelDebugSynchronizers.java b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+--- a/net.minecraft.util.debug.LevelDebugSynchronizers.java
++++ b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.villageSectionSynchronizer", "this.poiSynchronizer", "this.sleeping"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropPoi(/* params */);
+
+diff --git a/net.minecraft.util.debug.LevelDebugSynchronizers.java b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+--- a/net.minecraft.util.debug.LevelDebugSynchronizers.java
++++ b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.broadcastToTrackin", "this.hasAnySubscriberFo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendEntityValue(/* params */);
+
+diff --git a/net.minecraft.util.debug.LevelDebugSynchronizers.java b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+--- a/net.minecraft.util.debug.LevelDebugSynchronizers.java
++++ b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sourceSynchronizers", "this.sleeping"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropChunk(/* params */);
+
+diff --git a/net.minecraft.util.debug.LevelDebugSynchronizers.java b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+--- a/net.minecraft.util.debug.LevelDebugSynchronizers.java
++++ b/net.minecraft.util.debug.LevelDebugSynchronizers.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sourceSynchronizers", "this.level", "this.sleeping"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropBlockEntity(/* params */);
+

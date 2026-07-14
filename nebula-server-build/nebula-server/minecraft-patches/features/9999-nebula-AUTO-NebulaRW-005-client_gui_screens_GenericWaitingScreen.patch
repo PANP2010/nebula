@@ -1,0 +1,69 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.GenericWaitingScreen.java b/net.minecraft.client.gui.screens.GenericWaitingScreen.java
+--- a/net.minecraft.client.gui.screens.GenericWaitingScreen.java
++++ b/net.minecraft.client.gui.screens.GenericWaitingScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.button", "this.closeOnEscape"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldCloseOnEsc(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.GenericWaitingScreen.java b/net.minecraft.client.gui.screens.GenericWaitingScreen.java
+--- a/net.minecraft.client.gui.screens.GenericWaitingScreen.java
++++ b/net.minecraft.client.gui.screens.GenericWaitingScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.buttonCallback"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onClose(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.GenericWaitingScreen.java b/net.minecraft.client.gui.screens.GenericWaitingScreen.java
+--- a/net.minecraft.client.gui.screens.GenericWaitingScreen.java
++++ b/net.minecraft.client.gui.screens.GenericWaitingScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.button"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.GenericWaitingScreen.java b/net.minecraft.client.gui.screens.GenericWaitingScreen.java
+--- a/net.minecraft.client.gui.screens.GenericWaitingScreen.java
++++ b/net.minecraft.client.gui.screens.GenericWaitingScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.disableButtonTicks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.GenericWaitingScreen.java b/net.minecraft.client.gui.screens.GenericWaitingScreen.java
+--- a/net.minecraft.client.gui.screens.GenericWaitingScreen.java
++++ b/net.minecraft.client.gui.screens.GenericWaitingScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.showLoadingDots", "this.width", "this.title", "this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+

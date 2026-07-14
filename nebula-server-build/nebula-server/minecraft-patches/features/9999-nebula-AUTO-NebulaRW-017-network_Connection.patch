@@ -1,0 +1,215 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (17 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.network.Connection.java b/net.minecraft.network.Connection.java
+--- a/net.minecraft.network.Connection.java
++++ b/net.minecraft.network.Connection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.initiateServerboundConnectio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ initiateServerboundStatusConnection(/* params */);
+
+diff --git a/net.minecraft.network.Connection.java b/net.minecraft.network.Connection.java
+--- a/net.minecraft.network.Connection.java
++++ b/net.minecraft.network.Connection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.channel", "this.disconnectionHandled"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleDisconnection(/* params */);
+
+diff --git a/net.minecraft.network.Connection.java b/net.minecraft.network.Connection.java
+--- a/net.minecraft.network.Connection.java
++++ b/net.minecraft.network.Connection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.disconnec"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ channelInactive(/* params */);
+
+diff --git a/net.minecraft.network.Connection.java b/net.minecraft.network.Connection.java
+--- a/net.minecraft.network.Connection.java
++++ b/net.minecraft.network.Connection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.delayedDisconnect", "this.channel", "this.addres", "this.disconnec", "this.channe"},
++writeEntities = {"this.address", "this.channel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ channelActive(/* params */);
+
+diff --git a/net.minecraft.network.Connection.java b/net.minecraft.network.Connection.java
+--- a/net.minecraft.network.Connection.java
++++ b/net.minecraft.network.Connection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.initiateServerboundConnectio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ initiateServerboundPlayConnection(/* params */);
+
+diff --git a/net.minecraft.network.Connection.java b/net.minecraft.network.Connection.java
+--- a/net.minecraft.network.Connection.java
++++ b/net.minecraft.network.Connection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.flus", "this.isConnecte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ flushChannel(/* params */);
+
+diff --git a/net.minecraft.network.Connection.java b/net.minecraft.network.Connection.java
+--- a/net.minecraft.network.Connection.java
++++ b/net.minecraft.network.Connection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.channel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ flush(/* params */);
+
+diff --git a/net.minecraft.network.Connection.java b/net.minecraft.network.Connection.java
+--- a/net.minecraft.network.Connection.java
++++ b/net.minecraft.network.Connection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.channel", "this.pendingActions"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ flushQueue(/* params */);
+
+diff --git a/net.minecraft.network.Connection.java b/net.minecraft.network.Connection.java
+--- a/net.minecraft.network.Connection.java
++++ b/net.minecraft.network.Connection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.flushQueu", "this.packetListener"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.network.Connection.java b/net.minecraft.network.Connection.java
+--- a/net.minecraft.network.Connection.java
++++ b/net.minecraft.network.Connection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.flushQueu", "this.isConnecte", "this.sendPacke"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ send(/* params */);
+
+diff --git a/net.minecraft.network.Connection.java b/net.minecraft.network.Connection.java
+--- a/net.minecraft.network.Connection.java
++++ b/net.minecraft.network.Connection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.channel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ doSendPacket(/* params */);
+
+diff --git a/net.minecraft.network.Connection.java b/net.minecraft.network.Connection.java
+--- a/net.minecraft.network.Connection.java
++++ b/net.minecraft.network.Connection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.receiving"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ validateListener(/* params */);
+
+diff --git a/net.minecraft.network.Connection.java b/net.minecraft.network.Connection.java
+--- a/net.minecraft.network.Connection.java
++++ b/net.minecraft.network.Connection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.channel", "this.packetListene"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ channelRead0(/* params */);
+
+diff --git a/net.minecraft.network.Connection.java b/net.minecraft.network.Connection.java
+--- a/net.minecraft.network.Connection.java
++++ b/net.minecraft.network.Connection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.sentPackets", "this.receivedPackets", "this.averageReceivedPackets", "this.averageSentPackets"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickSecond(/* params */);
+
+diff --git a/net.minecraft.network.Connection.java b/net.minecraft.network.Connection.java
+--- a/net.minecraft.network.Connection.java
++++ b/net.minecraft.network.Connection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.flushQueu", "this.isConnecte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ runOnceConnected(/* params */);
+
+diff --git a/net.minecraft.network.Connection.java b/net.minecraft.network.Connection.java
+--- a/net.minecraft.network.Connection.java
++++ b/net.minecraft.network.Connection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.channe", "this.delayedDisconnec"},
++writeEntities = {"this.delayedDisconnect", "this.channel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ disconnect(/* params */);
+
+diff --git a/net.minecraft.network.Connection.java b/net.minecraft.network.Connection.java
+--- a/net.minecraft.network.Connection.java
++++ b/net.minecraft.network.Connection.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sentPackets", "this.doSendPacke", "this.channel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendPacket(/* params */);
+

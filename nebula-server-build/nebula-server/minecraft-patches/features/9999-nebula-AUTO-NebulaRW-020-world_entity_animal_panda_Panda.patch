@@ -1,0 +1,268 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (20 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.animal.panda.Panda.java b/net.minecraft.world.entity.animal.panda.Panda.java
+--- a/net.minecraft.world.entity.animal.panda.Panda.java
++++ b/net.minecraft.world.entity.animal.panda.Panda.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ afterSneeze(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.panda.Panda.java b/net.minecraft.world.entity.animal.panda.Panda.java
+--- a/net.minecraft.world.entity.animal.panda.Panda.java
++++ b/net.minecraft.world.entity.animal.panda.Panda.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playAttackSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.panda.Panda.java b/net.minecraft.world.entity.animal.panda.Panda.java
+--- a/net.minecraft.world.entity.animal.panda.Panda.java
++++ b/net.minecraft.world.entity.animal.panda.Panda.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playStepSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.panda.Panda.java b/net.minecraft.world.entity.animal.panda.Panda.java
+--- a/net.minecraft.world.entity.animal.panda.Panda.java
++++ b/net.minecraft.world.entity.animal.panda.Panda.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.cooldown", "this.itemSlot"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.panda.Panda.java b/net.minecraft.world.entity.animal.panda.Panda.java
+--- a/net.minecraft.world.entity.animal.panda.Panda.java
++++ b/net.minecraft.world.entity.animal.panda.Panda.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.targetSelector", "this.goalSelector", "this.lookAtPlayerGoa", "this.lookAtPlayerGoal"},
++writeEntities = {"this.lookAtPlayerGoal"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerGoals(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.panda.Panda.java b/net.minecraft.world.entity.animal.panda.Panda.java
+--- a/net.minecraft.world.entity.animal.panda.Panda.java
++++ b/net.minecraft.world.entity.animal.panda.Panda.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleEating(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.panda.Panda.java b/net.minecraft.world.entity.animal.panda.Panda.java
+--- a/net.minecraft.world.entity.animal.panda.Panda.java
++++ b/net.minecraft.world.entity.animal.panda.Panda.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.si"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtServer(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.panda.Panda.java b/net.minecraft.world.entity.animal.panda.Panda.java
+--- a/net.minecraft.world.entity.animal.panda.Panda.java
++++ b/net.minecraft.world.entity.animal.panda.Panda.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setMainGen", "this.setHiddenGen"},
++writeEntities = {"this.mainGene", "this.hiddenGene"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.panda.Panda.java b/net.minecraft.world.entity.animal.panda.Panda.java
+--- a/net.minecraft.world.entity.animal.panda.Panda.java
++++ b/net.minecraft.world.entity.animal.panda.Panda.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.navigation", "this.setZz", "this.si", "this.getNavigatio", "this.isInWate"},
++writeEntities = {"this.zza"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tryToSit(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.panda.Panda.java b/net.minecraft.world.entity.animal.panda.Panda.java
+--- a/net.minecraft.world.entity.animal.panda.Panda.java
++++ b/net.minecraft.world.entity.animal.panda.Panda.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.panda"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ start(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.panda.Panda.java b/net.minecraft.world.entity.animal.panda.Panda.java
+--- a/net.minecraft.world.entity.animal.panda.Panda.java
++++ b/net.minecraft.world.entity.animal.panda.Panda.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sitAmoun", "this.sitAmount", "this.isSittin"},
++writeEntities = {"this.sitAmountO", "this.sitAmount"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateSitAmount(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.panda.Panda.java b/net.minecraft.world.entity.animal.panda.Panda.java
+--- a/net.minecraft.world.entity.animal.panda.Panda.java
++++ b/net.minecraft.world.entity.animal.panda.Panda.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isAggressiv", "this.didBit"},
++writeEntities = {"this.didBite"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ doHurtTarget(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.panda.Panda.java b/net.minecraft.world.entity.animal.panda.Panda.java
+--- a/net.minecraft.world.entity.animal.panda.Panda.java
++++ b/net.minecraft.world.entity.animal.panda.Panda.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.guaranteedDrop", "this.itemSlot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pickUpItem(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.panda.Panda.java b/net.minecraft.world.entity.animal.panda.Panda.java
+--- a/net.minecraft.world.entity.animal.panda.Panda.java
++++ b/net.minecraft.world.entity.animal.panda.Panda.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setFla", "this.setSneezeCounte"},
++writeEntities = {"this.flag", "this.sneezeCounter"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sneeze(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.panda.Panda.java b/net.minecraft.world.entity.animal.panda.Panda.java
+--- a/net.minecraft.world.entity.animal.panda.Panda.java
++++ b/net.minecraft.world.entity.animal.panda.Panda.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.rollAmoun", "this.isRollin", "this.rollAmount"},
++writeEntities = {"this.rollAmount", "this.rollAmountO"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateRollAmount(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.panda.Panda.java b/net.minecraft.world.entity.animal.panda.Panda.java
+--- a/net.minecraft.world.entity.animal.panda.Panda.java
++++ b/net.minecraft.world.entity.animal.panda.Panda.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tryToSi", "this.getItemBySlo", "this.itemBySlot", "this.isSittin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.panda.Panda.java b/net.minecraft.world.entity.animal.panda.Panda.java
+--- a/net.minecraft.world.entity.animal.panda.Panda.java
++++ b/net.minecraft.world.entity.animal.panda.Panda.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setFla"},
++writeEntities = {"this.flag"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ roll(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.panda.Panda.java b/net.minecraft.world.entity.animal.panda.Panda.java
+--- a/net.minecraft.world.entity.animal.panda.Panda.java
++++ b/net.minecraft.world.entity.animal.panda.Panda.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.onBackAmoun", "this.onBackAmount", "this.isOnBac"},
++writeEntities = {"this.onBackAmount", "this.onBackAmountO"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateOnBackAnimation(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.panda.Panda.java b/net.minecraft.world.entity.animal.panda.Panda.java
+--- a/net.minecraft.world.entity.animal.panda.Panda.java
++++ b/net.minecraft.world.entity.animal.panda.Panda.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isScare"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mobInteract(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.panda.Panda.java b/net.minecraft.world.entity.animal.panda.Panda.java
+--- a/net.minecraft.world.entity.animal.panda.Panda.java
++++ b/net.minecraft.world.entity.animal.panda.Panda.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.rollCounter", "this.rol"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleRoll(/* params */);
+

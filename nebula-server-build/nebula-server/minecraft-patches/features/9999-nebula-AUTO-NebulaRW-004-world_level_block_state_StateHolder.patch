@@ -1,0 +1,58 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.state.StateHolder.java b/net.minecraft.world.level.block.state.StateHolder.java
+--- a/net.minecraft.world.level.block.state.StateHolder.java
++++ b/net.minecraft.world.level.block.state.StateHolder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.valueInde", "this.setValueInterna"},
++writeEntities = {"this.valueInternal"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ trySetValue(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.StateHolder.java b/net.minecraft.world.level.block.state.StateHolder.java
+--- a/net.minecraft.world.level.block.state.StateHolder.java
++++ b/net.minecraft.world.level.block.state.StateHolder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setValu", "this.getValu", "this.value"},
++writeEntities = {"this.value"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ cycle(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.StateHolder.java b/net.minecraft.world.level.block.state.StateHolder.java
+--- a/net.minecraft.world.level.block.state.StateHolder.java
++++ b/net.minecraft.world.level.block.state.StateHolder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.owner", "this.getValue", "this.isSingletonStat", "this.values"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.world.level.block.state.StateHolder.java b/net.minecraft.world.level.block.state.StateHolder.java
+--- a/net.minecraft.world.level.block.state.StateHolder.java
++++ b/net.minecraft.world.level.block.state.StateHolder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.propertyKeys"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ valueIndex(/* params */);
+

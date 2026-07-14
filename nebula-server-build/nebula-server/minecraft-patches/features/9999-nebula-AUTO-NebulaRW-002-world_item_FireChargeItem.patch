@@ -1,0 +1,36 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (2 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.item.FireChargeItem.java b/net.minecraft.world.item.FireChargeItem.java
+--- a/net.minecraft.world.item.FireChargeItem.java
++++ b/net.minecraft.world.item.FireChargeItem.java
+@@ // 65% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun"},
++readBlocks = {"{neighbors}", "{position}"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ useOn(/* params */);
+
+diff --git a/net.minecraft.world.item.FireChargeItem.java b/net.minecraft.world.item.FireChargeItem.java
+--- a/net.minecraft.world.item.FireChargeItem.java
++++ b/net.minecraft.world.item.FireChargeItem.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++triggeredEvents = {"SOUND_PLAY"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playSound(/* params */);
+

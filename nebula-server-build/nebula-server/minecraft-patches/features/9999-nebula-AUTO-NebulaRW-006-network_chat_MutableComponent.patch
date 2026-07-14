@@ -1,0 +1,83 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.network.chat.MutableComponent.java b/net.minecraft.network.chat.MutableComponent.java
+--- a/net.minecraft.network.chat.MutableComponent.java
++++ b/net.minecraft.network.chat.MutableComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setStyl", "this.style", "this.getStyl"},
++writeEntities = {"this.style"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withoutShadow(/* params */);
+
+diff --git a/net.minecraft.network.chat.MutableComponent.java b/net.minecraft.network.chat.MutableComponent.java
+--- a/net.minecraft.network.chat.MutableComponent.java
++++ b/net.minecraft.network.chat.MutableComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.siblings", "this.contents", "this.style"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.network.chat.MutableComponent.java b/net.minecraft.network.chat.MutableComponent.java
+--- a/net.minecraft.network.chat.MutableComponent.java
++++ b/net.minecraft.network.chat.MutableComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setStyl", "this.style", "this.getStyl"},
++writeEntities = {"this.style"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withColor(/* params */);
+
+diff --git a/net.minecraft.network.chat.MutableComponent.java b/net.minecraft.network.chat.MutableComponent.java
+--- a/net.minecraft.network.chat.MutableComponent.java
++++ b/net.minecraft.network.chat.MutableComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.siblings"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ append(/* params */);
+
+diff --git a/net.minecraft.network.chat.MutableComponent.java b/net.minecraft.network.chat.MutableComponent.java
+--- a/net.minecraft.network.chat.MutableComponent.java
++++ b/net.minecraft.network.chat.MutableComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setStyl", "this.style", "this.getStyl"},
++writeEntities = {"this.style"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withStyle(/* params */);
+
+diff --git a/net.minecraft.network.chat.MutableComponent.java b/net.minecraft.network.chat.MutableComponent.java
+--- a/net.minecraft.network.chat.MutableComponent.java
++++ b/net.minecraft.network.chat.MutableComponent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.siblings", "this.contents", "this.style"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ equals(/* params */);
+

@@ -1,0 +1,141 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (10 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.monster.Guardian.java b/net.minecraft.world.entity.monster.Guardian.java
+--- a/net.minecraft.world.entity.monster.Guardian.java
++++ b/net.minecraft.world.entity.monster.Guardian.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{neighbors}"},
++triggeredEvents = {"ENTITY_SPAWNED"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkGuardianSpawnRules(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Guardian.java b/net.minecraft.world.entity.monster.Guardian.java
+--- a/net.minecraft.world.entity.monster.Guardian.java
++++ b/net.minecraft.world.entity.monster.Guardian.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.randomStrollGoal", "this.targetSelector", "this.randomStrollGoa", "this.goalSelector"},
++writeEntities = {"this.randomStrollGoal"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerGoals(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Guardian.java b/net.minecraft.world.entity.monster.Guardian.java
+--- a/net.minecraft.world.entity.monster.Guardian.java
++++ b/net.minecraft.world.entity.monster.Guardian.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.guardian"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Guardian.java b/net.minecraft.world.entity.monster.Guardian.java
+--- a/net.minecraft.world.entity.monster.Guardian.java
++++ b/net.minecraft.world.entity.monster.Guardian.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.guardian"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ test(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Guardian.java b/net.minecraft.world.entity.monster.Guardian.java
+--- a/net.minecraft.world.entity.monster.Guardian.java
++++ b/net.minecraft.world.entity.monster.Guardian.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.operation"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Guardian.java b/net.minecraft.world.entity.monster.Guardian.java
+--- a/net.minecraft.world.entity.monster.Guardian.java
++++ b/net.minecraft.world.entity.monster.Guardian.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.clientSideAttackTim", "this.clientSideCachedAttackTarge"},
++writeEntities = {"this.clientSideCachedAttackTarget", "this.clientSideAttackTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSyncedDataUpdated(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Guardian.java b/net.minecraft.world.entity.monster.Guardian.java
+--- a/net.minecraft.world.entity.monster.Guardian.java
++++ b/net.minecraft.world.entity.monster.Guardian.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.deltaMovement"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ travelInWater(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Guardian.java b/net.minecraft.world.entity.monster.Guardian.java
+--- a/net.minecraft.world.entity.monster.Guardian.java
++++ b/net.minecraft.world.entity.monster.Guardian.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.clientSideTailAnimationO", "this.clientSideTailAnimationSpeed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ aiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Guardian.java b/net.minecraft.world.entity.monster.Guardian.java
+--- a/net.minecraft.world.entity.monster.Guardian.java
++++ b/net.minecraft.world.entity.monster.Guardian.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isMovin", "this.damageSource"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtServer(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Guardian.java b/net.minecraft.world.entity.monster.Guardian.java
+--- a/net.minecraft.world.entity.monster.Guardian.java
++++ b/net.minecraft.world.entity.monster.Guardian.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.attackTim", "this.guardian"},
++writeEntities = {"this.attackTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ start(/* params */);
+

@@ -1,0 +1,56 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.components.debugchart.AbstractDebugChart.java b/net.minecraft.client.gui.components.debugchart.AbstractDebugChart.java
+--- a/net.minecraft.client.gui.components.debugchart.AbstractDebugChart.java
++++ b/net.minecraft.client.gui.components.debugchart.AbstractDebugChart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractStringWithShade(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.debugchart.AbstractDebugChart.java b/net.minecraft.client.gui.components.debugchart.AbstractDebugChart.java
+--- a/net.minecraft.client.gui.components.debugchart.AbstractDebugChart.java
++++ b/net.minecraft.client.gui.components.debugchart.AbstractDebugChart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getValueForAggregatio", "this.extractSampleBar", "this.sampleStorage", "this.valueForAggregation"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.debugchart.AbstractDebugChart.java b/net.minecraft.client.gui.components.debugchart.AbstractDebugChart.java
+--- a/net.minecraft.client.gui.components.debugchart.AbstractDebugChart.java
++++ b/net.minecraft.client.gui.components.debugchart.AbstractDebugChart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.extractMainSampleBa", "this.extractAdditionalSampleBar"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractSampleBars(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.debugchart.AbstractDebugChart.java b/net.minecraft.client.gui.components.debugchart.AbstractDebugChart.java
+--- a/net.minecraft.client.gui.components.debugchart.AbstractDebugChart.java
++++ b/net.minecraft.client.gui.components.debugchart.AbstractDebugChart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getSampleHeigh", "this.sampleStorage", "this.sampleColor", "this.sampleHeight", "this.getSampleColo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractMainSampleBar(/* params */);
+

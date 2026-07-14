@@ -1,0 +1,74 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.sounds.AmbientDesertBlockSoundsPlayer.java b/net.minecraft.world.level.block.sounds.AmbientDesertBlockSoundsPlayer.java
+--- a/net.minecraft.world.level.block.sounds.AmbientDesertBlockSoundsPlayer.java
++++ b/net.minecraft.world.level.block.sounds.AmbientDesertBlockSoundsPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{neighbors}", "{position}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playAmbientDeadBushSounds(/* params */);
+
+diff --git a/net.minecraft.world.level.block.sounds.AmbientDesertBlockSoundsPlayer.java b/net.minecraft.world.level.block.sounds.AmbientDesertBlockSoundsPlayer.java
+--- a/net.minecraft.world.level.block.sounds.AmbientDesertBlockSoundsPlayer.java
++++ b/net.minecraft.world.level.block.sounds.AmbientDesertBlockSoundsPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{neighbors}", "{position}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playAmbientSandSounds(/* params */);
+
+diff --git a/net.minecraft.world.level.block.sounds.AmbientDesertBlockSoundsPlayer.java b/net.minecraft.world.level.block.sounds.AmbientDesertBlockSoundsPlayer.java
+--- a/net.minecraft.world.level.block.sounds.AmbientDesertBlockSoundsPlayer.java
++++ b/net.minecraft.world.level.block.sounds.AmbientDesertBlockSoundsPlayer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{neighbors}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playAmbientDryGrassSounds(/* params */);
+
+diff --git a/net.minecraft.world.level.block.sounds.AmbientDesertBlockSoundsPlayer.java b/net.minecraft.world.level.block.sounds.AmbientDesertBlockSoundsPlayer.java
+--- a/net.minecraft.world.level.block.sounds.AmbientDesertBlockSoundsPlayer.java
++++ b/net.minecraft.world.level.block.sounds.AmbientDesertBlockSoundsPlayer.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldPlayDesertDryVegetationBlockSounds(/* params */);
+
+diff --git a/net.minecraft.world.level.block.sounds.AmbientDesertBlockSoundsPlayer.java b/net.minecraft.world.level.block.sounds.AmbientDesertBlockSoundsPlayer.java
+--- a/net.minecraft.world.level.block.sounds.AmbientDesertBlockSoundsPlayer.java
++++ b/net.minecraft.world.level.block.sounds.AmbientDesertBlockSoundsPlayer.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ columnContainsTriggeringBlock(/* params */);
+

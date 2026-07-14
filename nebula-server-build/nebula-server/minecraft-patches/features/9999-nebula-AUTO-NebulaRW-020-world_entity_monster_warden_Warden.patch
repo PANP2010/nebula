@@ -1,0 +1,258 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (20 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.monster.warden.Warden.java b/net.minecraft.world.entity.monster.warden.Warden.java
+--- a/net.minecraft.world.entity.monster.warden.Warden.java
++++ b/net.minecraft.world.entity.monster.warden.Warden.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playListeningSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.warden.Warden.java b/net.minecraft.world.entity.monster.warden.Warden.java
+--- a/net.minecraft.world.entity.monster.warden.Warden.java
++++ b/net.minecraft.world.entity.monster.warden.Warden.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun", "this.voicePitch", "this.getVoicePitc"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ doHurtTarget(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.warden.Warden.java b/net.minecraft.world.entity.monster.warden.Warden.java
+--- a/net.minecraft.world.entity.monster.warden.Warden.java
++++ b/net.minecraft.world.entity.monster.warden.Warden.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onReceiveVibration(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.warden.Warden.java b/net.minecraft.world.entity.monster.warden.Warden.java
+--- a/net.minecraft.world.entity.monster.warden.Warden.java
++++ b/net.minecraft.world.entity.monster.warden.Warden.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playStepSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.warden.Warden.java b/net.minecraft.world.entity.monster.warden.Warden.java
+--- a/net.minecraft.world.entity.monster.warden.Warden.java
++++ b/net.minecraft.world.entity.monster.warden.Warden.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ clientDiggingParticles(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.warden.Warden.java b/net.minecraft.world.entity.monster.warden.Warden.java
+--- a/net.minecraft.world.entity.monster.warden.Warden.java
++++ b/net.minecraft.world.entity.monster.warden.Warden.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.moveDist"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ nextStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.warden.Warden.java b/net.minecraft.world.entity.monster.warden.Warden.java
+--- a/net.minecraft.world.entity.monster.warden.Warden.java
++++ b/net.minecraft.world.entity.monster.warden.Warden.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.increaseAngerA", "this.getBrai", "this.isNoA", "this.brain"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ doPush(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.warden.Warden.java b/net.minecraft.world.entity.monster.warden.Warden.java
+--- a/net.minecraft.world.entity.monster.warden.Warden.java
++++ b/net.minecraft.world.entity.monster.warden.Warden.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leve", "this.dynamicGameEventListener"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateDynamicGameEventListener(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.warden.Warden.java b/net.minecraft.world.entity.monster.warden.Warden.java
+--- a/net.minecraft.world.entity.monster.warden.Warden.java
++++ b/net.minecraft.world.entity.monster.warden.Warden.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.nodeEvaluato", "this.nodeEvaluator"},
++writeEntities = {"this.nodeEvaluator"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createPathFinder(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.warden.Warden.java b/net.minecraft.world.entity.monster.warden.Warden.java
+--- a/net.minecraft.world.entity.monster.warden.Warden.java
++++ b/net.minecraft.world.entity.monster.warden.Warden.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.syncClientAngerLeve", "this.vibrationDat", "this.angerManagemen"},
++writeEntities = {"this.vibrationData", "this.angerManagement"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.warden.Warden.java b/net.minecraft.world.entity.monster.warden.Warden.java
+--- a/net.minecraft.world.entity.monster.warden.Warden.java
++++ b/net.minecraft.world.entity.monster.warden.Warden.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setPos"},
++writeEntities = {"this.pose"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ recreateFromPacket(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.warden.Warden.java b/net.minecraft.world.entity.monster.warden.Warden.java
+--- a/net.minecraft.world.entity.monster.warden.Warden.java
++++ b/net.minecraft.world.entity.monster.warden.Warden.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.positio", "this.type", "this.getTyp"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkSpawnObstruction(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.warden.Warden.java b/net.minecraft.world.entity.monster.warden.Warden.java
+--- a/net.minecraft.world.entity.monster.warden.Warden.java
++++ b/net.minecraft.world.entity.monster.warden.Warden.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tickCount", "this.attackAnimationState", "this.roarAnimationState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleEntityEvent(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.warden.Warden.java b/net.minecraft.world.entity.monster.warden.Warden.java
+--- a/net.minecraft.world.entity.monster.warden.Warden.java
++++ b/net.minecraft.world.entity.monster.warden.Warden.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.attackTarget"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtServer(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.warden.Warden.java b/net.minecraft.world.entity.monster.warden.Warden.java
+--- a/net.minecraft.world.entity.monster.warden.Warden.java
++++ b/net.minecraft.world.entity.monster.warden.Warden.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getActiveAnge", "this.activeAnger", "this.entityData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ syncClientAngerLevel(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.warden.Warden.java b/net.minecraft.world.entity.monster.warden.Warden.java
+--- a/net.minecraft.world.entity.monster.warden.Warden.java
++++ b/net.minecraft.world.entity.monster.warden.Warden.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isDiggingOrEmergin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ ignoreExplosion(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.warden.Warden.java b/net.minecraft.world.entity.monster.warden.Warden.java
+--- a/net.minecraft.world.entity.monster.warden.Warden.java
++++ b/net.minecraft.world.entity.monster.warden.Warden.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ customServerAiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.warden.Warden.java b/net.minecraft.world.entity.monster.warden.Warden.java
+--- a/net.minecraft.world.entity.monster.warden.Warden.java
++++ b/net.minecraft.world.entity.monster.warden.Warden.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.vibrationData", "this.leve", "this.vibrationUser", "this.isPersistenceRequire", "this.requiresCustomPersistenc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.warden.Warden.java b/net.minecraft.world.entity.monster.warden.Warden.java
+--- a/net.minecraft.world.entity.monster.warden.Warden.java
++++ b/net.minecraft.world.entity.monster.warden.Warden.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ increaseAngerAt(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.warden.Warden.java b/net.minecraft.world.entity.monster.warden.Warden.java
+--- a/net.minecraft.world.entity.monster.warden.Warden.java
++++ b/net.minecraft.world.entity.monster.warden.Warden.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSyncedDataUpdated(/* params */);
+

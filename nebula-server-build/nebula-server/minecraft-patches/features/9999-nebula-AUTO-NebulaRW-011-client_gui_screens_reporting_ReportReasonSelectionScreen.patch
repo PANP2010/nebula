@@ -1,0 +1,142 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (11 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java b/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setSelecte"},
++writeEntities = {"this.selected"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mouseClicked(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java b/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java b/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.descriptionBotto", "this.descriptionHeigh"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ descriptionTop(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java b/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.width"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ descriptionRight(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java b/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.lastScreen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onClose(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java b/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.layout", "this.descriptionHeigh"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ listHeight(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java b/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.layout", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ descriptionBottom(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java b/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.reasonSelectionList"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java b/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.width"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ descriptionLeft(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java b/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.layout", "this.listHeigh", "this.reasonSelectionList", "this.width"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ repositionElements(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java b/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.ReportReasonSelectionScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractContent(/* params */);
+

@@ -1,0 +1,94 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.CreateBuffetWorldScreen.java b/net.minecraft.client.gui.screens.CreateBuffetWorldScreen.java
+--- a/net.minecraft.client.gui.screens.CreateBuffetWorldScreen.java
++++ b/net.minecraft.client.gui.screens.CreateBuffetWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setSelecte"},
++writeEntities = {"this.selected"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mouseClicked(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.CreateBuffetWorldScreen.java b/net.minecraft.client.gui.screens.CreateBuffetWorldScreen.java
+--- a/net.minecraft.client.gui.screens.CreateBuffetWorldScreen.java
++++ b/net.minecraft.client.gui.screens.CreateBuffetWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.layout", "this.width", "this.list"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ repositionElements(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.CreateBuffetWorldScreen.java b/net.minecraft.client.gui.screens.CreateBuffetWorldScreen.java
+--- a/net.minecraft.client.gui.screens.CreateBuffetWorldScreen.java
++++ b/net.minecraft.client.gui.screens.CreateBuffetWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.list", "this.doneButton"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateButtonValidity(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.CreateBuffetWorldScreen.java b/net.minecraft.client.gui.screens.CreateBuffetWorldScreen.java
+--- a/net.minecraft.client.gui.screens.CreateBuffetWorldScreen.java
++++ b/net.minecraft.client.gui.screens.CreateBuffetWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.replaceEntrie", "this.biomes", "this.refreshScrollAmoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ filterEntries(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.CreateBuffetWorldScreen.java b/net.minecraft.client.gui.screens.CreateBuffetWorldScreen.java
+--- a/net.minecraft.client.gui.screens.CreateBuffetWorldScreen.java
++++ b/net.minecraft.client.gui.screens.CreateBuffetWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.list", "this.doneButton"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.CreateBuffetWorldScreen.java b/net.minecraft.client.gui.screens.CreateBuffetWorldScreen.java
+--- a/net.minecraft.client.gui.screens.CreateBuffetWorldScreen.java
++++ b/net.minecraft.client.gui.screens.CreateBuffetWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.contentX", "this.getContent", "this.name", "this.font", "this.contentY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractContent(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.CreateBuffetWorldScreen.java b/net.minecraft.client.gui.screens.CreateBuffetWorldScreen.java
+--- a/net.minecraft.client.gui.screens.CreateBuffetWorldScreen.java
++++ b/net.minecraft.client.gui.screens.CreateBuffetWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.parent"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onClose(/* params */);
+

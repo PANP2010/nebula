@@ -1,0 +1,47 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (3 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.entity.BellBlockEntity.java b/net.minecraft.world.level.block.entity.BellBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BellBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BellBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.lastRingTimestamp", "this.nearbyEntities"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateEntities(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BellBlockEntity.java b/net.minecraft.world.level.block.entity.BellBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BellBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BellBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shakin", "this.clickDirectio", "this.tick", "this.resonationTick", "this.updateEntitie"},
++writeEntities = {"this.ticks", "this.resonationTicks", "this.clickDirection", "this.shaking"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ triggerEvent(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.BellBlockEntity.java b/net.minecraft.world.level.block.entity.BellBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.BellBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.BellBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBlockPo", "this.blockPos", "this.clickDirectio", "this.tick", "this.shaking"},
++writeEntities = {"this.ticks", "this.clickDirection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onHit(/* params */);
+

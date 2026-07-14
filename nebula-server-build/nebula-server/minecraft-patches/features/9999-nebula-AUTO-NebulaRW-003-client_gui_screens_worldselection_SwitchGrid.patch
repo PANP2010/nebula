@@ -1,0 +1,45 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (3 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.SwitchGrid.java b/net.minecraft.client.gui.screens.worldselection.SwitchGrid.java
+--- a/net.minecraft.client.gui.screens.worldselection.SwitchGrid.java
++++ b/net.minecraft.client.gui.screens.worldselection.SwitchGrid.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.switches"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ refreshStates(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.SwitchGrid.java b/net.minecraft.client.gui.screens.worldselection.SwitchGrid.java
+--- a/net.minecraft.client.gui.screens.worldselection.SwitchGrid.java
++++ b/net.minecraft.client.gui.screens.worldselection.SwitchGrid.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.rowCoun", "this.switchBuilders", "this.width", "this.rowSpacing"},
++writeEntities = {"this.rowCount"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ build(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.SwitchGrid.java b/net.minecraft.client.gui.screens.worldselection.SwitchGrid.java
+--- a/net.minecraft.client.gui.screens.worldselection.SwitchGrid.java
++++ b/net.minecraft.client.gui.screens.worldselection.SwitchGrid.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.button", "this.isActiveCondition", "this.stateSupplier"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ refreshState(/* params */);
+

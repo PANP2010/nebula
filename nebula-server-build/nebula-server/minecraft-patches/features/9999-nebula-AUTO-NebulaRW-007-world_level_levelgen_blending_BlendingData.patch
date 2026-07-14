@@ -1,0 +1,92 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.levelgen.blending.BlendingData.java b/net.minecraft.world.level.levelgen.blending.BlendingData.java
+--- a/net.minecraft.world.level.levelgen.blending.BlendingData.java
++++ b/net.minecraft.world.level.levelgen.blending.BlendingData.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.heights"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ iterateHeights(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.blending.BlendingData.java b/net.minecraft.world.level.levelgen.blending.BlendingData.java
+--- a/net.minecraft.world.level.levelgen.blending.BlendingData.java
++++ b/net.minecraft.world.level.levelgen.blending.BlendingData.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.addValuesForColum", "this.hasCalculatedData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateData(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.blending.BlendingData.java b/net.minecraft.world.level.levelgen.blending.BlendingData.java
+--- a/net.minecraft.world.level.levelgen.blending.BlendingData.java
++++ b/net.minecraft.world.level.levelgen.blending.BlendingData.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.areaWithOldGeneration"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ cellCountPerColumn(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.blending.BlendingData.java b/net.minecraft.world.level.levelgen.blending.BlendingData.java
+--- a/net.minecraft.world.level.levelgen.blending.BlendingData.java
++++ b/net.minecraft.world.level.levelgen.blending.BlendingData.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.columnMinY", "this.getColumnMin", "this.densities", "this.cellCountPerColum"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ iterateDensities(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.blending.BlendingData.java b/net.minecraft.world.level.levelgen.blending.BlendingData.java
+--- a/net.minecraft.world.level.levelgen.blending.BlendingData.java
++++ b/net.minecraft.world.level.levelgen.blending.BlendingData.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.biomes", "this.areaWithOldGeneration"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ iterateBiomes(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.blending.BlendingData.java b/net.minecraft.world.level.levelgen.blending.BlendingData.java
+--- a/net.minecraft.world.level.levelgen.blending.BlendingData.java
++++ b/net.minecraft.world.level.levelgen.blending.BlendingData.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.areaWithOldGeneration"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ quartCountPerColumn(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.blending.BlendingData.java b/net.minecraft.world.level.levelgen.blending.BlendingData.java
+--- a/net.minecraft.world.level.levelgen.blending.BlendingData.java
++++ b/net.minecraft.world.level.levelgen.blending.BlendingData.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{chunk}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sideByGenerationAge(/* params */);
+

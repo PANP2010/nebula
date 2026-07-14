@@ -1,0 +1,58 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.CreakingHeartBlock.java b/net.minecraft.world.level.block.CreakingHeartBlock.java
+--- a/net.minecraft.world.level.block.CreakingHeartBlock.java
++++ b/net.minecraft.world.level.block.CreakingHeartBlock.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.popExperienc"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tryAwardExperience(/* params */);
+
+diff --git a/net.minecraft.world.level.block.CreakingHeartBlock.java b/net.minecraft.world.level.block.CreakingHeartBlock.java
+--- a/net.minecraft.world.level.block.CreakingHeartBlock.java
++++ b/net.minecraft.world.level.block.CreakingHeartBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tryAwardExperienc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onExplosionHit(/* params */);
+
+diff --git a/net.minecraft.world.level.block.CreakingHeartBlock.java b/net.minecraft.world.level.block.CreakingHeartBlock.java
+--- a/net.minecraft.world.level.block.CreakingHeartBlock.java
++++ b/net.minecraft.world.level.block.CreakingHeartBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tryAwardExperienc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playerWillDestroy(/* params */);
+
+diff --git a/net.minecraft.world.level.block.CreakingHeartBlock.java b/net.minecraft.world.level.block.CreakingHeartBlock.java
+--- a/net.minecraft.world.level.block.CreakingHeartBlock.java
++++ b/net.minecraft.world.level.block.CreakingHeartBlock.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+

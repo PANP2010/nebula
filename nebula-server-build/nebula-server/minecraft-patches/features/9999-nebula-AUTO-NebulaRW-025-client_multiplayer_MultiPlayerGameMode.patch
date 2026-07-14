@@ -1,0 +1,313 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (25 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+--- a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
++++ b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isDestroying", "this.minecraft", "this.destroyBlockPos"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stopDestroyBlock(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+--- a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
++++ b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ensureHasSentCarriedIte", "this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ attack(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+--- a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
++++ b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleCreativeModeItemDrop(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+--- a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
++++ b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handlePlaceRecipe(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+--- a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
++++ b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.destroyBlockPos", "this.destroyingItem"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sameDestroyTarget(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+--- a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
++++ b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.localPlayerMod", "this.ensureHasSentCarriedIte", "this.connection"},
++writeEntities = {"this.localPlayerMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ interact(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+--- a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
++++ b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.localPlayerMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ destroyBlock(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+--- a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
++++ b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ensureHasSentCarriedIte", "this.destroyDelay"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ continueDestroyBlock(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+--- a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
++++ b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ensureHasSentCarriedIte", "this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+--- a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
++++ b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startPrediction(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+--- a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
++++ b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handlePickItemFromEntity(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+--- a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
++++ b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.localPlayerMod"},
++writeEntities = {"this.localPlayerMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ useItem(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+--- a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
++++ b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.localPlayerMod"},
++writeEntities = {"this.localPlayerMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ performUseItemOn(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+--- a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
++++ b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleSlotStateChanged(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+--- a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
++++ b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handlePickItemFromBlock(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+--- a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
++++ b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.ensureHasSentCarriedIte", "this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ piercingAttack(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+--- a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
++++ b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.localPlayerMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startDestroyBlock(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+--- a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
++++ b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleInventoryButtonClick(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+--- a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
++++ b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.carriedInde", "this.connection", "this.carriedIndex"},
++writeEntities = {"this.carriedIndex"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ ensureHasSentCarriedItem(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+--- a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
++++ b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createPlayer(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+--- a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
++++ b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.localPlayerMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ adjustPlayer(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+--- a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
++++ b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.ensureHasSentCarriedIte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ useItemOn(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+--- a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
++++ b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spectate(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+--- a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
++++ b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleCreativeModeItemAdd(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+--- a/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
++++ b/net.minecraft.client.multiplayer.MultiPlayerGameMode.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ensureHasSentCarriedIte", "this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ releaseUsingItem(/* params */);
+

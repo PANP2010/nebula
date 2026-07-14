@@ -1,0 +1,60 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.renderer.EndFlashState.java b/net.minecraft.client.renderer.EndFlashState.java
+--- a/net.minecraft.client.renderer.EndFlashState.java
++++ b/net.minecraft.client.renderer.EndFlashState.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.duration", "this.offset", "this.xAngle", "this.yAngle", "this.flashSeed"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateFlashParameters(/* params */);
+
+diff --git a/net.minecraft.client.renderer.EndFlashState.java b/net.minecraft.client.renderer.EndFlashState.java
+--- a/net.minecraft.client.renderer.EndFlashState.java
++++ b/net.minecraft.client.renderer.EndFlashState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.intensity", "this.oldIntensity"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ flashStartedThisTick(/* params */);
+
+diff --git a/net.minecraft.client.renderer.EndFlashState.java b/net.minecraft.client.renderer.EndFlashState.java
+--- a/net.minecraft.client.renderer.EndFlashState.java
++++ b/net.minecraft.client.renderer.EndFlashState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.oldIntensit", "this.intensit", "this.calculateFlashParameter", "this.calculateIntensit"},
++writeEntities = {"this.intensity", "this.oldIntensity"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.client.renderer.EndFlashState.java b/net.minecraft.client.renderer.EndFlashState.java
+--- a/net.minecraft.client.renderer.EndFlashState.java
++++ b/net.minecraft.client.renderer.EndFlashState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.duration", "this.offset"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateIntensity(/* params */);
+

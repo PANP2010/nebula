@@ -1,0 +1,154 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (12 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.inventory.LecternScreen.java b/net.minecraft.client.gui.screens.inventory.LecternScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.LecternScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.LecternScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sendButtonClic"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pageForward(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.LecternScreen.java b/net.minecraft.client.gui.screens.inventory.LecternScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.LecternScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.LecternScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onClose(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.LecternScreen.java b/net.minecraft.client.gui.screens.inventory.LecternScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.LecternScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.LecternScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setPag", "this.menu"},
++writeEntities = {"this.page"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pageChanged(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.LecternScreen.java b/net.minecraft.client.gui.screens.inventory.LecternScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.LecternScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.LecternScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sendButtonClic"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pageBack(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.LecternScreen.java b/net.minecraft.client.gui.screens.inventory.LecternScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.LecternScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.LecternScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sendButtonClic", "this.menu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forcePage(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.LecternScreen.java b/net.minecraft.client.gui.screens.inventory.LecternScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.LecternScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.LecternScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pageChange"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dataChanged(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.LecternScreen.java b/net.minecraft.client.gui.screens.inventory.LecternScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.LecternScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.LecternScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.bookChange"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ slotChanged(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.LecternScreen.java b/net.minecraft.client.gui.screens.inventory.LecternScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.LecternScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.LecternScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.listener", "this.menu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.LecternScreen.java b/net.minecraft.client.gui.screens.inventory.LecternScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.LecternScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.LecternScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ closeContainerOnServer(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.LecternScreen.java b/net.minecraft.client.gui.screens.inventory.LecternScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.LecternScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.LecternScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setBookAcces", "this.menu"},
++writeEntities = {"this.bookAccess"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ bookChanged(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.LecternScreen.java b/net.minecraft.client.gui.screens.inventory.LecternScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.LecternScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.LecternScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createMenuControls(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.LecternScreen.java b/net.minecraft.client.gui.screens.inventory.LecternScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.LecternScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.LecternScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.menu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendButtonClick(/* params */);
+

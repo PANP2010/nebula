@@ -1,0 +1,70 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.recipebook.RecipeBookTabButton.java b/net.minecraft.client.gui.screens.recipebook.RecipeBookTabButton.java
+--- a/net.minecraft.client.gui.screens.recipebook.RecipeBookTabButton.java
++++ b/net.minecraft.client.gui.screens.recipebook.RecipeBookTabButton.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tabInfo", "this.visibl"},
++writeEntities = {"this.visible"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateVisibility(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.recipebook.RecipeBookTabButton.java b/net.minecraft.client.gui.screens.recipebook.RecipeBookTabButton.java
+--- a/net.minecraft.client.gui.screens.recipebook.RecipeBookTabButton.java
++++ b/net.minecraft.client.gui.screens.recipebook.RecipeBookTabButton.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tabInfo", "this.get", "this.x", "this.y", "this.selected"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractIcon(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.recipebook.RecipeBookTabButton.java b/net.minecraft.client.gui.screens.recipebook.RecipeBookTabButton.java
+--- a/net.minecraft.client.gui.screens.recipebook.RecipeBookTabButton.java
++++ b/net.minecraft.client.gui.screens.recipebook.RecipeBookTabButton.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.selected"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleCursor(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.recipebook.RecipeBookTabButton.java b/net.minecraft.client.gui.screens.recipebook.RecipeBookTabButton.java
+--- a/net.minecraft.client.gui.screens.recipebook.RecipeBookTabButton.java
++++ b/net.minecraft.client.gui.screens.recipebook.RecipeBookTabButton.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tabInfo", "this.animationTim"},
++writeEntities = {"this.animationTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startAnimation(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.recipebook.RecipeBookTabButton.java b/net.minecraft.client.gui.screens.recipebook.RecipeBookTabButton.java
+--- a/net.minecraft.client.gui.screens.recipebook.RecipeBookTabButton.java
++++ b/net.minecraft.client.gui.screens.recipebook.RecipeBookTabButton.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.animationTime", "this.get", "this.x", "this.y"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractContents(/* params */);
+

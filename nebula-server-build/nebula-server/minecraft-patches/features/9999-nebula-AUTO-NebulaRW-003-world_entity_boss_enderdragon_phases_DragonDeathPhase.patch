@@ -1,0 +1,48 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (3 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.boss.enderdragon.phases.DragonDeathPhase.java b/net.minecraft.world.entity.boss.enderdragon.phases.DragonDeathPhase.java
+--- a/net.minecraft.world.entity.boss.enderdragon.phases.DragonDeathPhase.java
++++ b/net.minecraft.world.entity.boss.enderdragon.phases.DragonDeathPhase.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.time", "this.dragon"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ doClientTick(/* params */);
+
+diff --git a/net.minecraft.world.entity.boss.enderdragon.phases.DragonDeathPhase.java b/net.minecraft.world.entity.boss.enderdragon.phases.DragonDeathPhase.java
+--- a/net.minecraft.world.entity.boss.enderdragon.phases.DragonDeathPhase.java
++++ b/net.minecraft.world.entity.boss.enderdragon.phases.DragonDeathPhase.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.targetLocatio", "this.time", "this.dragon"},
++writeEntities = {"this.targetLocation"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ doServerTick(/* params */);
+
+diff --git a/net.minecraft.world.entity.boss.enderdragon.phases.DragonDeathPhase.java b/net.minecraft.world.entity.boss.enderdragon.phases.DragonDeathPhase.java
+--- a/net.minecraft.world.entity.boss.enderdragon.phases.DragonDeathPhase.java
++++ b/net.minecraft.world.entity.boss.enderdragon.phases.DragonDeathPhase.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.targetLocatio", "this.tim"},
++writeEntities = {"this.time", "this.targetLocation"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ begin(/* params */);
+

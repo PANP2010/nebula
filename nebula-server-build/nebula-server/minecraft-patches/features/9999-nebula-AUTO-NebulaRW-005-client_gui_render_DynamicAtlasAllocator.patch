@@ -1,0 +1,68 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.render.DynamicAtlasAllocator.java b/net.minecraft.client.gui.render.DynamicAtlasAllocator.java
+--- a/net.minecraft.client.gui.render.DynamicAtlasAllocator.java
++++ b/net.minecraft.client.gui.render.DynamicAtlasAllocator.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.usedSlotByKey"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ usedSlotKeys(/* params */);
+
+diff --git a/net.minecraft.client.gui.render.DynamicAtlasAllocator.java b/net.minecraft.client.gui.render.DynamicAtlasAllocator.java
+--- a/net.minecraft.client.gui.render.DynamicAtlasAllocator.java
++++ b/net.minecraft.client.gui.render.DynamicAtlasAllocator.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.usedSlotByKey"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reclaimSpaceFor(/* params */);
+
+diff --git a/net.minecraft.client.gui.render.DynamicAtlasAllocator.java b/net.minecraft.client.gui.render.DynamicAtlasAllocator.java
+--- a/net.minecraft.client.gui.render.DynamicAtlasAllocator.java
++++ b/net.minecraft.client.gui.render.DynamicAtlasAllocator.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.slots", "this.usedSlotByKey"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ freeSlotCount(/* params */);
+
+diff --git a/net.minecraft.client.gui.render.DynamicAtlasAllocator.java b/net.minecraft.client.gui.render.DynamicAtlasAllocator.java
+--- a/net.minecraft.client.gui.render.DynamicAtlasAllocator.java
++++ b/net.minecraft.client.gui.render.DynamicAtlasAllocator.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.freeSlotI"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ endFrame(/* params */);
+
+diff --git a/net.minecraft.client.gui.render.DynamicAtlasAllocator.java b/net.minecraft.client.gui.render.DynamicAtlasAllocator.java
+--- a/net.minecraft.client.gui.render.DynamicAtlasAllocator.java
++++ b/net.minecraft.client.gui.render.DynamicAtlasAllocator.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.usedSlotByKey"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ freeSlotIf(/* params */);
+

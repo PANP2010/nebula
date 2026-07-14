@@ -1,0 +1,71 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.RedstoneTorchBlock.java b/net.minecraft.world.level.block.RedstoneTorchBlock.java
+--- a/net.minecraft.world.level.block.RedstoneTorchBlock.java
++++ b/net.minecraft.world.level.block.RedstoneTorchBlock.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.randomOrientatio"},
++readBlocks = {"{neighbors}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ notifyNeighbors(/* params */);
+
+diff --git a/net.minecraft.world.level.block.RedstoneTorchBlock.java b/net.minecraft.world.level.block.RedstoneTorchBlock.java
+--- a/net.minecraft.world.level.block.RedstoneTorchBlock.java
++++ b/net.minecraft.world.level.block.RedstoneTorchBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.notifyNeighbor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ affectNeighborsAfterRemoval(/* params */);
+
+diff --git a/net.minecraft.world.level.block.RedstoneTorchBlock.java b/net.minecraft.world.level.block.RedstoneTorchBlock.java
+--- a/net.minecraft.world.level.block.RedstoneTorchBlock.java
++++ b/net.minecraft.world.level.block.RedstoneTorchBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hasNeighborSigna"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.level.block.RedstoneTorchBlock.java b/net.minecraft.world.level.block.RedstoneTorchBlock.java
+--- a/net.minecraft.world.level.block.RedstoneTorchBlock.java
++++ b/net.minecraft.world.level.block.RedstoneTorchBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.notifyNeighbor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onPlace(/* params */);
+
+diff --git a/net.minecraft.world.level.block.RedstoneTorchBlock.java b/net.minecraft.world.level.block.RedstoneTorchBlock.java
+--- a/net.minecraft.world.level.block.RedstoneTorchBlock.java
++++ b/net.minecraft.world.level.block.RedstoneTorchBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hasNeighborSigna"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ neighborChanged(/* params */);
+

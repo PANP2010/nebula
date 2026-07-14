@@ -1,0 +1,181 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (14 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java b/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.processStructureBoundar"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ encaseStructure(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java b/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setChange", "this.errorMarkers"},
++writeEntities = {"this.changed"},
++triggeredEvents = {"BLOCK_UPDATE"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ markError(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java b/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ placeStructure(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java b/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.saveTes", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ exportTest(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java b/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getTestHolde", "this.testHolder", "this.getStructureBound", "this.structureBounds"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ processStructureBoundary(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java b/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.clearErrorMarker", "this.removeBarrier", "this.placeStructur", "this.getTestNam", "this.testName"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetTest(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java b/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.errorMarkers"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadAdditional(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java b/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.data"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ ignoreEntities(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java b/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.errorMarkers", "this.data"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveAdditional(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java b/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.data"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ errorMessage(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java b/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBlockPo", "this.getTestHolde", "this.testHolder", "this.blockPos", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ runTest(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java b/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.data"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ test(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java b/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getTestHolde", "this.testHolder"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveTest(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java b/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.TestInstanceBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.structureBoundingBox", "this.getStructureBoundingBo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forceLoadChunks(/* params */);
+

@@ -1,0 +1,158 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (12 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java b/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java b/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.checked"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkDownloadSize(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java b/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.downloadTitle", "this.progress", "this.status", "this.bytesPersSecond"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createProgressNarrationMessage(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java b/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.cancelButton"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java b/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.animTick", "this.dotIndex", "this.font", "this.status"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractDots(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java b/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.previousWrittenBytes", "this.previousTimeSnapsho", "this.animTick"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractDownloadSpeed(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java b/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.width", "this.progress", "this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractDownloadSpeed0(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java b/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.createProgressNarrationMessag", "this.animTick", "this.narrationRateLimiter", "this.status"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java b/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.statu"},
++writeEntities = {"this.status"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ downloadCancelled(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java b/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.width", "this.progres", "this.progress", "this.downloadStatus", "this.font"},
++writeEntities = {"this.progress"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractProgressBar(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java b/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.callback", "this.finished", "this.cancelle", "this.errorMessag"},
++writeEntities = {"this.errorMessage", "this.cancelled"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onClose(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java b/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
+--- a/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
++++ b/com.mojang.realmsclient.gui.screens.RealmsDownloadLatestWorldScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.statu"},
++writeEntities = {"this.status"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ downloadSave(/* params */);
+

@@ -1,0 +1,205 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (16 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.commands.arguments.blocks.BlockStateParser.java b/net.minecraft.commands.arguments.blocks.BlockStateParser.java
+--- a/net.minecraft.commands.arguments.blocks.BlockStateParser.java
++++ b/net.minecraft.commands.arguments.blocks.BlockStateParser.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.nb", "this.reader"},
++writeEntities = {"this.nbt"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readNbt(/* params */);
+
+diff --git a/net.minecraft.commands.arguments.blocks.BlockStateParser.java b/net.minecraft.commands.arguments.blocks.BlockStateParser.java
+--- a/net.minecraft.commands.arguments.blocks.BlockStateParser.java
++++ b/net.minecraft.commands.arguments.blocks.BlockStateParser.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.forTesting", "this.reader"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readTag(/* params */);
+
+diff --git a/net.minecraft.commands.arguments.blocks.BlockStateParser.java b/net.minecraft.commands.arguments.blocks.BlockStateParser.java
+--- a/net.minecraft.commands.arguments.blocks.BlockStateParser.java
++++ b/net.minecraft.commands.arguments.blocks.BlockStateParser.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blocks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ suggestItem(/* params */);
+
+diff --git a/net.minecraft.commands.arguments.blocks.BlockStateParser.java b/net.minecraft.commands.arguments.blocks.BlockStateParser.java
+--- a/net.minecraft.commands.arguments.blocks.BlockStateParser.java
++++ b/net.minecraft.commands.arguments.blocks.BlockStateParser.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blocks"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ suggestTag(/* params */);
+
+diff --git a/net.minecraft.commands.arguments.blocks.BlockStateParser.java b/net.minecraft.commands.arguments.blocks.BlockStateParser.java
+--- a/net.minecraft.commands.arguments.blocks.BlockStateParser.java
++++ b/net.minecraft.commands.arguments.blocks.BlockStateParser.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hasBlockEntit"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ suggestOpenNbt(/* params */);
+
+diff --git a/net.minecraft.commands.arguments.blocks.BlockStateParser.java b/net.minecraft.commands.arguments.blocks.BlockStateParser.java
+--- a/net.minecraft.commands.arguments.blocks.BlockStateParser.java
++++ b/net.minecraft.commands.arguments.blocks.BlockStateParser.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.forTesting", "this.suggestion"},
++writeEntities = {"this.suggestions"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ parse(/* params */);
+
+diff --git a/net.minecraft.commands.arguments.blocks.BlockStateParser.java b/net.minecraft.commands.arguments.blocks.BlockStateParser.java
+--- a/net.minecraft.commands.arguments.blocks.BlockStateParser.java
++++ b/net.minecraft.commands.arguments.blocks.BlockStateParser.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tag"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ suggestOpenVaguePropertiesOrNbt(/* params */);
+
+diff --git a/net.minecraft.commands.arguments.blocks.BlockStateParser.java b/net.minecraft.commands.arguments.blocks.BlockStateParser.java
+--- a/net.minecraft.commands.arguments.blocks.BlockStateParser.java
++++ b/net.minecraft.commands.arguments.blocks.BlockStateParser.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.state", "this.properties"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ suggestPropertyName(/* params */);
+
+diff --git a/net.minecraft.commands.arguments.blocks.BlockStateParser.java b/net.minecraft.commands.arguments.blocks.BlockStateParser.java
+--- a/net.minecraft.commands.arguments.blocks.BlockStateParser.java
++++ b/net.minecraft.commands.arguments.blocks.BlockStateParser.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.reader", "this.blocks", "this.i", "this.id"},
++writeEntities = {"this.id"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readBlock(/* params */);
+
+diff --git a/net.minecraft.commands.arguments.blocks.BlockStateParser.java b/net.minecraft.commands.arguments.blocks.BlockStateParser.java
+--- a/net.minecraft.commands.arguments.blocks.BlockStateParser.java
++++ b/net.minecraft.commands.arguments.blocks.BlockStateParser.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.separate"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ accept(/* params */);
+
+diff --git a/net.minecraft.commands.arguments.blocks.BlockStateParser.java b/net.minecraft.commands.arguments.blocks.BlockStateParser.java
+--- a/net.minecraft.commands.arguments.blocks.BlockStateParser.java
++++ b/net.minecraft.commands.arguments.blocks.BlockStateParser.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tag"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ suggestVaguePropertyValue(/* params */);
+
+diff --git a/net.minecraft.commands.arguments.blocks.BlockStateParser.java b/net.minecraft.commands.arguments.blocks.BlockStateParser.java
+--- a/net.minecraft.commands.arguments.blocks.BlockStateParser.java
++++ b/net.minecraft.commands.arguments.blocks.BlockStateParser.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.definition"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ suggestOpenPropertiesOrNbt(/* params */);
+
+diff --git a/net.minecraft.commands.arguments.blocks.BlockStateParser.java b/net.minecraft.commands.arguments.blocks.BlockStateParser.java
+--- a/net.minecraft.commands.arguments.blocks.BlockStateParser.java
++++ b/net.minecraft.commands.arguments.blocks.BlockStateParser.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.vagueProperties", "this.reader", "this.suggestion", "this.id"},
++writeEntities = {"this.suggestions"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readVagueProperties(/* params */);
+
+diff --git a/net.minecraft.commands.arguments.blocks.BlockStateParser.java b/net.minecraft.commands.arguments.blocks.BlockStateParser.java
+--- a/net.minecraft.commands.arguments.blocks.BlockStateParser.java
++++ b/net.minecraft.commands.arguments.blocks.BlockStateParser.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.suggestTa", "this.suggestIte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ suggestBlockIdOrTag(/* params */);
+
+diff --git a/net.minecraft.commands.arguments.blocks.BlockStateParser.java b/net.minecraft.commands.arguments.blocks.BlockStateParser.java
+--- a/net.minecraft.commands.arguments.blocks.BlockStateParser.java
++++ b/net.minecraft.commands.arguments.blocks.BlockStateParser.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.reader", "this.suggestion", "this.definition", "this.id"},
++writeEntities = {"this.suggestions"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readProperties(/* params */);
+
+diff --git a/net.minecraft.commands.arguments.blocks.BlockStateParser.java b/net.minecraft.commands.arguments.blocks.BlockStateParser.java
+--- a/net.minecraft.commands.arguments.blocks.BlockStateParser.java
++++ b/net.minecraft.commands.arguments.blocks.BlockStateParser.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.vagueProperties", "this.tag"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ suggestVaguePropertyName(/* params */);
+

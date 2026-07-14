@@ -1,0 +1,104 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (8 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.data.loot.BlockLootSubProvider.java b/net.minecraft.data.loot.BlockLootSubProvider.java
+--- a/net.minecraft.data.loot.BlockLootSubProvider.java
++++ b/net.minecraft.data.loot.BlockLootSubProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.explosionResistant"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyExplosionDecay(/* params */);
+
+diff --git a/net.minecraft.data.loot.BlockLootSubProvider.java b/net.minecraft.data.loot.BlockLootSubProvider.java
+--- a/net.minecraft.data.loot.BlockLootSubProvider.java
++++ b/net.minecraft.data.loot.BlockLootSubProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.dropOthe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropSelf(/* params */);
+
+diff --git a/net.minecraft.data.loot.BlockLootSubProvider.java b/net.minecraft.data.loot.BlockLootSubProvider.java
+--- a/net.minecraft.data.loot.BlockLootSubProvider.java
++++ b/net.minecraft.data.loot.BlockLootSubProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.otherWhenSilkTouc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropWhenSilkTouch(/* params */);
+
+diff --git a/net.minecraft.data.loot.BlockLootSubProvider.java b/net.minecraft.data.loot.BlockLootSubProvider.java
+--- a/net.minecraft.data.loot.BlockLootSubProvider.java
++++ b/net.minecraft.data.loot.BlockLootSubProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ad", "this.createSilkTouchOnlyTabl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ otherWhenSilkTouch(/* params */);
+
+diff --git a/net.minecraft.data.loot.BlockLootSubProvider.java b/net.minecraft.data.loot.BlockLootSubProvider.java
+--- a/net.minecraft.data.loot.BlockLootSubProvider.java
++++ b/net.minecraft.data.loot.BlockLootSubProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ad", "this.createPotFlowerItemTabl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropPottedContents(/* params */);
+
+diff --git a/net.minecraft.data.loot.BlockLootSubProvider.java b/net.minecraft.data.loot.BlockLootSubProvider.java
+--- a/net.minecraft.data.loot.BlockLootSubProvider.java
++++ b/net.minecraft.data.loot.BlockLootSubProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.enabledFeatures", "this.generat", "this.map"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generate(/* params */);
+
+diff --git a/net.minecraft.data.loot.BlockLootSubProvider.java b/net.minecraft.data.loot.BlockLootSubProvider.java
+--- a/net.minecraft.data.loot.BlockLootSubProvider.java
++++ b/net.minecraft.data.loot.BlockLootSubProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.explosionResistant"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyExplosionCondition(/* params */);
+
+diff --git a/net.minecraft.data.loot.BlockLootSubProvider.java b/net.minecraft.data.loot.BlockLootSubProvider.java
+--- a/net.minecraft.data.loot.BlockLootSubProvider.java
++++ b/net.minecraft.data.loot.BlockLootSubProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createSingleItemTabl", "this.ad"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropOther(/* params */);
+

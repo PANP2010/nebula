@@ -1,0 +1,36 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (2 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.ai.goal.StrollThroughVillageGoal.java b/net.minecraft.world.entity.ai.goal.StrollThroughVillageGoal.java
+--- a/net.minecraft.world.entity.ai.goal.StrollThroughVillageGoal.java
++++ b/net.minecraft.world.entity.ai.goal.StrollThroughVillageGoal.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mob"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ moveRandomly(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.goal.StrollThroughVillageGoal.java b/net.minecraft.world.entity.ai.goal.StrollThroughVillageGoal.java
+--- a/net.minecraft.world.entity.ai.goal.StrollThroughVillageGoal.java
++++ b/net.minecraft.world.entity.ai.goal.StrollThroughVillageGoal.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mob", "this.moveRandoml", "this.wantedPos"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+

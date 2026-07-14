@@ -1,0 +1,142 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (11 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java b/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java
+--- a/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java
++++ b/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.path", "this.isAbsolut", "this.fs", "this.class", "this.getClas"},
++writeEntities = {"this.isAbsolute"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ equals(/* params */);
+
+diff --git a/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java b/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java
+--- a/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java
++++ b/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.path", "this.isAbsolut", "this.fs"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toAbsolutePath(/* params */);
+
+diff --git a/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java b/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java
+--- a/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java
++++ b/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fs"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toRealPath(/* params */);
+
+diff --git a/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java b/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java
+--- a/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java
++++ b/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.resolv"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resolve(/* params */);
+
+diff --git a/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java b/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java
+--- a/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java
++++ b/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.path", "this.isAbsolut", "this.fs"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ normalize(/* params */);
+
+diff --git a/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java b/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java
+--- a/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java
++++ b/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.equal", "this.isAbsolut"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ endsWith(/* params */);
+
+diff --git a/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java b/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java
+--- a/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java
++++ b/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.toStrin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ compareTo(/* params */);
+
+diff --git a/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java b/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java
+--- a/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java
++++ b/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isAbsolut"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ relativize(/* params */);
+
+diff --git a/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java b/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java
+--- a/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java
++++ b/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.path", "this.pat", "this.isAbsolut"},
++writeEntities = {"this.path"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java b/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java
+--- a/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java
++++ b/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.path", "this.isAbsolut"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startsWith(/* params */);
+
+diff --git a/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java b/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java
+--- a/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java
++++ b/net.minecraft.util.filefix.virtualfilesystem.CopyOnWriteFSPath.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.path", "this.fs"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ subpath(/* params */);
+

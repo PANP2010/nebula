@@ -1,0 +1,104 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (8 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.packs.PackSelectionModel.java b/net.minecraft.client.gui.screens.packs.PackSelectionModel.java
+--- a/net.minecraft.client.gui.screens.packs.PackSelectionModel.java
++++ b/net.minecraft.client.gui.screens.packs.PackSelectionModel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toggleSelection(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.packs.PackSelectionModel.java b/net.minecraft.client.gui.screens.packs.PackSelectionModel.java
+--- a/net.minecraft.client.gui.screens.packs.PackSelectionModel.java
++++ b/net.minecraft.client.gui.screens.packs.PackSelectionModel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.repository", "this.selected"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateRepoSelectedList(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.packs.PackSelectionModel.java b/net.minecraft.client.gui.screens.packs.PackSelectionModel.java
+--- a/net.minecraft.client.gui.screens.packs.PackSelectionModel.java
++++ b/net.minecraft.client.gui.screens.packs.PackSelectionModel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getSelfLis", "this.selfList", "this.onListChanged", "this.pack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ move(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.packs.PackSelectionModel.java b/net.minecraft.client.gui.screens.packs.PackSelectionModel.java
+--- a/net.minecraft.client.gui.screens.packs.PackSelectionModel.java
++++ b/net.minecraft.client.gui.screens.packs.PackSelectionModel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.toggleSelectio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ select(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.packs.PackSelectionModel.java b/net.minecraft.client.gui.screens.packs.PackSelectionModel.java
+--- a/net.minecraft.client.gui.screens.packs.PackSelectionModel.java
++++ b/net.minecraft.client.gui.screens.packs.PackSelectionModel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.unselected", "this.repository", "this.selected"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findNewPacks(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.packs.PackSelectionModel.java b/net.minecraft.client.gui.screens.packs.PackSelectionModel.java
+--- a/net.minecraft.client.gui.screens.packs.PackSelectionModel.java
++++ b/net.minecraft.client.gui.screens.packs.PackSelectionModel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateHighContrastOptionInstance(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.packs.PackSelectionModel.java b/net.minecraft.client.gui.screens.packs.PackSelectionModel.java
+--- a/net.minecraft.client.gui.screens.packs.PackSelectionModel.java
++++ b/net.minecraft.client.gui.screens.packs.PackSelectionModel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.toggleSelectio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ unselect(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.packs.PackSelectionModel.java b/net.minecraft.client.gui.screens.packs.PackSelectionModel.java
+--- a/net.minecraft.client.gui.screens.packs.PackSelectionModel.java
++++ b/net.minecraft.client.gui.screens.packs.PackSelectionModel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateRepoSelectedLis", "this.output", "this.repository"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ commit(/* params */);
+

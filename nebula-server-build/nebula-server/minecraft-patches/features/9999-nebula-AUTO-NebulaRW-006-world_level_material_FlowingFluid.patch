@@ -1,0 +1,84 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.material.FlowingFluid.java b/net.minecraft.world.level.material.FlowingFluid.java
+--- a/net.minecraft.world.level.material.FlowingFluid.java
++++ b/net.minecraft.world.level.material.FlowingFluid.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getNewLiqui", "this.spreadDelay", "this.getSpreadDela", "this.newLiquid"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.level.material.FlowingFluid.java b/net.minecraft.world.level.material.FlowingFluid.java
+--- a/net.minecraft.world.level.material.FlowingFluid.java
++++ b/net.minecraft.world.level.material.FlowingFluid.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isSourceBlockOfThisTyp"},
++readBlocks = {"{neighbors}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sourceNeighborCount(/* params */);
+
+diff --git a/net.minecraft.world.level.material.FlowingFluid.java b/net.minecraft.world.level.material.FlowingFluid.java
+--- a/net.minecraft.world.level.material.FlowingFluid.java
++++ b/net.minecraft.world.level.material.FlowingFluid.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++readBlocks = {"{neighbors}", "{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spread(/* params */);
+
+diff --git a/net.minecraft.world.level.material.FlowingFluid.java b/net.minecraft.world.level.material.FlowingFluid.java
+--- a/net.minecraft.world.level.material.FlowingFluid.java
++++ b/net.minecraft.world.level.material.FlowingFluid.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.dropOff", "this.getDropOf"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spreadToSides(/* params */);
+
+diff --git a/net.minecraft.world.level.material.FlowingFluid.java b/net.minecraft.world.level.material.FlowingFluid.java
+--- a/net.minecraft.world.level.material.FlowingFluid.java
++++ b/net.minecraft.world.level.material.FlowingFluid.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.secon", "this.directio", "this.firs"},
++writeEntities = {"this.first", "this.second", "this.direction"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ equals(/* params */);
+
+diff --git a/net.minecraft.world.level.material.FlowingFluid.java b/net.minecraft.world.level.material.FlowingFluid.java
+--- a/net.minecraft.world.level.material.FlowingFluid.java
++++ b/net.minecraft.world.level.material.FlowingFluid.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spreadTo(/* params */);
+

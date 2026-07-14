@@ -1,0 +1,302 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (24 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.draggingItem"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mouseDragged(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.draggingItem", "this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractFloatingItem(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hoveredSlot", "this.itemSlotMouseActions"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mouseScrolled(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.hoveredSlot", "this.onStopHoverin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onClose(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isQuickCrafting", "this.quickCraftSlots", "this.quickCraftingTyp", "this.menu"},
++writeEntities = {"this.quickCraftingType"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldAddSlotToQuickCraft(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.slotClicke", "this.hoveredSlot", "this.menu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkHotbarKeyPressed(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.quickCraftingRemainde", "this.isQuickCrafting", "this.menu", "this.quickCraftingTyp"},
++writeEntities = {"this.quickCraftingType", "this.quickCraftingRemainder"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ recalculateQuickCraftRemaining(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.hoveredSlot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractContents(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractTooltip(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hasClickedOutsid", "this.topPo", "this.hoveredSlot", "this.getHoveredSlo", "this.leftPo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mouseReleased(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.draggingItem", "this.isSplittingStack", "this.clickedSlot", "this.menu", "this.isSplittingStac"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractSlot(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.quickCraftingType", "this.slotClicke", "this.quickCraftSlots"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ quickCraftToSlots(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.itemSlotMouseActions"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onStopHovering(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.containerTic"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.menu", "this.extractSlo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractSlots(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.snapbackData", "this.extractFloatingIte", "this.snapbackDat"},
++writeEntities = {"this.snapbackData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractSnapbackItem(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleSlotStateChanged(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hoveredSlot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractSlotHighlightBack(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.extractToolti", "this.extractCarriedIte", "this.extractSnapbackIte", "this.extractContent"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.slotClicke", "this.hoveredSlot", "this.menu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkHotbarMouseClicked(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hoveredSlot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractSlotHighlightFront(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.draggingItem", "this.draggingIte", "this.isSplittingStack", "this.menu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractCarriedItem(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractLabels(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.leftPos", "this.topPos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+

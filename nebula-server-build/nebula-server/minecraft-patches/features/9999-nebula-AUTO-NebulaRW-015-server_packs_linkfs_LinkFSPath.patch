@@ -1,0 +1,189 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (15 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.packs.linkfs.LinkFSPath.java b/net.minecraft.server.packs.linkfs.LinkFSPath.java
+--- a/net.minecraft.server.packs.linkfs.LinkFSPath.java
++++ b/net.minecraft.server.packs.linkfs.LinkFSPath.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.toLinkPat", "this.isAbsolut"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ relativize(/* params */);
+
+diff --git a/net.minecraft.server.packs.linkfs.LinkFSPath.java b/net.minecraft.server.packs.linkfs.LinkFSPath.java
+--- a/net.minecraft.server.packs.linkfs.LinkFSPath.java
++++ b/net.minecraft.server.packs.linkfs.LinkFSPath.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.toAbsolutePat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toRealPath(/* params */);
+
+diff --git a/net.minecraft.server.packs.linkfs.LinkFSPath.java b/net.minecraft.server.packs.linkfs.LinkFSPath.java
+--- a/net.minecraft.server.packs.linkfs.LinkFSPath.java
++++ b/net.minecraft.server.packs.linkfs.LinkFSPath.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isAbsolut"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startsWith(/* params */);
+
+diff --git a/net.minecraft.server.packs.linkfs.LinkFSPath.java b/net.minecraft.server.packs.linkfs.LinkFSPath.java
+--- a/net.minecraft.server.packs.linkfs.LinkFSPath.java
++++ b/net.minecraft.server.packs.linkfs.LinkFSPath.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fileSystem", "this.isAbsolut"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toAbsolutePath(/* params */);
+
+diff --git a/net.minecraft.server.packs.linkfs.LinkFSPath.java b/net.minecraft.server.packs.linkfs.LinkFSPath.java
+--- a/net.minecraft.server.packs.linkfs.LinkFSPath.java
++++ b/net.minecraft.server.packs.linkfs.LinkFSPath.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pathToStrin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.server.packs.linkfs.LinkFSPath.java b/net.minecraft.server.packs.linkfs.LinkFSPath.java
+--- a/net.minecraft.server.packs.linkfs.LinkFSPath.java
++++ b/net.minecraft.server.packs.linkfs.LinkFSPath.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.name"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pathToRoot(/* params */);
+
+diff --git a/net.minecraft.server.packs.linkfs.LinkFSPath.java b/net.minecraft.server.packs.linkfs.LinkFSPath.java
+--- a/net.minecraft.server.packs.linkfs.LinkFSPath.java
++++ b/net.minecraft.server.packs.linkfs.LinkFSPath.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pathContents"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toFile(/* params */);
+
+diff --git a/net.minecraft.server.packs.linkfs.LinkFSPath.java b/net.minecraft.server.packs.linkfs.LinkFSPath.java
+--- a/net.minecraft.server.packs.linkfs.LinkFSPath.java
++++ b/net.minecraft.server.packs.linkfs.LinkFSPath.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fileSystem"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createRelativePath(/* params */);
+
+diff --git a/net.minecraft.server.packs.linkfs.LinkFSPath.java b/net.minecraft.server.packs.linkfs.LinkFSPath.java
+--- a/net.minecraft.server.packs.linkfs.LinkFSPath.java
++++ b/net.minecraft.server.packs.linkfs.LinkFSPath.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pathStrin", "this.isAbsolut"},
++writeEntities = {"this.pathString"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pathToString(/* params */);
+
+diff --git a/net.minecraft.server.packs.linkfs.LinkFSPath.java b/net.minecraft.server.packs.linkfs.LinkFSPath.java
+--- a/net.minecraft.server.packs.linkfs.LinkFSPath.java
++++ b/net.minecraft.server.packs.linkfs.LinkFSPath.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isAbsolut"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ endsWith(/* params */);
+
+diff --git a/net.minecraft.server.packs.linkfs.LinkFSPath.java b/net.minecraft.server.packs.linkfs.LinkFSPath.java
+--- a/net.minecraft.server.packs.linkfs.LinkFSPath.java
++++ b/net.minecraft.server.packs.linkfs.LinkFSPath.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hasRealContent"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ exists(/* params */);
+
+diff --git a/net.minecraft.server.packs.linkfs.LinkFSPath.java b/net.minecraft.server.packs.linkfs.LinkFSPath.java
+--- a/net.minecraft.server.packs.linkfs.LinkFSPath.java
++++ b/net.minecraft.server.packs.linkfs.LinkFSPath.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.toLinkPat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ compareTo(/* params */);
+
+diff --git a/net.minecraft.server.packs.linkfs.LinkFSPath.java b/net.minecraft.server.packs.linkfs.LinkFSPath.java
+--- a/net.minecraft.server.packs.linkfs.LinkFSPath.java
++++ b/net.minecraft.server.packs.linkfs.LinkFSPath.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.basicAttributes", "this.getBasicAttribute"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAttributes(/* params */);
+
+diff --git a/net.minecraft.server.packs.linkfs.LinkFSPath.java b/net.minecraft.server.packs.linkfs.LinkFSPath.java
+--- a/net.minecraft.server.packs.linkfs.LinkFSPath.java
++++ b/net.minecraft.server.packs.linkfs.LinkFSPath.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pathToRoo", "this.createRelativePat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ subpath(/* params */);
+
+diff --git a/net.minecraft.server.packs.linkfs.LinkFSPath.java b/net.minecraft.server.packs.linkfs.LinkFSPath.java
+--- a/net.minecraft.server.packs.linkfs.LinkFSPath.java
++++ b/net.minecraft.server.packs.linkfs.LinkFSPath.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fileSystem", "this.pathToStrin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toUri(/* params */);
+

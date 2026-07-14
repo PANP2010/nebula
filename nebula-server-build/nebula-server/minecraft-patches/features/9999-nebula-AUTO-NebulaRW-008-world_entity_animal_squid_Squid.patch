@@ -1,0 +1,110 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (8 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.animal.squid.Squid.java b/net.minecraft.world.entity.animal.squid.Squid.java
+--- a/net.minecraft.world.entity.animal.squid.Squid.java
++++ b/net.minecraft.world.entity.animal.squid.Squid.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spawnInk(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.squid.Squid.java b/net.minecraft.world.entity.animal.squid.Squid.java
+--- a/net.minecraft.world.entity.animal.squid.Squid.java
++++ b/net.minecraft.world.entity.animal.squid.Squid.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.goalSelector"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerGoals(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.squid.Squid.java b/net.minecraft.world.entity.animal.squid.Squid.java
+--- a/net.minecraft.world.entity.animal.squid.Squid.java
++++ b/net.minecraft.world.entity.animal.squid.Squid.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mov", "this.deltaMovement", "this.getDeltaMovemen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ travel(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.squid.Squid.java b/net.minecraft.world.entity.animal.squid.Squid.java
+--- a/net.minecraft.world.entity.animal.squid.Squid.java
++++ b/net.minecraft.world.entity.animal.squid.Squid.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.xBodyRotO", "this.yBodyRotO"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ rotateVector(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.squid.Squid.java b/net.minecraft.world.entity.animal.squid.Squid.java
+--- a/net.minecraft.world.entity.animal.squid.Squid.java
++++ b/net.minecraft.world.entity.animal.squid.Squid.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.squid"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.squid.Squid.java b/net.minecraft.world.entity.animal.squid.Squid.java
+--- a/net.minecraft.world.entity.animal.squid.Squid.java
++++ b/net.minecraft.world.entity.animal.squid.Squid.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getLastHurtByMo", "this.lastHurtByMob", "this.spawnIn"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtServer(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.squid.Squid.java b/net.minecraft.world.entity.animal.squid.Squid.java
+--- a/net.minecraft.world.entity.animal.squid.Squid.java
++++ b/net.minecraft.world.entity.animal.squid.Squid.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tentacleMovemen"},
++writeEntities = {"this.tentacleMovement"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleEntityEvent(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.squid.Squid.java b/net.minecraft.world.entity.animal.squid.Squid.java
+--- a/net.minecraft.world.entity.animal.squid.Squid.java
++++ b/net.minecraft.world.entity.animal.squid.Squid.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.oldTentacleMovement", "this.zBodyRotO", "this.xBodyRotO", "this.tentacleMovement", "this.oldTentacleAngle"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ aiStep(/* params */);
+

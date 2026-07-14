@@ -1,0 +1,133 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (10 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java b/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java
+--- a/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java
++++ b/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isPrime"},
++readBlocks = {"{neighbors}", "{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldBlockExplode(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java b/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java
+--- a/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java
++++ b/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ explode(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java b/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java
+--- a/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java
++++ b/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java b/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java
+--- a/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java
++++ b/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fus", "this.damageSource", "this.leve", "this.ignitionSourc"},
++writeEntities = {"this.fuse", "this.ignitionSource"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ primeFuse(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java b/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java
+--- a/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java
++++ b/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.primeFus"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleEntityEvent(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java b/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java
+--- a/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java
++++ b/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.explosionPowerBas", "this.fus", "this.explosionSpeedFacto"},
++writeEntities = {"this.fuse", "this.explosionPowerBase", "this.explosionSpeedFactor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java b/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java
+--- a/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java
++++ b/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.damageSource", "this.explod"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtServer(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java b/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java
+--- a/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java
++++ b/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.primeFus", "this.fuse"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ activateMinecart(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java b/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java
+--- a/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java
++++ b/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ignitionSource", "this.explod"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ causeFallDamage(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java b/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java
+--- a/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java
++++ b/net.minecraft.world.entity.vehicle.minecart.MinecartTNT.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getDropIte", "this.dropItem", "this.destro", "this.deltaMovement", "this.getDeltaMovemen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ destroy(/* params */);
+

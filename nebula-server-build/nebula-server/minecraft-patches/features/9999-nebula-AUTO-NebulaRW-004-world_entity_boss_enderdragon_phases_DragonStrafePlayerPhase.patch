@@ -1,0 +1,63 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.boss.enderdragon.phases.DragonStrafePlayerPhase.java b/net.minecraft.world.entity.boss.enderdragon.phases.DragonStrafePlayerPhase.java
+--- a/net.minecraft.world.entity.boss.enderdragon.phases.DragonStrafePlayerPhase.java
++++ b/net.minecraft.world.entity.boss.enderdragon.phases.DragonStrafePlayerPhase.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.currentPath", "this.dragon", "this.holdingPatternClockwis", "this.currentPat"},
++writeEntities = {"this.holdingPatternClockwise", "this.currentPath"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findNewTarget(/* params */);
+
+diff --git a/net.minecraft.world.entity.boss.enderdragon.phases.DragonStrafePlayerPhase.java b/net.minecraft.world.entity.boss.enderdragon.phases.DragonStrafePlayerPhase.java
+--- a/net.minecraft.world.entity.boss.enderdragon.phases.DragonStrafePlayerPhase.java
++++ b/net.minecraft.world.entity.boss.enderdragon.phases.DragonStrafePlayerPhase.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.currentPath", "this.dragon"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ navigateToNextPathNode(/* params */);
+
+diff --git a/net.minecraft.world.entity.boss.enderdragon.phases.DragonStrafePlayerPhase.java b/net.minecraft.world.entity.boss.enderdragon.phases.DragonStrafePlayerPhase.java
+--- a/net.minecraft.world.entity.boss.enderdragon.phases.DragonStrafePlayerPhase.java
++++ b/net.minecraft.world.entity.boss.enderdragon.phases.DragonStrafePlayerPhase.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.targetLocatio", "this.fireballCharg", "this.attackTarge", "this.currentPat"},
++writeEntities = {"this.fireballCharge", "this.attackTarget", "this.currentPath", "this.targetLocation"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ begin(/* params */);
+
+diff --git a/net.minecraft.world.entity.boss.enderdragon.phases.DragonStrafePlayerPhase.java b/net.minecraft.world.entity.boss.enderdragon.phases.DragonStrafePlayerPhase.java
+--- a/net.minecraft.world.entity.boss.enderdragon.phases.DragonStrafePlayerPhase.java
++++ b/net.minecraft.world.entity.boss.enderdragon.phases.DragonStrafePlayerPhase.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.attackTarge", "this.dragon"},
++writeEntities = {"this.attackTarget"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ doServerTick(/* params */);
+

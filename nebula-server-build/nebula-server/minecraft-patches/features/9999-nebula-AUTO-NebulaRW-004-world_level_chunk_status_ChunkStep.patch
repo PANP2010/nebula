@@ -1,0 +1,57 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.chunk.status.ChunkStep.java b/net.minecraft.world.level.chunk.status.ChunkStep.java
+--- a/net.minecraft.world.level.chunk.status.ChunkStep.java
++++ b/net.minecraft.world.level.chunk.status.ChunkStep.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.completeChunkGeneratio", "this.task", "this.targetStatus"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ apply(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.status.ChunkStep.java b/net.minecraft.world.level.chunk.status.ChunkStep.java
+--- a/net.minecraft.world.level.chunk.status.ChunkStep.java
++++ b/net.minecraft.world.level.chunk.status.ChunkStep.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.paren", "this.directDependenciesByRadiu"},
++writeEntities = {"this.parent"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ buildAccumulatedDependencies(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.status.ChunkStep.java b/net.minecraft.world.level.chunk.status.ChunkStep.java
+--- a/net.minecraft.world.level.chunk.status.ChunkStep.java
++++ b/net.minecraft.world.level.chunk.status.ChunkStep.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.task", "this.blockStateWriteRadius", "this.buildAccumulatedDependencie", "this.directDependenciesByRadius", "this.status"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ build(/* params */);
+
+diff --git a/net.minecraft.world.level.chunk.status.ChunkStep.java b/net.minecraft.world.level.chunk.status.ChunkStep.java
+--- a/net.minecraft.world.level.chunk.status.ChunkStep.java
++++ b/net.minecraft.world.level.chunk.status.ChunkStep.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.targetStatus"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ completeChunkGeneration(/* params */);
+

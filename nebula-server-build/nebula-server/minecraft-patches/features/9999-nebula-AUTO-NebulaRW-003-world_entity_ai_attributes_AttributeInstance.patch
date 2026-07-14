@@ -1,0 +1,46 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (3 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.ai.attributes.AttributeInstance.java b/net.minecraft.world.entity.ai.attributes.AttributeInstance.java
+--- a/net.minecraft.world.entity.ai.attributes.AttributeInstance.java
++++ b/net.minecraft.world.entity.ai.attributes.AttributeInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.dirty", "this.baseValue"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ replaceFrom(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.attributes.AttributeInstance.java b/net.minecraft.world.entity.ai.attributes.AttributeInstance.java
+--- a/net.minecraft.world.entity.ai.attributes.AttributeInstance.java
++++ b/net.minecraft.world.entity.ai.attributes.AttributeInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.baseValu", "this.getModifier", "this.modifiers", "this.modifierById", "this.permanentModifiers"},
++writeEntities = {"this.baseValue"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ apply(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.attributes.AttributeInstance.java b/net.minecraft.world.entity.ai.attributes.AttributeInstance.java
+--- a/net.minecraft.world.entity.ai.attributes.AttributeInstance.java
++++ b/net.minecraft.world.entity.ai.attributes.AttributeInstance.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBaseValu", "this.baseValue", "this.modifiersOrEmpty", "this.getModifiersOrEmpt"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateValue(/* params */);
+

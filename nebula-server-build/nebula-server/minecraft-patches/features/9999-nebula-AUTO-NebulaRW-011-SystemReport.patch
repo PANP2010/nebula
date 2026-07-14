@@ -1,0 +1,145 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (11 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.SystemReport.java b/net.minecraft.SystemReport.java
+--- a/net.minecraft.SystemReport.java
++++ b/net.minecraft.SystemReport.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setDetai"},
++writeEntities = {"this.detail"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putPhysicalMemory(/* params */);
+
+diff --git a/net.minecraft.SystemReport.java b/net.minecraft.SystemReport.java
+--- a/net.minecraft.SystemReport.java
++++ b/net.minecraft.SystemReport.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setDetai"},
++writeEntities = {"this.detail"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putGraphics(/* params */);
+
+diff --git a/net.minecraft.SystemReport.java b/net.minecraft.SystemReport.java
+--- a/net.minecraft.SystemReport.java
++++ b/net.minecraft.SystemReport.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setDetai"},
++writeEntities = {"this.detail"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putVirtualMemory(/* params */);
+
+diff --git a/net.minecraft.SystemReport.java b/net.minecraft.SystemReport.java
+--- a/net.minecraft.SystemReport.java
++++ b/net.minecraft.SystemReport.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setDetai"},
++writeEntities = {"this.detail"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putSpaceForPath(/* params */);
+
+diff --git a/net.minecraft.SystemReport.java b/net.minecraft.SystemReport.java
+--- a/net.minecraft.SystemReport.java
++++ b/net.minecraft.SystemReport.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entries"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ appendToCrashReportString(/* params */);
+
+diff --git a/net.minecraft.SystemReport.java b/net.minecraft.SystemReport.java
+--- a/net.minecraft.SystemReport.java
++++ b/net.minecraft.SystemReport.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.putSpaceForPropert", "this.putSpaceForPat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putStorage(/* params */);
+
+diff --git a/net.minecraft.SystemReport.java b/net.minecraft.SystemReport.java
+--- a/net.minecraft.SystemReport.java
++++ b/net.minecraft.SystemReport.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.putMemor", "this.ignoreError", "this.putGraphic", "this.putProcesso"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putHardware(/* params */);
+
+diff --git a/net.minecraft.SystemReport.java b/net.minecraft.SystemReport.java
+--- a/net.minecraft.SystemReport.java
++++ b/net.minecraft.SystemReport.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entries"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toLineSeparatedString(/* params */);
+
+diff --git a/net.minecraft.SystemReport.java b/net.minecraft.SystemReport.java
+--- a/net.minecraft.SystemReport.java
++++ b/net.minecraft.SystemReport.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setDetai"},
++writeEntities = {"this.detail"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putProcessor(/* params */);
+
+diff --git a/net.minecraft.SystemReport.java b/net.minecraft.SystemReport.java
+--- a/net.minecraft.SystemReport.java
++++ b/net.minecraft.SystemReport.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ignoreError", "this.putVirtualMemor", "this.putPhysicalMemor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putMemory(/* params */);
+
+diff --git a/net.minecraft.SystemReport.java b/net.minecraft.SystemReport.java
+--- a/net.minecraft.SystemReport.java
++++ b/net.minecraft.SystemReport.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.putSpaceForPat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putSpaceForProperty(/* params */);
+

@@ -1,0 +1,133 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (10 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.decoration.painting.Painting.java b/net.minecraft.world.entity.decoration.painting.Painting.java
+--- a/net.minecraft.world.entity.decoration.painting.Painting.java
++++ b/net.minecraft.world.entity.decoration.painting.Painting.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playPlacementSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.painting.Painting.java b/net.minecraft.world.entity.decoration.painting.Painting.java
+--- a/net.minecraft.world.entity.decoration.painting.Painting.java
++++ b/net.minecraft.world.entity.decoration.painting.Painting.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun", "this.spawnAtLocatio"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropItem(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.painting.Painting.java b/net.minecraft.world.entity.decoration.painting.Painting.java
+--- a/net.minecraft.world.entity.decoration.painting.Painting.java
++++ b/net.minecraft.world.entity.decoration.painting.Painting.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setVarian"},
++writeEntities = {"this.variant"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyImplicitComponent(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.painting.Painting.java b/net.minecraft.world.entity.decoration.painting.Painting.java
+--- a/net.minecraft.world.entity.decoration.painting.Painting.java
++++ b/net.minecraft.world.entity.decoration.painting.Painting.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setDirectio"},
++writeEntities = {"this.direction"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.painting.Painting.java b/net.minecraft.world.entity.decoration.painting.Painting.java
+--- a/net.minecraft.world.entity.decoration.painting.Painting.java
++++ b/net.minecraft.world.entity.decoration.painting.Painting.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.applyImplicitComponentIfPresen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyImplicitComponents(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.painting.Painting.java b/net.minecraft.world.entity.decoration.painting.Painting.java
+--- a/net.minecraft.world.entity.decoration.painting.Painting.java
++++ b/net.minecraft.world.entity.decoration.painting.Painting.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.variant", "this.offsetForPaintingSiz", "this.getVarian"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateBoundingBox(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.painting.Painting.java b/net.minecraft.world.entity.decoration.painting.Painting.java
+--- a/net.minecraft.world.entity.decoration.painting.Painting.java
++++ b/net.minecraft.world.entity.decoration.painting.Painting.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.recalculateBoundingBo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSyncedDataUpdated(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.painting.Painting.java b/net.minecraft.world.entity.decoration.painting.Painting.java
+--- a/net.minecraft.world.entity.decoration.painting.Painting.java
++++ b/net.minecraft.world.entity.decoration.painting.Painting.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registryAcces"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ defineSynchedData(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.painting.Painting.java b/net.minecraft.world.entity.decoration.painting.Painting.java
+--- a/net.minecraft.world.entity.decoration.painting.Painting.java
++++ b/net.minecraft.world.entity.decoration.painting.Painting.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ trackingPosition(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.painting.Painting.java b/net.minecraft.world.entity.decoration.painting.Painting.java
+--- a/net.minecraft.world.entity.decoration.painting.Painting.java
++++ b/net.minecraft.world.entity.decoration.painting.Painting.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setDirectio"},
++writeEntities = {"this.direction"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ recreateFromPacket(/* params */);
+

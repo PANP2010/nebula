@@ -1,0 +1,1899 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (156 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.updateLevelChun", "this.level", "this.applyLightDat", "this.enableChunkLigh"},
++readBlocks = {"{chunk}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleLevelChunkWithLight(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleBlockEvent(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleBlockUpdate(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleExplosion(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.openSignedCommandSendConfirmationWindo", "this.verifyComman", "this.openCommandSendConfirmationWindo", "this.sen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendUnattendedCommand(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleRotatePlayer(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.keyPairFutur"},
++writeEntities = {"this.keyPairFuture"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ prepareKeyPair(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level", "this.connection", "this.removedPlayerVehicleId"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleTeleportEntity(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readSectionList(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleMapItemData(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.waypointManager"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleWaypoint(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleMountScreenOpen(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.enforcesSecureCha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ initializeChatSession(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.clockManage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ clockManager(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.scoreboard"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleSetPlayerTeamPacket(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleSetHeldSlot(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleSystemChat(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleBundlePacket(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleBlockChangedAck(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleProjectilePowerPacket(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.serverChunkRadius", "this.level", "this.serverSimulationDistance", "this.levels", "this.levelData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleLogin(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleSetSpawn(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleSetHealth(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.advancements"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleUpdateAdvancementsPacket(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.scoreboard"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleAddObjective(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleMoveEntity(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleRotateMob(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleSoundEvent(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleContainerContent(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleRecipeBookAdd(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.searchTrees", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ refreshRecipeBook(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.levelData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleChangeDifficulty(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleContainerClose(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ openSendConfirmationWindow(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.suggestionsProvider"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleCustomChatCompletions(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.serverData", "this.serverDat"},
++writeEntities = {"this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleServerData(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handlePlayerCombatKill(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sendChatAcknowledgemen", "this.lastSeenMessages"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ markMessageAsProcessed(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.remoteClientInformatio", "this.remoteClientInformation", "this.sen"},
++writeEntities = {"this.remoteClientInformation"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ broadcastClientInformation(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.searchTrees"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateSearchTrees(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleRecipeBookRemove(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.scoreboard"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleResetScore(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleHurtAnimation(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateLevelChunk(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleUpdateMobEffect(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lastSeenMessages", "this.sen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendChatAcknowledgement(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level", "this.debugSubscriber"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleDebugEntityValue(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleChunkBlocksUpdate(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.signedMessageEncoder", "this.lastSeenMessages", "this.sen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendChat(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleTestInstanceBlockStatus(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleOpenBook(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.playerInfoMap", "this.enforcesSecureCha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handlePlayerInfoUpdate(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleBlockDestruction(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level", "this.debugSubscriber"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleDebugBlockValue(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleSetBorderWarningDistance(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ postAddEntitySoundInstance(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleUpdateAttributes(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleSetBorderLerpSize(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.debugQueryHandler"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleTagQueryPacket(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleRemoveMobEffect(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleMinecartAlongTrack(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.enabledFeature"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ enabledFeatures(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleTickingState(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.advancements"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleSelectAdvancementsTab(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleContainerSetSlot(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleDamageEvent(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleInitializeBorder(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level", "this.debugSubscriber"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleDebugChunkValue(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleChunksBiomes(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleLookAt(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.removedPlayerVehicleI", "this.removedPlayerVehicleId"},
++writeEntities = {"this.removedPlayerVehicleId"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleAddEntity(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleSetBorderWarningDelay(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleSetBorderSize(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.scoreboard"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleSetDisplayObjective(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.recipe"},
++writeEntities = {"this.recipes"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleUpdateRecipes(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handlePlaceRecipe(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.suggestionsProvider", "this.sen", "this.commands"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendCommand(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level", "this.removedPlayerVehicleI"},
++writeEntities = {"this.removedPlayerVehicleId"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleRemoveEntities(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.openSendConfirmationWindo", "this.sen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ openCommandSendConfirmationWindow(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.searchTree"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ searchTrees(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.serverSimulationDistanc", "this.level", "this.serverSimulationDistance"},
++writeEntities = {"this.serverSimulationDistance"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleSetSimulationDistance(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.readSectionLis"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyLightData(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleContainerSetData(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ openDemoIntroScreen(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleBossUpdate(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleSetChunkCacheCenter(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.connection", "this.messageSignatureCache"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleDeleteChat(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.debugSubscriber"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createDebugValueAccess(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.prepareKeyPai", "this.chatSession"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleSetEntityPassengersPacket(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleSetCamera(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleSetEntityData(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleAnimate(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fuelValue"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fuelValues(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.suggestionsProvider"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleCommandSuggestions(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleStopSoundEvent(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ enableChunkLight(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level", "this.debugSubscriber"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleDebugEvent(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleItemCooldown(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleConfigurationStart(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sendUnattendedComman"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ runCommand(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleGameEvent(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chunkBatchSizeCalculator", "this.sen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleChunkBatchFinished(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.connection", "this.nextChatIndex"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handlePlayerChat(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.close", "this.clearLeve", "this.telemetryManager"},
++writeEntities = {"this.closed"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ close(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleSetPlayerInventory(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleMovePlayer(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.handleUnknownCustomPayloa"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleCustomPayload(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level", "this.queueLightRemova", "this.debugSubscriber"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleForgetLevelChunk(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleTitlesClear(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleSetExperience(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.updateTag", "this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleUpdateTags(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleParticleEvent(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleDisguisedChat(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleEntityLinkPacket(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level", "this.applyLightDat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleLightUpdatePacket(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleSetEquipment(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleOpenScreen(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleLevelEvent(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.initializeChatSessio", "this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyPlayerInfoUpdate(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleEntityEvent(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chunkBatchSizeCalculator"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleChunkBatchStart(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.serverChunkRadius", "this.serverChunkRadiu", "this.level"},
++writeEntities = {"this.serverChunkRadius"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleSetChunkCacheRadius(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.level", "this.levelData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleRespawn(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.clockManager", "this.level", "this.telemetryManager"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleSetTime(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleDebugSample(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleSoundEntityEvent(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handlePlayerAbilities(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.levelLoadTracke"},
++writeEntities = {"this.levelLoadTracker"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startWaitingForNewLevel(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleSetBorderCenter(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleOpenSignEditor(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.cacheSlots"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerForCleaning(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleGameRuleValues(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.potionBrewin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ potionBrewing(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.playerInfoMap", "this.listedPlayers"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handlePlayerInfoRemove(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleLowDiskSpaceWarning(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleGameTestHighlightPos(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ queueLightRemoval(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleTabListCustomisation(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleMerchantOffers(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleSetCursorItem(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.registryAccess", "this.enabledFeatures", "this.command"},
++writeEntities = {"this.commands"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleCommands(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.scoreboard"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleSetScore(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.openSendConfirmationWindo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ openSignedCommandSendConfirmationWindow(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleMoveVehicle(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleTakeItemEntity(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleSetEntityMotion(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.scoreboar"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scoreboard(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.serverEnforcesSecureCha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ enforcesSecureChat(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleAwardStats(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleEntityPositionSync(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pingDebugMonitor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handlePongResponse(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.registryAccess"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleBlockEntityData(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.refreshRecipeBoo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleRecipeBookSettings(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleTickingStep(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientPacketListener.java b/net.minecraft.client.multiplayer.ClientPacketListener.java
+--- a/net.minecraft.client.multiplayer.ClientPacketListener.java
++++ b/net.minecraft.client.multiplayer.ClientPacketListener.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setClientLoade", "this.hasClientLoade", "this.connection"},
++writeEntities = {"this.clientLoaded"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ notifyPlayerLoaded(/* params */);
+

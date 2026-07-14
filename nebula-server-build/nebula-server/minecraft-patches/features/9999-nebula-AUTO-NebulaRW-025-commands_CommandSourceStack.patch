@@ -1,0 +1,310 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (25 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.commands.CommandSourceStack.java b/net.minecraft.commands.CommandSourceStack.java
+--- a/net.minecraft.commands.CommandSourceStack.java
++++ b/net.minecraft.commands.CommandSourceStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.entity"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withEntity(/* params */);
+
+diff --git a/net.minecraft.commands.CommandSourceStack.java b/net.minecraft.commands.CommandSourceStack.java
+--- a/net.minecraft.commands.CommandSourceStack.java
++++ b/net.minecraft.commands.CommandSourceStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getPlaye", "this.silent", "this.player"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendChatMessage(/* params */);
+
+diff --git a/net.minecraft.commands.CommandSourceStack.java b/net.minecraft.commands.CommandSourceStack.java
+--- a/net.minecraft.commands.CommandSourceStack.java
++++ b/net.minecraft.commands.CommandSourceStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.silent", "this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendFailure(/* params */);
+
+diff --git a/net.minecraft.commands.CommandSourceStack.java b/net.minecraft.commands.CommandSourceStack.java
+--- a/net.minecraft.commands.CommandSourceStack.java
++++ b/net.minecraft.commands.CommandSourceStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withPermission(/* params */);
+
+diff --git a/net.minecraft.commands.CommandSourceStack.java b/net.minecraft.commands.CommandSourceStack.java
+--- a/net.minecraft.commands.CommandSourceStack.java
++++ b/net.minecraft.commands.CommandSourceStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ levels(/* params */);
+
+diff --git a/net.minecraft.commands.CommandSourceStack.java b/net.minecraft.commands.CommandSourceStack.java
+--- a/net.minecraft.commands.CommandSourceStack.java
++++ b/net.minecraft.commands.CommandSourceStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.permission"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ permissions(/* params */);
+
+diff --git a/net.minecraft.commands.CommandSourceStack.java b/net.minecraft.commands.CommandSourceStack.java
+--- a/net.minecraft.commands.CommandSourceStack.java
++++ b/net.minecraft.commands.CommandSourceStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.anchor", "this.withRotatio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ facing(/* params */);
+
+diff --git a/net.minecraft.commands.CommandSourceStack.java b/net.minecraft.commands.CommandSourceStack.java
+--- a/net.minecraft.commands.CommandSourceStack.java
++++ b/net.minecraft.commands.CommandSourceStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.withCallbac", "this.resultCallback"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withCallback(/* params */);
+
+diff --git a/net.minecraft.commands.CommandSourceStack.java b/net.minecraft.commands.CommandSourceStack.java
+--- a/net.minecraft.commands.CommandSourceStack.java
++++ b/net.minecraft.commands.CommandSourceStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getPlaye", "this.silent", "this.player"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendSystemMessage(/* params */);
+
+diff --git a/net.minecraft.commands.CommandSourceStack.java b/net.minecraft.commands.CommandSourceStack.java
+--- a/net.minecraft.commands.CommandSourceStack.java
++++ b/net.minecraft.commands.CommandSourceStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getPlaye", "this.player"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldFilterMessageTo(/* params */);
+
+diff --git a/net.minecraft.commands.CommandSourceStack.java b/net.minecraft.commands.CommandSourceStack.java
+--- a/net.minecraft.commands.CommandSourceStack.java
++++ b/net.minecraft.commands.CommandSourceStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withSource(/* params */);
+
+diff --git a/net.minecraft.commands.CommandSourceStack.java b/net.minecraft.commands.CommandSourceStack.java
+--- a/net.minecraft.commands.CommandSourceStack.java
++++ b/net.minecraft.commands.CommandSourceStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registryAccess(/* params */);
+
+diff --git a/net.minecraft.commands.CommandSourceStack.java b/net.minecraft.commands.CommandSourceStack.java
+--- a/net.minecraft.commands.CommandSourceStack.java
++++ b/net.minecraft.commands.CommandSourceStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ suggestRegistryElements(/* params */);
+
+diff --git a/net.minecraft.commands.CommandSourceStack.java b/net.minecraft.commands.CommandSourceStack.java
+--- a/net.minecraft.commands.CommandSourceStack.java
++++ b/net.minecraft.commands.CommandSourceStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server", "this.getServe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dispatcher(/* params */);
+
+diff --git a/net.minecraft.commands.CommandSourceStack.java b/net.minecraft.commands.CommandSourceStack.java
+--- a/net.minecraft.commands.CommandSourceStack.java
++++ b/net.minecraft.commands.CommandSourceStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withLevel(/* params */);
+
+diff --git a/net.minecraft.commands.CommandSourceStack.java b/net.minecraft.commands.CommandSourceStack.java
+--- a/net.minecraft.commands.CommandSourceStack.java
++++ b/net.minecraft.commands.CommandSourceStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withSigningContext(/* params */);
+
+diff --git a/net.minecraft.commands.CommandSourceStack.java b/net.minecraft.commands.CommandSourceStack.java
+--- a/net.minecraft.commands.CommandSourceStack.java
++++ b/net.minecraft.commands.CommandSourceStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.withPermissio", "this.permissions"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withMaximumPermission(/* params */);
+
+diff --git a/net.minecraft.commands.CommandSourceStack.java b/net.minecraft.commands.CommandSourceStack.java
+--- a/net.minecraft.commands.CommandSourceStack.java
++++ b/net.minecraft.commands.CommandSourceStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withPosition(/* params */);
+
+diff --git a/net.minecraft.commands.CommandSourceStack.java b/net.minecraft.commands.CommandSourceStack.java
+--- a/net.minecraft.commands.CommandSourceStack.java
++++ b/net.minecraft.commands.CommandSourceStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withRotation(/* params */);
+
+diff --git a/net.minecraft.commands.CommandSourceStack.java b/net.minecraft.commands.CommandSourceStack.java
+--- a/net.minecraft.commands.CommandSourceStack.java
++++ b/net.minecraft.commands.CommandSourceStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.resultCallbac"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ callback(/* params */);
+
+diff --git a/net.minecraft.commands.CommandSourceStack.java b/net.minecraft.commands.CommandSourceStack.java
+--- a/net.minecraft.commands.CommandSourceStack.java
++++ b/net.minecraft.commands.CommandSourceStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getDisplayNam", "this.server", "this.level", "this.displayName", "this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ broadcastToAdmins(/* params */);
+
+diff --git a/net.minecraft.commands.CommandSourceStack.java b/net.minecraft.commands.CommandSourceStack.java
+--- a/net.minecraft.commands.CommandSourceStack.java
++++ b/net.minecraft.commands.CommandSourceStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.silen", "this.source"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendSuccess(/* params */);
+
+diff --git a/net.minecraft.commands.CommandSourceStack.java b/net.minecraft.commands.CommandSourceStack.java
+--- a/net.minecraft.commands.CommandSourceStack.java
++++ b/net.minecraft.commands.CommandSourceStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withSuppressedOutput(/* params */);
+
+diff --git a/net.minecraft.commands.CommandSourceStack.java b/net.minecraft.commands.CommandSourceStack.java
+--- a/net.minecraft.commands.CommandSourceStack.java
++++ b/net.minecraft.commands.CommandSourceStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ enabledFeatures(/* params */);
+
+diff --git a/net.minecraft.commands.CommandSourceStack.java b/net.minecraft.commands.CommandSourceStack.java
+--- a/net.minecraft.commands.CommandSourceStack.java
++++ b/net.minecraft.commands.CommandSourceStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withAnchor(/* params */);
+

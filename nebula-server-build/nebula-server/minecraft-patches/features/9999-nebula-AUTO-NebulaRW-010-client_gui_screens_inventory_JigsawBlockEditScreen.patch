@@ -1,0 +1,134 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (10 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java b/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java b/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.*"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java b/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onCancel(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java b/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setMessag", "this.levels"},
++writeEntities = {"this.message"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateMessage(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java b/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.targetEdit", "this.poolEdit", "this.generateButton", "this.nameEdit", "this.doneButton"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateValidity(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java b/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.value"},
++writeEntities = {"this.levels"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyValue(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java b/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendToServer(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java b/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.sendToServe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onDone(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java b/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.joint", "this.levels"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resize(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java b/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.keepJigsaws", "this.jigsawEntity", "this.levels"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendGenerate(/* params */);
+

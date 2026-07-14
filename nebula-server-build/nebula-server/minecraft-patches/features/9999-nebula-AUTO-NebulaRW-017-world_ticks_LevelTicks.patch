@@ -1,0 +1,212 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (17 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.ticks.LevelTicks.java b/net.minecraft.world.ticks.LevelTicks.java
+--- a/net.minecraft.world.ticks.LevelTicks.java
++++ b/net.minecraft.world.ticks.LevelTicks.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.collectTick", "this.runCollectedTick", "this.cleanupAfterTic", "this.toRunThisTick"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.ticks.LevelTicks.java b/net.minecraft.world.ticks.LevelTicks.java
+--- a/net.minecraft.world.ticks.LevelTicks.java
++++ b/net.minecraft.world.ticks.LevelTicks.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.rescheduleLeftoverContainer", "this.drainContainer", "this.sortContainersToTic", "this.containersToTick"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ collectTicks(/* params */);
+
+diff --git a/net.minecraft.world.ticks.LevelTicks.java b/net.minecraft.world.ticks.LevelTicks.java
+--- a/net.minecraft.world.ticks.LevelTicks.java
++++ b/net.minecraft.world.ticks.LevelTicks.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.toRunThisTickSet", "this.toRunThisTick"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateTickSetIfNeeded(/* params */);
+
+diff --git a/net.minecraft.world.ticks.LevelTicks.java b/net.minecraft.world.ticks.LevelTicks.java
+--- a/net.minecraft.world.ticks.LevelTicks.java
++++ b/net.minecraft.world.ticks.LevelTicks.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.nextTickForContainer", "this.allContainers"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sortContainersToTick(/* params */);
+
+diff --git a/net.minecraft.world.ticks.LevelTicks.java b/net.minecraft.world.ticks.LevelTicks.java
+--- a/net.minecraft.world.ticks.LevelTicks.java
++++ b/net.minecraft.world.ticks.LevelTicks.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.schedul"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ copyAreaFrom(/* params */);
+
+diff --git a/net.minecraft.world.ticks.LevelTicks.java b/net.minecraft.world.ticks.LevelTicks.java
+--- a/net.minecraft.world.ticks.LevelTicks.java
++++ b/net.minecraft.world.ticks.LevelTicks.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.allContainers"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ schedule(/* params */);
+
+diff --git a/net.minecraft.world.ticks.LevelTicks.java b/net.minecraft.world.ticks.LevelTicks.java
+--- a/net.minecraft.world.ticks.LevelTicks.java
++++ b/net.minecraft.world.ticks.LevelTicks.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.canScheduleMoreTick"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ drainFromCurrentContainer(/* params */);
+
+diff --git a/net.minecraft.world.ticks.LevelTicks.java b/net.minecraft.world.ticks.LevelTicks.java
+--- a/net.minecraft.world.ticks.LevelTicks.java
++++ b/net.minecraft.world.ticks.LevelTicks.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.toRunThisTick"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scheduleForThisTick(/* params */);
+
+diff --git a/net.minecraft.world.ticks.LevelTicks.java b/net.minecraft.world.ticks.LevelTicks.java
+--- a/net.minecraft.world.ticks.LevelTicks.java
++++ b/net.minecraft.world.ticks.LevelTicks.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.nextTickForContainer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateContainerScheduling(/* params */);
+
+diff --git a/net.minecraft.world.ticks.LevelTicks.java b/net.minecraft.world.ticks.LevelTicks.java
+--- a/net.minecraft.world.ticks.LevelTicks.java
++++ b/net.minecraft.world.ticks.LevelTicks.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.toRunThisTickSet", "this.toRunThisTick", "this.containersToTick", "this.alreadyRunThisTick"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ cleanupAfterTick(/* params */);
+
+diff --git a/net.minecraft.world.ticks.LevelTicks.java b/net.minecraft.world.ticks.LevelTicks.java
+--- a/net.minecraft.world.ticks.LevelTicks.java
++++ b/net.minecraft.world.ticks.LevelTicks.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.canScheduleMoreTick", "this.containersToTick", "this.scheduleForThisTic", "this.drainFromCurrentContaine"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ drainContainers(/* params */);
+
+diff --git a/net.minecraft.world.ticks.LevelTicks.java b/net.minecraft.world.ticks.LevelTicks.java
+--- a/net.minecraft.world.ticks.LevelTicks.java
++++ b/net.minecraft.world.ticks.LevelTicks.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.toRunThisTickSet", "this.toRunThisTick"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ runCollectedTicks(/* params */);
+
+diff --git a/net.minecraft.world.ticks.LevelTicks.java b/net.minecraft.world.ticks.LevelTicks.java
+--- a/net.minecraft.world.ticks.LevelTicks.java
++++ b/net.minecraft.world.ticks.LevelTicks.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.copyAreaFro"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ copyArea(/* params */);
+
+diff --git a/net.minecraft.world.ticks.LevelTicks.java b/net.minecraft.world.ticks.LevelTicks.java
+--- a/net.minecraft.world.ticks.LevelTicks.java
++++ b/net.minecraft.world.ticks.LevelTicks.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.containersToTick", "this.updateContainerSchedulin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ rescheduleLeftoverContainers(/* params */);
+
+diff --git a/net.minecraft.world.ticks.LevelTicks.java b/net.minecraft.world.ticks.LevelTicks.java
+--- a/net.minecraft.world.ticks.LevelTicks.java
++++ b/net.minecraft.world.ticks.LevelTicks.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.toRunThisTickSet", "this.calculateTickSetIfNeede"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ willTickThisTick(/* params */);
+
+diff --git a/net.minecraft.world.ticks.LevelTicks.java b/net.minecraft.world.ticks.LevelTicks.java
+--- a/net.minecraft.world.ticks.LevelTicks.java
++++ b/net.minecraft.world.ticks.LevelTicks.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.allContainers"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ count(/* params */);
+
+diff --git a/net.minecraft.world.ticks.LevelTicks.java b/net.minecraft.world.ticks.LevelTicks.java
+--- a/net.minecraft.world.ticks.LevelTicks.java
++++ b/net.minecraft.world.ticks.LevelTicks.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.allContainers"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forContainersInArea(/* params */);
+

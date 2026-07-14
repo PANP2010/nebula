@@ -1,0 +1,60 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.monster.Monster.java b/net.minecraft.world.entity.monster.Monster.java
+--- a/net.minecraft.world.entity.monster.Monster.java
++++ b/net.minecraft.world.entity.monster.Monster.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++triggeredEvents = {"ENTITY_SPAWNED"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkSurfaceMonstersSpawnRules(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Monster.java b/net.minecraft.world.entity.monster.Monster.java
+--- a/net.minecraft.world.entity.monster.Monster.java
++++ b/net.minecraft.world.entity.monster.Monster.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++triggeredEvents = {"ENTITY_SPAWNED"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkMonsterSpawnRules(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Monster.java b/net.minecraft.world.entity.monster.Monster.java
+--- a/net.minecraft.world.entity.monster.Monster.java
++++ b/net.minecraft.world.entity.monster.Monster.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateSwingTim", "this.updateNoActionTim"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ aiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Monster.java b/net.minecraft.world.entity.monster.Monster.java
+--- a/net.minecraft.world.entity.monster.Monster.java
++++ b/net.minecraft.world.entity.monster.Monster.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.noActionTime", "this.getLightLevelDependentMagicValu", "this.lightLevelDependentMagicValue"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateNoActionTime(/* params */);
+

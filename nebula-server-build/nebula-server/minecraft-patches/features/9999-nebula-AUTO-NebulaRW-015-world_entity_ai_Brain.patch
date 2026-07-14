@@ -1,0 +1,192 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (15 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.ai.Brain.java b/net.minecraft.world.entity.ai.Brain.java
+--- a/net.minecraft.world.entity.ai.Brain.java
++++ b/net.minecraft.world.entity.ai.Brain.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.memoryTypes", "this.activities", "this.sensorTypes"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ makeBrain(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.Brain.java b/net.minecraft.world.entity.ai.Brain.java
+--- a/net.minecraft.world.entity.ai.Brain.java
++++ b/net.minecraft.world.entity.ai.Brain.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.schedule", "this.lastScheduleUpdate", "this.setActiveActivityIfPossibl", "this.activeActivities", "this.lastScheduleUpdat"},
++writeEntities = {"this.lastScheduleUpdate", "this.activeActivityIfPossible"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateActivityFromSchedule(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.Brain.java b/net.minecraft.world.entity.ai.Brain.java
+--- a/net.minecraft.world.entity.ai.Brain.java
++++ b/net.minecraft.world.entity.ai.Brain.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.memorySlotIfPresent", "this.getMemorySlotIfPresen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ eraseMemory(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.Brain.java b/net.minecraft.world.entity.ai.Brain.java
+--- a/net.minecraft.world.entity.ai.Brain.java
++++ b/net.minecraft.world.entity.ai.Brain.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.activityRequirements"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ activityRequirementsAreMet(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.Brain.java b/net.minecraft.world.entity.ai.Brain.java
+--- a/net.minecraft.world.entity.ai.Brain.java
++++ b/net.minecraft.world.entity.ai.Brain.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getRunningBehavior", "this.runningBehaviors"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stopAll(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.Brain.java b/net.minecraft.world.entity.ai.Brain.java
+--- a/net.minecraft.world.entity.ai.Brain.java
++++ b/net.minecraft.world.entity.ai.Brain.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tickEachRunningBehavio", "this.startEachNonRunningBehavio", "this.tickSensor", "this.forgetOutdatedMemorie"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.Brain.java b/net.minecraft.world.entity.ai.Brain.java
+--- a/net.minecraft.world.entity.ai.Brain.java
++++ b/net.minecraft.world.entity.ai.Brain.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.activityMemoriesToEraseWhenStopped", "this.activeActivities", "this.eraseMemor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ eraseMemoriesForOtherActivitesThan(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.Brain.java b/net.minecraft.world.entity.ai.Brain.java
+--- a/net.minecraft.world.entity.ai.Brain.java
++++ b/net.minecraft.world.entity.ai.Brain.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.defaultActivity", "this.setActiveActivit"},
++writeEntities = {"this.activeActivity"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ useDefaultActivity(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.Brain.java b/net.minecraft.world.entity.ai.Brain.java
+--- a/net.minecraft.world.entity.ai.Brain.java
++++ b/net.minecraft.world.entity.ai.Brain.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sensors"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickSensors(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.Brain.java b/net.minecraft.world.entity.ai.Brain.java
+--- a/net.minecraft.world.entity.ai.Brain.java
++++ b/net.minecraft.world.entity.ai.Brain.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.memories"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forgetOutdatedMemories(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.Brain.java b/net.minecraft.world.entity.ai.Brain.java
+--- a/net.minecraft.world.entity.ai.Brain.java
++++ b/net.minecraft.world.entity.ai.Brain.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.activeActivities", "this.availableBehaviorsByPriority"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startEachNonRunningBehavior(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.Brain.java b/net.minecraft.world.entity.ai.Brain.java
+--- a/net.minecraft.world.entity.ai.Brain.java
++++ b/net.minecraft.world.entity.ai.Brain.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.memories"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerMemory(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.Brain.java b/net.minecraft.world.entity.ai.Brain.java
+--- a/net.minecraft.world.entity.ai.Brain.java
++++ b/net.minecraft.world.entity.ai.Brain.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.memorySlotIfPresent", "this.getMemorySlotIfPresen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkMemory(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.Brain.java b/net.minecraft.world.entity.ai.Brain.java
+--- a/net.minecraft.world.entity.ai.Brain.java
++++ b/net.minecraft.world.entity.ai.Brain.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getRunningBehavior", "this.runningBehaviors"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickEachRunningBehavior(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.Brain.java b/net.minecraft.world.entity.ai.Brain.java
+--- a/net.minecraft.world.entity.ai.Brain.java
++++ b/net.minecraft.world.entity.ai.Brain.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.memories"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forEach(/* params */);
+

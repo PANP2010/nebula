@@ -1,0 +1,44 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (3 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.phys.BlockHitResult.java b/net.minecraft.world.phys.BlockHitResult.java
+--- a/net.minecraft.world.phys.BlockHitResult.java
++++ b/net.minecraft.world.phys.BlockHitResult.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockPos", "this.location", "this.inside", "this.miss", "this.direction"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hitBorder(/* params */);
+
+diff --git a/net.minecraft.world.phys.BlockHitResult.java b/net.minecraft.world.phys.BlockHitResult.java
+--- a/net.minecraft.world.phys.BlockHitResult.java
++++ b/net.minecraft.world.phys.BlockHitResult.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.worldBorderHit", "this.blockPos", "this.location", "this.inside", "this.miss"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withDirection(/* params */);
+
+diff --git a/net.minecraft.world.phys.BlockHitResult.java b/net.minecraft.world.phys.BlockHitResult.java
+--- a/net.minecraft.world.phys.BlockHitResult.java
++++ b/net.minecraft.world.phys.BlockHitResult.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.worldBorderHit", "this.location", "this.inside", "this.miss", "this.direction"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withPosition(/* params */);
+

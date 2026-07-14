@@ -1,0 +1,161 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (12 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.animal.equine.Llama.java b/net.minecraft.world.entity.animal.equine.Llama.java
+--- a/net.minecraft.world.entity.animal.equine.Llama.java
++++ b/net.minecraft.world.entity.animal.equine.Llama.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random", "this.playSoun"},
++triggeredEvents = {"SOUND_PLAY"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playChestEquipsSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.equine.Llama.java b/net.minecraft.world.entity.animal.equine.Llama.java
+--- a/net.minecraft.world.entity.animal.equine.Llama.java
++++ b/net.minecraft.world.entity.animal.equine.Llama.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playStepSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.equine.Llama.java b/net.minecraft.world.entity.animal.equine.Llama.java
+--- a/net.minecraft.world.entity.animal.equine.Llama.java
++++ b/net.minecraft.world.entity.animal.equine.Llama.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.targetSelector", "this.goalSelector"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerGoals(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.equine.Llama.java b/net.minecraft.world.entity.animal.equine.Llama.java
+--- a/net.minecraft.world.entity.animal.equine.Llama.java
++++ b/net.minecraft.world.entity.animal.equine.Llama.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.applyImplicitComponentIfPresen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyImplicitComponents(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.equine.Llama.java b/net.minecraft.world.entity.animal.equine.Llama.java
+--- a/net.minecraft.world.entity.animal.equine.Llama.java
++++ b/net.minecraft.world.entity.animal.equine.Llama.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.caravanHead"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ inCaravan(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.equine.Llama.java b/net.minecraft.world.entity.animal.equine.Llama.java
+--- a/net.minecraft.world.entity.animal.equine.Llama.java
++++ b/net.minecraft.world.entity.animal.equine.Llama.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.inCarava", "this.isBab"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ followMommy(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.equine.Llama.java b/net.minecraft.world.entity.animal.equine.Llama.java
+--- a/net.minecraft.world.entity.animal.equine.Llama.java
++++ b/net.minecraft.world.entity.animal.equine.Llama.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.caravanHead", "this.caravanHea"},
++writeEntities = {"this.caravanHead"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ joinCaravan(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.equine.Llama.java b/net.minecraft.world.entity.animal.equine.Llama.java
+--- a/net.minecraft.world.entity.animal.equine.Llama.java
++++ b/net.minecraft.world.entity.animal.equine.Llama.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setVarian"},
++writeEntities = {"this.variant"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyImplicitComponent(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.equine.Llama.java b/net.minecraft.world.entity.animal.equine.Llama.java
+--- a/net.minecraft.world.entity.animal.equine.Llama.java
++++ b/net.minecraft.world.entity.animal.equine.Llama.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.get", "this.x", "this.leve", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spit(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.equine.Llama.java b/net.minecraft.world.entity.animal.equine.Llama.java
+--- a/net.minecraft.world.entity.animal.equine.Llama.java
++++ b/net.minecraft.world.entity.animal.equine.Llama.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setVarian", "this.setStrengt"},
++writeEntities = {"this.strength", "this.variant"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.equine.Llama.java b/net.minecraft.world.entity.animal.equine.Llama.java
+--- a/net.minecraft.world.entity.animal.equine.Llama.java
++++ b/net.minecraft.world.entity.animal.equine.Llama.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.caravanHead"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ leaveCaravan(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.equine.Llama.java b/net.minecraft.world.entity.animal.equine.Llama.java
+--- a/net.minecraft.world.entity.animal.equine.Llama.java
++++ b/net.minecraft.world.entity.animal.equine.Llama.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.calculateFallDamag"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ causeFallDamage(/* params */);
+

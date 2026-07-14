@@ -1,0 +1,72 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.entity.ClientAvatarState.java b/net.minecraft.client.entity.ClientAvatarState.java
+--- a/net.minecraft.client.entity.ClientAvatarState.java
++++ b/net.minecraft.client.entity.ClientAvatarState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.bob", "this.bo"},
++writeEntities = {"this.bobO", "this.bob"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetBob(/* params */);
+
+diff --git a/net.minecraft.client.entity.ClientAvatarState.java b/net.minecraft.client.entity.ClientAvatarState.java
+--- a/net.minecraft.client.entity.ClientAvatarState.java
++++ b/net.minecraft.client.entity.ClientAvatarState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.moveCloa", "this.deltaMovementOnPreviousTic", "this.walkDist", "this.walkDis"},
++writeEntities = {"this.walkDistO", "this.deltaMovementOnPreviousTick"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.client.entity.ClientAvatarState.java b/net.minecraft.client.entity.ClientAvatarState.java
+--- a/net.minecraft.client.entity.ClientAvatarState.java
++++ b/net.minecraft.client.entity.ClientAvatarState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.xCloakO", "this.yCloakO", "this.zCloakO"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ moveCloak(/* params */);
+
+diff --git a/net.minecraft.client.entity.ClientAvatarState.java b/net.minecraft.client.entity.ClientAvatarState.java
+--- a/net.minecraft.client.entity.ClientAvatarState.java
++++ b/net.minecraft.client.entity.ClientAvatarState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.deltaMovementOnPreviousTic"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ deltaMovementOnPreviousTick(/* params */);
+
+diff --git a/net.minecraft.client.entity.ClientAvatarState.java b/net.minecraft.client.entity.ClientAvatarState.java
+--- a/net.minecraft.client.entity.ClientAvatarState.java
++++ b/net.minecraft.client.entity.ClientAvatarState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.bob", "this.bo"},
++writeEntities = {"this.bobO", "this.bob"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateBob(/* params */);
+

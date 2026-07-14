@@ -1,0 +1,119 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (9 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.util.worldupdate.RegionStorageUpgrader.java b/net.minecraft.util.worldupdate.RegionStorageUpgrader.java
+--- a/net.minecraft.util.worldupdate.RegionStorageUpgrader.java
++++ b/net.minecraft.util.worldupdate.RegionStorageUpgrader.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.file", "this.files"},
++writeEntities = {"this.files"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fileAmount(/* params */);
+
+diff --git a/net.minecraft.util.worldupdate.RegionStorageUpgrader.java b/net.minecraft.util.worldupdate.RegionStorageUpgrader.java
+--- a/net.minecraft.util.worldupdate.RegionStorageUpgrader.java
++++ b/net.minecraft.util.worldupdate.RegionStorageUpgrader.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.recreateRegionFiles", "this.dataFixType", "this.dataFixer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createStorage(/* params */);
+
+diff --git a/net.minecraft.util.worldupdate.RegionStorageUpgrader.java b/net.minecraft.util.worldupdate.RegionStorageUpgrader.java
+--- a/net.minecraft.util.worldupdate.RegionStorageUpgrader.java
++++ b/net.minecraft.util.worldupdate.RegionStorageUpgrader.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tryProcessOnePositio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ processOnePosition(/* params */);
+
+diff --git a/net.minecraft.util.worldupdate.RegionStorageUpgrader.java b/net.minecraft.util.worldupdate.RegionStorageUpgrader.java
+--- a/net.minecraft.util.worldupdate.RegionStorageUpgrader.java
++++ b/net.minecraft.util.worldupdate.RegionStorageUpgrader.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.dataFixContextTag", "this.defaultVersion"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ upgradeTag(/* params */);
+
+diff --git a/net.minecraft.util.worldupdate.RegionStorageUpgrader.java b/net.minecraft.util.worldupdate.RegionStorageUpgrader.java
+--- a/net.minecraft.util.worldupdate.RegionStorageUpgrader.java
++++ b/net.minecraft.util.worldupdate.RegionStorageUpgrader.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.dimensionKey", "this.files", "this.storage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/net.minecraft.util.worldupdate.RegionStorageUpgrader.java b/net.minecraft.util.worldupdate.RegionStorageUpgrader.java
+--- a/net.minecraft.util.worldupdate.RegionStorageUpgrader.java
++++ b/net.minecraft.util.worldupdate.RegionStorageUpgrader.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.file", "this.dimensionKe", "this.storag"},
++writeEntities = {"this.dimensionKey", "this.files", "this.storage"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ upgrade(/* params */);
+
+diff --git a/net.minecraft.util.worldupdate.RegionStorageUpgrader.java b/net.minecraft.util.worldupdate.RegionStorageUpgrader.java
+--- a/net.minecraft.util.worldupdate.RegionStorageUpgrader.java
++++ b/net.minecraft.util.worldupdate.RegionStorageUpgrader.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ build(/* params */);
+
+diff --git a/net.minecraft.util.worldupdate.RegionStorageUpgrader.java b/net.minecraft.util.worldupdate.RegionStorageUpgrader.java
+--- a/net.minecraft.util.worldupdate.RegionStorageUpgrader.java
++++ b/net.minecraft.util.worldupdate.RegionStorageUpgrader.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.recreateRegionFiles", "this.previousWriteFuture"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onFileFinished(/* params */);
+
+diff --git a/net.minecraft.util.worldupdate.RegionStorageUpgrader.java b/net.minecraft.util.worldupdate.RegionStorageUpgrader.java
+--- a/net.minecraft.util.worldupdate.RegionStorageUpgrader.java
++++ b/net.minecraft.util.worldupdate.RegionStorageUpgrader.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.upgradeTa", "this.tagModifiers"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tryProcessOnePosition(/* params */);
+

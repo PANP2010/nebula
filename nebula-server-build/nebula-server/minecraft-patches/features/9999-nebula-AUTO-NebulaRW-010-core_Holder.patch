@@ -1,0 +1,132 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (10 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.core.Holder.java b/net.minecraft.core.Holder.java
+--- a/net.minecraft.core.Holder.java
++++ b/net.minecraft.core.Holder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ke"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ unwrapKey(/* params */);
+
+diff --git a/net.minecraft.core.Holder.java b/net.minecraft.core.Holder.java
+--- a/net.minecraft.core.Holder.java
++++ b/net.minecraft.core.Holder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tag"},
++writeEntities = {"this.tags"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ boundTags(/* params */);
+
+diff --git a/net.minecraft.core.Holder.java b/net.minecraft.core.Holder.java
+--- a/net.minecraft.core.Holder.java
++++ b/net.minecraft.core.Holder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.boundTag"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tags(/* params */);
+
+diff --git a/net.minecraft.core.Holder.java b/net.minecraft.core.Holder.java
+--- a/net.minecraft.core.Holder.java
++++ b/net.minecraft.core.Holder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.typ", "this.value", "this.key"},
++writeEntities = {"this.type"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ bindValue(/* params */);
+
+diff --git a/net.minecraft.core.Holder.java b/net.minecraft.core.Holder.java
+--- a/net.minecraft.core.Holder.java
++++ b/net.minecraft.core.Holder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.owner", "this.valu", "this.key"},
++writeEntities = {"this.value"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ value(/* params */);
+
+diff --git a/net.minecraft.core.Holder.java b/net.minecraft.core.Holder.java
+--- a/net.minecraft.core.Holder.java
++++ b/net.minecraft.core.Holder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.component"},
++writeEntities = {"this.components"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ bindComponents(/* params */);
+
+diff --git a/net.minecraft.core.Holder.java b/net.minecraft.core.Holder.java
+--- a/net.minecraft.core.Holder.java
++++ b/net.minecraft.core.Holder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.components"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ areComponentsBound(/* params */);
+
+diff --git a/net.minecraft.core.Holder.java b/net.minecraft.core.Holder.java
+--- a/net.minecraft.core.Holder.java
++++ b/net.minecraft.core.Holder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ke"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ unwrap(/* params */);
+
+diff --git a/net.minecraft.core.Holder.java b/net.minecraft.core.Holder.java
+--- a/net.minecraft.core.Holder.java
++++ b/net.minecraft.core.Holder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.value", "this.key"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.core.Holder.java b/net.minecraft.core.Holder.java
+--- a/net.minecraft.core.Holder.java
++++ b/net.minecraft.core.Holder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.components"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ components(/* params */);
+

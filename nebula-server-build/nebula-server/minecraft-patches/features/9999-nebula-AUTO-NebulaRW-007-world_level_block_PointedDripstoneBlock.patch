@@ -1,0 +1,94 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.PointedDripstoneBlock.java b/net.minecraft.world.level.block.PointedDripstoneBlock.java
+--- a/net.minecraft.world.level.block.PointedDripstoneBlock.java
++++ b/net.minecraft.world.level.block.PointedDripstoneBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ growStalactiteOrStalagmiteIfPossible(/* params */);
+
+diff --git a/net.minecraft.world.level.block.PointedDripstoneBlock.java b/net.minecraft.world.level.block.PointedDripstoneBlock.java
+--- a/net.minecraft.world.level.block.PointedDripstoneBlock.java
++++ b/net.minecraft.world.level.block.PointedDripstoneBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.canSurviv"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.level.block.PointedDripstoneBlock.java b/net.minecraft.world.level.block.PointedDripstoneBlock.java
+--- a/net.minecraft.world.level.block.PointedDripstoneBlock.java
++++ b/net.minecraft.world.level.block.PointedDripstoneBlock.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createDripstone(/* params */);
+
+diff --git a/net.minecraft.world.level.block.PointedDripstoneBlock.java b/net.minecraft.world.level.block.PointedDripstoneBlock.java
+--- a/net.minecraft.world.level.block.PointedDripstoneBlock.java
++++ b/net.minecraft.world.level.block.PointedDripstoneBlock.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findBlockVertical(/* params */);
+
+diff --git a/net.minecraft.world.level.block.PointedDripstoneBlock.java b/net.minecraft.world.level.block.PointedDripstoneBlock.java
+--- a/net.minecraft.world.level.block.PointedDripstoneBlock.java
++++ b/net.minecraft.world.level.block.PointedDripstoneBlock.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ growStalagmiteBelow(/* params */);
+
+diff --git a/net.minecraft.world.level.block.PointedDripstoneBlock.java b/net.minecraft.world.level.block.PointedDripstoneBlock.java
+--- a/net.minecraft.world.level.block.PointedDripstoneBlock.java
++++ b/net.minecraft.world.level.block.PointedDripstoneBlock.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ grow(/* params */);
+
+diff --git a/net.minecraft.world.level.block.PointedDripstoneBlock.java b/net.minecraft.world.level.block.PointedDripstoneBlock.java
+--- a/net.minecraft.world.level.block.PointedDripstoneBlock.java
++++ b/net.minecraft.world.level.block.PointedDripstoneBlock.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{neighbors}", "{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateDripstoneThickness(/* params */);
+

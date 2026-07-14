@@ -1,0 +1,89 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.particle.FireworkParticles.java b/net.minecraft.client.particle.FireworkParticles.java
+--- a/net.minecraft.client.particle.FireworkParticles.java
++++ b/net.minecraft.client.particle.FireworkParticles.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createParticl", "this.random", "this.x", "this.y", "this.z"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createParticleShape(/* params */);
+
+diff --git a/net.minecraft.client.particle.FireworkParticles.java b/net.minecraft.client.particle.FireworkParticles.java
+--- a/net.minecraft.client.particle.FireworkParticles.java
++++ b/net.minecraft.client.particle.FireworkParticles.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createParticleBurst(/* params */);
+
+diff --git a/net.minecraft.client.particle.FireworkParticles.java b/net.minecraft.client.particle.FireworkParticles.java
+--- a/net.minecraft.client.particle.FireworkParticles.java
++++ b/net.minecraft.client.particle.FireworkParticles.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createParticl", "this.random"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createParticleBall(/* params */);
+
+diff --git a/net.minecraft.client.particle.FireworkParticles.java b/net.minecraft.client.particle.FireworkParticles.java
+--- a/net.minecraft.client.particle.FireworkParticles.java
++++ b/net.minecraft.client.particle.FireworkParticles.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random", "this.engine"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createParticle(/* params */);
+
+diff --git a/net.minecraft.client.particle.FireworkParticles.java b/net.minecraft.client.particle.FireworkParticles.java
+--- a/net.minecraft.client.particle.FireworkParticles.java
++++ b/net.minecraft.client.particle.FireworkParticles.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.twinkle", "this.lifetime", "this.age"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extract(/* params */);
+
+diff --git a/net.minecraft.client.particle.FireworkParticles.java b/net.minecraft.client.particle.FireworkParticles.java
+--- a/net.minecraft.client.particle.FireworkParticles.java
++++ b/net.minecraft.client.particle.FireworkParticles.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isFarAwayFromCamer", "this.lif", "this.explosions"},
++writeEntities = {"this.life"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+

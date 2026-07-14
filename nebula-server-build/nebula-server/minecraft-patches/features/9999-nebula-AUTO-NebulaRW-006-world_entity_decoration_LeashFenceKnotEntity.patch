@@ -1,0 +1,84 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.decoration.LeashFenceKnotEntity.java b/net.minecraft.world.entity.decoration.LeashFenceKnotEntity.java
+--- a/net.minecraft.world.entity.decoration.LeashFenceKnotEntity.java
++++ b/net.minecraft.world.entity.decoration.LeashFenceKnotEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pos", "this.leve"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ survives(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.LeashFenceKnotEntity.java b/net.minecraft.world.entity.decoration.LeashFenceKnotEntity.java
+--- a/net.minecraft.world.entity.decoration.LeashFenceKnotEntity.java
++++ b/net.minecraft.world.entity.decoration.LeashFenceKnotEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropItem(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.LeashFenceKnotEntity.java b/net.minecraft.world.entity.decoration.LeashFenceKnotEntity.java
+--- a/net.minecraft.world.entity.decoration.LeashFenceKnotEntity.java
++++ b/net.minecraft.world.entity.decoration.LeashFenceKnotEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playPlacementSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.LeashFenceKnotEntity.java b/net.minecraft.world.entity.decoration.LeashFenceKnotEntity.java
+--- a/net.minecraft.world.entity.decoration.LeashFenceKnotEntity.java
++++ b/net.minecraft.world.entity.decoration.LeashFenceKnotEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ interact(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.LeashFenceKnotEntity.java b/net.minecraft.world.entity.decoration.LeashFenceKnotEntity.java
+--- a/net.minecraft.world.entity.decoration.LeashFenceKnotEntity.java
++++ b/net.minecraft.world.entity.decoration.LeashFenceKnotEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.boundingBox", "this.posRaw"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ recalculateBoundingBox(/* params */);
+
+diff --git a/net.minecraft.world.entity.decoration.LeashFenceKnotEntity.java b/net.minecraft.world.entity.decoration.LeashFenceKnotEntity.java
+--- a/net.minecraft.world.entity.decoration.LeashFenceKnotEntity.java
++++ b/net.minecraft.world.entity.decoration.LeashFenceKnotEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.discar"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ notifyLeasheeRemoved(/* params */);
+

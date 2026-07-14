@@ -1,0 +1,47 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (3 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.FireBlock.java b/net.minecraft.world.level.block.FireBlock.java
+--- a/net.minecraft.world.level.block.FireBlock.java
++++ b/net.minecraft.world.level.block.FireBlock.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.stateWithAge", "this.getBurnOdd", "this.burnOdds", "this.getStateWithAg"},
++readBlocks = {"{position}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkBurnOut(/* params */);
+
+diff --git a/net.minecraft.world.level.block.FireBlock.java b/net.minecraft.world.level.block.FireBlock.java
+--- a/net.minecraft.world.level.block.FireBlock.java
++++ b/net.minecraft.world.level.block.FireBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.stateWithAge", "this.canSurviv", "this.getStateWithAg"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateShape(/* params */);
+
+diff --git a/net.minecraft.world.level.block.FireBlock.java b/net.minecraft.world.level.block.FireBlock.java
+--- a/net.minecraft.world.level.block.FireBlock.java
++++ b/net.minecraft.world.level.block.FireBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shapeForEachState", "this.getShapeForEachStat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ makeShapes(/* params */);
+

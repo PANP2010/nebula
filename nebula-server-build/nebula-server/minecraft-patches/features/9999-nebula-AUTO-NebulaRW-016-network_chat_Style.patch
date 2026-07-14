@@ -1,0 +1,200 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (16 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.network.chat.Style.java b/net.minecraft.network.chat.Style.java
+--- a/net.minecraft.network.chat.Style.java
++++ b/net.minecraft.network.chat.Style.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withShadowColor(/* params */);
+
+diff --git a/net.minecraft.network.chat.Style.java b/net.minecraft.network.chat.Style.java
+--- a/net.minecraft.network.chat.Style.java
++++ b/net.minecraft.network.chat.Style.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyFormats(/* params */);
+
+diff --git a/net.minecraft.network.chat.Style.java b/net.minecraft.network.chat.Style.java
+--- a/net.minecraft.network.chat.Style.java
++++ b/net.minecraft.network.chat.Style.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyFormat(/* params */);
+
+diff --git a/net.minecraft.network.chat.Style.java b/net.minecraft.network.chat.Style.java
+--- a/net.minecraft.network.chat.Style.java
++++ b/net.minecraft.network.chat.Style.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withItalic(/* params */);
+
+diff --git a/net.minecraft.network.chat.Style.java b/net.minecraft.network.chat.Style.java
+--- a/net.minecraft.network.chat.Style.java
++++ b/net.minecraft.network.chat.Style.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isNotFirst"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ prependSeparator(/* params */);
+
+diff --git a/net.minecraft.network.chat.Style.java b/net.minecraft.network.chat.Style.java
+--- a/net.minecraft.network.chat.Style.java
++++ b/net.minecraft.network.chat.Style.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withBold(/* params */);
+
+diff --git a/net.minecraft.network.chat.Style.java b/net.minecraft.network.chat.Style.java
+--- a/net.minecraft.network.chat.Style.java
++++ b/net.minecraft.network.chat.Style.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withUnderlined(/* params */);
+
+diff --git a/net.minecraft.network.chat.Style.java b/net.minecraft.network.chat.Style.java
+--- a/net.minecraft.network.chat.Style.java
++++ b/net.minecraft.network.chat.Style.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyLegacyFormat(/* params */);
+
+diff --git a/net.minecraft.network.chat.Style.java b/net.minecraft.network.chat.Style.java
+--- a/net.minecraft.network.chat.Style.java
++++ b/net.minecraft.network.chat.Style.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withObfuscated(/* params */);
+
+diff --git a/net.minecraft.network.chat.Style.java b/net.minecraft.network.chat.Style.java
+--- a/net.minecraft.network.chat.Style.java
++++ b/net.minecraft.network.chat.Style.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withStrikethrough(/* params */);
+
+diff --git a/net.minecraft.network.chat.Style.java b/net.minecraft.network.chat.Style.java
+--- a/net.minecraft.network.chat.Style.java
++++ b/net.minecraft.network.chat.Style.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withClickEvent(/* params */);
+
+diff --git a/net.minecraft.network.chat.Style.java b/net.minecraft.network.chat.Style.java
+--- a/net.minecraft.network.chat.Style.java
++++ b/net.minecraft.network.chat.Style.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withInsertion(/* params */);
+
+diff --git a/net.minecraft.network.chat.Style.java b/net.minecraft.network.chat.Style.java
+--- a/net.minecraft.network.chat.Style.java
++++ b/net.minecraft.network.chat.Style.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withHoverEvent(/* params */);
+
+diff --git a/net.minecraft.network.chat.Style.java b/net.minecraft.network.chat.Style.java
+--- a/net.minecraft.network.chat.Style.java
++++ b/net.minecraft.network.chat.Style.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withFont(/* params */);
+
+diff --git a/net.minecraft.network.chat.Style.java b/net.minecraft.network.chat.Style.java
+--- a/net.minecraft.network.chat.Style.java
++++ b/net.minecraft.network.chat.Style.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.withShadowColo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withoutShadow(/* params */);
+
+diff --git a/net.minecraft.network.chat.Style.java b/net.minecraft.network.chat.Style.java
+--- a/net.minecraft.network.chat.Style.java
++++ b/net.minecraft.network.chat.Style.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.withColo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withColor(/* params */);
+

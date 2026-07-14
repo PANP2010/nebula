@@ -1,0 +1,589 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (47 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random", "this.gossips", "this.lastGossipTime", "this.spawnGolemIfNeede", "this.lastGossipTim"},
++writeEntities = {"this.lastGossipTime"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ gossip(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.lastTradedPlayer", "this.villagerXp", "this.increaseProfessionLevelOnUpdate", "this.updateMerchantTimer"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ rewardTradeXp(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.applyImplicitComponentIfPresen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyImplicitComponents(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entityData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.offers", "this.leve", "this.getOffer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetSpecialPrices(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBrai", "this.assignProfessionWhenSpawned", "this.assignProfessionWhenSpawne", "this.brain"},
++writeEntities = {"this.assignProfessionWhenSpawned"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ customServerAiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leve", "this.brain"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stopSleeping(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.catchUpDeman", "this.numberOfRestocksToda"},
++writeEntities = {"this.numberOfRestocksToday"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetNumberOfRestocks(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.countFoodPointsInInventor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ wantsMoreFood(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resendOffersToTradingPlayer(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isAliv", "this.isTradin", "this.isSleepin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mobInteract(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.convertT", "this.releaseAllPoi"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ thunderHit(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.assignProfessionWhenSpawne"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assignProfessionWhenSpawned(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.golemSpawnConditionsMe", "this.leve", "this.brain"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ wantsToSpawnGolem(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.makeSoun", "this.getVillagerDat", "this.villagerData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playWorkSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateTrades(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBrai", "this.brai", "this.registerBrainGoal", "this.brain"},
++writeEntities = {"this.brain"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ refreshBrain(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.releasePo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ releaseAllPois(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leve", "this.brain"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ releasePoi(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.addParticlesAroundSel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleEntityEvent(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.offers", "this.getOffer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateDemand(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.foodLevel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ digestFood(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.boundingBox", "this.wantsToSpawnGole", "this.blockPositio", "this.getBoundingBo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spawnGolemIfNeeded(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.foodLevel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ eatUntilFull(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registerBrainGoal"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ makeBrain(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.gossips"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onReputationEventFrom(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isBab"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerBrainGoals(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.foodLevel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hungry(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lastGossipDecayTim", "this.leve"},
++writeEntities = {"this.lastGossipDecayTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ maybeDecayGossip(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.brain"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ golemSpawnConditionsMet(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.offers", "this.numberOfRestocksToda", "this.getOffer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ catchUpDemand(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getInventor", "this.getVillagerDat", "this.inventory", "this.villagerData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ wantsToPickUp(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.eatUntilFul", "this.digestFoo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ eatAndDigestFood(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.offers", "this.getOffer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ needsToRestock(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.lastRestockCheckDay", "this.lastRestockGameTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldRestock(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.resetSpecialPrice"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stopTrading(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.refreshBrai", "this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ ageBoundaryReached(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.offers", "this.updateDeman", "this.getOffer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ restock(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getUnhappyCounte", "this.unhappyCounter", "this.setUnhappyCounte"},
++writeEntities = {"this.unhappyCounter"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.offers", "this.playerReputation", "this.getPlayerReputatio", "this.getOffer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateSpecialPrices(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.tradingPlayer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startTrading(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getInventor", "this.inventory"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ countFoodPointsInInventory(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setVillagerDat", "this.getVillagerDat", "this.villagerData"},
++writeEntities = {"this.villagerData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyImplicitComponent(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setVillagerDat", "this.getVillagerDat", "this.updateTrade", "this.villagerData"},
++writeEntities = {"this.villagerData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ increaseMerchantCareer(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.villagerXp", "this.getVillagerDat", "this.villagerData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldIncreaseLevel(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leve", "this.brain"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tellWitnessesThatIWasMurdered(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.Villager.java b/net.minecraft.world.entity.npc.villager.Villager.java
+--- a/net.minecraft.world.entity.npc.villager.Villager.java
++++ b/net.minecraft.world.entity.npc.villager.Villager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.numberOfRestocksToday", "this.lastRestockGameTime", "this.leve", "this.numberOfRestocksToda"},
++writeEntities = {"this.numberOfRestocksToday"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ allowedToRestock(/* params */);
+

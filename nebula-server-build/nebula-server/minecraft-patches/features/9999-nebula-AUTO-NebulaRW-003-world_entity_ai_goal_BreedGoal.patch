@@ -1,0 +1,45 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (3 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.ai.goal.BreedGoal.java b/net.minecraft.world.entity.ai.goal.BreedGoal.java
+--- a/net.minecraft.world.entity.ai.goal.BreedGoal.java
++++ b/net.minecraft.world.entity.ai.goal.BreedGoal.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.partner", "this.level", "this.animal"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ breed(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.goal.BreedGoal.java b/net.minecraft.world.entity.ai.goal.BreedGoal.java
+--- a/net.minecraft.world.entity.ai.goal.BreedGoal.java
++++ b/net.minecraft.world.entity.ai.goal.BreedGoal.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.goal.BreedGoal.java b/net.minecraft.world.entity.ai.goal.BreedGoal.java
+--- a/net.minecraft.world.entity.ai.goal.BreedGoal.java
++++ b/net.minecraft.world.entity.ai.goal.BreedGoal.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.partne", "this.loveTim"},
++writeEntities = {"this.partner", "this.loveTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+

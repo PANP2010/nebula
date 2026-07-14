@@ -1,0 +1,84 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.npc.villager.AbstractVillager.java b/net.minecraft.world.entity.npc.villager.AbstractVillager.java
+--- a/net.minecraft.world.entity.npc.villager.AbstractVillager.java
++++ b/net.minecraft.world.entity.npc.villager.AbstractVillager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isAliv", "this.getTradingPlaye", "this.tradingPlayer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stillValid(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.AbstractVillager.java b/net.minecraft.world.entity.npc.villager.AbstractVillager.java
+--- a/net.minecraft.world.entity.npc.villager.AbstractVillager.java
++++ b/net.minecraft.world.entity.npc.villager.AbstractVillager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setTradingPlaye"},
++writeEntities = {"this.tradingPlayer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stopTrading(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.AbstractVillager.java b/net.minecraft.world.entity.npc.villager.AbstractVillager.java
+--- a/net.minecraft.world.entity.npc.villager.AbstractVillager.java
++++ b/net.minecraft.world.entity.npc.villager.AbstractVillager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.ambientSoundTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ notifyTradeUpdated(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.AbstractVillager.java b/net.minecraft.world.entity.npc.villager.AbstractVillager.java
+--- a/net.minecraft.world.entity.npc.villager.AbstractVillager.java
++++ b/net.minecraft.world.entity.npc.villager.AbstractVillager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.offer", "this.readInventoryFromTa"},
++writeEntities = {"this.offers"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.AbstractVillager.java b/net.minecraft.world.entity.npc.villager.AbstractVillager.java
+--- a/net.minecraft.world.entity.npc.villager.AbstractVillager.java
++++ b/net.minecraft.world.entity.npc.villager.AbstractVillager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tradingPlayer", "this.ambientSoundTim", "this.getAmbientSoundInterva", "this.rewardTradeX", "this.ambientSoundInterval"},
++writeEntities = {"this.ambientSoundTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ notifyTrade(/* params */);
+
+diff --git a/net.minecraft.world.entity.npc.villager.AbstractVillager.java b/net.minecraft.world.entity.npc.villager.AbstractVillager.java
+--- a/net.minecraft.world.entity.npc.villager.AbstractVillager.java
++++ b/net.minecraft.world.entity.npc.villager.AbstractVillager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.makeSoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playCelebrateSound(/* params */);
+

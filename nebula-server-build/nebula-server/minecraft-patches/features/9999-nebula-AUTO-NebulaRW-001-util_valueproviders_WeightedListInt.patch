@@ -1,0 +1,22 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (1 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.util.valueproviders.WeightedListInt.java b/net.minecraft.util.valueproviders.WeightedListInt.java
+--- a/net.minecraft.util.valueproviders.WeightedListInt.java
++++ b/net.minecraft.util.valueproviders.WeightedListInt.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.distribution"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sample(/* params */);
+

@@ -1,0 +1,58 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.item.BlockItem.java b/net.minecraft.world.item.BlockItem.java
+--- a/net.minecraft.world.item.BlockItem.java
++++ b/net.minecraft.world.item.BlockItem.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBloc", "this.block"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerBlocks(/* params */);
+
+diff --git a/net.minecraft.world.item.BlockItem.java b/net.minecraft.world.item.BlockItem.java
+--- a/net.minecraft.world.item.BlockItem.java
++++ b/net.minecraft.world.item.BlockItem.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBloc", "this.block"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ place(/* params */);
+
+diff --git a/net.minecraft.world.item.BlockItem.java b/net.minecraft.world.item.BlockItem.java
+--- a/net.minecraft.world.item.BlockItem.java
++++ b/net.minecraft.world.item.BlockItem.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.plac"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ useOn(/* params */);
+
+diff --git a/net.minecraft.world.item.BlockItem.java b/net.minecraft.world.item.BlockItem.java
+--- a/net.minecraft.world.item.BlockItem.java
++++ b/net.minecraft.world.item.BlockItem.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ placeBlock(/* params */);
+

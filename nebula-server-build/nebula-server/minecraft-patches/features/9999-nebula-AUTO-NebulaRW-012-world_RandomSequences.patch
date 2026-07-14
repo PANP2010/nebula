@@ -1,0 +1,176 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (12 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.RandomSequences.java b/net.minecraft.world.RandomSequences.java
+--- a/net.minecraft.world.RandomSequences.java
++++ b/net.minecraft.world.RandomSequences.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setDirt", "this.random"},
++writeEntities = {"this.dirty"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forkPositional(/* params */);
+
+diff --git a/net.minecraft.world.RandomSequences.java b/net.minecraft.world.RandomSequences.java
+--- a/net.minecraft.world.RandomSequences.java
++++ b/net.minecraft.world.RandomSequences.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setDirt", "this.random"},
++writeEntities = {"this.dirty"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ nextFloat(/* params */);
+
+diff --git a/net.minecraft.world.RandomSequences.java b/net.minecraft.world.RandomSequences.java
+--- a/net.minecraft.world.RandomSequences.java
++++ b/net.minecraft.world.RandomSequences.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setDirt", "this.random"},
++writeEntities = {"this.dirty"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ nextDouble(/* params */);
+
+diff --git a/net.minecraft.world.RandomSequences.java b/net.minecraft.world.RandomSequences.java
+--- a/net.minecraft.world.RandomSequences.java
++++ b/net.minecraft.world.RandomSequences.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setDirt", "this.random"},
++writeEntities = {"this.dirty"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fork(/* params */);
+
+diff --git a/net.minecraft.world.RandomSequences.java b/net.minecraft.world.RandomSequences.java
+--- a/net.minecraft.world.RandomSequences.java
++++ b/net.minecraft.world.RandomSequences.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setDirt", "this.random"},
++writeEntities = {"this.dirty"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ nextBoolean(/* params */);
+
+diff --git a/net.minecraft.world.RandomSequences.java b/net.minecraft.world.RandomSequences.java
+--- a/net.minecraft.world.RandomSequences.java
++++ b/net.minecraft.world.RandomSequences.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setDirt", "this.random"},
++writeEntities = {"this.dirty"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ nextGaussian(/* params */);
+
+diff --git a/net.minecraft.world.RandomSequences.java b/net.minecraft.world.RandomSequences.java
+--- a/net.minecraft.world.RandomSequences.java
++++ b/net.minecraft.world.RandomSequences.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setDirt", "this.random"},
++writeEntities = {"this.dirty"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ nextInt(/* params */);
+
+diff --git a/net.minecraft.world.RandomSequences.java b/net.minecraft.world.RandomSequences.java
+--- a/net.minecraft.world.RandomSequences.java
++++ b/net.minecraft.world.RandomSequences.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setDirt", "this.random"},
++writeEntities = {"this.dirty"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ nextLong(/* params */);
+
+diff --git a/net.minecraft.world.RandomSequences.java b/net.minecraft.world.RandomSequences.java
+--- a/net.minecraft.world.RandomSequences.java
++++ b/net.minecraft.world.RandomSequences.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.includeWorldSee"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ includeWorldSeed(/* params */);
+
+diff --git a/net.minecraft.world.RandomSequences.java b/net.minecraft.world.RandomSequences.java
+--- a/net.minecraft.world.RandomSequences.java
++++ b/net.minecraft.world.RandomSequences.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createSequenc", "this.sequences"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reset(/* params */);
+
+diff --git a/net.minecraft.world.RandomSequences.java b/net.minecraft.world.RandomSequences.java
+--- a/net.minecraft.world.RandomSequences.java
++++ b/net.minecraft.world.RandomSequences.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.includeSequenceI"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ includeSequenceId(/* params */);
+
+diff --git a/net.minecraft.world.RandomSequences.java b/net.minecraft.world.RandomSequences.java
+--- a/net.minecraft.world.RandomSequences.java
++++ b/net.minecraft.world.RandomSequences.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sequences"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forAllSequences(/* params */);
+

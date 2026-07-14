@@ -1,0 +1,48 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (3 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.NaturalSpawner.java b/net.minecraft.world.level.NaturalSpawner.java
+--- a/net.minecraft.world.level.NaturalSpawner.java
++++ b/net.minecraft.world.level.NaturalSpawner.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spawnCategoryForPosition(/* params */);
+
+diff --git a/net.minecraft.world.level.NaturalSpawner.java b/net.minecraft.world.level.NaturalSpawner.java
+--- a/net.minecraft.world.level.NaturalSpawner.java
++++ b/net.minecraft.world.level.NaturalSpawner.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++triggeredEvents = {"ENTITY_SPAWNED"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spawnMobsForChunkGeneration(/* params */);
+
+diff --git a/net.minecraft.world.level.NaturalSpawner.java b/net.minecraft.world.level.NaturalSpawner.java
+--- a/net.minecraft.world.level.NaturalSpawner.java
++++ b/net.minecraft.world.level.NaturalSpawner.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lastCharg", "this.lastCheckedType", "this.lastCheckedPos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ afterSpawn(/* params */);
+

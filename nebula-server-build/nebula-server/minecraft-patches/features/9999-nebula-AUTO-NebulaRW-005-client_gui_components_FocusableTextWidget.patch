@@ -1,0 +1,70 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.components.FocusableTextWidget.java b/net.minecraft.client.gui.components.FocusableTextWidget.java
+--- a/net.minecraft.client.gui.components.FocusableTextWidget.java
++++ b/net.minecraft.client.gui.components.FocusableTextWidget.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getMessag", "this.message"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateWidgetNarration(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.FocusableTextWidget.java b/net.minecraft.client.gui.components.FocusableTextWidget.java
+--- a/net.minecraft.client.gui.components.FocusableTextWidget.java
++++ b/net.minecraft.client.gui.components.FocusableTextWidget.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ build(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.FocusableTextWidget.java b/net.minecraft.client.gui.components.FocusableTextWidget.java
+--- a/net.minecraft.client.gui.components.FocusableTextWidget.java
++++ b/net.minecraft.client.gui.components.FocusableTextWidget.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateHeight(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.FocusableTextWidget.java b/net.minecraft.client.gui.components.FocusableTextWidget.java
+--- a/net.minecraft.client.gui.components.FocusableTextWidget.java
++++ b/net.minecraft.client.gui.components.FocusableTextWidget.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractWidgetRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.FocusableTextWidget.java b/net.minecraft.client.gui.components.FocusableTextWidget.java
+--- a/net.minecraft.client.gui.components.FocusableTextWidget.java
++++ b/net.minecraft.client.gui.components.FocusableTextWidget.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setWidt", "this.setMaxWidt", "this.maxWidth"},
++writeEntities = {"this.width", "this.maxWidth"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateWidth(/* params */);
+

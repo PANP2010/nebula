@@ -1,0 +1,82 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.util.thread.ParallelMapTransform.java b/net.minecraft.util.thread.ParallelMapTransform.java
+--- a/net.minecraft.util.thread.ParallelMapTransform.java
++++ b/net.minecraft.util.thread.ParallelMapTransform.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.keys"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ size(/* params */);
+
+diff --git a/net.minecraft.util.thread.ParallelMapTransform.java b/net.minecraft.util.thread.ParallelMapTransform.java
+--- a/net.minecraft.util.thread.ParallelMapTransform.java
++++ b/net.minecraft.util.thread.ParallelMapTransform.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.values", "this.ke", "this.inpu", "this.operation"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyOperation(/* params */);
+
+diff --git a/net.minecraft.util.thread.ParallelMapTransform.java b/net.minecraft.util.thread.ParallelMapTransform.java
+--- a/net.minecraft.util.thread.ParallelMapTransform.java
++++ b/net.minecraft.util.thread.ParallelMapTransform.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.lastScheduledIndex"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scheduleTasks(/* params */);
+
+diff --git a/net.minecraft.util.thread.ParallelMapTransform.java b/net.minecraft.util.thread.ParallelMapTransform.java
+--- a/net.minecraft.util.thread.ParallelMapTransform.java
++++ b/net.minecraft.util.thread.ParallelMapTransform.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.firstUndersizedBatchIndex", "this.batchSize", "this.batchSiz"},
++writeEntities = {"this.batchSize"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ batchSize(/* params */);
+
+diff --git a/net.minecraft.util.thread.ParallelMapTransform.java b/net.minecraft.util.thread.ParallelMapTransform.java
+--- a/net.minecraft.util.thread.ParallelMapTransform.java
++++ b/net.minecraft.util.thread.ParallelMapTransform.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.outpu", "this.ke"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ copyOut(/* params */);
+
+diff --git a/net.minecraft.util.thread.ParallelMapTransform.java b/net.minecraft.util.thread.ParallelMapTransform.java
+--- a/net.minecraft.util.thread.ParallelMapTransform.java
++++ b/net.minecraft.util.thread.ParallelMapTransform.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.currentIndex", "this.lastScheduledInde"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pendingBatchSize(/* params */);
+

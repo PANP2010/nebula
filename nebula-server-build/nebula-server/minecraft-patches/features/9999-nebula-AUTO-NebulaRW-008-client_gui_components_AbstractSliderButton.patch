@@ -1,0 +1,108 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (8 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.components.AbstractSliderButton.java b/net.minecraft.client.gui.components.AbstractSliderButton.java
+--- a/net.minecraft.client.gui.components.AbstractSliderButton.java
++++ b/net.minecraft.client.gui.components.AbstractSliderButton.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getMessag", "this.message"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createNarrationMessage(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractSliderButton.java b/net.minecraft.client.gui.components.AbstractSliderButton.java
+--- a/net.minecraft.client.gui.components.AbstractSliderButton.java
++++ b/net.minecraft.client.gui.components.AbstractSliderButton.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.canChangeValu"},
++writeEntities = {"this.canChangeValue"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ keyPressed(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractSliderButton.java b/net.minecraft.client.gui.components.AbstractSliderButton.java
+--- a/net.minecraft.client.gui.components.AbstractSliderButton.java
++++ b/net.minecraft.client.gui.components.AbstractSliderButton.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setValueFromMous", "this.draggin", "this.activ"},
++writeEntities = {"this.dragging", "this.valueFromMouse"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onClick(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractSliderButton.java b/net.minecraft.client.gui.components.AbstractSliderButton.java
+--- a/net.minecraft.client.gui.components.AbstractSliderButton.java
++++ b/net.minecraft.client.gui.components.AbstractSliderButton.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.dragging", "this.isHovere", "this.isActiv"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleCursor(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractSliderButton.java b/net.minecraft.client.gui.components.AbstractSliderButton.java
+--- a/net.minecraft.client.gui.components.AbstractSliderButton.java
++++ b/net.minecraft.client.gui.components.AbstractSliderButton.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractWidgetRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractSliderButton.java b/net.minecraft.client.gui.components.AbstractSliderButton.java
+--- a/net.minecraft.client.gui.components.AbstractSliderButton.java
++++ b/net.minecraft.client.gui.components.AbstractSliderButton.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.draggin"},
++writeEntities = {"this.dragging"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onRelease(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractSliderButton.java b/net.minecraft.client.gui.components.AbstractSliderButton.java
+--- a/net.minecraft.client.gui.components.AbstractSliderButton.java
++++ b/net.minecraft.client.gui.components.AbstractSliderButton.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setValueFromMous"},
++writeEntities = {"this.valueFromMouse"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onDrag(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.AbstractSliderButton.java b/net.minecraft.client.gui.components.AbstractSliderButton.java
+--- a/net.minecraft.client.gui.components.AbstractSliderButton.java
++++ b/net.minecraft.client.gui.components.AbstractSliderButton.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isFocuse", "this.canChangeValue", "this.active", "this.createNarrationMessag"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateWidgetNarration(/* params */);
+

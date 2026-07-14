@@ -1,0 +1,58 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/com.mojang.realmsclient.client.FileDownload.java b/com.mojang.realmsclient.client.FileDownload.java
+--- a/com.mojang.realmsclient.client.FileDownload.java
++++ b/com.mojang.realmsclient.client.FileDownload.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.resourcePackPath", "this.cancelled", "this.finishe"},
++writeEntities = {"this.finished"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ finishResourcePackDownload(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.FileDownload.java b/com.mojang.realmsclient.client.FileDownload.java
+--- a/com.mojang.realmsclient.client.FileDownload.java
++++ b/com.mojang.realmsclient.client.FileDownload.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.untarGzipArchiv", "this.cancelled", "this.extractin", "this.error"},
++writeEntities = {"this.extracting"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ finishWorldDownload(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.FileDownload.java b/com.mojang.realmsclient.client.FileDownload.java
+--- a/com.mojang.realmsclient.client.FileDownload.java
++++ b/com.mojang.realmsclient.client.FileDownload.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.joinCancellableReques"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ download(/* params */);
+
+diff --git a/com.mojang.realmsclient.client.FileDownload.java b/com.mojang.realmsclient.client.FileDownload.java
+--- a/com.mojang.realmsclient.client.FileDownload.java
++++ b/com.mojang.realmsclient.client.FileDownload.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getByteCoun", "this.byteCount", "this.downloadStatus"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ afterWrite(/* params */);
+

@@ -1,0 +1,120 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (9 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.item.FallingBlockEntity.java b/net.minecraft.world.entity.item.FallingBlockEntity.java
+--- a/net.minecraft.world.entity.item.FallingBlockEntity.java
++++ b/net.minecraft.world.entity.item.FallingBlockEntity.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++triggeredEvents = {"ENTITY_SPAWNED"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fall(/* params */);
+
+diff --git a/net.minecraft.world.entity.item.FallingBlockEntity.java b/net.minecraft.world.entity.item.FallingBlockEntity.java
+--- a/net.minecraft.world.entity.item.FallingBlockEntity.java
++++ b/net.minecraft.world.entity.item.FallingBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ callOnBrokenAfterFall(/* params */);
+
+diff --git a/net.minecraft.world.entity.item.FallingBlockEntity.java b/net.minecraft.world.entity.item.FallingBlockEntity.java
+--- a/net.minecraft.world.entity.item.FallingBlockEntity.java
++++ b/net.minecraft.world.entity.item.FallingBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hurtEntities"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ causeFallDamage(/* params */);
+
+diff --git a/net.minecraft.world.entity.item.FallingBlockEntity.java b/net.minecraft.world.entity.item.FallingBlockEntity.java
+--- a/net.minecraft.world.entity.item.FallingBlockEntity.java
++++ b/net.minecraft.world.entity.item.FallingBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.item.FallingBlockEntity.java b/net.minecraft.world.entity.item.FallingBlockEntity.java
+--- a/net.minecraft.world.entity.item.FallingBlockEntity.java
++++ b/net.minecraft.world.entity.item.FallingBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isInvulnerableToBas", "this.markHur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtServer(/* params */);
+
+diff --git a/net.minecraft.world.entity.item.FallingBlockEntity.java b/net.minecraft.world.entity.item.FallingBlockEntity.java
+--- a/net.minecraft.world.entity.item.FallingBlockEntity.java
++++ b/net.minecraft.world.entity.item.FallingBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillCrashReportCategory(/* params */);
+
+diff --git a/net.minecraft.world.entity.item.FallingBlockEntity.java b/net.minecraft.world.entity.item.FallingBlockEntity.java
+--- a/net.minecraft.world.entity.item.FallingBlockEntity.java
++++ b/net.minecraft.world.entity.item.FallingBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStat", "this.blockPositio", "this.blocksBuildin", "this.setPo", "this.setStartPo"},
++writeEntities = {"this.blocksBuilding", "this.blockState", "this.pos", "this.startPos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ recreateFromPacket(/* params */);
+
+diff --git a/net.minecraft.world.entity.item.FallingBlockEntity.java b/net.minecraft.world.entity.item.FallingBlockEntity.java
+--- a/net.minecraft.world.entity.item.FallingBlockEntity.java
++++ b/net.minecraft.world.entity.item.FallingBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockState", "this.discar"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.item.FallingBlockEntity.java b/net.minecraft.world.entity.item.FallingBlockEntity.java
+--- a/net.minecraft.world.entity.item.FallingBlockEntity.java
++++ b/net.minecraft.world.entity.item.FallingBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.cancelDro"},
++writeEntities = {"this.cancelDrop"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ disableDrop(/* params */);
+

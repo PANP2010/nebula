@@ -1,0 +1,202 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (16 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java b/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
+--- a/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
++++ b/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.requiredPassIds"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ requires(/* params */);
+
+diff --git a/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java b/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
+--- a/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
++++ b/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.physicalResourc"},
++writeEntities = {"this.physicalResource"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ release(/* params */);
+
+diff --git a/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java b/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
+--- a/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
++++ b/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createInternalResourc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createInternal(/* params */);
+
+diff --git a/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java b/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
+--- a/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
++++ b/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.internalResources"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assignResourceLifetimes(/* params */);
+
+diff --git a/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java b/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
+--- a/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
++++ b/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.passes"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resolvePassOrder(/* params */);
+
+diff --git a/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java b/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
+--- a/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
++++ b/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.requiredPassIds"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ markPassRequired(/* params */);
+
+diff --git a/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java b/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
+--- a/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
++++ b/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.physicalResource"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ acquire(/* params */);
+
+diff --git a/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java b/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
+--- a/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
++++ b/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.requiredResourceIds", "this.createInternalResourc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createsInternal(/* params */);
+
+diff --git a/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java b/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
+--- a/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
++++ b/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.passes", "this.discoverAllRequiredPasse", "this.externalResources"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ identifyPassesToKeep(/* params */);
+
+diff --git a/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java b/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
+--- a/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
++++ b/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.externalResources"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ importExternal(/* params */);
+
+diff --git a/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java b/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
+--- a/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
++++ b/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.requiredResourceIds"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ markResourceRequired(/* params */);
+
+diff --git a/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java b/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
+--- a/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
++++ b/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.identifyPassesToKee", "this.passes", "this.resolvePassOrde"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ execute(/* params */);
+
+diff --git a/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java b/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
+--- a/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
++++ b/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.disableCullin"},
++writeEntities = {"this.disableCulling"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ disableCulling(/* params */);
+
+diff --git a/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java b/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
+--- a/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
++++ b/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.markPassRequire", "this.markResourceRequire"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ _reads(/* params */);
+
+diff --git a/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java b/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
+--- a/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
++++ b/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.passes"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ discoverAllRequiredPasses(/* params */);
+
+diff --git a/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java b/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
+--- a/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
++++ b/com.mojang.blaze3d.framegraph.FrameGraphBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createdBy", "this.versio", "this.holder", "this.version"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+

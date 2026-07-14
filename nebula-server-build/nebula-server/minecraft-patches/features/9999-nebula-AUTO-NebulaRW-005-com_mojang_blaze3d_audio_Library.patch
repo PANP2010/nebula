@@ -1,0 +1,69 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/com.mojang.blaze3d.audio.Library.java b/com.mojang.blaze3d.audio.Library.java
+--- a/com.mojang.blaze3d.audio.Library.java
++++ b/com.mojang.blaze3d.audio.Library.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.staticChannels", "this.streamingChannels"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ releaseChannel(/* params */);
+
+diff --git a/com.mojang.blaze3d.audio.Library.java b/com.mojang.blaze3d.audio.Library.java
+--- a/com.mojang.blaze3d.audio.Library.java
++++ b/com.mojang.blaze3d.audio.Library.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.activeChannels"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ cleanup(/* params */);
+
+diff --git a/com.mojang.blaze3d.audio.Library.java b/com.mojang.blaze3d.audio.Library.java
+--- a/com.mojang.blaze3d.audio.Library.java
++++ b/com.mojang.blaze3d.audio.Library.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.currentDevice"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createAttributes(/* params */);
+
+diff --git a/com.mojang.blaze3d.audio.Library.java b/com.mojang.blaze3d.audio.Library.java
+--- a/com.mojang.blaze3d.audio.Library.java
++++ b/com.mojang.blaze3d.audio.Library.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.currentDevice", "this.supportsDisconnection", "this.currentDeviceNam", "this.currentDevic"},
++writeEntities = {"this.currentDeviceName", "this.currentDevice", "this.supportsDisconnections"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/com.mojang.blaze3d.audio.Library.java b/com.mojang.blaze3d.audio.Library.java
+--- a/com.mojang.blaze3d.audio.Library.java
++++ b/com.mojang.blaze3d.audio.Library.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.activeChannels"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ release(/* params */);
+

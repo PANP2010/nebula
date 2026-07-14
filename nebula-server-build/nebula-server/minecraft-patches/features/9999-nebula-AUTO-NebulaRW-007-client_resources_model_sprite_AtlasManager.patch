@@ -1,0 +1,94 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.resources.model.sprite.AtlasManager.java b/net.minecraft.client.resources.model.sprite.AtlasManager.java
+--- a/net.minecraft.client.resources.model.sprite.AtlasManager.java
++++ b/net.minecraft.client.resources.model.sprite.AtlasManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.atlas"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ close(/* params */);
+
+diff --git a/net.minecraft.client.resources.model.sprite.AtlasManager.java b/net.minecraft.client.resources.model.sprite.AtlasManager.java
+--- a/net.minecraft.client.resources.model.sprite.AtlasManager.java
++++ b/net.minecraft.client.resources.model.sprite.AtlasManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.atlasById"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forEach(/* params */);
+
+diff --git a/net.minecraft.client.resources.model.sprite.AtlasManager.java b/net.minecraft.client.resources.model.sprite.AtlasManager.java
+--- a/net.minecraft.client.resources.model.sprite.AtlasManager.java
++++ b/net.minecraft.client.resources.model.sprite.AtlasManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.maxMipmapLevel"},
++writeEntities = {"this.maxMipmapLevels"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateMaxMipLevel(/* params */);
+
+diff --git a/net.minecraft.client.resources.model.sprite.AtlasManager.java b/net.minecraft.client.resources.model.sprite.AtlasManager.java
+--- a/net.minecraft.client.resources.model.sprite.AtlasManager.java
++++ b/net.minecraft.client.resources.model.sprite.AtlasManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.atlasById"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ prepareSharedState(/* params */);
+
+diff --git a/net.minecraft.client.resources.model.sprite.AtlasManager.java b/net.minecraft.client.resources.model.sprite.AtlasManager.java
+--- a/net.minecraft.client.resources.model.sprite.AtlasManager.java
++++ b/net.minecraft.client.resources.model.sprite.AtlasManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.maxMipmapLevels"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reload(/* params */);
+
+diff --git a/net.minecraft.client.resources.model.sprite.AtlasManager.java b/net.minecraft.client.resources.model.sprite.AtlasManager.java
+--- a/net.minecraft.client.resources.model.sprite.AtlasManager.java
++++ b/net.minecraft.client.resources.model.sprite.AtlasManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pendingStitches"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ joinAndUpload(/* params */);
+
+diff --git a/net.minecraft.client.resources.model.sprite.AtlasManager.java b/net.minecraft.client.resources.model.sprite.AtlasManager.java
+--- a/net.minecraft.client.resources.model.sprite.AtlasManager.java
++++ b/net.minecraft.client.resources.model.sprite.AtlasManager.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.spriteLookup", "this.spriteLooku"},
++writeEntities = {"this.spriteLookup"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateSpriteMaps(/* params */);
+

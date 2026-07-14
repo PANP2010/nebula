@@ -1,0 +1,56 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.recipebook.ServerPlaceRecipe.java b/net.minecraft.recipebook.ServerPlaceRecipe.java
+--- a/net.minecraft.recipebook.ServerPlaceRecipe.java
++++ b/net.minecraft.recipebook.ServerPlaceRecipe.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.amountOfFreeSlotsInInventory", "this.inputGridSlots", "this.inventory", "this.getAmountOfFreeSlotsInInventor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ testClearGrid(/* params */);
+
+diff --git a/net.minecraft.recipebook.ServerPlaceRecipe.java b/net.minecraft.recipebook.ServerPlaceRecipe.java
+--- a/net.minecraft.recipebook.ServerPlaceRecipe.java
++++ b/net.minecraft.recipebook.ServerPlaceRecipe.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.useMaxItems"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculateAmountToCraft(/* params */);
+
+diff --git a/net.minecraft.recipebook.ServerPlaceRecipe.java b/net.minecraft.recipebook.ServerPlaceRecipe.java
+--- a/net.minecraft.recipebook.ServerPlaceRecipe.java
++++ b/net.minecraft.recipebook.ServerPlaceRecipe.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.inputGridSlots", "this.menu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ placeRecipe(/* params */);
+
+diff --git a/net.minecraft.recipebook.ServerPlaceRecipe.java b/net.minecraft.recipebook.ServerPlaceRecipe.java
+--- a/net.minecraft.recipebook.ServerPlaceRecipe.java
++++ b/net.minecraft.recipebook.ServerPlaceRecipe.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.inventory"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ moveItemToGrid(/* params */);
+

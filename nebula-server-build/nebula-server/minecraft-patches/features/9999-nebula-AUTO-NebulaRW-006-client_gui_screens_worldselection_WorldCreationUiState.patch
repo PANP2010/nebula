@@ -1,0 +1,84 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.WorldCreationUiState.java b/net.minecraft.client.gui.screens.worldselection.WorldCreationUiState.java
+--- a/net.minecraft.client.gui.screens.worldselection.WorldCreationUiState.java
++++ b/net.minecraft.client.gui.screens.worldselection.WorldCreationUiState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.settings", "this.setting"},
++writeEntities = {"this.settings"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tryUpdateDataConfiguration(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.WorldCreationUiState.java b/net.minecraft.client.gui.screens.worldselection.WorldCreationUiState.java
+--- a/net.minecraft.client.gui.screens.worldselection.WorldCreationUiState.java
++++ b/net.minecraft.client.gui.screens.worldselection.WorldCreationUiState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.settings", "this.isBonusChes", "this.setting"},
++writeEntities = {"this.settings"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onChanged(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.WorldCreationUiState.java b/net.minecraft.client.gui.screens.worldselection.WorldCreationUiState.java
+--- a/net.minecraft.client.gui.screens.worldselection.WorldCreationUiState.java
++++ b/net.minecraft.client.gui.screens.worldselection.WorldCreationUiState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.preset"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ describePreset(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.WorldCreationUiState.java b/net.minecraft.client.gui.screens.worldselection.WorldCreationUiState.java
+--- a/net.minecraft.client.gui.screens.worldselection.WorldCreationUiState.java
++++ b/net.minecraft.client.gui.screens.worldselection.WorldCreationUiState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.savesFolder"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ findResultFolder(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.WorldCreationUiState.java b/net.minecraft.client.gui.screens.worldselection.WorldCreationUiState.java
+--- a/net.minecraft.client.gui.screens.worldselection.WorldCreationUiState.java
++++ b/net.minecraft.client.gui.screens.worldselection.WorldCreationUiState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.settings", "this.onChange", "this.setting"},
++writeEntities = {"this.settings"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateDimensions(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.worldselection.WorldCreationUiState.java b/net.minecraft.client.gui.screens.worldselection.WorldCreationUiState.java
+--- a/net.minecraft.client.gui.screens.worldselection.WorldCreationUiState.java
++++ b/net.minecraft.client.gui.screens.worldselection.WorldCreationUiState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.worldType"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updatePresetLists(/* params */);
+

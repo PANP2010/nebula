@@ -1,0 +1,320 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (25 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.animal.camel.Camel.java b/net.minecraft.world.entity.animal.camel.Camel.java
+--- a/net.minecraft.world.entity.animal.camel.Camel.java
++++ b/net.minecraft.world.entity.animal.camel.Camel.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playStepSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.camel.Camel.java b/net.minecraft.world.entity.animal.camel.Camel.java
+--- a/net.minecraft.world.entity.animal.camel.Camel.java
++++ b/net.minecraft.world.entity.animal.camel.Camel.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.resetLastPoseChangeTickToFullStan"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ finalizeSpawn(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.camel.Camel.java b/net.minecraft.world.entity.animal.camel.Camel.java
+--- a/net.minecraft.world.entity.animal.camel.Camel.java
++++ b/net.minecraft.world.entity.animal.camel.Camel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.standUpInstantl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ actuallyHurt(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.camel.Camel.java b/net.minecraft.world.entity.animal.camel.Camel.java
+--- a/net.minecraft.world.entity.animal.camel.Camel.java
++++ b/net.minecraft.world.entity.animal.camel.Camel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leve", "this.inventory"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ openCustomInventoryScreen(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.camel.Camel.java b/net.minecraft.world.entity.animal.camel.Camel.java
+--- a/net.minecraft.world.entity.animal.camel.Camel.java
++++ b/net.minecraft.world.entity.animal.camel.Camel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entityData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetLastPoseChangeTick(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.camel.Camel.java b/net.minecraft.world.entity.animal.camel.Camel.java
+--- a/net.minecraft.world.entity.animal.camel.Camel.java
++++ b/net.minecraft.world.entity.animal.camel.Camel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setPos", "this.resetLastPoseChangeTickToFullStan", "this.gameEven", "this.leve"},
++writeEntities = {"this.pose"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ standUpInstantly(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.camel.Camel.java b/net.minecraft.world.entity.animal.camel.Camel.java
+--- a/net.minecraft.world.entity.animal.camel.Camel.java
++++ b/net.minecraft.world.entity.animal.camel.Camel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.deltaMovement", "this.onGroun", "this.getDeltaMovemen", "this.refuseToMov", "this.setDeltaMovemen"},
++writeEntities = {"this.deltaMovement"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ travel(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.camel.Camel.java b/net.minecraft.world.entity.animal.camel.Camel.java
+--- a/net.minecraft.world.entity.animal.camel.Camel.java
++++ b/net.minecraft.world.entity.animal.camel.Camel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.firstTick", "this.dashCooldow"},
++writeEntities = {"this.dashCooldown"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSyncedDataUpdated(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.camel.Camel.java b/net.minecraft.world.entity.animal.camel.Camel.java
+--- a/net.minecraft.world.entity.animal.camel.Camel.java
++++ b/net.minecraft.world.entity.animal.camel.Camel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.dashCooldown", "this.dashing", "this.needsSync"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ executeRidersJump(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.camel.Camel.java b/net.minecraft.world.entity.animal.camel.Camel.java
+--- a/net.minecraft.world.entity.animal.camel.Camel.java
++++ b/net.minecraft.world.entity.animal.camel.Camel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getDashingSoun", "this.setDashin", "this.dashingSound", "this.makeSoun", "this.gameEven"},
++writeEntities = {"this.dashing"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleStartJump(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.camel.Camel.java b/net.minecraft.world.entity.animal.camel.Camel.java
+--- a/net.minecraft.world.entity.animal.camel.Camel.java
++++ b/net.minecraft.world.entity.animal.camel.Camel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.operation"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.camel.Camel.java b/net.minecraft.world.entity.animal.camel.Camel.java
+--- a/net.minecraft.world.entity.animal.camel.Camel.java
++++ b/net.minecraft.world.entity.animal.camel.Camel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isBab", "this.openCustomInventoryScree"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mobInteract(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.camel.Camel.java b/net.minecraft.world.entity.animal.camel.Camel.java
+--- a/net.minecraft.world.entity.animal.camel.Camel.java
++++ b/net.minecraft.world.entity.animal.camel.Camel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.pose"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sitDown(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.camel.Camel.java b/net.minecraft.world.entity.animal.camel.Camel.java
+--- a/net.minecraft.world.entity.animal.camel.Camel.java
++++ b/net.minecraft.world.entity.animal.camel.Camel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.standU", "this.isCamelSittin", "this.isInPoseTransitio", "this.canCamelChangePos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onElasticLeashPull(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.camel.Camel.java b/net.minecraft.world.entity.animal.camel.Camel.java
+--- a/net.minecraft.world.entity.animal.camel.Camel.java
++++ b/net.minecraft.world.entity.animal.camel.Camel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.resetLastPoseChangeTic"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetLastPoseChangeTickToFullStand(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.camel.Camel.java b/net.minecraft.world.entity.animal.camel.Camel.java
+--- a/net.minecraft.world.entity.animal.camel.Camel.java
++++ b/net.minecraft.world.entity.animal.camel.Camel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.refuseToMov"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ clientTick(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.camel.Camel.java b/net.minecraft.world.entity.animal.camel.Camel.java
+--- a/net.minecraft.world.entity.animal.camel.Camel.java
++++ b/net.minecraft.world.entity.animal.camel.Camel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setPos"},
++writeEntities = {"this.pose"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.camel.Camel.java b/net.minecraft.world.entity.animal.camel.Camel.java
+--- a/net.minecraft.world.entity.animal.camel.Camel.java
++++ b/net.minecraft.world.entity.animal.camel.Camel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.standU", "this.isCamelSittin", "this.isInPoseTransitio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickRidden(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.camel.Camel.java b/net.minecraft.world.entity.animal.camel.Camel.java
+--- a/net.minecraft.world.entity.animal.camel.Camel.java
++++ b/net.minecraft.world.entity.animal.camel.Camel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isFoo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleEating(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.camel.Camel.java b/net.minecraft.world.entity.animal.camel.Camel.java
+--- a/net.minecraft.world.entity.animal.camel.Camel.java
++++ b/net.minecraft.world.entity.animal.camel.Camel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.pose"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ standUp(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.camel.Camel.java b/net.minecraft.world.entity.animal.camel.Camel.java
+--- a/net.minecraft.world.entity.animal.camel.Camel.java
++++ b/net.minecraft.world.entity.animal.camel.Camel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.dashAnimationState", "this.pose", "this.getPos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateWalkAnimation(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.camel.Camel.java b/net.minecraft.world.entity.animal.camel.Camel.java
+--- a/net.minecraft.world.entity.animal.camel.Camel.java
++++ b/net.minecraft.world.entity.animal.camel.Camel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isSaddle", "this.onGroun", "this.dashCooldown"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onPlayerJump(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.camel.Camel.java b/net.minecraft.world.entity.animal.camel.Camel.java
+--- a/net.minecraft.world.entity.animal.camel.Camel.java
++++ b/net.minecraft.world.entity.animal.camel.Camel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBrai", "this.brain"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ customServerAiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.camel.Camel.java b/net.minecraft.world.entity.animal.camel.Camel.java
+--- a/net.minecraft.world.entity.animal.camel.Camel.java
++++ b/net.minecraft.world.entity.animal.camel.Camel.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isCamelSittin", "this.isInPoseTransitio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ refuseToMove(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.camel.Camel.java b/net.minecraft.world.entity.animal.camel.Camel.java
+--- a/net.minecraft.world.entity.animal.camel.Camel.java
++++ b/net.minecraft.world.entity.animal.camel.Camel.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{neighbors}", "{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkCamelSpawnRules(/* params */);
+

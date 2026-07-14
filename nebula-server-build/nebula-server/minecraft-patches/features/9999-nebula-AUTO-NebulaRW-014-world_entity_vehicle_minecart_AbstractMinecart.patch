@@ -1,0 +1,180 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (14 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java b/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
+--- a/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
++++ b/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyEffectsFromBlocks(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java b/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
+--- a/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
++++ b/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hurtTime", "this.getHurtTim", "this.setHurtTim"},
++writeEntities = {"this.hurtTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java b/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
+--- a/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
++++ b/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leve", "this.positio", "this.behavior"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ move(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java b/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
+--- a/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
++++ b/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.behavior"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ makeStepAlongTrack(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java b/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
+--- a/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
++++ b/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getDefaultDisplayOffse", "this.defaultDisplayOffset"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ defineSynchedData(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java b/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
+--- a/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
++++ b/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isInWate", "this.behavior"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyNaturalSlowdown(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java b/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
+--- a/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
++++ b/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.deltaMovement"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ comeOffTrack(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java b/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
+--- a/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
++++ b/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ push(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java b/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
+--- a/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
++++ b/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.deltaMovement", "this.getDeltaMovemen", "this.behavior"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ recreateFromPacket(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java b/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
+--- a/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
++++ b/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.behavior"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ lerpMotion(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java b/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
+--- a/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
++++ b/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.deltaMovement", "this.leve", "this.getDeltaMovemen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pushOtherMinecart(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java b/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
+--- a/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
++++ b/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.firstTick", "this.flipped", "this.customDisplayBlockState", "this.displayOffset"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java b/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
+--- a/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
++++ b/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.damage", "this.hurtDir", "this.hurtTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ animateHurt(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java b/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
+--- a/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
++++ b/net.minecraft.world.entity.vehicle.minecart.AbstractMinecart.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.behavior"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ moveAlongTrack(/* params */);
+

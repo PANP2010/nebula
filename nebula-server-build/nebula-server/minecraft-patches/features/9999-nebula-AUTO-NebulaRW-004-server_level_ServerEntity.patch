@@ -1,0 +1,58 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.level.ServerEntity.java b/net.minecraft.server.level.ServerEntity.java
+--- a/net.minecraft.server.level.ServerEntity.java
++++ b/net.minecraft.server.level.ServerEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entity"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendPairingData(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerEntity.java b/net.minecraft.server.level.ServerEntity.java
+--- a/net.minecraft.server.level.ServerEntity.java
++++ b/net.minecraft.server.level.ServerEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleMinecartPosRot(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerEntity.java b/net.minecraft.server.level.ServerEntity.java
+--- a/net.minecraft.server.level.ServerEntity.java
++++ b/net.minecraft.server.level.ServerEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.synchronizer", "this.entity", "this.lastPassengers", "this.lastPassenger"},
++writeEntities = {"this.lastPassengers"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendChanges(/* params */);
+
+diff --git a/net.minecraft.server.level.ServerEntity.java b/net.minecraft.server.level.ServerEntity.java
+--- a/net.minecraft.server.level.ServerEntity.java
++++ b/net.minecraft.server.level.ServerEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.trackedDataValue", "this.synchronizer", "this.entity"},
++writeEntities = {"this.trackedDataValues"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendDirtyEntityData(/* params */);
+

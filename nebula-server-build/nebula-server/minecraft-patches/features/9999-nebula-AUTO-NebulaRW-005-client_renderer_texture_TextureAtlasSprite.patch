@@ -1,0 +1,68 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.renderer.texture.TextureAtlasSprite.java b/net.minecraft.client.renderer.texture.TextureAtlasSprite.java
+--- a/net.minecraft.client.renderer.texture.TextureAtlasSprite.java
++++ b/net.minecraft.client.renderer.texture.TextureAtlasSprite.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.atlasLocatio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ atlasLocation(/* params */);
+
+diff --git a/net.minecraft.client.renderer.texture.TextureAtlasSprite.java b/net.minecraft.client.renderer.texture.TextureAtlasSprite.java
+--- a/net.minecraft.client.renderer.texture.TextureAtlasSprite.java
++++ b/net.minecraft.client.renderer.texture.TextureAtlasSprite.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.padding", "this.contents", "this.x", "this.y"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ uploadSpriteUbo(/* params */);
+
+diff --git a/net.minecraft.client.renderer.texture.TextureAtlasSprite.java b/net.minecraft.client.renderer.texture.TextureAtlasSprite.java
+--- a/net.minecraft.client.renderer.texture.TextureAtlasSprite.java
++++ b/net.minecraft.client.renderer.texture.TextureAtlasSprite.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.contents"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ transparency(/* params */);
+
+diff --git a/net.minecraft.client.renderer.texture.TextureAtlasSprite.java b/net.minecraft.client.renderer.texture.TextureAtlasSprite.java
+--- a/net.minecraft.client.renderer.texture.TextureAtlasSprite.java
++++ b/net.minecraft.client.renderer.texture.TextureAtlasSprite.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.contents", "this.v0", "this.u0", "this.v1", "this.u1"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.client.renderer.texture.TextureAtlasSprite.java b/net.minecraft.client.renderer.texture.TextureAtlasSprite.java
+--- a/net.minecraft.client.renderer.texture.TextureAtlasSprite.java
++++ b/net.minecraft.client.renderer.texture.TextureAtlasSprite.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.contents"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ uploadFirstFrame(/* params */);
+

@@ -1,0 +1,116 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (9 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.renderer.block.dispatch.Variant.java b/net.minecraft.client.renderer.block.dispatch.Variant.java
+--- a/net.minecraft.client.renderer.block.dispatch.Variant.java
++++ b/net.minecraft.client.renderer.block.dispatch.Variant.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.withStat", "this.modelState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withYRot(/* params */);
+
+diff --git a/net.minecraft.client.renderer.block.dispatch.Variant.java b/net.minecraft.client.renderer.block.dispatch.Variant.java
+--- a/net.minecraft.client.renderer.block.dispatch.Variant.java
++++ b/net.minecraft.client.renderer.block.dispatch.Variant.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.withStat", "this.modelState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withXRot(/* params */);
+
+diff --git a/net.minecraft.client.renderer.block.dispatch.Variant.java b/net.minecraft.client.renderer.block.dispatch.Variant.java
+--- a/net.minecraft.client.renderer.block.dispatch.Variant.java
++++ b/net.minecraft.client.renderer.block.dispatch.Variant.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.uvLock", "this.x", "this.y", "this.z"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ asModelState(/* params */);
+
+diff --git a/net.minecraft.client.renderer.block.dispatch.Variant.java b/net.minecraft.client.renderer.block.dispatch.Variant.java
+--- a/net.minecraft.client.renderer.block.dispatch.Variant.java
++++ b/net.minecraft.client.renderer.block.dispatch.Variant.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modelLocation"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withState(/* params */);
+
+diff --git a/net.minecraft.client.renderer.block.dispatch.Variant.java b/net.minecraft.client.renderer.block.dispatch.Variant.java
+--- a/net.minecraft.client.renderer.block.dispatch.Variant.java
++++ b/net.minecraft.client.renderer.block.dispatch.Variant.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modelLocation", "this.modelState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ bake(/* params */);
+
+diff --git a/net.minecraft.client.renderer.block.dispatch.Variant.java b/net.minecraft.client.renderer.block.dispatch.Variant.java
+--- a/net.minecraft.client.renderer.block.dispatch.Variant.java
++++ b/net.minecraft.client.renderer.block.dispatch.Variant.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.withStat", "this.modelState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withUvLock(/* params */);
+
+diff --git a/net.minecraft.client.renderer.block.dispatch.Variant.java b/net.minecraft.client.renderer.block.dispatch.Variant.java
+--- a/net.minecraft.client.renderer.block.dispatch.Variant.java
++++ b/net.minecraft.client.renderer.block.dispatch.Variant.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modelState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withModel(/* params */);
+
+diff --git a/net.minecraft.client.renderer.block.dispatch.Variant.java b/net.minecraft.client.renderer.block.dispatch.Variant.java
+--- a/net.minecraft.client.renderer.block.dispatch.Variant.java
++++ b/net.minecraft.client.renderer.block.dispatch.Variant.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.withStat", "this.modelState"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withZRot(/* params */);
+
+diff --git a/net.minecraft.client.renderer.block.dispatch.Variant.java b/net.minecraft.client.renderer.block.dispatch.Variant.java
+--- a/net.minecraft.client.renderer.block.dispatch.Variant.java
++++ b/net.minecraft.client.renderer.block.dispatch.Variant.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modelLocation"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resolveDependencies(/* params */);
+

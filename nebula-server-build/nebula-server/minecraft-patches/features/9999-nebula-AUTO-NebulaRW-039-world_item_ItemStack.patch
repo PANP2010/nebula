@@ -1,0 +1,480 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (39 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ge"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onUseTick(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isDamageableIte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ processDurabilityChange(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getCoun", "this.copyWithCoun", "this.shrin", "this.count"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ split(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.item", "this.getIte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ overrideOtherStackedOnMe(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isEmpt", "this.transmuteCopyIgnoreEmpt"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ transmuteCopy(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ge"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ interactLivingEntity(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.item", "this.cop", "this.getIte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ finishUsingItem(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getCoun", "this.count", "this.setCoun"},
++writeEntities = {"this.count"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ grow(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.item", "this.getIte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onCraftedBy(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isEmpt"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ copyAndClear(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.orDefault", "this.getOrDefaul"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forEachModifier(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.canPlaceOnBlockInAdventureMod"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ useOn(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.processDurabilityChang"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtWithoutBreaking(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.components"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyComponents(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.item", "this.ha", "this.getIte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtEnemy(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getMaxDamag", "this.damageValue", "this.maxDamage", "this.isDamageableIte", "this.getDamageValu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ nextDamageWillBreak(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hurtAndBrea", "this.item", "this.getIte", "this.ge"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ postHurtEnemy(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.item", "this.cop", "this.getIte", "this.applyAfterUseComponentSideEffect"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ releaseUsing(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isEmpt"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ copyWithCount(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.item", "this.getIte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ useOnRelease(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.item", "this.getIte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mineBlock(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.copyWithCoun", "this.consum"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ consumeAndReturn(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.components"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ transmuteCopyIgnoreEmpty(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.item", "this.getIte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onCraftedBySystem(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.item", "this.getCoun", "this.count", "this.getIte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.item", "this.getIte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ overrideStackedOnOther(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isEmpt", "this.getCoun", "this.count", "this.setCoun"},
++writeEntities = {"this.count"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ limitSize(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hurtAndBrea", "this.isEmpt", "this.transmuteCopyIgnoreEmpt"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtAndConvertOnBreak(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ge"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ causeUseVibration(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.item", "this.getIte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onDestroyed(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getCoun", "this.count"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ count(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.se"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ copyFrom(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.popTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ inventoryTick(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shrin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ consume(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.item", "this.isEmpt"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ typeHolder(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.components"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyComponentsAndValidate(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isEmpt"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ copy(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hurtAndBrea"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtAndBreak(/* params */);
+
+diff --git a/net.minecraft.world.item.ItemStack.java b/net.minecraft.world.item.ItemStack.java
+--- a/net.minecraft.world.item.ItemStack.java
++++ b/net.minecraft.world.item.ItemStack.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.components", "this.isEmpt"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ immutableComponents(/* params */);
+

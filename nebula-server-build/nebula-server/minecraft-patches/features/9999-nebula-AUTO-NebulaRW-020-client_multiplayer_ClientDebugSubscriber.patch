@@ -1,0 +1,249 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (20 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+--- a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
++++ b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.forEachValu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forEachEntity(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+--- a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
++++ b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateMa"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateEntity(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+--- a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
++++ b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.remoteSubscriptions", "this.initializeSubscription", "this.valuesBySubscription"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropLevel(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+--- a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
++++ b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.forEachValu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forEachChunk(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+--- a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
++++ b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.remoteSubscriptions", "this.onSubscriptionsChange", "this.requestedSubscription", "this.remoteSubscription"},
++writeEntities = {"this.remoteSubscriptions"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+--- a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
++++ b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.valuesBySubscription"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropChunk(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+--- a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
++++ b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.values"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ apply(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+--- a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
++++ b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateMa"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateChunk(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+--- a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
++++ b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getValueMa", "this.valueMap"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forEachValue(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+--- a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
++++ b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockValues", "this.chunkValues"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropChunkAndBlocks(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+--- a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
++++ b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getValueMa", "this.valueMap"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateMap(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+--- a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
++++ b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateMa"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateBlock(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+--- a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
++++ b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.valueMaps", "this.getValueMap"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forEachEvent(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+--- a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
++++ b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.values"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forEach(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+--- a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
++++ b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockValues", "this.chunkValues", "this.entityValues", "this.events"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ purgeExpired(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+--- a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
++++ b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.valueMaps", "this.getValueMap"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pushEvent(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+--- a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
++++ b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.forEachValu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forEachBlock(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+--- a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
++++ b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.valuesBySubscription"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropEntity(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+--- a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
++++ b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.valuesBySubscription"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ initializeSubscriptions(/* params */);
+
+diff --git a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+--- a/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
++++ b/net.minecraft.client.multiplayer.ClientDebugSubscriber.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.initializeSubscription", "this.valuesBySubscription", "this.connection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSubscriptionsChanged(/* params */);
+

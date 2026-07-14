@@ -1,0 +1,140 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (11 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.navigation.ScreenRectangle.java b/net.minecraft.client.gui.navigation.ScreenRectangle.java
+--- a/net.minecraft.client.gui.navigation.ScreenRectangle.java
++++ b/net.minecraft.client.gui.navigation.ScreenRectangle.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.to", "this.botto", "this.lef", "this.righ"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ transformMaxBounds(/* params */);
+
+diff --git a/net.minecraft.client.gui.navigation.ScreenRectangle.java b/net.minecraft.client.gui.navigation.ScreenRectangle.java
+--- a/net.minecraft.client.gui.navigation.ScreenRectangle.java
++++ b/net.minecraft.client.gui.navigation.ScreenRectangle.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBoundInDirectio", "this.boundInDirection"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ overlapsInAxis(/* params */);
+
+diff --git a/net.minecraft.client.gui.navigation.ScreenRectangle.java b/net.minecraft.client.gui.navigation.ScreenRectangle.java
+--- a/net.minecraft.client.gui.navigation.ScreenRectangle.java
++++ b/net.minecraft.client.gui.navigation.ScreenRectangle.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.to", "this.botto", "this.lef", "this.righ"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ transformAxisAligned(/* params */);
+
+diff --git a/net.minecraft.client.gui.navigation.ScreenRectangle.java b/net.minecraft.client.gui.navigation.ScreenRectangle.java
+--- a/net.minecraft.client.gui.navigation.ScreenRectangle.java
++++ b/net.minecraft.client.gui.navigation.ScreenRectangle.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.overlapsInAxi"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ overlaps(/* params */);
+
+diff --git a/net.minecraft.client.gui.navigation.ScreenRectangle.java b/net.minecraft.client.gui.navigation.ScreenRectangle.java
+--- a/net.minecraft.client.gui.navigation.ScreenRectangle.java
++++ b/net.minecraft.client.gui.navigation.ScreenRectangle.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.position"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ left(/* params */);
+
+diff --git a/net.minecraft.client.gui.navigation.ScreenRectangle.java b/net.minecraft.client.gui.navigation.ScreenRectangle.java
+--- a/net.minecraft.client.gui.navigation.ScreenRectangle.java
++++ b/net.minecraft.client.gui.navigation.ScreenRectangle.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.to", "this.botto", "this.lef", "this.righ"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ containsPoint(/* params */);
+
+diff --git a/net.minecraft.client.gui.navigation.ScreenRectangle.java b/net.minecraft.client.gui.navigation.ScreenRectangle.java
+--- a/net.minecraft.client.gui.navigation.ScreenRectangle.java
++++ b/net.minecraft.client.gui.navigation.ScreenRectangle.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.to", "this.botto", "this.lef", "this.righ"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ intersects(/* params */);
+
+diff --git a/net.minecraft.client.gui.navigation.ScreenRectangle.java b/net.minecraft.client.gui.navigation.ScreenRectangle.java
+--- a/net.minecraft.client.gui.navigation.ScreenRectangle.java
++++ b/net.minecraft.client.gui.navigation.ScreenRectangle.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.heigh", "this.position"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ bottom(/* params */);
+
+diff --git a/net.minecraft.client.gui.navigation.ScreenRectangle.java b/net.minecraft.client.gui.navigation.ScreenRectangle.java
+--- a/net.minecraft.client.gui.navigation.ScreenRectangle.java
++++ b/net.minecraft.client.gui.navigation.ScreenRectangle.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.width", "this.position", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ step(/* params */);
+
+diff --git a/net.minecraft.client.gui.navigation.ScreenRectangle.java b/net.minecraft.client.gui.navigation.ScreenRectangle.java
+--- a/net.minecraft.client.gui.navigation.ScreenRectangle.java
++++ b/net.minecraft.client.gui.navigation.ScreenRectangle.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.to", "this.botto", "this.lef", "this.righ"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ encompasses(/* params */);
+
+diff --git a/net.minecraft.client.gui.navigation.ScreenRectangle.java b/net.minecraft.client.gui.navigation.ScreenRectangle.java
+--- a/net.minecraft.client.gui.navigation.ScreenRectangle.java
++++ b/net.minecraft.client.gui.navigation.ScreenRectangle.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.widt", "this.position"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ right(/* params */);
+

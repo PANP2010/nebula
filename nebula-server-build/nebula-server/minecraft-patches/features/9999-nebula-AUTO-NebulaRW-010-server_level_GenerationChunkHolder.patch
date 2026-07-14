@@ -1,0 +1,130 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (10 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.level.GenerationChunkHolder.java b/net.minecraft.server.level.GenerationChunkHolder.java
+--- a/net.minecraft.server.level.GenerationChunkHolder.java
++++ b/net.minecraft.server.level.GenerationChunkHolder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pos", "this.getPo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ rescheduleChunkTask(/* params */);
+
+diff --git a/net.minecraft.server.level.GenerationChunkHolder.java b/net.minecraft.server.level.GenerationChunkHolder.java
+--- a/net.minecraft.server.level.GenerationChunkHolder.java
++++ b/net.minecraft.server.level.GenerationChunkHolder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.addSaveDependenc", "this.generationSaveSyncFuture", "this.generationRefCount", "this.generationSaveSyncFutur"},
++writeEntities = {"this.generationSaveSyncFuture"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ increaseGenerationRefCount(/* params */);
+
+diff --git a/net.minecraft.server.level.GenerationChunkHolder.java b/net.minecraft.server.level.GenerationChunkHolder.java
+--- a/net.minecraft.server.level.GenerationChunkHolder.java
++++ b/net.minecraft.server.level.GenerationChunkHolder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.futures"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ failAndClearPendingFuture(/* params */);
+
+diff --git a/net.minecraft.server.level.GenerationChunkHolder.java b/net.minecraft.server.level.GenerationChunkHolder.java
+--- a/net.minecraft.server.level.GenerationChunkHolder.java
++++ b/net.minecraft.server.level.GenerationChunkHolder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.futures"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ completeFuture(/* params */);
+
+diff --git a/net.minecraft.server.level.GenerationChunkHolder.java b/net.minecraft.server.level.GenerationChunkHolder.java
+--- a/net.minecraft.server.level.GenerationChunkHolder.java
++++ b/net.minecraft.server.level.GenerationChunkHolder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.failAndClearPendingFutur", "this.futures"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ failAndClearPendingFuturesBetween(/* params */);
+
+diff --git a/net.minecraft.server.level.GenerationChunkHolder.java b/net.minecraft.server.level.GenerationChunkHolder.java
+--- a/net.minecraft.server.level.GenerationChunkHolder.java
++++ b/net.minecraft.server.level.GenerationChunkHolder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.startedWork"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ acquireStatusBump(/* params */);
+
+diff --git a/net.minecraft.server.level.GenerationChunkHolder.java b/net.minecraft.server.level.GenerationChunkHolder.java
+--- a/net.minecraft.server.level.GenerationChunkHolder.java
++++ b/net.minecraft.server.level.GenerationChunkHolder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isStatusDisallowe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ scheduleChunkGenerationTask(/* params */);
+
+diff --git a/net.minecraft.server.level.GenerationChunkHolder.java b/net.minecraft.server.level.GenerationChunkHolder.java
+--- a/net.minecraft.server.level.GenerationChunkHolder.java
++++ b/net.minecraft.server.level.GenerationChunkHolder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.futures"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ replaceProtoChunk(/* params */);
+
+diff --git a/net.minecraft.server.level.GenerationChunkHolder.java b/net.minecraft.server.level.GenerationChunkHolder.java
+--- a/net.minecraft.server.level.GenerationChunkHolder.java
++++ b/net.minecraft.server.level.GenerationChunkHolder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.generationRefCount", "this.generationSaveSyncFutur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ decreaseGenerationRefCount(/* params */);
+
+diff --git a/net.minecraft.server.level.GenerationChunkHolder.java b/net.minecraft.server.level.GenerationChunkHolder.java
+--- a/net.minecraft.server.level.GenerationChunkHolder.java
++++ b/net.minecraft.server.level.GenerationChunkHolder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.highestAllowedStatus"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateHighestAllowedStatus(/* params */);
+

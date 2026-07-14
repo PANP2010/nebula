@@ -1,0 +1,48 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (3 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.ai.goal.EatBlockGoal.java b/net.minecraft.world.entity.ai.goal.EatBlockGoal.java
+--- a/net.minecraft.world.entity.ai.goal.EatBlockGoal.java
++++ b/net.minecraft.world.entity.ai.goal.EatBlockGoal.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mob", "this.level", "this.eatAnimationTick", "this.adjustedTickDela", "this.eatAnimationTic"},
++writeEntities = {"this.eatAnimationTick"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.goal.EatBlockGoal.java b/net.minecraft.world.entity.ai.goal.EatBlockGoal.java
+--- a/net.minecraft.world.entity.ai.goal.EatBlockGoal.java
++++ b/net.minecraft.world.entity.ai.goal.EatBlockGoal.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mob", "this.level", "this.adjustedTickDela", "this.eatAnimationTic"},
++writeEntities = {"this.eatAnimationTick"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ start(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.goal.EatBlockGoal.java b/net.minecraft.world.entity.ai.goal.EatBlockGoal.java
+--- a/net.minecraft.world.entity.ai.goal.EatBlockGoal.java
++++ b/net.minecraft.world.entity.ai.goal.EatBlockGoal.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.eatAnimationTic"},
++writeEntities = {"this.eatAnimationTick"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stop(/* params */);
+

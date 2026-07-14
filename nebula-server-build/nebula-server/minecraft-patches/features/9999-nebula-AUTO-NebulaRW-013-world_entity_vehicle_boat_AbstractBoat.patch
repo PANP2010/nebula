@@ -1,0 +1,170 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (13 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java b/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
+--- a/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
++++ b/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.deltaMovement", "this.resetFallDistanc", "this.getDeltaMovemen", "this.isPassenge", "this.lastY"},
++writeEntities = {"this.lastYd"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkFallDamage(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java b/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
+--- a/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
++++ b/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.bubbleTime", "this.isAboveBubbleColumn", "this.bubbleColumnDirectionIsDown"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onAboveBubbleColumn(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java b/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
+--- a/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
++++ b/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.readLeashDat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java b/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
+--- a/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
++++ b/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.boundingBox", "this.getBoundingBo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ push(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java b/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
+--- a/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
++++ b/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.boundingBox", "this.getBoundingBo", "this.waterLeve", "this.leve", "this.waterLevel"},
++writeEntities = {"this.waterLevel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkInWater(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java b/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
+--- a/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
++++ b/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.damage", "this.hurtDir", "this.hurtTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ animateHurt(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java b/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
+--- a/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
++++ b/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.yRot", "this.getYRo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ clampRotation(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java b/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
+--- a/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
++++ b/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getStatu", "this.oldStatu", "this.statu", "this.outOfControlTick", "this.status"},
++writeEntities = {"this.oldStatus", "this.outOfControlTicks", "this.status"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java b/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
+--- a/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
++++ b/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.oldStatus", "this.pos", "this.deltaMovement", "this.lastYd", "this.waterLevel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ floatBoat(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java b/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
+--- a/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
++++ b/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.bubbleTime", "this.leve", "this.getBubbleTim", "this.bubbleMultiplier"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickBubbleColumn(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java b/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
+--- a/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
++++ b/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ positionRider(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java b/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
+--- a/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
++++ b/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.clampRotatio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onPassengerTurned(/* params */);
+
+diff --git a/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java b/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
+--- a/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
++++ b/net.minecraft.world.entity.vehicle.boat.AbstractBoat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isVehicl", "this.inputLeft", "this.deltaRotation"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ controlBoat(/* params */);
+

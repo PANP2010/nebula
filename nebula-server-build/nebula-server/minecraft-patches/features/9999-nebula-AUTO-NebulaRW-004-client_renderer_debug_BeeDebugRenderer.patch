@@ -1,0 +1,57 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.renderer.debug.BeeDebugRenderer.java b/net.minecraft.client.renderer.debug.BeeDebugRenderer.java
+--- a/net.minecraft.client.renderer.debug.BeeDebugRenderer.java
++++ b/net.minecraft.client.renderer.debug.BeeDebugRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.updateLastLookedAtUui", "this.doRende"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ emitGizmos(/* params */);
+
+diff --git a/net.minecraft.client.renderer.debug.BeeDebugRenderer.java b/net.minecraft.client.renderer.debug.BeeDebugRenderer.java
+--- a/net.minecraft.client.renderer.debug.BeeDebugRenderer.java
++++ b/net.minecraft.client.renderer.debug.BeeDebugRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isBeeSelecte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderBeeInfo(/* params */);
+
+diff --git a/net.minecraft.client.renderer.debug.BeeDebugRenderer.java b/net.minecraft.client.renderer.debug.BeeDebugRenderer.java
+--- a/net.minecraft.client.renderer.debug.BeeDebugRenderer.java
++++ b/net.minecraft.client.renderer.debug.BeeDebugRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.getCamer", "this.camera", "this.renderBeeInf"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ doRender(/* params */);
+
+diff --git a/net.minecraft.client.renderer.debug.BeeDebugRenderer.java b/net.minecraft.client.renderer.debug.BeeDebugRenderer.java
+--- a/net.minecraft.client.renderer.debug.BeeDebugRenderer.java
++++ b/net.minecraft.client.renderer.debug.BeeDebugRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.lastLookedAtUui"},
++writeEntities = {"this.lastLookedAtUuid"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateLastLookedAtUuid(/* params */);
+

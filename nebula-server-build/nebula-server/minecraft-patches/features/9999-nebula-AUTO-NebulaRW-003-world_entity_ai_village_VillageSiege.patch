@@ -1,0 +1,53 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (3 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.ai.village.VillageSiege.java b/net.minecraft.world.entity.ai.village.VillageSiege.java
+--- a/net.minecraft.world.entity.ai.village.VillageSiege.java
++++ b/net.minecraft.world.entity.ai.village.VillageSiege.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.findRandomSpawnPo", "this.spawnX", "this.spawnZ", "this.spawnY"},
++triggeredEvents = {"ENTITY_SPAWNED"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ trySpawn(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.village.VillageSiege.java b/net.minecraft.world.entity.ai.village.VillageSiege.java
+--- a/net.minecraft.world.entity.ai.village.VillageSiege.java
++++ b/net.minecraft.world.entity.ai.village.VillageSiege.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.siegeStat"},
++writeEntities = {"this.siegeState"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.village.VillageSiege.java b/net.minecraft.world.entity.ai.village.VillageSiege.java
+--- a/net.minecraft.world.entity.ai.village.VillageSiege.java
++++ b/net.minecraft.world.entity.ai.village.VillageSiege.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.zombiesToSpawn", "this.nextSpawnTime", "this.spawnX", "this.spawnZ", "this.spawnY"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tryToSetupSiege(/* params */);
+

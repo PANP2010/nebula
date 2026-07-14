@@ -1,0 +1,56 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.packs.repository.BuiltInPackSource.java b/net.minecraft.server.packs.repository.BuiltInPackSource.java
+--- a/net.minecraft.server.packs.repository.BuiltInPackSource.java
++++ b/net.minecraft.server.packs.repository.BuiltInPackSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.populatePackLis"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ listBundledPacks(/* params */);
+
+diff --git a/net.minecraft.server.packs.repository.BuiltInPackSource.java b/net.minecraft.server.packs.repository.BuiltInPackSource.java
+--- a/net.minecraft.server.packs.repository.BuiltInPackSource.java
++++ b/net.minecraft.server.packs.repository.BuiltInPackSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.packDir", "this.discoverPacksInPat", "this.packType", "this.vanillaPack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ populatePackList(/* params */);
+
+diff --git a/net.minecraft.server.packs.repository.BuiltInPackSource.java b/net.minecraft.server.packs.repository.BuiltInPackSource.java
+--- a/net.minecraft.server.packs.repository.BuiltInPackSource.java
++++ b/net.minecraft.server.packs.repository.BuiltInPackSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createBuiltinPac", "this.validator", "this.getPackTitl", "this.packTitle"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ discoverPacksInPath(/* params */);
+
+diff --git a/net.minecraft.server.packs.repository.BuiltInPackSource.java b/net.minecraft.server.packs.repository.BuiltInPackSource.java
+--- a/net.minecraft.server.packs.repository.BuiltInPackSource.java
++++ b/net.minecraft.server.packs.repository.BuiltInPackSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createVanillaPac", "this.vanillaPack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadPacks(/* params */);
+

@@ -1,0 +1,80 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.renderer.item.ItemModelResolver.java b/net.minecraft.client.renderer.item.ItemModelResolver.java
+--- a/net.minecraft.client.renderer.item.ItemModelResolver.java
++++ b/net.minecraft.client.renderer.item.ItemModelResolver.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.itemModel", "this.getItemMode", "this.itemProperties", "this.getItemPropertie"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ appendItemLayers(/* params */);
+
+diff --git a/net.minecraft.client.renderer.item.ItemModelResolver.java b/net.minecraft.client.renderer.item.ItemModelResolver.java
+--- a/net.minecraft.client.renderer.item.ItemModelResolver.java
++++ b/net.minecraft.client.renderer.item.ItemModelResolver.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.itemProperties", "this.getItemPropertie"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ swapAnimationScale(/* params */);
+
+diff --git a/net.minecraft.client.renderer.item.ItemModelResolver.java b/net.minecraft.client.renderer.item.ItemModelResolver.java
+--- a/net.minecraft.client.renderer.item.ItemModelResolver.java
++++ b/net.minecraft.client.renderer.item.ItemModelResolver.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.itemProperties", "this.getItemPropertie"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldPlaySwapAnimation(/* params */);
+
+diff --git a/net.minecraft.client.renderer.item.ItemModelResolver.java b/net.minecraft.client.renderer.item.ItemModelResolver.java
+--- a/net.minecraft.client.renderer.item.ItemModelResolver.java
++++ b/net.minecraft.client.renderer.item.ItemModelResolver.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.appendItemLayer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateForTopItem(/* params */);
+
+diff --git a/net.minecraft.client.renderer.item.ItemModelResolver.java b/net.minecraft.client.renderer.item.ItemModelResolver.java
+--- a/net.minecraft.client.renderer.item.ItemModelResolver.java
++++ b/net.minecraft.client.renderer.item.ItemModelResolver.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateForTopIte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateForNonLiving(/* params */);
+
+diff --git a/net.minecraft.client.renderer.item.ItemModelResolver.java b/net.minecraft.client.renderer.item.ItemModelResolver.java
+--- a/net.minecraft.client.renderer.item.ItemModelResolver.java
++++ b/net.minecraft.client.renderer.item.ItemModelResolver.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateForTopIte"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateForLiving(/* params */);
+

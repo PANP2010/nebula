@@ -1,0 +1,308 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (25 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.nbt.CompoundTag.java b/net.minecraft.nbt.CompoundTag.java
+--- a/net.minecraft.nbt.CompoundTag.java
++++ b/net.minecraft.nbt.CompoundTag.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tags"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ write(/* params */);
+
+diff --git a/net.minecraft.nbt.CompoundTag.java b/net.minecraft.nbt.CompoundTag.java
+--- a/net.minecraft.nbt.CompoundTag.java
++++ b/net.minecraft.nbt.CompoundTag.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tags"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ equals(/* params */);
+
+diff --git a/net.minecraft.nbt.CompoundTag.java b/net.minecraft.nbt.CompoundTag.java
+--- a/net.minecraft.nbt.CompoundTag.java
++++ b/net.minecraft.nbt.CompoundTag.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tags"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putLongArray(/* params */);
+
+diff --git a/net.minecraft.nbt.CompoundTag.java b/net.minecraft.nbt.CompoundTag.java
+--- a/net.minecraft.nbt.CompoundTag.java
++++ b/net.minecraft.nbt.CompoundTag.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tags"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putLong(/* params */);
+
+diff --git a/net.minecraft.nbt.CompoundTag.java b/net.minecraft.nbt.CompoundTag.java
+--- a/net.minecraft.nbt.CompoundTag.java
++++ b/net.minecraft.nbt.CompoundTag.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tags"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ values(/* params */);
+
+diff --git a/net.minecraft.nbt.CompoundTag.java b/net.minecraft.nbt.CompoundTag.java
+--- a/net.minecraft.nbt.CompoundTag.java
++++ b/net.minecraft.nbt.CompoundTag.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tags"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forEach(/* params */);
+
+diff --git a/net.minecraft.nbt.CompoundTag.java b/net.minecraft.nbt.CompoundTag.java
+--- a/net.minecraft.nbt.CompoundTag.java
++++ b/net.minecraft.nbt.CompoundTag.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.merg"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ store(/* params */);
+
+diff --git a/net.minecraft.nbt.CompoundTag.java b/net.minecraft.nbt.CompoundTag.java
+--- a/net.minecraft.nbt.CompoundTag.java
++++ b/net.minecraft.nbt.CompoundTag.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tags"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ contains(/* params */);
+
+diff --git a/net.minecraft.nbt.CompoundTag.java b/net.minecraft.nbt.CompoundTag.java
+--- a/net.minecraft.nbt.CompoundTag.java
++++ b/net.minecraft.nbt.CompoundTag.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tags"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ copy(/* params */);
+
+diff --git a/net.minecraft.nbt.CompoundTag.java b/net.minecraft.nbt.CompoundTag.java
+--- a/net.minecraft.nbt.CompoundTag.java
++++ b/net.minecraft.nbt.CompoundTag.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tags"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ keySet(/* params */);
+
+diff --git a/net.minecraft.nbt.CompoundTag.java b/net.minecraft.nbt.CompoundTag.java
+--- a/net.minecraft.nbt.CompoundTag.java
++++ b/net.minecraft.nbt.CompoundTag.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tags"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putByteArray(/* params */);
+
+diff --git a/net.minecraft.nbt.CompoundTag.java b/net.minecraft.nbt.CompoundTag.java
+--- a/net.minecraft.nbt.CompoundTag.java
++++ b/net.minecraft.nbt.CompoundTag.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tags"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putIntArray(/* params */);
+
+diff --git a/net.minecraft.nbt.CompoundTag.java b/net.minecraft.nbt.CompoundTag.java
+--- a/net.minecraft.nbt.CompoundTag.java
++++ b/net.minecraft.nbt.CompoundTag.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tags"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shallowCopy(/* params */);
+
+diff --git a/net.minecraft.nbt.CompoundTag.java b/net.minecraft.nbt.CompoundTag.java
+--- a/net.minecraft.nbt.CompoundTag.java
++++ b/net.minecraft.nbt.CompoundTag.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tags"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sizeInBytes(/* params */);
+
+diff --git a/net.minecraft.nbt.CompoundTag.java b/net.minecraft.nbt.CompoundTag.java
+--- a/net.minecraft.nbt.CompoundTag.java
++++ b/net.minecraft.nbt.CompoundTag.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tags"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putShort(/* params */);
+
+diff --git a/net.minecraft.nbt.CompoundTag.java b/net.minecraft.nbt.CompoundTag.java
+--- a/net.minecraft.nbt.CompoundTag.java
++++ b/net.minecraft.nbt.CompoundTag.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.stor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ storeNullable(/* params */);
+
+diff --git a/net.minecraft.nbt.CompoundTag.java b/net.minecraft.nbt.CompoundTag.java
+--- a/net.minecraft.nbt.CompoundTag.java
++++ b/net.minecraft.nbt.CompoundTag.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tags"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ size(/* params */);
+
+diff --git a/net.minecraft.nbt.CompoundTag.java b/net.minecraft.nbt.CompoundTag.java
+--- a/net.minecraft.nbt.CompoundTag.java
++++ b/net.minecraft.nbt.CompoundTag.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tags"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putBoolean(/* params */);
+
+diff --git a/net.minecraft.nbt.CompoundTag.java b/net.minecraft.nbt.CompoundTag.java
+--- a/net.minecraft.nbt.CompoundTag.java
++++ b/net.minecraft.nbt.CompoundTag.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tags"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putDouble(/* params */);
+
+diff --git a/net.minecraft.nbt.CompoundTag.java b/net.minecraft.nbt.CompoundTag.java
+--- a/net.minecraft.nbt.CompoundTag.java
++++ b/net.minecraft.nbt.CompoundTag.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tags"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putByte(/* params */);
+
+diff --git a/net.minecraft.nbt.CompoundTag.java b/net.minecraft.nbt.CompoundTag.java
+--- a/net.minecraft.nbt.CompoundTag.java
++++ b/net.minecraft.nbt.CompoundTag.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tags"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putFloat(/* params */);
+
+diff --git a/net.minecraft.nbt.CompoundTag.java b/net.minecraft.nbt.CompoundTag.java
+--- a/net.minecraft.nbt.CompoundTag.java
++++ b/net.minecraft.nbt.CompoundTag.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tags"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putString(/* params */);
+
+diff --git a/net.minecraft.nbt.CompoundTag.java b/net.minecraft.nbt.CompoundTag.java
+--- a/net.minecraft.nbt.CompoundTag.java
++++ b/net.minecraft.nbt.CompoundTag.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tags"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ entrySet(/* params */);
+
+diff --git a/net.minecraft.nbt.CompoundTag.java b/net.minecraft.nbt.CompoundTag.java
+--- a/net.minecraft.nbt.CompoundTag.java
++++ b/net.minecraft.nbt.CompoundTag.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tags"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ merge(/* params */);
+
+diff --git a/net.minecraft.nbt.CompoundTag.java b/net.minecraft.nbt.CompoundTag.java
+--- a/net.minecraft.nbt.CompoundTag.java
++++ b/net.minecraft.nbt.CompoundTag.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tags"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ putInt(/* params */);
+

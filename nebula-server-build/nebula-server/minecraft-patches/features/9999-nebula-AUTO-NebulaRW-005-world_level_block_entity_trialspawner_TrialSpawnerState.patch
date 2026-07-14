@@ -1,0 +1,75 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerState.java b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerState.java
+--- a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerState.java
++++ b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerState.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.timeToSpawnItemSpawne"},
++triggeredEvents = {"ENTITY_SPAWNED", "SOUND_PLAY"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spawnOminousOminousItemSpawner(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerState.java b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerState.java
+--- a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerState.java
++++ b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerState.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.particleEmission"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ emitParticles(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerState.java b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerState.java
+--- a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerState.java
++++ b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{position}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ calculatePositionAbove(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerState.java b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerState.java
+--- a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerState.java
++++ b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lightLeve"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ lightLevel(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerState.java b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerState.java
+--- a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerState.java
++++ b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerState.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.spinningMobSpee"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spinningMobSpeed(/* params */);
+

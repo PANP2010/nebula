@@ -1,0 +1,203 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (16 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.achievement.StatsScreen.java b/net.minecraft.client.gui.screens.achievement.StatsScreen.java
+--- a/net.minecraft.client.gui.screens.achievement.StatsScreen.java
++++ b/net.minecraft.client.gui.screens.achievement.StatsScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractContents(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.achievement.StatsScreen.java b/net.minecraft.client.gui.screens.achievement.StatsScreen.java
+--- a/net.minecraft.client.gui.screens.achievement.StatsScreen.java
++++ b/net.minecraft.client.gui.screens.achievement.StatsScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.layout", "this.tabManager", "this.width", "this.tabNavigationBar", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ repositionElements(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.achievement.StatsScreen.java b/net.minecraft.client.gui.screens.achievement.StatsScreen.java
+--- a/net.minecraft.client.gui.screens.achievement.StatsScreen.java
++++ b/net.minecraft.client.gui.screens.achievement.StatsScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractContent(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.achievement.StatsScreen.java b/net.minecraft.client.gui.screens.achievement.StatsScreen.java
+--- a/net.minecraft.client.gui.screens.achievement.StatsScreen.java
++++ b/net.minecraft.client.gui.screens.achievement.StatsScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.layout", "this.extractMenuBackgroun", "this.width", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractMenuBackground(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.achievement.StatsScreen.java b/net.minecraft.client.gui.screens.achievement.StatsScreen.java
+--- a/net.minecraft.client.gui.screens.achievement.StatsScreen.java
++++ b/net.minecraft.client.gui.screens.achievement.StatsScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.itemRows", "this.childre", "this.addEntr", "this.getItemRow", "this.clearEntriesExcep"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sortItems(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.achievement.StatsScreen.java b/net.minecraft.client.gui.screens.achievement.StatsScreen.java
+--- a/net.minecraft.client.gui.screens.achievement.StatsScreen.java
++++ b/net.minecraft.client.gui.screens.achievement.StatsScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.layout", "this.width", "this.height"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.achievement.StatsScreen.java b/net.minecraft.client.gui.screens.achievement.StatsScreen.java
+--- a/net.minecraft.client.gui.screens.achievement.StatsScreen.java
++++ b/net.minecraft.client.gui.screens.achievement.StatsScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tabNavigationBar"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ keyPressed(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.achievement.StatsScreen.java b/net.minecraft.client.gui.screens.achievement.StatsScreen.java
+--- a/net.minecraft.client.gui.screens.achievement.StatsScreen.java
++++ b/net.minecraft.client.gui.screens.achievement.StatsScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.tabNavigationBar"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.achievement.StatsScreen.java b/net.minecraft.client.gui.screens.achievement.StatsScreen.java
+--- a/net.minecraft.client.gui.screens.achievement.StatsScreen.java
++++ b/net.minecraft.client.gui.screens.achievement.StatsScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.contentX", "this.getContent", "this.contentY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractTooltip(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.achievement.StatsScreen.java b/net.minecraft.client.gui.screens.achievement.StatsScreen.java
+--- a/net.minecraft.client.gui.screens.achievement.StatsScreen.java
++++ b/net.minecraft.client.gui.screens.achievement.StatsScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.layout", "this.width", "this.list"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ doLayout(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.achievement.StatsScreen.java b/net.minecraft.client.gui.screens.achievement.StatsScreen.java
+--- a/net.minecraft.client.gui.screens.achievement.StatsScreen.java
++++ b/net.minecraft.client.gui.screens.achievement.StatsScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.stats", "this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractStat(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.achievement.StatsScreen.java b/net.minecraft.client.gui.screens.achievement.StatsScreen.java
+--- a/net.minecraft.client.gui.screens.achievement.StatsScreen.java
++++ b/net.minecraft.client.gui.screens.achievement.StatsScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.contentX", "this.getContent", "this.contentY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractWidgetRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.achievement.StatsScreen.java b/net.minecraft.client.gui.screens.achievement.StatsScreen.java
+--- a/net.minecraft.client.gui.screens.achievement.StatsScreen.java
++++ b/net.minecraft.client.gui.screens.achievement.StatsScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sortColumn", "this.sortColum", "this.sortOrde"},
++writeEntities = {"this.sortColumn", "this.sortOrder"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sortByColumn(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.achievement.StatsScreen.java b/net.minecraft.client.gui.screens.achievement.StatsScreen.java
+--- a/net.minecraft.client.gui.screens.achievement.StatsScreen.java
++++ b/net.minecraft.client.gui.screens.achievement.StatsScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.lastScreen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onClose(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.achievement.StatsScreen.java b/net.minecraft.client.gui.screens.achievement.StatsScreen.java
+--- a/net.minecraft.client.gui.screens.achievement.StatsScreen.java
++++ b/net.minecraft.client.gui.screens.achievement.StatsScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isLoading", "this.removeWidge", "this.tabNavigationBar"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onStatsUpdated(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.achievement.StatsScreen.java b/net.minecraft.client.gui.screens.achievement.StatsScreen.java
+--- a/net.minecraft.client.gui.screens.achievement.StatsScreen.java
++++ b/net.minecraft.client.gui.screens.achievement.StatsScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sortColum"},
++writeEntities = {"this.sortColumn"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ compare(/* params */);
+

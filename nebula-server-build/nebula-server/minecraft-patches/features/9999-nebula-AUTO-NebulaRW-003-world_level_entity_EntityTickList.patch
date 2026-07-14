@@ -1,0 +1,45 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (3 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.entity.EntityTickList.java b/net.minecraft.world.level.entity.EntityTickList.java
+--- a/net.minecraft.world.level.entity.EntityTickList.java
++++ b/net.minecraft.world.level.entity.EntityTickList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.iterated"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forEach(/* params */);
+
+diff --git a/net.minecraft.world.level.entity.EntityTickList.java b/net.minecraft.world.level.entity.EntityTickList.java
+--- a/net.minecraft.world.level.entity.EntityTickList.java
++++ b/net.minecraft.world.level.entity.EntityTickList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.active", "this.passive", "this.iterate"},
++writeEntities = {"this.iterated"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ ensureActiveIsNotIterated(/* params */);
+
+diff --git a/net.minecraft.world.level.entity.EntityTickList.java b/net.minecraft.world.level.entity.EntityTickList.java
+--- a/net.minecraft.world.level.entity.EntityTickList.java
++++ b/net.minecraft.world.level.entity.EntityTickList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.active"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ contains(/* params */);
+

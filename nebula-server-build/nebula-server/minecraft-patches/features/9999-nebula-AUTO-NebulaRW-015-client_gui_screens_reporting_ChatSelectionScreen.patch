@@ -1,0 +1,191 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (15 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java b/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.addEntryToTo", "this.report", "this.updateHeadin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ acceptMessage(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java b/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.canReport", "this.chatId", "this.report", "this.updateConfirmSelectedButto"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toggleReport(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java b/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tagIcon", "this.tagHoverText"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractTag(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java b/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setSelecte", "this.toggleRepor"},
++writeEntities = {"this.selected"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mouseClicked(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java b/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.addEntryToTo", "this.previousHeading", "this.removeEntryFromTo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateHeading(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java b/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getSelecte", "this.hovered", "this.getHovere", "this.selected"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldHighlightEntry(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java b/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chatLogFiller", "this.chatSelectionList"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extendLog(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java b/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.extractSelectio", "this.isFocuse", "this.shouldHighlightEntr", "this.getSelecte", "this.selected"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractItem(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java b/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.lastScreen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onClose(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java b/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.report", "this.confirmSelectedButton"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateConfirmSelectedButton(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java b/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractContent(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java b/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.previousHeadin", "this.addEntryToTo"},
++writeEntities = {"this.previousHeading"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ acceptDivider(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java b/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.toggleRepor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ keyPressed(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java b/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.chatLogFiller", "this.chatSelectionList", "this.contextInfoLabel", "this.confirmSelectedButton"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java b/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
+--- a/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
++++ b/net.minecraft.client.gui.screens.reporting.ChatSelectionScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+

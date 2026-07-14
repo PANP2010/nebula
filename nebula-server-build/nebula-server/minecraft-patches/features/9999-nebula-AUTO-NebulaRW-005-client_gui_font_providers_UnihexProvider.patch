@@ -1,0 +1,68 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.font.providers.UnihexProvider.java b/net.minecraft.client.gui.font.providers.UnihexProvider.java
+--- a/net.minecraft.client.gui.font.providers.UnihexProvider.java
++++ b/net.minecraft.client.gui.font.providers.UnihexProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.loadDat", "this.hexFile"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ load(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.providers.UnihexProvider.java b/net.minecraft.client.gui.font.providers.UnihexProvider.java
+--- a/net.minecraft.client.gui.font.providers.UnihexProvider.java
++++ b/net.minecraft.client.gui.font.providers.UnihexProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.widt", "this.contents", "this.left", "this.right"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ upload(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.providers.UnihexProvider.java b/net.minecraft.client.gui.font.providers.UnihexProvider.java
+--- a/net.minecraft.client.gui.font.providers.UnihexProvider.java
++++ b/net.minecraft.client.gui.font.providers.UnihexProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.inf"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ bake(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.providers.UnihexProvider.java b/net.minecraft.client.gui.font.providers.UnihexProvider.java
+--- a/net.minecraft.client.gui.font.providers.UnihexProvider.java
++++ b/net.minecraft.client.gui.font.providers.UnihexProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.left", "this.right"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ width(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.providers.UnihexProvider.java b/net.minecraft.client.gui.font.providers.UnihexProvider.java
+--- a/net.minecraft.client.gui.font.providers.UnihexProvider.java
++++ b/net.minecraft.client.gui.font.providers.UnihexProvider.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.contents"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ line(/* params */);
+

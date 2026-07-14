@@ -1,0 +1,63 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.levelgen.feature.rootplacers.MangroveRootPlacer.java b/net.minecraft.world.level.levelgen.feature.rootplacers.MangroveRootPlacer.java
+--- a/net.minecraft.world.level.levelgen.feature.rootplacers.MangroveRootPlacer.java
++++ b/net.minecraft.world.level.levelgen.feature.rootplacers.MangroveRootPlacer.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mangroveRootPlacement"},
++readBlocks = {"{neighbors}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ potentialRootPositions(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.feature.rootplacers.MangroveRootPlacer.java b/net.minecraft.world.level.levelgen.feature.rootplacers.MangroveRootPlacer.java
+--- a/net.minecraft.world.level.levelgen.feature.rootplacers.MangroveRootPlacer.java
++++ b/net.minecraft.world.level.levelgen.feature.rootplacers.MangroveRootPlacer.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mangroveRootPlacement", "this.getPotentiallyWaterloggedStat", "this.potentiallyWaterloggedState"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ placeRoot(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.feature.rootplacers.MangroveRootPlacer.java b/net.minecraft.world.level.levelgen.feature.rootplacers.MangroveRootPlacer.java
+--- a/net.minecraft.world.level.levelgen.feature.rootplacers.MangroveRootPlacer.java
++++ b/net.minecraft.world.level.levelgen.feature.rootplacers.MangroveRootPlacer.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mangroveRootPlacement", "this.simulateRoot", "this.potentialRootPosition", "this.canPlaceRoo"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ simulateRoots(/* params */);
+
+diff --git a/net.minecraft.world.level.levelgen.feature.rootplacers.MangroveRootPlacer.java b/net.minecraft.world.level.levelgen.feature.rootplacers.MangroveRootPlacer.java
+--- a/net.minecraft.world.level.levelgen.feature.rootplacers.MangroveRootPlacer.java
++++ b/net.minecraft.world.level.levelgen.feature.rootplacers.MangroveRootPlacer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.canPlaceRoo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ placeRoots(/* params */);
+

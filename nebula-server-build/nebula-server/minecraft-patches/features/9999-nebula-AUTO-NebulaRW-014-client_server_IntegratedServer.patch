@@ -1,0 +1,181 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (14 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.server.IntegratedServer.java b/net.minecraft.client.server.IntegratedServer.java
+--- a/net.minecraft.client.server.IntegratedServer.java
++++ b/net.minecraft.client.server.IntegratedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.gizmoCollector"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ processPacketsAndTick(/* params */);
+
+diff --git a/net.minecraft.client.server.IntegratedServer.java b/net.minecraft.client.server.IntegratedServer.java
+--- a/net.minecraft.client.server.IntegratedServer.java
++++ b/net.minecraft.client.server.IntegratedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lanPinge", "this.lanPinger"},
++writeEntities = {"this.lanPinger"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ stopServer(/* params */);
+
+diff --git a/net.minecraft.client.server.IntegratedServer.java b/net.minecraft.client.server.IntegratedServer.java
+--- a/net.minecraft.client.server.IntegratedServer.java
++++ b/net.minecraft.client.server.IntegratedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.motd", "this.usesAuthentication"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ initServer(/* params */);
+
+diff --git a/net.minecraft.client.server.IntegratedServer.java b/net.minecraft.client.server.IntegratedServer.java
+--- a/net.minecraft.client.server.IntegratedServer.java
++++ b/net.minecraft.client.server.IntegratedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ useNativeTransport(/* params */);
+
+diff --git a/net.minecraft.client.server.IntegratedServer.java b/net.minecraft.client.server.IntegratedServer.java
+--- a/net.minecraft.client.server.IntegratedServer.java
++++ b/net.minecraft.client.server.IntegratedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.warnOnLowDiskSpac"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reportChunkSaveFailure(/* params */);
+
+diff --git a/net.minecraft.client.server.IntegratedServer.java b/net.minecraft.client.server.IntegratedServer.java
+--- a/net.minecraft.client.server.IntegratedServer.java
++++ b/net.minecraft.client.server.IntegratedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forceSynchronousWrites(/* params */);
+
+diff --git a/net.minecraft.client.server.IntegratedServer.java b/net.minecraft.client.server.IntegratedServer.java
+--- a/net.minecraft.client.server.IntegratedServer.java
++++ b/net.minecraft.client.server.IntegratedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.paused", "this.getPlayerLis", "this.playerList", "this.pause", "this.saveEverythin"},
++writeEntities = {"this.paused"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickServer(/* params */);
+
+diff --git a/net.minecraft.client.server.IntegratedServer.java b/net.minecraft.client.server.IntegratedServer.java
+--- a/net.minecraft.client.server.IntegratedServer.java
++++ b/net.minecraft.client.server.IntegratedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getPlayerLis", "this.playerList", "this.tickConnectio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickPaused(/* params */);
+
+diff --git a/net.minecraft.client.server.IntegratedServer.java b/net.minecraft.client.server.IntegratedServer.java
+--- a/net.minecraft.client.server.IntegratedServer.java
++++ b/net.minecraft.client.server.IntegratedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendLowDiskSpaceWarning(/* params */);
+
+diff --git a/net.minecraft.client.server.IntegratedServer.java b/net.minecraft.client.server.IntegratedServer.java
+--- a/net.minecraft.client.server.IntegratedServer.java
++++ b/net.minecraft.client.server.IntegratedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.warnOnLowDiskSpac"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reportChunkLoadFailure(/* params */);
+
+diff --git a/net.minecraft.client.server.IntegratedServer.java b/net.minecraft.client.server.IntegratedServer.java
+--- a/net.minecraft.client.server.IntegratedServer.java
++++ b/net.minecraft.client.server.IntegratedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.worldData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ selectLevelLoadFocusPos(/* params */);
+
+diff --git a/net.minecraft.client.server.IntegratedServer.java b/net.minecraft.client.server.IntegratedServer.java
+--- a/net.minecraft.client.server.IntegratedServer.java
++++ b/net.minecraft.client.server.IntegratedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.executeBlockin", "this.getPlayerLis", "this.playerList", "this.uuid"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ halt(/* params */);
+
+diff --git a/net.minecraft.client.server.IntegratedServer.java b/net.minecraft.client.server.IntegratedServer.java
+--- a/net.minecraft.client.server.IntegratedServer.java
++++ b/net.minecraft.client.server.IntegratedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.moddedStatus", "this.minecraf", "this.getModdedStatu"},
++writeEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillServerSystemReport(/* params */);
+
+diff --git a/net.minecraft.client.server.IntegratedServer.java b/net.minecraft.client.server.IntegratedServer.java
+--- a/net.minecraft.client.server.IntegratedServer.java
++++ b/net.minecraft.client.server.IntegratedServer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.publishedGameType", "this.publishedPort", "this.lanPinger"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ publishServer(/* params */);
+

@@ -1,0 +1,68 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.item.component.ResolvableProfile.java b/net.minecraft.world.item.component.ResolvableProfile.java
+--- a/net.minecraft.world.item.component.ResolvableProfile.java
++++ b/net.minecraft.world.item.component.ResolvableProfile.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.partialProfil"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ partialProfile(/* params */);
+
+diff --git a/net.minecraft.world.item.component.ResolvableProfile.java b/net.minecraft.world.item.component.ResolvableProfile.java
+--- a/net.minecraft.world.item.component.ResolvableProfile.java
++++ b/net.minecraft.world.item.component.ResolvableProfile.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.name", "this.id", "this.properties"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createProfile(/* params */);
+
+diff --git a/net.minecraft.world.item.component.ResolvableProfile.java b/net.minecraft.world.item.component.ResolvableProfile.java
+--- a/net.minecraft.world.item.component.ResolvableProfile.java
++++ b/net.minecraft.world.item.component.ResolvableProfile.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.contents", "this.skinPatch"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ equals(/* params */);
+
+diff --git a/net.minecraft.world.item.component.ResolvableProfile.java b/net.minecraft.world.item.component.ResolvableProfile.java
+--- a/net.minecraft.world.item.component.ResolvableProfile.java
++++ b/net.minecraft.world.item.component.ResolvableProfile.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.partialProfile"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resolveProfile(/* params */);
+
+diff --git a/net.minecraft.world.item.component.ResolvableProfile.java b/net.minecraft.world.item.component.ResolvableProfile.java
+--- a/net.minecraft.world.item.component.ResolvableProfile.java
++++ b/net.minecraft.world.item.component.ResolvableProfile.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.contents"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ name(/* params */);
+

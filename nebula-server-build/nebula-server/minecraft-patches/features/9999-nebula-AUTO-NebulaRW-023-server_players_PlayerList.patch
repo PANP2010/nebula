@@ -1,0 +1,285 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (23 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.players.PlayerList.java b/net.minecraft.server.players.PlayerList.java
+--- a/net.minecraft.server.players.PlayerList.java
++++ b/net.minecraft.server.players.PlayerList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.broadcastAl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onLerpSize(/* params */);
+
+diff --git a/net.minecraft.server.players.PlayerList.java b/net.minecraft.server.players.PlayerList.java
+--- a/net.minecraft.server.players.PlayerList.java
++++ b/net.minecraft.server.players.PlayerList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.players"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ broadcast(/* params */);
+
+diff --git a/net.minecraft.server.players.PlayerList.java b/net.minecraft.server.players.PlayerList.java
+--- a/net.minecraft.server.players.PlayerList.java
++++ b/net.minecraft.server.players.PlayerList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.verifyChatTruste", "this.server", "this.players"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ broadcastChatMessage(/* params */);
+
+diff --git a/net.minecraft.server.players.PlayerList.java b/net.minecraft.server.players.PlayerList.java
+--- a/net.minecraft.server.players.PlayerList.java
++++ b/net.minecraft.server.players.PlayerList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.players", "this.sav"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveAll(/* params */);
+
+diff --git a/net.minecraft.server.players.PlayerList.java b/net.minecraft.server.players.PlayerList.java
+--- a/net.minecraft.server.players.PlayerList.java
++++ b/net.minecraft.server.players.PlayerList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.broadcastAl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSetSize(/* params */);
+
+diff --git a/net.minecraft.server.players.PlayerList.java b/net.minecraft.server.players.PlayerList.java
+--- a/net.minecraft.server.players.PlayerList.java
++++ b/net.minecraft.server.players.PlayerList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ placeNewPlayer(/* params */);
+
+diff --git a/net.minecraft.server.players.PlayerList.java b/net.minecraft.server.players.PlayerList.java
+--- a/net.minecraft.server.players.PlayerList.java
++++ b/net.minecraft.server.players.PlayerList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.broadcastAl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSetCenter(/* params */);
+
+diff --git a/net.minecraft.server.players.PlayerList.java b/net.minecraft.server.players.PlayerList.java
+--- a/net.minecraft.server.players.PlayerList.java
++++ b/net.minecraft.server.players.PlayerList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sendActiveEffect"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendActivePlayerEffects(/* params */);
+
+diff --git a/net.minecraft.server.players.PlayerList.java b/net.minecraft.server.players.PlayerList.java
+--- a/net.minecraft.server.players.PlayerList.java
++++ b/net.minecraft.server.players.PlayerList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getPlaye", "this.ops", "this.sendPlayerPermissionLeve", "this.player"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ deop(/* params */);
+
+diff --git a/net.minecraft.server.players.PlayerList.java b/net.minecraft.server.players.PlayerList.java
+--- a/net.minecraft.server.players.PlayerList.java
++++ b/net.minecraft.server.players.PlayerList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.broadcastAl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSetWarningTime(/* params */);
+
+diff --git a/net.minecraft.server.players.PlayerList.java b/net.minecraft.server.players.PlayerList.java
+--- a/net.minecraft.server.players.PlayerList.java
++++ b/net.minecraft.server.players.PlayerList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.broadcastAl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSetWarningBlocks(/* params */);
+
+diff --git a/net.minecraft.server.players.PlayerList.java b/net.minecraft.server.players.PlayerList.java
+--- a/net.minecraft.server.players.PlayerList.java
++++ b/net.minecraft.server.players.PlayerList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server", "this.advancements"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ reloadResources(/* params */);
+
+diff --git a/net.minecraft.server.players.PlayerList.java b/net.minecraft.server.players.PlayerList.java
+--- a/net.minecraft.server.players.PlayerList.java
++++ b/net.minecraft.server.players.PlayerList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.players"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ disconnectAllPlayersWithProfile(/* params */);
+
+diff --git a/net.minecraft.server.players.PlayerList.java b/net.minecraft.server.players.PlayerList.java
+--- a/net.minecraft.server.players.PlayerList.java
++++ b/net.minecraft.server.players.PlayerList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server", "this.playerIo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadPlayerData(/* params */);
+
+diff --git a/net.minecraft.server.players.PlayerList.java b/net.minecraft.server.players.PlayerList.java
+--- a/net.minecraft.server.players.PlayerList.java
++++ b/net.minecraft.server.players.PlayerList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playerIo", "this.stats"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ save(/* params */);
+
+diff --git a/net.minecraft.server.players.PlayerList.java b/net.minecraft.server.players.PlayerList.java
+--- a/net.minecraft.server.players.PlayerList.java
++++ b/net.minecraft.server.players.PlayerList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getPlayerByNam", "this.playerByName"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ broadcastSystemToTeam(/* params */);
+
+diff --git a/net.minecraft.server.players.PlayerList.java b/net.minecraft.server.players.PlayerList.java
+--- a/net.minecraft.server.players.PlayerList.java
++++ b/net.minecraft.server.players.PlayerList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server", "this.players"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ respawn(/* params */);
+
+diff --git a/net.minecraft.server.players.PlayerList.java b/net.minecraft.server.players.PlayerList.java
+--- a/net.minecraft.server.players.PlayerList.java
++++ b/net.minecraft.server.players.PlayerList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.players"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ broadcastAll(/* params */);
+
+diff --git a/net.minecraft.server.players.PlayerList.java b/net.minecraft.server.players.PlayerList.java
+--- a/net.minecraft.server.players.PlayerList.java
++++ b/net.minecraft.server.players.PlayerList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.broadcastSystemMessag"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ broadcastSystemToAllExceptTeam(/* params */);
+
+diff --git a/net.minecraft.server.players.PlayerList.java b/net.minecraft.server.players.PlayerList.java
+--- a/net.minecraft.server.players.PlayerList.java
++++ b/net.minecraft.server.players.PlayerList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.broadcastAl", "this.players", "this.sendAllPlayerInfoIn", "this.sendAllPlayerInfoI"},
++writeEntities = {"this.sendAllPlayerInfoIn"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.server.players.PlayerList.java b/net.minecraft.server.players.PlayerList.java
+--- a/net.minecraft.server.players.PlayerList.java
++++ b/net.minecraft.server.players.PlayerList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server", "this.players"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ broadcastSystemMessage(/* params */);
+
+diff --git a/net.minecraft.server.players.PlayerList.java b/net.minecraft.server.players.PlayerList.java
+--- a/net.minecraft.server.players.PlayerList.java
++++ b/net.minecraft.server.players.PlayerList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ locateStatsFile(/* params */);
+
+diff --git a/net.minecraft.server.players.PlayerList.java b/net.minecraft.server.players.PlayerList.java
+--- a/net.minecraft.server.players.PlayerList.java
++++ b/net.minecraft.server.players.PlayerList.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.server"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sendLevelInfo(/* params */);
+

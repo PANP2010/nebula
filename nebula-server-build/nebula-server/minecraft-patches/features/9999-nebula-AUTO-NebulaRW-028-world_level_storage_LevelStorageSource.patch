@@ -1,0 +1,345 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (28 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.storage.LevelStorageSource.java b/net.minecraft.world.level.storage.LevelStorageSource.java
+--- a/net.minecraft.world.level.storage.LevelStorageSource.java
++++ b/net.minecraft.world.level.storage.LevelStorageSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lock"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkLock(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.LevelStorageSource.java b/net.minecraft.world.level.storage.LevelStorageSource.java
+--- a/net.minecraft.world.level.storage.LevelStorageSource.java
++++ b/net.minecraft.world.level.storage.LevelStorageSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.checkLoc", "this.levelI", "this.backupPath", "this.getBackupPat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ makeWorldBackup(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.LevelStorageSource.java b/net.minecraft.world.level.storage.LevelStorageSource.java
+--- a/net.minecraft.world.level.storage.LevelStorageSource.java
++++ b/net.minecraft.world.level.storage.LevelStorageSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.path"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ directoryName(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.LevelStorageSource.java b/net.minecraft.world.level.storage.LevelStorageSource.java
+--- a/net.minecraft.world.level.storage.LevelStorageSource.java
++++ b/net.minecraft.world.level.storage.LevelStorageSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fixerUpper", "this.checkLoc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createPlayerStorage(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.LevelStorageSource.java b/net.minecraft.world.level.storage.LevelStorageSource.java
+--- a/net.minecraft.world.level.storage.LevelStorageSource.java
++++ b/net.minecraft.world.level.storage.LevelStorageSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.estimateDiskSpac"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkForLowDiskSpace(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.LevelStorageSource.java b/net.minecraft.world.level.storage.LevelStorageSource.java
+--- a/net.minecraft.world.level.storage.LevelStorageSource.java
++++ b/net.minecraft.world.level.storage.LevelStorageSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modifyLevelDataWithoutDatafi"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renameLevel(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.LevelStorageSource.java b/net.minecraft.world.level.storage.LevelStorageSource.java
+--- a/net.minecraft.world.level.storage.LevelStorageSource.java
++++ b/net.minecraft.world.level.storage.LevelStorageSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.path"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resourcePath(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.LevelStorageSource.java b/net.minecraft.world.level.storage.LevelStorageSource.java
+--- a/net.minecraft.world.level.storage.LevelStorageSource.java
++++ b/net.minecraft.world.level.storage.LevelStorageSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.resourcePat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ lockFile(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.LevelStorageSource.java b/net.minecraft.world.level.storage.LevelStorageSource.java
+--- a/net.minecraft.world.level.storage.LevelStorageSource.java
++++ b/net.minecraft.world.level.storage.LevelStorageSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.worldDirValidator"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readLevelSummary(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.LevelStorageSource.java b/net.minecraft.world.level.storage.LevelStorageSource.java
+--- a/net.minecraft.world.level.storage.LevelStorageSource.java
++++ b/net.minecraft.world.level.storage.LevelStorageSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.levelDirectory"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ estimateDiskSpace(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.LevelStorageSource.java b/net.minecraft.world.level.storage.LevelStorageSource.java
+--- a/net.minecraft.world.level.storage.LevelStorageSource.java
++++ b/net.minecraft.world.level.storage.LevelStorageSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.fixerUpper", "this.checkLoc", "this.levelDirectory", "this.makeLevelSummar"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fixAndGetSummaryFromTag(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.LevelStorageSource.java b/net.minecraft.world.level.storage.LevelStorageSource.java
+--- a/net.minecraft.world.level.storage.LevelStorageSource.java
++++ b/net.minecraft.world.level.storage.LevelStorageSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.saveLevelDat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveDataTag(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.LevelStorageSource.java b/net.minecraft.world.level.storage.LevelStorageSource.java
+--- a/net.minecraft.world.level.storage.LevelStorageSource.java
++++ b/net.minecraft.world.level.storage.LevelStorageSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.resourcePat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ oldDataFile(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.LevelStorageSource.java b/net.minecraft.world.level.storage.LevelStorageSource.java
+--- a/net.minecraft.world.level.storage.LevelStorageSource.java
++++ b/net.minecraft.world.level.storage.LevelStorageSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.path"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ corruptedDataFile(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.LevelStorageSource.java b/net.minecraft.world.level.storage.LevelStorageSource.java
+--- a/net.minecraft.world.level.storage.LevelStorageSource.java
++++ b/net.minecraft.world.level.storage.LevelStorageSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.resourcePat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dataFile(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.LevelStorageSource.java b/net.minecraft.world.level.storage.LevelStorageSource.java
+--- a/net.minecraft.world.level.storage.LevelStorageSource.java
++++ b/net.minecraft.world.level.storage.LevelStorageSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.levelDirectory"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveLevelData(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.LevelStorageSource.java b/net.minecraft.world.level.storage.LevelStorageSource.java
+--- a/net.minecraft.world.level.storage.LevelStorageSource.java
++++ b/net.minecraft.world.level.storage.LevelStorageSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ collectIssues(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.LevelStorageSource.java b/net.minecraft.world.level.storage.LevelStorageSource.java
+--- a/net.minecraft.world.level.storage.LevelStorageSource.java
++++ b/net.minecraft.world.level.storage.LevelStorageSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modifyLevelDataWithoutDatafi"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renameAndDropPlayer(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.LevelStorageSource.java b/net.minecraft.world.level.storage.LevelStorageSource.java
+--- a/net.minecraft.world.level.storage.LevelStorageSource.java
++++ b/net.minecraft.world.level.storage.LevelStorageSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.checkLoc", "this.getUnfixedDataTa", "this.unfixedDataTag", "this.fixAndGetSummaryFromTa"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fixAndGetSummary(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.LevelStorageSource.java b/net.minecraft.world.level.storage.LevelStorageSource.java
+--- a/net.minecraft.world.level.storage.LevelStorageSource.java
++++ b/net.minecraft.world.level.storage.LevelStorageSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.levelDirectory"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ restoreLevelDataFromOld(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.LevelStorageSource.java b/net.minecraft.world.level.storage.LevelStorageSource.java
+--- a/net.minecraft.world.level.storage.LevelStorageSource.java
++++ b/net.minecraft.world.level.storage.LevelStorageSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.clos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ releaseTemporarilyAndRun(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.LevelStorageSource.java b/net.minecraft.world.level.storage.LevelStorageSource.java
+--- a/net.minecraft.world.level.storage.LevelStorageSource.java
++++ b/net.minecraft.world.level.storage.LevelStorageSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.clos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ safeClose(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.LevelStorageSource.java b/net.minecraft.world.level.storage.LevelStorageSource.java
+--- a/net.minecraft.world.level.storage.LevelStorageSource.java
++++ b/net.minecraft.world.level.storage.LevelStorageSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.resourcePat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ iconFile(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.LevelStorageSource.java b/net.minecraft.world.level.storage.LevelStorageSource.java
+--- a/net.minecraft.world.level.storage.LevelStorageSource.java
++++ b/net.minecraft.world.level.storage.LevelStorageSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.loc", "this.levelDirectory"},
++writeEntities = {"this.lock"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createLock(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.LevelStorageSource.java b/net.minecraft.world.level.storage.LevelStorageSource.java
+--- a/net.minecraft.world.level.storage.LevelStorageSource.java
++++ b/net.minecraft.world.level.storage.LevelStorageSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.checkLoc", "this.levelDirectory", "this.saveLevelDat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ modifyLevelDataWithoutDatafix(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.LevelStorageSource.java b/net.minecraft.world.level.storage.LevelStorageSource.java
+--- a/net.minecraft.world.level.storage.LevelStorageSource.java
++++ b/net.minecraft.world.level.storage.LevelStorageSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getLevelPat", "this.levelPath"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ levelExists(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.LevelStorageSource.java b/net.minecraft.world.level.storage.LevelStorageSource.java
+--- a/net.minecraft.world.level.storage.LevelStorageSource.java
++++ b/net.minecraft.world.level.storage.LevelStorageSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.path"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ rawDataFile(/* params */);
+
+diff --git a/net.minecraft.world.level.storage.LevelStorageSource.java b/net.minecraft.world.level.storage.LevelStorageSource.java
+--- a/net.minecraft.world.level.storage.LevelStorageSource.java
++++ b/net.minecraft.world.level.storage.LevelStorageSource.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.checkLoc", "this.levelDirectory", "this.levelId"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ deleteLevel(/* params */);
+

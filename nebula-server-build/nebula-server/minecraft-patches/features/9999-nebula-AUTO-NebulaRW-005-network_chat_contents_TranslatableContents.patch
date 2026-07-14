@@ -1,0 +1,69 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.network.chat.contents.TranslatableContents.java b/net.minecraft.network.chat.contents.TranslatableContents.java
+--- a/net.minecraft.network.chat.contents.TranslatableContents.java
++++ b/net.minecraft.network.chat.contents.TranslatableContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.args", "this.fallback", "this.key"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.network.chat.contents.TranslatableContents.java b/net.minecraft.network.chat.contents.TranslatableContents.java
+--- a/net.minecraft.network.chat.contents.TranslatableContents.java
++++ b/net.minecraft.network.chat.contents.TranslatableContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.args"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resolve(/* params */);
+
+diff --git a/net.minecraft.network.chat.contents.TranslatableContents.java b/net.minecraft.network.chat.contents.TranslatableContents.java
+--- a/net.minecraft.network.chat.contents.TranslatableContents.java
++++ b/net.minecraft.network.chat.contents.TranslatableContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.args", "this.fallback", "this.key"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ equals(/* params */);
+
+diff --git a/net.minecraft.network.chat.contents.TranslatableContents.java b/net.minecraft.network.chat.contents.TranslatableContents.java
+--- a/net.minecraft.network.chat.contents.TranslatableContents.java
++++ b/net.minecraft.network.chat.contents.TranslatableContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.decomposedWith", "this.decomposedParts"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ decompose(/* params */);
+
+diff --git a/net.minecraft.network.chat.contents.TranslatableContents.java b/net.minecraft.network.chat.contents.TranslatableContents.java
+--- a/net.minecraft.network.chat.contents.TranslatableContents.java
++++ b/net.minecraft.network.chat.contents.TranslatableContents.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.decomposedParts", "this.decompos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ visit(/* params */);
+

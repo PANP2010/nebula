@@ -1,0 +1,164 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (13 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java b/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
+--- a/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
++++ b/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.glyph"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ bottom(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java b/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
+--- a/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
++++ b/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.glyph", "this.x", "this.style"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ activeRight(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java b/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
+--- a/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
++++ b/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.glyph"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ guiPipeline(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java b/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
+--- a/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
++++ b/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.dow"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shearBottom(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java b/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
+--- a/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
++++ b/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.glyph"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ right(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java b/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
+--- a/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
++++ b/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.glyph"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ textureView(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java b/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
+--- a/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
++++ b/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.v0", "this.u0", "this.v1", "this.u1"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ buildEffect(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java b/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
+--- a/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
++++ b/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.u"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shearTop(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java b/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
+--- a/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
++++ b/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.glyph"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ left(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java b/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
+--- a/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
++++ b/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.glyph"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderType(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java b/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
+--- a/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
++++ b/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.rende"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderChar(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java b/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
+--- a/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
++++ b/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.buildEffec"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderEffect(/* params */);
+
+diff --git a/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java b/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
+--- a/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
++++ b/net.minecraft.client.gui.font.glyphs.BakedSheetGlyph.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.glyph"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ render(/* params */);
+

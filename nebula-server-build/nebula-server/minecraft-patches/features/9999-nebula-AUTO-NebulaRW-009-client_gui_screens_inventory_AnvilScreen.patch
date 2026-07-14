@@ -1,0 +1,118 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (9 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AnvilScreen.java b/net.minecraft.client.gui.screens.inventory.AnvilScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AnvilScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AnvilScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ini", "this.name"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resize(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AnvilScreen.java b/net.minecraft.client.gui.screens.inventory.AnvilScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AnvilScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AnvilScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.menu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onNameChanged(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AnvilScreen.java b/net.minecraft.client.gui.screens.inventory.AnvilScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AnvilScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AnvilScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.menu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractErrorIcon(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AnvilScreen.java b/net.minecraft.client.gui.screens.inventory.AnvilScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AnvilScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AnvilScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ keyPressed(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AnvilScreen.java b/net.minecraft.client.gui.screens.inventory.AnvilScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AnvilScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AnvilScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.name", "this.setFocuse"},
++writeEntities = {"this.focused"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ slotChanged(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AnvilScreen.java b/net.minecraft.client.gui.screens.inventory.AnvilScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AnvilScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AnvilScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.leftPos", "this.menu", "this.topPos"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractBackground(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AnvilScreen.java b/net.minecraft.client.gui.screens.inventory.AnvilScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AnvilScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AnvilScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.name"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ subInit(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AnvilScreen.java b/net.minecraft.client.gui.screens.inventory.AnvilScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AnvilScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AnvilScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ containerTick(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.AnvilScreen.java b/net.minecraft.client.gui.screens.inventory.AnvilScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.AnvilScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.AnvilScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.menu"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractLabels(/* params */);
+

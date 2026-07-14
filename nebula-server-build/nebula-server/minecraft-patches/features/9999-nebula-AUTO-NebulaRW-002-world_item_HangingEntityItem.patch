@@ -1,0 +1,34 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (2 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.item.HangingEntityItem.java b/net.minecraft.world.item.HangingEntityItem.java
+--- a/net.minecraft.world.item.HangingEntityItem.java
++++ b/net.minecraft.world.item.HangingEntityItem.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.mayPlac"},
++readBlocks = {"{neighbors}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ useOn(/* params */);
+
+diff --git a/net.minecraft.world.item.HangingEntityItem.java b/net.minecraft.world.item.HangingEntityItem.java
+--- a/net.minecraft.world.item.HangingEntityItem.java
++++ b/net.minecraft.world.item.HangingEntityItem.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.typ"},
++writeEntities = {"this.type"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ appendHoverText(/* params */);
+

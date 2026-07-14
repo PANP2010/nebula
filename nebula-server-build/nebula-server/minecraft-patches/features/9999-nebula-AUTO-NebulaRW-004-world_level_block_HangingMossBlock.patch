@@ -1,0 +1,59 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (4 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.HangingMossBlock.java b/net.minecraft.world.level.block.HangingMossBlock.java
+--- a/net.minecraft.world.level.block.HangingMossBlock.java
++++ b/net.minecraft.world.level.block.HangingMossBlock.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getTi", "this.canGrowInt", "this.tip"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ performBonemeal(/* params */);
+
+diff --git a/net.minecraft.world.level.block.HangingMossBlock.java b/net.minecraft.world.level.block.HangingMossBlock.java
+--- a/net.minecraft.world.level.block.HangingMossBlock.java
++++ b/net.minecraft.world.level.block.HangingMossBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{neighbors}", "{position}"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ animateTick(/* params */);
+
+diff --git a/net.minecraft.world.level.block.HangingMossBlock.java b/net.minecraft.world.level.block.HangingMossBlock.java
+--- a/net.minecraft.world.level.block.HangingMossBlock.java
++++ b/net.minecraft.world.level.block.HangingMossBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.canStayAtPositio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.level.block.HangingMossBlock.java b/net.minecraft.world.level.block.HangingMossBlock.java
+--- a/net.minecraft.world.level.block.HangingMossBlock.java
++++ b/net.minecraft.world.level.block.HangingMossBlock.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.canStayAtPositio"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateShape(/* params */);
+

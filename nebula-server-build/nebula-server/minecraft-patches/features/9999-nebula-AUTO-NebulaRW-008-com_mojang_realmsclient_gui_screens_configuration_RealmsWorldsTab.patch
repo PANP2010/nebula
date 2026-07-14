@@ -1,0 +1,105 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (8 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsWorldsTab.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsWorldsTab.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsWorldsTab.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsWorldsTab.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.resetWorldButton", "this.isMinigam", "this.optionsButton", "this.serverDat"},
++writeEntities = {"this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateData(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsWorldsTab.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsWorldsTab.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsWorldsTab.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsWorldsTab.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ switchToMinigame(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsWorldsTab.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsWorldsTab.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsWorldsTab.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsWorldsTab.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.updateDat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSelected(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsWorldsTab.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsWorldsTab.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsWorldsTab.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsWorldsTab.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.switchToMinigam", "this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createSlotButton(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsWorldsTab.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsWorldsTab.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsWorldsTab.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsWorldsTab.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.configurationScreen", "this.serverData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ templateSelectionCallback(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsWorldsTab.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsWorldsTab.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsWorldsTab.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsWorldsTab.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.configurationScreen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ switchToFullSlot(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsWorldsTab.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsWorldsTab.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsWorldsTab.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsWorldsTab.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.isMinigam"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetButtonPressed(/* params */);
+
+diff --git a/com.mojang.realmsclient.gui.screens.configuration.RealmsWorldsTab.java b/com.mojang.realmsclient.gui.screens.configuration.RealmsWorldsTab.java
+--- a/com.mojang.realmsclient.gui.screens.configuration.RealmsWorldsTab.java
++++ b/com.mojang.realmsclient.gui.screens.configuration.RealmsWorldsTab.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.configurationScreen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ switchToEmptySlot(/* params */);
+

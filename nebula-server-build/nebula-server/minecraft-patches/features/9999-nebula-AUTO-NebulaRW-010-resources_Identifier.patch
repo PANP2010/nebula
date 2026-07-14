@@ -1,0 +1,130 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (10 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.resources.Identifier.java b/net.minecraft.resources.Identifier.java
+--- a/net.minecraft.resources.Identifier.java
++++ b/net.minecraft.resources.Identifier.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.path", "this.getPat", "this.namespace", "this.getNamespac"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resolveAgainst(/* params */);
+
+diff --git a/net.minecraft.resources.Identifier.java b/net.minecraft.resources.Identifier.java
+--- a/net.minecraft.resources.Identifier.java
++++ b/net.minecraft.resources.Identifier.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pat", "this.namespace", "this.toStrin"},
++writeEntities = {"this.path"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toShortString(/* params */);
+
+diff --git a/net.minecraft.resources.Identifier.java b/net.minecraft.resources.Identifier.java
+--- a/net.minecraft.resources.Identifier.java
++++ b/net.minecraft.resources.Identifier.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.path", "this.withPat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withSuffix(/* params */);
+
+diff --git a/net.minecraft.resources.Identifier.java b/net.minecraft.resources.Identifier.java
+--- a/net.minecraft.resources.Identifier.java
++++ b/net.minecraft.resources.Identifier.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.toStrin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toDebugFileName(/* params */);
+
+diff --git a/net.minecraft.resources.Identifier.java b/net.minecraft.resources.Identifier.java
+--- a/net.minecraft.resources.Identifier.java
++++ b/net.minecraft.resources.Identifier.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.toLanguageKe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toLanguageKey(/* params */);
+
+diff --git a/net.minecraft.resources.Identifier.java b/net.minecraft.resources.Identifier.java
+--- a/net.minecraft.resources.Identifier.java
++++ b/net.minecraft.resources.Identifier.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.path", "this.withPat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withPrefix(/* params */);
+
+diff --git a/net.minecraft.resources.Identifier.java b/net.minecraft.resources.Identifier.java
+--- a/net.minecraft.resources.Identifier.java
++++ b/net.minecraft.resources.Identifier.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pat", "this.namespace"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.resources.Identifier.java b/net.minecraft.resources.Identifier.java
+--- a/net.minecraft.resources.Identifier.java
++++ b/net.minecraft.resources.Identifier.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.path", "this.namespace"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ compareTo(/* params */);
+
+diff --git a/net.minecraft.resources.Identifier.java b/net.minecraft.resources.Identifier.java
+--- a/net.minecraft.resources.Identifier.java
++++ b/net.minecraft.resources.Identifier.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.path", "this.withPat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ withPath(/* params */);
+
+diff --git a/net.minecraft.resources.Identifier.java b/net.minecraft.resources.Identifier.java
+--- a/net.minecraft.resources.Identifier.java
++++ b/net.minecraft.resources.Identifier.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pat", "this.namespace", "this.toLanguageKe"},
++writeEntities = {"this.path"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toShortLanguageKey(/* params */);
+

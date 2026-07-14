@@ -1,0 +1,81 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.network.ServerTextFilter.java b/net.minecraft.server.network.ServerTextFilter.java
+--- a/net.minecraft.server.network.ServerTextFilter.java
++++ b/net.minecraft.server.network.ServerTextFilter.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.chatEncoder", "this.processRequestRespons", "this.filterTex", "this.chatEndpoint"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ requestMessageProcessing(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerTextFilter.java b/net.minecraft.server.network.ServerTextFilter.java
+--- a/net.minecraft.server.network.ServerTextFilter.java
++++ b/net.minecraft.server.network.ServerTextFilter.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.workerPool"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ close(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerTextFilter.java b/net.minecraft.server.network.ServerTextFilter.java
+--- a/net.minecraft.server.network.ServerTextFilter.java
++++ b/net.minecraft.server.network.ServerTextFilter.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getURLConnectio", "this.uRLConnection", "this.setAuthorizationPropert"},
++writeEntities = {"this.authorizationProperty"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ makeRequest(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerTextFilter.java b/net.minecraft.server.network.ServerTextFilter.java
+--- a/net.minecraft.server.network.ServerTextFilter.java
++++ b/net.minecraft.server.network.ServerTextFilter.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.requestMessageProcessin", "this.profile", "this.chatIgnoreStrategy", "this.streamExecutor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ processMessageBundle(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerTextFilter.java b/net.minecraft.server.network.ServerTextFilter.java
+--- a/net.minecraft.server.network.ServerTextFilter.java
++++ b/net.minecraft.server.network.ServerTextFilter.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.makeReques"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ processRequestResponse(/* params */);
+
+diff --git a/net.minecraft.server.network.ServerTextFilter.java b/net.minecraft.server.network.ServerTextFilter.java
+--- a/net.minecraft.server.network.ServerTextFilter.java
++++ b/net.minecraft.server.network.ServerTextFilter.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.requestMessageProcessin", "this.profile", "this.chatIgnoreStrategy", "this.streamExecutor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ processStreamMessage(/* params */);
+

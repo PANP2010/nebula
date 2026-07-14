@@ -1,0 +1,118 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (9 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.util.parsing.packrat.Scope.java b/net.minecraft.util.parsing.packrat.Scope.java
+--- a/net.minecraft.util.parsing.packrat.Scope.java
++++ b/net.minecraft.util.parsing.packrat.Scope.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.topMarkerKeyIndex", "this.topEntryKeyIndex"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ popFrame(/* params */);
+
+diff --git a/net.minecraft.util.parsing.packrat.Scope.java b/net.minecraft.util.parsing.packrat.Scope.java
+--- a/net.minecraft.util.parsing.packrat.Scope.java
++++ b/net.minecraft.util.parsing.packrat.Scope.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.topMarkerKeyInde", "this.stack", "this.topEntryKeyInde"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ valueIndex(/* params */);
+
+diff --git a/net.minecraft.util.parsing.packrat.Scope.java b/net.minecraft.util.parsing.packrat.Scope.java
+--- a/net.minecraft.util.parsing.packrat.Scope.java
++++ b/net.minecraft.util.parsing.packrat.Scope.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.stack", "this.topEntryKeyInde"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/net.minecraft.util.parsing.packrat.Scope.java b/net.minecraft.util.parsing.packrat.Scope.java
+--- a/net.minecraft.util.parsing.packrat.Scope.java
++++ b/net.minecraft.util.parsing.packrat.Scope.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ splitFrame(/* params */);
+
+diff --git a/net.minecraft.util.parsing.packrat.Scope.java b/net.minecraft.util.parsing.packrat.Scope.java
+--- a/net.minecraft.util.parsing.packrat.Scope.java
++++ b/net.minecraft.util.parsing.packrat.Scope.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.topMarkerKeyInde", "this.stack", "this.topMarkerKeyIndex", "this.topEntryKeyIndex", "this.topEntryKeyInde"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ validateStructure(/* params */);
+
+diff --git a/net.minecraft.util.parsing.packrat.Scope.java b/net.minecraft.util.parsing.packrat.Scope.java
+--- a/net.minecraft.util.parsing.packrat.Scope.java
++++ b/net.minecraft.util.parsing.packrat.Scope.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ensureCapacit", "this.validateStructur", "this.setupNewFram"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pushFrame(/* params */);
+
+diff --git a/net.minecraft.util.parsing.packrat.Scope.java b/net.minecraft.util.parsing.packrat.Scope.java
+--- a/net.minecraft.util.parsing.packrat.Scope.java
++++ b/net.minecraft.util.parsing.packrat.Scope.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.topMarkerKeyInde", "this.stack", "this.topEntryKeyInde"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ valueIndexForAny(/* params */);
+
+diff --git a/net.minecraft.util.parsing.packrat.Scope.java b/net.minecraft.util.parsing.packrat.Scope.java
+--- a/net.minecraft.util.parsing.packrat.Scope.java
++++ b/net.minecraft.util.parsing.packrat.Scope.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.stack", "this.stac", "this.topEntryKeyIndex"},
++writeEntities = {"this.stack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ ensureCapacity(/* params */);
+
+diff --git a/net.minecraft.util.parsing.packrat.Scope.java b/net.minecraft.util.parsing.packrat.Scope.java
+--- a/net.minecraft.util.parsing.packrat.Scope.java
++++ b/net.minecraft.util.parsing.packrat.Scope.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mergeFrame(/* params */);
+

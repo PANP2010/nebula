@@ -1,0 +1,83 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (6 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/com.mojang.blaze3d.vertex.VertexFormat.java b/com.mojang.blaze3d.vertex.VertexFormat.java
+--- a/com.mojang.blaze3d.vertex.VertexFormat.java
++++ b/com.mojang.blaze3d.vertex.VertexFormat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.elements", "this.offse"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ build(/* params */);
+
+diff --git a/com.mojang.blaze3d.vertex.VertexFormat.java b/com.mojang.blaze3d.vertex.VertexFormat.java
+--- a/com.mojang.blaze3d.vertex.VertexFormat.java
++++ b/com.mojang.blaze3d.vertex.VertexFormat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.immediateDrawIndexBuffe", "this.immediateDrawIndexBuffer"},
++writeEntities = {"this.immediateDrawIndexBuffer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ uploadImmediateIndexBuffer(/* params */);
+
+diff --git a/com.mojang.blaze3d.vertex.VertexFormat.java b/com.mojang.blaze3d.vertex.VertexFormat.java
+--- a/com.mojang.blaze3d.vertex.VertexFormat.java
++++ b/com.mojang.blaze3d.vertex.VertexFormat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.name"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ toString(/* params */);
+
+diff --git a/com.mojang.blaze3d.vertex.VertexFormat.java b/com.mojang.blaze3d.vertex.VertexFormat.java
+--- a/com.mojang.blaze3d.vertex.VertexFormat.java
++++ b/com.mojang.blaze3d.vertex.VertexFormat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.elementsMas", "this.vertexSiz", "this.names", "this.offsetsByElement"},
++writeEntities = {"this.vertexSize", "this.elementsMask"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ equals(/* params */);
+
+diff --git a/com.mojang.blaze3d.vertex.VertexFormat.java b/com.mojang.blaze3d.vertex.VertexFormat.java
+--- a/com.mojang.blaze3d.vertex.VertexFormat.java
++++ b/com.mojang.blaze3d.vertex.VertexFormat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.elementsMask"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ contains(/* params */);
+
+diff --git a/com.mojang.blaze3d.vertex.VertexFormat.java b/com.mojang.blaze3d.vertex.VertexFormat.java
+--- a/com.mojang.blaze3d.vertex.VertexFormat.java
++++ b/com.mojang.blaze3d.vertex.VertexFormat.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.immediateDrawVertexBuffe", "this.immediateDrawVertexBuffer"},
++writeEntities = {"this.immediateDrawVertexBuffer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ uploadImmediateVertexBuffer(/* params */);
+

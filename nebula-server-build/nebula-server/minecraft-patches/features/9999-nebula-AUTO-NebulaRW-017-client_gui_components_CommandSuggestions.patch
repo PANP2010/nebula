@@ -1,0 +1,221 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (17 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.components.CommandSuggestions.java b/net.minecraft.client.gui.components.CommandSuggestions.java
+--- a/net.minecraft.client.gui.components.CommandSuggestions.java
++++ b/net.minecraft.client.gui.components.CommandSuggestions.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.commandUsage", "this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ recomputeUsageBoxWidth(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.CommandSuggestions.java b/net.minecraft.client.gui.components.CommandSuggestions.java
+--- a/net.minecraft.client.gui.components.CommandSuggestions.java
++++ b/net.minecraft.client.gui.components.CommandSuggestions.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.current", "this.suggestionList", "this.curren"},
++writeEntities = {"this.current"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ select(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.CommandSuggestions.java b/net.minecraft.client.gui.components.CommandSuggestions.java
+--- a/net.minecraft.client.gui.components.CommandSuggestions.java
++++ b/net.minecraft.client.gui.components.CommandSuggestions.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.rect"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mouseClicked(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.CommandSuggestions.java b/net.minecraft.client.gui.components.CommandSuggestions.java
+--- a/net.minecraft.client.gui.components.CommandSuggestions.java
++++ b/net.minecraft.client.gui.components.CommandSuggestions.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.offset"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mouseScrolled(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.CommandSuggestions.java b/net.minecraft.client.gui.components.CommandSuggestions.java
+--- a/net.minecraft.client.gui.components.CommandSuggestions.java
++++ b/net.minecraft.client.gui.components.CommandSuggestions.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractUsage(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.CommandSuggestions.java b/net.minecraft.client.gui.components.CommandSuggestions.java
+--- a/net.minecraft.client.gui.components.CommandSuggestions.java
++++ b/net.minecraft.client.gui.components.CommandSuggestions.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.tabCycles", "this.keepSuggestions"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ useSuggestion(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.CommandSuggestions.java b/net.minecraft.client.gui.components.CommandSuggestions.java
+--- a/net.minecraft.client.gui.components.CommandSuggestions.java
++++ b/net.minecraft.client.gui.components.CommandSuggestions.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.offset"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ cycle(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.CommandSuggestions.java b/net.minecraft.client.gui.components.CommandSuggestions.java
+--- a/net.minecraft.client.gui.components.CommandSuggestions.java
++++ b/net.minecraft.client.gui.components.CommandSuggestions.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.input", "this.currentParseIsMessag", "this.currentParse", "this.currentParseIsComman", "this.currentPars"},
++writeEntities = {"this.currentParseIsMessage", "this.currentParseIsCommand", "this.currentParse"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateCommandInfo(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.CommandSuggestions.java b/net.minecraft.client.gui.components.CommandSuggestions.java
+--- a/net.minecraft.client.gui.components.CommandSuggestions.java
++++ b/net.minecraft.client.gui.components.CommandSuggestions.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.input"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateUsageInfo(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.CommandSuggestions.java b/net.minecraft.client.gui.components.CommandSuggestions.java
+--- a/net.minecraft.client.gui.components.CommandSuggestions.java
++++ b/net.minecraft.client.gui.components.CommandSuggestions.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ fillNodeUsage(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.CommandSuggestions.java b/net.minecraft.client.gui.components.CommandSuggestions.java
+--- a/net.minecraft.client.gui.components.CommandSuggestions.java
++++ b/net.minecraft.client.gui.components.CommandSuggestions.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.offset", "this.lastMous", "this.suggestionList", "this.suggestionLineLimit", "this.lastMouse"},
++writeEntities = {"this.lastMouse"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractRenderState(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.CommandSuggestions.java b/net.minecraft.client.gui.components.CommandSuggestions.java
+--- a/net.minecraft.client.gui.components.CommandSuggestions.java
++++ b/net.minecraft.client.gui.components.CommandSuggestions.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.cycl", "this.tabCycle"},
++writeEntities = {"this.tabCycles"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ keyPressed(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.CommandSuggestions.java b/net.minecraft.client.gui.components.CommandSuggestions.java
+--- a/net.minecraft.client.gui.components.CommandSuggestions.java
++++ b/net.minecraft.client.gui.components.CommandSuggestions.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pendingSuggestions", "this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ showSuggestions(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.CommandSuggestions.java b/net.minecraft.client.gui.components.CommandSuggestions.java
+--- a/net.minecraft.client.gui.components.CommandSuggestions.java
++++ b/net.minecraft.client.gui.components.CommandSuggestions.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.suggestions"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractSuggestions(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.CommandSuggestions.java b/net.minecraft.client.gui.components.CommandSuggestions.java
+--- a/net.minecraft.client.gui.components.CommandSuggestions.java
++++ b/net.minecraft.client.gui.components.CommandSuggestions.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.foundMessageArgument", "this.foundMessageArgumen"},
++writeEntities = {"this.foundMessageArgument"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ accept(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.CommandSuggestions.java b/net.minecraft.client.gui.components.CommandSuggestions.java
+--- a/net.minecraft.client.gui.components.CommandSuggestions.java
++++ b/net.minecraft.client.gui.components.CommandSuggestions.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.input"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ sortSuggestions(/* params */);
+
+diff --git a/net.minecraft.client.gui.components.CommandSuggestions.java b/net.minecraft.client.gui.components.CommandSuggestions.java
+--- a/net.minecraft.client.gui.components.CommandSuggestions.java
++++ b/net.minecraft.client.gui.components.CommandSuggestions.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.suggestion"},
++writeEntities = {"this.suggestions"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hide(/* params */);
+

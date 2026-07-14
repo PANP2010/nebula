@@ -1,0 +1,104 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (8 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.item.crafting.TransmuteRecipe.java b/net.minecraft.world.item.crafting.TransmuteRecipe.java
+--- a/net.minecraft.world.item.crafting.TransmuteRecipe.java
++++ b/net.minecraft.world.item.crafting.TransmuteRecipe.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.input", "this.addMaterialCountToResult"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ assemble(/* params */);
+
+diff --git a/net.minecraft.world.item.crafting.TransmuteRecipe.java b/net.minecraft.world.item.crafting.TransmuteRecipe.java
+--- a/net.minecraft.world.item.crafting.TransmuteRecipe.java
++++ b/net.minecraft.world.item.crafting.TransmuteRecipe.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.result"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ computeResult(/* params */);
+
+diff --git a/net.minecraft.world.item.crafting.TransmuteRecipe.java b/net.minecraft.world.item.crafting.TransmuteRecipe.java
+--- a/net.minecraft.world.item.crafting.TransmuteRecipe.java
++++ b/net.minecraft.world.item.crafting.TransmuteRecipe.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.input", "this.minMaterialCoun", "this.maxMaterialCoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ matches(/* params */);
+
+diff --git a/net.minecraft.world.item.crafting.TransmuteRecipe.java b/net.minecraft.world.item.crafting.TransmuteRecipe.java
+--- a/net.minecraft.world.item.crafting.TransmuteRecipe.java
++++ b/net.minecraft.world.item.crafting.TransmuteRecipe.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.materialCount"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ maxMaterialCount(/* params */);
+
+diff --git a/net.minecraft.world.item.crafting.TransmuteRecipe.java b/net.minecraft.world.item.crafting.TransmuteRecipe.java
+--- a/net.minecraft.world.item.crafting.TransmuteRecipe.java
++++ b/net.minecraft.world.item.crafting.TransmuteRecipe.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.materialCount"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ minMaterialCount(/* params */);
+
+diff --git a/net.minecraft.world.item.crafting.TransmuteRecipe.java b/net.minecraft.world.item.crafting.TransmuteRecipe.java
+--- a/net.minecraft.world.item.crafting.TransmuteRecipe.java
++++ b/net.minecraft.world.item.crafting.TransmuteRecipe.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.result", "this.addMaterialCountToResult"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ computeResultSize(/* params */);
+
+diff --git a/net.minecraft.world.item.crafting.TransmuteRecipe.java b/net.minecraft.world.item.crafting.TransmuteRecipe.java
+--- a/net.minecraft.world.item.crafting.TransmuteRecipe.java
++++ b/net.minecraft.world.item.crafting.TransmuteRecipe.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.input", "this.material", "this.maxMaterialCoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createPlacementInfo(/* params */);
+
+diff --git a/net.minecraft.world.item.crafting.TransmuteRecipe.java b/net.minecraft.world.item.crafting.TransmuteRecipe.java
+--- a/net.minecraft.world.item.crafting.TransmuteRecipe.java
++++ b/net.minecraft.world.item.crafting.TransmuteRecipe.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ display(/* params */);
+

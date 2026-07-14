@@ -1,0 +1,254 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (19 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.animal.wolf.Wolf.java b/net.minecraft.world.entity.animal.wolf.Wolf.java
+--- a/net.minecraft.world.entity.animal.wolf.Wolf.java
++++ b/net.minecraft.world.entity.animal.wolf.Wolf.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun", "this.getSoundSe", "this.soundSet"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playStepSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.wolf.Wolf.java b/net.minecraft.world.entity.animal.wolf.Wolf.java
+--- a/net.minecraft.world.entity.animal.wolf.Wolf.java
++++ b/net.minecraft.world.entity.animal.wolf.Wolf.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random", "this.setTimeToRemainAngr"},
++writeEntities = {"this.timeToRemainAngry"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startPersistentAngerTimer(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.wolf.Wolf.java b/net.minecraft.world.entity.animal.wolf.Wolf.java
+--- a/net.minecraft.world.entity.animal.wolf.Wolf.java
++++ b/net.minecraft.world.entity.animal.wolf.Wolf.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ avoidLlama(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.wolf.Wolf.java b/net.minecraft.world.entity.animal.wolf.Wolf.java
+--- a/net.minecraft.world.entity.animal.wolf.Wolf.java
++++ b/net.minecraft.world.entity.animal.wolf.Wolf.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.orderedToSit", "this.target"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tryToTame(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.wolf.Wolf.java b/net.minecraft.world.entity.animal.wolf.Wolf.java
+--- a/net.minecraft.world.entity.animal.wolf.Wolf.java
++++ b/net.minecraft.world.entity.animal.wolf.Wolf.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.targetSelector", "this.goalSelector"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerGoals(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.wolf.Wolf.java b/net.minecraft.world.entity.animal.wolf.Wolf.java
+--- a/net.minecraft.world.entity.animal.wolf.Wolf.java
++++ b/net.minecraft.world.entity.animal.wolf.Wolf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shakeAni", "this.shakeAnim", "this.isShakin"},
++writeEntities = {"this.shakeAnimO", "this.isShaking", "this.shakeAnim"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleEntityEvent(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.wolf.Wolf.java b/net.minecraft.world.entity.animal.wolf.Wolf.java
+--- a/net.minecraft.world.entity.animal.wolf.Wolf.java
++++ b/net.minecraft.world.entity.animal.wolf.Wolf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.shakeAnimO", "this.isShaking", "this.shakeAnim"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ aiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.wolf.Wolf.java b/net.minecraft.world.entity.animal.wolf.Wolf.java
+--- a/net.minecraft.world.entity.animal.wolf.Wolf.java
++++ b/net.minecraft.world.entity.animal.wolf.Wolf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setVarian"},
++writeEntities = {"this.variant"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyImplicitComponent(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.wolf.Wolf.java b/net.minecraft.world.entity.animal.wolf.Wolf.java
+--- a/net.minecraft.world.entity.animal.wolf.Wolf.java
++++ b/net.minecraft.world.entity.animal.wolf.Wolf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mobInteract(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.wolf.Wolf.java b/net.minecraft.world.entity.animal.wolf.Wolf.java
+--- a/net.minecraft.world.entity.animal.wolf.Wolf.java
++++ b/net.minecraft.world.entity.animal.wolf.Wolf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setTarge"},
++writeEntities = {"this.target"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ start(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.wolf.Wolf.java b/net.minecraft.world.entity.animal.wolf.Wolf.java
+--- a/net.minecraft.world.entity.animal.wolf.Wolf.java
++++ b/net.minecraft.world.entity.animal.wolf.Wolf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.doHurtEquipmen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtArmor(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.wolf.Wolf.java b/net.minecraft.world.entity.animal.wolf.Wolf.java
+--- a/net.minecraft.world.entity.animal.wolf.Wolf.java
++++ b/net.minecraft.world.entity.animal.wolf.Wolf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registryAcces"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ defineSynchedData(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.wolf.Wolf.java b/net.minecraft.world.entity.animal.wolf.Wolf.java
+--- a/net.minecraft.world.entity.animal.wolf.Wolf.java
++++ b/net.minecraft.world.entity.animal.wolf.Wolf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setTarge"},
++writeEntities = {"this.target"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.wolf.Wolf.java b/net.minecraft.world.entity.animal.wolf.Wolf.java
+--- a/net.minecraft.world.entity.animal.wolf.Wolf.java
++++ b/net.minecraft.world.entity.animal.wolf.Wolf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.applyImplicitComponentIfPresen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyImplicitComponents(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.wolf.Wolf.java b/net.minecraft.world.entity.animal.wolf.Wolf.java
+--- a/net.minecraft.world.entity.animal.wolf.Wolf.java
++++ b/net.minecraft.world.entity.animal.wolf.Wolf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getAttribut", "this.isTam", "this.attribute", "this.setHealt"},
++writeEntities = {"this.health"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyTamingSideEffects(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.wolf.Wolf.java b/net.minecraft.world.entity.animal.wolf.Wolf.java
+--- a/net.minecraft.world.entity.animal.wolf.Wolf.java
++++ b/net.minecraft.world.entity.animal.wolf.Wolf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isInvulnerableT"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ hurtServer(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.wolf.Wolf.java b/net.minecraft.world.entity.animal.wolf.Wolf.java
+--- a/net.minecraft.world.entity.animal.wolf.Wolf.java
++++ b/net.minecraft.world.entity.animal.wolf.Wolf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.canArmorAbsor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ actuallyHurt(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.wolf.Wolf.java b/net.minecraft.world.entity.animal.wolf.Wolf.java
+--- a/net.minecraft.world.entity.animal.wolf.Wolf.java
++++ b/net.minecraft.world.entity.animal.wolf.Wolf.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registryAcces", "this.setCollarColo", "this.leve", "this.readPersistentAngerSaveDat"},
++writeEntities = {"this.collarColor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.animal.wolf.Wolf.java b/net.minecraft.world.entity.animal.wolf.Wolf.java
+--- a/net.minecraft.world.entity.animal.wolf.Wolf.java
++++ b/net.minecraft.world.entity.animal.wolf.Wolf.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{neighbors}", "{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkWolfSpawnRules(/* params */);
+

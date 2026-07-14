@@ -1,0 +1,105 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (8 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.TicketStorage.java b/net.minecraft.world.level.TicketStorage.java
+--- a/net.minecraft.world.level.TicketStorage.java
++++ b/net.minecraft.world.level.TicketStorage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.canTicketExpir", "this.removeTicketI"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ purgeStaleTickets(/* params */);
+
+diff --git a/net.minecraft.world.level.TicketStorage.java b/net.minecraft.world.level.TicketStorage.java
+--- a/net.minecraft.world.level.TicketStorage.java
++++ b/net.minecraft.world.level.TicketStorage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.deactivatedTickets", "this.removeTicketI"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ deactivateTicketsOnClosing(/* params */);
+
+diff --git a/net.minecraft.world.level.TicketStorage.java b/net.minecraft.world.level.TicketStorage.java
+--- a/net.minecraft.world.level.TicketStorage.java
++++ b/net.minecraft.world.level.TicketStorage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tickets"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldKeepDimensionActive(/* params */);
+
+diff --git a/net.minecraft.world.level.TicketStorage.java b/net.minecraft.world.level.TicketStorage.java
+--- a/net.minecraft.world.level.TicketStorage.java
++++ b/net.minecraft.world.level.TicketStorage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getAllChunksWithTicketTha", "this.allChunksWithTicketThat", "this.chunksWithForcedTicket"},
++writeEntities = {"this.chunksWithForcedTickets"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateForcedChunks(/* params */);
+
+diff --git a/net.minecraft.world.level.TicketStorage.java b/net.minecraft.world.level.TicketStorage.java
+--- a/net.minecraft.world.level.TicketStorage.java
++++ b/net.minecraft.world.level.TicketStorage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.addTicke", "this.deactivatedTickets"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ activateAllDeactivatedTickets(/* params */);
+
+diff --git a/net.minecraft.world.level.TicketStorage.java b/net.minecraft.world.level.TicketStorage.java
+--- a/net.minecraft.world.level.TicketStorage.java
++++ b/net.minecraft.world.level.TicketStorage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.addTicke", "this.removeTicke"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateChunkForced(/* params */);
+
+diff --git a/net.minecraft.world.level.TicketStorage.java b/net.minecraft.world.level.TicketStorage.java
+--- a/net.minecraft.world.level.TicketStorage.java
++++ b/net.minecraft.world.level.TicketStorage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.tickets"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ replaceTicketLevelOfType(/* params */);
+
+diff --git a/net.minecraft.world.level.TicketStorage.java b/net.minecraft.world.level.TicketStorage.java
+--- a/net.minecraft.world.level.TicketStorage.java
++++ b/net.minecraft.world.level.TicketStorage.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.forEachTicke"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ packTickets(/* params */);
+

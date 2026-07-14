@@ -1,0 +1,179 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (14 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.KeyboardHandler.java b/net.minecraft.client.KeyboardHandler.java
+--- a/net.minecraft.client.KeyboardHandler.java
++++ b/net.minecraft.client.KeyboardHandler.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.copyCreateBlockComman", "this.debugFeedbackTranslate"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ copyRecreateCommand(/* params */);
+
+diff --git a/net.minecraft.client.KeyboardHandler.java b/net.minecraft.client.KeyboardHandler.java
+--- a/net.minecraft.client.KeyboardHandler.java
++++ b/net.minecraft.client.KeyboardHandler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.debugFeedbackComponen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ debugFeedbackTranslated(/* params */);
+
+diff --git a/net.minecraft.client.KeyboardHandler.java b/net.minecraft.client.KeyboardHandler.java
+--- a/net.minecraft.client.KeyboardHandler.java
++++ b/net.minecraft.client.KeyboardHandler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.debugCrashKeyTime", "this.debugCrashKeyReportedTim"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.client.KeyboardHandler.java b/net.minecraft.client.KeyboardHandler.java
+--- a/net.minecraft.client.KeyboardHandler.java
++++ b/net.minecraft.client.KeyboardHandler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.showDebugCha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ debugFeedbackComponent(/* params */);
+
+diff --git a/net.minecraft.client.KeyboardHandler.java b/net.minecraft.client.KeyboardHandler.java
+--- a/net.minecraft.client.KeyboardHandler.java
++++ b/net.minecraft.client.KeyboardHandler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ showDebugChat(/* params */);
+
+diff --git a/net.minecraft.client.KeyboardHandler.java b/net.minecraft.client.KeyboardHandler.java
+--- a/net.minecraft.client.KeyboardHandler.java
++++ b/net.minecraft.client.KeyboardHandler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.debugCrashKeyTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleDebugKeys(/* params */);
+
+diff --git a/net.minecraft.client.KeyboardHandler.java b/net.minecraft.client.KeyboardHandler.java
+--- a/net.minecraft.client.KeyboardHandler.java
++++ b/net.minecraft.client.KeyboardHandler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ handleChunkDebugKeys(/* params */);
+
+diff --git a/net.minecraft.client.KeyboardHandler.java b/net.minecraft.client.KeyboardHandler.java
+--- a/net.minecraft.client.KeyboardHandler.java
++++ b/net.minecraft.client.KeyboardHandler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.debugFeedbackComponen"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ debugFeedback(/* params */);
+
+diff --git a/net.minecraft.client.KeyboardHandler.java b/net.minecraft.client.KeyboardHandler.java
+--- a/net.minecraft.client.KeyboardHandler.java
++++ b/net.minecraft.client.KeyboardHandler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lastPreeditEvent"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resubmitLastPreeditEvent(/* params */);
+
+diff --git a/net.minecraft.client.KeyboardHandler.java b/net.minecraft.client.KeyboardHandler.java
+--- a/net.minecraft.client.KeyboardHandler.java
++++ b/net.minecraft.client.KeyboardHandler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.showDebugCha"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ debugWarningComponent(/* params */);
+
+diff --git a/net.minecraft.client.KeyboardHandler.java b/net.minecraft.client.KeyboardHandler.java
+--- a/net.minecraft.client.KeyboardHandler.java
++++ b/net.minecraft.client.KeyboardHandler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.lastPreeditEven"},
++writeEntities = {"this.lastPreeditEvent"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ preeditCallback(/* params */);
+
+diff --git a/net.minecraft.client.KeyboardHandler.java b/net.minecraft.client.KeyboardHandler.java
+--- a/net.minecraft.client.KeyboardHandler.java
++++ b/net.minecraft.client.KeyboardHandler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.debugFeedbac"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ debugFeedbackEnabledStatus(/* params */);
+
+diff --git a/net.minecraft.client.KeyboardHandler.java b/net.minecraft.client.KeyboardHandler.java
+--- a/net.minecraft.client.KeyboardHandler.java
++++ b/net.minecraft.client.KeyboardHandler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.debugCrashKeyTim", "this.debugCrashKeyTime"},
++writeEntities = {"this.debugCrashKeyTime"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ keyPress(/* params */);
+
+diff --git a/net.minecraft.client.KeyboardHandler.java b/net.minecraft.client.KeyboardHandler.java
+--- a/net.minecraft.client.KeyboardHandler.java
++++ b/net.minecraft.client.KeyboardHandler.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ charTyped(/* params */);
+

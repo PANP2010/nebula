@@ -1,0 +1,159 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (12 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.ai.navigation.PathNavigation.java b/net.minecraft.world.entity.ai.navigation.PathNavigation.java
+--- a/net.minecraft.world.entity.ai.navigation.PathNavigation.java
++++ b/net.minecraft.world.entity.ai.navigation.PathNavigation.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.path", "this.level"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ trimPath(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.navigation.PathNavigation.java b/net.minecraft.world.entity.ai.navigation.PathNavigation.java
+--- a/net.minecraft.world.entity.ai.navigation.PathNavigation.java
++++ b/net.minecraft.world.entity.ai.navigation.PathNavigation.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.timeoutTime", "this.timeoutLimi", "this.isStuc", "this.timeoutCachedNod"},
++writeEntities = {"this.isStuck", "this.timeoutLimit", "this.timeoutCachedNode", "this.timeoutTimer"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetStuckTimeout(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.navigation.PathNavigation.java b/net.minecraft.world.entity.ai.navigation.PathNavigation.java
+--- a/net.minecraft.world.entity.ai.navigation.PathNavigation.java
++++ b/net.minecraft.world.entity.ai.navigation.PathNavigation.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.recomputePat", "this.tick", "this.hasDelayedRecomputation"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.navigation.PathNavigation.java b/net.minecraft.world.entity.ai.navigation.PathNavigation.java
+--- a/net.minecraft.world.entity.ai.navigation.PathNavigation.java
++++ b/net.minecraft.world.entity.ai.navigation.PathNavigation.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pat"},
++writeEntities = {"this.path"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ moveTo(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.navigation.PathNavigation.java b/net.minecraft.world.entity.ai.navigation.PathNavigation.java
+--- a/net.minecraft.world.entity.ai.navigation.PathNavigation.java
++++ b/net.minecraft.world.entity.ai.navigation.PathNavigation.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.level", "this.canUpdatePat", "this.hasDelayedRecomputatio", "this.timeLastRecompute"},
++writeEntities = {"this.hasDelayedRecomputation"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ recomputePath(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.navigation.PathNavigation.java b/net.minecraft.world.entity.ai.navigation.PathNavigation.java
+--- a/net.minecraft.world.entity.ai.navigation.PathNavigation.java
++++ b/net.minecraft.world.entity.ai.navigation.PathNavigation.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.maxDistanceToWaypoint"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ followThePath(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.navigation.PathNavigation.java b/net.minecraft.world.entity.ai.navigation.PathNavigation.java
+--- a/net.minecraft.world.entity.ai.navigation.PathNavigation.java
++++ b/net.minecraft.world.entity.ai.navigation.PathNavigation.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.isStuck"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ doStuckDetection(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.navigation.PathNavigation.java b/net.minecraft.world.entity.ai.navigation.PathNavigation.java
+--- a/net.minecraft.world.entity.ai.navigation.PathNavigation.java
++++ b/net.minecraft.world.entity.ai.navigation.PathNavigation.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.resetStuckTimeou", "this.sto"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ timeoutPath(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.navigation.PathNavigation.java b/net.minecraft.world.entity.ai.navigation.PathNavigation.java
+--- a/net.minecraft.world.entity.ai.navigation.PathNavigation.java
++++ b/net.minecraft.world.entity.ai.navigation.PathNavigation.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.path"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldTargetNextNodeInDirection(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.navigation.PathNavigation.java b/net.minecraft.world.entity.ai.navigation.PathNavigation.java
+--- a/net.minecraft.world.entity.ai.navigation.PathNavigation.java
++++ b/net.minecraft.world.entity.ai.navigation.PathNavigation.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pathFinder", "this.getMaxPathLengt", "this.maxPathLength"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updatePathfinderMaxVisitedNodes(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.navigation.PathNavigation.java b/net.minecraft.world.entity.ai.navigation.PathNavigation.java
+--- a/net.minecraft.world.entity.ai.navigation.PathNavigation.java
++++ b/net.minecraft.world.entity.ai.navigation.PathNavigation.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.hasDelayedRecomputation"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shouldRecomputePath(/* params */);
+
+diff --git a/net.minecraft.world.entity.ai.navigation.PathNavigation.java b/net.minecraft.world.entity.ai.navigation.PathNavigation.java
+--- a/net.minecraft.world.entity.ai.navigation.PathNavigation.java
++++ b/net.minecraft.world.entity.ai.navigation.PathNavigation.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.maxVisitedNodesMultiplie"},
++writeEntities = {"this.maxVisitedNodesMultiplier"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetMaxVisitedNodesMultiplier(/* params */);
+

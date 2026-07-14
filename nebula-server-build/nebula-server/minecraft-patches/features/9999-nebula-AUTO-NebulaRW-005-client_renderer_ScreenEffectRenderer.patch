@@ -1,0 +1,73 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.renderer.ScreenEffectRenderer.java b/net.minecraft.client.renderer.ScreenEffectRenderer.java
+--- a/net.minecraft.client.renderer.ScreenEffectRenderer.java
++++ b/net.minecraft.client.renderer.ScreenEffectRenderer.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.itemActivationIte", "this.itemActivationTick", "this.itemActivationOff"},
++writeEntities = {"this.itemActivationItem", "this.itemActivationTicks", "this.itemActivationOffY", "this.itemActivationOffX"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ displayItemActivation(/* params */);
+
+diff --git a/net.minecraft.client.renderer.ScreenEffectRenderer.java b/net.minecraft.client.renderer.ScreenEffectRenderer.java
+--- a/net.minecraft.client.renderer.ScreenEffectRenderer.java
++++ b/net.minecraft.client.renderer.ScreenEffectRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.itemActivationIte"},
++writeEntities = {"this.itemActivationItem"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ resetItemActivation(/* params */);
+
+diff --git a/net.minecraft.client.renderer.ScreenEffectRenderer.java b/net.minecraft.client.renderer.ScreenEffectRenderer.java
+--- a/net.minecraft.client.renderer.ScreenEffectRenderer.java
++++ b/net.minecraft.client.renderer.ScreenEffectRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft", "this.bufferSource"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderScreenEffect(/* params */);
+
+diff --git a/net.minecraft.client.renderer.ScreenEffectRenderer.java b/net.minecraft.client.renderer.ScreenEffectRenderer.java
+--- a/net.minecraft.client.renderer.ScreenEffectRenderer.java
++++ b/net.minecraft.client.renderer.ScreenEffectRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderItemActivationAnimation(/* params */);
+
+diff --git a/net.minecraft.client.renderer.ScreenEffectRenderer.java b/net.minecraft.client.renderer.ScreenEffectRenderer.java
+--- a/net.minecraft.client.renderer.ScreenEffectRenderer.java
++++ b/net.minecraft.client.renderer.ScreenEffectRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.itemActivationTicks", "this.itemActivationIte", "this.itemActivationTick"},
++writeEntities = {"this.itemActivationTicks", "this.itemActivationItem"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+

@@ -1,0 +1,139 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (10 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.monster.Creeper.java b/net.minecraft.world.entity.monster.Creeper.java
+--- a/net.minecraft.world.entity.monster.Creeper.java
++++ b/net.minecraft.world.entity.monster.Creeper.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++triggeredEvents = {"SOUND_PLAY"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mobInteract(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Creeper.java b/net.minecraft.world.entity.monster.Creeper.java
+--- a/net.minecraft.world.entity.monster.Creeper.java
++++ b/net.minecraft.world.entity.monster.Creeper.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++writeEntities = {"this.dead"},
++triggeredEvents = {"ENTITY_SPAWNED"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ explodeCreeper(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Creeper.java b/net.minecraft.world.entity.monster.Creeper.java
+--- a/net.minecraft.world.entity.monster.Creeper.java
++++ b/net.minecraft.world.entity.monster.Creeper.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.targetSelector", "this.goalSelector"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerGoals(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Creeper.java b/net.minecraft.world.entity.monster.Creeper.java
+--- a/net.minecraft.world.entity.monster.Creeper.java
++++ b/net.minecraft.world.entity.monster.Creeper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.maxSwel", "this.ignit", "this.explosionRadiu", "this.entityData"},
++writeEntities = {"this.maxSwell", "this.explosionRadius"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Creeper.java b/net.minecraft.world.entity.monster.Creeper.java
+--- a/net.minecraft.world.entity.monster.Creeper.java
++++ b/net.minecraft.world.entity.monster.Creeper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isPowere", "this.droppedSkull", "this.shouldDropLoo", "this.droppedSkulls"},
++writeEntities = {"this.droppedSkulls"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ killedEntity(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Creeper.java b/net.minecraft.world.entity.monster.Creeper.java
+--- a/net.minecraft.world.entity.monster.Creeper.java
++++ b/net.minecraft.world.entity.monster.Creeper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.maxSwell", "this.swell", "this.swel"},
++writeEntities = {"this.swell"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ causeFallDamage(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Creeper.java b/net.minecraft.world.entity.monster.Creeper.java
+--- a/net.minecraft.world.entity.monster.Creeper.java
++++ b/net.minecraft.world.entity.monster.Creeper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spawnLingeringCloud(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Creeper.java b/net.minecraft.world.entity.monster.Creeper.java
+--- a/net.minecraft.world.entity.monster.Creeper.java
++++ b/net.minecraft.world.entity.monster.Creeper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entityData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ thunderHit(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Creeper.java b/net.minecraft.world.entity.monster.Creeper.java
+--- a/net.minecraft.world.entity.monster.Creeper.java
++++ b/net.minecraft.world.entity.monster.Creeper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isAliv", "this.oldSwel", "this.setSwellDi", "this.isIgnite", "this.swel"},
++writeEntities = {"this.swellDir", "this.oldSwell"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tick(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.Creeper.java b/net.minecraft.world.entity.monster.Creeper.java
+--- a/net.minecraft.world.entity.monster.Creeper.java
++++ b/net.minecraft.world.entity.monster.Creeper.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.entityData"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ ignite(/* params */);
+

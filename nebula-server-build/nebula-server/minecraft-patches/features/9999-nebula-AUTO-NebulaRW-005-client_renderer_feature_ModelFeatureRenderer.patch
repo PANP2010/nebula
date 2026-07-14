@@ -1,0 +1,68 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.renderer.feature.ModelFeatureRenderer.java b/net.minecraft.client.renderer.feature.ModelFeatureRenderer.java
+--- a/net.minecraft.client.renderer.feature.ModelFeatureRenderer.java
++++ b/net.minecraft.client.renderer.feature.ModelFeatureRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.renderMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderTranslucents(/* params */);
+
+diff --git a/net.minecraft.client.renderer.feature.ModelFeatureRenderer.java b/net.minecraft.client.renderer.feature.ModelFeatureRenderer.java
+--- a/net.minecraft.client.renderer.feature.ModelFeatureRenderer.java
++++ b/net.minecraft.client.renderer.feature.ModelFeatureRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.renderBatc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderSolid(/* params */);
+
+diff --git a/net.minecraft.client.renderer.feature.ModelFeatureRenderer.java b/net.minecraft.client.renderer.feature.ModelFeatureRenderer.java
+--- a/net.minecraft.client.renderer.feature.ModelFeatureRenderer.java
++++ b/net.minecraft.client.renderer.feature.ModelFeatureRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.usedModelSubmitBuckets", "this.solidModelSubmits"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ endFrame(/* params */);
+
+diff --git a/net.minecraft.client.renderer.feature.ModelFeatureRenderer.java b/net.minecraft.client.renderer.feature.ModelFeatureRenderer.java
+--- a/net.minecraft.client.renderer.feature.ModelFeatureRenderer.java
++++ b/net.minecraft.client.renderer.feature.ModelFeatureRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.renderTranslucent"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderTranslucent(/* params */);
+
+diff --git a/net.minecraft.client.renderer.feature.ModelFeatureRenderer.java b/net.minecraft.client.renderer.feature.ModelFeatureRenderer.java
+--- a/net.minecraft.client.renderer.feature.ModelFeatureRenderer.java
++++ b/net.minecraft.client.renderer.feature.ModelFeatureRenderer.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.poseStack"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ renderModel(/* params */);
+

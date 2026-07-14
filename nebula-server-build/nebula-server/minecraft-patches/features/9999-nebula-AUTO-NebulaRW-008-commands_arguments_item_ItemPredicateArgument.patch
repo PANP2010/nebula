@@ -1,0 +1,104 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (8 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.commands.arguments.item.ItemPredicateArgument.java b/net.minecraft.commands.arguments.item.ItemPredicateArgument.java
+--- a/net.minecraft.commands.arguments.item.ItemPredicateArgument.java
++++ b/net.minecraft.commands.arguments.item.ItemPredicateArgument.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registries"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createPredicateTest(/* params */);
+
+diff --git a/net.minecraft.commands.arguments.item.ItemPredicateArgument.java b/net.minecraft.commands.arguments.item.ItemPredicateArgument.java
+--- a/net.minecraft.commands.arguments.item.ItemPredicateArgument.java
++++ b/net.minecraft.commands.arguments.item.ItemPredicateArgument.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.items"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forTagType(/* params */);
+
+diff --git a/net.minecraft.commands.arguments.item.ItemPredicateArgument.java b/net.minecraft.commands.arguments.item.ItemPredicateArgument.java
+--- a/net.minecraft.commands.arguments.item.ItemPredicateArgument.java
++++ b/net.minecraft.commands.arguments.item.ItemPredicateArgument.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.components"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ listComponentTypes(/* params */);
+
+diff --git a/net.minecraft.commands.arguments.item.ItemPredicateArgument.java b/net.minecraft.commands.arguments.item.ItemPredicateArgument.java
+--- a/net.minecraft.commands.arguments.item.ItemPredicateArgument.java
++++ b/net.minecraft.commands.arguments.item.ItemPredicateArgument.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.items"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ forElementType(/* params */);
+
+diff --git a/net.minecraft.commands.arguments.item.ItemPredicateArgument.java b/net.minecraft.commands.arguments.item.ItemPredicateArgument.java
+--- a/net.minecraft.commands.arguments.item.ItemPredicateArgument.java
++++ b/net.minecraft.commands.arguments.item.ItemPredicateArgument.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.items"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ listElementTypes(/* params */);
+
+diff --git a/net.minecraft.commands.arguments.item.ItemPredicateArgument.java b/net.minecraft.commands.arguments.item.ItemPredicateArgument.java
+--- a/net.minecraft.commands.arguments.item.ItemPredicateArgument.java
++++ b/net.minecraft.commands.arguments.item.ItemPredicateArgument.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.predicates"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ listPredicateTypes(/* params */);
+
+diff --git a/net.minecraft.commands.arguments.item.ItemPredicateArgument.java b/net.minecraft.commands.arguments.item.ItemPredicateArgument.java
+--- a/net.minecraft.commands.arguments.item.ItemPredicateArgument.java
++++ b/net.minecraft.commands.arguments.item.ItemPredicateArgument.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.id", "this.type"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ decode(/* params */);
+
+diff --git a/net.minecraft.commands.arguments.item.ItemPredicateArgument.java b/net.minecraft.commands.arguments.item.ItemPredicateArgument.java
+--- a/net.minecraft.commands.arguments.item.ItemPredicateArgument.java
++++ b/net.minecraft.commands.arguments.item.ItemPredicateArgument.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.items"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ listTagTypes(/* params */);
+

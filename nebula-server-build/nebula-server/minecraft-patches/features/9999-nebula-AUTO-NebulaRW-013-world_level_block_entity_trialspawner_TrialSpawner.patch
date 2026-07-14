@@ -1,0 +1,173 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (13 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
+--- a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
++++ b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
+@@ // 60% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.data"},
++triggeredEvents = {"ENTITY_SPAWNED"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spawnMob(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
+--- a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
++++ b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.data", "this.isOminou"},
++writeEntities = {"this.isOminous"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyOminous(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
+--- a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
++++ b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.ordina"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ encode(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
+--- a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
++++ b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isOminous", "this.config"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ activeConfig(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
+--- a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
++++ b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.data", "this.config"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ store(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
+--- a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
++++ b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.config"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ normalConfig(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
+--- a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
++++ b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.stateAccessor"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ markUpdated(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
+--- a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
++++ b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.data", "this.state", "this.getStat"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickClient(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
+--- a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
++++ b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.config"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ ominousConfig(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
+--- a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
++++ b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.confi", "this.data", "this.setStat", "this.config"},
++writeEntities = {"this.state", "this.config"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ overrideEntityToSpawn(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
+--- a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
++++ b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.overridePeacefulAndMobSpawnRul"},
++writeEntities = {"this.overridePeacefulAndMobSpawnRule"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ overridePeacefulAndMobSpawnRule(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
+--- a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
++++ b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.confi", "this.dat"},
++writeEntities = {"this.data", "this.config"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ load(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
+--- a/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
++++ b/net.minecraft.world.level.block.entity.trialspawner.TrialSpawner.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.data", "this.activeConfi", "this.isOminou", "this.state", "this.getStat"},
++writeEntities = {"this.isOminous"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ tickServer(/* params */);
+

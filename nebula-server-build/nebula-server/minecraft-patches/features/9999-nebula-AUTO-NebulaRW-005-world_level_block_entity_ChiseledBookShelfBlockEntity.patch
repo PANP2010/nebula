@@ -1,0 +1,71 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity.java b/net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockState", "this.item", "this.lastInteractedSlo", "this.getBlockStat", "this.getIte"},
++writeEntities = {"this.lastInteractedSlot"},
++readBlocks = {"{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ updateState(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity.java b/net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lastInteractedSlot", "this.items"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ saveAdditional(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity.java b/net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.lastInteractedSlo", "this.items"},
++writeEntities = {"this.lastInteractedSlot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ loadAdditional(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity.java b/net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.items"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ collectImplicitComponents(/* params */);
+
+diff --git a/net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity.java b/net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity.java
+--- a/net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity.java
++++ b/net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.items"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ applyImplicitComponents(/* params */);
+

@@ -1,0 +1,2204 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (183 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput", "this.createCrossBloc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createPlant(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createRotatedMirroredVariantBlock(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registerSimpleItemMode", "this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createSculkShrieker(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registerSimpleItemMode", "this.blockStateOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createSculkSensor(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.registerSimpleItemMode", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createMushroomBlock(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.itemModelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ copyDoorModel(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.registerSimpleItemMode", "this.modelOutput", "this.addShelfPar"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createShelf(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createCoralFans(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registerSimpleTintedItemMode", "this.modelOutput", "this.createGrassLikeBloc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createGrassBlocks(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createAmethystCluster(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.createSuffixedVarian"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createFrostedIce(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createCrossBlockWithDefaultIte", "this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createNetherRoots(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createRespawnAnchor(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.createSuffixedVarian", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createSweetBerryBush(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createHopper(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createStems(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createNyliumBlock(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registerSimpleFlatItemMode", "this.createDoublePlan"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createDoublePlantWithDefaultItem(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createColoredBlockWithRandomRotations(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.registerSimpleItemMode", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createSnowBlocks(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createCartographyTable(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createJigsaw(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createPumpkinVariant(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createTurtleEggMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createTurtleEggModel(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createDoor(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createFlatItemMode", "this.registerSimpleItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createCopperChainItem(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createSuffixedVarian"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createTestBlock(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.createNonTemplateModelBloc", "this.modelOutput", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createCauldrons(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createTripwire(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createSmithingTable(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modelOutput", "this.registerSimpleFlatItemMode", "this.createSegmentedBloc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createFlowerBed(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createFlatItemModelWithBlockTextur", "this.registerSimpleItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerSimpleFlatItemModel(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createSuffixedVarian", "this.createDoubleBloc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createDoublePlant(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createSmallDripleaf(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createColoredBlockWithStateRotations(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createPistonVariant(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createObserver(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createHorizontallyRotatedBlock(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.itemModelOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createLightningRod(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createCopperGolemStatu", "this.copyMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createCopperGolemStatues(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registerSimpleTintedItemMode", "this.createMultifaceBlockState", "this.createFlatItemModelWithBlockTextur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createVine(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createNormalTorch(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.itemModelOutput", "this.modelOutput", "this.registerSimpleFlatItemMode", "this.createBar"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createBarsAndItem(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createCakeBlock(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createCropBlock(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createSideFireModels(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registerSimpleItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createDriedGhastBlock(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createPitcherCrop(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registerSimpleTintedItemMode", "this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createTintedLeaves(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isEmissive"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createItemModel(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createEndPortalFrame(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createComposter(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.itemModelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ copyTrapdoorModel(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createTrivialCub", "this.createCrossBlockWithDefaultIte", "this.createCoralFan"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createCoral(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createAxisAlignedPillarBlock(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createAxisAlignedPillarBlockCustomMode", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createCopperChain(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createChorusPlant(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createSuffixedVarian", "this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createRedstoneLamp(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createMangrovePropagule(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registerSimpleItemMode", "this.blockStateOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createScaffolding(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createBookshelf(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createDaylightDetector(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createFrogspawnBlock(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createSeaPickle(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createGrindstone(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createHangingMoss(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.addSlotStateAndRotationVariant"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createChiseledBookshelf(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createTrivialBlock(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createCrossBloc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createGrowingPlant(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createNetherrack(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createSuffixedVarian", "this.blockStateOutput", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createActiveRail(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createTrapdoo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ trapdoor(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.itemModelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ copyModel(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createNonTemplateModelBlock(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createNonTemplateHorizontalBlock(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.itemModelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerSimpleItemModel(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createTripwireHook(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registerSimpleItemMode", "this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createTrialSpawner(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createBamboo(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registerSimpleItemMode", "this.createPistonVarian", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createPistons(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createHea"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createHeads(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createParticleOnlyBloc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createParticleOnlyBlock(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createPassiveRail(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createFlatItemModelWithBlockTextur", "this.registerSimpleItemMode", "this.blockStateOutput", "this.modelOutput", "this.createTrivialBloc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createGlassBlocks(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createFlatItemModelWithBlockTextureAndOverla", "this.registerSimpleItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerTwoLayerFlatItemModel(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createAirLikeBlock(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createPointedDripstoneVarian"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createPointedDripstone(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createDirtPath(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createTrivialCub", "this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createFullAndCarpetBlocks(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createBarrel(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createAmethystCluste"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createAmethystClusters(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.registerSimpleItemMode", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createSculkCatalyst(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.itemModelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createHead(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createDoubleBlock(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.createPumpkinVarian"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createPumpkins(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createChes"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createChest(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createSnifferEgg(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registerSimpleItemMode", "this.blockStateOutput", "this.createSuffixedVarian", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createStructureBlock(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.itemModelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ copyCopperBulbModel(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createLever(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createSuffixedVarian", "this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createCommandBlock(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createMultifaceBlockState", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createMultiface(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createDispenserBlock(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createFlatItemMode", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createLightBlock(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createBigDripLeafBlock(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createRedstoneTorch(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createCraftingTableLike(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createRotatedVariantBlock(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createSegmentedBlock(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createPistonHeads(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.itemModelOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createBed(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.itemModelOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createCopperGolemStatue(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.registerSimpleItemMode", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createTrapdoor(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createParticleOnlyBlockMode", "this.blockStateOutput", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createHangingSign(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createCampfires(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.createSideFireModel", "this.createTopFireModel", "this.createFloorFireModel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createFire(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.createCreakingHeartMode", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createCreakingHeart(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createCocoa(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createPottedAzalea(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.itemModelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createBanner(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.itemModelOutput", "this.modelOutput", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createCopperLantern(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createChes"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createChests(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.itemModelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ generateSimpleSpecialItemModel(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createAzalea(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createParticleOnlyBlockModel(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.itemModelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ registerSimpleTintedItemModel(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createSuffixedVarian", "this.blockStateOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createCaveVines(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createRotatedPillarWithHorizontalVariant(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createTurtleEggMode", "this.blockStateOutput", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createTurtleEgg(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.registerSimpleItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createInfestedDeepslate(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createNetherPortalBlock(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registerSimpleTintedItemMode", "this.createFlatItemModelWithBlockTextur", "this.blockStateOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createLilyPad(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.registerSimpleItemMode", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createOrientableTrapdoor(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createSuffixedVariant(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createBrewingStand(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registerSimpleTintedItemMode", "this.createFlatItemModelWithBlockTextur"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createItemWithGrassTint(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createWeightedPressurePlate(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createLantern(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createTopFireModels(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createBars(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createBrushableBlock(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registerSimpleFlatItemMode", "this.createCrossBloc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createCrossBlockWithDefaultItem(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createFlatItemModelWithBlockTexture(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createChes", "this.copyMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createCopperChests(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registerSimpleTintedItemMode", "this.createFlatItemModelWithBlockTextur", "this.createDoublePlan"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createTintedDoublePlant(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createMossyCarpet(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createMuddyMangroveRoots(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createCandleAndCandleCake(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.itemModelOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createBeeNest(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createGrassLikeBlock(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registerSimpleItemMode", "this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createVault(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createAnvil(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createCrafterBlock(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createRepeater(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createDoubleBloc", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createPitcherPlant(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createFurnace(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createBanne"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createBanners(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createPetrifiedOakSlab(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createStonecutter(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createSuffixedVarian", "this.createDoubleBloc", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createSunflower(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createPointedDripstoneVariant(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createTrivialBloc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createTrivialCube(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.registerSimpleItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createInfestedStone(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createRotatableColumn(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createBell(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createFlatItemModel(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createMagmaBlock(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createComparator(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.createSideFireModel", "this.createFloorFireModel"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createSoulFire(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registerSimpleItemMode", "this.createPlan"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createPlantWithDefaultItem(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createFarmland(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createSmoothStoneSlab(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createAxisAlignedPillarBlockCustomModel(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createBe"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createBeds(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createSuffixedVarian", "this.createDoubleBloc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createTallSeagrass(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.blockStateOutput", "this.registerSimpleFlatItemMode"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createRedstoneWire(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createSuffixedVarian", "this.blockStateOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createChorusFlower(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modelOutput", "this.registerSimpleFlatItemMode", "this.createSegmentedBloc"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createLeafLitter(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.registerSimpleItemMode", "this.blockStateOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createCalibratedSculkSensor(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.createParticleOnlyBloc", "this.itemModelOutput", "this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createShulkerBox(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createCreakingHeartModel(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createFloorFireModels(/* params */);
+
+diff --git a/net.minecraft.client.data.models.BlockModelGenerators.java b/net.minecraft.client.data.models.BlockModelGenerators.java
+--- a/net.minecraft.client.data.models.BlockModelGenerators.java
++++ b/net.minecraft.client.data.models.BlockModelGenerators.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.modelOutput"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createFlatItemModelWithBlockTextureAndOverlay(/* params */);
+

@@ -1,0 +1,68 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.level.biome.OverworldBiomeBuilder.java b/net.minecraft.world.level.biome.OverworldBiomeBuilder.java
+--- a/net.minecraft.world.level.biome.OverworldBiomeBuilder.java
++++ b/net.minecraft.world.level.biome.OverworldBiomeBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pickBeachBiom", "this.pickMiddleBiom", "this.maybePickWindsweptSavannaBiom"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pickShatteredCoastBiome(/* params */);
+
+diff --git a/net.minecraft.world.level.biome.OverworldBiomeBuilder.java b/net.minecraft.world.level.biome.OverworldBiomeBuilder.java
+--- a/net.minecraft.world.level.biome.OverworldBiomeBuilder.java
++++ b/net.minecraft.world.level.biome.OverworldBiomeBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pickPlateauBiom"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pickSlopeBiome(/* params */);
+
+diff --git a/net.minecraft.world.level.biome.OverworldBiomeBuilder.java b/net.minecraft.world.level.biome.OverworldBiomeBuilder.java
+--- a/net.minecraft.world.level.biome.OverworldBiomeBuilder.java
++++ b/net.minecraft.world.level.biome.OverworldBiomeBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pickMiddleBiom"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pickShatteredBiome(/* params */);
+
+diff --git a/net.minecraft.world.level.biome.OverworldBiomeBuilder.java b/net.minecraft.world.level.biome.OverworldBiomeBuilder.java
+--- a/net.minecraft.world.level.biome.OverworldBiomeBuilder.java
++++ b/net.minecraft.world.level.biome.OverworldBiomeBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pickMiddleBiomeOrBadlandsIfHo", "this.pickSlopeBiom"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pickMiddleBiomeOrBadlandsIfHotOrSlopeIfCold(/* params */);
+
+diff --git a/net.minecraft.world.level.biome.OverworldBiomeBuilder.java b/net.minecraft.world.level.biome.OverworldBiomeBuilder.java
+--- a/net.minecraft.world.level.biome.OverworldBiomeBuilder.java
++++ b/net.minecraft.world.level.biome.OverworldBiomeBuilder.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.pickBadlandsBiom", "this.pickMiddleBiom"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pickMiddleBiomeOrBadlandsIfHot(/* params */);
+

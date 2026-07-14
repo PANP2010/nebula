@@ -1,0 +1,71 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (5 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.monster.skeleton.Bogged.java b/net.minecraft.world.entity.monster.skeleton.Bogged.java
+--- a/net.minecraft.world.entity.monster.skeleton.Bogged.java
++++ b/net.minecraft.world.entity.monster.skeleton.Bogged.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setSheare", "this.spawnShearedMushroom"},
++writeEntities = {"this.sheared"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ shear(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.skeleton.Bogged.java b/net.minecraft.world.entity.monster.skeleton.Bogged.java
+--- a/net.minecraft.world.entity.monster.skeleton.Bogged.java
++++ b/net.minecraft.world.entity.monster.skeleton.Bogged.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.shea", "this.readyForShearin", "this.leve", "this.gameEven"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mobInteract(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.skeleton.Bogged.java b/net.minecraft.world.entity.monster.skeleton.Bogged.java
+--- a/net.minecraft.world.entity.monster.skeleton.Bogged.java
++++ b/net.minecraft.world.entity.monster.skeleton.Bogged.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setSheare"},
++writeEntities = {"this.sheared"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.skeleton.Bogged.java b/net.minecraft.world.entity.monster.skeleton.Bogged.java
+--- a/net.minecraft.world.entity.monster.skeleton.Bogged.java
++++ b/net.minecraft.world.entity.monster.skeleton.Bogged.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isAliv", "this.isSheare"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readyForShearing(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.skeleton.Bogged.java b/net.minecraft.world.entity.monster.skeleton.Bogged.java
+--- a/net.minecraft.world.entity.monster.skeleton.Bogged.java
++++ b/net.minecraft.world.entity.monster.skeleton.Bogged.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.bbHeight", "this.spawnAtLocatio", "this.getBbHeigh", "this.dropFromShearingLootTabl"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ spawnShearedMushrooms(/* params */);
+

@@ -1,0 +1,94 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (7 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.client.gui.screens.inventory.InventoryScreen.java b/net.minecraft.client.gui.screens.inventory.InventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.InventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.InventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.*"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractBackground(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.InventoryScreen.java b/net.minecraft.client.gui.screens.inventory.InventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.InventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.InventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.titleLabelX", "this.titleLabelY", "this.title", "this.font"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ extractLabels(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.InventoryScreen.java b/net.minecraft.client.gui.screens.inventory.InventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.InventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.InventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ init(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.InventoryScreen.java b/net.minecraft.client.gui.screens.inventory.InventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.InventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.InventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.buttonClicke"},
++writeEntities = {"this.buttonClicked"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onRecipeBookButtonClick(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.InventoryScreen.java b/net.minecraft.client.gui.screens.inventory.InventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.InventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.InventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.minecraft"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ containerTick(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.InventoryScreen.java b/net.minecraft.client.gui.screens.inventory.InventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.InventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.InventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.effects"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ showsActiveEffects(/* params */);
+
+diff --git a/net.minecraft.client.gui.screens.inventory.InventoryScreen.java b/net.minecraft.client.gui.screens.inventory.InventoryScreen.java
+--- a/net.minecraft.client.gui.screens.inventory.InventoryScreen.java
++++ b/net.minecraft.client.gui.screens.inventory.InventoryScreen.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.buttonClicked", "this.buttonClicke"},
++writeEntities = {"this.buttonClicked"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ mouseReleased(/* params */);
+

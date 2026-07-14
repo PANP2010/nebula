@@ -1,0 +1,32 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (2 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.server.LoggedPrintStream.java b/net.minecraft.server.LoggedPrintStream.java
+--- a/net.minecraft.server.LoggedPrintStream.java
++++ b/net.minecraft.server.LoggedPrintStream.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.logLin"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ println(/* params */);
+
+diff --git a/net.minecraft.server.LoggedPrintStream.java b/net.minecraft.server.LoggedPrintStream.java
+--- a/net.minecraft.server.LoggedPrintStream.java
++++ b/net.minecraft.server.LoggedPrintStream.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.name"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ logLine(/* params */);
+

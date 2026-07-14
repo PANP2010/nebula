@@ -1,0 +1,44 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:17 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (3 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.util.profiling.jfr.event.NetworkSummaryEvent.java b/net.minecraft.util.profiling.jfr.event.NetworkSummaryEvent.java
+--- a/net.minecraft.util.profiling.jfr.event.NetworkSummaryEvent.java
++++ b/net.minecraft.util.profiling.jfr.event.NetworkSummaryEvent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sentPackets", "this.receivedBytes", "this.receivedPackets", "this.event", "this.sentBytes"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ commitEvent(/* params */);
+
+diff --git a/net.minecraft.util.profiling.jfr.event.NetworkSummaryEvent.java b/net.minecraft.util.profiling.jfr.event.NetworkSummaryEvent.java
+--- a/net.minecraft.util.profiling.jfr.event.NetworkSummaryEvent.java
++++ b/net.minecraft.util.profiling.jfr.event.NetworkSummaryEvent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.receivedBytes", "this.receivedPackets"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ trackReceivedPacket(/* params */);
+
+diff --git a/net.minecraft.util.profiling.jfr.event.NetworkSummaryEvent.java b/net.minecraft.util.profiling.jfr.event.NetworkSummaryEvent.java
+--- a/net.minecraft.util.profiling.jfr.event.NetworkSummaryEvent.java
++++ b/net.minecraft.util.profiling.jfr.event.NetworkSummaryEvent.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.sentPackets", "this.sentBytes"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ trackSentPacket(/* params */);
+

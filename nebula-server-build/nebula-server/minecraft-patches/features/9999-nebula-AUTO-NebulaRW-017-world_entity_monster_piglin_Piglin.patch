@@ -1,0 +1,223 @@
+From: NebulaRW Auto-Generator
+Date: Tue Jul 14 18:28:16 CST 2026
+Subject: [PATCH] nebula: AUTO @NebulaRW annotations (17 methods)
+
+Auto-generated @NebulaRW annotations from NebulaRWSourceInferrer
+Pattern database: 168 patterns from existing annotations
+Confidence threshold: 0.4
+
+diff --git a/net.minecraft.world.entity.monster.piglin.Piglin.java b/net.minecraft.world.entity.monster.piglin.Piglin.java
+--- a/net.minecraft.world.entity.monster.piglin.Piglin.java
++++ b/net.minecraft.world.entity.monster.piglin.Piglin.java
+@@ // 55% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.playSoun"},
++triggeredEvents = {"SOUND_PLAY"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playStepSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.piglin.Piglin.java b/net.minecraft.world.entity.monster.piglin.Piglin.java
+--- a/net.minecraft.world.entity.monster.piglin.Piglin.java
++++ b/net.minecraft.world.entity.monster.piglin.Piglin.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.random"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ createSpawnWeapon(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.piglin.Piglin.java b/net.minecraft.world.entity.monster.piglin.Piglin.java
+--- a/net.minecraft.world.entity.monster.piglin.Piglin.java
++++ b/net.minecraft.world.entity.monster.piglin.Piglin.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setItemSlo"},
++writeEntities = {"this.itemSlot"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ maybeWearArmor(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.piglin.Piglin.java b/net.minecraft.world.entity.monster.piglin.Piglin.java
+--- a/net.minecraft.world.entity.monster.piglin.Piglin.java
++++ b/net.minecraft.world.entity.monster.piglin.Piglin.java
+@@ // 50% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isAdul", "this.maybeWearArmo"},
++maxRandomCalls = 8,
++randomInstance = "WORLD_RANDOM",
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ populateDefaultEquipmentSlots(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.piglin.Piglin.java b/net.minecraft.world.entity.monster.piglin.Piglin.java
+--- a/net.minecraft.world.entity.monster.piglin.Piglin.java
++++ b/net.minecraft.world.entity.monster.piglin.Piglin.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.isBab", "this.getTopPassenge", "this.topPassenger"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ startRiding(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.piglin.Piglin.java b/net.minecraft.world.entity.monster.piglin.Piglin.java
+--- a/net.minecraft.world.entity.monster.piglin.Piglin.java
++++ b/net.minecraft.world.entity.monster.piglin.Piglin.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setItemSlo", "this.setGuaranteedDro"},
++writeEntities = {"this.guaranteedDrop", "this.itemSlot"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ holdInOffHand(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.piglin.Piglin.java b/net.minecraft.world.entity.monster.piglin.Piglin.java
+--- a/net.minecraft.world.entity.monster.piglin.Piglin.java
++++ b/net.minecraft.world.entity.monster.piglin.Piglin.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.setItemSlotAndDropWhenKille"},
++writeEntities = {"this.itemSlotAndDropWhenKilled"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ holdInMainHand(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.piglin.Piglin.java b/net.minecraft.world.entity.monster.piglin.Piglin.java
+--- a/net.minecraft.world.entity.monster.piglin.Piglin.java
++++ b/net.minecraft.world.entity.monster.piglin.Piglin.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.refreshDimension"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ onSyncedDataUpdated(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.piglin.Piglin.java b/net.minecraft.world.entity.monster.piglin.Piglin.java
+--- a/net.minecraft.world.entity.monster.piglin.Piglin.java
++++ b/net.minecraft.world.entity.monster.piglin.Piglin.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.makeSoun"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ playConvertedSound(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.piglin.Piglin.java b/net.minecraft.world.entity.monster.piglin.Piglin.java
+--- a/net.minecraft.world.entity.monster.piglin.Piglin.java
++++ b/net.minecraft.world.entity.monster.piglin.Piglin.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.spawnAtLocatio", "this.inventory"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ dropCustomDeathLoot(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.piglin.Piglin.java b/net.minecraft.world.entity.monster.piglin.Piglin.java
+--- a/net.minecraft.world.entity.monster.piglin.Piglin.java
++++ b/net.minecraft.world.entity.monster.piglin.Piglin.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.spawnAtLocatio", "this.inventory"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ finishConversion(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.piglin.Piglin.java b/net.minecraft.world.entity.monster.piglin.Piglin.java
+--- a/net.minecraft.world.entity.monster.piglin.Piglin.java
++++ b/net.minecraft.world.entity.monster.piglin.Piglin.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.performCrossbowAttac"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ performRangedAttack(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.piglin.Piglin.java b/net.minecraft.world.entity.monster.piglin.Piglin.java
+--- a/net.minecraft.world.entity.monster.piglin.Piglin.java
++++ b/net.minecraft.world.entity.monster.piglin.Piglin.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.canPickUpLoo"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ wantsToPickUp(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.piglin.Piglin.java b/net.minecraft.world.entity.monster.piglin.Piglin.java
+--- a/net.minecraft.world.entity.monster.piglin.Piglin.java
++++ b/net.minecraft.world.entity.monster.piglin.Piglin.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.onItemPicku"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ pickUpItem(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.piglin.Piglin.java b/net.minecraft.world.entity.monster.piglin.Piglin.java
+--- a/net.minecraft.world.entity.monster.piglin.Piglin.java
++++ b/net.minecraft.world.entity.monster.piglin.Piglin.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.readInventoryFromTa", "this.setCannotHun", "this.setBab"},
++writeEntities = {"this.cannotHunt", "this.baby"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ readAdditionalSaveData(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.piglin.Piglin.java b/net.minecraft.world.entity.monster.piglin.Piglin.java
+--- a/net.minecraft.world.entity.monster.piglin.Piglin.java
++++ b/net.minecraft.world.entity.monster.piglin.Piglin.java
+@@ // 45% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readEntities = {"this.getBrai", "this.brain"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ customServerAiStep(/* params */);
+
+diff --git a/net.minecraft.world.entity.monster.piglin.Piglin.java b/net.minecraft.world.entity.monster.piglin.Piglin.java
+--- a/net.minecraft.world.entity.monster.piglin.Piglin.java
++++ b/net.minecraft.world.entity.monster.piglin.Piglin.java
+@@ // 40% confidence
++    @org.nebula.annotations.NebulaRW(
++
++readBlocks = {"{neighbors}", "{position}"},
++verifiedAt = "1.21.4"
++
++    )
+     public /* returnType */ checkPiglinSpawnRules(/* params */);
+
