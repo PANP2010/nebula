@@ -12,7 +12,7 @@ java {
 
 tasks.withType<JavaCompile>().configureEach {
     options.encoding = "UTF-8"
-    options.release.set(21)
+    options.release.set(25)
 }
 
 val foliaApi = rootProject.layout.projectDirectory.file(
@@ -34,6 +34,13 @@ dependencies {
     testImplementation(fileTree(foliaRuntime) { include("*.jar") })
     testRuntimeOnly(files(foliaApi))
     testRuntimeOnly(fileTree(foliaRuntime) { include("*.jar") })
+}
+
+tasks.processResources {
+    inputs.property("version", project.version)
+    filesMatching("plugin.yml") {
+        expand("version" to project.version)
+    }
 }
 
 tasks.named<ShadowJar>("shadowJar") {

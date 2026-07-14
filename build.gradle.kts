@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "org.nebula"
-version = "0.1.0-SNAPSHOT"
+version = "0.2.0"
 
 val junitVersion = "5.11.4"
 val safeBuildRoot = file("${System.getProperty("user.home")}/.gradle/nebula-server-build/${rootProject.name}")

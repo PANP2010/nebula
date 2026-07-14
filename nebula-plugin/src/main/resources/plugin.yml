@@ -1,9 +1,9 @@
 name: Nebula
-version: "0.1.0-SNAPSHOT"
+version: "${version}"
 main: org.nebula.plugin.NebulaPlugin
 folia-supported: true
 api-version: "1.21"
-description: "Nebula multi-core DAG scheduler for Folia"
+description: "Deterministic DAG shadow runtime for Paper and Folia"
 authors:
   - NebulaArchTeam
 load: STARTUP
@@ -24,4 +24,7 @@ permissions:
     default: op
   nebula.status:
     description: "View plugin status"
+    default: op
+  nebula.admin:
+    description: "Control experimental Nebula subsystems"
     default: op

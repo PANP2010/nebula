@@ -1,0 +1,17 @@
+// Init script to configure JDK toolchain detection
+// The actual JDK detection is handled by foojay plugin in settings.gradle.kts
+// This script ensures the toolchain is properly configured
+
+beforeSettings {
+    // Configure foojay to use local JDKs if available
+}
+
+allprojects {
+    plugins.withType<JavaPlugin> {
+        extensions.configure<JavaPluginExtension> {
+            toolchain {
+                languageVersion.set(JavaLanguageVersion.of(25))
+            }
+        }
+    }
+}

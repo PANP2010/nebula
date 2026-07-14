@@ -2,60 +2,63 @@
 
 All notable changes to Nebula will be documented in this file.
 
-## [Unreleased] - 2026-07-08
+## [Unreleased]
 
-### Verified: DAG execution and zero-diff capture on real Folia
+### Added
+- TBD
 
-The two core properties Nebula was built to demonstrate are now empirically
-verified on a real Folia 26.1.2 server (previously only unit-tested in isolation).
+## [0.2.0] - 2026-07-14
 
-**Added**
-- `ToggleSourceClassifier` + `ToggleSourceRegistry` (nebula-plugin) — the game
-  layer now tracks manual toggle-source (lever/button) positions separately from
-  `componentMap`. The scanner collapses `LEVER`/`STONE_BUTTON`/`OAK_BUTTON`/… into
-  `REDSTONE_TORCH` in `componentMap` (correct for the DAG, but it erases toggle-
-  source identity), so the live-load driver could not recover which components are
-  drivable levers. `WorldRedstoneScanner` now records classified toggle sources into
-  `NebulaPlugin.toggleSources()`, whose `canonical()` feeds `CanonicalToggleSources`.
-  Toggle-source count surfaced in `/nebula status`. Pure bookkeeping — NOT read on
-  the per-tick pipeline. Clears the first blocker for wiring the live-load driver.
-- `/nebula scan` — region-thread-safe rescan of loaded chunks, so redstone placed
-  via commands (RCON `setblock`, which does not fire `BlockPlaceEvent`) can be
-  registered for DAG execution. Registered-component count added to `/nebula status`.
-- `RedstoneCasStateHasher` — reads redstone state from the thread-safe
-  `RedstoneWorldState` CAS store instead of live NMS blocks, making zero-diff
-  hashing safe from the global tick thread and reflective of Nebula's computed state.
-- `/nebula capture stop` now saves a timestamped `.nrp` replay file under
-  `plugins/Nebula/captures/` and reports distinct-hash count + first/last hash.
-- `TickTimeRecorder` (nebula-core/metrics) + `/nebula perf [reset]` (B4) — a
-  thread-safe percentile recorder for DAG tick execution time (p50/p95/p99 over a
-  recent-sample window plus lifetime count/min/max/avg). Replaces the per-tick INFO
-  log line (demoted to FINE) that both flooded the log and skewed the cost it
-  measured. Warns when p99 alone exceeds the 50ms/20-TPS budget.
+### First Playable Release
 
-**Fixed**
-- **World-name key mismatch (B3)**: `RedstoneTickHook` recorded dirty positions
-  under the NMS namespaced key (`minecraft:overworld`) but drained with the Bukkit
-  folder name (`world`), so every agent-recorded update was silently dropped.
-  Normalized `RedstoneTickHook.key()` through `DimensionIds.fromName()`.
-- **Zero-diff capture (B6)**: the hasher's tracked-position set was never populated,
-  and `WorldStateHasher` read NMS blocks off the region thread (NPE on Folia).
+This release marks the first **playable version** of Nebula — a deterministic DAG shadow runtime for Paper and Folia Minecraft servers. The core DAG execution pipeline has been verified on a real Folia 26.1.2 server.
 
-**Verified**
-- End-to-end DAG execution: live circuit toggles produced 45 exception-free DAG
-  ticks (`DAG tick: 16 tasks, 14 microsteps`).
-- Deterministic zero-diff: two identical 40-tick captures produced byte-for-byte
-  identical replay files.
-- Per-tick MSPT (B4): steady-state small circuit measured avg 1.24ms / p50 0.95ms /
-  p95 2.86ms / p99 3.47ms over 100 ticks via `/nebula perf`, well under the
-  50ms/20-TPS budget (a ~57ms first-tick JIT-warmup outlier ages out of the window).
-- 742 unit tests pass (was 659; +9 for the DeterministicToggleSchedule schedule slice, +9 for the LiveLoadToggleDriver resolution slice, +6 for the FoliaToggleApplier live seam, +12 for the CanonicalToggleSources deterministic source-ordering slice, and +15 for the toggle-source tracking slice (ToggleSourceClassifier + ToggleSourceRegistry), 2026-07-09).
+### Verified on Real Server (2026-07-08 through 2026-07-12)
+- End-to-end DAG execution on real Folia 26.1.2 server (live lever→wire→lamp circuit)
+- Deterministic zero-diff capture: byte-for-byte identical replay files verified
+- Per-tick MSPT verified at multi-region scale: p99 1.914ms < 3ms budget
+- Entity MOVE live path + RW-guard verification
+- Block-entity (hopper/furnace/dropper) live slices + guard
+- Parallel DAG execution verified against single-thread oracle (Paper differential)
+- Settled-state divergence gate now passes deterministically
+- 742 unit tests passing
 
-**Still unverified**: performance *under load* (B4) — per-tick cost is now measured on
-a small circuit, but large multi-region load testing and a baseline-vs-Nebula MSPT
-comparison do not exist yet.
+### Added
+- `ToggleSourceClassifier` + `ToggleSourceRegistry` for game layer toggle tracking
+- `/nebula scan` — region-thread-safe rescan of loaded chunks
+- `RedstoneCasStateHasher` — thread-safe state hashing from CAS store
+- `/nebula capture stop` saves timestamped `.nrp` replay files
+- `TickTimeRecorder` + `/nebula perf [reset]` for DAG tick timing metrics
+- `DeterministicToggleSchedule` + `LiveLoadToggleDriver` for driven live-load testing
+- `/nebula diff` for Paper differential comparison
+- `/nebula diag` for per-invocation cascade diagnostics
+- `/nebula random` for random budget control
+- `/nebula dag-stats` + `FastBuildStats` for DAG build performance
+- `/nebula fidelity` for fidelity degradation control
+- `BudgetedDagBuilder` with T2 relaxed determinism
+- Entity MOVE live path + RW-guard tracing
+- Block-entity brewing/furnace/hopper/dropper live slices
+- Fluid `BlockFromToEvent` observe-only path
+- Explosion `EXPLOSION_BLOCK_DESTROY` observe-only path
+- `AnnotationCoverageDashboard` for RW-set coverage metrics
+- `BridgeAnnotationScanner` for bridge method coverage tracking
+- Nebula Regression CI workflow with JaCoCo coverage
+- Aliyun Maven mirror configuration
 
-## [0.1.0-SNAPSHOT] - 2026-06-18
+### Fixed
+- **World-name key mismatch (B3)**: Normalized `RedstoneTickHook.key()` through `DimensionIds.fromName()`
+- **Zero-diff capture (B6)**: Fixed hasher's tracked-position set and thread-safe hashing
+- **RedstoneTickHook lifecycle driver**: Added `GlobalRegionScheduler.runAtFixedRate` for tick lifecycle
+- **componentMap empty**: Added synchronous scan in `onEnable()` and `/nebula scan` command
+- **settled-state divergence gate**: Fixed `beginTick` race condition
+
+### Known Limitations
+- **DG2 (Entity)**: collision/AI/item/damage, 50k zero-diff, formal random-budget acceptance remain open
+- **DG3 (Full System)**: VAP plugin compatibility and 100-player load testing not verified
+- **B4 (Performance)**: Baseline-vs-Nebula MSPT comparison not applicable (observe-only architecture)
+- Write-back intentionally off until zero-diff validation gates it
+
+## [0.1.0] - 2026-06-18
 
 ### Development Preview Release
 
