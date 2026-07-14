@@ -30,3 +30,25 @@ ralph-runner.log
 # Local test server directories:
 paper-test-server/
 folia-test-server/
+# Root-level Minecraft server runtime state (generated locally):
+/cache/
+/libraries/
+/plugins/
+/world/
+/config/paper-global.yml
+/config/paper-world-defaults.yml
+/banned-ips.json
+/banned-players.json
+/bukkit.yml
+/commands.yml
+/eula.txt
+/help.yml
+/ops.json
+/permissions.yml
+/server.properties
+/spigot.yml
+/usercache.json
+/version_history.json
+/whitelist.json
+/paper-*.jar
+/nebula-agent-0.1.0-SNAPSHOT.jar
