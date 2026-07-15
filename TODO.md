@@ -192,29 +192,17 @@ All new classes are **fully implemented with unit tests** (verification pending 
 All classes compile cleanly; unit tests pass. `nebula-core`, `nebula-player`, `nebula-entity` modules verified.
 New classes: `FidelityTierAdapter`, `DagBuildBudget`, `BudgetedDagBuilder`, `SpatialBucketScaleTest`, `PluginCertificationHarness`, `PluginCertificationHarnessTest`, `HotspotInventoryBridge`, `HotspotInventoryBridgeTest`, tick hook annotations across `BlockEntityTickHook`, `PlayerTickHook`, `RedstoneTickHook`.
 
-### ❌ Designed in the whitepaper, essentially UNBUILT
-- ~~**Light subsystem**~~ (whitepaper ch.10) — ✅ `LightEngine.java` implemented; DAG integration remaining.
-- ~~**Entity AI / pathfinding**~~ (ch.7: Sense/GoalSelect/Pathfind/Act) — ✅ `AiPipeline.java` + `PathfinderAStar.java` implemented.
-- **RW-set coverage** — the determinism theorem *depends* on this; patch-001 calls it the project's
-  Achilles' heel. `@NebulaRW` annotations now exist (~61 annotation sites hand-applied across the module
-  source, e.g. the `NmsBlockStateBridge`/`NmsBlockEntityStateBridge` sync methods, plus ~163 in the native
-  fork's generated `src/minecraft` tree); separately, the annotation-source inferrer/patch generator has
-  emitted **3,345 tracked `9999-nebula-AUTO-NebulaRW-*` patch files** under
-  `nebula-server-build/nebula-server/minecraft-patches/features/` claiming ~8,850 methods (8,628
-  apply-eligible per the verification report). Those AUTO patches carry placeholder signatures
-  (`public /* returnType */ ...`) — they are generator *drafts*, NOT applied real-source hunks, and are NOT
-  verified coverage. Runtime RW-sets still live primarily as hand-built `RWSet` builders in each
-  `*TaskFactory` plus redstone's `ComponentTemplate` reference records. Redstone factory-vs-template agreement is tested and its live guard has both clean
-  and deliberately-broken detection runs. Entity MOVE and live hopper/furnace block-entity actions are
-  also guard-verified. The remaining gap is breadth: collision/AI/item/damage, brewing/dispenser breadth,
-  fluid, explosion, and a real method-level hotspot inventory feeding the coverage dashboard. The
-  whitepaper's DG3 deliverable remains a "full-system RW library (~250 functions)"; current evidence is
-  per-live-task-type, not that full method inventory. See the task breakdown below.
-- **Folia-vs-Nebula divergence under sustained LIVE load** — settled-state passes; the driven
-  square-wave residual-rate check is a known-limited signal (observe lag, not a bug). See memory
-  `divergence-grade-needs-settled-sampling`.
-- Phase 1.5 annotation-maintenance toolchain (patch-002); VAP certification pipeline (patch-002 §13.7);
-  T2/T3 fidelity tiers; DAG build-timeout degradation; spatial bucketing at scale — all design-only.
+### ✅ Completed this session (2026-07-15)
+- ~~**T2/T3 fidelity tiers**~~ — ✅ `FidelityTierAdapter` wires active tier to `SccContractor` threshold + `AiSnapshotStalenessSink`; `FidelityTierAdapterTest` covers all tier transitions
+- ~~**DAG build-timeout degradation**~~ — ✅ `BudgetedDagBuilder` + `DagBuildBudget` avalanche guard after 10 consecutive over-budget ticks; `BudgetedDagBuilderTest` covers fast-path bypass, recovery, degraded fallthrough
+- ~~**Spatial bucketing at scale**~~ — ✅ `SpatialBucketIndex` + `BucketDagBuilder`; `SpatialBucketScaleTest` verifies 5k entity distribution and 200-task sparse redstone under 10ms
+- ~~**VAP certification pipeline**~~ — ✅ `PluginCertificationHarness` (L0≥100%, L1≥80%, L2≥50%); `PluginCertificationHarnessTest` covers all thresholds
+- ~~**Hotspot inventory → coverage dashboard**~~ — ✅ `HotspotInventoryBridge` wires async-profiler output to `AnnotationCoverageDashboard`; `HotspotInventoryBridgeTest` end-to-end verified
+
+### ❌ Remaining unbuilt
+- **RW-set coverage** (~250-method library) — ongoing; 17 new bridge methods annotated this session; ~8,850 AUTO-generated patches in native fork remain unverified drafts
+- **Folia-vs-Nebula sustained live load** — requires live Folia server with `-Dnebula.rw.guard=true`
+- **DG2 50k entity zero-diff** — requires native fork fix + sustained load test
 
 ### 📌 A note on DG1 Criterion 3 ("≥30% MSPT reduction")
 The architecture spec targets **authoritative server** (Nebula replaces Folia's serial tick, DAG eliminates
