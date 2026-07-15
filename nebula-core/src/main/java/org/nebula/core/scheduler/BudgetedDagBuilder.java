@@ -3,6 +3,9 @@ package org.nebula.core.scheduler;
 import org.nebula.core.bucket.BucketDagBuilder;
 
 import java.util.Collection;
+import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
 
 /**
  * Budget-aware DAG builder facade (arch doc §4.3.1, §16.1;
@@ -32,12 +35,26 @@ import java.util.Collection;
  */
 public final class BudgetedDagBuilder {
 
-    private final BucketDagBuilder optimal;
+    /**
+     * Functional seam for the optimal-build path. The default implementation
+     * delegates to a {@link BucketDagBuilder}; tests inject a slow/stub
+     * supplier to drive the budget tracker into the degraded path.
+     */
+    @FunctionalInterface
+    public interface OptimalBuild {
+        TaskGraph build(Collection<TaskNode> tasks);
+    }
+
+    private final OptimalBuild optimal;
     private final DagBuildBudget budget;
 
     public BudgetedDagBuilder(BucketDagBuilder optimal, DagBuildBudget budget) {
-        this.optimal = optimal;
-        this.budget = budget;
+        this(optimal::build, budget);
+    }
+
+    public BudgetedDagBuilder(OptimalBuild optimal, DagBuildBudget budget) {
+        this.optimal = Objects.requireNonNull(optimal, "optimal");
+        this.budget = Objects.requireNonNull(budget, "budget");
     }
 
     public BudgetedDagBuilder() {

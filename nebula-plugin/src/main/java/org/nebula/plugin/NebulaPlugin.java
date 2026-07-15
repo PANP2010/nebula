@@ -299,6 +299,7 @@ public final class NebulaPlugin extends JavaPlugin {
     private org.nebula.folia.MaterialBlockStateBridge materialBridge;
     private org.nebula.player.PlayerAuthorityGate playerMoveGate;
     private org.nebula.player.PlayerAuthorityGate playerBlockGate;
+    private org.nebula.player.PlayerDivergenceSampler playerSampler;
     private final java.util.concurrent.ConcurrentHashMap<java.util.UUID, org.nebula.player.actions.PlayerMoveAction>
         playerMoveActions = new java.util.concurrent.ConcurrentHashMap<>();
     private final java.util.concurrent.ConcurrentHashMap<java.util.UUID, org.nebula.player.actions.PlayerBreakBlockAction>
@@ -632,6 +633,8 @@ public final class NebulaPlugin extends JavaPlugin {
         playerState = new org.nebula.core.player.PlayerPhysicsState();
         playerMoveGate = new org.nebula.player.PlayerAuthorityGate("PLAYER_MOVE", 100);
         playerBlockGate = new org.nebula.player.PlayerAuthorityGate("PLAYER_BLOCK", 100);
+        playerSampler = new org.nebula.player.PlayerDivergenceSampler(
+            playerState, playerMoveGate, playerBlockGate);
 
         playerRunner = new org.nebula.player.PlayerTaskRunner(
             playerState,
@@ -1085,6 +1088,21 @@ public final class NebulaPlugin extends JavaPlugin {
             LOG.warning("Player DAG execution failed: " + e.getMessage());
             return;
         }
+
+        // Collect the players that were in this DAG partition so the divergence sampler
+        // can compare Nebula's computed position against Folia's live position.
+        java.util.ArrayList<org.bukkit.entity.Player> dagPlayers = new java.util.ArrayList<>();
+        for (var task : tasks) {
+            java.util.UUID uuid = parsePlayerUuid(task.taskId());
+            if (uuid == null) continue;
+            org.bukkit.entity.Player p = org.bukkit.Bukkit.getPlayer(uuid);
+            if (p != null) dagPlayers.add(p);
+        }
+
+        // Feed the sample to both authority gates so they can open once K consecutive
+        // matched ticks have been observed. Without this call the gate never leaves
+        // OBSERVING and syncPhysicsToNms is never invoked — the write-back path stays cold.
+        playerSampler.sample(dagPlayers);
 
         // Gate: only write back after K consecutive matched ticks
         if (playerMoveGate.isOpen()) {
@@ -3014,6 +3032,7 @@ private void recordEntityDivergence(long entityId, long tick,
     public org.nebula.core.player.PlayerPhysicsState playerState() { return playerState; }
     public org.nebula.player.PlayerAuthorityGate playerMoveGate() { return playerMoveGate; }
     public org.nebula.player.PlayerAuthorityGate playerBlockGate() { return playerBlockGate; }
+    public org.nebula.player.PlayerDivergenceSampler playerSampler() { return playerSampler; }
     public NmsBlockStateBridge blockBridge() { return blockBridge; }
     public NmsEntityStateBridge entityBridge() { return entityBridge; }
     public NmsBlockEntityStateBridge blockEntityBridge() { return blockEntityBridge; }

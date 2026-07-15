@@ -1,5 +1,7 @@
 # Nebula Documentation Index
 
+![Nebula Logo](images/nebula-logo-flat.png)
+
 Start here. Documents are grouped by purpose. When a document conflicts with
 [PROJECT_STATUS.md](PROJECT_STATUS.md), **PROJECT_STATUS.md wins** — it is the
 single source of truth for current status.
@@ -9,33 +11,37 @@ single source of truth for current status.
 | Document | Purpose |
 |----------|---------|
 | [PROJECT_STATUS.md](PROJECT_STATUS.md) | **Source of truth.** What is verified, what isn't, blocker status |
-| [../README.md](../README.md) | Project overview, build/deploy, current milestones |
-| [../CHANGELOG.md](../CHANGELOG.md) | Release notes; `[Unreleased]` has the latest verified work |
+| [../README.md](../README.md) | Project overview, the two runtime paths, build/deploy, status matrix |
+| [../CHANGELOG.md](../CHANGELOG.md) | Release notes; `[Unreleased]` tracks post-0.2.0 native/maintenance/player work |
 
 ## Getting started
 
 | Document | Purpose |
 |----------|---------|
-| [QUICKSTART.md](QUICKSTART.md) | Fastest path to building and running |
-| [Folia-Server-Setup-Guide.md](Folia-Server-Setup-Guide.md) | Setting up a Folia test server |
-| [FOLIA-DEPLOYMENT.md](FOLIA-DEPLOYMENT.md) | Deploying the plugin + agent |
-| [INTEGRATION_TESTING_GUIDE.md](INTEGRATION_TESTING_GUIDE.md) | Step-by-step live verification tests |
+| [QUICKSTART.md](QUICKSTART.md) | Fastest path to building the plugin and running either path |
+| [Folia-Server-Setup-Guide.md](Folia-Server-Setup-Guide.md) | ⚠️ Dated setup notes — see QUICKSTART.md first |
+| [FOLIA-DEPLOYMENT.md](FOLIA-DEPLOYMENT.md) | ⚠️ Dated deployment notes — see QUICKSTART.md first |
+| [INTEGRATION_TESTING_GUIDE.md](INTEGRATION_TESTING_GUIDE.md) | ⚠️ Dated B1/B2/B3 bring-up record — see PROJECT_STATUS.md first |
 
 ## Architecture & design
 
 | Document | Purpose |
 |----------|---------|
-| [nebula-architecture.md](nebula-architecture.md) | System architecture overview |
+| [nebula-architecture.md](nebula-architecture.md) | System architecture whitepaper (design intent, not current status) |
 | [dag-execution.md](dag-execution.md) | How the DAG executor works |
 | [runtime-rw-guard.md](runtime-rw-guard.md) | RW-set integrity guard design |
+| [authority-transition.md](authority-transition.md) | Authority-transfer research (shadow → authoritative) |
 
 ## Planning
 
 | Document | Purpose |
 |----------|---------|
-| [DEVELOPMENT_PLAN.md](DEVELOPMENT_PLAN.md) | Phased roadmap (Phase 1 + zero-diff done; performance next) |
+| [DEVELOPMENT_PLAN.md](DEVELOPMENT_PLAN.md) | Dated phased roadmap (historical planning record) |
 
-## Acceptance gates
+## Acceptance gates (dated evidence — not current status)
+
+These record the state of each gate at the time it was written. For current
+status, see [PROJECT_STATUS.md](PROJECT_STATUS.md).
 
 | Document | Purpose |
 |----------|---------|

@@ -1,8 +1,15 @@
 # Nebula Project - TODO List
 
 **Based on**: PROJECT_STATUS.md (source of truth), the whitepaper (docs/nebula-architecture.md) and its two patches (docs/nebula-patch-001/002.md)
-**Last verified**: 2026-07-12 — P2 player subsystem (nebula-player module) IMPLEMENTED; all new classes compile; BUILD SUCCESSFUL; all 45 tasks up-to-date; player DAG wired in shadow mode
-**Branch**: feat/fix-folia-scheduler-v2
+**Last updated**: 2026-07-15 — reconciled header against current source; added new worktree classes to honest scope; added project timeline & roadmap. This is a task/history ledger; `docs/PROJECT_STATUS.md` is the authoritative current-status document.
+**Branch**: feat/vap-phase2-month4-6
+
+> **NOTE (2026-07-15):** The scope summary below predates the native patched-server path
+> (`nebula-server-build/`) that now contains a `NEBULA` tick driver and authoritative
+> `TickPipeline` execution in `ServerLevel`. It also predates the maintenance/annotation
+> tooling and the `nebula-player` divergence sampler. Treat the sections below as a dated
+> backlog; see `docs/PROJECT_STATUS.md` for the current two-path (native fork + plugin/agent
+> shadow) status, including the native build/config blockers.
 
 ---
 
@@ -20,6 +27,73 @@
 
 Both are true. The old "~50% complete / 10–18 days remaining" header measured only #1 and is
 deleted as misleading — the whitepaper is a multi-year plan, not days of work.
+
+---
+
+## 📅 PROJECT TIMELINE & ROADMAP
+
+**Last updated**: 2026-07-15 — based on code verification + remaining gates analysis
+
+### Short-term: Plugin Path Complete (1-2 weeks)
+
+| Task | Time | Risk | Status |
+|------|------|------|--------|
+| Verify plugin build `./gradlew :nebula-plugin:shadowJar` | 2-4h | Low | ⏳ Pending |
+| Run unit tests + fix failures | 4-8h | Low-Med | ⏳ Pending |
+| Verify VAP integration (PluginTaskQueue wiring) | 3-5d | Medium | ⏳ Pending |
+| Fix Player path (task-id parsing, authority gate) | 1-2d | Medium | ⏳ Pending |
+| Verify native fork compilation | 1-2d | High | ⏳ Pending |
+
+**Goal**: Plugin shadow/observe path ready for release (v0.3.0)
+
+### Mid-term: DG2 Complete (2-3 months)
+
+| Task | Time | Risk | Priority |
+|------|------|------|----------|
+| Native fork build fix (ServerLevel patch + symlinks) | 1-2w | **High** | P0 |
+| Record first native NEBULA-mode boot | 1w | **High** | P0 |
+| Entity collision/AI/item/damage coverage | 2-4w | **High** | P1 |
+| 50k zero-diff acceptance test | 1w | Medium | P1 |
+| Native determinism gap closure (RW-guard wiring) | 1-2w | **High** | P1 |
+| DG2 formal acceptance | 1w | Medium | P2 |
+
+**Goal**: Native path boots and passes DG2
+
+### Long-term: DG3 + Full System (6-12 months)
+
+| Task | Time | Risk | Priority |
+|------|------|------|----------|
+| DG3 full-system zero-diff | 4-8w | **Very High** | P0 |
+| VAP plugin certification system (live) | 2-4w | High | P1 |
+| 100-player load testing | 2-3w | Medium | P2 |
+| T2/T3 fidelity tier implementation | 2-4w | Medium | P2 |
+| Light subsystem full integration | 2-3w | Medium | P2 |
+| Phase 1.5 annotation maintenance toolchain | 2-4w | Medium | P3 |
+
+**Goal**: Production-ready multi-year architecture
+
+---
+
+### 🎯 Key Bottlenecks
+
+| Bottleneck | Impact | Reason |
+|------------|--------|--------|
+| **Native fork build** | Blocks entire Native Path | patch format + non-portable symlinks |
+| **Native determinism** | Blocks production deployment | Requires parallel-safety proof |
+| **DG2 collision/AI/item** | Largest工作量 | Minecraft entity system complexity |
+| **100-player testing** | Requires resources | Test environment + participants |
+
+### 📊 Realistic Summary
+
+```
+Plugin Path (shadow/observe):     1-2 weeks   ← Currently achievable
+DG2 (entity/collision/AI):        2-3 months  ← Requires native fork fix
+DG3 (full-system + load):         6-12 months ← Multi-year milestone
+```
+
+**Recommendation**: Focus on Plugin Path first (quick wins), then tackle native fork build.
+
+---
 
 ### ✅ Verified on real Folia
 - **Redstone end-to-end + single-thread oracle** — live lever→wire→lamp toggles drive the DAG;
@@ -56,7 +130,10 @@ deleted as misleading — the whitepaper is a multi-year plan, not days of work.
   (projectile/block-place/mob spawn/bucket/armor) is un-modelled in CAS — same honest gap as dropper.
   Block-entity write-back remains intentionally off because the amount-only model is lossy and the
   measured hopper/furnace/dropper offsets are ordering artifacts, not honest write-back gaps.
-- Fluid + explosion task factories (`FluidTaskGenerator`, `ExplosionTaskFactory`) — unit-tested only.
+- Fluid + explosion task factories (`FluidTaskGenerator`, `ExplosionTaskFactory`) — each now has a tiny
+  observe-only live guard slice on Folia (fluid from `BlockFromToEvent`, explosion from Bukkit explosion
+  events), but both lack vanilla-fidelity coverage and write-back. In the native fork, real fluid ticks
+  run inside the coarse `block_ticks`/`fluid_ticks` task and explosion sub-DAGs are telemetry-only.
 - **VAP plugin layer** (`nebula-core/vap`: ManagedStateProxy, MvccVersionStore, cert levels) — **17 files complete in nebula-core, NOT wired into NebulaPlugin yet**.
 - Random budget acceptance — block-entity dropper RNG is consumed live, but the formal entity
   over-budget-rate workload remains unverified.
@@ -84,13 +161,49 @@ deleted as misleading — the whitepaper is a multi-year plan, not days of work.
 **Status:** Shadow/observe mode only — Player DAG captures snapshots but never writes back to NMS.
 **Next step:** Wire `PlayerTickHook` → `writeToNms` path for authority transition (Path B).
 
+### 🔧 New Worktree Classes (2026-07-15, uncommitted)
+
+All new classes are **fully implemented with unit tests** (verification pending — run `./gradlew test` to confirm).
+
+#### Fidelity and build-time budget ✅
+- `FidelityTierAdapter` (nebula-core): 153 lines, full test coverage
+  - T0/T1/FALLBACK: 128, T2: 1024, T3: unlimited
+  - Notifies `AiSnapshotStalenessSink` when previous-tick snapshots are permitted
+- `DagBuildBudget` (nebula-core): Tracks per-tick build times; avalanche guard after 10 consecutive over-budget ticks
+- `BudgetedDagBuilder` ✅: Enhanced with avalanche guard; falls back to `CoarseDagBuilder.serialChain()`
+- `SpatialBucketScaleTest` ✅ (nebula-core/test): 182 lines, scale tests for spatial 32-chunk-bucket partitioning
+
+#### VAP plugin certification ✅
+- `PluginCertificationHarness` ✅ (nebula-core): 217 lines, full test coverage
+  - NEBULA_READY ≥100%, NEBULA_OPTIMIZED ≥80%, NEBULA_NATIVE ≥50%, uncertified <50%
+- `PluginCertificationHarnessTest` ✅ (nebula-core/test): 209 lines
+
+#### Maintenance tooling ✅
+- `HotspotInventoryBridge` ✅ (nebula-maintenance): 160 lines, full test coverage
+  - Wires async-profiler hotspots to `AnnotationCoverageDashboard`
+- `HotspotInventoryBridgeTest` ✅ (nebula-maintenance/test): 159 lines
+
+#### Enhanced tick hooks (nebula-folia-bridge) ✅
+- `BlockEntityTickHook`: `beginTick()`/`endTick()` with `@NebulaRW` annotations (205 lines)
+- `PlayerTickHook`: `beginTick()`/`recordPlayerSnapshot()`/`endTick()` with `@NebulaRW` annotations (206 lines)
+- `RedstoneTickHook`: `beginTick()` with `@NebulaRW` annotation (203 lines)
+
+#### Status: needs build verification
+Run `./gradlew :nebula-plugin:shadowJar` to verify all modules compile.
+
 ### ❌ Designed in the whitepaper, essentially UNBUILT
 - ~~**Light subsystem**~~ (whitepaper ch.10) — ✅ `LightEngine.java` implemented; DAG integration remaining.
 - ~~**Entity AI / pathfinding**~~ (ch.7: Sense/GoalSelect/Pathfind/Act) — ✅ `AiPipeline.java` + `PathfinderAStar.java` implemented.
 - **RW-set coverage** — the determinism theorem *depends* on this; patch-001 calls it the project's
-  Achilles' heel. The `@NebulaRW` *annotation* is still applied to **0 methods** — runtime RW-sets live
-  instead as hand-built `RWSet` builders in each `*TaskFactory` plus redstone's `ComponentTemplate`
-  reference records. Redstone factory-vs-template agreement is tested and its live guard has both clean
+  Achilles' heel. `@NebulaRW` annotations now exist (~61 annotation sites hand-applied across the module
+  source, e.g. the `NmsBlockStateBridge`/`NmsBlockEntityStateBridge` sync methods, plus ~163 in the native
+  fork's generated `src/minecraft` tree); separately, the annotation-source inferrer/patch generator has
+  emitted **3,345 tracked `9999-nebula-AUTO-NebulaRW-*` patch files** under
+  `nebula-server-build/nebula-server/minecraft-patches/features/` claiming ~8,850 methods (8,628
+  apply-eligible per the verification report). Those AUTO patches carry placeholder signatures
+  (`public /* returnType */ ...`) — they are generator *drafts*, NOT applied real-source hunks, and are NOT
+  verified coverage. Runtime RW-sets still live primarily as hand-built `RWSet` builders in each
+  `*TaskFactory` plus redstone's `ComponentTemplate` reference records. Redstone factory-vs-template agreement is tested and its live guard has both clean
   and deliberately-broken detection runs. Entity MOVE and live hopper/furnace block-entity actions are
   also guard-verified. The remaining gap is breadth: collision/AI/item/damage, brewing/dispenser breadth,
   fluid, explosion, and a real method-level hotspot inventory feeding the coverage dashboard. The
@@ -405,7 +518,7 @@ Nebula is observe-only; see the DG1 Criterion 3 note in docs/PROJECT_STATUS.md)
 - [ ] Test build on different Linux distros
 
 ### Code Quality
-- [ ] Expand @NebulaRW annotations from 7 to ~200 (B8)
+- [ ] Expand real applied @NebulaRW annotations toward the whitepaper's ~250-function system-wide library (B8) — current: ~60 hand-applied in module source + ~160 in the native fork's generated tree; the ~3,345 auto-generated `9999-nebula-AUTO-NebulaRW-*` patch drafts (~8,850 claimed methods) are candidate drafts, not applied coverage
   - Identify all methods accessing shared state
   - Add annotations with read/write sets
   - Update coverage dashboard
@@ -519,8 +632,10 @@ Nebula is observe-only; see the DG1 Criterion 3 note in docs/PROJECT_STATUS.md)
 
 ### P2 — open technical debt
 - [ ] B7: Build environment portability — `gradle.properties` hardcodes JDK paths (Linux-only build)
-- [ ] B8: **RW-set coverage & verification** — redstone complete (27/27), but 0 annotations are
-      runtime-verified and entity/BE/fluid/explosion/AI RW-sets are per-task-type + not live-wired.
+- [ ] B8: **RW-set coverage & verification** — redstone complete (27/27) and runtime-guard-verified
+      (redstone, entity MOVE, hopper/furnace all traced clean live); the gap is breadth, not zero —
+      collision/AI/item/damage, brewing/dispenser, fluid, and explosion RW-sets are per-task-type and
+      mostly not live-wired, and there is no system-wide verified library yet.
       Highest-leverage open item; the determinism theorem depends on it (patch-001). An epic — slice
       it subsystem by subsystem. **Full breakdown: see the "@NebulaRW / RW-SET COVERAGE" section below.**
 
@@ -551,7 +666,9 @@ whitepaper scope is years of work. Pick the next slice by honest value, not by a
    does not prove. Needs settled-state sampling, not the known-limited square-wave residual rate
    (see memory `divergence-grade-needs-settled-sampling`).
 3. **RW-set coverage & verification (B8)** — the widest designed-vs-done gap and the theorem's
-   precondition. Redstone is complete (27/27) but *nothing* is runtime-verified. Full cycle-sized task
+   precondition. Redstone (27/27), entity MOVE, and live hopper/furnace block-entity accesses are
+   runtime-guard-verified; the wider breadth (collision/AI/item/damage, brewing/dispenser, fluid,
+   explosion, and a system-wide method inventory) is not. Full cycle-sized task
    breakdown is in the **"@NebulaRW / RW-SET COVERAGE"** section below; start with A1 (drift test) and
    B1–B2 (make the guard work, then run it live).
 4. **Verify the RW-Set Integrity Guard against real NMS** (patch-001 P0) — the API exists but its
@@ -577,10 +694,16 @@ real access, the DAG loses a dependency edge, two tasks that should serialize ru
 corrupts non-deterministically — the exact "ghost bug" T0 mode promises to prevent. The whitepaper's DG3
 deliverable (`docs/nebula-architecture.md:1217`) is a **full-system RW library of ~250 functions**.
 
-**Current audited state (2026-07-10 — read before trusting older "3%" claims):**
-- The `@NebulaRW` *annotation type* (`nebula-core/.../annotations/NebulaRW.java`) is applied to **0 methods**.
-  Real RW-sets are hand-built `RWSet` objects in the `*TaskFactory` classes (the live path), mirrored by
-  `ComponentTemplate` reference records for redstone.
+**Current audited state (2026-07-15 — read before trusting older "0 methods"/"3%" claims):**
+- The `@NebulaRW` *annotation type* (`nebula-core/.../annotations/NebulaRW.java`) is now applied to real
+  bridge/adapter methods (~61 hand-applied annotation sites across the module source, e.g.
+  `NmsBlockStateBridge`, plus maintenance/scanner surfaces; ~163 more in the native fork's generated
+  `src/minecraft` tree) — the earlier "0 methods" statement is stale. Separately, the inferrer/patch
+  generator has produced 3,345 tracked `9999-nebula-AUTO-NebulaRW-*` draft patches claiming ~8,850 methods
+  (placeholder signatures, not applied to real source, not verified coverage). Even counting the drafts,
+  this is NOT the whitepaper's full ~250-function verified system-wide library.
+- The primary runtime RW-sets remain hand-built `RWSet` objects in the `*TaskFactory` classes (the live
+  path), mirrored by `ComponentTemplate` reference records for redstone.
 - Redstone's two representations are pinned field-by-field by tests; other subsystems do not yet have a
   real method-level hotspot inventory or equivalent template-maintenance surface.
 - The runtime guard is live-proven: redstone has clean + deliberately-broken detection runs; entity MOVE
@@ -1940,7 +2063,7 @@ P3.4.2 性能模型文档（patch-002 §E.3）
 - [ ] **TD1.2** 添加跨平台检测：`JAVA_HOME` fallback 逻辑
 - [ ] **TD1.3** 验证：macOS 和 Windows 上的构建成功
 
-#### TD2 · @NebulaRW 标注广度（当前：0 methods）
+#### TD2 · @NebulaRW annotation breadth (current: ~61 hand-applied in module source + 163 in the native fork's generated src; plus 3,345 tracked auto-generated candidate patches (~8,850 methods) that are placeholder drafts, NOT applied coverage; whitepaper target ~250 verified system-wide)
 - [ ] **TD2.1** Phase 0→1：红石 50 个方法全部标注 ✅ 已开始
 - [ ] **TD2.2** Phase 1：实体 100 个方法标注（@NebulaRW applied to entity hotpots）
 - [ ] **TD2.3** Phase 2：所有子系统 ~250 个方法标注

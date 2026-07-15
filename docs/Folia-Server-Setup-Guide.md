@@ -1,5 +1,10 @@
 # Folia Server Manual Installation Guide
 
+> **⚠️ SUPERSEDED (2026-07-15) — dated setup notes, not current instructions.**
+> This guide targets an older Folia version and macOS-specific install paths.
+> For the current build/run procedure see [QUICKSTART.md](QUICKSTART.md); for
+> current status see [PROJECT_STATUS.md](PROJECT_STATUS.md).
+
 ## Step 1: Install Java 25
 
 Folia requires Java 25.

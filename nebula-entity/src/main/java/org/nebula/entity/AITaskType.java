@@ -49,6 +49,18 @@ public enum AITaskType {
         this.scc = scc;
     }
 
+    /**
+     * Reverse lookup from string task type to enum variant.
+     *
+     * @param taskType a string like "AI_SENSE", "AI_GOAL_SELECT", "AI_PATHFIND", "AI_ACT"
+     * @return the matching enum constant, or {@code null} if unknown
+     */
+    public static AITaskType fromTaskType(String taskType) {
+        for (AITaskType t : values()) {
+            if (t.taskType().equals(taskType)) return t;
+        }
+        return null;
+    }
     public String taskType() { return taskType; }
     public MicroStepBehavior microStepBehavior() { return microStep; }
     public SccBehavior sccBehavior() { return scc; }

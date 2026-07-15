@@ -1,5 +1,11 @@
 # Nebula Integration Testing Guide
 
+> **⚠️ SUPERSEDED (2026-07-15) — dated bring-up record, not current instructions.**
+> This guide covers the 2026-07-08 B1/B2/B3 blocker verification, which is closed.
+> It contains machine-specific paths and credentials that no longer apply. For the
+> current smoke checks see [QUICKSTART.md](QUICKSTART.md); for current status and
+> evidence see [PROJECT_STATUS.md](PROJECT_STATUS.md). Kept for historical context.
+
 **Purpose**: Bridge the gap between passing unit tests and working end-to-end functionality.
 
 **Target Audience**: Developers verifying the B1/B2/B3 blocker fixes on a real Folia server.

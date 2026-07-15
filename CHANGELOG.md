@@ -4,8 +4,60 @@ All notable changes to Nebula will be documented in this file.
 
 ## [Unreleased]
 
-### Added
-- TBD
+Post-0.2.0 work on the branch. **This section tracks source that is present in the
+tree but not all live-verified or clean-building** — see
+[docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) for the per-path status.
+
+### Added — native patched server (`nebula-server-build`)
+- `NEBULA` tick-driver path: `TickRegions` selects a `NebulaTickDriver` (coordinator +
+  `availableProcessors()-1` region workers) instead of Folia's EDF scheduler pool
+- `ServerLevel.nebula$tickViaDAG`: authoritative per-tick DAG built from real NMS work —
+  coarse world tasks (`RegionTickDecomposer`), per-entity tasks (`EntityTaskBuilder`),
+  and per-block-entity tasks (`BlockEntityTaskBuilder`), executed via `TickPipeline`
+- Per-tick entity RCU snapshot (`NebulaSnapshotRegistry`) consumed by the
+  `NearestLivingEntitySensor` / `NearestItemSensor` AI sensors
+- `NebulaParallelIntegration` intra-layer parallel runner (opt-in, `-Dnebula.parallel=true`)
+- `NebulaExplosionPipeline` (telemetry-only sub-DAGs; vanilla explosion stays authoritative),
+  `NebulaGuardIntegration`, `NebulaTickMetrics`, `NebulaReplayIntegration` scaffolding
+- Default source config sets `threaded-regions.scheduler: NEBULA` (patch 0008)
+
+### Added — maintenance + player modules
+- `nebula-maintenance`: `@NebulaRW` annotation source inferrer, patch generator, and verifier
+- `nebula-player`: player DAG scaffolding (`PlayerTaskFactory`, `PlayerTaskRunner`,
+  `PlayerAuthorityGate`, `PlayerDivergenceSampler`) — shadow/observe only
+
+### Added — new classes (post-0.2.0 worktree)
+
+#### Fidelity and build-time budget
+- `FidelityTierAdapter` (nebula-core): Wires the active `FidelityTier` to SCC contraction thresholds (T0/T1/FALLBACK: 128, T2: 1024, T3: unlimited) and notifies AI staleness sink subscribers when previous-tick snapshots are permitted
+- `DagBuildBudget` (nebula-core): Tracks per-tick DAG build times, activates avalanche guard after 10 consecutive over-budget ticks; threshold is 2ms (4% of 50ms tick)
+- `BudgetedDagBuilder` (nebula-core): Enhanced with avalanche guard — falls back to `CoarseDagBuilder.serialChain()` when budget warning is active, otherwise uses `BucketDagBuilder` with timing recording
+
+#### VAP plugin certification
+- `PluginCertificationHarness` (nebula-core): Runs synthetic probes through the real `PluginTaskQueue` to certify third-party plugins; determines level (NEBULA_READY ≥100%, NEBULA_OPTIMIZED ≥80%, NEBULA_NATIVE ≥50%, uncertified <50%)
+- `PluginCertificationHarnessTest` (nebula-core/test)
+
+#### Maintenance tooling
+- `HotspotInventoryBridge` (nebula-maintenance): Wires real async-profiler hotspot reports to the `AnnotationCoverageDashboard`; provides `/nebula coverage` with both "public bridge methods" and "real hot methods" denominators
+- `HotspotInventoryBridgeTest` (nebula-maintenance/test)
+- `SpatialBucketScaleTest` (nebula-core/test): Scale tests for spatial 32-chunk-bucket partitioning at 5k entity workloads
+
+#### Folia bridge tick hooks (enhanced)
+- `BlockEntityTickHook`: Added `beginTick()`/`endTick()` with full `@NebulaRW` annotations; tracks dirty hoppers/furnaces/droppers
+- `PlayerTickHook`: Added `beginTick()`/`recordPlayerSnapshot()`/`endTick()` with `@NebulaRW` annotations; tracks player move/interact events
+- `RedstoneTickHook`: Added `beginTick()` with `@NebulaRW` annotation; stamps tick boundary and cleans stale guards
+
+### Known gaps (not yet verified)
+
+Based on code verification (2026-07-15):
+
+- **Native fork compilation**: Code appears complete with no obvious compile errors in `ServerLevel.java`; however, actual compilation has not been verified with `./gradlew`
+- **Native NEBULA boot**: No recorded evidence of a successful native-mode boot; all available logs show `EDF` scheduler
+- **Native fork determinism**: Parallel-safe entity declaration not yet justified; native RW-guard not wired (`nebula.guard` vs `nebula.rw.guard`)
+- **VAP PluginTaskQueue integration**: Classes exist (`PluginTaskQueue`, `PluginCertificationCatalog`, etc.); actual usage in `NebulaPlugin` not yet verified
+- **Config drift**: `config/paper-global.yml` still selects `EDF`; native driver not enabled by default
+- **Player write-back**: Shadow/observe mode only; `writeToNms` path not wired
+- **DG2/DG3 acceptance tests**: Framework complete; formal acceptance testing not performed
 
 ## [0.2.0] - 2026-07-14
 
@@ -21,7 +73,8 @@ This release marks the first **playable version** of Nebula — a deterministic 
 - Block-entity (hopper/furnace/dropper) live slices + guard
 - Parallel DAG execution verified against single-thread oracle (Paper differential)
 - Settled-state divergence gate now passes deterministically
-- 742 unit tests passing
+- 742 unit tests passing (release-time count; not a current globally-green claim — some
+  post-release module suites, e.g. `nebula-player`, are currently failing)
 
 ### Added
 - `ToggleSourceClassifier` + `ToggleSourceRegistry` for game layer toggle tracking

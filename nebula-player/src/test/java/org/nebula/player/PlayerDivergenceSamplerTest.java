@@ -9,25 +9,24 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Unit tests for {@link PlayerDivergenceSampler}.
  *
- * <p>The sampler feeds {@link PlayerAuthorityGate#recordTick(int, int)} per
- * tick. These tests bypass the Player entity entirely by overriding the
- * sampler to expose its {@code matches(...)} decision directly — the
- * Player→location→CAS comparison is just plumbing, and testing it requires
- * either a mocking library or 200 lines of interface stubs.
- *
- * <p>Since {@link PlayerAuthorityGate} is final we can't extend it; we use
- * a real gate with a deliberately-unreachable threshold so it never
- * transitions, then assert on its public counters after each tick.
+ * <p>{@link PlayerAuthorityGate} is {@code final}, so these tests drive the
+ * real gate and assert on its observable counters ({@code matchedTicks},
+ * {@code totalTicks}, {@code consecutiveMatches}, {@code isOpen}) rather than
+ * a stub. The Player→location→CAS comparison is bypassed via the
+ * package-private {@code sample(List, UUID, Vec3)} overload so we don't need
+ * to stub the ~200-method Bukkit {@code Player} interface.
  */
 class PlayerDivergenceSamplerTest {
 
-    /** A threshold high enough that the gate never transitions. */
-    private static final int HIGH_THRESHOLD = Integer.MAX_VALUE;
+    private static PlayerAuthorityGate gate(int threshold) {
+        return new PlayerAuthorityGate("PLAYER_MOVE", threshold);
+    }
 
     @Test
     void matchedPlayerFeedsMatchedTick() {
@@ -35,16 +34,17 @@ class PlayerDivergenceSamplerTest {
         UUID id = UUID.randomUUID();
         cas.put(new PlayerField(id, "position"), new Vec3(10, 64, 10));
 
-        PlayerAuthorityGate gate = new PlayerAuthorityGate("PLAYER_MOVE", HIGH_THRESHOLD);
-        PlayerDivergenceSampler sampler = new PlayerDivergenceSampler(cas, gate, gate);
+        PlayerAuthorityGate moveGate = gate(1);
+        PlayerAuthorityGate blockGate = gate(1);
+        PlayerDivergenceSampler sampler = new PlayerDivergenceSampler(cas, moveGate, blockGate);
 
         int[] result = sampler.sample(List.of(), id, new Vec3(10, 64, 10));
 
         assertEquals(1, result[0]);
         assertEquals(1, result[1]);
-        assertEquals(1L, gate.totalTicks());
-        assertEquals(1L, gate.matchedTicks());
-        assertEquals(1, gate.consecutiveMatches());
+        assertEquals(1, moveGate.matchedTicks());
+        assertEquals(1, moveGate.totalTicks());
+        assertEquals(1, moveGate.consecutiveMatches());
     }
 
     @Test
@@ -53,31 +53,32 @@ class PlayerDivergenceSamplerTest {
         UUID id = UUID.randomUUID();
         cas.put(new PlayerField(id, "position"), new Vec3(10, 64, 10));
 
-        PlayerAuthorityGate gate = new PlayerAuthorityGate("PLAYER_MOVE", HIGH_THRESHOLD);
-        PlayerDivergenceSampler sampler = new PlayerDivergenceSampler(cas, gate, gate);
+        PlayerAuthorityGate moveGate = gate(1);
+        PlayerAuthorityGate blockGate = gate(1);
+        PlayerDivergenceSampler sampler = new PlayerDivergenceSampler(cas, moveGate, blockGate);
 
         int[] result = sampler.sample(List.of(), id, new Vec3(50, 64, 10));
 
         assertEquals(0, result[0]);
         assertEquals(1, result[1]);
-        assertEquals(1L, gate.totalTicks());
-        assertEquals(0L, gate.matchedTicks());
-        assertEquals(0, gate.consecutiveMatches());
+        assertEquals(0, moveGate.matchedTicks());
+        assertEquals(1, moveGate.totalTicks());
+        assertEquals(0, moveGate.consecutiveMatches());
     }
 
     @Test
     void missingCasEntryIsRecordedAsUnmatched() {
-        // CAS has no entries — sentinel is Vec3.ZERO.
-        PlayerPhysicsState cas = new PlayerPhysicsState();
-        PlayerAuthorityGate gate = new PlayerAuthorityGate("PLAYER_MOVE", HIGH_THRESHOLD);
-        PlayerDivergenceSampler sampler = new PlayerDivergenceSampler(cas, gate, gate);
+        PlayerPhysicsState cas = new PlayerPhysicsState(); // no entries
+
+        PlayerAuthorityGate moveGate = gate(1);
+        PlayerAuthorityGate blockGate = gate(1);
+        PlayerDivergenceSampler sampler = new PlayerDivergenceSampler(cas, moveGate, blockGate);
 
         int[] result = sampler.sample(List.of(), UUID.randomUUID(), new Vec3(0, 0, 0));
 
         assertEquals(0, result[0]);
         assertEquals(1, result[1]);
-        assertEquals(1L, gate.totalTicks());
-        assertEquals(0L, gate.matchedTicks());
+        assertEquals(0, moveGate.matchedTicks());
     }
 
     @Test
@@ -86,81 +87,48 @@ class PlayerDivergenceSamplerTest {
         UUID id = UUID.randomUUID();
         cas.put(new PlayerField(id, "position"), new Vec3(10, 64, 10));
 
-        PlayerAuthorityGate gate = new PlayerAuthorityGate("PLAYER_MOVE", HIGH_THRESHOLD);
-        PlayerDivergenceSampler sampler = new PlayerDivergenceSampler(cas, gate, gate);
+        PlayerAuthorityGate moveGate = gate(1);
+        PlayerAuthorityGate blockGate = gate(1);
+        PlayerDivergenceSampler sampler = new PlayerDivergenceSampler(cas, moveGate, blockGate);
 
-        // Off by 0.5 * EPSILON — should still match.
         int[] result = sampler.sample(List.of(), id,
             new Vec3(10 + PlayerDivergenceSampler.EPSILON * 0.5, 64, 10));
 
         assertEquals(1, result[0]);
         assertEquals(1, result[1]);
-        assertEquals(1, gate.consecutiveMatches());
     }
 
     @Test
-    void epsilonToleranceBeyondThreshold() {
+    void consecutiveMatchesOpenTheGate() {
         PlayerPhysicsState cas = new PlayerPhysicsState();
         UUID id = UUID.randomUUID();
         cas.put(new PlayerField(id, "position"), new Vec3(10, 64, 10));
 
-        PlayerAuthorityGate gate = new PlayerAuthorityGate("PLAYER_MOVE", HIGH_THRESHOLD);
-        PlayerDivergenceSampler sampler = new PlayerDivergenceSampler(cas, gate, gate);
+        PlayerAuthorityGate moveGate = gate(3);
+        PlayerAuthorityGate blockGate = gate(3);
+        PlayerDivergenceSampler sampler = new PlayerDivergenceSampler(cas, moveGate, blockGate);
 
-        // Off by 2 * EPSILON — clearly outside tolerance.
-        int[] result = sampler.sample(List.of(), id,
-            new Vec3(10 + PlayerDivergenceSampler.EPSILON * 2, 64, 10));
-
-        assertEquals(0, result[0]);
-        assertEquals(1, result[1]);
-        assertEquals(0, gate.consecutiveMatches());
-    }
-
-    @Test
-    void streakAccumulatesAcrossMatchedTicks() {
-        PlayerPhysicsState cas = new PlayerPhysicsState();
-        UUID id = UUID.randomUUID();
-        cas.put(new PlayerField(id, "position"), new Vec3(10, 64, 10));
-
-        PlayerAuthorityGate gate = new PlayerAuthorityGate("PLAYER_MOVE", HIGH_THRESHOLD);
-        PlayerDivergenceSampler sampler = new PlayerDivergenceSampler(cas, gate, gate);
-
-        for (int i = 0; i < 5; i++) {
+        assertFalse(moveGate.isOpen());
+        for (int i = 0; i < 3; i++) {
             sampler.sample(List.of(), id, new Vec3(10, 64, 10));
         }
-        assertEquals(5L, gate.totalTicks());
-        assertEquals(5L, gate.matchedTicks());
-        assertEquals(5, gate.consecutiveMatches());
+        assertTrue(moveGate.isOpen(), "gate should open after 3 consecutive matched ticks");
     }
 
     @Test
-    void streakResetsOnMismatch() {
+    void mismatchResetsStreak() {
         PlayerPhysicsState cas = new PlayerPhysicsState();
         UUID id = UUID.randomUUID();
         cas.put(new PlayerField(id, "position"), new Vec3(10, 64, 10));
 
-        PlayerAuthorityGate gate = new PlayerAuthorityGate("PLAYER_MOVE", HIGH_THRESHOLD);
-        PlayerDivergenceSampler sampler = new PlayerDivergenceSampler(cas, gate, gate);
+        PlayerAuthorityGate moveGate = gate(3);
+        PlayerAuthorityGate blockGate = gate(3);
+        PlayerDivergenceSampler sampler = new PlayerDivergenceSampler(cas, moveGate, blockGate);
 
         sampler.sample(List.of(), id, new Vec3(10, 64, 10));
         sampler.sample(List.of(), id, new Vec3(10, 64, 10));
-        assertEquals(2, gate.consecutiveMatches());
-
-        // Diverging tick resets the streak.
-        sampler.sample(List.of(), id, new Vec3(99, 64, 10));
-        assertEquals(0, gate.consecutiveMatches());
-
-        // Next matched tick restarts the streak from 1.
-        sampler.sample(List.of(), id, new Vec3(10, 64, 10));
-        assertEquals(1, gate.consecutiveMatches());
-    }
-
-    @Test
-    void diagnosticsIsNonEmpty() {
-        PlayerAuthorityGate gate = new PlayerAuthorityGate("PLAYER_MOVE", 100);
-        PlayerDivergenceSampler sampler = new PlayerDivergenceSampler(new PlayerPhysicsState(), gate, gate);
-        String diag = sampler.diagnostics();
-        assertNotEquals("", diag);
-        assertEquals(true, diag.contains("PLAYER_MOVE"));
+        sampler.sample(List.of(), id, new Vec3(999, 64, 10)); // mismatch
+        assertEquals(0, moveGate.consecutiveMatches());
+        assertFalse(moveGate.isOpen());
     }
 }

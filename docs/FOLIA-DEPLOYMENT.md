@@ -1,5 +1,12 @@
 # Folia Server Deployment Guide
 
+> **⚠️ SUPERSEDED (2026-07-15) — dated setup notes, not current instructions.**
+> This page reflects an early macOS-oriented bring-up with a one-time Java/Folia
+> download in progress. Paths, versions, and the "Current Status" list below are
+> historical. For the current build/run procedure (both the plugin/agent shadow
+> path and the native patched-server path) see [QUICKSTART.md](QUICKSTART.md);
+> for current status see [PROJECT_STATUS.md](PROJECT_STATUS.md).
+
 ## Current Status
 
 - ✅ Folia deployment script created: `scripts/deploy-folia.sh`

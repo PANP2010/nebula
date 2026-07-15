@@ -1,114 +1,154 @@
 # Nebula Server
 
-**Deterministic multi-core Minecraft server architecture — Development Preview v0.1.0-SNAPSHOT**
+![Nebula Logo](docs/images/nebula-logo-flat.png)
 
-Nebula is a proof-of-concept for deterministic, region-aware tick execution on Folia. It aims to demonstrate that causally-independent tasks (redstone, entity physics, tile entities) can share a unified DAG and execute in parallel across regions while maintaining deterministic semantics.
+**Deterministic multi-core Minecraft server architecture — v0.2.0**
 
-✅ **Milestones (2026-07-08)**: Two core properties are now **verified on a real Folia 26.1.2 server**:
-1. **End-to-end DAG execution** — a live lever→wire→lamp circuit toggled via RCON produced repeatable, exception-free DAG ticks (`DAG tick: 3 tasks, 1 microsteps in 12ms`).
-2. **Deterministic zero-diff capture** — two identical 40-tick captures produced byte-for-byte identical replay files.
+Nebula explores deterministic, region-aware tick execution for Paper and Folia. The
+goal is to demonstrate that causally-independent tasks (redstone, entity physics,
+block entities) can share a unified DAG and execute in parallel while preserving the
+state a single-threaded server would produce.
 
-Core components are built and unit-tested (742 tests passing). **Performance under load is the remaining unverified milestone** — per-tick MSPT is now measured (`/nebula perf`, Folia-verified on a small circuit) but load testing and a baseline-vs-Nebula comparison do not exist yet. This is a working prototype, not a performance-validated or "playable" release. See [PROJECT_STATUS.md](docs/PROJECT_STATUS.md) for detailed status.
+The repository contains **two distinct runtime paths**. They have very different
+maturity, and conflating them has caused documentation drift in the past — so they are
+described separately throughout the docs.
 
-## Features (v0.1.0)
+| Path | What it is | Maturity |
+|------|------------|----------|
+| **Plugin / agent shadow runtime** | A Bukkit plugin (`nebula-plugin`) plus an optional Java agent that runs the DAG as a non-authoritative shadow alongside Folia's own tick. | Live-verified on real Folia 26.1.2 for redstone and targeted entity/block-entity slices. This is the path behind the `v0.2.0` release evidence. |
+| **Native patched server** | A Folia-derived fork (`nebula-server-build`) with a `NEBULA` tick driver that executes the DAG as the authoritative tick. | Source-wired but **not currently verified**: the generated server source has a build blocker, embedded-module sources are non-portable symlinks, and there is no recorded live `NEBULA` boot. See [PROJECT_STATUS.md](docs/PROJECT_STATUS.md). |
 
-- **Three-phase tick execution**: sync-from-NMS → DAG → sync-to-NMS
-- **Redstone DAG**: MicroStepScheduler with microstep expansion, change-aware downstream generation
-- **Entity physics DAG**: EntityTickExecutor with MOVE/COLLISION actions
-- **CompositeTaskRunner**: unified cross-subsystem DAG execution
-- **NMS bridges**: CAS ↔ real Bukkit state for blocks, entities, tile entities
-- **Zero-diff capture framework**: FoliaCaptureHarness + SHA-256 state hasher
-- **In-game commands**: `/nebula capture start/stop`, `/nebula status`
+For an honest, source-backed assessment of what works and what does not, read
+[docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) — it is the source of truth for status.
+
+## Status at a glance
+
+Labels are kept deliberately separate:
+
+- **Live-verified** — exercised on a real server with recorded evidence.
+- **Source-wired** — code path is connected in production source but not confirmed live.
+- **Gated** — implemented but off unless a flag/config is set.
+- **Telemetry-only** — runs, but records/observes without replacing vanilla behavior.
+- **Incomplete** — partial, dormant, or unwired.
+
+| Subsystem | Plugin / agent shadow | Native patched server |
+|-----------|----------------------|-----------------------|
+| Redstone | Live-verified (shadow, observe-only) | Source-wired, but real redstone still runs inside the coarse vanilla block-tick task |
+| Entity physics | MOVE live-verified; collision/AI/item/damage incomplete | Source-wired per-entity tasks (authoritative when `NEBULA` active) |
+| Block entities | hopper/furnace/dropper live-verified (shadow); write-back off | Source-wired per-block-entity tasks; precise RW-sets for a subset |
+| Fluids | Observe-only slice | Source-wired as one coarse task |
+| Explosions | Observe-only slice | Telemetry-only sub-DAG (vanilla still authoritative) |
+| Lighting | Incomplete (library code, unwired) | Incomplete (upstream light engine) |
+| AI / pathfinding | Incomplete (library code, unwired) | Runs inside entity tick; two sensors read the RCU snapshot |
+| Players | Incomplete (wiring defects) | Incomplete |
+| VAP plugin layer | Incomplete (classes present, not constructed) | Registration only; pipeline queue is null |
+| Parallel DAG execution | Verified vs single-thread oracle on Paper (`-Dnebula.dag.parallel`) | Gated behind `-Dnebula.parallel=true` |
+
+## Verified milestones (plugin/agent shadow path)
+
+Recorded on real Folia 26.1.2 / Paper 26.1.2 between 2026-07-08 and 2026-07-12:
+
+- **End-to-end DAG execution** — a live lever→wire→lamp circuit produced repeatable,
+  exception-free DAG ticks.
+- **Deterministic zero-diff capture** — two identical captures produced byte-for-byte
+  identical `.nrp` replay files.
+- **Parallel == single-thread oracle** — on Paper, the 12-worker DAG matched the
+  single-thread authority 48/48 across two circuits (`/nebula diff`).
+- **Shadow-overhead budget** — p99 DAG tick 1.914 ms < 3 ms at multi-region scale.
+- **Targeted live slices** — entity MOVE + RW-guard, hopper/furnace/dropper block
+  entities, and small fluid/explosion guard paths.
+
+These validate the shadow-runtime concept and the core parallel-determinism claim for
+redstone. They do **not** establish authoritative full-server execution — see the
+status report for the boundary.
 
 ## Requirements
 
-- **Java 21** for build (Gradle 8.13)
-- **Java 25** for nebula-folia-adapter (JDK at `/home/kuli/jdks/jdk-25.0.3` or configure in `build.gradle.kts`)
-- **Folia 26.1.2** server (API jar in `libs/folia-api-26.1.2.build.8-stable.jar`)
+- **Java 21** for the Gradle build.
+- **Java 25** toolchain/runtime for `nebula-folia-adapter` and NMS-facing modules.
+- **Folia 26.1.2** API jar in `libs/` (see [libs/README.md](libs/README.md); the jar
+  is a local, git-ignored artifact).
 
-## Building
+## Building the plugin
 
 ```bash
-# Full build (all modules)
-JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 ./gradlew build --offline
-
-# Shadow jar (deployable plugin)
-JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 ./gradlew :nebula-plugin:shadowJar
+./gradlew :nebula-plugin:shadowJar
 ```
 
-Shadow jar output: `~/.gradle/nebula-server-build/nebula-server/nebula-plugin/libs/nebula-plugin-0.1.0-SNAPSHOT.jar`
+The shadow jar version follows the root project version (`0.2.0`); the artifact is
+named `nebula-plugin-0.2.0.jar`. The build output directory is redirected under
+`~/.gradle/nebula-server-build/` (see `build.gradle.kts`).
 
-## Deployment
+> The native `nebula-server-build` fork does not currently produce a clean server jar
+> from this checkout. Do not treat native-mode instructions as a verified release
+> procedure. See [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) for the specific
+> blockers.
 
-1. Copy `nebula-plugin-0.1.0-SNAPSHOT.jar` to your Folia 26.1.2 server's `plugins/` directory
-2. Start the server
-3. Verify plugin loaded: `/plugins` should show `Nebula`
+## Deploying the plugin (shadow path)
+
+1. Copy `nebula-plugin-0.2.0.jar` into your Folia 26.1.2 server's `plugins/` directory.
+2. Start the server.
+3. Confirm it loaded: `/plugins` should list `Nebula`.
+4. Confirm the version from `/plugins`, `plugin.yml`, or the jar filename.
 
 ## Commands
 
-| Command | Description | Permission |
-|---------|-------------|------------|
-| `/nebula capture start [ticks]` | Start state capture for N ticks (default 1000) | `nebula.capture` |
-| `/nebula capture stop` | Stop capture, save a timestamped `.nrp`, report frame + distinct-hash count | `nebula.capture` |
-| `/nebula scan` | Rescan loaded chunks for redstone components (needed for RCON/command-placed redstone) | `nebula.status` |
-| `/nebula status` | Show component count, CAS store sizes, and tracked positions | `nebula.use` |
-| `/nebula perf [reset]` | Show DAG tick timing + microstep percentiles, auto-graded against DG1 Criteria 2/3 | `nebula.status` |
-| `/nebula help` | Show command help | `nebula.use` |
+The `/nebula` command surface is defined in
+`nebula-plugin/src/main/java/org/nebula/plugin/NebulaCommand.java`. Frequently used
+subcommands include:
 
-## Architecture Overview
+| Command | Description |
+|---------|-------------|
+| `/nebula status` | Component counts, CAS store sizes, tracked positions |
+| `/nebula scan` | Rescan loaded chunks for redstone components (needed for command/RCON-placed redstone) |
+| `/nebula capture start [ticks]` / `stop` | Deterministic state capture to a timestamped `.nrp` |
+| `/nebula perf [reset]` | DAG tick timing + microstep percentiles |
+| `/nebula diag` | Per-invocation cascade diagnostics |
+| `/nebula diff` | Paper differential comparison (single-thread oracle) |
+| `/nebula dag-stats` | DAG build performance |
+| `/nebula random` | Random-budget control |
+| `/nebula fidelity` | Fidelity degradation control |
+| `/nebula coverage` | RW-set annotation coverage from real bridge inventory |
+| `/nebula survival` | Player subsystem toggle (shadow) |
+| `/nebula help` | Command help |
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                     NebulaPlugin                              │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────────────┐│
-│  │ CAS Stores   │  │ NMS Bridges  │  │ DAG Executors        ││
-│  │ Redstone     │  │ Block        │  │ MicroStepScheduler   ││
-│  │ Entity       │  │ Entity       │  │ EntityTickExecutor   ││
-│  │ BlockEntity  │  │ BlockEntity  │  │ CompositeTaskRunner  ││
-│  └──────────────┘  └──────────────┘  └──────────────────────┘│
-│                         ↓                                     │
-│  ┌──────────────────────────────────────────────────────────┐│
-│  │              FoliaRegionTickExecutor                      ││
-│  │  Phase 1: syncFromNms → Phase 2: DAG → Phase 3: syncToNms││
-│  └──────────────────────────────────────────────────────────┘│
-└─────────────────────────────────────────────────────────────┘
-```
+Run `/nebula help` on your build for the authoritative list — the command set evolves.
 
-## Project Structure
+## Project structure
 
-- `nebula-core`: RW-set, DAG primitives, task scheduling
-- `nebula-guard-api`: runtime RW-set integrity guard
-- `nebula-redstone`: redstone world state, actions, MicroStepScheduler
-- `nebula-entity`: entity physics state, EntityTickExecutor
-- `nebula-folia-bridge`: Folia API abstractions, capture harness
-- `nebula-folia-adapter`: NMS bridges (requires Java 25)
-- `nebula-plugin`: Bukkit plugin entry point, commands
+The Gradle build defines 13 modules (see `settings.gradle.kts`):
+
+- `nebula-core` — RW-set, DAG primitives, task scheduling, player state, VAP classes
+- `nebula-guard-api` — runtime RW-set integrity guard API
+- `nebula-agent` — Java agent (ASM bytecode instrumentation)
+- `nebula-redstone` — redstone world state, actions, MicroStepScheduler
+- `nebula-entity` — entity/block-entity/fluid/explosion/light/AI task factories
+- `nebula-replay` — capture/replay + state hashing
+- `nebula-folia-bridge` — Folia API abstractions, capture harness, tick hooks
+- `nebula-folia-adapter` — NMS bridges (Java 25)
+- `nebula-plugin` — Bukkit plugin entry point + commands
+- `nebula-player` — player DAG executor (shadow)
+- `nebula-maintenance` — annotation/patch tooling
+- `nebula-bench`, `nebula-integration` — benchmarks and integration harnesses
+
+The native fork lives under `nebula-server-build/` and is built separately.
 
 ## Testing
 
 ```bash
-# All tests
-JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 ./gradlew test
+# Root module tests
+./gradlew test
 
-# Specific module
-JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 ./gradlew :nebula-plugin:test
+# A single module
+./gradlew :nebula-plugin:test
+
+# Include long-running (slow-tagged) determinism replays
+./gradlew test -Pslow
 ```
 
-## Current Status
-
-| Component | Unit Tests | Integration | Status |
-|-----------|------------|-------------|--------|
-| Plugin toolchain (Java 25 + Folia 26.1.2) | ✅ Pass | ✅ Loads | Complete |
-| NMS bridges (Block, Entity, BlockEntity) | ✅ Pass | ✅ Redstone verified | Block sync drives live redstone; perf unmeasured |
-| MicroStepScheduler (redstone DAG) | ✅ Pass | ✅ Verified | Runs on real redstone (up to 16 tasks / 14 microsteps observed) |
-| EntityTickExecutor (entity DAG) | ✅ Pass | ❌ Not wired | Created but not integrated into live tick path |
-| CompositeTaskRunner (unified DAG) | ✅ Pass | ⏳ Redstone only | Redstone route verified; entity route not exercised live |
-| Zero-diff capture framework | ✅ Pass | ✅ Verified | Two identical captures → byte-for-byte identical replay files |
-| In-game commands | ✅ Pass | ✅ Verified | `/status`, `/scan`, `/capture` all exercised on live server |
-| Shadow jar deployable | ✅ Pass | ✅ Works | Deploys successfully |
-| **End-to-end DAG execution** | N/A | ✅ **Verified** | **Fires on real Folia** — 45 DAG ticks from live circuit toggles, 0 exceptions (2026-07-08) |
-
-**Summary**: All components pass unit tests (691). End-to-end DAG execution and deterministic zero-diff capture are both verified on real Folia. Per-tick MSPT is now measured (`/nebula perf`); performance verification *under load* is the remaining milestone. See [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) for detailed status.
+Test totals are intentionally not frozen in this README — they drift. Run the relevant
+module tasks for current results. Note that the latest recorded `nebula-player` report
+includes failures (see PROJECT_STATUS.md); do not assume a globally green suite.
 
 ## License
 

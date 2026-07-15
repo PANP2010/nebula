@@ -1,13 +1,12 @@
 package org.nebula.folia.bridge;
 
-import org.nebula.core.player.PlayerSnapshot;
-import org.nebula.core.scheduler.DagExecutionException;
-import org.nebula.core.scheduler.TaskNode;
+import org.nebula.annotations.MicroStepBehavior;
+import org.nebula.annotations.NebulaRW;
+import org.nebula.annotations.SccBehavior;
 import org.nebula.core.state.DimensionIds;
+import org.nebula.core.state.WorldPos;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -34,19 +33,19 @@ public final class PlayerTickHook {
     private static final Logger LOG = Logger.getLogger(PlayerTickHook.class.getName());
 
     public interface TickExecutor {
-        void executeTasks(String regionId, String worldName, List<TaskNode> dirtyTasks)
-            throws DagExecutionException;
+        void executeTasks(String regionId, String worldName, List<org.nebula.core.scheduler.TaskNode> dirtyTasks)
+            throws org.nebula.core.scheduler.DagExecutionException;
     }
 
     public interface TaskResolver {
-        TaskNode resolve(String worldName, PlayerSnapshot snapshot, String taskType);
+        org.nebula.core.scheduler.TaskNode resolve(String worldName, org.nebula.core.player.PlayerSnapshot snapshot, String taskType);
     }
 
     private static volatile TickExecutor executor = null;
     private static volatile TaskResolver resolver = null;
     private static volatile boolean active = false;
 
-    private static final ConcurrentHashMap<String, Queue<PlayerSnapshot>> dirtyPlayers =
+    private static final ConcurrentHashMap<String, Queue<org.nebula.core.player.PlayerSnapshot>> dirtyPlayers =
         new ConcurrentHashMap<>();
     private static final ConcurrentHashMap<String, AtomicBoolean> endTickInProgress =
         new ConcurrentHashMap<>();
@@ -73,6 +72,25 @@ public final class PlayerTickHook {
         return active;
     }
 
+    /**
+     * Called at the start of each Folia region tick.
+     *
+     * <p>Reads the global TIME state (Folia tick counter) to stamp the tick boundary;
+     * no entity or block fields are read.
+     */
+    @NebulaRW(
+        readGlobals  = {"TIME"},
+        writeGlobals = {},
+        triggeredEvents = {},
+        microStep    = MicroStepBehavior.NONE,
+        scc          = SccBehavior.AUTO,
+        maxRandomCalls = 0,
+        mayLoadChunks = false,
+        mayTriggerBlockUpdates = false,
+        maySpawnEntities = false,
+        verifiedAt   = "folia-bridge-1.0",
+        verifiedBy   = {}
+    )
     public static void beginTick(String regionId) {
         if (!active) return;
         String prefix = regionId + "::";
@@ -82,14 +100,31 @@ public final class PlayerTickHook {
     /**
      * Called when a player's state changes (move, interact). Records a snapshot
      * for the DAG seed.
+     *
+     * <p>Reads the player's position entity field and writes it into the snapshot
+     * accumulator (no NMS or block state is mutated).
      */
-    public static void recordPlayerSnapshot(String regionId, String worldName, PlayerSnapshot snap) {
+    @NebulaRW(
+        readEntities = {"{snap}.playerId.position"},
+        writeEntities = {},
+        triggeredEvents = {"PLAYER_MOVED"},
+        microStep    = MicroStepBehavior.NONE,
+        scc          = SccBehavior.AUTO,
+        maxRandomCalls = 0,
+        mayLoadChunks = false,
+        mayTriggerBlockUpdates = false,
+        maySpawnEntities = false,
+        verifiedAt   = "folia-bridge-1.0",
+        verifiedBy   = {}
+    )
+    public static void recordPlayerSnapshot(String regionId, String worldName,
+                                            org.nebula.core.player.PlayerSnapshot snap) {
         if (!active) return;
         String k = key(regionId, worldName);
-        Queue<PlayerSnapshot> dirty = dirtyPlayers.get(k);
+        Queue<org.nebula.core.player.PlayerSnapshot> dirty = dirtyPlayers.get(k);
         if (dirty == null) {
             dirty = new ConcurrentLinkedQueue<>();
-            Queue<PlayerSnapshot> existing = dirtyPlayers.putIfAbsent(k, dirty);
+            Queue<org.nebula.core.player.PlayerSnapshot> existing = dirtyPlayers.putIfAbsent(k, dirty);
             if (existing != null) dirty = existing;
         }
         dirty.add(snap);
@@ -98,9 +133,23 @@ public final class PlayerTickHook {
     /**
      * Drains all dirty player snapshots and dispatches them to the DAG executor.
      *
-     * @return the list of tasks resolved this tick
+     * <p>Reads the accumulated player snapshots and writes them as DAG seed tasks;
+     * reads TIME global state for the tick boundary.
      */
-    public static List<TaskNode> endTick(String regionId, String worldName) {
+    @NebulaRW(
+        readGlobals     = {"TIME"},
+        writeGlobals    = {},
+        triggeredEvents = {"PLAYER_MOVED"},
+        microStep       = MicroStepBehavior.NONE,
+        scc             = SccBehavior.AUTO,
+        maxRandomCalls  = 0,
+        mayLoadChunks   = false,
+        mayTriggerBlockUpdates = false,
+        maySpawnEntities = false,
+        verifiedAt      = "folia-bridge-1.0",
+        verifiedBy      = {}
+    )
+    public static List<org.nebula.core.scheduler.TaskNode> endTick(String regionId, String worldName) {
         if (!active) return List.of();
 
         String k = key(regionId, worldName);
@@ -115,22 +164,21 @@ public final class PlayerTickHook {
         }
     }
 
-    private static List<TaskNode> doEndTick(String k, String regionId, String worldName) {
-        Queue<PlayerSnapshot> dirty = dirtyPlayers.remove(k);
+    private static List<org.nebula.core.scheduler.TaskNode> doEndTick(String k, String regionId, String worldName) {
+        Queue<org.nebula.core.player.PlayerSnapshot> dirty = dirtyPlayers.remove(k);
         if (dirty == null || dirty.isEmpty()) return List.of();
 
         TaskResolver res = resolver;
         if (res == null) return List.of();
 
-        // Dedup by UUID, keeping latest
-        Map<String, PlayerSnapshot> latest = new java.util.LinkedHashMap<>();
-        for (PlayerSnapshot snap : dirty) {
+        java.util.Map<String, org.nebula.core.player.PlayerSnapshot> latest = new java.util.LinkedHashMap<>();
+        for (org.nebula.core.player.PlayerSnapshot snap : dirty) {
             latest.put(snap.playerId().toString(), snap);
         }
 
-        List<TaskNode> tasks = new ArrayList<>();
-        for (PlayerSnapshot snap : latest.values()) {
-            TaskNode task = res.resolve(worldName, snap, "PLAYER_MOVE");
+        List<org.nebula.core.scheduler.TaskNode> tasks = new java.util.ArrayList<>();
+        for (org.nebula.core.player.PlayerSnapshot snap : latest.values()) {
+            org.nebula.core.scheduler.TaskNode task = res.resolve(worldName, snap, "PLAYER_MOVE");
             if (task != null) {
                 tasks.add(task);
             }
@@ -142,7 +190,7 @@ public final class PlayerTickHook {
         if (ex != null) {
             try {
                 ex.executeTasks(regionId, worldName, tasks);
-            } catch (DagExecutionException e) {
+            } catch (org.nebula.core.scheduler.DagExecutionException e) {
                 LOG.warning("Player DAG execution failed: " + e.getMessage());
             }
         }
@@ -151,7 +199,7 @@ public final class PlayerTickHook {
     }
 
     public static int dirtyCount(String regionId, String worldName) {
-        Queue<PlayerSnapshot> dirty = dirtyPlayers.get(key(regionId, worldName));
+        Queue<org.nebula.core.player.PlayerSnapshot> dirty = dirtyPlayers.get(key(regionId, worldName));
         return dirty == null ? 0 : dirty.size();
     }
 }

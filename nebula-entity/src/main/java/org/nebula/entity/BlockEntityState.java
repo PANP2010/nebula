@@ -96,6 +96,11 @@ public final class BlockEntityState {
         entries.put(field, new VersionedEntry(v, value, null));
     }
 
+    /** Convenience overload for {@link #putInt} accepting an int primitive. */
+    public void put(BlockEntityField field, int value) {
+        putInt(field, value);
+    }
+
     /** Unconditional write for string — initialisation and testing. */
     public void putString(BlockEntityField field, String value) {
         long v = globalVersion.incrementAndGet();

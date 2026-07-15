@@ -40,10 +40,10 @@ class AiPipelineTest {
         List<TaskNode> pipeline = AITaskFactory.pipelineInert(e, 8);
         for (TaskNode t : pipeline) {
             EntityTaskAction action = switch (t.taskType()) {
-                case "AI_SENSE" -> AiPipelineActions.sense(id);
-                case "AI_GOAL_SELECT" -> AiPipelineActions.goalSelect(id);
-                case "AI_PATHFIND" -> AiPipelineActions.pathfind(id);
-                case "AI_ACT" -> AiPipelineActions.act(id);
+                case "ENTITY_AI_SENSE" -> AiPipelineActions.sense(id);
+                case "ENTITY_AI_GOAL_SELECT" -> AiPipelineActions.goalSelect(id);
+                case "ENTITY_AI_PATHFIND" -> AiPipelineActions.pathfind(id);
+                case "ENTITY_AI_ACT" -> AiPipelineActions.act(id);
                 default -> null;
             };
             actions.put(t.taskId(), action);
@@ -58,14 +58,17 @@ class AiPipelineTest {
         TaskGraph graph = DagBuilder.build(tasks);
         List<List<String>> layers = graph.topologicalLayers();
 
-        // The 4 stages chain through shared ai_state fields → 4 distinct layers,
-        // one task each, in SENSE→GOAL→PATHFIND→ACT order.
-        assertEquals(4, layers.size(), "AI pipeline must serialise into 4 layers");
+        // The 4 stages form 4 topological layers with no SCC cycles:
+        //   Layer 0: SENSE     (no incoming dependencies)
+        //   Layer 1: GOAL_SELECT (RAW from SENSE's sensed_entities write)
+        //   Layer 2: PATHFIND   (RAW from GOAL_SELECT's goal_target write)
+        //   Layer 3: ACT        (RAW from PATHFIND's path_cost write)
+        assertEquals(4, layers.size(), "AI pipeline must produce 4 dependency layers; got: " + layers);
         for (List<String> layer : layers) {
-            assertEquals(1, layer.size());
+            assertEquals(1, layer.size(), "Each layer must have exactly 1 task; got: " + layers);
         }
-        assertEquals("AI_SENSE", graph.tasks().get(layers.get(0).get(0)).taskType());
-        assertEquals("AI_ACT", graph.tasks().get(layers.get(3).get(0)).taskType());
+        assertEquals("ENTITY_AI_SENSE", graph.tasks().get(layers.get(0).get(0)).taskType());
+        assertEquals("ENTITY_AI_ACT", graph.tasks().get(layers.get(3).get(0)).taskType());
     }
 
     @Test
@@ -82,11 +85,11 @@ class AiPipelineTest {
 
         runTick(state, actions, tasks);
 
-        // Every stage left its mark.
-        assertTrue(state.fields().contains(new EntityField(id, "ai_state.sensed_entities")));
-        assertTrue(state.fields().contains(new EntityField(id, "ai_state.current_goal")));
-        assertTrue(state.fields().contains(new EntityField(id, "ai_state.current_path")));
-        assertTrue(state.fields().contains(new EntityField(id, "ai_state.action_result")));
+        // Every stage left its mark (new disjoint field namespaces).
+        assertTrue(state.fields().contains(new EntityField(id, "sense.entities")));
+        assertTrue(state.fields().contains(new EntityField(id, "goal.target")));
+        assertTrue(state.fields().contains(new EntityField(id, "path.outcome")));
+        assertTrue(state.fields().contains(new EntityField(id, "act.result")));
         // ACT moved the entity.
         assertTrue(state.getScalar(new EntityField(id, "position")) != 100.0,
             "ACT must advance position");
@@ -127,7 +130,7 @@ class AiPipelineTest {
         for (long id : ids) {
             // Combine final position + chosen goal into one comparable value.
             result.put(id, state.getScalar(new EntityField(id, "position")) * 10
-                + state.getScalar(new EntityField(id, "ai_state.current_goal")));
+                + state.getScalar(new EntityField(id, "goal.target")));
         }
         return result;
     }
