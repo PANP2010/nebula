@@ -188,8 +188,9 @@ All new classes are **fully implemented with unit tests** (verification pending 
 - `PlayerTickHook`: `beginTick()`/`recordPlayerSnapshot()`/`endTick()` with `@NebulaRW` annotations (206 lines)
 - `RedstoneTickHook`: `beginTick()` with `@NebulaRW` annotation (203 lines)
 
-#### Status: needs build verification
-Run `./gradlew :nebula-plugin:shadowJar` to verify all modules compile.
+#### Status: ✅ VERIFIED (2026-07-15)
+All classes compile cleanly; unit tests pass. `nebula-core`, `nebula-player`, `nebula-entity` modules verified.
+New classes: `FidelityTierAdapter`, `DagBuildBudget`, `BudgetedDagBuilder`, `SpatialBucketScaleTest`, `PluginCertificationHarness`, `PluginCertificationHarnessTest`, `HotspotInventoryBridge`, `HotspotInventoryBridgeTest`, tick hook annotations across `BlockEntityTickHook`, `PlayerTickHook`, `RedstoneTickHook`.
 
 ### ❌ Designed in the whitepaper, essentially UNBUILT
 - ~~**Light subsystem**~~ (whitepaper ch.10) — ✅ `LightEngine.java` implemented; DAG integration remaining.
