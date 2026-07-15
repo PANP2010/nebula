@@ -128,9 +128,11 @@ No native `NEBULA`-mode boot has been recorded. All available server logs show
 
 - **Plugin build**: `./gradlew :nebula-plugin:shadowJar` is the documented artifact
   path (output `nebula-plugin-0.2.0.jar`). Root version is `0.2.0`, 13 Gradle
-  modules. The worktree contains new classes that need build verification:
-  `FidelityTierAdapter`, `PluginCertificationHarness`, `HotspotInventoryBridge`,
-  and enhanced tick hooks. Run `./gradlew :nebula-plugin:shadowJar` to verify.
+  modules. All new worktree classes verified 2026-07-15:
+  `FidelityTierAdapter` (153 lines, test), `PluginCertificationHarness` (217 lines, test),
+  `HotspotInventoryBridge` (160 lines, test), `SpatialBucketScaleTest`, `BudgetedDagBuilderTest`,
+  plus enhanced tick hooks in `BlockEntityTickHook`, `PlayerTickHook`, `RedstoneTickHook`.
+  `./gradlew :nebula-plugin:shadowJar` ✅ BUILD SUCCESSFUL.
 - **Native build**: Code appears complete with no obvious compile errors in
   `ServerLevel.java` (the `RuntimeException` stubs are intentional error handlers);
   however, actual compilation has not been verified. The embedded-module source
@@ -139,12 +141,12 @@ No native `NEBULA`-mode boot has been recorded. All available server logs show
   generated config would default to `NEBULA`. A launch from the repo root uses
   Folia EDF, not the native driver.
 - **Tests**: the `v0.2.0` "742 tests passing" figure is release-time evidence,
-  not a current globally-green claim. The new worktree classes have unit tests:
-  `FidelityTierAdapterTest`, `PluginCertificationHarnessTest`,
-  `HotspotInventoryBridgeTest`, `SpatialBucketScaleTest`,
-  `BudgetedDagBuilderTest`. No full-suite report exists. Rerun the relevant
-  modules per change; do not treat any frozen count as current.
-- **`@NebulaRW` annotations**: ~61 hand-applied sites in module source plus ~163
+  not a current globally-green claim. New worktree tests verified 2026-07-15:
+  `FidelityTierAdapterTest` ✅, `PluginCertificationHarnessTest` ✅, `HotspotInventoryBridgeTest` ✅,
+  `SpatialBucketScaleTest` ✅, `BudgetedDagBuilderTest` ✅, `PlayerDivergenceSamplerTest` ✅.
+  `nebula-entity` has 2 pre-existing failures (dispenser/dropper random seeding, unrelated to this work).
+  Rerun the relevant modules per change; do not treat any frozen count as current.
+- **`@NebulaRW` annotations**: ~78 hand-applied sites in module source (17 new this session) plus ~163
   in the native fork's generated `src/minecraft` tree. Separately, the
   `nebula-maintenance` inferrer has emitted **3,345 committed** auto-generated
   `9999-nebula-AUTO-NebulaRW-*` patch files under
@@ -152,16 +154,14 @@ No native `NEBULA`-mode boot has been recorded. All available server logs show
   methods (8,628 apply-eligible per the generated verification report). These carry
   placeholder signatures (`public /* returnType */ ...`) and are generator drafts,
   **not** applied real-source hunks or verified coverage.
-- **Working tree**: contains uncommitted post-release work: new worktree classes
-  (`FidelityTierAdapter`, `PluginCertificationHarness`, `HotspotInventoryBridge`,
-  enhanced tick hooks) with corresponding unit tests.
+- **Working tree**: all new classes committed 2026-07-15 (`feat/vap-phase2-month4-6`). 3 commits.
 
 ---
 
 ## Concrete Next Gates
 
-1. **Verify plugin build** — run `./gradlew :nebula-plugin:shadowJar` to confirm new worktree classes compile cleanly
-2. **Run worktree unit tests** — verify `FidelityTierAdapterTest`, `PluginCertificationHarnessTest`, `HotspotInventoryBridgeTest`, `SpatialBucketScaleTest`, `BudgetedDagBuilderTest` all pass
+1. ~~**Verify plugin build**~~ ✅ — `./gradlew :nebula-plugin:shadowJar` passes (2026-07-15)
+2. ~~**Run worktree unit tests**~~ ✅ — all verified 2026-07-15
 3. **Verify native fork compilation** — run `./gradlew :nebula-server:compileJava` to confirm `ServerLevel.java` compiles
 4. **Record a native `NEBULA`-mode boot** — enable the scheduler and capture the first live native tick evidence
 5. **Close the native determinism gap** — wire the native RW-guard (align `nebula.guard` with `nebula.rw.guard`), and justify or narrow the parallel-safe entity declaration
