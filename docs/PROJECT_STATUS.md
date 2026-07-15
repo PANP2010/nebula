@@ -156,7 +156,7 @@ No native `NEBULA`-mode boot has been recorded. All available server logs show
 
 1. ~~**Verify plugin build**~~ ✅ — `./gradlew :nebula-plugin:shadowJar` passes (2026-07-15)
 2. ~~**Run worktree unit tests**~~ ✅ — all verified 2026-07-15
-3. **Verify native fork compilation** — `ServerLevel.java` orphaned `try`/`catch` brace fixed; non-portable mac symlinks replaced with absolute paths; `./gradlew compileJava` blocked by network (same issue as git push) — requires network restore then `JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 ./gradlew compileJava`
+3. ~~**Verify native fork compilation**~~ ✅ — Java 25 toolchain configured, foojay resolver downgraded to 0.9.0, `FidelityTier` switch exhaustiveness fixed; `./gradlew compileJava` passes (2026-07-15)
 4. **Record a native `NEBULA`-mode boot** — enable the scheduler and capture the first live native tick evidence
 5. **Close the native determinism gap** — wire the native RW-guard (align `nebula.guard` with `nebula.rw.guard`), and justify or narrow the parallel-safe entity declaration
 6. ~~**Verify VAP integration**~~ ✅ (2026-07-15) — `VapPluginPhase` wired into `NebulaPlugin.onEnable()`; plugin order collected from PluginManager; `drainVapPluginPhase()` called after each redstone DAG tick from both Folia and non-Folia lifecycle drivers; `/nebula vap` command added with `status|pending|register|levels` subcommands
