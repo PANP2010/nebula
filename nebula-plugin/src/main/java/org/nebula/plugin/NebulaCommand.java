@@ -60,6 +60,7 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
             }
             case "survival" -> handleSurvival(sender, args);
             case "player" -> handlePlayer(sender, args);
+            case "vap" -> handleVap(sender, args);
             case "help" -> sendHelp(sender);
             default -> sender.sendMessage("§cUnknown subcommand: " + sub);
         }
@@ -870,6 +871,60 @@ public final class NebulaCommand implements CommandExecutor, TabExecutor {
         }
         LOG.info("RW-coverage snapshot requested by " + sender.getName()
             + " — overall=" + String.format("%.1f%%", dashboard.overallCoverageRatio() * 100));
+    }
+
+    // ── VAP commands ────────────────────────────────────────────────────────────
+
+    private void handleVap(CommandSender sender, String[] args) {
+        if (!sender.hasPermission("nebula.admin")) {
+            sender.sendMessage("§cYou don't have permission to use this command.");
+            return;
+        }
+        VapPluginPhase vp = plugin.vapPhase();
+        if (vp == null) {
+            sender.sendMessage("§eVAP plugin phase is not yet initialised (plugin still loading).");
+            return;
+        }
+        if (args.length < 2) {
+            sender.sendMessage("§6Usage: /nebula vap <status|register|pending|level|levels>");
+            sender.sendMessage("  §7status    — show VAP phase state and queue depth");
+            sender.sendMessage("  §7pending   — show how many tasks are queued this tick");
+            sender.sendMessage("  §7register <plugin> <level> — register a plugin at VAP level (L0-L3)");
+            sender.sendMessage("  §7levels    — show all plugins and their VAP levels");
+            return;
+        }
+        String sub = args[1].toLowerCase();
+        switch (sub) {
+            case "status" -> {
+                sender.sendMessage("§aVAP phase: §fACTIVE");
+                sender.sendMessage("  §7Pending tasks: §f" + vp.pendingCount());
+                sender.sendMessage("  §7Registered plugins: §f" + vp.registry().pluginOrder().size());
+            }
+            case "pending" -> sender.sendMessage("§aPending VAP tasks: §f" + vp.pendingCount());
+            case "levels" -> {
+                var levels = vp.pluginLevels();
+                for (var e : levels.entrySet()) {
+                    sender.sendMessage("  §7" + e.getKey() + " §f" + e.getValue());
+                }
+            }
+            case "register" -> {
+                if (args.length < 4) {
+                    sender.sendMessage("§cUsage: /nebula vap register <plugin> <L0|L1|L2|L3>");
+                    return;
+                }
+                String pluginName = args[2];
+                String levelStr = args[3].toUpperCase();
+                try {
+                    org.nebula.core.vap.VapLevel level =
+                        org.nebula.core.vap.VapLevel.valueOf(levelStr);
+                    vp.registerPlugin(pluginName, level);
+                    sender.sendMessage("§aRegistered '" + pluginName + "' at VAP level " + level);
+                } catch (IllegalArgumentException e) {
+                    sender.sendMessage("§cUnknown VAP level: " + levelStr + " (use L0, L1, L2, or L3)");
+                }
+            }
+            default -> sender.sendMessage("§cUnknown VAP subcommand: " + sub);
+        }
     }
 
     @Override

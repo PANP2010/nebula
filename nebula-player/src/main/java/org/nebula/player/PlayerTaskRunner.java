@@ -113,7 +113,7 @@ public final class PlayerTaskRunner implements LayerCommitting {
         DeterministicRandom rng = null;
         long uuidBits = 0L;
         if (randomSource != null) {
-            uuidBits = parseUuidBits(taskId);
+            uuidBits = parsePlayerUuidBits(taskId);
             rng = randomSource.forTask(currentTick, uuidBits, RandomInstance.PLAYER_RANDOM);
         }
         action.execute(new PlayerTaskContext(state, snap, rng, null, tracer));
@@ -128,12 +128,34 @@ public final class PlayerTaskRunner implements LayerCommitting {
         }
     }
 
-    static long parseUuidBits(String taskId) {
+    private long parsePlayerUuidBits(String taskId) {
+        return parseUuidBits(taskId);
+    }
+
+    private static int minPositive(int a, int b) {
+        if (a < 0) return b;
+        if (b < 0) return a;
+        return Math.min(a, b);
+    }
+
+    /**
+     * Parses the UUID LSB bits from a player taskId.
+     * Player taskId format: TYPE@dim:uuid:coords
+     * This correctly skips the dimension number (first colon) to reach the UUID (second colon).
+     * Previously had a bug: parsed dimension as UUID, so "PLAYER_MOVE@0:uuid:coords"
+     * tried UUID.fromString("0") which threw and returned 0L.
+     *
+     * @return the UUID's least-significant bits, or 0L on parse failure
+     */
+    public static long parseUuidBits(String taskId) {
         int at = taskId.indexOf('@');
         if (at < 0) return 0L;
-        int colon = taskId.indexOf(':', at + 1);
-        if (colon < 0) return 0L;
-        String uuidStr = taskId.substring(at + 1, colon);
+        int firstColon = taskId.indexOf(':', at + 1);
+        if (firstColon < 0) return 0L;
+        int secondColon = taskId.indexOf(':', firstColon + 1);
+        int arrow = taskId.indexOf('→', at + 1);
+        int end = minPositive(secondColon, arrow);
+        String uuidStr = taskId.substring(firstColon + 1, end);
         try {
             return java.util.UUID.fromString(uuidStr).getLeastSignificantBits();
         } catch (IllegalArgumentException e) {

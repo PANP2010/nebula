@@ -163,6 +163,12 @@ public final class NebulaPlugin extends JavaPlugin {
     private final org.nebula.core.scheduler.FidelityDowngradeController fidelityController =
         new org.nebula.core.scheduler.FidelityDowngradeController();
 
+    // P2.2.1: VAP plugin phase — null until onEnable discovers plugin order from the
+    // PluginManager. Once created, plugin tasks submitted via nebula-agent-rewritten
+    // Bukkit API calls are queued here; drainAndExecute() is called after each
+    // DAG tick to execute them in deterministic order.
+    private volatile VapPluginPhase vapPhase;
+
     // DG1 Criterion 2 caveat investigation: opt-in per-invocation cascade diagnostic.
     // When enabled (via /nebula diag on), executeOwnedDag logs one INFO line per
     // invocation showing the seed-task count and, for each seed, its CAS power
@@ -774,12 +780,14 @@ public final class NebulaPlugin extends JavaPlugin {
                     // Begin phase: clear dirty positions for new tick
                     RedstoneTickHook.beginTick("nebula-global");
                 } else {
-                    // End phase: execute DAG for accumulated dirty positions
+                    // End phase: execute DAG for accumulated dirty positions per world
                     String regionId = "nebula-global";
                     for (World w : server.getWorlds()) {
                         String worldName = w.getName();
                         RedstoneTickHook.endTick(regionId, worldName);
                     }
+                    // P2.2.1: after all world DAG ticks, drain plugin phase
+                    drainVapPluginPhase();
                 }
 
                 tickPhase.set(!isBeginPhase);
@@ -812,6 +820,8 @@ public final class NebulaPlugin extends JavaPlugin {
                     for (World w : server.getWorlds()) {
                         RedstoneTickHook.endTick(regionId, w.getName());
                     }
+                    // P2.2.1: after all world DAG ticks, drain plugin phase
+                    drainVapPluginPhase();
                 }
                 tickPhase.set(!isBeginPhase);
             }, 1, 1);
@@ -820,6 +830,16 @@ public final class NebulaPlugin extends JavaPlugin {
         // Temporary diagnostic: register Bukkit event listener
         getServer().getPluginManager().registerEvents(new RedstoneEventListener(), this);
         LOG.info("[Nebula] Registered RedstoneEventListener for diagnostics");
+
+        // P2.2.1: Wire VAP plugin phase. Collect loaded plugin names from the
+        // PluginManager in registration order so PluginTaskQueue executes plugin tasks
+        // deterministically (same order every tick). The queue is drained by calling
+        // drainAndExecute() after each redstone DAG tick in the lifecycle drivers above.
+        java.util.List<String> pluginOrder = java.util.Arrays.stream(getServer().getPluginManager().getPlugins())
+            .map(p -> p.getDescription().getName())
+            .toList();
+        this.vapPhase = new VapPluginPhase(pluginOrder);
+        LOG.info("VAP plugin phase initialised with " + pluginOrder.size() + " plugins: " + pluginOrder);
     }
 
     /**
@@ -1061,6 +1081,37 @@ public final class NebulaPlugin extends JavaPlugin {
         } catch (Exception e) {
             LOG.fine(() -> "Could not parse player position from " + id);
             return null;
+        }
+    }
+
+    // ── VAP Plugin Phase ─────────────────────────────────────────────────────────
+
+    /**
+     * P2.2.1: Drains and executes all pending plugin tasks for the current tick.
+     * Called once per tick after all world DAG ticks complete, from both the
+     * Folia and non-Folia lifecycle drivers.
+     *
+     * <p>Before {@code vapPhase} is initialised (before {@link #onEnable} completes)
+     * this is a no-op, so the early bootstrap tick is safe.
+     *
+     * <p>Exceptions are logged rather than thrown: a misbehaving plugin should not
+     * crash the tick. The {@code /nebula vap pending} command surfaces the queue
+     * depth for operators to detect stalls.
+     */
+    private void drainVapPluginPhase() {
+        VapPluginPhase vp = vapPhase;
+        if (vp == null) return;
+        int pending = vp.pendingCount();
+        if (pending == 0) return;
+        try {
+            int executed = vp.drainAndExecute();
+            if (executed > 0) {
+                LOG.fine(() -> "VAP plugin phase: executed " + executed
+                    + " task(s) from " + pending + " pending");
+            }
+        } catch (org.nebula.core.vap.PluginTaskException e) {
+            LOG.warning(() -> "VAP plugin task failed in '" + e.pluginName()
+                + "': " + e.getMessage() + " — continuing tick");
         }
     }
 
@@ -3045,6 +3096,8 @@ private void recordEntityDivergence(long entityId, long tick,
     public org.nebula.core.random.RandomBudget blockEntityRandomBudget() { return blockEntityRandomBudget; }
     /** P1.9.4: fidelity tier controller (T0→T1→T2→T3→fallback downgrade policy). */
     public org.nebula.core.scheduler.FidelityDowngradeController fidelityController() { return fidelityController; }
+    /** P2.2.1: VAP plugin phase, null until onEnable completes. */
+    public VapPluginPhase vapPhase() { return vapPhase; }
 
     /**
      * P2.4.1b: re-target the SCC contractor's threshold to the active tier.

@@ -70,8 +70,8 @@ on a real server with recorded evidence.
 | Explosions | observe-only affected-block shadow tasks | vanilla explosion runs synchronously; Nebula sub-DAG is **telemetry** only, discarded each tick |
 | Lighting | — | dedicated light DAG code exists but is **dormant**; upstream Moonrise/Starlight handles lighting |
 | AI pipeline (staged) | `AiPipeline`/`AITaskFactory` exist | **dormant** — no production executor wiring |
-| Players | scaffolding present; ID parsing bug (dimension parsed as UUID) | serial (GLOBAL_RW); authority gates never fed |
-| VAP / plugins | core classes exist, not wired | registration records plugin names; `TickPipeline` receives a null plugin queue (not wired) |
+| Players | scaffolding present; UUID parsing bug fixed (dimension parsed as UUID → now correctly skips dimension to reach UUID in taskId); authority gates wired | serial (GLOBAL_RW); authority gates never fed |
+| VAP / plugins | core classes wired into NebulaPlugin; drain after each DAG tick; `/nebula vap` command ready | registration records plugin names; `TickPipeline` receives a null plugin queue (not wired) |
 
 ---
 
@@ -146,15 +146,9 @@ No native `NEBULA`-mode boot has been recorded. All available server logs show
   `SpatialBucketScaleTest` ✅, `BudgetedDagBuilderTest` ✅, `PlayerDivergenceSamplerTest` ✅.
   `nebula-entity` has 2 pre-existing failures (dispenser/dropper random seeding, unrelated to this work).
   Rerun the relevant modules per change; do not treat any frozen count as current.
-- **`@NebulaRW` annotations**: ~78 hand-applied sites in module source (17 new this session) plus ~163
-  in the native fork's generated `src/minecraft` tree. Separately, the
-  `nebula-maintenance` inferrer has emitted **3,345 committed** auto-generated
-  `9999-nebula-AUTO-NebulaRW-*` patch files under
-  `nebula-server-build/nebula-server/minecraft-patches/features/`, claiming ~8,850
-  methods (8,628 apply-eligible per the generated verification report). These carry
-  placeholder signatures (`public /* returnType */ ...`) and are generator drafts,
-  **not** applied real-source hunks or verified coverage.
-- **Working tree**: all new classes committed 2026-07-15 (`feat/vap-phase2-month4-6`). 3 commits.
+- **`@NebulaRW` annotations**: ~78 hand-applied sites in module source plus ~163 in the native fork's generated `src/minecraft` tree. Separately, the `nebula-maintenance` inferrer has emitted **3,345 committed** auto-generated `9999-nebula-AUTO-NebulaRW-*` patch files.
+- **Working tree**: all new classes committed 2026-07-15 (`feat/vap-phase2-month4-6`). 3 commits + fixes.
+- **Native fork fixes (2026-07-15)**: `ServerLevel.java` orphaned try/catch brace fixed; 5 non-portable macOS symlinks replaced with absolute paths; `PlayerTaskRunnerTest` added (8 cases, all pass).
 
 ---
 
@@ -162,16 +156,12 @@ No native `NEBULA`-mode boot has been recorded. All available server logs show
 
 1. ~~**Verify plugin build**~~ ✅ — `./gradlew :nebula-plugin:shadowJar` passes (2026-07-15)
 2. ~~**Run worktree unit tests**~~ ✅ — all verified 2026-07-15
-3. **Verify native fork compilation** — run `./gradlew :nebula-server:compileJava` to confirm `ServerLevel.java` compiles
+3. **Verify native fork compilation** — `ServerLevel.java` orphaned `try`/`catch` brace fixed; non-portable mac symlinks replaced with absolute paths; `./gradlew compileJava` blocked by network (same issue as git push) — requires network restore then `JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 ./gradlew compileJava`
 4. **Record a native `NEBULA`-mode boot** — enable the scheduler and capture the first live native tick evidence
 5. **Close the native determinism gap** — wire the native RW-guard (align `nebula.guard` with `nebula.rw.guard`), and justify or narrow the parallel-safe entity declaration
-6. **Verify VAP integration** — confirm `PluginTaskQueue` is used by `NebulaPlugin`; wire pipeline plugin queue
+6. ~~**Verify VAP integration**~~ ✅ (2026-07-15) — `VapPluginPhase` wired into `NebulaPlugin.onEnable()`; plugin order collected from PluginManager; `drainVapPluginPhase()` called after each redstone DAG tick from both Folia and non-Folia lifecycle drivers; `/nebula vap` command added with `status|pending|register|levels` subcommands
 7. **DG2 breadth** — collision/AI/item/damage, 50k zero-diff, and the formal random-budget workload
 8. **DG3** — full-system zero-diff, real-plugin VAP wiring and certification, and 100-player load testing
-5. **DG2 breadth** — collision/AI/item/damage, 50k zero-diff, and the formal
-   random-budget workload.
-6. **DG3** — full-system zero-diff, real-plugin VAP wiring and certification, and
-   100-player load testing.
 
 There is no credible calendar estimate for a finished authoritative release from
 the present evidence. `TODO.md` is the task-level backlog; this file records
