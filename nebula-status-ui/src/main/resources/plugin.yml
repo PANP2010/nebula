@@ -1,0 +1,13 @@
+name: Nebula Status UI
+version: ${version}
+main: org.nebula.statusui.NebulaStatusPlugin
+api-version: '1.21'
+authors:
+  - NebulaArchTeam
+description: Server status dashboard for Nebula
+depend:
+  - Nebula
+commands:
+  nebula-status:
+    description: Open the Nebula status dashboard
+    usage: /nebula-status [open]

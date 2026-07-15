@@ -339,6 +339,9 @@ public final class NebulaPlugin extends JavaPlugin {
 
     private NebulaFoliaBootstrap bootstrap;
 
+    // Status HTTP endpoint
+    private org.nebula.plugin.status.StatusEndpoint statusEndpoint;
+
     @Override
     public void onEnable() {
         // B9 D1: discriminate Folia from vanilla Paper via the server-internal
@@ -827,6 +830,42 @@ public final class NebulaPlugin extends JavaPlugin {
             }, 1, 1);
             LOG.info("RedstoneTickHook lifecycle driver registered (non-Folia, main-thread begin/end)");
         }
+
+        // Start HTTP status endpoint on port 9229
+        try {
+            int port = Integer.getInteger("nebula.status.port", 9229);
+            statusEndpoint = new org.nebula.plugin.status.StatusEndpoint(port);
+            statusEndpoint.start();
+
+            // Periodically update metrics for HTTP endpoint
+            long startTimeMs = System.currentTimeMillis();
+            getServer().getGlobalRegionScheduler().runAtFixedRate(this, task -> {
+                if (statusEndpoint == null) return;
+                var metrics = statusEndpoint.getMetrics();
+                int loadedChunks = 0;
+                for (World w : getServer().getWorlds()) {
+                    loadedChunks += w.getLoadedChunks().length;
+                }
+                metrics.update(
+                    tickTimeRecorder,
+                    microStepRecorder,
+                    0, // layersExecuted - tracked per-region, 0 for aggregate
+                    fidelityController,
+                    componentMap.size(),
+                    toggleSources.size(),
+                    redstoneState,
+                    entityState,
+                    blockEntityState,
+                    getServer().getCurrentTick(),
+                    getServer().getOnlinePlayers().size(),
+                    loadedChunks,
+                    startTimeMs
+                );
+            }, 1, 1);
+        } catch (Exception e) {
+            LOG.warning("Failed to start status endpoint: " + e.getMessage());
+        }
+
         // Temporary diagnostic: register Bukkit event listener
         getServer().getPluginManager().registerEvents(new RedstoneEventListener(), this);
         LOG.info("[Nebula] Registered RedstoneEventListener for diagnostics");
@@ -3071,6 +3110,10 @@ private void recordEntityDivergence(long entityId, long tick,
         if (dagWorkerPool != null) {
             dagWorkerPool.shutdownNow();
             dagWorkerPool = null;
+        }
+        if (statusEndpoint != null) {
+            statusEndpoint.stop();
+            statusEndpoint = null;
         }
         LOG.info("Nebula plugin disabled");
     }

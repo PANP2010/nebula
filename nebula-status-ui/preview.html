@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nebula // Status</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #f5f5f7;
+            --card: rgba(255, 255, 255, 0.85);
+            --card-solid: #ffffff;
+            --text: #1d1d1f;
+            --text-secondary: #86868b;
+            --text-tertiary: #6e6e73;
+            --border: rgba(0, 0, 0, 0.06);
+            --accent: #0071e3;
+            --accent-bg: rgba(0, 113, 227, 0.08);
+            --green: #34c759;
+            --green-bg: rgba(52, 199, 89, 0.1);
+            --yellow: #ff9f0a;
+            --yellow-bg: rgba(255, 159, 10, 0.1);
+            --red: #ff3b30;
+            --red-bg: rgba(255, 59, 48, 0.1);
+            --purple: #af52de;
+            --purple-bg: rgba(175, 82, 222, 0.1);
+            --shadow: 0 2px 12px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.4;
+        }
+
+        .app { max-width: 1200px; margin: 0 auto; padding: 48px 32px; }
+
+        /* HEADER */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 40px;
+        }
+        .header-left { display: flex; flex-direction: column; gap: 8px; }
+        .brand { font-size: 12px; font-weight: 600; color: var(--text-tertiary); letter-spacing: 0.5px; text-transform: uppercase; }
+        .title { font-size: 32px; font-weight: 600; color: var(--text); letter-spacing: -0.5px; }
+        .subtitle { font-size: 14px; color: var(--text-secondary); font-weight: 400; }
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--card);
+            backdrop-filter: blur(20px);
+            border-radius: 100px;
+            border: 1px solid var(--border);
+            font-size: 12px;
+            font-weight: 500;
+            box-shadow: var(--shadow);
+        }
+        .live-dot { width: 6px; height: 6px; border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
+        .live-indicator.connected .live-dot { background: var(--green); }
+        .live-indicator.disconnected .live-dot { background: var(--red); }
+        .live-indicator.disconnected { color: var(--red); }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        /* ALERTS */
+        .alerts {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            min-height: 48px;
+        }
+        .alert {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 500;
+            animation: slideIn 0.3s ease-out;
+        }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .alert.warning { background: var(--yellow-bg); color: var(--yellow); border: 1px solid rgba(255, 159, 10, 0.2); }
+        .alert.critical { background: var(--red-bg); color: var(--red); border: 1px solid rgba(255, 59, 48, 0.2); }
+        .alert-icon { font-size: 16px; }
+
+        /* SECTIONS */
+        .section { margin-bottom: 32px; }
+        .section-title { font-size: 11px; font-weight: 600; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; padding-left: 4px; }
+
+        /* GRID */
+        .tick-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 16px; }
+        .card {
+            background: var(--card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 24px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+        .card:hover { box-shadow: var(--shadow-hover); }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .card-title { font-size: 14px; font-weight: 600; color: var(--text); }
+
+        /* BADGES */
+        .tier-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; }
+        .tier-badge.t0 { background: var(--green-bg); color: var(--green); }
+        .tier-badge.t1 { background: var(--accent-bg); color: var(--accent); }
+        .tier-badge.t2 { background: var(--yellow-bg); color: var(--yellow); }
+        .tier-badge.t3 { background: var(--red-bg); color: var(--red); }
+
+        /* MAIN METRIC */
+        .main-metric { display: flex; align-items: flex-end; gap: 16px; margin-bottom: 24px; }
+        .main-value { font-family: 'JetBrains Mono', monospace; font-size: 56px; font-weight: 600; color: var(--text); letter-spacing: -2px; line-height: 1; }
+        .main-unit { font-size: 18px; font-weight: 500; color: var(--text-secondary); margin-bottom: 6px; }
+        .main-label { font-size: 12px; color: var(--text-tertiary); margin-bottom: 4px; }
+
+        /* CHART */
+        .chart-container { height: 120px; position: relative; margin-bottom: 20px; }
+        .chart-container canvas { width: 100%; height: 100%; }
+        .chart-threshold { position: absolute; left: 0; right: 0; border-top: 1px dashed rgba(255, 159, 10, 0.5); font-size: 10px; color: var(--yellow); text-align: right; padding-right: 4px; }
+
+        /* PERCENTILES */
+        .percentiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+        .percentile-item { text-align: center; padding: 12px 8px; background: rgba(0, 0, 0, 0.02); border-radius: 12px; }
+        .percentile-label { font-size: 10px; font-weight: 500; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+        .percentile-value { font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 600; color: var(--text); }
+        .percentile-unit { font-size: 11px; color: var(--text-secondary); margin-left: 2px; }
+
+        /* MICROSTEPS */
+        .microstep-card { display: flex; flex-direction: column; height: 100%; }
+        .microstep-bar-container { flex: 1; display: flex; flex-direction: column; gap: 12px; }
+        .microstep-row { display: flex; align-items: center; gap: 12px; }
+        .microstep-label { width: 50px; font-size: 11px; font-weight: 500; color: var(--text-tertiary); }
+        .microstep-bar-bg { flex: 1; height: 8px; background: rgba(0, 0, 0, 0.05); border-radius: 4px; overflow: hidden; }
+        .microstep-bar { height: 100%; background: var(--accent); border-radius: 4px; transition: width 0.3s ease; }
+        .microstep-bar.warning { background: var(--yellow); }
+        .microstep-bar.critical { background: var(--red); }
+        .microstep-value { width: 60px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; color: var(--text); text-align: right; }
+        .microstep-max { display: flex; align-items: center; justify-content: space-between; padding: 16px; background: rgba(0, 0, 0, 0.02); border-radius: 12px; margin-top: auto; }
+        .microstep-max-label { font-size: 12px; font-weight: 500; color: var(--text-secondary); }
+        .microstep-max-value { font-family: 'JetBrains Mono', monospace; font-size: 20px; font-weight: 600; color: var(--accent); }
+        .microstep-max-cap { font-size: 12px; color: var(--text-tertiary); margin-left: 4px; }
+
+        /* METRICS ROW */
+        .metrics-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px; }
+        .metric-mini-card {
+            background: var(--card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+        .metric-mini-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+        .metric-mini-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; font-size: 16px; }
+        .metric-mini-icon svg { width: 18px; height: 18px; }
+        .metric-mini-icon.blue { background: var(--accent-bg); }
+        .metric-mini-icon.green { background: var(--green-bg); }
+        .metric-mini-icon.purple { background: var(--purple-bg); }
+        .metric-mini-icon.yellow { background: var(--yellow-bg); }
+        .metric-mini-label { font-size: 11px; font-weight: 500; color: var(--text-tertiary); margin-bottom: 4px; }
+        .metric-mini-value { font-family: 'JetBrains Mono', monospace; font-size: 24px; font-weight: 600; color: var(--text); }
+        .metric-mini-unit { font-size: 13px; font-weight: 400; color: var(--text-secondary); margin-left: 2px; }
+
+        /* ===== DAG VISUALIZATION ===== */
+        .dag-card {
+            padding: 20px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+        .dag-canvas { 
+            height: 280px; 
+            position: relative; 
+            border-radius: 12px;
+            overflow: hidden;
+            background: radial-gradient(ellipse at center, #0f0f1a 0%, #0a0a14 100%);
+        }
+        .dag-canvas canvas { width: 100%; height: 100%; }
+        .dag-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .dag-stat { text-align: center; }
+        .dag-stat-value { font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 600; color: #fff; }
+        .dag-stat-label { font-size: 10px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+        .dag-layers {
+            display: flex;
+            gap: 6px;
+            margin-top: 12px;
+            justify-content: center;
+        }
+        .dag-layer {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(255,255,255,0.05);
+            color: rgba(255,255,255,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+        .dag-layer.active { 
+            background: rgba(0, 113, 227, 0.3); 
+            color: #0071e3; 
+            border-color: rgba(0, 113, 227, 0.5);
+            box-shadow: 0 0 12px rgba(0, 113, 227, 0.3);
+        }
+        .dag-layer.complete { 
+            background: rgba(52, 199, 89, 0.3); 
+            color: #34c759; 
+            border-color: rgba(52, 199, 89, 0.5);
+        }
+
+        /* COMPONENTS GRID */
+        .components-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .component-card {
+            background: var(--card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+        .component-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+        .component-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .component-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+        .component-icon svg { width: 22px; height: 22px; }
+        .component-icon.redstone { background: rgba(255, 69, 58, 0.1); }
+        .component-icon.redstone svg { stroke: #ff453a; }
+        .component-icon.entity { background: rgba(255, 159, 10, 0.1); }
+        .component-icon.entity svg { stroke: #ff9f0a; }
+        .component-icon.blockentity { background: rgba(175, 82, 222, 0.1); }
+        .component-icon.blockentity svg { stroke: #af52de; }
+        .component-status { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 500; }
+        .status-dot { width: 6px; height: 6px; border-radius: 50%; }
+        .status-dot.healthy { background: var(--green); }
+        .status-dot.warning { background: var(--yellow); }
+        .status-dot.critical { background: var(--red); animation: blink 1s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        .component-name { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+        .component-desc { font-size: 12px; color: var(--text-secondary); margin-bottom: 12px; }
+        .component-stats { display: flex; gap: 16px; }
+        .component-stat { display: flex; flex-direction: column; gap: 2px; }
+        .component-stat-value { font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 600; color: var(--text); }
+        .component-stat-label { font-size: 10px; color: var(--text-tertiary); }
+
+        /* HEALTH LIST */
+        .health-list { display: flex; flex-direction: column; gap: 8px; }
+        .health-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: rgba(0, 0, 0, 0.02); border-radius: 12px; }
+        .health-item-status { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+        .health-item-status.healthy { background: var(--green); }
+        .health-item-status.warning { background: var(--yellow); }
+        .health-item-status.critical { background: var(--red); animation: blink 1s infinite; }
+        .health-item-name { flex: 1; font-size: 13px; font-weight: 500; color: var(--text); }
+        .health-item-value { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text-secondary); }
+
+        /* TWO COLUMN */
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+        /* FOOTER */
+        .footer { display: flex; justify-content: space-between; align-items: center; padding-top: 24px; border-top: 1px solid var(--border); margin-top: 32px; }
+        .footer-stats { display: flex; gap: 32px; }
+        .footer-stat { font-size: 12px; color: var(--text-tertiary); }
+        .footer-stat span { font-family: 'JetBrains Mono', monospace; color: var(--text-secondary); font-weight: 500; }
+        .footer-version { font-size: 11px; color: var(--text-tertiary); }
+
+        /* ANIMATIONS */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .card, .metric-mini-card, .component-card { animation: fadeIn 0.5s ease-out backwards; }
+        .tick-grid > :nth-child(1) { animation-delay: 0.1s; }
+        .tick-grid > :nth-child(2) { animation-delay: 0.15s; }
+        .metric-mini-card:nth-child(1) { animation-delay: 0.2s; }
+        .metric-mini-card:nth-child(2) { animation-delay: 0.25s; }
+        .metric-mini-card:nth-child(3) { animation-delay: 0.3s; }
+        .metric-mini-card:nth-child(4) { animation-delay: 0.35s; }
+        .component-card:nth-child(1) { animation-delay: 0.4s; }
+        .component-card:nth-child(2) { animation-delay: 0.45s; }
+        .component-card:nth-child(3) { animation-delay: 0.5s; }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <!-- HEADER -->
+        <header class="header">
+            <div class="header-left">
+                <div class="brand">Nebula</div>
+                <h1 class="title">Server Status</h1>
+                <p class="subtitle">Deterministic multi-core execution</p>
+            </div>
+            <div class="live-indicator disconnected" id="liveIndicator">
+                <div class="live-dot"></div>
+                <span id="connectionStatus">Disconnected</span>
+            </div>
+        </header>
+
+        <!-- ALERTS -->
+        <div class="alerts" id="alerts"></div>
+
+        <!-- TICK TIME SECTION -->
+        <section class="section">
+            <div class="section-title">Tick Performance</div>
+            <div class="tick-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Tick Time</div>
+                        <div class="tier-badge t1" id="tierBadge"><span id="tierName">Tier 1</span></div>
+                    </div>
+                    <div class="main-metric">
+                        <div>
+                            <div class="main-label">Average</div>
+                            <div class="main-value" id="tickAvg">--</div>
+                        </div>
+                        <div class="main-unit">ms</div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="tickChart"></canvas>
+                        <div class="chart-threshold" style="top: 60%;">50ms threshold</div>
+                    </div>
+                    <div class="percentiles">
+                        <div class="percentile-item">
+                            <div class="percentile-label">P50</div>
+                            <div class="percentile-value"><span id="tickP50">--</span><span class="percentile-unit">ms</span></div>
+                        </div>
+                        <div class="percentile-item">
+                            <div class="percentile-label">P95</div>
+                            <div class="percentile-value"><span id="tickP95">--</span><span class="percentile-unit">ms</span></div>
+                        </div>
+                        <div class="percentile-item">
+                            <div class="percentile-label">P99</div>
+                            <div class="percentile-value"><span id="tickP99">--</span><span class="percentile-unit">ms</span></div>
+                        </div>
+                        <div class="percentile-item">
+                            <div class="percentile-label">Max</div>
+                            <div class="percentile-value"><span id="tickMax">--</span><span class="percentile-unit">ms</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Microsteps</div>
+                        <div class="tier-badge t0" id="microstepBadge"><span id="microstepStatus">Loading</span></div>
+                    </div>
+                    <div class="microstep-bar-container">
+                        <div class="microstep-row">
+                            <div class="microstep-label">P50</div>
+                            <div class="microstep-bar-bg"><div class="microstep-bar" id="microP50" style="width: 0%"></div></div>
+                            <div class="microstep-value" id="microP50Val">--</div>
+                        </div>
+                        <div class="microstep-row">
+                            <div class="microstep-label">P95</div>
+                            <div class="microstep-bar-bg"><div class="microstep-bar" id="microP95" style="width: 0%"></div></div>
+                            <div class="microstep-value" id="microP95Val">--</div>
+                        </div>
+                        <div class="microstep-row">
+                            <div class="microstep-label">P99</div>
+                            <div class="microstep-bar-bg"><div class="microstep-bar" id="microP99" style="width: 0%"></div></div>
+                            <div class="microstep-value" id="microP99Val">--</div>
+                        </div>
+                    </div>
+                    <div class="microstep-max">
+                        <div class="microstep-max-label">Last Max</div>
+                        <div><span class="microstep-max-value" id="microMax">--</span><span class="microstep-max-cap">/ 256 cap</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- METRICS ROW -->
+        <section class="section">
+            <div class="section-title">DAG Execution</div>
+            <div class="metrics-row">
+                <div class="metric-mini-card">
+                    <div class="metric-mini-icon blue">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#0071e3" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <div class="metric-mini-label">Layers Executed</div>
+                    <div class="metric-mini-value"><span id="layers">--</span></div>
+                </div>
+                <div class="metric-mini-card">
+                    <div class="metric-mini-icon green">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#34c759" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+                            <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+                        </svg>
+                    </div>
+                    <div class="metric-mini-label">Components</div>
+                    <div class="metric-mini-value"><span id="components">--</span></div>
+                </div>
+                <div class="metric-mini-card">
+                    <div class="metric-mini-icon purple">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#af52de" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v10"/><path d="M21 12h-6m-6 0H1"/>
+                        </svg>
+                    </div>
+                    <div class="metric-mini-label">Toggle Sources</div>
+                    <div class="metric-mini-value"><span id="toggles">--</span></div>
+                </div>
+                <div class="metric-mini-card">
+                    <div class="metric-mini-icon yellow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#ff9f0a" stroke-width="2">
+                            <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/>
+                        </svg>
+                    </div>
+                    <div class="metric-mini-label">Fidelity Tier</div>
+                    <div class="metric-mini-value"><span id="fidelity">--</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DAG VISUALIZATION -->
+        <section class="section">
+            <div class="section-title">Task DAG</div>
+            <div class="two-col">
+                <div class="card dag-card">
+                    <div class="card-header">
+                        <div class="card-title">Execution Flow</div>
+                    </div>
+                    <div class="dag-canvas">
+                        <canvas id="dagChart"></canvas>
+                    </div>
+                    <div class="dag-layers" id="dagLayers">
+                        <div class="dag-layer" data-layer="1">1</div>
+                        <div class="dag-layer" data-layer="2">2</div>
+                        <div class="dag-layer" data-layer="3">3</div>
+                        <div class="dag-layer" data-layer="4">4</div>
+                        <div class="dag-layer" data-layer="5">5</div>
+                        <div class="dag-layer" data-layer="6">6</div>
+                        <div class="dag-layer" data-layer="7">7</div>
+                        <div class="dag-layer" data-layer="8">8</div>
+                    </div>
+                    <div class="dag-stats">
+                        <div class="dag-stat"><div class="dag-stat-value" id="dagActiveNodes">0</div><div class="dag-stat-label">Active Nodes</div></div>
+                        <div class="dag-stat"><div class="dag-stat-value" id="dagPendingTasks">0</div><div class="dag-stat-label">Pending Tasks</div></div>
+                        <div class="dag-stat"><div class="dag-stat-value" id="dagThroughput">0</div><div class="dag-stat-label">Throughput/s</div></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Component Health</div>
+                    </div>
+                    <div class="health-list" id="healthList">
+                        <div class="health-item"><div class="health-item-status healthy"></div><div class="health-item-name">Redstone Engine</div><div class="health-item-value" id="healthRedstone">--</div></div>
+                        <div class="health-item"><div class="health-item-status healthy"></div><div class="health-item-name">Entity Manager</div><div class="health-item-value" id="healthEntity">--</div></div>
+                        <div class="health-item"><div class="health-item-status healthy"></div><div class="health-item-name">Block Entity</div><div class="health-item-value" id="healthBlockEntity">--</div></div>
+                        <div class="health-item"><div class="health-item-status healthy"></div><div class="health-item-name">Event Bus</div><div class="health-item-value" id="healthEvents">--</div></div>
+                        <div class="health-item"><div class="health-item-status healthy"></div><div class="health-item-name">Chunk Loader</div><div class="health-item-value" id="healthChunks">--</div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COMPONENTS SECTION -->
+        <section class="section">
+            <div class="section-title">State Sizes</div>
+            <div class="components-grid">
+                <div class="component-card">
+                    <div class="component-header">
+                        <div class="component-icon redstone">
+                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                        </div>
+                        <div class="component-status" id="redstoneStatus"><div class="status-dot healthy"></div><span>Healthy</span></div>
+                    </div>
+                    <div class="component-name">Redstone State</div>
+                    <div class="component-desc">Power levels & internal state</div>
+                    <div class="component-stats">
+                        <div class="component-stat"><div class="component-stat-value" id="redstoneSize">--</div><div class="component-stat-label">Entries</div></div>
+                    </div>
+                </div>
+                <div class="component-card">
+                    <div class="component-header">
+                        <div class="component-icon entity">
+                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
+                        </div>
+                        <div class="component-status" id="entityStatus"><div class="status-dot healthy"></div><span>Healthy</span></div>
+                    </div>
+                    <div class="component-name">Entity State</div>
+                    <div class="component-desc">Position, velocity, health</div>
+                    <div class="component-stats">
+                        <div class="component-stat"><div class="component-stat-value" id="entitySize">--</div><div class="component-stat-label">Entities</div></div>
+                    </div>
+                </div>
+                <div class="component-card">
+                    <div class="component-header">
+                        <div class="component-icon blockentity">
+                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg>
+                        </div>
+                        <div class="component-status" id="blockEntityStatus"><div class="status-dot healthy"></div><span>Healthy</span></div>
+                    </div>
+                    <div class="component-name">Block Entity State</div>
+                    <div class="component-desc">Furnaces, hoppers, etc.</div>
+                    <div class="component-stats">
+                        <div class="component-stat"><div class="component-stat-value" id="blockEntitySize">--</div><div class="component-stat-label">Entries</div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div class="footer-stats">
+                <div class="footer-stat">Tick <span id="serverTick">--</span></div>
+                <div class="footer-stat">Players <span id="players">--</span></div>
+                <div class="footer-stat">Chunks <span id="chunks">--</span></div>
+                <div class="footer-stat">Uptime <span id="uptime">--:--:--</span></div>
+            </div>
+            <div class="footer-version">Nebula v0.2.0</div>
+        </footer>
+    </div>
+
+    <script>
+        // ===== CONFIG =====
+        const CONFIG = {
+            endpoint: 'http://localhost:9229/nebula/status',
+            pollInterval: 500,
+            tickHistorySize: 60,
+            thresholds: {
+                tickAvg: 50,      // ms - warning
+                tickP99: 55,      // ms - critical
+                microMax: 200,    // warning
+                microCap: 256     // critical
+            }
+        };
+
+        // ===== STATE =====
+        let tickHistory = [];
+        let startTime = Date.now();
+        let lastData = null;
+        let alerts = [];
+        let dagPhase = 0;
+        let isConnected = false;
+
+        // ===== DAG NODES - ORBITAL LAYOUT =====
+        const dagNodes = [
+            // Layer 0: Core
+            { id: 'tick', label: 'TICK', layer: 0, x: 0.5, y: 0.5, r: 35, type: 'core' },
+            // Layer 1: Dispatchers
+            { id: 'sched', label: 'SCHED', layer: 1, x: 0.25, y: 0.35, r: 22, type: 'dispatch' },
+            { id: 'events', label: 'EVT', layer: 1, x: 0.75, y: 0.35, r: 22, type: 'dispatch' },
+            // Layer 2: Executors
+            { id: 'redstone', label: 'RS', layer: 2, x: 0.12, y: 0.55, r: 20, type: 'executor' },
+            { id: 'entity', label: 'ENT', layer: 2, x: 0.35, y: 0.65, r: 20, type: 'executor' },
+            { id: 'blockent', label: 'BE', layer: 2, x: 0.65, y: 0.65, r: 20, type: 'executor' },
+            { id: 'player', label: 'PLY', layer: 2, x: 0.88, y: 0.55, r: 20, type: 'executor' },
+            // Layer 3: Outputs
+            { id: 'sync', label: 'SYNC', layer: 3, x: 0.5, y: 0.8, r: 25, type: 'output' },
+        ];
+
+        const dagEdges = [
+            // Core to dispatchers
+            { from: 0, to: 1 }, { from: 0, to: 2 },
+            // Dispatchers to executors
+            { from: 1, to: 3 }, { from: 1, to: 4 },
+            { from: 2, to: 5 }, { from: 2, to: 6 },
+            // Executors to sync
+            { from: 3, to: 7 }, { from: 4, to: 7 },
+            { from: 5, to: 7 }, { from: 6, to: 7 },
+        ];
+
+        // ===== INIT =====
+        function init() {
+            for (let i = 0; i < CONFIG.tickHistorySize; i++) {
+                tickHistory.push(45 + Math.random() * 10);
+            }
+            update();
+            setInterval(update, CONFIG.pollInterval);
+            requestAnimationFrame(animateDag);
+        }
+
+        // ===== FETCH DATA =====
+        async function fetchStatus() {
+            try {
+                const res = await fetch(CONFIG.endpoint);
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                const data = await res.json();
+                return data;
+            } catch (e) {
+                return null;
+            }
+        }
+
+        // ===== UPDATE =====
+        async function update() {
+            const data = await fetchStatus();
+
+            if (data) {
+                if (!isConnected) {
+                    isConnected = true;
+                    document.getElementById('liveIndicator').className = 'live-indicator connected';
+                    document.getElementById('connectionStatus').textContent = 'Connected';
+                }
+                lastData = data;
+            } else {
+                if (isConnected) {
+                    isConnected = false;
+                    document.getElementById('liveIndicator').className = 'live-indicator disconnected';
+                    document.getElementById('connectionStatus').textContent = 'Disconnected';
+                }
+                // Use mock data when disconnected
+                lastData = generateMockData();
+            }
+
+            processData(lastData);
+        }
+
+        function generateMockData() {
+            const tick = 45 + Math.random() * 15;
+            return {
+                tick: { avg: tick, p50: tick * 0.95, p95: tick * 1.1, p99: tick * 1.3, max: tick * 1.5 },
+                micro: { avg: 80 + Math.random() * 40, p50: 85, p95: 130, p99: 160, max: 180 },
+                dag: { layers: 8 + Math.floor(Math.random() * 5), fidelityTier: 1 },
+                components: { count: 1200 + Math.floor(Math.random() * 100), toggles: 320 + Math.floor(Math.random() * 50) },
+                state: { redstone: 24000 + Math.floor(Math.random() * 2000), entities: 5000 + Math.floor(Math.random() * 500), blockEntities: 1800 + Math.floor(Math.random() * 200) },
+                server: { tick: Date.now() - startTime, players: 10 + Math.floor(Math.random() * 8), chunks: 150 + Math.floor(Math.random() * 20) },
+                meta: { timestamp: Date.now(), uptimeMs: Date.now() - startTime }
+            };
+        }
+
+        function processData(data) {
+            // Update tick history
+            tickHistory.shift();
+            tickHistory.push(data.tick.avg);
+
+            // Update tick time display
+            document.getElementById('tickAvg').textContent = data.tick.avg.toFixed(1);
+            document.getElementById('tickP50').textContent = data.tick.p50.toFixed(1);
+            document.getElementById('tickP95').textContent = data.tick.p95.toFixed(1);
+            document.getElementById('tickP99').textContent = data.tick.p99.toFixed(1);
+            document.getElementById('tickMax').textContent = data.tick.max.toFixed(1);
+
+            // Tier badge
+            const tier = data.dag.fidelityTier;
+            const tierBadge = document.getElementById('tierBadge');
+            tierBadge.className = 'tier-badge t' + tier;
+            document.getElementById('tierName').textContent = 'Tier ' + tier;
+
+            // Microsteps
+            document.getElementById('microP50Val').textContent = Math.round(data.micro.p50);
+            document.getElementById('microP95Val').textContent = Math.round(data.micro.p95);
+            document.getElementById('microP99Val').textContent = Math.round(data.micro.p99);
+            document.getElementById('microMax').textContent = Math.round(data.micro.max);
+
+            const microPct = (v) => Math.min(100, (v / 256) * 100) + '%';
+            document.getElementById('microP50').style.width = microPct(data.micro.p50);
+            document.getElementById('microP95').style.width = microPct(data.micro.p95);
+            document.getElementById('microP99').style.width = microPct(data.micro.p99);
+
+            // Microstep bar colors
+            ['microP50', 'microP95', 'microP99'].forEach((id, i) => {
+                const val = [data.micro.p50, data.micro.p95, data.micro.p99][i];
+                const bar = document.getElementById(id);
+                bar.className = 'microstep-bar' + (val >= 256 ? ' critical' : val >= 200 ? ' warning' : '');
+            });
+
+            // Microstep status
+            const microBadge = document.getElementById('microstepBadge');
+            const microStatus = document.getElementById('microstepStatus');
+            if (data.micro.max >= 256) {
+                microBadge.className = 'tier-badge t3';
+                microStatus.textContent = 'At Cap!';
+            } else if (data.micro.max >= 200) {
+                microBadge.className = 'tier-badge t2';
+                microStatus.textContent = 'Warning';
+            } else {
+                microBadge.className = 'tier-badge t0';
+                microStatus.textContent = 'Normal';
+            }
+
+            // DAG metrics
+            document.getElementById('layers').textContent = data.dag.layers;
+            document.getElementById('components').textContent = data.components.count.toLocaleString();
+            document.getElementById('toggles').textContent = data.components.toggles;
+            document.getElementById('fidelity').textContent = 'T' + data.dag.fidelityTier;
+
+            // State sizes
+            document.getElementById('redstoneSize').textContent = data.state.redstone.toLocaleString();
+            document.getElementById('entitySize').textContent = data.state.entities.toLocaleString();
+            document.getElementById('blockEntitySize').textContent = data.state.blockEntities.toLocaleString();
+
+            // Health
+            document.getElementById('healthRedstone').textContent = data.state.redstone.toLocaleString();
+            document.getElementById('healthEntity').textContent = data.state.entities.toLocaleString();
+            document.getElementById('healthBlockEntity').textContent = data.state.blockEntities.toLocaleString();
+            document.getElementById('healthEvents').textContent = Math.round(data.micro.avg) + '/s';
+            document.getElementById('healthChunks').textContent = data.server.chunks;
+
+            // Server info
+            document.getElementById('serverTick').textContent = data.server.tick.toLocaleString();
+            document.getElementById('players').textContent = data.server.players;
+            document.getElementById('chunks').textContent = data.server.chunks;
+
+            // Uptime
+            const ms = data.meta.uptimeMs;
+            const h = Math.floor(ms / 3600000);
+            const m = Math.floor((ms % 3600000) / 60000);
+            const s = Math.floor((ms % 60000) / 1000);
+            document.getElementById('uptime').textContent =
+                `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+
+            // Update DAG status
+            updateDagStatus(data);
+
+            // Check alerts
+            checkAlerts(data);
+
+            // Draw chart
+            drawTickChart();
+        }
+
+        // ===== ALERTS =====
+        function checkAlerts(data) {
+            const newAlerts = [];
+
+            if (data.tick.avg > CONFIG.thresholds.tickP99) {
+                newAlerts.push({ type: 'critical', message: 'Tick time critical! P99: ' + data.tick.p99.toFixed(1) + 'ms' });
+            } else if (data.tick.avg > CONFIG.thresholds.tickAvg) {
+                newAlerts.push({ type: 'warning', message: 'Tick time elevated: ' + data.tick.avg.toFixed(1) + 'ms' });
+            }
+
+            if (data.micro.max >= CONFIG.thresholds.microCap) {
+                newAlerts.push({ type: 'critical', message: 'Microstep cap reached! Max: ' + data.micro.max });
+            } else if (data.micro.max > CONFIG.thresholds.microMax) {
+                newAlerts.push({ type: 'warning', message: 'High microsteps: ' + Math.round(data.micro.max) + '/256' });
+            }
+
+            if (data.dag.fidelityTier >= 2) {
+                const tierNames = ['T0', 'T1', 'T2', 'T3'];
+                newAlerts.push({ type: 'warning', message: 'Fidelity reduced to ' + tierNames[data.dag.fidelityTier] });
+            }
+
+            // Update alerts UI
+            const alertsEl = document.getElementById('alerts');
+            if (newAlerts.length !== alerts.length || !newAlerts.every((a, i) => a.type === alerts[i]?.type && a.message === alerts[i]?.message)) {
+                alerts = newAlerts;
+                alertsEl.innerHTML = alerts.map(a => `
+                    <div class="alert ${a.type}">
+                        <span class="alert-icon">${a.type === 'critical' ? '⚠️' : '⚡'}</span>
+                        <span>${a.message}</span>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // ===== DAG VISUALIZATION =====
+        let dagPulse = 0;
+        let dagParticles = [];
+
+        function initDagParticles() {
+            dagParticles = [];
+            for (let i = 0; i < 20; i++) {
+                dagParticles.push({
+                    edge: Math.floor(Math.random() * dagEdges.length),
+                    progress: Math.random(),
+                    speed: 0.005 + Math.random() * 0.01,
+                    size: 2 + Math.random() * 3
+                });
+            }
+        }
+
+        function updateDagStatus(data) {
+            const layers = data.dag.layers;
+
+            // Update node statuses based on layers
+            dagNodes.forEach((node, i) => {
+                if (i === 0) {
+                    node.status = 'running';
+                } else if (node.layer <= layers) {
+                    node.status = 'running';
+                } else if (node.layer <= layers + 1) {
+                    node.status = 'ready';
+                } else {
+                    node.status = 'idle';
+                }
+            });
+
+            // Update layer indicators
+            document.querySelectorAll('.dag-layer').forEach((el, i) => {
+                el.classList.remove('active', 'complete');
+                if (i + 1 < layers) {
+                    el.classList.add('complete');
+                } else if (i + 1 === layers) {
+                    el.classList.add('active');
+                }
+            });
+
+            // Update stats
+            const activeCount = dagNodes.filter(n => n.status === 'running').length;
+            document.getElementById('dagActiveNodes').textContent = activeCount;
+            document.getElementById('dagPendingTasks').textContent = Math.floor(data.components.count * 0.3);
+            document.getElementById('dagThroughput').textContent = Math.floor(data.components.count / 20);
+        }
+
+        function animateDag() {
+            dagPhase += 0.015;
+            dagPulse += 0.03;
+            updateDagParticles();
+            drawDag();
+            requestAnimationFrame(animateDag);
+        }
+
+        function updateDagParticles() {
+            dagParticles.forEach(p => {
+                p.progress += p.speed;
+                if (p.progress > 1) {
+                    p.progress = 0;
+                    p.edge = Math.floor(Math.random() * dagEdges.length);
+                }
+            });
+        }
+
+        function drawDag() {
+            const canvas = document.getElementById('dagChart');
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            const dpr = window.devicePixelRatio || 1;
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            ctx.scale(dpr, dpr);
+
+            const w = rect.width;
+            const h = rect.height;
+            ctx.clearRect(0, 0, w, h);
+
+            // Draw grid pattern
+            ctx.strokeStyle = 'rgba(255,255,255,0.03)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x < w; x += 30) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, h);
+                ctx.stroke();
+            }
+            for (let y = 0; y < h; y += 30) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(w, y);
+                ctx.stroke();
+            }
+
+            // Draw orbital rings
+            const centerX = w * 0.5;
+            const centerY = h * 0.5;
+
+            [0.15, 0.28, 0.42].forEach((radius, i) => {
+                const r = Math.min(w, h) * radius;
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, r, 0, Math.PI * 2);
+                ctx.strokeStyle = `rgba(100, 100, 150, ${0.1 + i * 0.05})`;
+                ctx.lineWidth = 1;
+                ctx.setLineDash([5, 10]);
+                ctx.stroke();
+                ctx.setLineDash([]);
+            });
+
+            // Status colors
+            const statusColors = {
+                ready: '#34c759',
+                running: '#0071e3',
+                idle: 'rgba(100, 100, 120, 0.5)'
+            };
+
+            // Node type colors
+            const typeColors = {
+                core: '#0071e3',
+                dispatch: '#8b5cf6',
+                executor: '#06b6d4',
+                output: '#f59e0b'
+            };
+
+            // Draw curved edges with glow
+            dagEdges.forEach(edge => {
+                const from = dagNodes[edge.from];
+                const to = dagNodes[edge.to];
+                const x1 = from.x * w;
+                const y1 = from.y * h;
+                const x2 = to.x * w;
+                const y2 = to.y * h;
+
+                // Calculate control point for curve
+                const midX = (x1 + x2) / 2;
+                const midY = (y1 + y2) / 2;
+                const dx = x2 - x1;
+                const dy = y2 - y1;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                const offset = dist * 0.2;
+                const ctrlX = midX - dy * 0.15;
+                const ctrlY = midY + dx * 0.15;
+
+                // Edge glow
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.quadraticCurveTo(ctrlX, ctrlY, x2, y2);
+                ctx.strokeStyle = `rgba(100, 100, 180, 0.15)`;
+                ctx.lineWidth = 8;
+                ctx.stroke();
+
+                // Edge line
+                const gradient = ctx.createLinearGradient(x1, y1, x2, y2);
+                gradient.addColorStop(0, statusColors[from.status]);
+                gradient.addColorStop(1, statusColors[to.status]);
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.quadraticCurveTo(ctrlX, ctrlY, x2, y2);
+                ctx.strokeStyle = gradient;
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            });
+
+            // Draw particles along edges
+            dagParticles.forEach(p => {
+                const edge = dagEdges[p.edge];
+                const from = dagNodes[edge.from];
+                const to = dagNodes[edge.to];
+                const x1 = from.x * w;
+                const y1 = from.y * h;
+                const x2 = to.x * w;
+                const y2 = to.y * h;
+
+                const midX = (x1 + x2) / 2;
+                const midY = (y1 + y2) / 2;
+                const dx = x2 - x1;
+                const dy = y2 - y1;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                const ctrlX = midX - dy * 0.15;
+                const ctrlY = midY + dx * 0.15;
+
+                // Quadratic bezier point
+                const t = p.progress;
+                const t1 = 1 - t;
+                const px = t1 * t1 * x1 + 2 * t1 * t * ctrlX + t * t * x2;
+                const py = t1 * t1 * y1 + 2 * t1 * t * ctrlY + t * t * y2;
+
+                const alpha = Math.sin(p.progress * Math.PI);
+                const color = statusColors[from.status];
+
+                // Particle glow
+                ctx.beginPath();
+                ctx.arc(px, py, p.size + 4, 0, Math.PI * 2);
+                ctx.fillStyle = color + Math.floor(alpha * 30).toString(16).padStart(2, '0');
+                ctx.fill();
+
+                // Particle core
+                ctx.beginPath();
+                ctx.arc(px, py, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = color;
+                ctx.fill();
+            });
+
+            // Draw nodes
+            dagNodes.forEach((node, i) => {
+                const x = node.x * w;
+                const y = node.y * h;
+                const r = node.r || 25;
+                const pulse = Math.sin(dagPhase * 2 + i * 0.5) * 0.2 + 0.8;
+                const color = statusColors[node.status];
+                const typeColor = typeColors[node.type] || color;
+
+                // Outer glow ring
+                ctx.beginPath();
+                ctx.arc(x, y, r + 8, 0, Math.PI * 2);
+                ctx.strokeStyle = color + '30';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // Pulsing glow
+                if (node.status === 'running') {
+                    const glowRadius = r + 12 + pulse * 5;
+                    ctx.beginPath();
+                    ctx.arc(x, y, glowRadius, 0, Math.PI * 2);
+                    ctx.fillStyle = color + Math.floor(pulse * 15).toString(16).padStart(2, '0');
+                    ctx.fill();
+                }
+
+                // Hexagon shape for core
+                if (node.type === 'core') {
+                    ctx.beginPath();
+                    for (let j = 0; j < 6; j++) {
+                        const angle = (j * Math.PI / 3) - Math.PI / 6;
+                        const px = x + r * Math.cos(angle);
+                        const py = y + r * Math.sin(angle);
+                        if (j === 0) ctx.moveTo(px, py);
+                        else ctx.lineTo(px, py);
+                    }
+                    ctx.closePath();
+                    ctx.fillStyle = '#0a0a14';
+                    ctx.fill();
+                    ctx.strokeStyle = color;
+                    ctx.lineWidth = 3;
+                    ctx.stroke();
+                } else {
+                    // Circle for others
+                    ctx.beginPath();
+                    ctx.arc(x, y, r, 0, Math.PI * 2);
+                    ctx.fillStyle = '#0a0a14';
+                    ctx.fill();
+                    ctx.strokeStyle = color;
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                }
+
+                // Inner icon/letter
+                ctx.fillStyle = color;
+                ctx.font = `600 ${(r * 0.6)}px Inter`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(node.label, x, y);
+
+                // Node type label below
+                ctx.fillStyle = 'rgba(255,255,255,0.4)';
+                ctx.font = '400 9px Inter';
+                ctx.fillText(node.type.toUpperCase(), x, y + r + 14);
+            });
+        }
+
+        initDagParticles();
+
+        // ===== TICK CHART =====
+        function drawTickChart() {
+            const canvas = document.getElementById('tickChart');
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            const dpr = window.devicePixelRatio || 1;
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            ctx.scale(dpr, dpr);
+
+            const w = rect.width;
+            const h = rect.height;
+
+            ctx.clearRect(0, 0, w, h);
+
+            const minVal = Math.min(...tickHistory) - 5;
+            const maxVal = Math.max(...tickHistory) + 5;
+            const range = maxVal - minVal;
+
+            // Gradient fill
+            const grad = ctx.createLinearGradient(0, 0, 0, h);
+            grad.addColorStop(0, 'rgba(0, 113, 227, 0.15)');
+            grad.addColorStop(1, 'rgba(0, 113, 227, 0)');
+
+            ctx.beginPath();
+            ctx.moveTo(0, h);
+            tickHistory.forEach((val, i) => {
+                const x = (i / (tickHistory.length - 1)) * w;
+                const y = h - ((val - minVal) / range) * h;
+                ctx.lineTo(x, y);
+            });
+            ctx.lineTo(w, h);
+            ctx.closePath();
+            ctx.fillStyle = grad;
+            ctx.fill();
+
+            // Line
+            ctx.beginPath();
+            tickHistory.forEach((val, i) => {
+                const x = (i / (tickHistory.length - 1)) * w;
+                const y = h - ((val - minVal) / range) * h;
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            });
+            ctx.strokeStyle = '#0071e3';
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.stroke();
+
+            // Current dot
+            const lastX = w;
+            const lastY = h - ((tickHistory[tickHistory.length - 1] - minVal) / range) * h;
+            ctx.beginPath();
+            ctx.arc(lastX, lastY, 4, 0, Math.PI * 2);
+            ctx.fillStyle = '#0071e3';
+            ctx.fill();
+        }
+
+        init();
+    </script>
+</body>
+</html>
